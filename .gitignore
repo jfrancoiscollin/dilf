@@ -12,3 +12,13 @@ venv/
 .env
 .idea/
 .vscode/
+
+# Reference library — fetched by scripts/fetch_corpus_p1.py.
+# PDFs keep their copyright (corpus §6.7); we do not version them.
+docs/livres/**/*.pdf
+docs/livres/**/*.djvu
+docs/livres/CHECKSUMS.txt
+docs/livres/private/
+
+# Optional local store for purchased / scanned references (De Jongh, etc.).
+docs/livres/**/*.zip
