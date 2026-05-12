@@ -33,6 +33,17 @@ class ReferencePosition(TypedDict):
     right_wing_black: int
     white_promotion_distance: int
     black_promotion_distance: int
+    # Structure (PR 2)
+    isolated_pawns_white: list[int]
+    isolated_pawns_black: list[int]
+    backward_pawns_white: list[int]
+    backward_pawns_black: list[int]
+    holes_white: list[int]
+    holes_black: list[int]
+    outposts_white: list[int]
+    outposts_black: list[int]
+    # Formations (PR 2)
+    formations: list[str]
 
 
 # Initial FMJD position: White to move, 20 men each, square 31..50 vs 1..20.
@@ -59,6 +70,19 @@ INITIAL: ReferencePosition = {
     # Closest white men are on row 7 -> 6 rows from row 1.
     "white_promotion_distance": 6,
     "black_promotion_distance": 6,
+    # Initial position has no structural weaknesses (full formation).
+    "isolated_pawns_white": [],
+    "isolated_pawns_black": [],
+    "backward_pawns_white": [],
+    "backward_pawns_black": [],
+    "holes_white": [],
+    "holes_black": [],
+    "outposts_white": [],
+    "outposts_black": [],
+    # The 3-square classical signatures are subsets of the initial layout,
+    # so both classical formations register here. (Pure-geometric detection
+    # is intentionally coarse; the motif layer refines.)
+    "formations": ["classique_blancs", "classique_noirs"],
 }
 
 
@@ -88,6 +112,20 @@ CLASSICAL: ReferencePosition = {
     "white_promotion_distance": 5,
     # Closest black man to row 10: square 20 on row 4 -> distance 6.
     "black_promotion_distance": 6,
+    # Sq 26 has no white piece on either diagonal neighbour (21, 31).
+    "isolated_pawns_white": [26],
+    # Black 11 has neighbours {6, 16, 7, 17} -- none in black. Same logic for 12.
+    "isolated_pawns_black": [11, 12],
+    "backward_pawns_white": [],
+    "backward_pawns_black": [],
+    # Empty sq 31 has white pieces on 26, 27, 37 (3 of 4 diagonals).
+    "holes_white": [31],
+    # Empty sq 9 has black pieces on 4, 13, 14 (3 of 4 diagonals).
+    "holes_black": [9],
+    "outposts_white": [],
+    "outposts_black": [],
+    # All three classical/Ghestem signatures match this dense middlegame mock.
+    "formations": ["classique_blancs", "classique_noirs", "ghestem_blancs"],
 }
 
 
@@ -112,6 +150,16 @@ KING_VS_THREE_MEN: ReferencePosition = {
     "white_promotion_distance": 11,
     # Black men {6, 16, 26}: rows 2, 4, 6 -> 10 - 6 = 4.
     "black_promotion_distance": 4,
+    "isolated_pawns_white": [],
+    # All three black men are 10 squares apart; no diagonal-adjacent friend.
+    "isolated_pawns_black": [6, 16, 26],
+    "backward_pawns_white": [],
+    "backward_pawns_black": [],
+    "holes_white": [],
+    "holes_black": [],
+    "outposts_white": [],
+    "outposts_black": [],
+    "formations": [],
 }
 
 
@@ -133,6 +181,15 @@ TWO_KINGS: ReferencePosition = {
     # Neither side has any men; sentinel value applies.
     "white_promotion_distance": 11,
     "black_promotion_distance": 11,
+    "isolated_pawns_white": [],
+    "isolated_pawns_black": [],
+    "backward_pawns_white": [],
+    "backward_pawns_black": [],
+    "holes_white": [],
+    "holes_black": [],
+    "outposts_white": [],
+    "outposts_black": [],
+    "formations": [],
 }
 
 
@@ -153,6 +210,16 @@ WHITE_PLUS_ONE: ReferencePosition = {
     "right_wing_black": 2,  # 5, 10
     "white_promotion_distance": 6,  # row 7
     "black_promotion_distance": 8,  # row 2
+    "isolated_pawns_white": [],
+    "isolated_pawns_black": [],
+    "backward_pawns_white": [],
+    "backward_pawns_black": [],
+    "holes_white": [],
+    "holes_black": [],
+    "outposts_white": [],
+    "outposts_black": [],
+    # {32, 37, 41} ⊂ white pieces here -> classique_blancs only.
+    "formations": ["classique_blancs"],
 }
 
 

@@ -22,8 +22,20 @@ from .geometry import (
     square_to_coords,
     squares_between,
 )
-from .material import count_material, material_balance
+from .formations import (
+    KNOWN_FORMATIONS,
+    compute_features,
+    detect_formations,
+    determine_phase,
+)
+from .material import count_material, material_balance, total_pieces
 from .mobility import count_legal_moves, hanging_pieces, threatened_captures
+from .structure import (
+    find_backward_pawns,
+    find_holes,
+    find_isolated_pawns,
+    find_outposts,
+)
 
 __all__ = [
     # geometry
@@ -45,8 +57,19 @@ __all__ = [
     # material
     "count_material",
     "material_balance",
+    "total_pieces",
     # mobility
     "count_legal_moves",
     "hanging_pieces",
     "threatened_captures",
+    # structure
+    "find_backward_pawns",
+    "find_holes",
+    "find_isolated_pawns",
+    "find_outposts",
+    # formations + aggregator
+    "KNOWN_FORMATIONS",
+    "compute_features",
+    "detect_formations",
+    "determine_phase",
 ]
