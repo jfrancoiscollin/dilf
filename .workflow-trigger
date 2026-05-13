@@ -1,0 +1,16 @@
+# Workflow trigger marker
+
+This file is watched by `.github/workflows/extract-diagrams.yml`. Updating it on
+a `claude/**` branch triggers a fresh extraction run with the defaults baked
+into the workflow's `env:` block:
+
+  PDF:           docs/corpus/jpdubois_perfectionnement_combinaisons_V4.pdf
+  PAGES:         5-90
+  MAX_DIAGRAMS:  0
+  MODEL:         claude-sonnet-4-6
+  TARGET_BRANCH: main
+
+To trigger with custom inputs, use the manual `workflow_dispatch` flow instead
+(Actions tab in the GitHub UI).
+
+Last touch: initial commit, 2026-05-13.
