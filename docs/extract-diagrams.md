@@ -28,7 +28,7 @@ Running on a runner solves all three: the secret is injected via `${{ secrets.AN
 
 | Input | Default | Meaning |
 |---|---|---|
-| `pdf` | `jpdubois_perfectionnement_combinaisons_V4.pdf` | Filename on `main`. Must exist at repo root. |
+| `pdf` | `docs/corpus/jpdubois_perfectionnement_combinaisons_V4.pdf` | Path on `main`, relative to repo root. The reference corpus lives under `docs/corpus/` (see its README for the catalogue). |
 | `pages` | `5-90` | `"all"`, a single int, a range (`5-90`), or a CSV (`5,7,12`). |
 | `max_diagrams` | `0` | Cap on API calls (0 = no cap). Use for cheap dry-runs. |
 | `model` | `claude-haiku-4-5` | Any vision-capable Claude model. Sonnet is ~10× the cost. |
@@ -44,7 +44,7 @@ sudo apt-get install -y poppler-utils
 
 export ANTHROPIC_API_KEY=sk-ant-...
 python3 -m scripts.extract_diagrams all \
-    --pdf jpdubois_perfectionnement_combinaisons_V4.pdf \
+    --pdf docs/corpus/jpdubois_perfectionnement_combinaisons_V4.pdf \
     --pages 5-90 \
     --model claude-haiku-4-5 \
     --verbose
@@ -150,7 +150,42 @@ Extrapolation for the full corpus (~6 100 pages, ~18 000 diagrams):
 | `--dpi` | 200 | Lower (150) for faster local iteration; raise (300) for blurry scans. |
 | `--max-diagrams` | 0 | Cap to e.g. 6 during integration testing. |
 | `--fail-threshold` | 0.10 | Lower to 0 for strict gating; raise to 0.20 when piloting a noisier book. |
+| `--concurrency` | 4 | Bump to 8-16 on Anthropic tier 2+; cap is 4-5 on tier 1 (200k ITPM). |
+| `--few-shot` | 0 | Number of hand-verified `(image, position)` examples to prepend to every call. Set to 3 once `pedagogy/tests/fixtures/dubois_ground_truth.py` has validated entries. |
 | `--force` | off | Re-render PNGs even when cached. |
+
+## Few-shot examples
+
+The model's accuracy can be boosted by showing it a handful of canonical
+`(image, position)` pairs before each new crop. The infrastructure for this
+lives in `pedagogy/tests/fixtures/dubois_ground_truth.py`:
+
+```python
+@dataclass(frozen=True)
+class FewShotExample:
+    name: str
+    image_filename: str            # under few_shot_images/
+    position: dict[str, Any]       # white_men, black_men, ..., turn, confidence
+
+EXAMPLES: list[FewShotExample] = [...]
+```
+
+`EXAMPLES` is empty by default — adding entries requires hand-verifying a
+position end-to-end (every square, every piece colour and type). Once the
+list has at least one entry, run with `--few-shot N` (most often 3) and
+each API call will look like:
+
+```
+[user: image_example_1] [assistant: json_example_1]
+[user: image_example_2] [assistant: json_example_2]
+...
+[user: image_to_extract]
+```
+
+Cost: each example adds ~2k input tokens per call. At Sonnet pricing, three
+examples cost roughly +$0.02 per crop, ~$7 extra on a full V4 run. Worth it
+when examples cover piece-type ambiguity (man vs king), unusual
+orientations, or dense positions the base prompt struggles with.
 
 ## Troubleshooting
 

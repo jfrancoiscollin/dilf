@@ -419,6 +419,35 @@ def _save_extracted(path: Path, table: dict[str, ExtractedDiagram]) -> None:
     )
 
 
+def _user_image_block(png_bytes: bytes) -> dict[str, Any]:
+    """Build a Claude Vision user message containing one PNG + the prompt."""
+    image_b64 = base64.b64encode(png_bytes).decode("ascii")
+    return {
+        "role": "user",
+        "content": [
+            {
+                "type": "image",
+                "source": {
+                    "type": "base64",
+                    "media_type": "image/png",
+                    "data": image_b64,
+                },
+            },
+            {"type": "text", "text": "Extract the position."},
+        ],
+    }
+
+
+def _assistant_json_block(position: dict[str, Any]) -> dict[str, Any]:
+    """Build an assistant message that returns the canonical JSON answer."""
+    return {
+        "role": "assistant",
+        "content": [
+            {"type": "text", "text": json.dumps(position, separators=(",", ":"))}
+        ],
+    }
+
+
 async def _call_claude_vision_async(
     client: Any,
     png_bytes: bytes,
@@ -426,28 +455,19 @@ async def _call_claude_vision_async(
     model: str,
     max_tokens: int = 600,
     strict: bool = False,
+    few_shot: list[tuple[bytes, dict[str, Any]]] | None = None,
 ) -> tuple[str, int, int]:
-    image_b64 = base64.b64encode(png_bytes).decode("ascii")
+    messages: list[dict[str, Any]] = []
+    for example_bytes, example_position in few_shot or []:
+        messages.append(_user_image_block(example_bytes))
+        messages.append(_assistant_json_block(example_position))
+    messages.append(_user_image_block(png_bytes))
+
     response = await client.messages.create(
         model=model,
         max_tokens=max_tokens,
         system=STRICT_SYSTEM_PROMPT if strict else SYSTEM_PROMPT,
-        messages=[
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "image",
-                        "source": {
-                            "type": "base64",
-                            "media_type": "image/png",
-                            "data": image_b64,
-                        },
-                    },
-                    {"type": "text", "text": "Extract the position."},
-                ],
-            }
-        ],
+        messages=messages,
     )
     block = response.content[0]
     text = getattr(block, "text", "")
@@ -455,7 +475,11 @@ async def _call_claude_vision_async(
 
 
 async def _extract_one(
-    client: Any, cache: Path, meta: CropMetadata, model: str
+    client: Any,
+    cache: Path,
+    meta: CropMetadata,
+    model: str,
+    few_shot: list[tuple[bytes, dict[str, Any]]] | None = None,
 ) -> ExtractedDiagram:
     """Run the 2-attempt extraction for a single crop. Returns the record."""
     png_bytes = (cache / meta.png_path).read_bytes()
@@ -471,7 +495,7 @@ async def _extract_one(
         try:
             t0 = time.time()
             text, t_in, t_out = await _call_claude_vision_async(
-                client, png_bytes, model=model, strict=strict
+                client, png_bytes, model=model, strict=strict, few_shot=few_shot
             )
             in_tokens += t_in
             out_tokens += t_out
@@ -556,12 +580,25 @@ async def _cmd_extract_async(args: argparse.Namespace) -> int:
 
     import anthropic
 
+    from pedagogy.tests.fixtures.dubois_ground_truth import (
+        load_examples as _load_few_shot_examples,
+    )
+
+    few_shot = _load_few_shot_examples(args.few_shot)
+    if few_shot:
+        print(
+            f"extract: prepending {len(few_shot)} few-shot example(s) to every call",
+            flush=True,
+        )
+
     client = anthropic.AsyncAnthropic()
     semaphore = asyncio.Semaphore(args.concurrency)
 
     async def bounded(meta: CropMetadata) -> ExtractedDiagram:
         async with semaphore:
-            return await _extract_one(client, cache, meta, args.model)
+            return await _extract_one(
+                client, cache, meta, args.model, few_shot=few_shot
+            )
 
     tasks = [asyncio.create_task(bounded(m)) for m in pending]
     failures = 0
@@ -734,6 +771,14 @@ def _build_parser() -> argparse.ArgumentParser:
         "--concurrency", type=int, default=4,
         help="max parallel API calls (default 4; tier 1 ITPM caps Sonnet around 5)",
     )
+    p_extract.add_argument(
+        "--few-shot", type=int, default=0,
+        help=(
+            "prepend N hand-verified (image, position) examples to every API "
+            "call (default 0). Examples live in "
+            "pedagogy/tests/fixtures/dubois_ground_truth.py."
+        ),
+    )
     p_extract.set_defaults(func=cmd_extract)
 
     p_materialize = sub.add_parser(
@@ -754,6 +799,7 @@ def _build_parser() -> argparse.ArgumentParser:
     p_all.add_argument("--max-diagrams", type=int, default=0)
     p_all.add_argument("--fail-threshold", type=float, default=0.10)
     p_all.add_argument("--concurrency", type=int, default=4)
+    p_all.add_argument("--few-shot", type=int, default=0)
     p_all.add_argument("--force", action="store_true")
     p_all.add_argument("--verbose", action="store_true")
     p_all.set_defaults(func=lambda a: _cmd_all(a))

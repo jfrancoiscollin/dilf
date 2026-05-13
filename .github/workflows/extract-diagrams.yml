@@ -15,9 +15,9 @@ on:
   workflow_dispatch:
     inputs:
       pdf:
-        description: 'PDF filename on main (e.g. jpdubois_perfectionnement_combinaisons_V4.pdf)'
+        description: 'PDF path on main, relative to repo root (e.g. docs/corpus/jpdubois_perfectionnement_combinaisons_V4.pdf)'
         required: true
-        default: 'jpdubois_perfectionnement_combinaisons_V4.pdf'
+        default: 'docs/corpus/jpdubois_perfectionnement_combinaisons_V4.pdf'
       pages:
         description: 'Pages to scan ("all", "5-90", "5,7,10")'
         required: true
@@ -63,6 +63,7 @@ jobs:
             echo "::error::PDF '${PDF}' not found on origin/main"
             exit 1
           fi
+          mkdir -p "$(dirname "${PDF}")"
           git show "origin/main:${PDF}" > "${PDF}"
           ls -la "${PDF}"
         env:

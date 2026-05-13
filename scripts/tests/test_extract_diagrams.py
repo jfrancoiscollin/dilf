@@ -13,10 +13,17 @@ from scripts.extract_diagrams import (
     _CAPTION_RE,
     STRICT_SYSTEM_PROMPT,
     SYSTEM_PROMPT,
+    _assistant_json_block,
     _count_diagram_captions,
     _parse_pages,
+    _user_image_block,
     parse_api_response,
     validate_position,
+)
+from pedagogy.tests.fixtures.dubois_ground_truth import (
+    EXAMPLES,
+    FewShotExample,
+    load_examples,
 )
 
 
@@ -214,3 +221,48 @@ def test_system_prompt_warns_against_regular_patterns() -> None:
 def test_system_prompt_anchors_numbering_with_examples() -> None:
     assert "Square 1 is the top-left dark square" in SYSTEM_PROMPT
     assert "Square 50 is the bottom-right dark square" in SYSTEM_PROMPT
+
+
+# ---------------------------------------------------------------------------
+# Few-shot examples
+# ---------------------------------------------------------------------------
+
+
+def test_user_image_block_has_image_and_text_parts() -> None:
+    block = _user_image_block(b"\x89PNG\r\n\x1a\n")
+    assert block["role"] == "user"
+    content = block["content"]
+    assert content[0]["type"] == "image"
+    assert content[0]["source"]["media_type"] == "image/png"
+    assert content[1]["type"] == "text"
+    assert content[1]["text"] == "Extract the position."
+
+
+def test_assistant_json_block_emits_compact_json() -> None:
+    block = _assistant_json_block({"white_men": [31, 32], "turn": "white"})
+    assert block["role"] == "assistant"
+    text = block["content"][0]["text"]
+    assert text == '{"white_men":[31,32],"turn":"white"}'
+
+
+def test_load_examples_returns_empty_when_n_is_zero() -> None:
+    assert load_examples(0) == []
+    assert load_examples(-1) == []
+
+
+def test_load_examples_empty_when_no_examples_registered() -> None:
+    # Until ground-truth examples are populated EXAMPLES is empty and
+    # load_examples gracefully returns nothing so --few-shot N > 0 is a no-op.
+    if not EXAMPLES:
+        assert load_examples(5) == []
+
+
+def test_few_shot_example_dataclass_shape() -> None:
+    example = FewShotExample(
+        name="smoke",
+        image_filename="x.png",
+        position={"turn": "white"},
+    )
+    assert example.name == "smoke"
+    assert example.image_filename == "x.png"
+    assert example.position == {"turn": "white"}

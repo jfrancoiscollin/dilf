@@ -45,10 +45,12 @@ The driving spec is `SPEC FRAMEWORK PEDAGOGIQUE.pdf` at the repo root.
 │   └── extract-diagrams.yml      # GitOps OCR pipeline (workflow_dispatch)
 │
 ├── docs/
-│   └── extract-diagrams.md       # detailed OCR workflow documentation
+│   ├── extract-diagrams.md       # detailed OCR workflow documentation
+│   └── corpus/                   # reference corpus (53 books, ~6 100 pages)
+│       ├── README.md             # index by language / author / type
+│       └── *.pdf
 │
-├── *.pdf                         # reference corpus (54 books, ~6 100 pages)
-└── SPEC FRAMEWORK PEDAGOGIQUE.pdf
+└── SPEC FRAMEWORK PEDAGOGIQUE.pdf  # project spec (stays at root)
 ```
 
 ## Quickstart
@@ -111,7 +113,7 @@ Run as a single chain:
 
 ```bash
 python3 -m scripts.extract_diagrams all \
-    --pdf jpdubois_perfectionnement_combinaisons_V4.pdf \
+    --pdf docs/corpus/jpdubois_perfectionnement_combinaisons_V4.pdf \
     --pages 5-90 \
     --model claude-haiku-4-5
 ```
