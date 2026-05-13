@@ -28,7 +28,7 @@ Running on a runner solves all three: the secret is injected via `${{ secrets.AN
 
 | Input | Default | Meaning |
 |---|---|---|
-| `pdf` | `jpdubois_perfectionnement_combinaisons_V4.pdf` | Filename on `main`. Must exist at repo root. |
+| `pdf` | `docs/corpus/jpdubois_perfectionnement_combinaisons_V4.pdf` | Path on `main`, relative to repo root. The reference corpus lives under `docs/corpus/` (see its README for the catalogue). |
 | `pages` | `5-90` | `"all"`, a single int, a range (`5-90`), or a CSV (`5,7,12`). |
 | `max_diagrams` | `0` | Cap on API calls (0 = no cap). Use for cheap dry-runs. |
 | `model` | `claude-haiku-4-5` | Any vision-capable Claude model. Sonnet is ~10× the cost. |
@@ -44,7 +44,7 @@ sudo apt-get install -y poppler-utils
 
 export ANTHROPIC_API_KEY=sk-ant-...
 python3 -m scripts.extract_diagrams all \
-    --pdf jpdubois_perfectionnement_combinaisons_V4.pdf \
+    --pdf docs/corpus/jpdubois_perfectionnement_combinaisons_V4.pdf \
     --pages 5-90 \
     --model claude-haiku-4-5 \
     --verbose
