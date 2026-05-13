@@ -144,16 +144,23 @@ def test_every_p1_motif_has_played_generic(motif_name: str, metadata: dict) -> N
     assert text.strip()
 
 
-def test_coup_royal_is_the_only_missed_motif_for_now() -> None:
-    """The current P1 set only emits ``missed`` for coup_royal.
+def test_every_missed_role_has_a_generic_template() -> None:
+    """Each motif emitting ``missed`` has a ``(motif, "missed", None)`` row.
 
-    If another detector starts emitting ``missed`` later (PR 14 motifs P2),
-    add a (motif, "missed", None) generic to keep this invariant true.
+    Currently coup_royal emits missed (P1) and the four P2 motifs do too
+    (coup_philippe, coup_raphael, coup_express, coup_bonnard). The
+    invariant: any motif that can produce a missed role must have at
+    least a generic fallback template so the explanation isn't empty.
     """
-    missed_keys = {
-        (motif, role) for (motif, role, _) in TEMPLATES_FR if role == "missed"
+    motifs_with_missed = {
+        motif for (motif, role, _) in TEMPLATES_FR if role == "missed"
     }
-    assert missed_keys == {("coup_royal", "missed")}
+    motifs_with_missed_generic = {
+        motif for (motif, role, verdict) in TEMPLATES_FR
+        if role == "missed" and verdict is None
+    }
+    missing = motifs_with_missed - motifs_with_missed_generic
+    assert not missing, f"motifs with no missed-generic template: {sorted(missing)}"
 
 
 def test_motif_registry_matches_template_coverage() -> None:

@@ -15,14 +15,21 @@ from ..game import GameState, Move
 from ..protocols import EngineProtocol
 from ..types import MotifMatch
 from .base import MotifDetector
+from .coup_bonnard import CoupBonnardDetector
 from .coup_de_talon import CoupDeTalonDetector
+from .coup_express import CoupExpressDetector
+from .coup_philippe import CoupPhilippeDetector
+from .coup_raphael import CoupRaphaelDetector
 from .coup_royal import CoupRoyalDetector
 from .coup_turc import CoupTurcDetector
 from .envoi_a_dame import EnvoiADameDetector
 from .prise_max_ratee import PriseMaxRateeDetector
 from .sacrifices import SacrificeDetector
 
-#: Detectors invoked by :func:`detect_all`, in deterministic order.
+#: Detectors invoked by :func:`detect_all`, in deterministic order. P1
+#: motifs come first; P2 motifs (coup_philippe, coup_raphael, coup_express,
+#: coup_bonnard) run after so the older, more confidently-detected motifs
+#: dominate the matches list when both apply.
 ALL_DETECTORS: list[type[MotifDetector]] = [
     CoupRoyalDetector,
     CoupTurcDetector,
@@ -30,6 +37,10 @@ ALL_DETECTORS: list[type[MotifDetector]] = [
     EnvoiADameDetector,
     SacrificeDetector,
     PriseMaxRateeDetector,
+    CoupPhilippeDetector,
+    CoupRaphaelDetector,
+    CoupExpressDetector,
+    CoupBonnardDetector,
 ]
 
 
@@ -87,7 +98,11 @@ def detect_all_missed(
 
 __all__ = [
     "ALL_DETECTORS",
+    "CoupBonnardDetector",
     "CoupDeTalonDetector",
+    "CoupExpressDetector",
+    "CoupPhilippeDetector",
+    "CoupRaphaelDetector",
     "CoupRoyalDetector",
     "CoupTurcDetector",
     "EnvoiADameDetector",
