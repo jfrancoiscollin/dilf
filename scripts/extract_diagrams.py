@@ -448,12 +448,27 @@ def _assistant_json_block(position: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _extract_text_from_response(response: Any) -> str:
+    """Return the first text-typed block's text from a Messages API response.
+
+    Sonnet sometimes returns multiple content blocks (e.g. a reasoning-like
+    block followed by the answer). Picking ``content[0]`` blindly drops the
+    answer in that case. Iterate instead and grab the first block with a
+    non-empty ``.text`` attribute.
+    """
+    for block in getattr(response, "content", []) or []:
+        text = getattr(block, "text", None)
+        if text:
+            return str(text)
+    return ""
+
+
 async def _call_claude_vision_async(
     client: Any,
     png_bytes: bytes,
     *,
     model: str,
-    max_tokens: int = 600,
+    max_tokens: int = 1500,
     strict: bool = False,
     few_shot: list[tuple[bytes, dict[str, Any]]] | None = None,
 ) -> tuple[str, int, int]:
@@ -469,8 +484,16 @@ async def _call_claude_vision_async(
         system=STRICT_SYSTEM_PROMPT if strict else SYSTEM_PROMPT,
         messages=messages,
     )
-    block = response.content[0]
-    text = getattr(block, "text", "")
+    text = _extract_text_from_response(response)
+    if not text:
+        block_types = [type(b).__name__ for b in getattr(response, "content", [])]
+        stop_reason = getattr(response, "stop_reason", "?")
+        print(
+            f"    EMPTY response: stop_reason={stop_reason!r} "
+            f"content_blocks={block_types} "
+            f"out_tokens={response.usage.output_tokens}",
+            file=sys.stderr,
+        )
     return text, response.usage.input_tokens, response.usage.output_tokens
 
 
@@ -591,7 +614,7 @@ async def _cmd_extract_async(args: argparse.Namespace) -> int:
             flush=True,
         )
 
-    client = anthropic.AsyncAnthropic()
+    client = anthropic.AsyncAnthropic(max_retries=4)
     semaphore = asyncio.Semaphore(args.concurrency)
 
     async def bounded(meta: CropMetadata) -> ExtractedDiagram:
@@ -641,6 +664,62 @@ async def _cmd_extract_async(args: argparse.Namespace) -> int:
 
 def cmd_extract(args: argparse.Namespace) -> int:
     return asyncio.run(_cmd_extract_async(args))
+
+
+# ---------------------------------------------------------------------------
+# Diagnose subcommand (single crop, prints raw API response)
+# ---------------------------------------------------------------------------
+
+
+async def _cmd_diagnose_async(args: argparse.Namespace) -> int:
+    cache = Path(args.cache).resolve()
+    crop_path = cache / args.crop
+    if not crop_path.exists():
+        # Permit absolute paths too.
+        crop_path = Path(args.crop)
+    if not crop_path.exists():
+        print(f"crop not found: {args.crop}", file=sys.stderr)
+        return 2
+
+    import anthropic
+
+    client = anthropic.AsyncAnthropic(max_retries=4)
+    png_bytes = crop_path.read_bytes()
+    messages = [_user_image_block(png_bytes)]
+
+    print(f"diagnose: model={args.model} strict={args.strict} crop={crop_path}")
+    response = await client.messages.create(
+        model=args.model,
+        max_tokens=args.max_tokens,
+        system=STRICT_SYSTEM_PROMPT if args.strict else SYSTEM_PROMPT,
+        messages=messages,
+    )
+
+    print(f"\nstop_reason: {getattr(response, 'stop_reason', '?')!r}")
+    print(
+        f"usage: input={response.usage.input_tokens} "
+        f"output={response.usage.output_tokens}"
+    )
+    blocks = list(getattr(response, "content", []) or [])
+    print(f"content_blocks: {len(blocks)}")
+    for i, block in enumerate(blocks):
+        block_type = type(block).__name__
+        text = getattr(block, "text", None)
+        thinking = getattr(block, "thinking", None)
+        print(f"\n  --- block[{i}] type={block_type} ---")
+        if text is not None:
+            print(f"  text ({len(text)} chars):")
+            print("  " + (text or "(empty)").replace("\n", "\n  "))
+        if thinking is not None:
+            print(f"  thinking ({len(thinking)} chars):")
+            print("  " + thinking.replace("\n", "\n  "))
+        if text is None and thinking is None:
+            print(f"  (no text/thinking attr; raw: {block!r})")
+    return 0
+
+
+def cmd_diagnose(args: argparse.Namespace) -> int:
+    return asyncio.run(_cmd_diagnose_async(args))
 
 
 # ---------------------------------------------------------------------------
@@ -768,8 +847,11 @@ def _build_parser() -> argparse.ArgumentParser:
         help="exit non-zero only when fail ratio exceeds this fraction (default 0.10)",
     )
     p_extract.add_argument(
-        "--concurrency", type=int, default=4,
-        help="max parallel API calls (default 4; tier 1 ITPM caps Sonnet around 5)",
+        "--concurrency", type=int, default=2,
+        help=(
+            "max parallel API calls (default 2; tier 1 OPM is 8k tokens/min "
+            "which caps Sonnet at ~20 calls/min)"
+        ),
     )
     p_extract.add_argument(
         "--few-shot", type=int, default=0,
@@ -780,6 +862,22 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
     p_extract.set_defaults(func=cmd_extract)
+
+    p_diagnose = sub.add_parser(
+        "diagnose",
+        help="send ONE crop to the API and print the raw response (~$0.005)",
+    )
+    p_diagnose.add_argument(
+        "--crop", required=True,
+        help="crop id relative to --cache (e.g. crops/page_005_d01.png) or absolute path",
+    )
+    p_diagnose.add_argument("--cache", default=str(DEFAULT_CACHE))
+    p_diagnose.add_argument("--model", default=DEFAULT_MODEL)
+    p_diagnose.add_argument("--max-tokens", type=int, default=1500)
+    p_diagnose.add_argument(
+        "--strict", action="store_true", help="use STRICT_SYSTEM_PROMPT instead of base",
+    )
+    p_diagnose.set_defaults(func=cmd_diagnose)
 
     p_materialize = sub.add_parser(
         "materialize",
@@ -798,7 +896,7 @@ def _build_parser() -> argparse.ArgumentParser:
     p_all.add_argument("--output", default=str(DEFAULT_OUTPUT))
     p_all.add_argument("--max-diagrams", type=int, default=0)
     p_all.add_argument("--fail-threshold", type=float, default=0.10)
-    p_all.add_argument("--concurrency", type=int, default=4)
+    p_all.add_argument("--concurrency", type=int, default=2)
     p_all.add_argument("--few-shot", type=int, default=0)
     p_all.add_argument("--force", action="store_true")
     p_all.add_argument("--verbose", action="store_true")
