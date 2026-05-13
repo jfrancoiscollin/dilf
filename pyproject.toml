@@ -23,6 +23,9 @@ extract = [
     "numpy>=1.26",
     "scipy>=1.11",
 ]
+explanations = [
+    "scikit-learn>=1.4",
+]
 
 [tool.setuptools.packages.find]
 include = ["pedagogy*"]
@@ -38,6 +41,10 @@ python_version = "3.11"
 strict = true
 files = ["pedagogy"]
 exclude = ["pedagogy/tests/.*"]
+
+[[tool.mypy.overrides]]
+module = ["sklearn.*"]
+ignore_missing_imports = true
 
 [tool.black]
 line-length = 100

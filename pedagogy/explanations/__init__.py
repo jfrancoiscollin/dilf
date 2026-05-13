@@ -12,6 +12,7 @@ No I/O lives here; every function is pure given its inputs.
 
 from __future__ import annotations
 
+from .book_rag import BookExcerpt, BookRAG
 from .templates_fr import (
     TEMPLATES_FR,
     VERDICT_FALLBACKS_FR,
@@ -20,6 +21,8 @@ from .templates_fr import (
 )
 
 __all__ = [
+    "BookExcerpt",
+    "BookRAG",
     "TEMPLATES_FR",
     "VERDICT_FALLBACKS_FR",
     "render_template",
