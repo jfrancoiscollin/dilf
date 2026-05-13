@@ -15,12 +15,20 @@ from ..game import GameState, Move
 from ..protocols import EngineProtocol
 from ..types import MotifMatch
 from .base import MotifDetector
+from .coup_de_talon import CoupDeTalonDetector
 from .coup_royal import CoupRoyalDetector
+from .coup_turc import CoupTurcDetector
+from .envoi_a_dame import EnvoiADameDetector
 from .prise_max_ratee import PriseMaxRateeDetector
+from .sacrifices import SacrificeDetector
 
 #: Detectors invoked by :func:`detect_all`, in deterministic order.
 ALL_DETECTORS: list[type[MotifDetector]] = [
     CoupRoyalDetector,
+    CoupTurcDetector,
+    CoupDeTalonDetector,
+    EnvoiADameDetector,
+    SacrificeDetector,
     PriseMaxRateeDetector,
 ]
 
@@ -79,9 +87,13 @@ def detect_all_missed(
 
 __all__ = [
     "ALL_DETECTORS",
+    "CoupDeTalonDetector",
     "CoupRoyalDetector",
+    "CoupTurcDetector",
+    "EnvoiADameDetector",
     "MotifDetector",
     "PriseMaxRateeDetector",
+    "SacrificeDetector",
     "detect_all",
     "detect_all_missed",
 ]
