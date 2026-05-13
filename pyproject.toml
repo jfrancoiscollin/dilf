@@ -25,6 +25,7 @@ extract = [
 ]
 explanations = [
     "scikit-learn>=1.4",
+    "anthropic>=0.34",
 ]
 
 [tool.setuptools.packages.find]
