@@ -130,6 +130,71 @@ TEMPLATES_FR: dict[tuple[str, str, Optional[Verdict]], str] = {
         "Prise non maximale : {captures_played} prises jouées, "
         "{captures_possible} possibles."
     ),
+
+    # ===================================================================
+    # coup_philippe — rafle exploitant un sacrifice sur l'aile (P2)
+    # ===================================================================
+    ("coup_philippe", "played", Verdict.BRILLIANT): (
+        "Joli coup Philippe ! Votre rafle de {captures_count} prises démarre "
+        "sur l'aile en {first_capture} : la pièce sacrifiée par l'adversaire "
+        "vous a ouvert la trajectoire."
+    ),
+    ("coup_philippe", "played", None): (
+        "Coup Philippe — rafle de {captures_count} prises lancée sur l'aile "
+        "(case {first_capture})."
+    ),
+    ("coup_philippe", "missed", None): (
+        "Un coup Philippe était possible : {pv}, démarrant sur l'aile en "
+        "{first_capture}."
+    ),
+
+    # ===================================================================
+    # coup_raphael — rafle spécifique 28x6 / 23x5 (ou son miroir) (P2)
+    # ===================================================================
+    ("coup_raphael", "played", Verdict.BRILLIANT): (
+        "Magnifique coup Raphaël ! Votre rafle {start_square}x{land_square} "
+        "ramasse {captures_count} pièces sur la diagonale du fond — un "
+        "schéma nommé d'après son auteur."
+    ),
+    ("coup_raphael", "played", None): (
+        "Coup Raphaël — rafle {start_square}x{land_square} ({captures_count} "
+        "prises) côté {side}."
+    ),
+    ("coup_raphael", "missed", None): (
+        "Un coup Raphaël était disponible : {pv}."
+    ),
+
+    # ===================================================================
+    # coup_express — rafle longue (5+) en ligne droite (P2)
+    # ===================================================================
+    ("coup_express", "played", Verdict.BRILLIANT): (
+        "Coup de l'express ! Une rafle rectiligne de {captures_count} pions, "
+        "sans changer de diagonale — l'adversaire n'a rien vu venir."
+    ),
+    ("coup_express", "played", None): (
+        "Coup de l'express — rafle rectiligne de {captures_count} prises."
+    ),
+    ("coup_express", "missed", None): (
+        "Un coup de l'express en ligne droite était disponible : {pv} "
+        "({captures_count} prises)."
+    ),
+
+    # ===================================================================
+    # coup_bonnard — sacrifice qui force la promotion adverse puis la
+    # dame est capturée (P2)
+    # ===================================================================
+    ("coup_bonnard", "played", Verdict.BRILLIANT): (
+        "Beau coup Bonnard : votre sacrifice force la promotion adverse, "
+        "et la nouvelle dame tombe au coup suivant. Le calcul à trois "
+        "demi-coups est sec."
+    ),
+    ("coup_bonnard", "played", None): (
+        "Coup Bonnard — sacrifice forçant une promotion adverse aussitôt "
+        "rattrapée."
+    ),
+    ("coup_bonnard", "missed", None): (
+        "Un coup Bonnard était possible : {pv}."
+    ),
 }
 
 #: Generic verdict commentary used when no motif template matched. Always
