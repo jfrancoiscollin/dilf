@@ -221,22 +221,44 @@ VERDICT_FALLBACKS_FR: dict[Verdict, str] = {
 }
 
 
+def _templates_for(lang: str) -> dict[tuple[str, str, Optional[Verdict]], str]:
+    """Pick the template registry for ``lang``. Falls back to French."""
+    from .templates_en import TEMPLATES_EN
+
+    return {"fr": TEMPLATES_FR, "en": TEMPLATES_EN}.get(lang, TEMPLATES_FR)
+
+
+def _fallbacks_for(lang: str) -> dict[Verdict, str]:
+    """Pick the verdict-fallback registry for ``lang``. Falls back to French."""
+    from .templates_en import VERDICT_FALLBACKS_EN
+
+    return {"fr": VERDICT_FALLBACKS_FR, "en": VERDICT_FALLBACKS_EN}.get(
+        lang, VERDICT_FALLBACKS_FR
+    )
+
+
 def render_template(
     motif: MotifMatch,
     verdict: Verdict,
     ctx: Optional[Mapping[str, object]] = None,
+    *,
+    lang: str = "fr",
 ) -> Optional[str]:
-    """Render the French commentary for a (motif, verdict), or return None.
+    """Render a localised commentary for ``(motif, verdict)`` or return None.
 
     Resolution order:
 
     1. ``(motif.motif, motif.role, verdict)`` — fully specific.
     2. ``(motif.motif, motif.role, None)`` — motif/role generic.
     3. ``None`` — caller falls back to :func:`render_verdict_fallback`.
+
+    ``lang`` selects the registry (``"fr"`` or ``"en"``). Unknown languages
+    silently degrade to French so the explanation never disappears.
     """
+    registry = _templates_for(lang)
     key_specific = (motif.motif, motif.role, verdict)
     key_generic: tuple[str, str, Optional[Verdict]] = (motif.motif, motif.role, None)
-    template = TEMPLATES_FR.get(key_specific) or TEMPLATES_FR.get(key_generic)
+    template = registry.get(key_specific) or registry.get(key_generic)
     if template is None:
         return None
     merged: dict[str, object] = dict(motif.metadata)
@@ -246,6 +268,6 @@ def render_template(
     return template.format(**merged)
 
 
-def render_verdict_fallback(verdict: Verdict) -> str:
-    """Return the generic French phrase for ``verdict``. Never raises."""
-    return VERDICT_FALLBACKS_FR[verdict]
+def render_verdict_fallback(verdict: Verdict, *, lang: str = "fr") -> str:
+    """Return the localised generic phrase for ``verdict``. Never raises."""
+    return _fallbacks_for(lang)[verdict]
