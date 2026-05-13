@@ -90,7 +90,7 @@ jobs:
           path: .cache/diagrams
           key: dubois-extract-${{ github.event.inputs.pdf }}-${{ github.event.inputs.pages }}-${{ github.event.inputs.model }}
           restore-keys: |
-            dubois-extract-${{ github.event.inputs.pdf }}-
+            dubois-extract-${{ github.event.inputs.pdf }}-${{ github.event.inputs.model }}-
 
       - name: Run extraction
         env:
