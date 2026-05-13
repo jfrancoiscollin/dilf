@@ -5,7 +5,7 @@
 The repository ships two cooperating pieces:
 
 1. **`pedagogy/`** — a pure-Python library that turns a `GameState` into pedagogical *features* (material, mobility, structure, formations) and *motifs* (coup royal, coup turc, coup de talon, envoi à dame, prise max ratée, sacrifices). No engine, no API call, fully deterministic, 210 tests, `mypy --strict` clean.
-2. **`scripts/extract_diagrams.py` + `.github/workflows/extract-diagrams.yml`** — a GitOps workflow that turns reference book PDFs (Dubois, Springer, Roozenburg, …) into Python fixtures usable by `pedagogy/tests/`. It uses Claude Vision to read each diagram on a GitHub Actions runner and opens a pull request with the result.
+2. **`scripts/extract_diagrams.py`** — a deterministic pure-CV pipeline that turns reference book PDFs (Dubois, Springer, Roozenburg, …) into Python fixtures usable by `pedagogy/tests/`. PDF pages are rasterised with `pdftoppm`, board regions are detected with scipy, and each of the 50 dark squares of every board is classified as white/black/empty by sampling the mean pixel value of a small patch. No LLM, no API, no network — ~1 minute wall to extract 324 positions from a 90-page book, $0 cost, fully deterministic.
 
 The driving spec is `SPEC FRAMEWORK PEDAGOGIQUE.pdf` at the repo root.
 
@@ -41,9 +41,6 @@ The driving spec is `SPEC FRAMEWORK PEDAGOGIQUE.pdf` at the repo root.
 │   ├── extract_diagrams.py       # render → extract → materialize CLI
 │   └── tests/test_extract_diagrams.py
 │
-├── .github/workflows/
-│   └── extract-diagrams.yml      # GitOps OCR pipeline (workflow_dispatch)
-│
 ├── docs/
 │   ├── extract-diagrams.md       # detailed OCR workflow documentation
 │   └── corpus/                   # reference corpus (53 books, ~6 100 pages)
@@ -65,7 +62,7 @@ pytest                       # 210 tests
 mypy --strict pedagogy       # clean
 ```
 
-For the OCR workflow you also need the `extract` optional deps and `poppler-utils`:
+For the diagram extraction pipeline you also need the `extract` optional deps (pillow, numpy, scipy) and `poppler-utils`:
 
 ```bash
 sudo apt-get install -y poppler-utils
@@ -99,14 +96,14 @@ verdicts = detect_all(state, engine=my_engine)
 
 See `pedagogy/tests/` for end-to-end examples.
 
-## OCR workflow — Dubois & friends
+## Diagram extraction — Dubois & friends
 
 `scripts/extract_diagrams.py` runs three idempotent steps:
 
 | Step | Input | Output | Cost |
 |---|---|---|---|
-| `render` | PDF page range | Per-diagram PNG crops + `crops.json` | CPU only |
-| `extract` | PNG crops | Per-diagram JSON positions via Claude Vision | ~$0.0014/diagram with Haiku 4.5 |
+| `render` | PDF page range | Per-page PNG + per-board tight bbox + crops | CPU only |
+| `extract` | `crops.json` + page PNGs | Per-diagram classified squares via pixel sampling | CPU only (~2 s for 324 crops) |
 | `materialize` | `extracted.json` | `pedagogy/tests/fixtures/dubois_diagrams.py` | CPU only |
 
 Run as a single chain:
@@ -115,19 +112,20 @@ Run as a single chain:
 python3 -m scripts.extract_diagrams all \
     --pdf docs/corpus/jpdubois_perfectionnement_combinaisons_V4.pdf \
     --pages 5-90 \
-    --model claude-haiku-4-5
+    --white-threshold 225 \
+    --black-threshold 100
 ```
 
-…or trigger the GitHub Actions workflow (`Actions → Extract diagrams (Claude Vision) → Run workflow`) which opens an auto-generated PR with the result.
+This takes about a minute end-to-end on a laptop and produces 324 `DuboisDiagram` fixtures with zero API calls.
 
 Full details: **[docs/extract-diagrams.md](docs/extract-diagrams.md)**.
 
 ## Development
 
-- **Tests**: `pytest` — 210 tests, runs in <1 s.
-- **Type checking**: `mypy --strict pedagogy` — clean. The script (`scripts/extract_diagrams.py`) has 3 pre-existing strict-mode errors (untyped scipy import, `Any`-returning regex helpers); not in CI.
+- **Tests**: `pytest` — 187 in `pedagogy/tests/` + 28 in `scripts/tests/` (including synthetic-board CV tests for `analyze_board_fen`).
+- **Type checking**: `mypy --strict pedagogy` — clean. The script (`scripts/extract_diagrams.py`) has some pre-existing strict-mode errors (untyped scipy import, `Any`-returning regex helpers); not in CI.
 - **Style**: `black` configured at 100 columns. No CI enforcement yet.
-- Tests for the script live in `scripts/tests/` and exercise the pure helpers only (validation, JSON parsing, caption counting). The image and API parts are validated by running the workflow.
+- Tests for the script live in `scripts/tests/` and exercise the pure helpers (validation, caption counting, FMJD square numbering) plus the pixel-sampling extractor on synthetic boards.
 
 ## Branching
 
