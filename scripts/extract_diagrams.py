@@ -1,42 +1,29 @@
-"""Diagram-extraction workflow for the Dubois reference corpus.
+"""Diagram-extraction pipeline for the Dubois reference corpus.
 
 Three idempotent subcommands chained by ``all``::
 
-    render        PDF page  -> per-diagram PNG crops + caption metadata
-    extract       PNG crops -> JSON positions (via Claude Vision)
-    materialize   JSON      -> pedagogy/tests/fixtures/dubois_diagrams.py
+    render        PDF page  -> per-page PNG + per-board bounding boxes + crops
+    extract       page PNG + bbox -> classified squares (white/black) via pixel sampling
+    materialize   extracted.json   -> pedagogy/tests/fixtures/dubois_diagrams.py
 
-The render step uses pure CV (PIL + scipy) so it has no API cost. Each
-diagram is detected as a near-square dark-pixel cluster on the rendered
-page, dilated to merge the board squares into a single component, then
-filtered by size and aspect ratio.
+Everything is local CV: render uses pdftoppm + PIL/scipy to find board regions,
+extract walks each of the 50 dark squares of a detected board and classifies
+the mean pixel value of a small patch as a white piece, a black piece, or
+empty. No API calls, no model, no token budget — fully deterministic.
 
-The extract step calls Claude Vision (default ``claude-haiku-4-5``) per
-PNG. It is fully idempotent: results are stored per-PNG in a JSON
-manifest and re-running picks up where it left off. Cost for the whole
-Dubois V5 catalogue (~70 diagrams) is approximately $0.03 with Haiku.
+Requires ``poppler-utils`` on PATH (``apt-get install poppler-utils``) and the
+``extract`` optional deps::
+
+    pip install -e ".[extract]"
 
 Run from the repo root::
 
-    python3 -m scripts.extract_diagrams render --pdf <file.pdf>
-    python3 -m scripts.extract_diagrams extract --cache .cache/diagrams
-    python3 -m scripts.extract_diagrams materialize --cache .cache/diagrams
-
-or in one shot::
-
-    python3 -m scripts.extract_diagrams all --pdf <file.pdf>
-
-This script intentionally lives outside ``pedagogy/`` because it has heavy
-optional dependencies (Pillow, NumPy, scipy, anthropic). Install with::
-
-    pip install -e ".[extract]"
+    python3 -m scripts.extract_diagrams all --pdf <pdf>
 """
 
 from __future__ import annotations
 
 import argparse
-import asyncio
-import base64
 import json
 import re
 import shutil
@@ -51,7 +38,6 @@ from typing import Any, Iterator, Optional
 # Constants
 # ---------------------------------------------------------------------------
 
-DEFAULT_MODEL = "claude-haiku-4-5"
 DEFAULT_DPI = 200
 DEFAULT_CACHE = Path(".cache/diagrams")
 DEFAULT_OUTPUT = Path("pedagogy/tests/fixtures/dubois_diagrams.py")
@@ -67,56 +53,14 @@ DARK_THRESHOLD = 230
 #: Padding added around each detected board crop, in pixels.
 CROP_PADDING = 8
 
-#: Prompt sent to Claude Vision per diagram.
-SYSTEM_PROMPT = """You analyze international draughts (FMJD, 10x10) diagrams.
-
-Board layout (standard diagram orientation):
-- The board has 10 rows. Row 1 is at the TOP of the image, row 10 at the BOTTOM.
-- Only the 50 dark squares are playable. They are numbered 1-50.
-- Row 1 contains squares 1, 2, 3, 4, 5 (left to right).
-- Row 2 contains squares 6, 7, 8, 9, 10.
-- ... and so on. Row 10 contains squares 46, 47, 48, 49, 50.
-- Square 1 is the top-left dark square. Square 50 is the bottom-right dark square.
-
-Piece identification:
-- A WHITE piece appears as a light/cream/empty filled circle.
-- A BLACK piece appears as a dark/filled-in circle.
-- A KING (dame) has an additional inner mark: a second smaller circle, a crown,
-  or a doubled outline. Pieces WITHOUT this inner mark are MEN, not kings.
-
-CRITICAL RULES:
-1. Look at the image carefully. Identify EACH visible piece individually.
-2. Do NOT invent pieces. If you see N pieces, list exactly N squares total
-   across the four lists. Typical diagrams have 15-30 pieces.
-3. Do NOT default to regular geometric patterns (a full column, a full row,
-   a long diagonal). Real positions are usually scattered.
-4. A piece is a KING only if you can clearly see the inner mark. If in doubt,
-   it is a MAN. Many diagrams have ZERO kings.
-5. Each square 1-50 appears in AT MOST ONE of the four lists.
-6. If the image is blurry, cropped, or you cannot read the position reliably,
-   return {"error": "<short reason>"} instead of guessing.
-
-The caption below the diagram says "trait aux blancs" (white to move) or
-"trait aux noirs" (black to move). Set "turn" accordingly. Continuation
-diagrams labelled "Ne rafle" inherit the turn from the parent position.
-
-Return ONLY a JSON object, no prose, with this exact schema:
-{
-  "white_men": [int, ...],
-  "white_kings": [int, ...],
-  "black_men": [int, ...],
-  "black_kings": [int, ...],
-  "turn": "white" or "black",
-  "confidence": 0.0-1.0
-}"""
-
-
-#: Stricter prompt used on a second attempt after a validation failure.
-STRICT_SYSTEM_PROMPT = SYSTEM_PROMPT + """
-
-RETRY NOTE: the first attempt produced invalid output. Verify mentally
-(do NOT write your reasoning, do NOT emit prose) that every square 1-50
-appears in at most one of the four lists, then output ONLY the JSON object."""
+#: Mean pixel value above which a sampled patch is classified as a white piece.
+WHITE_PIECE_THRESHOLD = 200.0
+#: Mean pixel value below which a sampled patch is classified as a black piece.
+BLACK_PIECE_THRESHOLD = 90.0
+#: Half-width of the pixel patch sampled at each square center, in pixels.
+SAMPLE_RADIUS = 8
+#: Margin (in pixels) skipped inside the board bounding box before sampling.
+FEN_MARGIN_PX = 5
 
 
 # ---------------------------------------------------------------------------
@@ -138,9 +82,9 @@ class CropMetadata:
 
 @dataclass
 class ExtractedDiagram:
-    """One Claude-vision extraction. Written to ``extracted.json``."""
+    """One pixel-sampled extraction. Written to ``extracted.json``."""
 
-    crop_id: str                # unique key, derived from png_path
+    crop_id: str
     pdf_path: str
     page: int
     region_index: int
@@ -150,12 +94,8 @@ class ExtractedDiagram:
     black_men: list[int] = field(default_factory=list)
     black_kings: list[int] = field(default_factory=list)
     turn: str = "white"
-    confidence: float = 0.0
-    model: str = ""
-    latency_ms: int = 0
-    input_tokens: int = 0
-    output_tokens: int = 0
-    retries: int = 0
+    confidence: float = 1.0
+    method: str = "cv"
     error: Optional[str] = None
 
 
@@ -167,13 +107,7 @@ _SQUARE_RANGE = range(1, 51)
 
 
 def validate_position(payload: dict[str, Any]) -> tuple[bool, str]:
-    """Validate the parsed JSON payload of an API response.
-
-    Returns ``(ok, message)``. ``message`` describes the first failure when
-    ``ok`` is ``False`` and is the empty string otherwise.
-    """
-    if "error" in payload:
-        return False, f"model returned error: {payload['error']!s}"
+    """Validate a position payload. Returns ``(ok, message)``."""
     required = ("white_men", "white_kings", "black_men", "black_kings", "turn")
     for key in required:
         if key not in payload:
@@ -191,20 +125,11 @@ def validate_position(payload: dict[str, Any]) -> tuple[bool, str]:
             seen.add(sq)
     if payload["turn"] not in ("white", "black"):
         return False, f"turn must be 'white' or 'black', got {payload['turn']!r}"
+    if not (payload["white_men"] or payload["white_kings"]):
+        return False, "no white pieces detected"
+    if not (payload["black_men"] or payload["black_kings"]):
+        return False, "no black pieces detected"
     return True, ""
-
-
-def parse_api_response(raw_text: str) -> dict[str, Any]:
-    """Parse the text returned by the model into a JSON dict.
-
-    Strips any markdown code fences the model may add ("```json ... ```").
-    """
-    text = raw_text.strip()
-    if text.startswith("```"):
-        # Drop the opening fence and the trailing one.
-        text = re.sub(r"^```[a-zA-Z]*\n", "", text)
-        text = re.sub(r"\n?```$", "", text)
-    return json.loads(text)
 
 
 # ---------------------------------------------------------------------------
@@ -240,6 +165,16 @@ _CAPTION_RE = re.compile(
     flags=re.IGNORECASE,
 )
 
+_DIAGRAM_CAPTION_RE = re.compile(
+    r"trait aux|\b\d+\s*(?:ère|ere|er|e|ième|ème)\s*rafle\b",
+    flags=re.IGNORECASE,
+)
+
+
+def _count_diagram_captions(text: str) -> int:
+    """Count diagram-marking captions: 'trait aux ...' or '<n>e rafle'."""
+    return len(_DIAGRAM_CAPTION_RE.findall(text))
+
 
 def _captions_in_order(pdf_path: Path, page: int) -> list[str]:
     """Extract per-diagram captions in row-major (top, left) reading order."""
@@ -254,17 +189,6 @@ def _captions_in_order(pdf_path: Path, page: int) -> list[str]:
     return captions
 
 
-_DIAGRAM_CAPTION_RE = re.compile(
-    r"trait aux|\b\d+\s*(?:ère|ere|er|e|ième|ème)\s*rafle\b",
-    flags=re.IGNORECASE,
-)
-
-
-def _count_diagram_captions(text: str) -> int:
-    """Count diagram-marking captions: 'trait aux ...' or '<n>e rafle'."""
-    return len(_DIAGRAM_CAPTION_RE.findall(text))
-
-
 def _trait_aux_count(pdf_path: Path, page: int) -> int:
     out = subprocess.check_output(
         ["pdftotext", "-layout", "-f", str(page), "-l", str(page), str(pdf_path), "-"],
@@ -274,7 +198,7 @@ def _trait_aux_count(pdf_path: Path, page: int) -> int:
 
 
 def _render_page_png(pdf_path: Path, page: int, dpi: int, dest: Path) -> Path:
-    """Render a single page to PNG via pdftoppm. Returns the produced path."""
+    """Render a single page to PNG via pdftoppm."""
     dest.parent.mkdir(parents=True, exist_ok=True)
     prefix = str(dest.parent / f"page_{page:03d}")
     subprocess.check_call(
@@ -284,7 +208,6 @@ def _render_page_png(pdf_path: Path, page: int, dpi: int, dest: Path) -> Path:
             "-png", str(pdf_path), prefix,
         ]
     )
-    # pdftoppm appends a zero-padded page number; rename to the canonical name.
     candidates = sorted(dest.parent.glob(f"page_{page:03d}-*.png"))
     if not candidates:
         raise RuntimeError(f"pdftoppm did not produce a PNG for page {page}")
@@ -293,8 +216,53 @@ def _render_page_png(pdf_path: Path, page: int, dpi: int, dest: Path) -> Path:
     return dest
 
 
+#: Pixel value below which a row/column is "mostly dark", used to find borders.
+BORDER_DARK_THRESHOLD = 80
+#: Fraction of a row/column's width that must be dark to count as a border line.
+BORDER_DENSITY = 0.60
+
+
+def _shrink_to_border(
+    arr: Any, left: int, top: int, right: int, bottom: int
+) -> tuple[int, int, int, int]:
+    """Shrink a rough bbox to the actual thick-black-border rectangle.
+
+    Each Dubois diagram has a thick black rectangle around the playable board.
+    The CV blob-detector returns a generous bbox that often includes the
+    caption below (e.g. "D1 : trait aux noirs"). We scan inward from each
+    side and stop at the first row / column where ``BORDER_DENSITY`` of the
+    pixels are darker than ``BORDER_DARK_THRESHOLD`` — that's the border
+    line. The returned bbox is the tightest rectangle bounded by those four
+    lines.
+    """
+    import numpy as np
+
+    region = arr[top:bottom, left:right]
+    h, w = region.shape
+    dark = region < BORDER_DARK_THRESHOLD
+    row_density = dark.sum(axis=1) / max(w, 1)
+    col_density = dark.sum(axis=0) / max(h, 1)
+
+    def first_above(values: Any) -> int:
+        idx = np.argmax(values >= BORDER_DENSITY)
+        return int(idx) if values[idx] >= BORDER_DENSITY else 0
+
+    top_off = first_above(row_density)
+    bottom_off = first_above(row_density[::-1])
+    left_off = first_above(col_density)
+    right_off = first_above(col_density[::-1])
+
+    new_top = top + top_off
+    new_bottom = bottom - bottom_off
+    new_left = left + left_off
+    new_right = right - right_off
+    if new_right <= new_left or new_bottom <= new_top:
+        return left, top, right, bottom
+    return new_left, new_top, new_right, new_bottom
+
+
 def _detect_boards(image_path: Path) -> list[tuple[int, int, int, int]]:
-    """Return bounding boxes of detected board regions on a page render."""
+    """Return tight bounding boxes of detected board regions on a page render."""
     import numpy as np
     from PIL import Image
     from scipy import ndimage
@@ -316,8 +284,15 @@ def _detect_boards(image_path: Path) -> list[tuple[int, int, int, int]]:
         aspect = w / h
         if not (BOARD_ASPECT_RANGE[0] <= aspect <= BOARD_ASPECT_RANGE[1]):
             continue
-        boards.append((left, top, right, bottom))
-    # Sort row-major: by top-then-left, with a small row tolerance.
+        tight = _shrink_to_border(arr, left, top, right, bottom)
+        tw = tight[2] - tight[0]
+        th = tight[3] - tight[1]
+        if tw * th < MIN_BOARD_AREA:
+            continue
+        tight_aspect = tw / th
+        if not (BOARD_ASPECT_RANGE[0] <= tight_aspect <= BOARD_ASPECT_RANGE[1]):
+            continue
+        boards.append(tight)
     boards.sort(key=lambda b: (b[1] // 80, b[0]))
     return boards
 
@@ -331,7 +306,6 @@ def _crop_board(image_path: Path, bbox: tuple[int, int, int, int], dest: Path) -
     left = max(left - pad, 0)
     top = max(top - pad, 0)
     right = min(right + pad, img.width)
-    # Pull down enough to capture the caption "Dn : trait aux X" (~60 px).
     bottom = min(bottom + 4 * pad + 50, img.height)
     img.crop((left, top, right, bottom)).save(dest, format="PNG")
 
@@ -384,18 +358,85 @@ def cmd_render(args: argparse.Namespace) -> int:
                 )
             )
 
-    out = cache / "crops.json"
-    out.write_text(
+    manifest_path = cache / "crops.json"
+    manifest_path.write_text(
         json.dumps([asdict(m) for m in manifest], indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
-    print(f"\nrender: {len(manifest)} crop(s) ready -> {out}")
+    print(f"\nrender: {len(manifest)} crop(s) ready -> {manifest_path}")
     return 0
 
 
 # ---------------------------------------------------------------------------
-# Extract subcommand
+# Extract subcommand (pixel sampling — no API)
 # ---------------------------------------------------------------------------
+
+
+def _square_number(row: int, col: int) -> Optional[int]:
+    """Return the FMJD square number (1-50) for a (row, col) cell.
+
+    Returns None for light squares (which are unused in international draughts).
+    Row 0 is the top of the board (black's back rank), row 9 the bottom.
+    """
+    if (row + col) % 2 == 0:
+        return None
+    return row * 5 + col // 2 + 1
+
+
+def analyze_board_fen(
+    gray: Any,
+    bbox: tuple[int, int, int, int],
+    *,
+    margin_px: int = FEN_MARGIN_PX,
+    sample_radius: int = SAMPLE_RADIUS,
+    white_threshold: float = WHITE_PIECE_THRESHOLD,
+    black_threshold: float = BLACK_PIECE_THRESHOLD,
+) -> tuple[list[int], list[int]]:
+    """Classify every dark square of a board as white piece, black piece, or empty.
+
+    ``gray`` is a 2-D grayscale numpy array (the rendered page). ``bbox`` is
+    ``(x1, y1, x2, y2)`` in pixel coords. Returns ``(white_squares, black_squares)``
+    sorted in increasing order.
+    """
+    x1, y1, x2, y2 = bbox
+    x1i = x1 + margin_px
+    y1i = y1 + margin_px
+    bw = (x2 - x1) - 2 * margin_px
+    bh = (y2 - y1) - 2 * margin_px
+    sq_w = bw / 10.0
+    sq_h = bh / 10.0
+
+    white_sqs: list[int] = []
+    black_sqs: list[int] = []
+    h, w = gray.shape
+
+    for row in range(10):
+        for col in range(10):
+            sq = _square_number(row, col)
+            if sq is None:
+                continue
+            cx = int(x1i + (col + 0.5) * sq_w)
+            cy = int(y1i + (row + 0.5) * sq_h)
+            y0 = max(0, cy - sample_radius)
+            y1c = min(h, cy + sample_radius)
+            x0 = max(0, cx - sample_radius)
+            x1c = min(w, cx + sample_radius)
+            patch = gray[y0:y1c, x0:x1c]
+            if patch.size == 0:
+                continue
+            cv = float(patch.mean())
+            if cv > white_threshold:
+                white_sqs.append(sq)
+            elif cv < black_threshold:
+                black_sqs.append(sq)
+
+    return sorted(white_sqs), sorted(black_sqs)
+
+
+def _infer_turn(caption: Optional[str]) -> str:
+    if caption and "noirs" in caption.lower():
+        return "black"
+    return "white"
 
 
 def _load_manifest(cache: Path) -> list[CropMetadata]:
@@ -419,238 +460,84 @@ def _save_extracted(path: Path, table: dict[str, ExtractedDiagram]) -> None:
     )
 
 
-def _user_image_block(png_bytes: bytes) -> dict[str, Any]:
-    """Build a Claude Vision user message containing one PNG + the prompt."""
-    image_b64 = base64.b64encode(png_bytes).decode("ascii")
-    return {
-        "role": "user",
-        "content": [
-            {
-                "type": "image",
-                "source": {
-                    "type": "base64",
-                    "media_type": "image/png",
-                    "data": image_b64,
-                },
-            },
-            {"type": "text", "text": "Extract the position."},
-        ],
-    }
+def cmd_extract(args: argparse.Namespace) -> int:
+    import numpy as np
+    from PIL import Image
 
+    cache = Path(args.cache).resolve()
+    pages_dir = cache / "pages"
+    manifest = _load_manifest(cache)
+    out_path = cache / "extracted.json"
+    table = _load_extracted(out_path)
 
-def _assistant_json_block(position: dict[str, Any]) -> dict[str, Any]:
-    """Build an assistant message that returns the canonical JSON answer."""
-    return {
-        "role": "assistant",
-        "content": [
-            {"type": "text", "text": json.dumps(position, separators=(",", ":"))}
-        ],
-    }
-
-
-def _extract_text_from_response(response: Any) -> str:
-    """Return the first text-typed block's text from a Messages API response.
-
-    Sonnet sometimes returns multiple content blocks (e.g. a reasoning-like
-    block followed by the answer). Picking ``content[0]`` blindly drops the
-    answer in that case. Iterate instead and grab the first block with a
-    non-empty ``.text`` attribute.
-    """
-    for block in getattr(response, "content", []) or []:
-        text = getattr(block, "text", None)
-        if text:
-            return str(text)
-    return ""
-
-
-async def _call_claude_vision_async(
-    client: Any,
-    png_bytes: bytes,
-    *,
-    model: str,
-    max_tokens: int = 1500,
-    strict: bool = False,
-    few_shot: list[tuple[bytes, dict[str, Any]]] | None = None,
-) -> tuple[str, int, int]:
-    messages: list[dict[str, Any]] = []
-    for example_bytes, example_position in few_shot or []:
-        messages.append(_user_image_block(example_bytes))
-        messages.append(_assistant_json_block(example_position))
-    messages.append(_user_image_block(png_bytes))
-
-    response = await client.messages.create(
-        model=model,
-        max_tokens=max_tokens,
-        system=STRICT_SYSTEM_PROMPT if strict else SYSTEM_PROMPT,
-        messages=messages,
-    )
-    text = _extract_text_from_response(response)
-    if not text:
-        block_types = [type(b).__name__ for b in getattr(response, "content", [])]
-        stop_reason = getattr(response, "stop_reason", "?")
-        print(
-            f"    EMPTY response: stop_reason={stop_reason!r} "
-            f"content_blocks={block_types} "
-            f"out_tokens={response.usage.output_tokens}",
-            file=sys.stderr,
-        )
-    return text, response.usage.input_tokens, response.usage.output_tokens
-
-
-async def _extract_one(
-    client: Any,
-    cache: Path,
-    meta: CropMetadata,
-    model: str,
-    few_shot: list[tuple[bytes, dict[str, Any]]] | None = None,
-) -> ExtractedDiagram:
-    """Run the 2-attempt extraction for a single crop. Returns the record."""
-    png_bytes = (cache / meta.png_path).read_bytes()
-    payload: Optional[dict[str, Any]] = None
-    last_error: Optional[str] = None
-    in_tokens = 0
-    out_tokens = 0
-    latency = 0
-    attempts = 0
-    while attempts < 2:
-        attempts += 1
-        strict = attempts > 1
-        try:
-            t0 = time.time()
-            text, t_in, t_out = await _call_claude_vision_async(
-                client, png_bytes, model=model, strict=strict, few_shot=few_shot
-            )
-            in_tokens += t_in
-            out_tokens += t_out
-            latency = int((time.time() - t0) * 1000)
-            candidate = parse_api_response(text)
-            ok, msg = validate_position(candidate)
-        except Exception as exc:  # noqa: BLE001
-            last_error = str(exc)
-            payload = None
+    page_cache: dict[int, Any] = {}
+    failures = 0
+    t0 = time.time()
+    for i, meta in enumerate(manifest, start=1):
+        page_png = pages_dir / f"page_{meta.page:03d}.png"
+        if not page_png.exists():
             print(
-                f"    FAILED (attempt {attempts}): {meta.png_path}: {exc}",
+                f"[{i:>3}/{len(manifest)}] {meta.png_path}: missing {page_png}",
                 file=sys.stderr,
             )
+            failures += 1
             continue
-        if ok:
-            payload = candidate
-            last_error = None
-            break
-        payload = None
-        last_error = msg
-        print(
-            f"    VALIDATION (attempt {attempts}): {meta.png_path}: {msg}",
-            file=sys.stderr,
-        )
 
-    if last_error is not None:
-        return ExtractedDiagram(
+        if meta.page not in page_cache:
+            page_cache[meta.page] = np.array(Image.open(page_png).convert("L"))
+        gray = page_cache[meta.page]
+
+        white_sqs, black_sqs = analyze_board_fen(
+            gray,
+            meta.bbox,
+            margin_px=args.margin_px,
+            sample_radius=args.sample_radius,
+            white_threshold=args.white_threshold,
+            black_threshold=args.black_threshold,
+        )
+        turn = _infer_turn(meta.caption_text)
+
+        payload = {
+            "white_men": white_sqs,
+            "white_kings": [],
+            "black_men": black_sqs,
+            "black_kings": [],
+            "turn": turn,
+        }
+        ok, msg = validate_position(payload)
+
+        record = ExtractedDiagram(
             crop_id=meta.png_path,
             pdf_path=meta.pdf_path,
             page=meta.page,
             region_index=meta.region_index,
             caption_text=meta.caption_text,
-            model=model,
-            latency_ms=latency,
-            input_tokens=in_tokens,
-            output_tokens=out_tokens,
-            retries=attempts - 1,
-            error=last_error,
+            white_men=white_sqs,
+            black_men=black_sqs,
+            turn=turn,
+            method="cv",
+            error=None if ok else msg,
         )
-    assert payload is not None
-    return ExtractedDiagram(
-        crop_id=meta.png_path,
-        pdf_path=meta.pdf_path,
-        page=meta.page,
-        region_index=meta.region_index,
-        caption_text=meta.caption_text,
-        white_men=payload.get("white_men", []),
-        white_kings=payload.get("white_kings", []),
-        black_men=payload.get("black_men", []),
-        black_kings=payload.get("black_kings", []),
-        turn=payload.get("turn", "white"),
-        confidence=float(payload.get("confidence", 0.0)),
-        model=model,
-        latency_ms=latency,
-        input_tokens=in_tokens,
-        output_tokens=out_tokens,
-        retries=attempts - 1,
-        error=None,
-    )
+        if not ok:
+            failures += 1
+        table[meta.png_path] = record
 
-
-async def _cmd_extract_async(args: argparse.Namespace) -> int:
-    cache = Path(args.cache).resolve()
-    manifest = _load_manifest(cache)
-    out_path = cache / "extracted.json"
-    table = _load_extracted(out_path)
-
-    pending = [
-        m for m in manifest
-        if m.png_path not in table or table[m.png_path].error is not None
-    ]
-    if args.max_diagrams:
-        pending = pending[: args.max_diagrams]
-
-    if args.dry_run:
-        print(f"extract dry-run: {len(pending)} diagram(s) would be sent to {args.model}")
-        for m in pending[:5]:
-            print(f"  - {m.png_path}  caption={m.caption_text!r}")
-        if len(pending) > 5:
-            print(f"  ... and {len(pending) - 5} more")
-        return 0
-
-    import anthropic
-
-    from pedagogy.tests.fixtures.dubois_ground_truth import (
-        load_examples as _load_few_shot_examples,
-    )
-
-    few_shot = _load_few_shot_examples(args.few_shot)
-    if few_shot:
-        print(
-            f"extract: prepending {len(few_shot)} few-shot example(s) to every call",
-            flush=True,
-        )
-
-    client = anthropic.AsyncAnthropic(max_retries=4)
-    semaphore = asyncio.Semaphore(args.concurrency)
-
-    async def bounded(meta: CropMetadata) -> ExtractedDiagram:
-        async with semaphore:
-            return await _extract_one(
-                client, cache, meta, args.model, few_shot=few_shot
+        if args.verbose:
+            status = "OK" if ok else f"FAIL ({msg})"
+            print(
+                f"[{i:>3}/{len(manifest)}] {meta.png_path}: "
+                f"{len(white_sqs)}W {len(black_sqs)}B turn={turn} {status}"
             )
 
-    tasks = [asyncio.create_task(bounded(m)) for m in pending]
-    failures = 0
-    print(
-        f"extract: dispatching {len(pending)} crop(s) with concurrency={args.concurrency}",
-        flush=True,
-    )
-    for i, fut in enumerate(asyncio.as_completed(tasks), start=1):
-        result = await fut
-        table[result.crop_id] = result
-        if result.error is not None:
-            failures += 1
-        status = "FAIL" if result.error else "OK"
-        print(
-            f"[{i:>3}/{len(pending)}] {result.crop_id} {status} "
-            f"(attempts={result.retries + 1})",
-            flush=True,
-        )
-        _save_extracted(out_path, table)
-
-    total_in = sum(e.input_tokens for e in table.values())
-    total_out = sum(e.output_tokens for e in table.values())
-    total_failures = sum(1 for e in table.values() if e.error is not None)
+    _save_extracted(out_path, table)
+    elapsed = time.time() - t0
     total = len(table) or 1
+    total_failures = sum(1 for e in table.values() if e.error is not None)
     fail_ratio = total_failures / total
     print(
         f"\nextract: {len(table)} cached, {failures} new failure(s) this run, "
         f"{total_failures} total failure(s) ({fail_ratio:.1%}); "
-        f"tokens in={total_in} out={total_out}"
+        f"elapsed {elapsed:.1f}s"
     )
     if fail_ratio > args.fail_threshold:
         print(
@@ -660,66 +547,6 @@ async def _cmd_extract_async(args: argparse.Namespace) -> int:
         )
         return 1
     return 0
-
-
-def cmd_extract(args: argparse.Namespace) -> int:
-    return asyncio.run(_cmd_extract_async(args))
-
-
-# ---------------------------------------------------------------------------
-# Diagnose subcommand (single crop, prints raw API response)
-# ---------------------------------------------------------------------------
-
-
-async def _cmd_diagnose_async(args: argparse.Namespace) -> int:
-    cache = Path(args.cache).resolve()
-    crop_path = cache / args.crop
-    if not crop_path.exists():
-        # Permit absolute paths too.
-        crop_path = Path(args.crop)
-    if not crop_path.exists():
-        print(f"crop not found: {args.crop}", file=sys.stderr)
-        return 2
-
-    import anthropic
-
-    client = anthropic.AsyncAnthropic(max_retries=4)
-    png_bytes = crop_path.read_bytes()
-    messages = [_user_image_block(png_bytes)]
-
-    print(f"diagnose: model={args.model} strict={args.strict} crop={crop_path}")
-    response = await client.messages.create(
-        model=args.model,
-        max_tokens=args.max_tokens,
-        system=STRICT_SYSTEM_PROMPT if args.strict else SYSTEM_PROMPT,
-        messages=messages,
-    )
-
-    print(f"\nstop_reason: {getattr(response, 'stop_reason', '?')!r}")
-    print(
-        f"usage: input={response.usage.input_tokens} "
-        f"output={response.usage.output_tokens}"
-    )
-    blocks = list(getattr(response, "content", []) or [])
-    print(f"content_blocks: {len(blocks)}")
-    for i, block in enumerate(blocks):
-        block_type = type(block).__name__
-        text = getattr(block, "text", None)
-        thinking = getattr(block, "thinking", None)
-        print(f"\n  --- block[{i}] type={block_type} ---")
-        if text is not None:
-            print(f"  text ({len(text)} chars):")
-            print("  " + (text or "(empty)").replace("\n", "\n  "))
-        if thinking is not None:
-            print(f"  thinking ({len(thinking)} chars):")
-            print("  " + thinking.replace("\n", "\n  "))
-        if text is None and thinking is None:
-            print(f"  (no text/thinking attr; raw: {block!r})")
-    return 0
-
-
-def cmd_diagnose(args: argparse.Namespace) -> int:
-    return asyncio.run(_cmd_diagnose_async(args))
 
 
 # ---------------------------------------------------------------------------
@@ -733,9 +560,9 @@ DO NOT EDIT BY HAND. Regenerate with::
 
     python3 -m scripts.extract_diagrams all --pdf <pdf_path>
 
-Each :class:`DuboisDiagram` mirrors an entry produced by Claude Vision and
-has been validated for square-set disjointness. The ``to_state`` helper
-materialises a :class:`pedagogy.game.GameState`.
+Each :class:`DuboisDiagram` mirrors an entry produced by deterministic pixel
+sampling (no LLM, no API). The ``to_state`` helper materialises a
+:class:`pedagogy.game.GameState`.
 """
 
 from __future__ import annotations
@@ -774,19 +601,16 @@ def to_state(diag: DuboisDiagram) -> GameState:
 
 def cmd_materialize(args: argparse.Namespace) -> int:
     cache = Path(args.cache).resolve()
-    in_path = cache / "extracted.json"
-    out_path = Path(args.output).resolve()
-    table = _load_extracted(in_path)
+    out_path = cache / "extracted.json"
+    if not out_path.exists():
+        print(f"no extracted.json at {out_path}; run `extract` first.", file=sys.stderr)
+        return 2
+    table = _load_extracted(out_path)
+    ok_entries = [e for e in table.values() if e.error is None]
 
-    good = [e for e in table.values() if e.error is None]
-    bad = [e for e in table.values() if e.error is not None]
-    good.sort(key=lambda e: (e.page, e.region_index))
-
-    lines: list[str] = [_PY_TEMPLATE_HEADER]
-    lines.append("ALL_DIAGRAMS: list[DuboisDiagram] = [")
-    for entry in good:
+    def render_entry(entry: ExtractedDiagram) -> str:
         caption = (entry.caption_text or "").replace('"', '\\"')
-        lines.append("    DuboisDiagram(")
+        lines = ["    DuboisDiagram("]
         lines.append(f"        crop_id={entry.crop_id!r},")
         lines.append(f"        page={entry.page},")
         lines.append(f"        region_index={entry.region_index},")
@@ -796,37 +620,58 @@ def cmd_materialize(args: argparse.Namespace) -> int:
         lines.append(f"        white_kings={tuple(sorted(entry.white_kings))!r},")
         lines.append(f"        black_men={tuple(sorted(entry.black_men))!r},")
         lines.append(f"        black_kings={tuple(sorted(entry.black_kings))!r},")
-        lines.append(f"        confidence={entry.confidence!r},")
+        lines.append(f"        confidence={entry.confidence},")
         lines.append("    ),")
-    lines.append("]\n")
-    out_path.write_text("\n".join(lines), encoding="utf-8")
-    print(f"materialize: wrote {len(good)} fixture(s) to {out_path}")
-    if bad:
-        print(
-            f"  ({len(bad)} entry/entries with errors NOT materialised; inspect "
-            f"{in_path} and re-run extract with --force)",
-            file=sys.stderr,
+        return "\n".join(lines)
+
+    output = Path(args.output).resolve()
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8") as f:
+        f.write(_PY_TEMPLATE_HEADER)
+        f.write("ALL_DIAGRAMS: list[DuboisDiagram] = [\n")
+        for entry in sorted(ok_entries, key=lambda e: (e.page, e.region_index)):
+            f.write(render_entry(entry))
+            f.write("\n")
+        f.write("]\n")
+
+    skipped = len(table) - len(ok_entries)
+    msg = f"materialize: wrote {len(ok_entries)} fixture(s) to {output}"
+    if skipped:
+        msg += (
+            f"\n  ({skipped} entry/entries with errors NOT materialised; "
+            f"inspect {out_path} and re-run extract with --force)"
         )
+    print(msg)
     return 0
 
 
 # ---------------------------------------------------------------------------
-# CLI plumbing
+# CLI
 # ---------------------------------------------------------------------------
+
+
+def _cmd_all(args: argparse.Namespace) -> int:
+    r1 = cmd_render(args)
+    if r1:
+        return r1
+    r2 = cmd_extract(args)
+    if r2:
+        return r2
+    return cmd_materialize(args)
 
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawDescriptionHelpFormatter,
+        prog="extract_diagrams",
+        description="Extract Dubois diagram positions via deterministic pixel sampling.",
     )
     sub = parser.add_subparsers(dest="cmd", required=True)
 
-    p_render = sub.add_parser("render", help="render PDF pages and crop diagram boards")
+    p_render = sub.add_parser("render", help="rasterise pages and detect boards")
     p_render.add_argument("--pdf", required=True, help="path to the input PDF")
     p_render.add_argument(
         "--pages", default="all",
-        help='pages to scan: "all" (default), "5", "5-13", "5,7,9"',
+        help='page range: "all", "5", "5-13", or "5,7,9" (default "all")',
     )
     p_render.add_argument("--cache", default=str(DEFAULT_CACHE))
     p_render.add_argument("--dpi", type=int, default=DEFAULT_DPI)
@@ -834,54 +679,35 @@ def _build_parser() -> argparse.ArgumentParser:
     p_render.add_argument("--verbose", action="store_true")
     p_render.set_defaults(func=cmd_render)
 
-    p_extract = sub.add_parser("extract", help="send crops to Claude Vision")
-    p_extract.add_argument("--cache", default=str(DEFAULT_CACHE))
-    p_extract.add_argument("--model", default=DEFAULT_MODEL)
-    p_extract.add_argument(
-        "--max-diagrams", type=int, default=0,
-        help="cap how many pending diagrams to send (0 = no cap)",
+    p_extract = sub.add_parser(
+        "extract", help="sample each detected board with pure pixel thresholding"
     )
-    p_extract.add_argument("--dry-run", action="store_true")
+    p_extract.add_argument("--cache", default=str(DEFAULT_CACHE))
+    p_extract.add_argument(
+        "--white-threshold", type=float, default=WHITE_PIECE_THRESHOLD,
+        help=f"mean pixel above this -> white piece (default {WHITE_PIECE_THRESHOLD})",
+    )
+    p_extract.add_argument(
+        "--black-threshold", type=float, default=BLACK_PIECE_THRESHOLD,
+        help=f"mean pixel below this -> black piece (default {BLACK_PIECE_THRESHOLD})",
+    )
+    p_extract.add_argument(
+        "--sample-radius", type=int, default=SAMPLE_RADIUS,
+        help=f"half-width of patch sampled at each square (default {SAMPLE_RADIUS} px)",
+    )
+    p_extract.add_argument(
+        "--margin-px", type=int, default=FEN_MARGIN_PX,
+        help=f"pixels skipped inside the board border before sampling (default {FEN_MARGIN_PX})",
+    )
     p_extract.add_argument(
         "--fail-threshold", type=float, default=0.10,
-        help="exit non-zero only when fail ratio exceeds this fraction (default 0.10)",
+        help="exit non-zero when fail ratio exceeds this fraction (default 0.10)",
     )
-    p_extract.add_argument(
-        "--concurrency", type=int, default=2,
-        help=(
-            "max parallel API calls (default 2; tier 1 OPM is 8k tokens/min "
-            "which caps Sonnet at ~20 calls/min)"
-        ),
-    )
-    p_extract.add_argument(
-        "--few-shot", type=int, default=0,
-        help=(
-            "prepend N hand-verified (image, position) examples to every API "
-            "call (default 0). Examples live in "
-            "pedagogy/tests/fixtures/dubois_ground_truth.py."
-        ),
-    )
+    p_extract.add_argument("--verbose", action="store_true")
     p_extract.set_defaults(func=cmd_extract)
 
-    p_diagnose = sub.add_parser(
-        "diagnose",
-        help="send ONE crop to the API and print the raw response (~$0.005)",
-    )
-    p_diagnose.add_argument(
-        "--crop", required=True,
-        help="crop id relative to --cache (e.g. crops/page_005_d01.png) or absolute path",
-    )
-    p_diagnose.add_argument("--cache", default=str(DEFAULT_CACHE))
-    p_diagnose.add_argument("--model", default=DEFAULT_MODEL)
-    p_diagnose.add_argument("--max-tokens", type=int, default=1500)
-    p_diagnose.add_argument(
-        "--strict", action="store_true", help="use STRICT_SYSTEM_PROMPT instead of base",
-    )
-    p_diagnose.set_defaults(func=cmd_diagnose)
-
     p_materialize = sub.add_parser(
-        "materialize",
-        help="write the Python fixtures file from extracted JSON",
+        "materialize", help="write the Python fixtures file from extracted JSON",
     )
     p_materialize.add_argument("--cache", default=str(DEFAULT_CACHE))
     p_materialize.add_argument("--output", default=str(DEFAULT_OUTPUT))
@@ -892,37 +718,25 @@ def _build_parser() -> argparse.ArgumentParser:
     p_all.add_argument("--pages", default="all")
     p_all.add_argument("--cache", default=str(DEFAULT_CACHE))
     p_all.add_argument("--dpi", type=int, default=DEFAULT_DPI)
-    p_all.add_argument("--model", default=DEFAULT_MODEL)
     p_all.add_argument("--output", default=str(DEFAULT_OUTPUT))
-    p_all.add_argument("--max-diagrams", type=int, default=0)
+    p_all.add_argument("--white-threshold", type=float, default=WHITE_PIECE_THRESHOLD)
+    p_all.add_argument("--black-threshold", type=float, default=BLACK_PIECE_THRESHOLD)
+    p_all.add_argument("--sample-radius", type=int, default=SAMPLE_RADIUS)
+    p_all.add_argument("--margin-px", type=int, default=FEN_MARGIN_PX)
     p_all.add_argument("--fail-threshold", type=float, default=0.10)
-    p_all.add_argument("--concurrency", type=int, default=2)
-    p_all.add_argument("--few-shot", type=int, default=0)
     p_all.add_argument("--force", action="store_true")
     p_all.add_argument("--verbose", action="store_true")
     p_all.set_defaults(func=lambda a: _cmd_all(a))
     return parser
 
 
-def _cmd_all(args: argparse.Namespace) -> int:
-    r1 = cmd_render(args)
-    if r1:
-        return r1
-    args.dry_run = False
-    r2 = cmd_extract(args)
-    if r2:
-        return r2
-    return cmd_materialize(args)
-
-
 def main(argv: Optional[list[str]] = None) -> int:
-    # Bind required tools eagerly so the error message is clear.
     for tool in ("pdftoppm", "pdftotext", "pdfinfo"):
         if shutil.which(tool) is None:
             print(f"required system tool not found in PATH: {tool}", file=sys.stderr)
             return 2
     args = _build_parser().parse_args(argv)
-    return args.func(args)
+    return int(args.func(args))
 
 
 if __name__ == "__main__":

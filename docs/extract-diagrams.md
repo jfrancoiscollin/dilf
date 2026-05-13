@@ -1,216 +1,135 @@
 # OCR workflow — diagram extraction
 
-A GitOps pipeline that turns reference draughts books (PDF) into hand-reviewable Python fixtures usable by the `pedagogy/` test suite.
+A pure-CV pipeline that turns reference draughts books (PDF) into hand-reviewable Python fixtures usable by the `pedagogy/` test suite.
 
 ```
-PDF page  →  pdftoppm  →  PNG/page  →  CV detection  →  PNG crops
-                                                            ↓
-       pedagogy/tests/fixtures/  ←  materialize  ←  Claude Vision  →  extracted.json
+PDF page  →  pdftoppm  →  PNG/page  →  CV detection (scipy)  →  per-board bbox
+                                                                       ↓
+       pedagogy/tests/fixtures/  ←  materialize  ←  pixel sampling  ←  page PNG + bbox
+                                                       (numpy)
 ```
 
-Everything is implemented in two files:
-- `scripts/extract_diagrams.py` — CLI with three idempotent subcommands (`render`, `extract`, `materialize`) and a `all` wrapper.
-- `.github/workflows/extract-diagrams.yml` — `workflow_dispatch` job that runs the chain on a GitHub Actions runner and opens a PR via `peter-evans/create-pull-request`.
+Everything is implemented in **one file**, `scripts/extract_diagrams.py`, with three idempotent subcommands (`render`, `extract`, `materialize`) and an `all` wrapper.
 
-## Why GitOps
+## Why pure CV (no LLM)
 
-The script needs three things that don't co-exist nicely on a laptop:
-1. **Internet** to call `api.anthropic.com`.
-2. **The `ANTHROPIC_API_KEY` secret**, but never on disk in plaintext.
-3. **A clean Linux + `poppler-utils` + Python 3.11 environment** to render PDFs identically every run.
+Earlier iterations of this pipeline used Claude Vision per crop. The cost was real (hallucinations, rate limits, ~$1 per full V4 run, ~30 min wall) and the result unreliable: a 5-sample spot-check on the first successful run showed 4/5 fixtures fabricated (column-of-pieces patterns, invented kings).
 
-Running on a runner solves all three: the secret is injected via `${{ secrets.ANTHROPIC_API_KEY }}`, the runner is ephemeral, and the only artifact that touches the repo is the resulting PR.
+Dubois diagrams are **printed** — they have crisp piece outlines, near-constant colours, and a known geometric grid. The right tool is pixel thresholding, not a multi-modal LLM. The current pipeline:
 
-## Running it from the GitHub UI
-
-1. Add the API key once: `Settings → Secrets and variables → Actions → New repository secret` named `ANTHROPIC_API_KEY` (Anthropic Console standalone key, not the Claude Code OAuth account).
-2. `Actions → Extract diagrams (Claude Vision) → Run workflow` and fill in:
-
-| Input | Default | Meaning |
+| Metric | This pipeline | Claude Vision approach we abandoned |
 |---|---|---|
-| `pdf` | `docs/corpus/jpdubois_perfectionnement_combinaisons_V4.pdf` | Path on `main`, relative to repo root. The reference corpus lives under `docs/corpus/` (see its README for the catalogue). |
-| `pages` | `5-90` | `"all"`, a single int, a range (`5-90`), or a CSV (`5,7,12`). |
-| `max_diagrams` | `0` | Cap on API calls (0 = no cap). Use for cheap dry-runs. |
-| `model` | `claude-haiku-4-5` | Any vision-capable Claude model. Sonnet is ~10× the cost. |
-| `target_branch` | `claude/read-spec-start-Ai5jV` | Branch the auto-PR will target. |
+| Cost per V4 run | **$0** | ~$1.50 with Sonnet |
+| Wall time | **~1 min** (mostly PDF render) | ~30 min |
+| Deterministic | **Yes** (same input → same output) | No (model nondeterminism + retries) |
+| Hallucination risk | **None** (it's pixel arithmetic) | Significant on dense positions |
+| External deps | numpy, scipy, pillow, poppler | + anthropic SDK + API key + GH secrets |
 
-3. Watch the job. When extraction is done it creates a branch `dubois-extract/run-<run_id>` with one file changed (`pedagogy/tests/fixtures/dubois_diagrams.py`) and opens a PR titled `Dubois diagrams from <pdf> (run <run_id>)`.
+The whole `extract` step is ~30 lines of numpy. The simplicity is the feature.
 
-## Running it locally (for debug)
+## Running it
+
+### Locally
 
 ```bash
 pip install -e ".[extract]"
 sudo apt-get install -y poppler-utils
 
-export ANTHROPIC_API_KEY=sk-ant-...
 python3 -m scripts.extract_diagrams all \
     --pdf docs/corpus/jpdubois_perfectionnement_combinaisons_V4.pdf \
     --pages 5-90 \
-    --model claude-haiku-4-5 \
     --verbose
 ```
 
-The three subcommands can also be run independently — handy for iterating on a single piece without burning API calls:
+Output (after ~1 min):
 
-```bash
-python3 -m scripts.extract_diagrams render     --pdf <pdf> --pages 5-90      # CPU only
-python3 -m scripts.extract_diagrams extract    --cache .cache/diagrams        # API calls
-python3 -m scripts.extract_diagrams materialize --cache .cache/diagrams       # CPU only
+```
+render: 324 crop(s) ready -> .cache/diagrams/crops.json
+[  1/324] crops/page_005_d01.png: 9W 9B turn=black OK
+[  2/324] crops/page_005_d02.png: ...
+...
+extract: 324 cached, 0 new failure(s) this run, 0 total failure(s) (0.0%); elapsed 2.4s
+materialize: wrote 324 fixture(s) to pedagogy/tests/fixtures/dubois_diagrams.py
 ```
 
-## What each step does
+### Subcommands
+
+| Subcommand | Input | Output | Notes |
+|---|---|---|---|
+| `render` | PDF + page range | `pages/*.png` + `crops/*.png` + `crops.json` | CPU only. Idempotent — re-runs skip rendered pages unless `--force`. |
+| `extract` | `crops.json` + `pages/*.png` | `extracted.json` | Pixel sampling, deterministic, ~2 s for 324 crops. |
+| `materialize` | `extracted.json` | `pedagogy/tests/fixtures/dubois_diagrams.py` | Pure CPU. Writes one `DuboisDiagram` per successful entry. |
+| `all` | PDF + page range | everything | Run end-to-end. |
+
+## How each step works
 
 ### `render`
 
-For each requested page, the script:
+For each requested page:
 
-1. Runs `pdftotext -layout` and counts diagram captions with the regex `trait aux | <n>e rafle` (case-insensitive). If a page yields zero matches it is **skipped** — there are no diagrams to extract.
-2. Rasterises the page at 200 DPI via `pdftoppm`.
-3. Detects board regions with PIL + scipy:
-   - Threshold to black pixels (`DARK_THRESHOLD = 230`)
-   - Dilate 5 iterations to merge board squares into one blob
-   - Label connected components, keep those with area ≥ 150 000 px² and aspect ratio in `[0.85, 1.20]`
-4. Pulls each bounding box down by ~60 px to capture the caption (`Dn : trait aux X`).
-5. Saves the crops as `.cache/diagrams/crops/page_<n>_d<i>.png`, plus a `crops.json` manifest.
-
-A `WARN expected N diagrams (from caption count), detected M board(s)` line is printed when caption count and CV detection disagree. After `fix(extract)` (PR #2) the caption count understands rafle continuations, so this warning fires only on real mismatches.
+1. Run `pdftotext -layout` and count diagram captions (regex matches `trait aux …` and `<n>e rafle` continuations). If zero, skip the page.
+2. Rasterise the page at 200 DPI via `pdftoppm`.
+3. Detect rough board components with scipy: threshold to dark pixels, dilate to merge each board's squares + border into one blob, label connected components, filter by area (≥ 150 000 px²) and aspect ratio (0.85–1.20).
+4. **Shrink each rough component to its actual border rectangle.** Scan inward from each side and stop at the first row / column where ≥ 60% of the pixels are darker than 80. That line is the thick black board border. The returned bbox is the playable area only — without this step, the bbox would include the caption text below the diagram and the sampling grid downstream would be misaligned.
+5. Save a padded crop (board + caption) as `crops/page_NNN_dXX.png` for visual review, and record the tight playable-area bbox in `crops.json`.
 
 ### `extract`
 
-For each crop not yet recorded as successful in `extracted.json`:
+For each crop in `crops.json`:
 
-1. Send the PNG + a system prompt (`SYSTEM_PROMPT`) describing the FMJD 10×10 numbering convention to the model. The user message is just `"Extract the position."`.
-2. Parse the JSON response (`parse_api_response` strips Markdown fences if present).
-3. Validate (`validate_position`): every square must be `1..50`, never appear in two of the four piece lists, and `turn` must be `"white"` or `"black"`.
-4. **On failure (JSON parse or validation), retry exactly once** with `STRICT_SYSTEM_PROMPT` — same prompt plus a "CRITICAL INVARIANT" reminder + an instruction to recount before responding. `ExtractedDiagram.retries` records whether the result came from attempt 1 or 2.
+1. Load the corresponding `pages/page_NNN.png` as grayscale (cached per page across the run).
+2. Build a 10 × 10 grid inside the bbox (5 px inset margin to skip the border line).
+3. For each of the 50 dark squares (`(row + col) % 2 == 1`):
+   - Compute the centre pixel.
+   - Sample a 16×16 patch (`sample_radius=8`).
+   - Mean > 225 → white piece.
+   - Mean < 100 → black piece.
+   - Otherwise → empty.
+4. Infer `turn` from the caption: `trait aux noirs` → black, else white (rafle continuations inherit white by convention).
+5. Validate via `validate_position` (squares in range 1-50, disjoint piece lists, at least one piece per side).
+6. Append an `ExtractedDiagram` record to `extracted.json`.
 
-After the loop, the script:
-
-- Aggregates tokens (`input_tokens`, `output_tokens`) across all attempts of all crops.
-- Computes the cumulative fail ratio over the whole `extracted.json` table.
-- Returns exit code `0` if `fail_ratio ≤ --fail-threshold` (default 0.10), else `1`.
-
-The tolerance threshold is what lets the workflow ship the PR even when a few diagrams fail. Without it, a single API hiccup in a 300-diagram run would block everything.
+The thresholds (`--white-threshold 225`, `--black-threshold 100`) are calibrated for Dubois "perfectionnement combinaisons V4". They are CLI flags so other books with different visual styles can be supported by tuning two scalars.
 
 ### `materialize`
 
-Reads `extracted.json` and writes a Python module at `--output` (default `pedagogy/tests/fixtures/dubois_diagrams.py`) with one `DiagramFixture` per successful extraction. The file is regenerated whole on each run; treat it as machine-owned and never edit by hand.
+Reads `extracted.json` and writes a Python module at `--output` (default `pedagogy/tests/fixtures/dubois_diagrams.py`) with one `DuboisDiagram` per successful entry. The file is regenerated whole on each run.
 
-## Caching semantics
+Failed entries (those with `error is not None`) are NOT written. They stay in `extracted.json` for manual review.
 
-`.cache/diagrams/` is the source of truth for re-runs:
+## Cache
 
-- `crops.json` — manifest of detected crops (idempotent, no API cost).
-- `extracted.json` — per-crop API result. **Re-running `extract` re-processes only entries that are missing or have `error is not None`.** Successful extractions are kept verbatim.
+`.cache/diagrams/` is the source of truth:
 
-In the GitHub workflow, `actions/cache@v4` persists `.cache/diagrams/` keyed by `<pdf>-<pages>-<model>`. The second run on the same inputs only re-tries the failures.
+- `pages/page_NNN.png` — rendered page images.
+- `crops/page_NNN_dXX.png` — padded crops for visual review (not used by `extract`).
+- `crops.json` — manifest with bbox + caption per detected board.
+- `extracted.json` — sampled positions, including any errors.
 
-## Failure handling and observability
+Re-running `extract` is cheap (~2 s for 324 crops) so we don't bother with incremental skips: every call re-samples every crop and overwrites `extracted.json`. Re-running `render` skips already-rendered pages unless `--force`.
 
-```
-[183/324] crops/page_054_d03.png
-    VALIDATION (attempt 1): square 14 appears in more than one piece list
-    VALIDATION (attempt 2): square 14 appears in more than one piece list
-```
+The whole cache directory is gitignored.
 
-When you see two `(attempt N)` lines for the same crop, both the normal and the strict prompts have failed. That crop ends up in `extracted.json` with `error: "..."` and `retries: 1`, and the loop moves on.
+## Limitations
 
-End-of-run summary:
-
-```
-extract: 324 cached, 4 new failure(s) this run, 4 total failure(s) (1.2%); tokens in=263412 out=43021
-```
-
-Plus the workflow's `GITHUB_STEP_SUMMARY` markdown shows totals, top-20 errors, and tokens used.
-
-## Cost estimate
-
-Measured on `jpdubois_perfectionnement_combinaisons_V4.pdf` pages 5–90 with Haiku 4.5:
-
-| Metric | Value |
-|---|---|
-| Diagrams | 324 |
-| Input tokens | ~250 K |
-| Output tokens | ~40 K |
-| **Total cost** | **~$0.45** |
-| Per diagram | ~$0.0014 |
-| Wall clock (single runner) | ~10 min |
-
-Extrapolation for the full corpus (~6 100 pages, ~18 000 diagrams):
-
-- Sequential single runner: ~9 h wall (exceeds the 6 h GH Actions job limit — must be split).
-- Matrix 20-way (1 PDF per job, 20 concurrent on free tier): ~1 h wall.
-- **Total cost**: ~$25–30 with Haiku, ~$300 with Sonnet.
-
-## Knobs to know
-
-| CLI flag | Default | When to change |
-|---|---|---|
-| `--model` | `claude-haiku-4-5` | Switch to Sonnet on noisy scans where Haiku confuses pieces. ~10× the cost. |
-| `--dpi` | 200 | Lower (150) for faster local iteration; raise (300) for blurry scans. |
-| `--max-diagrams` | 0 | Cap to e.g. 6 during integration testing. |
-| `--fail-threshold` | 0.10 | Lower to 0 for strict gating; raise to 0.20 when piloting a noisier book. |
-| `--concurrency` | 4 | Bump to 8-16 on Anthropic tier 2+; cap is 4-5 on tier 1 (200k ITPM). |
-| `--few-shot` | 0 | Number of hand-verified `(image, position)` examples to prepend to every call. Set to 3 once `pedagogy/tests/fixtures/dubois_ground_truth.py` has validated entries. |
-| `--force` | off | Re-render PNGs even when cached. |
-
-## Few-shot examples
-
-The model's accuracy can be boosted by showing it a handful of canonical
-`(image, position)` pairs before each new crop. The infrastructure for this
-lives in `pedagogy/tests/fixtures/dubois_ground_truth.py`:
-
-```python
-@dataclass(frozen=True)
-class FewShotExample:
-    name: str
-    image_filename: str            # under few_shot_images/
-    position: dict[str, Any]       # white_men, black_men, ..., turn, confidence
-
-EXAMPLES: list[FewShotExample] = [...]
-```
-
-`EXAMPLES` is empty by default — adding entries requires hand-verifying a
-position end-to-end (every square, every piece colour and type). Once the
-list has at least one entry, run with `--few-shot N` (most often 3) and
-each API call will look like:
-
-```
-[user: image_example_1] [assistant: json_example_1]
-[user: image_example_2] [assistant: json_example_2]
-...
-[user: image_to_extract]
-```
-
-Cost: each example adds ~2k input tokens per call. At Sonnet pricing, three
-examples cost roughly +$0.02 per crop, ~$7 extra on a full V4 run. Worth it
-when examples cover piece-type ambiguity (man vs king), unusual
-orientations, or dense positions the base prompt struggles with.
+- **No king detection.** All pieces are classified as men. Pixel thresholding cannot distinguish a man from a king (both are filled circles; kings have an additional inner mark). For Dubois exercise positions, kings are rare and would need manual annotation — search for entries with a "rafle" caption or specific markers in the PDF text. A second-pass king detector (looking for a contrasting inner-circle pattern) is a clean follow-up if needed.
+- **Threshold-tuned per book.** The two thresholds work for Dubois "perfectionnement combinaisons V4"; they would need re-tuning for books with different colour profiles. The simplest way to find new thresholds: render one page, dump the `analyze_board_fen` debug values for known empty / white / black squares, pick the midpoints.
+- **Caption-based turn inference is shallow.** `trait aux noirs` → black, anything else → white. If a future book uses a different caption convention, the turn field may be wrong.
+- **No engine validation.** The pipeline checks that the position is structurally valid (squares in range, no duplicates) but doesn't ensure it is legally reachable from the starting position. That's a separate concern — Scan or another engine can be plugged in downstream.
 
 ## Troubleshooting
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
 | `no diagram caption, skipped` on every page | Book uses a different caption convention | Extend `_DIAGRAM_CAPTION_RE` in `scripts/extract_diagrams.py`. |
-| `WARN expected N, detected M>N` on many pages | CV detects decorative borders or partial boards | Bump `MIN_BOARD_AREA` or `BOARD_ASPECT_RANGE`. Re-render to confirm. |
-| `Resource not accessible by integration` on PR creation | `permissions:` block in workflow | Already set to `contents: write` + `pull-requests: write`. If forking, also enable "Allow GitHub Actions to create pull requests" in repo settings. |
-| `VALIDATION` failures > 10% | Model genuinely struggles on this book's visuals | Try Sonnet, or hand-curate the failures from the workflow's artifact (`extracted.json` is uploaded for 30 days). |
-| Workflow doesn't appear in the Actions tab | The `extract-diagrams.yml` file isn't on `main` | The default branch must contain the workflow file for `workflow_dispatch` to surface it. |
+| Many positions show identical contiguous blocks like `white_men=[31..45]` | bbox includes the caption → grid is stretched | Confirmed already fixed by `_shrink_to_border`. If it recurs on a new book, check the border line is detectable (≥ 60% pixels darker than 80 along a row/column). |
+| `extract: fail ratio … exceeds threshold` | Thresholds wrong for this book, or rendering DPI mismatch | Run `extract --verbose` to see per-crop counts, eyeball a few crops to identify whether whites or blacks are being missed. Tune `--white-threshold` / `--black-threshold`. |
+| Many empty `white_men=[]` or `black_men=[]` lists | Thresholds too strict (white too high, black too low) | Lower `--white-threshold` (e.g. 215) or raise `--black-threshold` (e.g. 110). |
+| Position has more pieces than the actual diagram | Thresholds too lax (catches empty dark squares as pieces) | Raise `--white-threshold` (try 230–240) or lower `--black-threshold` (try 80). |
 
 ## File-by-file reference
 
-- `scripts/extract_diagrams.py:53` — `DEFAULT_MODEL = "claude-haiku-4-5"`.
-- `scripts/extract_diagrams.py:70` — `SYSTEM_PROMPT` (FMJD 10×10 numbering + JSON schema).
-- `scripts/extract_diagrams.py:101` — `STRICT_SYSTEM_PROMPT` (retry prompt).
-- `scripts/extract_diagrams.py:158` — `validate_position`.
-- `scripts/extract_diagrams.py:246` — `_DIAGRAM_CAPTION_RE` (caption count for rendering / skip).
-- `scripts/extract_diagrams.py:444` — `cmd_extract` (retry loop + threshold).
-- `.github/workflows/extract-diagrams.yml` — full GitOps pipeline.
-
-## Roadmap
-
-Things deliberately left out of the current iteration:
-
-- **Matrix across PDFs**: the workflow runs on one PDF at a time. To OCR the whole corpus in a single click, add a matrix strategy reading from a `corpus.yml` file. Estimated effort: 1 hour.
-- **Mypy strict on scripts**: 3 pre-existing errors (untyped scipy, `Any`-returning regex). Add `scipy-stubs` + cast helpers. Effort: 30 min.
-- **Sonnet retry on persistent failure**: when both Haiku attempts fail, escalate that single crop to Sonnet. Catches the ~1% of dense positions Haiku cannot read. Effort: 30 min.
+- `scripts/extract_diagrams.py:57` — `WHITE_PIECE_THRESHOLD = 200.0` (override via `--white-threshold` per book; V4 wants 225).
+- `scripts/extract_diagrams.py:386` — `analyze_board_fen` (the ~30-line pixel sampler).
+- `scripts/extract_diagrams.py:225` — `_shrink_to_border` (the bbox tightener that fixes the caption-inclusion bug).
+- `scripts/extract_diagrams.py:264` — `_detect_boards` (the rough scipy detector that feeds the tightener).

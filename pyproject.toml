@@ -22,7 +22,6 @@ extract = [
     "pillow>=10.0",
     "numpy>=1.26",
     "scipy>=1.11",
-    "anthropic>=0.34",
 ]
 
 [tool.setuptools.packages.find]
