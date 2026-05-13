@@ -46,7 +46,7 @@ concurrency:
 jobs:
   extract:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
 
     steps:
       - name: Checkout target branch
@@ -91,6 +91,7 @@ jobs:
           key: dubois-extract-${{ github.event.inputs.pdf }}-${{ github.event.inputs.pages }}-${{ github.event.inputs.model }}-${{ hashFiles('scripts/extract_diagrams.py') }}
           restore-keys: |
             dubois-extract-${{ github.event.inputs.pdf }}-${{ github.event.inputs.model }}-${{ hashFiles('scripts/extract_diagrams.py') }}-
+          save-always: true
 
       - name: Run extraction
         env:
