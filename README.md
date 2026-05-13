@@ -7,7 +7,8 @@ The repository ships two cooperating pieces:
 1. **`pedagogy/`** — a pure-Python library that turns a `GameState` into pedagogical *features* (material, mobility, structure, formations) and *motifs* (coup royal, coup turc, coup de talon, envoi à dame, prise max ratée, sacrifices). No engine, no API call, fully deterministic, 210 tests, `mypy --strict` clean.
 2. **`scripts/extract_diagrams.py`** — a deterministic pure-CV pipeline that turns reference book PDFs (Dubois, Springer, Roozenburg, …) into Python fixtures usable by `pedagogy/tests/`. PDF pages are rasterised with `pdftoppm`, board regions are detected with scipy, and each of the 50 dark squares of every board is classified as white/black/empty by sampling the mean pixel value of a small patch. No LLM, no API, no network — ~1 minute wall to extract 324 positions from a 90-page book, $0 cost, fully deterministic.
 
-The driving spec is `SPEC FRAMEWORK PEDAGOGIQUE.pdf` at the repo root.
+The driving spec is `SPEC FRAMEWORK PEDAGOGIQUE.pdf` at the repo root. The
+current state and what's next live in [`ROADMAP.md`](ROADMAP.md).
 
 ## Layout
 
