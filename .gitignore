@@ -12,3 +12,6 @@ venv/
 .env
 .idea/
 .vscode/
+
+# Diagram extraction workflow caches (renders + API responses).
+.cache/

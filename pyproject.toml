@@ -18,13 +18,19 @@ dev = [
     "pytest-cov>=5.0",
     "mypy>=1.10",
 ]
+extract = [
+    "pillow>=10.0",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "anthropic>=0.34",
+]
 
 [tool.setuptools.packages.find]
 include = ["pedagogy*"]
 exclude = ["pedagogy.tests*"]
 
 [tool.pytest.ini_options]
-testpaths = ["pedagogy/tests"]
+testpaths = ["pedagogy/tests", "scripts/tests"]
 python_files = ["test_*.py"]
 addopts = "-ra --strict-markers"
 
