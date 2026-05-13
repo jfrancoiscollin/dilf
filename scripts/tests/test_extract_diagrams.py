@@ -198,5 +198,19 @@ def test_count_captions_ignores_rafle_mentions_in_body_text() -> None:
 
 def test_strict_prompt_extends_base_prompt() -> None:
     assert STRICT_SYSTEM_PROMPT.startswith(SYSTEM_PROMPT)
-    assert "CRITICAL INVARIANT" in STRICT_SYSTEM_PROMPT
+    assert "RETRY" in STRICT_SYSTEM_PROMPT
     assert "at most one" in STRICT_SYSTEM_PROMPT.lower()
+
+
+def test_system_prompt_warns_against_hallucinated_kings() -> None:
+    assert "ZERO kings" in SYSTEM_PROMPT
+    assert "inner mark" in SYSTEM_PROMPT
+
+
+def test_system_prompt_warns_against_regular_patterns() -> None:
+    assert "Do NOT default to regular geometric patterns" in SYSTEM_PROMPT
+
+
+def test_system_prompt_anchors_numbering_with_examples() -> None:
+    assert "Square 1 is the top-left dark square" in SYSTEM_PROMPT
+    assert "Square 50 is the bottom-right dark square" in SYSTEM_PROMPT

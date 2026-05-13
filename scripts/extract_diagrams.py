@@ -69,17 +69,35 @@ CROP_PADDING = 8
 #: Prompt sent to Claude Vision per diagram.
 SYSTEM_PROMPT = """You analyze international draughts (FMJD, 10x10) diagrams.
 
-Board numbering convention:
-- 50 dark squares numbered 1..50, read left-to-right then top-to-bottom from black's POV.
-- Row 1 (black back rank): squares 1..5. Row 2: 6..10. ... Row 10 (white back rank): 46..50.
+Board layout (standard diagram orientation):
+- The board has 10 rows. Row 1 is at the TOP of the image, row 10 at the BOTTOM.
+- Only the 50 dark squares are playable. They are numbered 1-50.
+- Row 1 contains squares 1, 2, 3, 4, 5 (left to right).
+- Row 2 contains squares 6, 7, 8, 9, 10.
+- ... and so on. Row 10 contains squares 46, 47, 48, 49, 50.
+- Square 1 is the top-left dark square. Square 50 is the bottom-right dark square.
 
-Piece visuals in the diagrams:
-- White man: light/cream filled circle.
-- Black man: dark filled circle.
-- King (dame): same colour as a man but with an inner mark (a second smaller circle or a crown).
+Piece identification:
+- A WHITE piece appears as a light/cream/empty filled circle.
+- A BLACK piece appears as a dark/filled-in circle.
+- A KING (dame) has an additional inner mark: a second smaller circle, a crown,
+  or a doubled outline. Pieces WITHOUT this inner mark are MEN, not kings.
+
+CRITICAL RULES:
+1. Look at the image carefully. Identify EACH visible piece individually.
+2. Do NOT invent pieces. If you see N pieces, list exactly N squares total
+   across the four lists. Typical diagrams have 15-30 pieces.
+3. Do NOT default to regular geometric patterns (a full column, a full row,
+   a long diagonal). Real positions are usually scattered.
+4. A piece is a KING only if you can clearly see the inner mark. If in doubt,
+   it is a MAN. Many diagrams have ZERO kings.
+5. Each square 1-50 appears in AT MOST ONE of the four lists.
+6. If the image is blurry, cropped, or you cannot read the position reliably,
+   return {"error": "<short reason>"} instead of guessing.
 
 The caption below the diagram says "trait aux blancs" (white to move) or
-"trait aux noirs" (black to move).
+"trait aux noirs" (black to move). Set "turn" accordingly. Continuation
+diagrams labelled "Ne rafle" inherit the turn from the parent position.
 
 Return ONLY a JSON object, no prose, with this exact schema:
 {
@@ -89,23 +107,15 @@ Return ONLY a JSON object, no prose, with this exact schema:
   "black_kings": [int, ...],
   "turn": "white" or "black",
   "confidence": 0.0-1.0
-}
-
-Every square must be in [1, 50] and may appear in at most one piece list.
-
-If the image is not a draughts diagram or cannot be read, return:
-{"error": "<short reason>"}"""
+}"""
 
 
 #: Stricter prompt used on a second attempt after a validation failure.
 STRICT_SYSTEM_PROMPT = SYSTEM_PROMPT + """
 
-CRITICAL INVARIANT: every square number 1-50 may appear in AT MOST ONE of
-white_men, white_kings, black_men, black_kings. Never in two lists.
-
-Before responding, mentally walk through your four lists and verify no
-number appears twice. If you spot a duplicate, re-decide for that piece
-(white vs black, man vs king) and place it in exactly one list."""
+RETRY NOTE: the first attempt produced invalid output. Verify mentally
+(do NOT write your reasoning, do NOT emit prose) that every square 1-50
+appears in at most one of the four lists, then output ONLY the JSON object."""
 
 
 # ---------------------------------------------------------------------------
@@ -409,7 +419,7 @@ def _save_extracted(path: Path, table: dict[str, ExtractedDiagram]) -> None:
 
 
 def _call_claude_vision(
-    png_bytes: bytes, *, model: str, max_tokens: int = 400, strict: bool = False
+    png_bytes: bytes, *, model: str, max_tokens: int = 600, strict: bool = False
 ) -> tuple[str, int, int]:
     import anthropic
 
