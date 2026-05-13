@@ -20,6 +20,7 @@ from pedagogy.motifs.coup_royal import (
 from pedagogy.types import MotifMatch
 
 from .fixtures import coup_royal as fx
+from .fixtures.dubois_coup_royal import ALL_DUBOIS_COUP_ROYAL, DuboisCoupRoyalCase
 
 
 @pytest.fixture
@@ -235,3 +236,40 @@ def test_detect_missed_pv_uses_best_move_notation(detector: CoupRoyalDetector) -
     )
     assert match is not None
     assert match.pv == ["12x17x23x28x33x39x49"]
+
+
+# ---------------------------------------------------------------------------
+# Real Dubois references (jpdubois_perfectionnement_combinaisons_V4.pdf)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "case",
+    ALL_DUBOIS_COUP_ROYAL,
+    ids=lambda c: c.diagram + ":" + c.game_attribution[:30],
+)
+def test_dubois_case_is_detected_as_coup_royal(
+    detector: CoupRoyalDetector, case: DuboisCoupRoyalCase
+) -> None:
+    match = detector.detect(empty_state(), case.final_move, empty_state())
+    assert match is not None, f"Detector missed {case.name}"
+    assert match.motif == "coup_royal"
+    assert match.role == "played"
+    assert match.metadata["captures_count"] >= case.expected_captures_min
+
+
+@pytest.mark.parametrize("case", ALL_DUBOIS_COUP_ROYAL, ids=lambda c: c.diagram)
+def test_dubois_case_book_reference_is_well_formed(case: DuboisCoupRoyalCase) -> None:
+    ref = case.book_reference
+    # Citation must contain the source PDF, chapter, diagram and page.
+    assert case.book in ref
+    assert f"ch. {case.chapter}" in ref
+    assert case.diagram in ref
+    assert f"p. {case.page}" in ref
+
+
+def test_at_least_four_real_dubois_cases_loaded() -> None:
+    # Sanity check: we explicitly catalogued D4, D11 and the two D12 traps.
+    diagrams = {c.diagram for c in ALL_DUBOIS_COUP_ROYAL}
+    assert {"D4", "D11", "D12"} <= diagrams
+    assert len(ALL_DUBOIS_COUP_ROYAL) >= 4
