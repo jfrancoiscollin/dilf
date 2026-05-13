@@ -97,6 +97,17 @@ If the image is not a draughts diagram or cannot be read, return:
 {"error": "<short reason>"}"""
 
 
+#: Stricter prompt used on a second attempt after a validation failure.
+STRICT_SYSTEM_PROMPT = SYSTEM_PROMPT + """
+
+CRITICAL INVARIANT: every square number 1-50 may appear in AT MOST ONE of
+white_men, white_kings, black_men, black_kings. Never in two lists.
+
+Before responding, mentally walk through your four lists and verify no
+number appears twice. If you spot a duplicate, re-decide for that piece
+(white vs black, man vs king) and place it in exactly one list."""
+
+
 # ---------------------------------------------------------------------------
 # Data model
 # ---------------------------------------------------------------------------
@@ -133,6 +144,7 @@ class ExtractedDiagram:
     latency_ms: int = 0
     input_tokens: int = 0
     output_tokens: int = 0
+    retries: int = 0
     error: Optional[str] = None
 
 
@@ -231,12 +243,23 @@ def _captions_in_order(pdf_path: Path, page: int) -> list[str]:
     return captions
 
 
+_DIAGRAM_CAPTION_RE = re.compile(
+    r"trait aux|\b\d+\s*(?:ère|ere|er|e|ième|ème)\s*rafle\b",
+    flags=re.IGNORECASE,
+)
+
+
+def _count_diagram_captions(text: str) -> int:
+    """Count diagram-marking captions: 'trait aux ...' or '<n>e rafle'."""
+    return len(_DIAGRAM_CAPTION_RE.findall(text))
+
+
 def _trait_aux_count(pdf_path: Path, page: int) -> int:
     out = subprocess.check_output(
         ["pdftotext", "-layout", "-f", str(page), "-l", str(page), str(pdf_path), "-"],
         text=True,
     )
-    return len(re.findall(r"trait aux", out, flags=re.IGNORECASE))
+    return _count_diagram_captions(out)
 
 
 def _render_page_png(pdf_path: Path, page: int, dpi: int, dest: Path) -> Path:
@@ -321,7 +344,7 @@ def cmd_render(args: argparse.Namespace) -> int:
         n_diag = _trait_aux_count(pdf_path, page)
         if n_diag == 0:
             if args.verbose:
-                print(f"page {page}: no 'trait aux' caption, skipped")
+                print(f"page {page}: no diagram caption, skipped")
             continue
         page_png = pages_dir / f"page_{page:03d}.png"
         if not page_png.exists() or args.force:
@@ -386,7 +409,7 @@ def _save_extracted(path: Path, table: dict[str, ExtractedDiagram]) -> None:
 
 
 def _call_claude_vision(
-    png_bytes: bytes, *, model: str, max_tokens: int = 400
+    png_bytes: bytes, *, model: str, max_tokens: int = 400, strict: bool = False
 ) -> tuple[str, int, int]:
     import anthropic
 
@@ -395,7 +418,7 @@ def _call_claude_vision(
     response = client.messages.create(
         model=model,
         max_tokens=max_tokens,
-        system=SYSTEM_PROMPT,
+        system=STRICT_SYSTEM_PROMPT if strict else SYSTEM_PROMPT,
         messages=[
             {
                 "role": "user",
@@ -443,16 +466,41 @@ def cmd_extract(args: argparse.Namespace) -> int:
     for i, meta in enumerate(pending, start=1):
         png_path = cache / meta.png_path
         print(f"[{i}/{len(pending)}] {meta.png_path}", flush=True)
-        try:
-            t0 = time.time()
-            text, in_tokens, out_tokens = _call_claude_vision(
-                png_path.read_bytes(), model=args.model
-            )
-            latency = int((time.time() - t0) * 1000)
-            payload = parse_api_response(text)
-            ok, msg = validate_position(payload)
-        except Exception as exc:  # noqa: BLE001
-            print(f"    FAILED: {exc}", file=sys.stderr)
+        png_bytes = png_path.read_bytes()
+
+        payload: Optional[dict[str, Any]] = None
+        last_error: Optional[str] = None
+        in_tokens = 0
+        out_tokens = 0
+        latency = 0
+        attempts = 0
+        while attempts < 2:
+            attempts += 1
+            strict = attempts > 1
+            try:
+                t0 = time.time()
+                text, t_in, t_out = _call_claude_vision(
+                    png_bytes, model=args.model, strict=strict
+                )
+                in_tokens += t_in
+                out_tokens += t_out
+                latency = int((time.time() - t0) * 1000)
+                candidate = parse_api_response(text)
+                ok, msg = validate_position(candidate)
+            except Exception as exc:  # noqa: BLE001
+                last_error = str(exc)
+                payload = None
+                print(f"    FAILED (attempt {attempts}): {exc}", file=sys.stderr)
+                continue
+            if ok:
+                payload = candidate
+                last_error = None
+                break
+            payload = None
+            last_error = msg
+            print(f"    VALIDATION (attempt {attempts}): {msg}", file=sys.stderr)
+
+        if last_error is not None:
             failures += 1
             table[meta.png_path] = ExtractedDiagram(
                 crop_id=meta.png_path,
@@ -461,18 +509,16 @@ def cmd_extract(args: argparse.Namespace) -> int:
                 region_index=meta.region_index,
                 caption_text=meta.caption_text,
                 model=args.model,
-                error=str(exc),
+                latency_ms=latency,
+                input_tokens=in_tokens,
+                output_tokens=out_tokens,
+                retries=attempts - 1,
+                error=last_error,
             )
             _save_extracted(out_path, table)
             continue
 
-        if not ok:
-            print(f"    VALIDATION: {msg}", file=sys.stderr)
-            failures += 1
-            err = msg
-        else:
-            err = None
-
+        assert payload is not None
         table[meta.png_path] = ExtractedDiagram(
             crop_id=meta.png_path,
             pdf_path=meta.pdf_path,
@@ -489,17 +535,29 @@ def cmd_extract(args: argparse.Namespace) -> int:
             latency_ms=latency,
             input_tokens=in_tokens,
             output_tokens=out_tokens,
-            error=err,
+            retries=attempts - 1,
+            error=None,
         )
         _save_extracted(out_path, table)
 
     total_in = sum(e.input_tokens for e in table.values())
     total_out = sum(e.output_tokens for e in table.values())
+    total_failures = sum(1 for e in table.values() if e.error is not None)
+    total = len(table) or 1
+    fail_ratio = total_failures / total
     print(
-        f"\nextract: {len(table)} cached, {failures} failure(s); "
+        f"\nextract: {len(table)} cached, {failures} new failure(s) this run, "
+        f"{total_failures} total failure(s) ({fail_ratio:.1%}); "
         f"tokens in={total_in} out={total_out}"
     )
-    return 1 if failures else 0
+    if fail_ratio > args.fail_threshold:
+        print(
+            f"extract: fail ratio {fail_ratio:.1%} exceeds threshold "
+            f"{args.fail_threshold:.1%}",
+            file=sys.stderr,
+        )
+        return 1
+    return 0
 
 
 # ---------------------------------------------------------------------------
@@ -622,6 +680,10 @@ def _build_parser() -> argparse.ArgumentParser:
         help="cap how many pending diagrams to send (0 = no cap)",
     )
     p_extract.add_argument("--dry-run", action="store_true")
+    p_extract.add_argument(
+        "--fail-threshold", type=float, default=0.10,
+        help="exit non-zero only when fail ratio exceeds this fraction (default 0.10)",
+    )
     p_extract.set_defaults(func=cmd_extract)
 
     p_materialize = sub.add_parser(
@@ -640,6 +702,7 @@ def _build_parser() -> argparse.ArgumentParser:
     p_all.add_argument("--model", default=DEFAULT_MODEL)
     p_all.add_argument("--output", default=str(DEFAULT_OUTPUT))
     p_all.add_argument("--max-diagrams", type=int, default=0)
+    p_all.add_argument("--fail-threshold", type=float, default=0.10)
     p_all.add_argument("--force", action="store_true")
     p_all.add_argument("--verbose", action="store_true")
     p_all.set_defaults(func=lambda a: _cmd_all(a))

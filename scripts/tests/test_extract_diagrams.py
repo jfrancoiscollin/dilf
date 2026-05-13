@@ -11,6 +11,9 @@ import pytest
 
 from scripts.extract_diagrams import (
     _CAPTION_RE,
+    STRICT_SYSTEM_PROMPT,
+    SYSTEM_PROMPT,
+    _count_diagram_captions,
     _parse_pages,
     parse_api_response,
     validate_position,
@@ -158,3 +161,42 @@ def test_parse_pages_handles_range_and_list() -> None:
 def test_parse_pages_clamps_to_page_count() -> None:
     assert _parse_pages("5-15", 7) == [5, 6, 7]
     assert _parse_pages("0,1,3", 5) == [1, 3]
+
+
+# ---------------------------------------------------------------------------
+# _count_diagram_captions
+# ---------------------------------------------------------------------------
+
+
+def test_count_captions_matches_trait_aux() -> None:
+    text = "D1 : trait aux blancs\nD2 : trait aux noirs"
+    assert _count_diagram_captions(text) == 2
+
+
+def test_count_captions_matches_rafle_continuations() -> None:
+    text = "D5 : trait aux blancs\n1ère rafle\n2e rafle\n3e rafle"
+    assert _count_diagram_captions(text) == 4
+
+
+def test_count_captions_is_case_insensitive() -> None:
+    assert _count_diagram_captions("TRAIT AUX BLANCS\n2E RAFLE") == 2
+
+
+def test_count_captions_returns_zero_on_text_only_page() -> None:
+    assert _count_diagram_captions("Une page de pure prose, sans diagramme.") == 0
+
+
+def test_count_captions_ignores_rafle_mentions_in_body_text() -> None:
+    text = "Cette rafle gagne facilement, comme on le voit en deux rafles."
+    assert _count_diagram_captions(text) == 0
+
+
+# ---------------------------------------------------------------------------
+# STRICT_SYSTEM_PROMPT
+# ---------------------------------------------------------------------------
+
+
+def test_strict_prompt_extends_base_prompt() -> None:
+    assert STRICT_SYSTEM_PROMPT.startswith(SYSTEM_PROMPT)
+    assert "CRITICAL INVARIANT" in STRICT_SYSTEM_PROMPT
+    assert "at most one" in STRICT_SYSTEM_PROMPT.lower()
