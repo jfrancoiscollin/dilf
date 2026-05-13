@@ -13,6 +13,14 @@ No I/O lives here; every function is pure given its inputs.
 from __future__ import annotations
 
 from .book_rag import BookExcerpt, BookRAG
+from .claude_writer import (
+    KNOWN_MOTIFS_FR,
+    SYSTEM_PROMPT,
+    build_user_prompt,
+    detect_invented_motifs,
+    write_commentary,
+)
+from .pipeline import explain_verdict, render_from_templates
 from .templates_fr import (
     TEMPLATES_FR,
     VERDICT_FALLBACKS_FR,
@@ -23,8 +31,15 @@ from .templates_fr import (
 __all__ = [
     "BookExcerpt",
     "BookRAG",
+    "KNOWN_MOTIFS_FR",
+    "SYSTEM_PROMPT",
     "TEMPLATES_FR",
     "VERDICT_FALLBACKS_FR",
+    "build_user_prompt",
+    "detect_invented_motifs",
+    "explain_verdict",
+    "render_from_templates",
     "render_template",
     "render_verdict_fallback",
+    "write_commentary",
 ]
