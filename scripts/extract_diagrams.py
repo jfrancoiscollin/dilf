@@ -35,6 +35,7 @@ optional dependencies (Pillow, NumPy, scipy, anthropic). Install with::
 from __future__ import annotations
 
 import argparse
+import asyncio
 import base64
 import json
 import re
@@ -418,14 +419,16 @@ def _save_extracted(path: Path, table: dict[str, ExtractedDiagram]) -> None:
     )
 
 
-def _call_claude_vision(
-    png_bytes: bytes, *, model: str, max_tokens: int = 600, strict: bool = False
+async def _call_claude_vision_async(
+    client: Any,
+    png_bytes: bytes,
+    *,
+    model: str,
+    max_tokens: int = 600,
+    strict: bool = False,
 ) -> tuple[str, int, int]:
-    import anthropic
-
-    client = anthropic.Anthropic()
     image_b64 = base64.b64encode(png_bytes).decode("ascii")
-    response = client.messages.create(
+    response = await client.messages.create(
         model=model,
         max_tokens=max_tokens,
         system=STRICT_SYSTEM_PROMPT if strict else SYSTEM_PROMPT,
@@ -451,7 +454,86 @@ def _call_claude_vision(
     return text, response.usage.input_tokens, response.usage.output_tokens
 
 
-def cmd_extract(args: argparse.Namespace) -> int:
+async def _extract_one(
+    client: Any, cache: Path, meta: CropMetadata, model: str
+) -> ExtractedDiagram:
+    """Run the 2-attempt extraction for a single crop. Returns the record."""
+    png_bytes = (cache / meta.png_path).read_bytes()
+    payload: Optional[dict[str, Any]] = None
+    last_error: Optional[str] = None
+    in_tokens = 0
+    out_tokens = 0
+    latency = 0
+    attempts = 0
+    while attempts < 2:
+        attempts += 1
+        strict = attempts > 1
+        try:
+            t0 = time.time()
+            text, t_in, t_out = await _call_claude_vision_async(
+                client, png_bytes, model=model, strict=strict
+            )
+            in_tokens += t_in
+            out_tokens += t_out
+            latency = int((time.time() - t0) * 1000)
+            candidate = parse_api_response(text)
+            ok, msg = validate_position(candidate)
+        except Exception as exc:  # noqa: BLE001
+            last_error = str(exc)
+            payload = None
+            print(
+                f"    FAILED (attempt {attempts}): {meta.png_path}: {exc}",
+                file=sys.stderr,
+            )
+            continue
+        if ok:
+            payload = candidate
+            last_error = None
+            break
+        payload = None
+        last_error = msg
+        print(
+            f"    VALIDATION (attempt {attempts}): {meta.png_path}: {msg}",
+            file=sys.stderr,
+        )
+
+    if last_error is not None:
+        return ExtractedDiagram(
+            crop_id=meta.png_path,
+            pdf_path=meta.pdf_path,
+            page=meta.page,
+            region_index=meta.region_index,
+            caption_text=meta.caption_text,
+            model=model,
+            latency_ms=latency,
+            input_tokens=in_tokens,
+            output_tokens=out_tokens,
+            retries=attempts - 1,
+            error=last_error,
+        )
+    assert payload is not None
+    return ExtractedDiagram(
+        crop_id=meta.png_path,
+        pdf_path=meta.pdf_path,
+        page=meta.page,
+        region_index=meta.region_index,
+        caption_text=meta.caption_text,
+        white_men=payload.get("white_men", []),
+        white_kings=payload.get("white_kings", []),
+        black_men=payload.get("black_men", []),
+        black_kings=payload.get("black_kings", []),
+        turn=payload.get("turn", "white"),
+        confidence=float(payload.get("confidence", 0.0)),
+        model=model,
+        latency_ms=latency,
+        input_tokens=in_tokens,
+        output_tokens=out_tokens,
+        retries=attempts - 1,
+        error=None,
+    )
+
+
+async def _cmd_extract_async(args: argparse.Namespace) -> int:
     cache = Path(args.cache).resolve()
     manifest = _load_manifest(cache)
     out_path = cache / "extracted.json"
@@ -472,81 +554,31 @@ def cmd_extract(args: argparse.Namespace) -> int:
             print(f"  ... and {len(pending) - 5} more")
         return 0
 
+    import anthropic
+
+    client = anthropic.AsyncAnthropic()
+    semaphore = asyncio.Semaphore(args.concurrency)
+
+    async def bounded(meta: CropMetadata) -> ExtractedDiagram:
+        async with semaphore:
+            return await _extract_one(client, cache, meta, args.model)
+
+    tasks = [asyncio.create_task(bounded(m)) for m in pending]
     failures = 0
-    for i, meta in enumerate(pending, start=1):
-        png_path = cache / meta.png_path
-        print(f"[{i}/{len(pending)}] {meta.png_path}", flush=True)
-        png_bytes = png_path.read_bytes()
-
-        payload: Optional[dict[str, Any]] = None
-        last_error: Optional[str] = None
-        in_tokens = 0
-        out_tokens = 0
-        latency = 0
-        attempts = 0
-        while attempts < 2:
-            attempts += 1
-            strict = attempts > 1
-            try:
-                t0 = time.time()
-                text, t_in, t_out = _call_claude_vision(
-                    png_bytes, model=args.model, strict=strict
-                )
-                in_tokens += t_in
-                out_tokens += t_out
-                latency = int((time.time() - t0) * 1000)
-                candidate = parse_api_response(text)
-                ok, msg = validate_position(candidate)
-            except Exception as exc:  # noqa: BLE001
-                last_error = str(exc)
-                payload = None
-                print(f"    FAILED (attempt {attempts}): {exc}", file=sys.stderr)
-                continue
-            if ok:
-                payload = candidate
-                last_error = None
-                break
-            payload = None
-            last_error = msg
-            print(f"    VALIDATION (attempt {attempts}): {msg}", file=sys.stderr)
-
-        if last_error is not None:
+    print(
+        f"extract: dispatching {len(pending)} crop(s) with concurrency={args.concurrency}",
+        flush=True,
+    )
+    for i, fut in enumerate(asyncio.as_completed(tasks), start=1):
+        result = await fut
+        table[result.crop_id] = result
+        if result.error is not None:
             failures += 1
-            table[meta.png_path] = ExtractedDiagram(
-                crop_id=meta.png_path,
-                pdf_path=meta.pdf_path,
-                page=meta.page,
-                region_index=meta.region_index,
-                caption_text=meta.caption_text,
-                model=args.model,
-                latency_ms=latency,
-                input_tokens=in_tokens,
-                output_tokens=out_tokens,
-                retries=attempts - 1,
-                error=last_error,
-            )
-            _save_extracted(out_path, table)
-            continue
-
-        assert payload is not None
-        table[meta.png_path] = ExtractedDiagram(
-            crop_id=meta.png_path,
-            pdf_path=meta.pdf_path,
-            page=meta.page,
-            region_index=meta.region_index,
-            caption_text=meta.caption_text,
-            white_men=payload.get("white_men", []),
-            white_kings=payload.get("white_kings", []),
-            black_men=payload.get("black_men", []),
-            black_kings=payload.get("black_kings", []),
-            turn=payload.get("turn", "white"),
-            confidence=float(payload.get("confidence", 0.0)),
-            model=args.model,
-            latency_ms=latency,
-            input_tokens=in_tokens,
-            output_tokens=out_tokens,
-            retries=attempts - 1,
-            error=None,
+        status = "FAIL" if result.error else "OK"
+        print(
+            f"[{i:>3}/{len(pending)}] {result.crop_id} {status} "
+            f"(attempts={result.retries + 1})",
+            flush=True,
         )
         _save_extracted(out_path, table)
 
@@ -568,6 +600,10 @@ def cmd_extract(args: argparse.Namespace) -> int:
         )
         return 1
     return 0
+
+
+def cmd_extract(args: argparse.Namespace) -> int:
+    return asyncio.run(_cmd_extract_async(args))
 
 
 # ---------------------------------------------------------------------------
@@ -694,6 +730,10 @@ def _build_parser() -> argparse.ArgumentParser:
         "--fail-threshold", type=float, default=0.10,
         help="exit non-zero only when fail ratio exceeds this fraction (default 0.10)",
     )
+    p_extract.add_argument(
+        "--concurrency", type=int, default=4,
+        help="max parallel API calls (default 4; tier 1 ITPM caps Sonnet around 5)",
+    )
     p_extract.set_defaults(func=cmd_extract)
 
     p_materialize = sub.add_parser(
@@ -713,6 +753,7 @@ def _build_parser() -> argparse.ArgumentParser:
     p_all.add_argument("--output", default=str(DEFAULT_OUTPUT))
     p_all.add_argument("--max-diagrams", type=int, default=0)
     p_all.add_argument("--fail-threshold", type=float, default=0.10)
+    p_all.add_argument("--concurrency", type=int, default=4)
     p_all.add_argument("--force", action="store_true")
     p_all.add_argument("--verbose", action="store_true")
     p_all.set_defaults(func=lambda a: _cmd_all(a))
