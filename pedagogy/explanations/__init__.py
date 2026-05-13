@@ -14,13 +14,17 @@ from __future__ import annotations
 
 from .book_rag import BookExcerpt, BookRAG
 from .claude_writer import (
+    KNOWN_MOTIFS_EN,
     KNOWN_MOTIFS_FR,
     SYSTEM_PROMPT,
+    SYSTEM_PROMPT_EN,
+    SYSTEM_PROMPT_FR,
     build_user_prompt,
     detect_invented_motifs,
     write_commentary,
 )
 from .pipeline import explain_verdict, render_from_templates
+from .templates_en import TEMPLATES_EN, VERDICT_FALLBACKS_EN
 from .templates_fr import (
     TEMPLATES_FR,
     VERDICT_FALLBACKS_FR,
@@ -31,9 +35,14 @@ from .templates_fr import (
 __all__ = [
     "BookExcerpt",
     "BookRAG",
+    "KNOWN_MOTIFS_EN",
     "KNOWN_MOTIFS_FR",
     "SYSTEM_PROMPT",
+    "SYSTEM_PROMPT_EN",
+    "SYSTEM_PROMPT_FR",
+    "TEMPLATES_EN",
     "TEMPLATES_FR",
+    "VERDICT_FALLBACKS_EN",
     "VERDICT_FALLBACKS_FR",
     "build_user_prompt",
     "detect_invented_motifs",

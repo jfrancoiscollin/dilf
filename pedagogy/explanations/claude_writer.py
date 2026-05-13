@@ -1,12 +1,17 @@
 """Claude commentary writer with anti-hallucination guard (spec §7 / PR 10).
 
 The function :func:`write_commentary` calls Claude to produce one to three
-sentences of French commentary on a :class:`MoveVerdict`. The model is given
-a **closed list** of motifs (the ones our deterministic detectors flagged)
+sentences of commentary on a :class:`MoveVerdict`. The model is given a
+**closed list** of motifs (the ones our deterministic detectors flagged)
 and the system prompt explicitly forbids it from mentioning any other
 tactical motif. We verify this post-hoc by scanning the response for
-known French motif names and falling back to the template renderer when a
-violation is detected (spec §14.7 — zero-tolerance hallucination policy).
+known motif names (in the requested language) and falling back to the
+template renderer when a violation is detected (spec §14.7 —
+zero-tolerance hallucination policy).
+
+Two languages are supported: ``"fr"`` (default, French) and ``"en"``
+(English). PR 12 added the English path; existing callers that don't
+pass ``lang`` keep the French behaviour.
 
 The Anthropic SDK is imported lazily so that importing this module on a
 process that never calls Claude doesn't pay the dependency cost.
@@ -19,10 +24,8 @@ from typing import Any, Iterable, Optional, Sequence
 from ..types import Features, MotifMatch, MoveVerdict
 from .book_rag import BookExcerpt, BookRAG
 
-#: System prompt sent to Claude. The constraints block mirrors spec §7
-#: line-for-line and is the contract that ``detect_invented_motifs``
-#: enforces post-hoc.
-SYSTEM_PROMPT = """Tu es un commentateur pédagogique pour le jeu de dames international.
+#: French system prompt. Mirrors spec §7 verbatim.
+SYSTEM_PROMPT_FR = """Tu es un commentateur pédagogique pour le jeu de dames international.
 
 Tu reçois pour un coup donné :
 1. La notation du coup joué (ex: "32-28")
@@ -44,19 +47,41 @@ généraux (centre, mobilité) sans nommer de motif tactique.
 
 Tu réponds UNIQUEMENT par le commentaire, sans préambule ni signature."""
 
-#: Default Claude model used when the caller doesn't override it. The
-#: spec calls for ``claude-opus-4-7``; older or newer aliases are
-#: handled by the caller passing ``model=...``.
+#: English system prompt — same contract translated.
+SYSTEM_PROMPT_EN = """You are a pedagogical commentator for international draughts.
+
+For one half-move you receive:
+1. The notation of the played move (e.g. "32-28")
+2. The verdict ("blunder", "mistake", "brilliant", etc.)
+3. A CLOSED LIST of motifs detected by a deterministic system
+4. Positional features (centre, formations, etc.)
+5. Optionally, excerpts from pedagogical books
+
+Write a 1-to-3-sentence English commentary in a supportive tone.
+
+STRICT CONSTRAINTS:
+- Do NOT mention ANY tactical motif that is not in the provided list.
+- Do NOT invent variations (sequences of moves). If you cite a variation, \
+you may only repeat the supplied PV verbatim.
+- Do NOT evaluate the position with a score different from the one provided by Scan.
+- Do NOT predict what the opponent will play next.
+- If the motif list is empty, comment on the verdict in general terms \
+(centre, mobility) without naming a tactical motif.
+
+Respond ONLY with the commentary, with no preamble and no signature."""
+
+#: Backward-compatible alias. Old callers and tests can still import
+#: ``SYSTEM_PROMPT`` without breaking.
+SYSTEM_PROMPT = SYSTEM_PROMPT_FR
+
+#: Default Claude model used when the caller doesn't override it.
 DEFAULT_MODEL = "claude-opus-4-7"
 
-#: Maximum tokens of output we ask Claude to produce. 300 is comfortable
-#: for the 1-3 sentences the prompt requests.
+#: Maximum tokens of output we ask Claude to produce.
 DEFAULT_MAX_TOKENS = 300
 
 #: French motif names the verifier looks for. Each maps to the canonical
-#: snake-case form stored in :attr:`MotifMatch.motif`. Mentioning any of
-#: these in the response is allowed only when the matching canonical key
-#: is present in ``verdict.motifs``.
+#: snake-case form stored in :attr:`MotifMatch.motif`.
 KNOWN_MOTIFS_FR: dict[str, str] = {
     "coup royal": "coup_royal",
     "coup turc": "coup_turc",
@@ -64,7 +89,7 @@ KNOWN_MOTIFS_FR: dict[str, str] = {
     "envoi à dame": "envoi_a_dame",
     "coup philippe": "coup_philippe",
     "coup raphaël": "coup_raphael",
-    "coup de l'express": "coup_de_l_express",
+    "coup de l'express": "coup_express",
     "coup bonnard": "coup_bonnard",
     "sacrifice": "sacrifice",
     "enchaînement": "enchainement",
@@ -72,6 +97,32 @@ KNOWN_MOTIFS_FR: dict[str, str] = {
     "opposition": "opposition",
     "prise maximale": "prise_max_ratee",
 }
+
+#: English motif names (lowercase, hardcoded variants the prompt may produce).
+KNOWN_MOTIFS_EN: dict[str, str] = {
+    "royal coup": "coup_royal",
+    "turkish stroke": "coup_turc",
+    "heel stroke": "coup_de_talon",
+    "promotion sacrifice": "envoi_a_dame",
+    "philippe stroke": "coup_philippe",
+    "raphaël stroke": "coup_raphael",
+    "raphael stroke": "coup_raphael",
+    "express stroke": "coup_express",
+    "bonnard stroke": "coup_bonnard",
+    "sacrifice": "sacrifice",
+    "pin": "enchainement",
+    "breakthrough": "percee",
+    "opposition": "opposition",
+    "maximum capture": "prise_max_ratee",
+}
+
+
+def _system_prompt_for(lang: str) -> str:
+    return SYSTEM_PROMPT_EN if lang == "en" else SYSTEM_PROMPT_FR
+
+
+def _known_motifs_for(lang: str) -> dict[str, str]:
+    return KNOWN_MOTIFS_EN if lang == "en" else KNOWN_MOTIFS_FR
 
 
 def _format_motif(m: MotifMatch) -> str:
@@ -119,19 +170,25 @@ def build_user_prompt(
     )
 
 
-def detect_invented_motifs(text: str, verdict: MoveVerdict) -> list[str]:
-    """Return the French motif names mentioned in ``text`` but absent from the verdict.
+def detect_invented_motifs(
+    text: str, verdict: MoveVerdict, *, lang: str = "fr"
+) -> list[str]:
+    """Return motif names mentioned in ``text`` but absent from the verdict.
 
     Returns an empty list when the response is clean. Caller is expected
     to fall back to the template renderer when this list is non-empty
     (spec §14.7).
+
+    ``lang`` controls which name registry is consulted (``"fr"`` or
+    ``"en"``). Anything else falls back to French.
     """
     detected = {m.motif for m in verdict.motifs}
     lower = text.lower()
+    registry = _known_motifs_for(lang)
     invented: list[str] = []
-    for fr_name, canonical in KNOWN_MOTIFS_FR.items():
-        if fr_name in lower and canonical not in detected:
-            invented.append(fr_name)
+    for name, canonical in registry.items():
+        if name in lower and canonical not in detected:
+            invented.append(name)
     return invented
 
 
@@ -157,6 +214,7 @@ async def _call_claude(
     model: str,
     max_tokens: int,
     client: Any,
+    lang: str = "fr",
 ) -> str:
     if client is None:
         import anthropic
@@ -166,7 +224,7 @@ async def _call_claude(
     response = await client.messages.create(
         model=model,
         max_tokens=max_tokens,
-        system=SYSTEM_PROMPT,
+        system=_system_prompt_for(lang),
         messages=[{"role": "user", "content": user_prompt}],
     )
     blocks = getattr(response, "content", None) or []
@@ -185,6 +243,7 @@ async def write_commentary(
     max_tokens: int = DEFAULT_MAX_TOKENS,
     client: Any = None,
     fallback: Any = None,
+    lang: str = "fr",
 ) -> str:
     """Generate Claude commentary with an anti-hallucination fallback.
 
@@ -197,10 +256,14 @@ async def write_commentary(
     :class:`MoveVerdict` and return ``str``. The caller is expected to
     pass the pipeline's template renderer here; we accept it as a
     parameter to keep this module decoupled from the pipeline.
+
+    ``lang`` picks the system prompt (``"fr"`` or ``"en"``) and the
+    motif-name dictionary used by the verifier. Unknown values fall
+    back to French.
     """
     excerpts = _gather_book_excerpts(verdict, book_rag)
-    text = await _call_claude(verdict, excerpts, model, max_tokens, client)
-    if not text or detect_invented_motifs(text, verdict):
+    text = await _call_claude(verdict, excerpts, model, max_tokens, client, lang)
+    if not text or detect_invented_motifs(text, verdict, lang=lang):
         if fallback is None:
             return ""
         result = fallback(verdict)
