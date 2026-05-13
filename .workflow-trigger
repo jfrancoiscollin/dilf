@@ -13,4 +13,9 @@ into the workflow's `env:` block:
 To trigger with custom inputs, use the manual `workflow_dispatch` flow instead
 (Actions tab in the GitHub UI).
 
-Last touch: initial commit, 2026-05-13.
+---
+
+Trigger log:
+
+- 2026-05-13 initial commit
+- 2026-05-13 take 1: first Sonnet run after PR #13 (response parser fix) + PR #14 (push trigger autonomy)
