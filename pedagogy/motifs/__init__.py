@@ -17,7 +17,11 @@ from ..types import MotifMatch
 from .base import MotifDetector
 from .coup_bonnard import CoupBonnardDetector
 from .coup_de_talon import CoupDeTalonDetector
+from .coup_du_bruleur import CoupDuBruleurDetector
+from .coup_enfilade import CoupEnfiladeDetector
 from .coup_express import CoupExpressDetector
+from .coup_manoury import CoupManouryDetector
+from .coup_napoleon import CoupNapoleonDetector
 from .coup_philippe import CoupPhilippeDetector
 from .coup_raphael import CoupRaphaelDetector
 from .coup_royal import CoupRoyalDetector
@@ -29,7 +33,10 @@ from .sacrifices import SacrificeDetector
 #: Detectors invoked by :func:`detect_all`, in deterministic order. P1
 #: motifs come first; P2 motifs (coup_philippe, coup_raphael, coup_express,
 #: coup_bonnard) run after so the older, more confidently-detected motifs
-#: dominate the matches list when both apply.
+#: dominate the matches list when both apply. The P3 batch (coup_napoleon,
+#: coup_manoury, coup_enfilade, coup_du_bruleur) runs last and is allowed
+#: to overlap with broader P1/P2 motifs by design — they each carry their
+#: own pedagogical signal.
 ALL_DETECTORS: list[type[MotifDetector]] = [
     CoupRoyalDetector,
     CoupTurcDetector,
@@ -41,6 +48,10 @@ ALL_DETECTORS: list[type[MotifDetector]] = [
     CoupRaphaelDetector,
     CoupExpressDetector,
     CoupBonnardDetector,
+    CoupNapoleonDetector,
+    CoupManouryDetector,
+    CoupEnfiladeDetector,
+    CoupDuBruleurDetector,
 ]
 
 
@@ -100,7 +111,11 @@ __all__ = [
     "ALL_DETECTORS",
     "CoupBonnardDetector",
     "CoupDeTalonDetector",
+    "CoupDuBruleurDetector",
+    "CoupEnfiladeDetector",
     "CoupExpressDetector",
+    "CoupManouryDetector",
+    "CoupNapoleonDetector",
     "CoupPhilippeDetector",
     "CoupRaphaelDetector",
     "CoupRoyalDetector",
