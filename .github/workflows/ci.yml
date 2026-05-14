@@ -1,0 +1,29 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install poppler-utils (needed by the extract pipeline)
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Install dilf (dev + extract + explanations extras)
+        run: pip install -e ".[dev,extract,explanations]"
+
+      - name: pytest
+        run: pytest -q
+
+      - name: mypy --strict pedagogy
+        run: mypy --strict pedagogy
