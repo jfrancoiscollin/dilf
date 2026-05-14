@@ -1,10 +1,29 @@
 # ai-draught PR 8 — `backend/pedagogy/api.py` (FastAPI router)
 
-> **Status**: spec only. The code lands in **`Ai-draught`** (not dilf).
-> Implement from this spec verbatim.
+> **Status**: **shipped** in `jfrancoiscollin/ai-draught` (renamed
+> `draught-master`) on branch `develop` — see
+> `backend/pedagogy/api.py` (~476 lines) wired in `backend/main.py:139`.
+> All 5 endpoints (`analyze-game`, `move-verdict`, `explain-move`,
+> `profile/{user_id}`, `profile/me/recommendations`) are live, plus
+> two bonuses (`/profile/me` and `/motifs/{slug}`) that landed beyond
+> the original spec.
 >
-> Depends on: ai-draught PR 7 (DB schema + `storage.py`) must be merged
-> first. The endpoints below `await` into `backend/pedagogy/storage.py`.
+> Known residual gaps (tracked in a separate cleanup PR on
+> draught-master):
+> - `explain-move?mode=template` is not rate-limited (spec §14.6
+>   asks for 60/min).
+> - 3 of the 8 test cases listed below are missing
+>   (`test_explain_move_template_mode_no_llm`,
+>   `test_explain_move_uses_cache_on_second_call`,
+>   `test_explain_move_different_lang_creates_separate_cache`,
+>   `test_get_recommendations_filters_solved`).
+>
+> **Important schema correction vs the first draft** of this file:
+> `games.id` is `TEXT PRIMARY KEY` (UUID), not `INTEGER`. Every
+> `game_id` reference here is therefore `str` (Pydantic) / `TEXT`
+> (DB). Same correction applied in the PR 7 spec.
+>
+> Depends on: ai-draught PR 7 (DB schema + `storage.py`) — shipped.
 >
 > Spec source: `SPEC FRAMEWORK PEDAGOGIQUE.pdf` §9.
 
@@ -52,14 +71,14 @@ from pydantic import BaseModel, Field
 class AnalyzeGameRequest(BaseModel):
     """One of game_id / pdn is required."""
 
-    game_id: Optional[int] = None
+    game_id: Optional[str] = None       # games.id is a TEXT UUID
     pdn: Optional[str] = None
     user_side: Optional[str] = Field(default=None, pattern="^(white|black)$")
     lang: str = Field(default="fr", pattern="^(fr|en)$")
 
 
 class ExplainMoveRequest(BaseModel):
-    game_id: int
+    game_id: str                                  # TEXT UUID
     move_number: int
     mode: str = Field(default="template", pattern="^(template|template\\+book|claude)$")
     lang: str = Field(default="fr", pattern="^(fr|en)$")
@@ -95,7 +114,7 @@ class MoveVerdictOut(BaseModel):
 
 
 class AnalyzeGameResponse(BaseModel):
-    game_id: int
+    game_id: str
     verdicts: list[MoveVerdictOut]
     summary: dict[str, Any] = {}
 
@@ -222,7 +241,7 @@ async def analyze_game(
     response_model=MoveVerdictOut,
 )
 async def get_move_verdict(
-    game_id: int,
+    game_id: str,
     move_number: int,
     user: Any = Depends(current_user),
 ) -> MoveVerdictOut:
