@@ -105,6 +105,18 @@ class BookRAG:
         rag._build_tfidf()
         return rag
 
+    @classmethod
+    def from_directory(cls, books_dir: str | Path) -> "BookRAG":
+        """Construct a BookRAG pointed at a directory of PDFs.
+
+        Convenience constructor used by draught-master's app startup
+        hook (``backend/main.py``) to build the shared singleton. Same
+        semantics as ``BookRAG(books_dir=...)``: the TF-IDF index is
+        built lazily on the first ``search()`` call so app boot stays
+        cheap even when the corpus has hundreds of PDFs.
+        """
+        return cls(books_dir=Path(books_dir))
+
     def _load_documents(self) -> list[tuple[str, int, str]]:
         if self.books_dir is None:
             return []

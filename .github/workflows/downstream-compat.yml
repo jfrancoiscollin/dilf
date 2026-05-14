@@ -1,0 +1,58 @@
+name: downstream-compat
+
+# Runs draught-master's pedagogy tests against the current dilf ref.
+# Protects the contract documented in INTEROP.md: if any dilf change
+# breaks the consumer's tests, this job fails and the PR cannot merge.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  draught-master-pedagogy-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out dilf (PR ref)
+        uses: actions/checkout@v4
+        with:
+          path: dilf
+
+      - name: Check out draught-master:develop
+        uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: develop
+          path: draught-master
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dilf from the PR ref (editable)
+        run: pip install -e "./dilf[dev,extract,explanations]"
+
+      - name: Install draught-master runtime + dev deps
+        run: |
+          # Remove the dilf pin from requirements.txt so pip doesn't
+          # overwrite our editable install with main-tarball dilf.
+          sed -i '/dilf/d' draught-master/backend/requirements.txt
+          pip install -r draught-master/backend/requirements.txt
+          pip install -r draught-master/requirements-dev.txt
+
+      - name: Run draught-master pedagogy tests against this dilf
+        working-directory: draught-master
+        run: pytest backend/tests/test_pedagogy_storage.py backend/tests/test_pedagogy_api.py backend/tests/test_tag_existing_exercises.py -q
+
+      - name: Run draught-master dilf-imports smoke test (if present)
+        working-directory: draught-master
+        run: |
+          if [ -f backend/tests/test_dilf_imports.py ]; then
+            pytest backend/tests/test_dilf_imports.py -q
+          else
+            echo "test_dilf_imports.py not yet present in draught-master — skipping"
+          fi
+
+      - name: dilf public API snapshot (sanity)
+        run: pytest dilf/pedagogy/tests/test_public_api.py -q
