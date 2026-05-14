@@ -1,8 +1,24 @@
 # ai-draught PR 7 — DB schema migration + `backend/pedagogy/storage.py`
 
-> **Status**: spec only. This file lives in **dilf** so it survives across
-> Claude Code sessions. The actual code lands in **`Ai-draught`** (a
-> separate repository). Implement it from this spec verbatim.
+> **Status**: **shipped** in `jfrancoiscollin/ai-draught` (renamed
+> `draught-master`) on branch `develop` — see
+> `backend/db/schema.py:126-178` (3 tables) and
+> `backend/pedagogy/storage.py` (~372 lines). This file documents the
+> design that landed and stays in dilf as the contract.
+>
+> Known residual gaps (tracked in a separate cleanup PR on
+> draught-master):
+> - Missing `idx_move_verdicts_motifs` JSON-extract index.
+> - Missing `backend/pedagogy/README.md`.
+> - Missing one ordering verification test
+>   (`fetch_user_games_with_verdicts` DESC).
+>
+> **Important schema correction vs the first draft** of this file:
+> `games.id` in ai-draught has always been `TEXT PRIMARY KEY` (UUID
+> string), not `INTEGER`. Every `game_id` reference below is therefore
+> `TEXT NOT NULL` (DDL) and `str` (Python). The original draft
+> incorrectly typed it as `INTEGER` / `int` — fixed in the relevant
+> blocks.
 >
 > Spec source: `SPEC FRAMEWORK PEDAGOGIQUE.pdf` §10 (schema) + §15
 > (definition-of-done).
@@ -71,7 +87,7 @@ the following statements. Order matters because of foreign keys —
 ```sql
 CREATE TABLE IF NOT EXISTS move_verdicts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    game_id INTEGER NOT NULL,
+    game_id TEXT NOT NULL,                      -- games.id is TEXT (UUID)
     move_number INTEGER NOT NULL,
     side TEXT NOT NULL,
     fen_before TEXT NOT NULL,
@@ -210,7 +226,7 @@ def _features_from_json(blob: Optional[str]) -> Optional[Features]:
 
 async def upsert_move_verdict(
     conn: aiosqlite.Connection,
-    game_id: int,
+    game_id: str,
     verdict: MoveVerdict,
 ) -> int:
     """Insert or replace a verdict, return its row id."""
@@ -262,7 +278,7 @@ async def upsert_game_analysis(
 
 async def get_move_verdict(
     conn: aiosqlite.Connection,
-    game_id: int,
+    game_id: str,
     move_number: int,
 ) -> Optional[MoveVerdict]:
     cur = await conn.execute(
@@ -317,7 +333,7 @@ async def fetch_user_games_with_verdicts(
     games = await cur.fetchall()
     out: list[GameAnalysis] = []
     for row in games:
-        game_id = int(row[0])
+        game_id = str(row[0])
         verdicts = await _fetch_verdicts_for_game(conn, game_id)
         out.append(
             GameAnalysis(
@@ -333,7 +349,7 @@ async def fetch_user_games_with_verdicts(
 
 
 async def _fetch_verdicts_for_game(
-    conn: aiosqlite.Connection, game_id: int
+    conn: aiosqlite.Connection, game_id: str
 ) -> list[MoveVerdict]:
     cur = await conn.execute(
         """
