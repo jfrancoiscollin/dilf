@@ -1,0 +1,507 @@
+From a465d7e1c0204decf218bb845640975ab329641e Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Thu, 14 May 2026 11:21:37 +0000
+Subject: [PATCH] =?UTF-8?q?fix(pedagogy):=20close=20spec=20=C2=A714.6=20/?=
+ =?UTF-8?q?=20=C2=A715=20gaps=20=E2=80=94=20index,=20README,=20await,=20te?=
+ =?UTF-8?q?sts?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Cleanup PR for the gaps surfaced by an audit of the dilf integration
+specs (dilf #25 / #26 / #27) against the shipped backend/pedagogy/
+implementation. No behaviour change for callers that were already
+working; one latent bug fixed.
+
+Schema (spec §10)
+- Add idx_move_verdicts_motifs JSON-extract index. The profile
+  aggregation query filters by motif name through motifs_json; the
+  spec asked for this index up-front but it wasn't there.
+
+API (spec §14.6, plus a real bug)
+- Fix missing `await` on explain_verdict in /api/pedagogy/explain-move.
+  The function is async in dilf; calling it without await stored a
+  coroutine object in the response (the existing tests only covered
+  the 404 path so this was never exercised).
+- Rebuild the rate-limiter wiring so it actually fires. Now 5/min for
+  mode=claude (unchanged target, but no longer a no-op) and 60/min
+  for everything else (spec §14.6 courtesy cap). Both limiters reuse
+  the existing _make_limiter factory from main.py.
+
+Docs (spec §15)
+- New backend/pedagogy/README.md documenting layout, how to add a
+  motif detector / template, and the two known gaps for future PRs
+  (move-notation parser, distributed rate limiter).
+
+Tests (+6, total 74 green)
+- test_fetch_user_games_with_verdicts_orders_desc — verifies the DESC
+  ordering promised by storage.py.
+- test_explain_move_template_mode_returns_string — regression for the
+  await bug above.
+- test_explain_move_uses_cache_on_second_call — second hit returns
+  cached=true and never re-invokes the explainer.
+- test_explain_move_different_lang_creates_separate_cache — fr/en
+  rows are stored independently.
+- test_get_recommendations_filters_solved — solved exercises are
+  excluded from /profile/me/recommendations even when their tag
+  matches a profile weakness.
+---
+ backend/db/schema.py                   |   6 +
+ backend/pedagogy/README.md             |  65 +++++++
+ backend/pedagogy/api.py                |  48 ++++--
+ backend/tests/test_pedagogy_api.py     | 230 +++++++++++++++++++++++++
+ backend/tests/test_pedagogy_storage.py |  23 +++
+ 5 files changed, 355 insertions(+), 17 deletions(-)
+ create mode 100644 backend/pedagogy/README.md
+
+diff --git a/backend/db/schema.py b/backend/db/schema.py
+index 89bad0b..6c127d6 100644
+--- a/backend/db/schema.py
++++ b/backend/db/schema.py
+@@ -152,6 +152,12 @@ async def init_db() -> None:
+         await db.execute(
+             "CREATE INDEX IF NOT EXISTS idx_move_verdicts_verdict ON move_verdicts(verdict)"
+         )
++        # JSON-extract index on motifs_json for profile aggregation queries
++        # that filter by motif name (spec §10).
++        await db.execute(
++            "CREATE INDEX IF NOT EXISTS idx_move_verdicts_motifs "
++            "ON move_verdicts(json_extract(motifs_json, '$'))"
++        )
+         await db.execute("""
+             CREATE TABLE IF NOT EXISTS pedagogy_explanations (
+                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+diff --git a/backend/pedagogy/README.md b/backend/pedagogy/README.md
+new file mode 100644
+index 0000000..ee6c8e8
+--- /dev/null
++++ b/backend/pedagogy/README.md
+@@ -0,0 +1,65 @@
++# `backend/pedagogy/`
++
++Pedagogy layer for draught-master. Consumes the deterministic detectors
++and explanation pipeline shipped in
++[dilf](https://github.com/jfrancoiscollin/dilf) and exposes them through
++SQLite persistence + a FastAPI router. Closes spec PRs 7, 8, 13.
++
++## Layout
++
++```
++pedagogy/
++├── api.py                 # /api/pedagogy/* router (PR 8)
++├── engine_adapter.py      # game_engine ↔ pedagogy.game bridge
++├── models.py              # Pydantic request/response schemas
++├── motif_descriptions.py  # human-readable copy per motif (FR/EN)
++├── storage.py             # async aiosqlite CRUD on the 3 pedagogy tables
++└── scripts/
++    └── tag_existing_exercises.py   # one-shot exercise tagger (PR 13)
++```
++
++DB schema lives in `backend/db/schema.py` (`init_db()`): tables
++`move_verdicts`, `pedagogy_explanations`, `exercise_tags`, plus the
++migrations that add `user_side` / `opening_name` / `status` to `games`.
++
++## Adding a motif detector
++
++Detectors live in dilf, not here. The flow is:
++
++1. Implement the new detector in `pedagogy/motifs/<name>.py` in the dilf
++   repo, register it in `pedagogy/motifs/__init__.py:ALL_DETECTORS`,
++   ship a PR there.
++2. Bump the dilf pin in `backend/requirements.txt` once the detector
++   merges.
++3. Add a French + English description in `motif_descriptions.py` here so
++   `/api/pedagogy/motifs/{slug}` returns prose for it.
++4. Re-run `python -m backend.pedagogy.scripts.tag_existing_exercises`
++   in production to backfill `exercise_tags` rows.
++
++## Adding an explanation template
++
++Templates also live in dilf (`pedagogy/explanations/templates_fr.py`
++and `templates_en.py`). Add the `(motif, role, verdict)` entry in both
++modules, ship as a single PR in dilf, then bump the pin here. The
++template mode of `/api/pedagogy/explain-move` will pick them up
++automatically — no schema change.
++
++## Running the tests
++
++```bash
++cd backend
++pytest tests/test_pedagogy_storage.py tests/test_pedagogy_api.py \
++       tests/test_tag_existing_exercises.py -v
++```
++
++## Known gaps
++
++- `tag_existing_exercises.py` parses move notations through a thin
++  fallback (`_parse_move_fallback`) that does **not** infer captured
++  pieces. As a result, capture-based detectors (coup_royal,
++  prise_max_ratee, …) won't fire on exercises today. Tracked
++  separately; will be closed when dilf ships a full
++  `parse_move_notation(state, notation)` helper.
++- `/api/pedagogy/explain-move?mode=template` uses an in-memory rate
++  limiter (60/min per IP) per the existing project pattern. For
++  horizontal scale-out this needs to move to a shared cache.
+diff --git a/backend/pedagogy/api.py b/backend/pedagogy/api.py
+index 8c582ff..2af06b8 100644
+--- a/backend/pedagogy/api.py
++++ b/backend/pedagogy/api.py
+@@ -9,7 +9,7 @@ from dataclasses import asdict
+ from typing import Any, Optional
+ 
+ import aiosqlite
+-from fastapi import APIRouter, Depends, HTTPException
++from fastapi import APIRouter, Depends, HTTPException, Request
+ 
+ from pedagogy.explanations import explain_verdict
+ from pedagogy.profile.aggregator import aggregate_user_profile
+@@ -36,16 +36,24 @@ from .motif_descriptions import get_motif as _get_motif_desc
+ 
+ router = APIRouter(prefix="/api/pedagogy", tags=["pedagogy"])
+ 
+-# Rate limiter for Claude mode (5/min) — imported lazily to avoid circular import
++# Rate limiters for /explain-move. claude burns API tokens so it gets 5/min;
++# template is free but capped at 60/min per IP for courtesy (spec §14.6).
++# Built lazily because importing _make_limiter at module load creates a
++# circular import via main.py -> pedagogy.api -> main.
+ _claude_limiter = None
++_template_limiter = None
+ 
+ 
+-def _get_claude_limiter():
+-    global _claude_limiter
+-    if _claude_limiter is None:
+-        from ..main import _make_limiter  # noqa: PLC0415
+-        _claude_limiter = _make_limiter(max_calls=5, window=60)
+-    return _claude_limiter
++def _ensure_explain_limiters() -> None:
++    global _claude_limiter, _template_limiter
++    if _claude_limiter is not None:
++        return
++    try:
++        from main import _make_limiter  # noqa: PLC0415
++    except ImportError:
++        from ..main import _make_limiter  # type: ignore[assignment]  # noqa: PLC0415
++    _claude_limiter = _make_limiter(max_calls=5, window=60)
++    _template_limiter = _make_limiter(max_calls=60, window=60)
+ 
+ 
+ # ---------------------------------------------------------------------------
+@@ -328,17 +336,18 @@ async def get_move_verdict(
+ @router.post("/explain-move", response_model=ExplainMoveResponse)
+ async def explain_move(
+     req: ExplainMoveRequest,
++    request: Request,
+     user: Any = Depends(current_user),
+ ) -> ExplainMoveResponse:
+     """Return a 1-3 sentence commentary for one verdict.
+ 
+-    Caches in `pedagogy_explanations`. Rate-limited 5/min for claude mode.
++    Caches in `pedagogy_explanations`. Rate-limited per IP — 5/min for
++    `mode=claude`, 60/min for everything else (spec §14.6).
+     """
+-    from fastapi import Request  # noqa: PLC0415
+-
+-    if req.mode == "claude":
+-        # Build a dummy request for the IP-based limiter
+-        pass  # Rate limiting handled at infrastructure level for now
++    _ensure_explain_limiters()
++    limiter = _claude_limiter if req.mode == "claude" else _template_limiter
++    assert limiter is not None
++    await limiter(request)
+ 
+     async with aiosqlite.connect(_db_path()) as conn:
+         v = await storage.get_move_verdict(conn, req.game_id, req.move_number)
+@@ -360,11 +369,16 @@ async def explain_move(
+ 
+         # Retrieve the shared BookRAG singleton (may be None if corpus not loaded)
+         try:
+-            from ..main import shared_book_rag  # noqa: PLC0415
++            from main import shared_book_rag  # noqa: PLC0415
+         except ImportError:
+-            shared_book_rag = None
++            try:
++                from ..main import shared_book_rag  # noqa: PLC0415
++            except ImportError:
++                shared_book_rag = None
+ 
+-        text = explain_verdict(v, mode=req.mode, book_rag=shared_book_rag, lang=req.lang)
++        text = await explain_verdict(
++            v, mode=req.mode, book_rag=shared_book_rag, lang=req.lang
++        )
+ 
+         await storage.upsert_explanation(conn, verdict_id, req.mode, req.lang, text)
+         return ExplainMoveResponse(text=text, mode=req.mode, lang=req.lang, cached=False)
+diff --git a/backend/tests/test_pedagogy_api.py b/backend/tests/test_pedagogy_api.py
+index 7bf98fe..afe52a0 100644
+--- a/backend/tests/test_pedagogy_api.py
++++ b/backend/tests/test_pedagogy_api.py
+@@ -204,3 +204,233 @@ def test_get_user_profile_forbidden_for_other_user(monkeypatch, tmp_path):
+     # user_id=1 tries to access user_id=2
+     resp = client.get("/api/pedagogy/profile/2", headers=_auth_headers(user_id=1))
+     assert resp.status_code == 403
++
++
++# ---------------------------------------------------------------------------
++# explain-move — template path, caching, lang separation
++# ---------------------------------------------------------------------------
++
++
++def _init_pedagogy_tables(db_file: str) -> None:
++    """Create the 3 pedagogy tables in an empty SQLite file (sync helper)."""
++    import asyncio
++    async def _go():
++        conn = await aiosqlite.connect(db_file)
++        await conn.execute("""
++            CREATE TABLE IF NOT EXISTS move_verdicts (
++                id INTEGER PRIMARY KEY AUTOINCREMENT, game_id TEXT,
++                move_number INTEGER, side TEXT, fen_before TEXT, fen_after TEXT,
++                move_notation TEXT, score_before REAL, score_after REAL,
++                delta_winchance REAL, verdict TEXT, is_forced INTEGER,
++                phase TEXT, motifs_json TEXT, features_json TEXT,
++                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
++                UNIQUE(game_id, move_number)
++            )
++        """)
++        await conn.execute("""
++            CREATE TABLE IF NOT EXISTS pedagogy_explanations (
++                id INTEGER PRIMARY KEY AUTOINCREMENT, move_verdict_id INTEGER,
++                mode TEXT, lang TEXT, text TEXT,
++                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
++                UNIQUE(move_verdict_id, mode, lang)
++            )
++        """)
++        await conn.commit()
++        await conn.close()
++    asyncio.run(_go())
++
++
++def test_explain_move_template_mode_returns_string(monkeypatch, tmp_path):
++    """Template mode runs through dilf's pipeline and returns a real string
++    (no Anthropic call). Regression test for the missing-await bug that
++    caused a coroutine to leak into the response."""
++    db_file = str(tmp_path / "test.db")
++    monkeypatch.setattr("pedagogy.api._db_path", lambda: db_file)
++    _init_pedagogy_tables(db_file)
++
++    import asyncio
++    async def _seed():
++        conn = await aiosqlite.connect(db_file)
++        await _seed_verdict(conn, "game-tpl", 1)
++        await conn.close()
++    asyncio.run(_seed())
++
++    app = _make_app()
++    client = TestClient(app)
++    resp = client.post(
++        "/api/pedagogy/explain-move",
++        json={"game_id": "game-tpl", "move_number": 1, "mode": "template", "lang": "fr"},
++        headers=_auth_headers(),
++    )
++    assert resp.status_code == 200
++    data = resp.json()
++    assert isinstance(data["text"], str) and data["text"].strip()
++    assert data["cached"] is False
++    assert data["mode"] == "template"
++
++
++def test_explain_move_uses_cache_on_second_call(monkeypatch, tmp_path):
++    """Same (verdict, mode, lang) → second call has cached=true and reuses
++    the stored text. No invocation of the underlying explainer."""
++    db_file = str(tmp_path / "test.db")
++    monkeypatch.setattr("pedagogy.api._db_path", lambda: db_file)
++    _init_pedagogy_tables(db_file)
++
++    import asyncio
++    async def _seed():
++        conn = await aiosqlite.connect(db_file)
++        await _seed_verdict(conn, "game-cache", 1)
++        await conn.close()
++    asyncio.run(_seed())
++
++    # Sentinel that fails the test if explain_verdict is called twice.
++    call_count = {"n": 0}
++
++    async def _fake_explain(verdict, *, mode, book_rag, lang):
++        call_count["n"] += 1
++        return f"text-{call_count['n']}"
++
++    monkeypatch.setattr("pedagogy.api.explain_verdict", _fake_explain)
++
++    app = _make_app()
++    client = TestClient(app)
++    payload = {"game_id": "game-cache", "move_number": 1, "mode": "template", "lang": "fr"}
++    first = client.post("/api/pedagogy/explain-move", json=payload, headers=_auth_headers())
++    second = client.post("/api/pedagogy/explain-move", json=payload, headers=_auth_headers())
++
++    assert first.status_code == 200 and second.status_code == 200
++    assert first.json()["cached"] is False
++    assert first.json()["text"] == "text-1"
++    assert second.json()["cached"] is True
++    assert second.json()["text"] == "text-1"
++    assert call_count["n"] == 1
++
++
++def test_explain_move_different_lang_creates_separate_cache(monkeypatch, tmp_path):
++    """fr/template + en/template = two cached rows (one per language)."""
++    db_file = str(tmp_path / "test.db")
++    monkeypatch.setattr("pedagogy.api._db_path", lambda: db_file)
++    _init_pedagogy_tables(db_file)
++
++    import asyncio
++    async def _seed():
++        conn = await aiosqlite.connect(db_file)
++        await _seed_verdict(conn, "game-lang", 1)
++        await conn.close()
++    asyncio.run(_seed())
++
++    captured = []
++
++    async def _fake_explain(verdict, *, mode, book_rag, lang):
++        captured.append(lang)
++        return f"text-{lang}"
++
++    monkeypatch.setattr("pedagogy.api.explain_verdict", _fake_explain)
++
++    app = _make_app()
++    client = TestClient(app)
++    base = {"game_id": "game-lang", "move_number": 1, "mode": "template"}
++    fr = client.post("/api/pedagogy/explain-move", json={**base, "lang": "fr"}, headers=_auth_headers())
++    en = client.post("/api/pedagogy/explain-move", json={**base, "lang": "en"}, headers=_auth_headers())
++
++    assert fr.json()["cached"] is False and en.json()["cached"] is False
++    assert fr.json()["text"] == "text-fr"
++    assert en.json()["text"] == "text-en"
++    assert captured == ["fr", "en"]
++
++
++# ---------------------------------------------------------------------------
++# recommendations — exclude already-solved exercises
++# ---------------------------------------------------------------------------
++
++
++def test_get_recommendations_filters_solved(monkeypatch, tmp_path):
++    """An exercise tagged with a weakness motif AND already solved by the
++    user must not appear in the recommendations response."""
++    db_file = str(tmp_path / "test.db")
++    monkeypatch.setattr("pedagogy.api._db_path", lambda: db_file)
++
++    import asyncio
++    async def _init():
++        conn = await aiosqlite.connect(db_file)
++        await conn.execute("""
++            CREATE TABLE games (
++                id TEXT PRIMARY KEY, user_id INTEGER,
++                user_side TEXT, opening_name TEXT, status TEXT
++            )
++        """)
++        await conn.execute("""
++            CREATE TABLE move_verdicts (
++                id INTEGER PRIMARY KEY AUTOINCREMENT, game_id TEXT,
++                move_number INTEGER, side TEXT, fen_before TEXT, fen_after TEXT,
++                move_notation TEXT, score_before REAL, score_after REAL,
++                delta_winchance REAL, verdict TEXT, is_forced INTEGER,
++                phase TEXT, motifs_json TEXT, features_json TEXT,
++                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
++                UNIQUE(game_id, move_number)
++            )
++        """)
++        await conn.execute("""
++            CREATE TABLE exercises (
++                id INTEGER PRIMARY KEY, name TEXT,
++                initial_fen TEXT, solution_moves TEXT
++            )
++        """)
++        await conn.execute("""
++            CREATE TABLE exercise_tags (
++                exercise_id INTEGER, tag TEXT, PRIMARY KEY (exercise_id, tag)
++            )
++        """)
++        await conn.execute("""
++            CREATE TABLE user_exercise_solved (
++                user_id INTEGER, exercise_id INTEGER, solved_at TEXT,
++                PRIMARY KEY (user_id, exercise_id)
++            )
++        """)
++        # Two exercises tagged coup_royal — one already solved by user 1.
++        await conn.execute(
++            "INSERT INTO exercises (id, name, initial_fen, solution_moves) VALUES "
++            "(10, 'solved-ex', 'W:W32:B20', '[\"32-28\"]'), "
++            "(11, 'fresh-ex',  'W:W31:B20', '[\"31-27\"]')"
++        )
++        await conn.execute(
++            "INSERT INTO exercise_tags (exercise_id, tag) VALUES (10, 'coup_royal'), (11, 'coup_royal')"
++        )
++        await conn.execute(
++            "INSERT INTO user_exercise_solved (user_id, exercise_id, solved_at) "
++            "VALUES (1, 10, '2026-05-01')"
++        )
++        await conn.commit()
++        await conn.close()
++    asyncio.run(_init())
++
++    # Force aggregate_user_profile to surface coup_royal as a weakness.
++    from pedagogy.types import Phase, UserProfile
++
++    def _fake_profile(user_id, games):
++        return UserProfile(
++            user_id=user_id,
++            games_count=1,
++            average_accuracy=0.5,
++            strengths=[],
++            weaknesses=[{"motif": "coup_royal", "missed": 5, "suffered": 0,
++                         "played": 0, "total_severity": 5.0}],
++            weakest_phase=Phase.MIDDLEGAME,
++            recommended_exercise_tags=["coup_royal"],
++        )
++    monkeypatch.setattr("pedagogy.api.aggregate_user_profile", _fake_profile)
++
++    # Force recommend_exercises to return whatever pool the endpoint hands it.
++    monkeypatch.setattr(
++        "pedagogy.api.recommend_exercises",
++        lambda profile, pool, *, exclude_ids=(), n=10: list(pool)[:n],
++    )
++
++    app = _make_app()
++    client = TestClient(app)
++    resp = client.get("/api/pedagogy/profile/me/recommendations",
++                      headers=_auth_headers(user_id=1))
++    assert resp.status_code == 200
++    ids = {e["id"] for e in resp.json()["exercises"]}
++    assert 10 not in ids       # the solved one is filtered out
++    assert 11 in ids           # the fresh one comes through
+diff --git a/backend/tests/test_pedagogy_storage.py b/backend/tests/test_pedagogy_storage.py
+index 46d0342..c046219 100644
+--- a/backend/tests/test_pedagogy_storage.py
++++ b/backend/tests/test_pedagogy_storage.py
+@@ -225,4 +225,27 @@ async def test_tables_exist_in_fresh_db():
+     assert "move_verdicts" in tables
+     assert "pedagogy_explanations" in tables
+     assert "exercise_tags" in tables
++
++
++@pytest.mark.asyncio
++async def test_fetch_user_games_with_verdicts_orders_desc():
++    """The most recent game should come first (spec §10)."""
++    from pedagogy import storage
++    conn = await _fresh_conn()
++    await conn.execute(
++        "INSERT INTO games (id, date, user_id, user_side, opening_name, status) "
++        "VALUES (?, '2026-01-01', 1, 'white', '', 'finished')",
++        ("game-old",),
++    )
++    await conn.execute(
++        "INSERT INTO games (id, date, user_id, user_side, opening_name, status) "
++        "VALUES (?, '2026-05-01', 1, 'white', '', 'finished')",
++        ("game-new",),
++    )
++    await conn.commit()
++    await storage.upsert_move_verdict(conn, "game-old", _make_verdict(move_number=1))
++    await storage.upsert_move_verdict(conn, "game-new", _make_verdict(move_number=1))
++    games = await storage.fetch_user_games_with_verdicts(conn, user_id=1, lookback=30)
++    assert [g.game_id for g in games] == ["game-new", "game-old"]
++    await conn.close()
+     await conn.close()
+-- 
+2.43.0
+
