@@ -183,6 +183,65 @@ TEMPLATES_EN: dict[tuple[str, str, Optional[Verdict]], str] = {
     ("coup_bonnard", "missed", None): (
         "A Bonnard stroke was possible: {pv}."
     ),
+
+    # ===================================================================
+    # coup_napoleon — sacrifice + opponent deflection + promotion (P3)
+    # ===================================================================
+    ("coup_napoleon", "played", Verdict.BRILLIANT): (
+        "Beautiful Napoléon stroke! Your sacrifice forces the opponent to "
+        "capture, clearing the diagonal, and you queen via {pv}."
+    ),
+    ("coup_napoleon", "played", None): (
+        "Napoléon stroke — deflection sacrifice followed by a promotion "
+        "on square {promotion_square}."
+    ),
+    ("coup_napoleon", "missed", None): (
+        "A Napoléon stroke was available: {pv} (promotion on "
+        "{promotion_square})."
+    ),
+
+    # ===================================================================
+    # coup_manoury — sacrifice setting up a 4+ capture rafle (P3)
+    # ===================================================================
+    ("coup_manoury", "played", Verdict.BRILLIANT): (
+        "Beautiful Manoury stroke: your sacrifice sets up the long rafle "
+        "of {followup_captures} captures ({followup_notation}). The "
+        "textbook profitable combination."
+    ),
+    ("coup_manoury", "played", None): (
+        "Manoury stroke — sacrifice leading to a rafle of "
+        "{followup_captures} captures."
+    ),
+    ("coup_manoury", "missed", None): (
+        "A Manoury stroke was possible: {pv} (final rafle of "
+        "{followup_captures} captures)."
+    ),
+
+    # ===================================================================
+    # coup_enfilade — straight-line rafle, 3 or 4 captures (P3)
+    # ===================================================================
+    ("coup_enfilade", "played", Verdict.BRILLIANT): (
+        "Nice enfilade! Your {captures_count}-capture rafle takes three "
+        "or four men aligned on a single diagonal."
+    ),
+    ("coup_enfilade", "played", None): (
+        "Enfilade — straight-line rafle of {captures_count} captures."
+    ),
+    ("coup_enfilade", "missed", None): (
+        "An enfilade was possible: {pv} ({captures_count} captures)."
+    ),
+
+    # ===================================================================
+    # coup_du_bruleur — quiet move that locks 2+ opponent men (P3)
+    # ===================================================================
+    ("coup_du_bruleur", "played", Verdict.BRILLIANT): (
+        "Burner stroke: your quiet push locks {burned_count} opponent men "
+        "that can no longer advance without external help."
+    ),
+    ("coup_du_bruleur", "played", None): (
+        "Burner stroke — {burned_count} opponent men now blocked on both "
+        "forward diagonals."
+    ),
 }
 
 #: Generic verdict commentary used when no motif template matched. Always

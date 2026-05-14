@@ -195,6 +195,65 @@ TEMPLATES_FR: dict[tuple[str, str, Optional[Verdict]], str] = {
     ("coup_bonnard", "missed", None): (
         "Un coup Bonnard était possible : {pv}."
     ),
+
+    # ===================================================================
+    # coup_napoleon — sacrifice + déflexion adverse + envoi à dame (P3)
+    # ===================================================================
+    ("coup_napoleon", "played", Verdict.BRILLIANT): (
+        "Magnifique coup Napoléon ! Votre sacrifice oblige l'adversaire à "
+        "prendre, ce qui dégage la diagonale et vous mène à dame en {pv}."
+    ),
+    ("coup_napoleon", "played", None): (
+        "Coup Napoléon — sacrifice de déflexion suivi d'un envoi à dame "
+        "en {promotion_square}."
+    ),
+    ("coup_napoleon", "missed", None): (
+        "Un coup Napoléon était disponible : {pv} (envoi à dame en "
+        "{promotion_square})."
+    ),
+
+    # ===================================================================
+    # coup_manoury — sacrifice qui prépare une rafle ≥4 (P3)
+    # ===================================================================
+    ("coup_manoury", "played", Verdict.BRILLIANT): (
+        "Beau coup Manoury : votre sacrifice prépare la grande rafle de "
+        "{followup_captures} prises ({followup_notation}). C'est la "
+        "combinaison classique à profit."
+    ),
+    ("coup_manoury", "played", None): (
+        "Coup Manoury — sacrifice menant à une rafle de "
+        "{followup_captures} prises."
+    ),
+    ("coup_manoury", "missed", None): (
+        "Un coup Manoury était possible : {pv} (rafle finale de "
+        "{followup_captures} prises)."
+    ),
+
+    # ===================================================================
+    # coup_enfilade — rafle en ligne droite, 3 ou 4 prises (P3)
+    # ===================================================================
+    ("coup_enfilade", "played", Verdict.BRILLIANT): (
+        "Belle enfilade ! Votre rafle de {captures_count} prises capture "
+        "trois ou quatre pions alignés sur une seule diagonale."
+    ),
+    ("coup_enfilade", "played", None): (
+        "Coup de l'enfilade — rafle rectiligne de {captures_count} prises."
+    ),
+    ("coup_enfilade", "missed", None): (
+        "Une enfilade était possible : {pv} ({captures_count} prises)."
+    ),
+
+    # ===================================================================
+    # coup_du_bruleur — coup tranquille qui bloque ≥2 pions adverses (P3)
+    # ===================================================================
+    ("coup_du_bruleur", "played", Verdict.BRILLIANT): (
+        "Coup du brûleur : votre poussée tranquille fige {burned_count} "
+        "pions adverses, qui ne pourront plus avancer sans aide extérieure."
+    ),
+    ("coup_du_bruleur", "played", None): (
+        "Coup du brûleur — {burned_count} pions adverses désormais bloqués "
+        "sur leurs deux diagonales avant."
+    ),
 }
 
 #: Generic verdict commentary used when no motif template matched. Always
