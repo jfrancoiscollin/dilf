@@ -1,10 +1,19 @@
 # ai-draught PR 13 — `backend/pedagogy/scripts/tag_existing_exercises.py`
 
-> **Status**: spec only. The code lands in **`Ai-draught`** (not dilf).
-> Implement from this spec verbatim.
+> **Status**: **shipped** in `jfrancoiscollin/ai-draught` (renamed
+> `draught-master`) on branch `develop` — see
+> `backend/pedagogy/scripts/tag_existing_exercises.py` (~211 lines).
+> Same argparse CLI (`--dry-run`, `--only`), same idempotent
+> set-vs-set diff, same per-exercise error handling.
+>
+> Known residual gap (tracked in a separate cleanup PR on
+> draught-master): the script has **no test file**. The 5 test cases
+> listed in Step 3 below (happy path, idempotence, dry-run, invalid
+> JSON, --only filter) are still to be implemented in
+> `backend/tests/test_tag_existing_exercises.py`.
 >
 > Depends on: ai-draught PR 7 (the `exercise_tags` table exists and
-> `storage.set_exercise_tags` works).
+> `storage.set_exercise_tags` works) — shipped.
 >
 > Spec source: `SPEC FRAMEWORK PEDAGOGIQUE.pdf` §10 (last paragraph)
 > + §15.
