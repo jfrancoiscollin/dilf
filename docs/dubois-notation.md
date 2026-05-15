@@ -38,12 +38,11 @@ When several moves are chained in a solution, they alternate: the active
 player's move, then the parenthesised opponent reply, then the active player
 again, etc.
 
-## Rafle geometry — pawn only (in this version)
+## Rafle geometry — pawns
 
-The module reconstructs **men** rafles only. King captures follow a different
-geometry (sliding any distance along a diagonal, jumping over a single enemy,
-landing any distance beyond) and are out of scope for this first release.
-Passing a king square as the departure raises `NotAManError`.
+The pawn reconstructor (`reconstruct_pawn_capture`) handles men only.
+Passing a king square as the departure raises `NotAManError` — use
+`reconstruct_king_capture` or the unified `reconstruct_capture` instead.
 
 For a man, each jump:
 
@@ -61,6 +60,45 @@ A rafle is the concatenation of such jumps. Two FMJD subtleties matter:
   the rafle, so the same enemy piece cannot be jumped twice. But the moving
   man **can** revisit an empty square it has already crossed — this is the
   *coup turc*, and `enumerate_pawn_captures` supports it.
+
+## Rafle geometry — kings (dame)
+
+The king reconstructor (`reconstruct_king_capture`) handles kings (dames).
+Passing a man square as the departure raises `NotAKingError`.
+
+The king's jump geometry is different from the man's:
+
+1. The king slides any number of empty squares along a diagonal before
+   jumping.
+2. To capture, exactly one enemy piece must sit on the diagonal, with all
+   squares between the king and the enemy being empty (no blocker).
+3. After the jump, the king lands on any empty square strictly past the
+   captured enemy on the same diagonal (one square or several — caller's
+   choice when reconstructing). The landing slide also requires every square
+   to be empty.
+4. The rafle may chain multiple jumps; the king may change direction at each
+   landing.
+5. The non-blowing rule applies: captured pieces stay on the board until the
+   end of the rafle, so the king cannot re-jump a piece it already captured.
+6. Coup turc applies: the king may pass through the same empty square
+   multiple times.
+
+For ambiguous landings (multiple landings past the captured enemy all
+plausible), Dubois's short notation `aXb` picks one specific landing `b`.
+`reconstruct_king_capture` returns the rafle ending exactly on `b`.
+
+## Unified dispatch
+
+For callers that don't want to inspect the piece type, `reconstruct_capture`
+auto-detects whether `from_sq` holds a man or a king and dispatches:
+
+```python
+from pedagogy.notation.dubois import reconstruct_capture
+
+move = reconstruct_capture(state, from_sq=48, to_sq=22)
+# Routes to reconstruct_king_capture if 48 is a king, to
+# reconstruct_pawn_capture if it is a man.
+```
 
 ## Maximal capture rule
 
@@ -97,8 +135,12 @@ a bug in the reconstructor or the position.
 from pedagogy.game import GameState
 from pedagogy.notation.dubois import (
     enumerate_pawn_captures,
+    enumerate_king_captures,
     reconstruct_pawn_capture,
+    reconstruct_king_capture,
+    reconstruct_capture,
     NotAManError,
+    NotAKingError,
     NoSuchRafleError,
     AmbiguousRafleError,
 )
@@ -113,13 +155,29 @@ state = GameState(
 # Reconstruct the forced black reply (17x28)
 black_move = reconstruct_pawn_capture(state, from_sq=17, to_sq=28)
 # Move(path=(17, 26, 37, 28), captures=(21, 31, 32))
+
+# King rafle example: a white king on 28 captures a black man on 23 and
+# lands on 14.
+king_state = GameState(
+    white_kings=frozenset({28}),
+    black_men=frozenset({23}),
+    turn="white",
+)
+king_move = reconstruct_king_capture(king_state, from_sq=28, to_sq=14)
+# Move(path=(28, 14), captures=(23,))
+
+# Unified dispatch — auto-detects piece type.
+move = reconstruct_capture(state, from_sq=17, to_sq=28)        # pawn
+move = reconstruct_capture(king_state, from_sq=28, to_sq=14)   # king
 ```
 
 ## Future work
 
-- King rafles (sliding along diagonals).
 - Validator pass that compares a Dubois-extracted solution text against the
   pixel-extracted position and flags inconsistencies (would have caught the
   D9 typo automatically).
 - Optional caller-side `unique_trajectories=True` flag to return all
   gameplay-equivalent paths instead of just the first.
+- Notation conventions beyond bare moves: `(ad lib)` for forced-equivalent
+  opponent replies, `+1p` for material-gain annotations after a non-rafle
+  exchange.
