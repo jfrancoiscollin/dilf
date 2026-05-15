@@ -2,10 +2,11 @@
 
 **Draught Intelligence Learning Framework** — deterministic pedagogy module for international draughts (FMJD 10×10).
 
-The repository ships two cooperating pieces:
+The repository ships three cooperating pieces:
 
 1. **`pedagogy/`** — a pure-Python library that turns a `GameState` into pedagogical *features* (material, mobility, structure, formations) and *motifs* (coup royal, coup turc, coup de talon, envoi à dame, prise max ratée, sacrifices). No engine, no API call, fully deterministic, 210 tests, `mypy --strict` clean.
 2. **`scripts/extract_diagrams.py`** — a deterministic pure-CV pipeline that turns reference book PDFs (Dubois, Springer, Roozenburg, …) into Python fixtures usable by `pedagogy/tests/`. PDF pages are rasterised with `pdftoppm`, board regions are detected with scipy, and each of the 50 dark squares of every board is classified as white/black/empty by sampling the mean pixel value of a small patch. No LLM, no API, no network — ~1 minute wall to extract 324 positions from a 90-page book, $0 cost, fully deterministic.
+3. **`docs/pre_process_corpus/`** — the pedagogical-manual production pipeline. Claude, briefed by `CADRAGE_MANUELS.md` and the anti-hallucination protocol, turns the corpus + the extracted positions into four manuals (Débutant, Intermédiaire, Avancé, Expert). Each manual ships `manuel_<level>.md` (prose), `fixtures_<level>.py` (Python positions) and a sources/traceability file. These manuals — not the raw corpus — are what draught-master consumes. See [`docs/MANUELS_PIPELINE.md`](docs/MANUELS_PIPELINE.md) for the end-to-end flow.
 
 The driving spec is `SPEC FRAMEWORK PEDAGOGIQUE.pdf` at the repo root. The
 current state and what's next live in [`ROADMAP.md`](ROADMAP.md).
@@ -44,6 +45,15 @@ current state and what's next live in [`ROADMAP.md`](ROADMAP.md).
 │
 ├── docs/
 │   ├── extract-diagrams.md       # detailed OCR workflow documentation
+│   ├── MANUELS_PIPELINE.md       # end-to-end flow: corpus → manuals → draught-master
+│   ├── pre_process_corpus/       # Claude-driven manual production toolkit
+│   │   ├── CADRAGE_MANUELS.md    #   protocol master document
+│   │   ├── JOURNAL.md            #   conversation log across cycles
+│   │   ├── ETAT_DILF.md          #   live framework state for new cycles
+│   │   ├── generate_chapter.py   #   chapter-fixture generator
+│   │   ├── validate_final_moves.py  # FMJD-legality validator
+│   │   ├── manuel_debutant.md    #   Débutant manual prose (delivered)
+│   │   └── fixtures_debutant.py  #   Débutant fixtures (166 positions)
 │   └── corpus/                   # reference corpus (53 books, ~6 100 pages)
 │       ├── README.md             # index by language / author / type
 │       └── *.pdf

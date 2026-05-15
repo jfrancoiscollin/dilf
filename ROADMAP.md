@@ -26,6 +26,18 @@ A side-deliverable also shipped:
   from `jpdubois_perfectionnement_combinaisons_V4.pdf` in
   `pedagogy/tests/fixtures/dubois_diagrams.py`.
 
+A new production workflow has also kicked off:
+
+- **Pedagogical manuals pipeline** (`docs/pre_process_corpus/`). Rather
+  than exposing the raw corpus to draught-master, we now produce one
+  Claude-curated manual per level (Débutant, Intermédiaire, Avancé,
+  Expert) on top of `extract_diagrams.py`. The Débutant manual is
+  delivered (166 fixtures across 16 chapters, 135/135 `final_move` pass
+  FMJD validation, round-trip FEN 166/166). See
+  [`docs/MANUELS_PIPELINE.md`](docs/MANUELS_PIPELINE.md) for the
+  end-to-end flow and [Tier 1.5](#tier-15--pedagogical-manuals-corpus--manuals--draught-master)
+  below for the remaining cycles.
+
 ## Tier 1 — Make it real (top priority)
 
 Goal: get the framework in front of users on real games so we can find
@@ -54,6 +66,38 @@ The work for this tier lives in ``Ai-draught``, not dilf.
       motif. Tune severity / thresholds if needed.
 - [ ] **Deploy** — push `Ai-draught` to Railway (already configured
       via `railway.json`).
+
+## Tier 1.5 — Pedagogical manuals (corpus → manuals → draught-master)
+
+Goal: replace the direct exposure of the raw corpus to draught-master
+with four Claude-preprocessed manuals (one per level). Decided after the
+Débutant cycle exposed the cost of letting the app consume 53 PDFs
+worth of unstructured material directly.
+
+The workflow, tooling and anti-hallucination protocol live in
+`docs/pre_process_corpus/` (`CADRAGE_MANUELS.md`, `JOURNAL.md`,
+`ETAT_DILF.md`, `generate_chapter.py`, `validate_final_moves.py`). See
+[`docs/MANUELS_PIPELINE.md`](docs/MANUELS_PIPELINE.md) for the full
+description.
+
+- [x] **Débutant manual** — 166 fixtures, 16 chapters, FEN round-trip
+      166/166, `final_move` 135/135 validated by `validate_final_moves.py`,
+      smoke-tested on draught-master (mai 2026).
+- [ ] **Intermédiaire manual** — sources : `jpdubois_perfectionnement_sens_du_jeu_tome_1`
+      + `jpdubois_perfectionnement_combinaisons_V4`. Target 200-250
+      fixtures. Blocked until backlog §1 (standardised wrapper) and §4
+      (PDF-typo detector) ship — these unblock fast production at scale.
+- [ ] **Avancé manual** — sources : `sijbrandscourse` + `springercourse`.
+      Multi-language pipeline tuning likely required (caption filter
+      currently French-only, cf Tier 3 P3).
+- [ ] **Expert manual** — sources : `maitrise-du-jeu-de-dames-dubois`
+      + `jpdubois_expert_combinaisons_V2` + a master workbook. King
+      detector (Tier 3 P2) prerequisite.
+- [ ] **dilf backlog enabling §1 / §4 / §5 / §6** — wrapper
+      standardisé, détecteur de coquilles, glossaire étendu, détecteurs
+      de motifs pour les coups nommés. Items listed in
+      `docs/pre_process_corpus/ETAT_DILF.md` §6. Closing §1 and §4 is
+      the gating condition before launching Intermédiaire.
 
 ## Tier 2 — Quality and operations
 
