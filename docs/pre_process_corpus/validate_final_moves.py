@@ -1,4 +1,4 @@
-"""Validation structurelle des final_move des fixtures du manuel Débutant.
+"""Validation structurelle des final_move des fixtures d'un manuel.
 
 Pour chaque fixture avec final_move != None :
 1. Re-joue les coups préliminaires de published_notation pour atteindre
@@ -18,11 +18,41 @@ Cette validation est PARTIELLE :
   Draught Master (cf protocols.py:ScanProtocol).
 
 Usage :
-    python validate_final_moves.py > validation_report.txt
+    # Validation du manuel Débutant (par défaut) :
+    python validate_final_moves.py
+
+    # Validation d'un autre manuel :
+    FIXTURES_MODULE=fixtures_intermediaire python validate_final_moves.py
+
+Configuration :
+- DILF_ROOT (var d'env) : chemin vers le repo dilf cloné.
+  À défaut, recherché dans ./dilf puis ../dilf.
+- FIXTURES_MODULE (var d'env) : nom du module fixtures à valider.
+  Défaut : "fixtures_debutant". Le module doit exposer ALL_*_POSITIONS
+  (liste des fixtures) — par défaut on cherche ALL_BEGINNER_POSITIONS,
+  ALL_INTERMEDIATE_POSITIONS, etc.
 """
-import sys, re
-sys.path.insert(0, '/home/claude')
-sys.path.insert(0, '/home/claude/dilf')
+import sys, os, re
+from pathlib import Path
+
+
+def _find_dilf_root() -> Path:
+    env = os.environ.get("DILF_ROOT")
+    if env:
+        p = Path(env).resolve()
+        if (p / "pedagogy" / "game.py").exists():
+            return p
+        sys.exit(f"DILF_ROOT={env} ne contient pas pedagogy/game.py")
+    here = Path.cwd().resolve()
+    for cand in (here / "dilf", here.parent / "dilf", here):
+        if (cand / "pedagogy" / "game.py").exists():
+            return cand
+    sys.exit("dilf non trouve. Definir DILF_ROOT ou cloner dilf a cote.")
+
+
+DILF_ROOT = _find_dilf_root()
+sys.path.insert(0, str(Path.cwd()))
+sys.path.insert(0, str(DILF_ROOT))
 
 from pedagogy.game import GameState, Move
 from pedagogy.notation.dubois import (
@@ -32,7 +62,23 @@ from pedagogy.notation.dubois import (
     AmbiguousRafleError,
     NotAManError,
 )
-import fixtures_debutant as fx
+
+# Charge dynamiquement le module fixtures du manuel a valider
+_FIXTURES_MODULE_NAME = os.environ.get("FIXTURES_MODULE", "fixtures_debutant")
+import importlib
+fx = importlib.import_module(_FIXTURES_MODULE_NAME)
+
+# Trouve la liste des fixtures (ALL_BEGINNER_POSITIONS, ALL_INTERMEDIATE_POSITIONS, etc.)
+_FIXTURES_LIST = None
+for attr in dir(fx):
+    if attr.startswith("ALL_") and attr.endswith("_POSITIONS"):
+        _FIXTURES_LIST = getattr(fx, attr)
+        break
+if _FIXTURES_LIST is None:
+    sys.exit(
+        f"Module {_FIXTURES_MODULE_NAME} ne contient aucune liste "
+        f"ALL_*_POSITIONS (BEGINNER, INTERMEDIATE, ADVANCED, EXPERT)."
+    )
 
 
 def apply_simple(state, frm, to):
@@ -213,16 +259,16 @@ def validate_fixture(p):
 def main():
     stats = {"OK": 0, "NO_FM": 0, "FAIL": 0, "KING_RAFLE": 0}
     failures = []
-    for p in fx.ALL_BEGINNER_POSITIONS:
+    for p in _FIXTURES_LIST:
         status, msg = validate_fixture(p)
         stats[status] += 1
         if status == "FAIL":
             failures.append((p.id, p.title, msg))
         # print(f"  {status:10s} {p.id}: {msg}")  # verbose mode
 
-    total = len(fx.ALL_BEGINNER_POSITIONS)
+    total = len(_FIXTURES_LIST)
     print(f"\n{'=' * 60}")
-    print(f"Validation moteur — manuel Débutant ({total} fixtures)")
+    print(f"Validation moteur — {_FIXTURES_MODULE_NAME} ({total} fixtures)")
     print(f"{'=' * 60}")
     print(f"  ✅ OK        : {stats['OK']:3d} ({100*stats['OK']//total}%)")
     print(f"  ⊘  NO_FM     : {stats['NO_FM']:3d} (envoi à dame, gambit, blocage)")
