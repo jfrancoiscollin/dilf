@@ -316,3 +316,227 @@ def test_coup_turc_traversal_allowed() -> None:
     )
     # At least one trajectory must visit square 14 more than once.
     assert any(path.count(14) >= 2 for path, _ in candidates)
+
+
+# ===========================================================================
+# King rafle reconstruction (FMJD dame)
+# ===========================================================================
+#
+# These tests cover :func:`enumerate_king_captures` and
+# :func:`reconstruct_king_capture`. The geometry is exercised on synthetic
+# minimal setups so each test isolates one rule.
+
+
+from pedagogy.notation.dubois import (
+    NotAKingError,
+    enumerate_king_captures,
+    reconstruct_capture,
+    reconstruct_king_capture,
+)
+
+
+def test_king_no_capture_isolated() -> None:
+    """A king with no enemy on its diagonals returns no rafle."""
+    caps = enumerate_king_captures(
+        start=28,
+        my_pieces=frozenset({28}),
+        enemy_pieces=frozenset({1, 5, 46, 50}),  # too far / off-diagonal
+    )
+    assert caps == []
+
+
+def test_king_single_jump_multiple_landings() -> None:
+    """A king jumps an adjacent enemy; multiple empty landings are all valid."""
+    # White king on 28, enemy man on 23. Diagonal HD through 28-23 continues
+    # to 19, 14, 10, 5 (all empty). All four are valid landings.
+    caps = enumerate_king_captures(
+        start=28,
+        my_pieces=frozenset({28}),
+        enemy_pieces=frozenset({23}),
+    )
+    landings = sorted(path[-1] for path, _ in caps)
+    assert landings == [5, 10, 14, 19]
+    # All single-capture rafles, all capturing {23}.
+    assert all(captures == frozenset({23}) for _, captures in caps)
+
+
+def test_king_slides_before_jump() -> None:
+    """A king can slide over several empty squares before jumping."""
+    # White king on 50, enemy man on 32. HG diagonal from 50 passes 44, 39,
+    # 33 (empty), reaches 32 (wrong: 32 is not on the HG diagonal from 50).
+    # Actually the HG diagonal from 50 is: 50 → 44 → 39 → 33 → 28 → 22 → 17 → 11 → 6.
+    # Place enemy on 28, landings 22, 17, 11, 6.
+    caps = enumerate_king_captures(
+        start=50,
+        my_pieces=frozenset({50}),
+        enemy_pieces=frozenset({28}),
+    )
+    landings = sorted(path[-1] for path, _ in caps)
+    assert landings == [6, 11, 17, 22]
+
+
+def test_king_blocked_by_friendly() -> None:
+    """A king cannot jump if a friendly piece sits behind the enemy."""
+    # King 28, enemy 23, friendly 19 — the only landing square is blocked.
+    caps = enumerate_king_captures(
+        start=28,
+        my_pieces=frozenset({28, 19}),
+        enemy_pieces=frozenset({23}),
+    )
+    assert caps == []
+
+
+def test_king_blocked_by_two_consecutive_enemies() -> None:
+    """A king cannot jump two enemies in a row on the same diagonal."""
+    # King 28, enemies 23 and 19. Jumping 23 would land on 19, which is also
+    # enemy — illegal. Jumping 19 is also blocked because 23 is in the way.
+    caps = enumerate_king_captures(
+        start=28,
+        my_pieces=frozenset({28}),
+        enemy_pieces=frozenset({23, 19}),
+    )
+    assert caps == []
+
+
+def test_king_multi_jump_change_diagonal() -> None:
+    """A king takes two enemies on different diagonals in one rafle."""
+    # White king on 5. Enemy on 14 (BG from 5), then enemy on 33 (BG from 28).
+    # Path: 5 → ... → 28 (capture 14), then change to BG → ... → 39 (capture 33).
+    # Landing options after capturing both: 39, 44, 50 (slide BG).
+    caps = enumerate_king_captures(
+        start=5,
+        my_pieces=frozenset({5}),
+        enemy_pieces=frozenset({14, 33}),
+    )
+    # Must be maximal: capture both pieces.
+    assert all(len(c) == 2 for _, c in caps)
+    assert all(c == frozenset({14, 33}) for _, c in caps)
+    landings = sorted(set(path[-1] for path, _ in caps))
+    assert landings == [39, 44, 50]
+
+
+def test_king_must_capture_maximum() -> None:
+    """When two rafles capture different numbers of enemies, only the maximum
+    is returned (FMJD prise majoritaire rule)."""
+    # King 28: can jump 23 alone (1 capture, several landings) OR jump 23
+    # then change diagonal to capture another enemy. Set up so a 2-capture
+    # path exists. Enemies 23 and 8: 28 jumps 23 to 19 → 14 → 10 → ... and
+    # from 14 (or similar) saute 9? Use simpler: enemies 23 and 9.
+    # Path: 28 → HD → 19 (after capturing 23), then HG from 19 = 13, 8.
+    # 9 is enemy: from 14, voisin HG = 9. Donc 28 → HD → 19 → ... → 14 (slide HD),
+    # then HG → saute 9 → atterrir 4. Captures {23, 9}.
+    caps = enumerate_king_captures(
+        start=28,
+        my_pieces=frozenset({28}),
+        enemy_pieces=frozenset({23, 9}),
+    )
+    # All returned rafles must be 2-capture (the maximum).
+    assert all(len(c) == 2 for _, c in caps)
+
+
+def test_reconstruct_king_basic() -> None:
+    """Reconstruct a Dubois-style king rafle 28x14 capturing 23."""
+    state = GameState(
+        white_kings=frozenset({28}),
+        black_men=frozenset({23}),
+        turn="white",
+    )
+    move = reconstruct_king_capture(state, from_sq=28, to_sq=14)
+    assert move.captures == (23,)
+    assert move.path[0] == 28
+    assert move.path[-1] == 14
+
+
+def test_reconstruct_king_multi_jump() -> None:
+    """Reconstruct a 2-capture king rafle ending on a specific landing square."""
+    state = GameState(
+        white_kings=frozenset({5}),
+        black_men=frozenset({14, 33}),
+        turn="white",
+    )
+    move = reconstruct_king_capture(state, from_sq=5, to_sq=44)
+    assert set(move.captures) == {14, 33}
+    assert move.path[0] == 5
+    assert move.path[-1] == 44
+
+
+def test_reconstruct_king_from_empty_raises() -> None:
+    state = GameState(turn="white")
+    with pytest.raises(NotAKingError, match="empty"):
+        reconstruct_king_capture(state, from_sq=28, to_sq=14)
+
+
+def test_reconstruct_king_from_man_raises() -> None:
+    state = GameState(
+        white_men=frozenset({28}),
+        black_men=frozenset({23}),
+        turn="white",
+    )
+    with pytest.raises(NotAKingError, match="man"):
+        reconstruct_king_capture(state, from_sq=28, to_sq=14)
+
+
+def test_reconstruct_king_no_such_rafle() -> None:
+    """A king cannot land on a square not reachable by any maximal rafle."""
+    state = GameState(
+        white_kings=frozenset({28}),
+        black_men=frozenset({23}),
+        turn="white",
+    )
+    # The only landings after jumping 23 are 19, 14, 10, 5. Landing 1 is
+    # off-diagonal.
+    with pytest.raises(NoSuchRafleError):
+        reconstruct_king_capture(state, from_sq=28, to_sq=1)
+
+
+def test_reconstruct_capture_dispatches_pawn() -> None:
+    """The unified dispatcher routes a man to the pawn reconstructor."""
+    state = GameState(
+        white_men=frozenset({31}),
+        black_men=frozenset({27}),
+        turn="white",
+    )
+    move = reconstruct_capture(state, from_sq=31, to_sq=22)
+    assert move.captures == (27,)
+
+
+def test_reconstruct_capture_dispatches_king() -> None:
+    """The unified dispatcher routes a king to the king reconstructor."""
+    state = GameState(
+        white_kings=frozenset({28}),
+        black_men=frozenset({23}),
+        turn="white",
+    )
+    move = reconstruct_capture(state, from_sq=28, to_sq=14)
+    assert move.captures == (23,)
+
+
+def test_reconstruct_capture_empty_square_raises() -> None:
+    state = GameState(turn="white")
+    with pytest.raises(ValueError, match="empty"):
+        reconstruct_capture(state, from_sq=28, to_sq=14)
+
+
+# ---------------------------------------------------------------------------
+# Coup turc on a king rafle
+# ---------------------------------------------------------------------------
+
+
+def test_king_coup_turc_traversal() -> None:
+    """A king may traverse the same empty square twice during a rafle, as
+    long as already-captured pieces are not jumped again."""
+    # Synthetic 4-enemy ring around square 28 such that the maximal rafle
+    # revisits square 28 (or another empty square). Enemies on 17, 19, 37, 39
+    # arranged so the king bounces back and forth.
+    state = GameState(
+        white_kings=frozenset({1}),
+        black_men=frozenset({12, 23, 34}),
+        turn="white",
+    )
+    # The maximal rafle from 1 must capture {12, 23, 34} via three jumps.
+    caps = enumerate_king_captures(
+        start=1,
+        my_pieces=state.white_kings,
+        enemy_pieces=state.black_men,
+    )
+    assert any(len(c) == 3 for _, c in caps)
