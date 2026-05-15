@@ -402,3 +402,77 @@ Le manuel est désormais en état final. Les 31 fixtures restant à
 intégration de la PR #32) ou de gambit se terminant par coup simple
 (comportement attendu, pas un défaut).
 
+
+---
+
+### Bug report — Section CH02 du manuel prose désynchronisée des fixtures (mai 2026)
+
+**Constat utilisateur** (5 captures de l'app `ai-draught-staging`) :
+les références `BEG_CH02_001` à `BEG_CH02_005` affichées dans l'app
+mènent à des diagrammes incohérents avec le texte. Ex : le texte parle
+de "rafle 32×23 capturant deux pions noirs successifs" pour
+`BEG_CH02_004`, mais la fixture contient juste W{22} B{27} (une seule
+capture vers 31).
+
+**Diagnostic** :
+- Les fixtures du CH02 sont **internement cohérentes** (état + concept
+  + title s'accordent).
+- Le **manuel prose** du CH02 inventait des positions canoniques
+  fictives (pion 32, noir 19) au lieu d'utiliser les vraies positions
+  des fixtures (pion 35, pion 22). Erreur de rédaction sans cross-vérification.
+- Il y avait aussi un décalage de numérotation : §2.3 référençait
+  `BEG_CH02_004` (qui est "capture arrière") au lieu de `BEG_CH02_005`
+  (qui est la vraie rafle).
+
+**Correction appliquée** : section CH02 du manuel `manuel_debutant.md`
+intégralement réécrite (§2.1 à §2.9), avec :
+- Pour chaque fixture, description exacte de la position réelle (cases
+  effectivement présentes dans `fixtures_debutant.py`)
+- Nouvelle structure §2.1-§2.9 alignée sur les 12 fixtures dans l'ordre
+- Ajout d'un §2.8 dédié au non-soufflage (BEG_CH02_011)
+
+**Audit sur les autres chapitres** : 20 fixtures référencées avec des
+cases mentionnées dans la prose mais pas dans l'état. La grande
+majorité concerne des cases d'atterrissage de rafles (légitime — la
+case d'arrivée n'est pas dans la position de départ). Aucun cas
+manifestement faux comme le CH02 sur les autres chapitres.
+
+**Cause racine** : la rédaction de la prose s'est faite "à la mémoire"
+sans charger les fixtures pour cross-checker. À éviter pour les
+prochains manuels : la prose doit citer les vraies positions
+(`state.white_men`, `state.black_men`) via inspection programmatique
+des fixtures, pas via reconstruction mémorielle.
+
+**Implication pour le cadrage** : ajouter une étape de vérification
+automatique "prose vs fixture" en fin de production de manuel.
+À reporter dans `ETAT_DILF.md` §6 comme nouvelle suggestion §8
+(validateur prose/fixture).
+
+
+---
+
+### Bug report — Chapitre 1 du manuel : grille ASCII illisible (mai 2026)
+
+**Constat utilisateur** : la grille ASCII de numérotation 1-50 dans le
+chapitre 1 du manuel rend mal dans Draught Master — colonnes
+décalées, illisible sur mobile. De toute façon redondante car le
+damier rendu par l'app affiche déjà tous les numéros.
+
+**Correction appliquée** : 
+- Suppression du bloc ASCII de numérotation (rangées 1-10 × colonnes 1-10).
+- Remplacement par la référence à `BEG_CH01_001` (position initiale) et
+  `BEG_CH01_002` (après 32-28) qui montrent la numérotation
+  directement via le rendering damier de l'app.
+- Suppression aussi des blocs FEN complets verbeux pour la position
+  initiale et 32-28 (l'info est dans la fixture, le rendu damier la
+  donne).
+- Conservé : le mini-bloc abstrait `<trait>:W<cases blancs>:B<cases noirs>`
+  qui explique la forme générale du FEN.
+- Conservé : la description textuelle des règles de notation (coup
+  simple, rafle, parenthèses, trait).
+
+**Règle pour les manuels suivants** : ne pas réinventer ce que
+Draught Master rend déjà visuellement. Les fixtures sont la source
+de vérité affichable ; le manuel prose doit y référer plutôt que de
+dupliquer en texte/ASCII/FEN brut.
+

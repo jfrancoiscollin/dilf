@@ -228,6 +228,7 @@ Option A et reporter §1 du backlog à plus tard.
 | §5 (suite) | Glossaire étendu (`ad lib`, `+1p`, `etc.`) | À faire | Moyenne |
 | §6 | Détecteurs de motifs (10 coups nommés) | 5/16 disponibles | Moyenne |
 | §7 | Validation interactive des blocages | À faire | Moyenne |
+| **§8** | Validateur prose/fixtures | ✅ Outillage local fourni (validate_prose_vs_fixtures.py) | Haute |
 
 **Pour démarrer Intermédiaire** : §1 et §4 sont les seules suggestions
 qui pourraient bloquer ou ralentir la production. §6 (détecteurs) est

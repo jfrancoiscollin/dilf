@@ -30,6 +30,7 @@ manuel est ici.
 |---|---|
 | `generate_chapter.py` | Générateur de fixtures depuis une définition déclarative `chN_def.py`. Supporte pions ET dames (dispatcher unifié PR #32). Portable via `DILF_ROOT`. |
 | `validate_final_moves.py` | Validation moteur structurelle des `final_move`. Portable via `DILF_ROOT` + `FIXTURES_MODULE`. |
+| `validate_prose_vs_fixtures.py` | Validation cross-référence prose/fixture — détecte les paragraphes du manuel qui décrivent des positions différentes de celles des fixtures. À lancer en fin de production. |
 
 ## Comment l'utiliser
 

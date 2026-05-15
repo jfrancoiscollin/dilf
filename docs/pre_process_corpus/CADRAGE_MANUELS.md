@@ -545,6 +545,49 @@ en documentant la coquille dans `claude_notes` ET en consignant la
 résolution dans `RESOLUTIONS_<conv>.md`. Si la solution n'est pas
 unique, ou si le pattern est inconnu, retour à §4.11 standard.
 
+### 4.14. Cohérence prose / fixture — règles d'écriture du manuel
+
+Cette règle existe parce que la production du manuel Débutant a généré
+deux bugs qui ne sont apparus qu'en validation finale dans
+Draught Master (cf JOURNAL.md "Bug report") : (1) section CH02
+décrivant des positions canoniques imaginaires au lieu des positions
+réelles des fixtures ; (2) grille ASCII de numérotation 1-50 dans le
+chapitre 1, redondante et illisible. Les deux bugs ont une cause
+commune : **Claude a écrit la prose "de mémoire" au lieu de la
+construire par inspection des fixtures**.
+
+**Règles d'écriture** :
+
+1. **Inspecter les fixtures avant d'écrire la prose.** Pour chaque
+   référence `<PREFIX>_CHnn_mmm` que la prose va citer, Claude lit
+   d'abord son `state`, son `concept` et son `published_notation` —
+   et la prose décrit **ces positions-là**, pas des positions
+   canoniques fictives.
+
+2. **Ne pas dupliquer ce que Draught Master rend.** Les damiers de
+   l'app affichent la numérotation, les pièces, le trait. Le manuel
+   prose ne doit donc pas :
+   - reproduire la grille de numérotation en ASCII ou en tableau,
+   - inclure des FEN complètes pour les positions affichables via
+     `BEG_CHnn_mmm`,
+   - décrire pièce par pièce une position que le rendering montre.
+
+   Format préféré : *« Voir `BEG_CHxx_yyy` : <ce qu'il faut
+   comprendre / observer / faire>. »* La position elle-même est dans
+   l'app.
+
+3. **Les blocs de code sont réservés aux formats abstraits.** Exemple
+   acceptable : montrer la forme générique d'une FEN
+   (`<trait>:W<cases>:B<cases>`) une fois. Exemples à éviter : FEN
+   intégrales, longues séquences PDN coupées en lignes ASCII, grilles
+   de numérotation.
+
+4. **Validation obligatoire en fin de production.** Lancer
+   `validate_prose_vs_fixtures.py` qui détecte automatiquement les
+   passages où la prose mentionne des cases absentes de la fixture.
+   Si recouvrement < 40%, désynchronisation grave probable, audit
+   manuel requis.
+
 ---
 
 ## 5. Méthode de travail conversation par conversation
