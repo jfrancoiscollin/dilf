@@ -476,3 +476,51 @@ Draught Master rend déjà visuellement. Les fixtures sont la source
 de vérité affichable ; le manuel prose doit y référer plutôt que de
 dupliquer en texte/ASCII/FEN brut.
 
+
+---
+
+### Bug report — Chapitres 3, 4, 13 du manuel : notations Dubois fictives (mai 2026)
+
+**Constat utilisateur** : sur l'app Draught Master, `BEG_CH03_001`
+affiche un diagramme avec sacrifice `26-21` (correct selon la fixture),
+mais le texte du manuel dit `28-23 (19x39) 44x4` (faux — c'est une
+autre combinaison Dubois imaginaire).
+
+**Diagnostic** : malgré la correction du CH02 lors d'une session
+précédente, la même erreur méthodologique persistait sur d'autres
+chapitres. J'avais cité des notations Dubois "canoniques" de mémoire
+au lieu de copier les `published_notation` réelles des fixtures.
+
+**4 désynchronisations identifiées et corrigées** :
+
+| Fixture | Prose disait | Réalité (publiée) |
+|---|---|---|
+| BEG_CH03_001 | `28-23 (19x39) 44x4` | `26-21 (17×28) 43×3` |
+| BEG_CH03_002 | `28-22 (18x27) 32x5` | `28-22 (17×28) 32×5` |
+| BEG_CH03_004 | `28-23` (mention) | `34-29 (23×21) 29×7` |
+| BEG_CH04_005 | `35-30 (24x35) 34-29 (35x24) 30x4` | `29-24 (22×33) 32-28 (19×39) 28×6` |
+| BEG_CH04_010 | "rafle de dame `4x47`" | `34-29 (23×25) 27-22 (17×28) 32×3` |
+| BEG_CH13_009 | diagonale `31-22-13-4` | trajet `31→22→33→24→15→4` |
+
+**Corrections appliquées dans `manuel_debutant.md`** :
+- Section §3.1 et §3.2 entièrement réécrites avec les vraies
+  notations des fixtures BEG_CH03_001 à BEG_CH03_010.
+- §3.3 corrigée (`(17x28)` au lieu de `(18x27)` pour BEG_CH03_002).
+- §4.2 et §4.4 corrigées (vraies notations CH04_005 et CH04_010).
+- §13.1 corrigée (vraie trajectoire de la rafle finale 31x4).
+- Note technique obsolète sur PR #31 supprimée (rendue caduque
+  par PR #32 dilf — extension dames mergée).
+
+**Audit étendu** : un script ad-hoc a comparé les notations entre
+backticks dans chaque paragraphe vs `published_notation` de la
+fixture. 6 désynchros détectées, dont 2 faux positifs (BEG_CH02_006
+et CH02_007 mentionnent `31x22` à titre pédagogique, légitime ; et
+CH13_007 voit `40×16` dans la liste de variantes adjacentes). Les
+4 vraies désynchros sont toutes corrigées.
+
+**Limitation du validateur prose/fixtures actuel** : il vérifiait
+le recouvrement de cases mais pas les **notations entre backticks**.
+Ce nouveau type de validation pourrait être intégré dans
+`validate_prose_vs_fixtures.py` (TODO à ajouter pour le manuel
+Intermédiaire).
+
