@@ -586,7 +586,10 @@ construire par inspection des fixtures**.
    `validate_prose_vs_fixtures.py` qui détecte automatiquement les
    passages où la prose mentionne des cases absentes de la fixture.
    Si recouvrement < 40%, désynchronisation grave probable, audit
-   manuel requis.
+   manuel requis. **L'audit final de §5 est ensuite obligatoire** —
+   le script ne capture pas les erreurs géométriques de type « le
+   pion X a deux coups possibles » (faux positifs filtrés par
+   heuristique). Voir §5 pour la checklist d'audit complète.
 
 ---
 
@@ -667,7 +670,76 @@ vérification, signaler une erreur. Claude rétracte/corrige immédiatement.
 
 ### À la fin de la conversation
 
-Claude produit :
+**Étape d'audit final — obligatoire avant livraison.** Cette étape
+existe parce que la production du manuel Débutant a généré plusieurs
+bugs uniquement détectés en validation Draught Master :
+
+- Section CH02 décrivant des positions canoniques imaginaires au lieu
+  des positions réelles des fixtures (commit dilf 7b7b6fa).
+- Notations Dubois citées « de mémoire » dans CH03/CH04/CH13 au lieu
+  de la `published_notation` réelle (commit dilf 62147b4).
+- Affirmation géométriquement fausse « le pion 6 a deux coups
+  possibles (6-1 ou 6-2) » alors que seul 6-1 existe sur un damier
+  FMJD (commit dilf a4c647c).
+
+Ces bugs ont une racine commune : **Claude écrit la prose plus vite
+que le validateur automatique ne la vérifie, et certaines erreurs
+échappent aux heuristiques outillées**. L'audit final est la dernière
+barrière avant publication.
+
+**Checklist d'audit, dans cet ordre, sans aucune étape sautée :**
+
+1. **Validation moteur** — `python validate_final_moves.py`. Doit
+   sortir `OK : N/N` sur les fixtures avec `final_move`. Tout échec
+   est bloquant.
+
+2. **Validation cross-référence prose ↔ fixtures** —
+   `python validate_prose_vs_fixtures.py`. Doit sortir aucune
+   désynchronisation grave. Les warnings « invention possible »
+   sont à arbitrer manuellement (faux positifs typiques : cases
+   d'arrivée de rafle citées dans la prose).
+
+3. **Audit manuel chapitre par chapitre.** Pour **chaque** chapitre
+   du manuel, Claude :
+   - Liste toutes les références `<PREFIX>_CHnn_mmm` du chapitre.
+   - Pour chaque référence, ouvre la fixture (state, theme, concept,
+     published_notation, final_move) **et** relit le paragraphe de
+     prose qui la cite.
+   - Vérifie point par point :
+     a. Les cases citées dans le paragraphe correspondent aux pièces
+        réelles de `state` (pas de pion mentionné inexistant, pas
+        de couleur inversée).
+     b. Les notations citées dans la prose (`a-b`, `aXb`, séquences)
+        sont identiques à `published_notation` de la fixture —
+        **jamais** écrites de mémoire, **toujours** copiées depuis
+        le champ.
+     c. Les affirmations géométriques (« le pion X peut jouer Y »,
+        « deux coups possibles », « rafle de N pions ») sont
+        **vérifiées** contre la géométrie FMJD du damier : un coup
+        simple existe seulement si la case d'arrivée est en diagonale
+        adjacente et libre ; les cases de bord (1-5, 6, 15, 16, 25,
+        26, 35, 36, 45, 46-50) ont moins de voisins diagonaux que les
+        cases centrales.
+     d. Le concept pédagogique annoncé est cohérent avec le `theme`
+        de la fixture.
+
+4. **Rapport d'audit dans `JOURNAL.md`.** Bloc dédié en fin de
+   conversation, format :
+
+   ```
+   ### Audit final — <date>
+   - validate_final_moves.py     : OK N/N
+   - validate_prose_vs_fixtures  : <résumé warnings + arbitrage>
+   - Audit chapitre par chapitre : <N> corrections appliquées
+       - <ref> §<paragraphe>  : <nature de la correction>
+       - ...
+   ```
+
+   Si aucune correction n'a été appliquée, écrire `aucune correction —
+   l'audit n'a rien révélé`. **Ne pas mentir** : si la checklist a été
+   sautée, le journaler honnêtement.
+
+5. **Seulement après l'audit**, Claude produit les livrables :
 
 - Les 3 fichiers livrables principaux : `manuel_<niveau>.md`,
   `fixtures_<niveau>.py`, `sources_<niveau>.md`
@@ -679,7 +751,8 @@ Claude produit :
 - Une mise à jour de `JOURNAL.md` : niveau X complété le <date>, N
   positions livrées, dont N_corpus / N_general / N_invented, points
   d'attention pour vérification moteur, nombre d'interpellations §4.11
-  déclenchées et leurs résolutions.
+  déclenchées et leurs résolutions, **plus le bloc « Audit final »
+  décrit ci-dessus**.
 - Une **mise à jour de `ETAT_DILF.md`** si des évolutions du framework
   ont été identifiées pendant la production (nouveaux patterns de
   coquilles, suggestions de modules manquants, etc.).
