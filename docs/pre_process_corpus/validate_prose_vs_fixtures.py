@@ -65,6 +65,106 @@ sys.path.insert(0, str(Path.cwd()))
 sys.path.insert(0, str(DILF_ROOT))
 
 
+# === Géométrie FMJD pour validation des coups simples ===
+
+def _case_to_rc(n: int) -> tuple[int, int]:
+    """Convertit case 1-50 en (row, col) du damier 10x10."""
+    n0 = n - 1
+    row = n0 // 5
+    pos_in_row = n0 % 5
+    col = 2 * pos_in_row + 1 if row % 2 == 0 else 2 * pos_in_row
+    return row, col
+
+
+def _rc_to_case(row: int, col: int) -> int | None:
+    """Convertit (row, col) en case 1-50. None si case claire ou hors plateau."""
+    if not (0 <= row < 10 and 0 <= col < 10):
+        return None
+    if (row + col) % 2 == 0:  # case claire
+        return None
+    return row * 5 + col // 2 + 1
+
+
+def _pawn_simple_moves(case: int, color: str) -> list[int]:
+    """Coups simples (non capturants) légaux d'un pion sur 'case', plateau vide."""
+    r, c = _case_to_rc(case)
+    direction = -1 if color == "white" else 1
+    result = []
+    for dc in (-1, 1):
+        target = _rc_to_case(r + direction, c + dc)
+        if target is not None:
+            result.append(target)
+    return result
+
+
+_NEGATION_WORDS = ["pas", "ne peut", "interdit", "illégal", "impossible", "jamais"]
+
+# Patterns d'affirmations "le pion X peut Y ou Z" en français
+_GEOM_PATTERNS = [
+    # "X-Y ou X-Z" (sous toutes ses formes)
+    re.compile(r"(\d{1,2})-(\d{1,2})\s*(?:ou|et)\s*(\d{1,2})-(\d{1,2})"),
+    # "pion X ... en Y ou en Z" (avec contexte pion)
+    re.compile(
+        r"pion\s+(?:blanc(?:he)?\s+|noir(?:e)?\s+)?(?:en\s+(?:case\s+)?)?(\d{1,2})"
+        r"[^.]{0,80}en\s+(\d{1,2})[^.]{0,30}(?:ou|et)\s+(?:en\s+)?(\d{1,2})"
+    ),
+    # "X → Y ou Z"
+    re.compile(
+        r"pion\s+(?:blanc(?:he)?\s+|noir(?:e)?\s+)?(?:en\s+(?:case\s+)?)?(\d{1,2})"
+        r"[^.]{0,80}→\s*(\d{1,2})[^.]{0,30}(?:ou|et)\s+(?:→\s*)?(\d{1,2})"
+    ),
+]
+
+
+def _check_geometric_claims(
+    text: str, fixture, source_label: str
+) -> list[tuple[str, str, int, int, int, list[int], list[int]]]:
+    """Détecte les affirmations de coups simples géométriquement invalides
+    dans 'text', en utilisant 'fixture' (avec state) pour identifier les
+    pions présents.
+    
+    Retourne une liste de (source_label, color, from_sq, y1, y2, legal, invalid).
+    """
+    issues = []
+    for pat in _GEOM_PATTERNS:
+        for m in pat.finditer(text):
+            groups = m.groups()
+            try:
+                if len(groups) == 4:
+                    x1, y1, x2, y2 = int(groups[0]), int(groups[1]), int(groups[2]), int(groups[3])
+                    if x1 != x2:
+                        continue
+                    x = x1
+                elif len(groups) == 3:
+                    x, y1, y2 = int(groups[0]), int(groups[1]), int(groups[2])
+                else:
+                    continue
+            except ValueError:
+                continue
+            if not all(1 <= v <= 50 for v in (x, y1, y2)):
+                continue
+            # Skip si phrase négative
+            phrase_start = text.rfind(".", 0, m.start()) + 1
+            phrase_end = text.find(".", m.start())
+            if phrase_end < 0:
+                phrase_end = len(text)
+            phrase = text[phrase_start:phrase_end].lower()
+            if any(neg in phrase for neg in _NEGATION_WORDS):
+                continue
+            # Pion existant ?
+            if x in fixture.state.white_men:
+                color = "white"
+            elif x in fixture.state.black_men:
+                color = "black"
+            else:
+                continue
+            legal = _pawn_simple_moves(x, color)
+            invalid = [y for y in (y1, y2) if y not in legal]
+            if invalid:
+                issues.append((source_label, color, x, y1, y2, legal, invalid))
+    return issues
+
+
 def main() -> None:
     fixtures_module_name = os.environ.get("FIXTURES_MODULE", "fixtures_debutant")
     manuel_path = Path(os.environ.get("MANUEL_MD", "manuel_debutant.md"))
@@ -88,6 +188,7 @@ def main() -> None:
     # Construire les dicts {id: set(cases)} ET {id: published_notation}
     fixture_states: dict[str, set[int]] = {}
     fixture_notations: dict[str, str] = {}
+    fixtures_map: dict[str, object] = {}  # pour validation géométrique
     for p in fixtures_list:
         state_squares = (
             set(p.state.white_men)
@@ -97,6 +198,7 @@ def main() -> None:
         )
         fixture_states[p.id] = state_squares
         fixture_notations[p.id] = p.published_notation or ""
+        fixtures_map[p.id] = p
 
     # Lire le manuel
     with open(manuel_path) as f:
@@ -112,6 +214,7 @@ def main() -> None:
     issues_strict: list[tuple] = []   # désynchro grave (peu de recouvrement de cases)
     issues_soft: list[tuple] = []     # potentielle invention (à vérifier)
     notation_issues: list[tuple] = [] # notation Dubois citée incohérente avec published_notation
+    geometric_issues: list[tuple] = [] # affirmations de coup géométriquement invalides
     missing_refs: list[str] = []
 
     for match in ref_pattern.finditer(manuel_text):
@@ -198,6 +301,32 @@ def main() -> None:
                     missing_tokens = sorted(int(t) for t in cited_tokens - real_tokens)
                     notation_issues.append((ref_id, published, cited, missing_tokens))
 
+        # === Validation géométrique : affirmations de coup simple ===
+        # Détecte "le pion X a deux coups (X-Y ou X-Z)" alors qu'un seul
+        # est légal — bug typique des positions de pions de bord.
+        fixture = fixtures_map.get(ref_id)
+        if fixture is not None:
+            # Capture le paragraphe (jusqu'à \n\n ou prochaine ref)
+            para_start = match.end()
+            next_ref = ref_pattern.search(manuel_text, para_start)
+            next_para = manuel_text.find("\n\n", para_start)
+            para_end = min([x for x in [
+                next_ref.start() if next_ref else 10**9,
+                next_para if next_para > 0 else 10**9,
+                para_start + 500,
+            ]])
+            paragraph = manuel_text[para_start:para_end]
+            for issue in _check_geometric_claims(paragraph, fixture, "prose"):
+                geometric_issues.append((ref_id, *issue))
+
+    # Audit géométrique des concepts/explanations de toutes les fixtures
+    for p in fixtures_list:
+        for text, label in [(p.concept, "concept"), (p.explanation, "explanation")]:
+            if not text:
+                continue
+            for issue in _check_geometric_claims(text, p, label):
+                geometric_issues.append((p.id, *issue))
+
     # Rapport
     total_refs = sum(1 for _ in ref_pattern.finditer(manuel_text))
     print(f"\n{'=' * 70}")
@@ -247,12 +376,32 @@ def main() -> None:
             print(f"     prose cite     : `{cited}` (chiffres absents : {missing})")
         print()
 
-    if not (missing_refs or issues_strict or notation_issues):
+    if geometric_issues:
+        # Dédoublonner sur (ref_id, source, from_sq, sorted(y1,y2))
+        seen = set()
+        unique = []
+        for entry in geometric_issues:
+            ref_id, source, color, x, y1, y2, legal, invalid = entry
+            key = (ref_id, source, x, tuple(sorted([y1, y2])))
+            if key in seen:
+                continue
+            seen.add(key)
+            unique.append(entry)
+        print(f"🚨 {len(unique)} affirmation(s) de coup GÉOMÉTRIQUEMENT invalide(s) :")
+        print("    (le pion X est affirmé pouvoir jouer Y/Z, alors que la géométrie")
+        print("     FMJD du damier ne le permet pas — bug typique des cases de bord)")
+        for ref_id, source, color, x, y1, y2, legal, invalid in unique:
+            print(f"   - {ref_id} [{source}] : pion {color} {x} → {y1} ou {y2}")
+            print(f"     coups légaux réels : {legal}")
+            print(f"     invalides          : {invalid}")
+        print()
+
+    if not (missing_refs or issues_strict or notation_issues or geometric_issues):
         print("✅ Aucune désynchronisation grave détectée.")
         if issues_soft:
             print(f"   ({len(issues_soft)} mentions soft à examiner manuellement.)")
 
-    if issues_strict or missing_refs or notation_issues:
+    if issues_strict or missing_refs or notation_issues or geometric_issues:
         sys.exit(2)
 
 

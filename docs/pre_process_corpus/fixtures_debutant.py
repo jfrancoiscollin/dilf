@@ -130,8 +130,9 @@ BEG_CH02_001 = BeginnerPosition(
     ),
     concept=(
         "Un pion se déplace d'une case en diagonale, vers l'avant uniquement. "
-        "Le pion blanc 35 a deux mouvements possibles : 35-30 (diagonale "
-        "haut-gauche) ou 35-31 (diagonale haut-droite)."
+        "Le pion blanc 35 est sur le bord droit du damier : son seul "
+        "déplacement légal est 35-30 (diagonale haut-gauche). La diagonale "
+        "haut-droite est bloquée par le bord du plateau."
     ),
     explanation=(
         "Les blancs avancent vers les petites cases (1-5), les noirs vers les "
@@ -303,8 +304,8 @@ BEG_CH02_008 = BeginnerPosition(
     concept=(
         "Quand un pion blanc atteint la première rangée (cases 1-5), il "
         "est immédiatement promu en dame. Idem pour les noirs vers la "
-        "dernière rangée (46-50). Le pion blanc 6 a deux coups possibles : "
-        "6-1 ou 6-2, et dans les deux cas il devient dame."
+        "dernière rangée (46-50). Le pion blanc 6 (sur le bord gauche) "
+        "n'a qu'un seul coup légal : 6-1, qui le promeut en dame."
     ),
     explanation=(
         "La promotion se produit dès qu'un pion atteint sa rangée "

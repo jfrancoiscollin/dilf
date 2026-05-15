@@ -524,3 +524,59 @@ Ce nouveau type de validation pourrait être intégré dans
 `validate_prose_vs_fixtures.py` (TODO à ajouter pour le manuel
 Intermédiaire).
 
+
+---
+
+### Audit final déclenché par §5 du cadrage — détection bug géométrique (mai 2026)
+
+**Constat utilisateur** : sur Draught Master, la prose de `BEG_CH02_001`
+affirmait "le pion blanc 35 peut se déplacer en 30 ou 31" — la case 31
+n'est géométriquement pas en diagonale depuis 35 (35 est sur le bord
+droit du plateau, en (6,9)).
+
+**Procédure suivie** : application de la checklist d'audit §5 du
+cadrage (introduite par le commit cf55c7e), point §3.c — vérification
+des affirmations géométriques contre la géométrie FMJD.
+
+**Bugs détectés** :
+
+1. `BEG_CH02_001` (prose ET fixture concept) : "pion 35 → 30 ou 31"
+   alors que seul 30 est légal (35 est en case de bord droit).
+2. `BEG_CH02_008` (fixture concept uniquement, la prose avait été
+   corrigée par le commit a4c647c précédent) : "pion 6 → 6-1 ou 6-2"
+   alors que seul 6-1 est légal (6 est en case de bord gauche).
+
+Le commit a4c647c (Claude Code) avait corrigé la prose du manuel pour
+CH02_008 mais avait laissé le bug dans le `concept` de la fixture.
+Cette désynchronisation prose/fixture n'avait pas été détectée.
+
+**Corrections appliquées** :
+
+- `manuel_debutant.md` §2.1 : précise que le pion 35 (sur le bord
+  droit) n'a qu'un seul coup légal (35→30).
+- `fixtures_debutant.py` BEG_CH02_001 concept : reformulé avec
+  "seul déplacement légal est 35-30 (la diagonale haut-droite est
+  bloquée par le bord du plateau)".
+- `fixtures_debutant.py` BEG_CH02_008 concept : reformulé avec
+  "n'a qu'un seul coup légal : 6-1, qui le promeut en dame" (au lieu
+  de "deux coups possibles : 6-1 ou 6-2").
+
+**Amélioration outillage** :
+
+- `validate_prose_vs_fixtures.py` enrichi d'un audit géométrique FMJD :
+  pour chaque référence dans la prose ET pour chaque fixture, détecte
+  les affirmations "le pion X peut Y ou Z" où Y ou Z ne sont pas dans
+  les diagonales légales du pion X. Inclut helpers `_case_to_rc`,
+  `_rc_to_case`, `_pawn_simple_moves`, et `_check_geometric_claims`
+  avec filtre négations.
+- Audit complet exécuté : 0 affirmation géométrique invalide restante
+  dans le manuel et dans les concepts/explanations des 166 fixtures.
+
+**Conformité §5 du cadrage** :
+
+- Validation moteur : ✅ 135/135 OK (inchangé)
+- Validation prose/fixtures : ✅ géométrie OK ; quelques warnings notation
+  soft (faux positifs structurels listes à puces, déjà documentés)
+- Audit manuel chapitre par chapitre : ✅ 2 corrections appliquées
+  (CH02_001 prose+fixture, CH02_008 fixture)
+
