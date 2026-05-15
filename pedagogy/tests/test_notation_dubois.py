@@ -540,3 +540,86 @@ def test_king_coup_turc_traversal() -> None:
         enemy_pieces=state.black_men,
     )
     assert any(len(c) == 3 for _, c in caps)
+
+
+# ---------------------------------------------------------------------------
+# parse_move_notation — string → Move (capture-aware)
+# ---------------------------------------------------------------------------
+
+
+from pedagogy.notation.dubois import parse_move_notation
+
+
+def test_parse_move_notation_quiet() -> None:
+    """A quiet `cd-cf` move yields an empty `captures` tuple."""
+    state = GameState(
+        white_men=frozenset({32}),
+        black_men=frozenset({18}),
+        turn="white",
+    )
+    move = parse_move_notation("32-28", state)
+    assert move.path == (32, 28)
+    assert move.captures == ()
+
+
+def test_parse_move_notation_simple_capture_fills_captures() -> None:
+    """A single-jump `aXb` resolves the captured enemy square."""
+    state = GameState(
+        white_men=frozenset({31}),
+        black_men=frozenset({27}),
+        turn="white",
+    )
+    move = parse_move_notation("31x22", state)
+    assert move.path[0] == 31 and move.path[-1] == 22
+    assert 27 in move.captures  # the jumped enemy
+
+
+def test_parse_move_notation_multi_jump_returns_all_captures() -> None:
+    """A multi-jump `aXbXc` returns every captured square."""
+    state = GameState(
+        white_men=frozenset({43}),
+        black_men=frozenset({9, 19, 28, 38}),
+        turn="white",
+    )
+    # Dubois D1: 43x3 captures 38, 28, 19, 9 in a four-jump rafle.
+    move = parse_move_notation("43x3", state)
+    assert move.path[0] == 43 and move.path[-1] == 3
+    assert set(move.captures) == {9, 19, 28, 38}
+
+
+def test_parse_move_notation_validates_intermediate_squares() -> None:
+    """If the notation lists wrong intermediate stops, raise ValueError."""
+    state = GameState(
+        white_men=frozenset({43}),
+        black_men=frozenset({9, 19, 28, 38}),
+        turn="white",
+    )
+    # Intermediate `99` is bogus — must be flagged.
+    import pytest
+    with pytest.raises(ValueError, match="intermediate squares"):
+        parse_move_notation("43x99x3", state)
+
+
+def test_parse_move_notation_strips_optional_king_prefix() -> None:
+    """Some PDN dialects prefix king moves with 'K' — accept and ignore."""
+    state = GameState(
+        white_men=frozenset({32}),
+        black_men=frozenset(),
+        turn="white",
+    )
+    move = parse_move_notation("K32-28", state)
+    assert move.path == (32, 28)
+
+
+def test_parse_move_notation_rejects_malformed_input() -> None:
+    """Inputs without '-' or 'x' aren't moves."""
+    state = GameState(
+        white_men=frozenset({32}),
+        black_men=frozenset(),
+        turn="white",
+    )
+    import pytest
+    with pytest.raises(ValueError):
+        parse_move_notation("32", state)
+    with pytest.raises(ValueError):
+        parse_move_notation("", state)

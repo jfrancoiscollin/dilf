@@ -538,3 +538,83 @@ def reconstruct_capture(
     if from_sq in state.white_kings or from_sq in state.black_kings:
         return reconstruct_king_capture(state, from_sq, to_sq)
     raise ValueError(f"square {from_sq} is empty; cannot reconstruct a capture")
+
+
+# ---------------------------------------------------------------------------
+# Notation-string parsing
+# ---------------------------------------------------------------------------
+
+
+def parse_move_notation(notation: str, state: GameState) -> Move:
+    """Parse a Dubois / PDN move string into a fully-resolved :class:`Move`.
+
+    Accepts the two notation forms used throughout the corpus:
+
+    - ``"32-28"`` — a quiet (non-capturing) move. Returns
+      ``Move(path=(32, 28), captures=())``.
+    - ``"40x29x18"`` — a capture sequence. The intermediate squares
+      (``29`` here) are taken as the actual trajectory : we dispatch
+      to :func:`reconstruct_capture` with the FIRST and LAST squares,
+      then validate that every intermediate stop in ``notation`` is on
+      the reconstructed path. This catches inconsistent notations
+      early.
+
+    Unlike the previous fallback that stored ``captures=()``, the
+    returned ``Move`` carries the **actual captured squares**, which
+    is what motif detectors (coup_royal, prise_max_ratee, …) need to
+    fire correctly. Capture-aware motif detection on exercise solutions
+    depends on this function.
+
+    Args:
+        notation: the move string, e.g. ``"32-28"`` or ``"40x29x18"``.
+        state: position **before** the move is played. Required to
+            disambiguate trajectories and locate captured pieces.
+
+    Returns:
+        A :class:`Move` with ``path`` and ``captures`` populated.
+
+    Raises:
+        ValueError: malformed notation, empty source square, or
+            intermediate squares inconsistent with the reconstructed
+            trajectory.
+        NoSuchRafleError, AmbiguousRafleError: see
+            :func:`reconstruct_capture`.
+    """
+    notation = notation.strip().lstrip("K")  # tolerate optional King prefix
+    if not notation:
+        raise ValueError("empty move notation")
+
+    if "x" in notation:
+        try:
+            squares = tuple(int(s) for s in notation.split("x"))
+        except ValueError as exc:
+            raise ValueError(f"malformed capture notation {notation!r}") from exc
+        if len(squares) < 2:
+            raise ValueError(f"capture notation needs ≥2 squares: {notation!r}")
+        from_sq, to_sq = squares[0], squares[-1]
+        move = reconstruct_capture(state, from_sq, to_sq)
+        # Validate intermediate stops if the caller supplied them.
+        if len(squares) > 2:
+            path_set = set(move.path)
+            stray = [s for s in squares[1:-1] if s not in path_set]
+            if stray:
+                raise ValueError(
+                    f"notation {notation!r} lists intermediate squares "
+                    f"{stray} that are not on the reconstructed trajectory "
+                    f"{list(move.path)}"
+                )
+        return move
+
+    if "-" in notation:
+        try:
+            parts = notation.split("-")
+            if len(parts) != 2:
+                raise ValueError
+            from_sq, to_sq = int(parts[0]), int(parts[1])
+        except ValueError as exc:
+            raise ValueError(f"malformed quiet notation {notation!r}") from exc
+        return Move(path=(from_sq, to_sq), captures=())
+
+    raise ValueError(
+        f"notation {notation!r} contains neither '-' nor 'x'; cannot parse"
+    )
