@@ -157,11 +157,10 @@ def test_aggregate_promotes_motif_to_weakness_when_threshold_reached() -> None:
 
 
 def test_aggregate_does_not_promote_motif_below_threshold() -> None:
-    # Two misses is below the threshold of 3.
+    # One miss is below the threshold of 2.
     games = [
         _game(verdicts=[
             _verdict(side="white", motifs=[_motif("coup_royal", role="missed")])
-            for _ in range(2)
         ])
     ]
     profile = aggregate_user_profile(user_id=1, games=games)
