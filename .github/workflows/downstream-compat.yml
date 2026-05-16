@@ -7,7 +7,13 @@ name: downstream-compat
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '.github/**'
+      - '**.md'
   pull_request:
+    paths-ignore:
+      - '.github/**'
+      - '**.md'
 
 jobs:
   draught-master-pedagogy-tests:
