@@ -16,7 +16,7 @@ from ..types import GameAnalysis, MoveVerdict, Phase, UserProfile, Verdict
 _ACCURACY_EXCLUDED_VERDICTS = frozenset({Verdict.FORCED, Verdict.BOOK})
 
 #: Minimum count for a motif to qualify as a strength or weakness.
-_MOTIF_THRESHOLD = 3
+_MOTIF_THRESHOLD = 2
 
 
 def compute_accuracy(verdicts: Sequence[MoveVerdict]) -> float:
