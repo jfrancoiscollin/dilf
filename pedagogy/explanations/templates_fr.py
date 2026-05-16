@@ -254,6 +254,42 @@ TEMPLATES_FR: dict[tuple[str, str, Optional[Verdict]], str] = {
         "Coup du brûleur — {burned_count} pions adverses désormais bloqués "
         "sur leurs deux diagonales avant."
     ),
+
+    # ===================================================================
+    # combinaison_N_temps — combinaisons forcées génériques (non nommées)
+    # ===================================================================
+    ("combinaison_2_temps", "played", None): (
+        "Combinaison en 2 temps : enchaînement forcé qui vous rapporte "
+        "{material_gain} pion(s)."
+    ),
+    ("combinaison_2_temps", "missed", None): (
+        "Vous avez raté une combinaison en 2 temps qui rapportait "
+        "{material_gain} pion(s)."
+    ),
+    ("combinaison_3_temps", "played", None): (
+        "Combinaison en 3 temps : enchaînement forcé qui vous rapporte "
+        "{material_gain} pion(s)."
+    ),
+    ("combinaison_3_temps", "missed", None): (
+        "Vous avez raté une combinaison en 3 temps qui rapportait "
+        "{material_gain} pion(s)."
+    ),
+    ("combinaison_4_temps", "played", None): (
+        "Combinaison en 4 temps : enchaînement forcé qui vous rapporte "
+        "{material_gain} pion(s) — joli calcul."
+    ),
+    ("combinaison_4_temps", "missed", None): (
+        "Vous avez raté une combinaison en 4 temps qui rapportait "
+        "{material_gain} pion(s)."
+    ),
+    ("combinaison_5_temps", "played", None): (
+        "Combinaison en {depth_temps} temps : enchaînement forcé qui vous "
+        "rapporte {material_gain} pion(s) — calcul exceptionnel."
+    ),
+    ("combinaison_5_temps", "missed", None): (
+        "Vous avez raté une combinaison en {depth_temps} temps qui rapportait "
+        "{material_gain} pion(s)."
+    ),
 }
 
 #: Generic verdict commentary used when no motif template matched. Always
