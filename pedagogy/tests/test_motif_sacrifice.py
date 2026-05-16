@@ -94,3 +94,80 @@ def test_default_detect_missed_returns_none() -> None:
     move = Move(path=(32, 28))
     det = SacrificeDetector()
     assert det.detect_missed(sb, move, [], move) is None
+
+
+# ---------------------------------------------------------------------------
+# FMJD-strict path : the player's move shows zero immediate material change
+# because the loss only materialises after the opponent's forced capture.
+# Reproduces real Lidraughts gameplay where prise-maximale enforcement
+# means a sacrifice is never visible on state_after alone.
+# ---------------------------------------------------------------------------
+
+
+def test_detect_fmjd_strict_forced_reply_sacrifice(mock_engine) -> None:
+    # White plays a quiet 32-28 ; state_after preserves both white men
+    # (same count as state_before). Mock engine reports a forced black
+    # capture 19x30 that takes the white pawn on 28, leaving white
+    # down 1 man post-reply.
+    state_before = state_from_pieces(white_men=[32, 33], black_men=[19], turn="white")
+    state_after = state_from_pieces(white_men=[28, 33], black_men=[19], turn="black")
+    state_after_capture = state_from_pieces(white_men=[33], black_men=[30], turn="white")
+    move = Move(path=(32, 28))
+    opp_capture = Move(path=(19, 30), captures=(28,))
+    mock_engine.set_legal(state_after, [opp_capture])
+    mock_engine.set_apply(state_after, opp_capture, state_after_capture)
+
+    det = SacrificeDetector()
+    match = det.detect(
+        state_before, move, state_after,
+        scan_score_after=0.5, engine=mock_engine,
+    )
+    assert match is not None
+    assert match.motif == "sacrifice"
+    assert match.metadata["path"] == "forced_reply"
+    assert match.metadata["material_loss"] >= 1
+
+
+def test_detect_fmjd_strict_skips_captures(mock_engine) -> None:
+    # The player's move is itself a capture — exchanges, not sacrifices.
+    state_before = state_from_pieces(white_men=[28], black_men=[19], turn="white")
+    state_after = state_from_pieces(white_men=[10], black_men=[], turn="black")
+    move = Move(path=(28, 10), captures=(19,))
+    mock_engine.set_legal(state_after, [])
+
+    det = SacrificeDetector()
+    assert det.detect(
+        state_before, move, state_after,
+        scan_score_after=0.5, engine=mock_engine,
+    ) is None
+
+
+def test_detect_fmjd_strict_no_forced_capture(mock_engine) -> None:
+    # No capture in opponent's legal moves → no FMJD-strict signal.
+    state_before = state_from_pieces(white_men=[32], black_men=[1], turn="white")
+    state_after = state_from_pieces(white_men=[28], black_men=[1], turn="black")
+    move = Move(path=(32, 28))
+    mock_engine.set_legal(state_after, [Move(path=(1, 7))])
+
+    det = SacrificeDetector()
+    assert det.detect(
+        state_before, move, state_after,
+        scan_score_after=0.5, engine=mock_engine,
+    ) is None
+
+
+def test_detect_fmjd_strict_collapsed_score_filtered(mock_engine) -> None:
+    state_before = state_from_pieces(white_men=[32, 33], black_men=[19], turn="white")
+    state_after = state_from_pieces(white_men=[28, 33], black_men=[19], turn="black")
+    state_after_capture = state_from_pieces(white_men=[33], black_men=[30], turn="white")
+    move = Move(path=(32, 28))
+    opp_capture = Move(path=(19, 30), captures=(28,))
+    mock_engine.set_legal(state_after, [opp_capture])
+    mock_engine.set_apply(state_after, opp_capture, state_after_capture)
+
+    det = SacrificeDetector()
+    assert det.detect(
+        state_before, move, state_after,
+        scan_score_after=SACRIFICE_FAILED_SCORE - 0.1,
+        engine=mock_engine,
+    ) is None

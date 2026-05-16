@@ -112,3 +112,34 @@ def test_first_ply_promotion_in_pv_is_also_accepted() -> None:
     match = det.detect(sb, m, sa, pv=pv, scan_score_after=0.5)
     assert match is not None
     assert match.metadata["promotion_square"] == 3
+
+
+# ---------------------------------------------------------------------------
+# FMJD-strict path : quiet sacrifice + forced opponent capture + promotion
+# in the PV. State_after shows no immediate material change, the loss only
+# materialises after the opponent's forced reply.
+# ---------------------------------------------------------------------------
+
+
+def test_detect_fmjd_strict_envoi_a_dame(mock_engine) -> None:
+    # White plays a quiet move 38-33 ; mock reports a forced black
+    # capture 19x30 that takes a hypothetical white pawn, after which
+    # the PV's pv[1] lands on promotion row 4 (white promotion).
+    state_before = state_from_pieces(white_men=[28, 38], black_men=[19], turn="white")
+    state_after = state_from_pieces(white_men=[28, 33], black_men=[19], turn="black")
+    state_after_capture = state_from_pieces(white_men=[33], black_men=[30], turn="white")
+    move = Move(path=(38, 33))
+    opp_capture = Move(path=(19, 30), captures=(28,))
+    mock_engine.set_legal(state_after, [opp_capture])
+    mock_engine.set_apply(state_after, opp_capture, state_after_capture)
+
+    det = EnvoiADameDetector()
+    pv = ["19x30", "33-4"]  # opponent capture + white promotion at 4
+    match = det.detect(
+        state_before, move, state_after,
+        pv=pv, scan_score_after=0.5, engine=mock_engine,
+    )
+    assert match is not None
+    assert match.motif == "envoi_a_dame"
+    assert match.metadata["path"] == "forced_reply"
+    assert match.metadata["promotion_square"] == 4
