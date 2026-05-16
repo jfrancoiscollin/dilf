@@ -242,6 +242,39 @@ TEMPLATES_EN: dict[tuple[str, str, Optional[Verdict]], str] = {
         "Burner stroke — {burned_count} opponent men now blocked on both "
         "forward diagonals."
     ),
+
+    # ===================================================================
+    # combinaison_N_temps — generic forcing combinations (unnamed)
+    # ===================================================================
+    ("combinaison_2_temps", "played", None): (
+        "Two-move combination: forced chain that nets you "
+        "{material_gain} pawn(s)."
+    ),
+    ("combinaison_2_temps", "missed", None): (
+        "You missed a two-move combination worth {material_gain} pawn(s)."
+    ),
+    ("combinaison_3_temps", "played", None): (
+        "Three-move combination: forced chain that nets you "
+        "{material_gain} pawn(s)."
+    ),
+    ("combinaison_3_temps", "missed", None): (
+        "You missed a three-move combination worth {material_gain} pawn(s)."
+    ),
+    ("combinaison_4_temps", "played", None): (
+        "Four-move combination: forced chain that nets you "
+        "{material_gain} pawn(s) — nice calculation."
+    ),
+    ("combinaison_4_temps", "missed", None): (
+        "You missed a four-move combination worth {material_gain} pawn(s)."
+    ),
+    ("combinaison_5_temps", "played", None): (
+        "Combination in {depth_temps} moves: forced chain that nets you "
+        "{material_gain} pawn(s) — outstanding calculation."
+    ),
+    ("combinaison_5_temps", "missed", None): (
+        "You missed a {depth_temps}-move combination worth "
+        "{material_gain} pawn(s)."
+    ),
 }
 
 #: Generic verdict commentary used when no motif template matched. Always

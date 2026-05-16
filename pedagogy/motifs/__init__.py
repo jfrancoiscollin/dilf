@@ -15,6 +15,12 @@ from ..game import GameState, Move
 from ..protocols import EngineProtocol
 from ..types import MotifMatch
 from .base import MotifDetector
+from .combinaisons_generiques import (
+    Combinaison2TempsDetector,
+    Combinaison3TempsDetector,
+    Combinaison4TempsDetector,
+    Combinaison5TempsDetector,
+)
 from .coup_bonnard import CoupBonnardDetector
 from .coup_de_talon import CoupDeTalonDetector
 from .coup_du_bruleur import CoupDuBruleurDetector
@@ -52,6 +58,10 @@ ALL_DETECTORS: list[type[MotifDetector]] = [
     CoupManouryDetector,
     CoupEnfiladeDetector,
     CoupDuBruleurDetector,
+    Combinaison2TempsDetector,
+    Combinaison3TempsDetector,
+    Combinaison4TempsDetector,
+    Combinaison5TempsDetector,
 ]
 
 
@@ -109,6 +119,10 @@ def detect_all_missed(
 
 __all__ = [
     "ALL_DETECTORS",
+    "Combinaison2TempsDetector",
+    "Combinaison3TempsDetector",
+    "Combinaison4TempsDetector",
+    "Combinaison5TempsDetector",
     "CoupBonnardDetector",
     "CoupDeTalonDetector",
     "CoupDuBruleurDetector",
