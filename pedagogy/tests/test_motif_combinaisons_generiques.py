@@ -16,6 +16,7 @@ from pedagogy.motifs.combinaisons_generiques import (
     Combinaison3TempsDetector,
     Combinaison4TempsDetector,
     Combinaison5TempsDetector,
+    _opp_is_forced,
 )
 
 from .conftest import MockEngine
@@ -223,3 +224,61 @@ def test_five_temps_detector_clamps_longer_chains() -> None:
     # reply caps the chain at depth=2. The 5-temps detector must NOT fire here.
     sb, s1, move1, pv, eng = _two_temps_setup()
     assert Combinaison5TempsDetector().detect(sb, move1, s1, pv=pv, engine=eng) is None
+
+
+# ---------------------------------------------------------------------------
+# FMJD prise-maximale ties — multiple legal captures at the same max length
+# ---------------------------------------------------------------------------
+
+
+def test_opp_is_forced_single_move() -> None:
+    """A single legal move is always forced, capture or not."""
+    assert _opp_is_forced([Move(path=(23, 19))]) is True
+    assert _opp_is_forced([Move(path=(19, 28), captures=(24,))]) is True
+
+
+def test_opp_is_forced_empty_is_not_forced() -> None:
+    assert _opp_is_forced([]) is False
+
+
+def test_opp_is_forced_all_captures_is_forced() -> None:
+    """FMJD prise-maximale: when multiple legal moves are all captures
+    they're all at the max length, and the opponent must capture
+    regardless. Counted as forced for combination-walking purposes."""
+    replies = [
+        Move(path=(19, 28), captures=(24,)),
+        Move(path=(19, 30), captures=(24,)),
+    ]
+    assert _opp_is_forced(replies) is True
+
+
+def test_opp_is_forced_mixed_or_non_capture_is_not_forced() -> None:
+    """Multiple non-captures means the opponent has free choice."""
+    replies = [
+        Move(path=(23, 19)),
+        Move(path=(23, 18)),
+    ]
+    assert _opp_is_forced(replies) is False
+
+
+def test_chain_breaks_when_opp_has_only_non_capture_choices() -> None:
+    """Multiple legal moves that are all non-captures means the opponent
+    has tactical freedom — the chain is not forced.
+
+    Pre-existing test ``test_detect_returns_none_when_reply_not_forced``
+    covered this with two non-capture replies; keeping a focused twin
+    here to lock the relaxation: only ALL-capture ties should pass.
+    """
+    sb = state_from_pieces(white_men=[33, 28], black_men=[23], turn="white")
+    s1 = state_from_pieces(white_men=[33, 24], black_men=[23], turn="black")
+    reply_a = Move(path=(23, 19))  # non-capture
+    reply_b = Move(path=(23, 18))  # non-capture
+    move1 = Move(path=(28, 24))
+
+    eng = MockEngine()
+    eng.set_apply(sb, move1, s1)
+    eng.set_legal(s1, [reply_a, reply_b])
+
+    assert Combinaison2TempsDetector().detect(
+        sb, move1, s1, pv=[notation(move1), notation(reply_a)], engine=eng,
+    ) is None

@@ -52,6 +52,20 @@ def _side_sign(side: str) -> int:
     return 1 if side == "white" else -1
 
 
+def _opp_is_forced(opp_legal: list[Move]) -> bool:
+    """Tactically forced under FMJD: opponent has a single legal move, OR
+    every legal move is a capture (prise-maximale — opponent must capture
+    no matter which max-length path they pick). Multiple tied captures
+    still count as forced because the attacker's combination resolves
+    the same way regardless of which path the defender takes.
+    """
+    if not opp_legal:
+        return False
+    if len(opp_legal) == 1:
+        return True
+    return all(m.is_capture for m in opp_legal)
+
+
 def _walk_forced_chain(
     state_before: GameState,
     first_move: Move,
@@ -62,6 +76,11 @@ def _walk_forced_chain(
     attacker moves until the chain breaks. Returns ``(N, final_state)``
     where ``N`` is the number of attacker moves chained (capped at
     :data:`MAX_DEPTH_TEMPS`), or ``None`` if fewer than 2 moves chained.
+
+    "Forced" follows :func:`_opp_is_forced` — single legal move or
+    all-capture replies (FMJD ties). When the PV names a specific reply,
+    we prefer it over ``opp_legal[0]`` so Scan's chosen line drives the
+    chain through prise-maximale ambiguities.
     """
     try:
         state = engine.apply_move(state_before, first_move)
@@ -73,10 +92,20 @@ def _walk_forced_chain(
 
     while attacker_moves < MAX_DEPTH_TEMPS:
         opp_legal = list(engine.legal_moves(state))
-        if len(opp_legal) != 1:
+        if not _opp_is_forced(opp_legal):
             break
+
+        reply: Move = opp_legal[0]
+        if pv_index < len(pv):
+            try:
+                parsed = parse_move_notation(pv[pv_index], state)
+                if any(m.path == parsed.path for m in opp_legal):
+                    reply = parsed
+            except Exception:
+                pass
+
         try:
-            state = engine.apply_move(state, opp_legal[0])
+            state = engine.apply_move(state, reply)
         except Exception:
             break
         pv_index += 1
