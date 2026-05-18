@@ -49,6 +49,7 @@ def _features(**over: Any) -> Features:
         holes_white=[], holes_black=[],
         outposts_white=[], outposts_black=[],
         white_legal_moves=7, black_legal_moves=8,
+        hanging_pieces_white=[], hanging_pieces_black=[],
         white_promotion_distance=5, black_promotion_distance=4,
         formations=[],
         phase=Phase.MIDDLEGAME,

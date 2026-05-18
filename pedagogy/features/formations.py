@@ -25,7 +25,7 @@ from .geometry import (
     min_promotion_distance,
 )
 from .material import count_material, total_pieces
-from .mobility import count_legal_moves
+from .mobility import count_legal_moves, hanging_pieces
 from .structure import (
     find_backward_pawns,
     find_holes,
@@ -120,6 +120,8 @@ def compute_features(
         outposts_black=find_outposts(state, "black"),
         white_legal_moves=count_legal_moves(state, "white", engine) if engine else 0,
         black_legal_moves=count_legal_moves(state, "black", engine) if engine else 0,
+        hanging_pieces_white=hanging_pieces(state, "white", engine) if engine else [],
+        hanging_pieces_black=hanging_pieces(state, "black", engine) if engine else [],
         white_promotion_distance=min_promotion_distance(state, "white"),
         black_promotion_distance=min_promotion_distance(state, "black"),
         formations=detect_formations(state),

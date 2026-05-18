@@ -118,3 +118,23 @@ def test_compute_features_uses_engine_for_mobility() -> None:
     f = compute_features(s, half_move=0, engine=engine)
     assert f.white_legal_moves == 2
     assert f.black_legal_moves == 1
+
+
+def test_compute_features_hanging_pieces_empty_without_engine() -> None:
+    f = compute_features(initial_state(), half_move=0)
+    assert f.hanging_pieces_white == []
+    assert f.hanging_pieces_black == []
+
+
+def test_compute_features_hanging_pieces_populated_with_engine() -> None:
+    # White man on 28 hangs to black 23 via 23x32.
+    state = state_from_pieces(white_men=[28], black_men=[23], turn="white")
+    flipped_black = state_from_pieces(white_men=[28], black_men=[23], turn="black")
+    flipped_white = state_from_pieces(white_men=[28], black_men=[23], turn="white")
+    engine = MockEngine()
+    engine.set_legal(state, [])
+    engine.set_legal(flipped_black, [Move(path=(23, 32), captures=(28,))])
+    engine.set_legal(flipped_white, [])
+    f = compute_features(state, half_move=20, engine=engine)
+    assert f.hanging_pieces_white == [28]
+    assert f.hanging_pieces_black == []

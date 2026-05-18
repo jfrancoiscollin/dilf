@@ -66,6 +66,10 @@ class Features:
     # Mobility
     white_legal_moves: int
     black_legal_moves: int
+    # Squares of own pieces that the opponent could capture on its next move.
+    # Empty lists when compute_features() was called without an engine.
+    hanging_pieces_white: list[int]
+    hanging_pieces_black: list[int]
 
     # Promotion
     white_promotion_distance: int   # min(distance from a white piece to row 1)
