@@ -2,23 +2,32 @@
 
 Living document of what's shipped, what's next, and what's deliberately
 deferred. Update when a tier item lands or when the priority of an item
-changes.
+changes. Companion changelog: `CHANGELOG.md`. Downstream consumer
+roadmap: [`jfrancoiscollin/draught-master` ROADMAP.md](https://github.com/jfrancoiscollin/draught-master/blob/develop/ROADMAP.md).
 
 ## Where we are today
 
-The pedagogy library is **feature-complete** per spec §15:
+The pedagogy library is in production via draught-master. Current
+`develop` HEAD is `9fccc1f`.
 
-- Layers shipped: `features/`, `motifs/` (10 detectors — 6 P1 + 4 P2),
-  `verdicts/`, `explanations/` (templates FR + EN, BookRAG, claude_writer
-  with anti-hallucination guard, unified `explain_verdict` pipeline),
-  `profile/`.
-- 402 tests pass. `mypy --strict pedagogy` clean on 34 source files.
-- Spec PRs landed: 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 14.
-- Spec PRs intentionally out of scope for dilf: 7 (DB schema), 8 (FastAPI
-  routes), 13 (tagging script) — all three are integration work that
-  belongs in the parent project ``Ai-draught``.
+- **18 detectors** in `ALL_DETECTORS` (6 P1 + 4 P2 + 4 P3 + 4 generic
+  forcing-combination family):
+  - **P1** (6) — CoupRoyal, CoupTurc, CoupDeTalon, EnvoiADame,
+    Sacrifice, PriseMaxRatee.
+  - **P2** (4) — CoupPhilippe, CoupRaphael, CoupExpress, CoupBonnard.
+  - **P3** (4) — CoupNapoleon, CoupManoury, CoupEnfilade, CoupDuBruleur.
+  - **Generic** (4, PR #38) — Combinaison2TempsDetector through
+    Combinaison5TempsDetector. Catches ad-hoc forcing sequences with
+    no named pattern.
+- 502 tests pass. `mypy --strict pedagogy` clean.
+- `_walk_forced_chain` accepts FMJD prise-max ties as a forced reply
+  (CHANGELOG.md "Unreleased") — combinations fire on real games where
+  the defender has multiple equal-length captures.
+- Spec PRs landed: 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 14. PRs 7/8/13
+  (DB schema, FastAPI router, tagging script) shipped downstream in
+  draught-master.
 
-A side-deliverable also shipped:
+Side-deliverable:
 
 - `scripts/extract_diagrams.py` — deterministic pure-CV (pixel sampling)
   pipeline that extracts board positions from corpus PDFs. ~1 minute
@@ -26,56 +35,54 @@ A side-deliverable also shipped:
   from `jpdubois_perfectionnement_combinaisons_V4.pdf` in
   `pedagogy/tests/fixtures/dubois_diagrams.py`.
 
-## Tier 1 — Make it real (top priority)
+## Tier 1 — Consolidate the FMJD relaxation
 
-Goal: get the framework in front of users on real games so we can find
-out where it's right and where it's miscalibrated.
+The combinaison detectors started firing on real games on 2026-05-17.
+Validate before moving on.
 
-The work for this tier lives in ``Ai-draught``, not dilf.
+- [ ] **Real-game regression set** — pick 5–10 Lidraughts PDNs with
+      prise-max ambiguity (multi-path captures) and a known
+      combinaison. Add as a pytest fixture exercising the real Scan
+      engine through the assemble_verdict pipeline. Asserts the right
+      `combinaison_N_temps` slug fires on the expected half-move.
+      Owner: TBD. (S)
+- [ ] **False-positive watch in staging** — if `_opp_is_forced` is
+      too permissive (combis firing where the defender had a real
+      choice), tighten by requiring uniform material gain across all
+      tied legal captures. Re-evaluate after 1 week of real usage. (S)
 
-- [ ] **PR 7** (ai-draught) — DB schema migration: tables `move_verdicts`,
-      `pedagogy_explanations`, `exercise_tags` in `backend/db/schema.py`.
-      New module `backend/pedagogy/storage.py` for the read/write
-      helpers. Round-trip tests.
-- [ ] **PR 8** (ai-draught) — FastAPI router: `/api/pedagogy/analyze-game`,
-      `/move-verdict/{game}/{move}`, `/explain-move`, `/profile/{id}`,
-      `/profile/me/recommendations`. Wired into `backend/main.py`.
-      Existing rate-limiter reused (5/min for `mode=claude`).
-- [ ] **PR 13** (ai-draught) — `backend/pedagogy/scripts/tag_existing_exercises.py`
-      run once in production to fill `exercise_tags` from the
-      detectors. Idempotent.
-- [ ] **Frontend wiring** — `AnalysisPanel.tsx` consumes
-      `/api/pedagogy/move-verdict/...`. Profile page reads
-      `/api/pedagogy/profile/me`. Mode selector
-      (template / template+book / claude). FR/EN toggle.
-- [ ] **Validation on real games** — analyze 5-10 personal Lidraughts
-      games. Spot-check verdicts subjectively. Verify spec §15
-      criterion: ≥ 80% of BLUNDER moves have at least one detected
-      motif. Tune severity / thresholds if needed.
-- [ ] **Deploy** — push `Ai-draught` to Railway (already configured
-      via `railway.json`).
+## Tier 2 — Close the consumer contract
 
-## Tier 2 — Quality and operations
+Two helpers are listed in `INTEROP.md` as "currently-missing".
+draught-master's `tag_existing_exercises.py` runs against a partial
+fallback that leaves `captures=()` empty, which means
+**capture-based detectors never fire on tagged exercises** (coup_royal,
+prise_max_ratee, coup_express, …). High-leverage gap to close.
+
+- [ ] **`pedagogy.game.apply_move(state, move) -> GameState`** —
+      pure deterministic capture / promotion handling. Round-trip
+      tested against `notation.move_to_notation`. (M)
+- [ ] **`pedagogy.game.parse_move_notation(text, state) -> Move`** —
+      parses "33-28" / "37x19x10" / "Kx32" tolerantly, including the
+      "from-to only" short capture form Scan emits. (M)
+- [ ] **Bump `INTEROP.md`** — move both symbols from
+      "Currently-missing helpers" to the canonical list.
+
+## Tier 3 — CI and operations
 
 Goal: prevent regressions and surface costs / failures fast.
 
 - [ ] **CI on dilf** — `.github/workflows/ci.yml` runs `pytest` and
       `mypy --strict pedagogy` on every push to `main` and every PR.
-- [ ] **Branch protection** on `main` — at minimum `Restrict deletions`
-      and `Block force pushes`. Once CI exists, also require status
-      checks.
-- [ ] **Hand-curated reference fixtures** — pick 30 Dubois positions
-      from the 324 currently in `dubois_diagrams.py`, verify each by
-      eye against the PDF, gold-tag the expected motifs. These become
-      the end-to-end test suite required by spec §11.
-- [ ] **5 hand-annotated reference games** — promised by spec §11 but
-      not yet shipped. PDN format, with expected verdicts per move.
-- [ ] **Cost monitoring** — log token consumption on
-      `/explain-move?mode=claude`. Alert on daily spend > $10.
-- [ ] **Sentry context** — propagate game_id / user_id into the
-      pedagogy Sentry breadcrumbs already configured in `Ai-draught`.
+      Already enforced indirectly via downstream-compat.yml, but a
+      first-class workflow on this repo is overdue.
+- [ ] **Branch protection** on `main` — `Restrict deletions`,
+      `Block force pushes`. Once CI is in place, require status checks.
+- [ ] **5 hand-annotated reference games** (spec §11) — PDN format
+      with expected verdicts per move; round-tripped through the full
+      pipeline as an end-to-end test.
 
-## Tier 3 — Extend the corpus
+## Tier 4 — Extend the corpus
 
 Goal: turn the 53 PDFs in `docs/corpus/` (~6100 pages) into actual
 test fixtures and BookRAG content. Right now only 86 pages of V4 are
@@ -102,37 +109,32 @@ Phase plan:
       `perfectionnement_sens_du_jeu_tome_*`). ~1 day engineering.
 - [ ] **P3** — Generalize caption filter. Either drop the
       French-keyword skip, or borrow the per-book config pattern from
-      `Ai-draught/scripts/book_extraction/configs/`. ~½ day.
+      `draught-master/scripts/book_extraction/configs/`. ~½ day.
 - [ ] **P4** — Bulk-extract the remaining 44 non-Dubois PDFs. ~10 min
       CPU + 5-position spot-check per book (~½ day curation).
 - [ ] **P5** — BookRAG multilingual: motif name → translations per
       language so `BookRAG.search("coup_royal")` also returns hits
       from English books mentioning "royal coup". ~½ day.
 
-**Total**: ~3 days engineering + 1 day curation, $0 API. Do this after
-Tier 1 validation, not before — Tier 1 might reveal we don't need most
-of the corpus for the immediate product.
+**Total**: ~3 days engineering + 1 day curation, $0 API.
 
-## Tier 4 — Ambition
+## Tier 5 — Ambition
 
 Goal: ship beyond the spec. Not committed; each item earns its place
 when the value is clear.
 
-- [ ] **P3 motifs** from spec §1: `coup_de_mazette`, `coup_fabre`,
-      `opposition`, `percee`, `enchainement`, plus finales detectors
-      (`opposition_dame_pion`, `dame_contre_3_pions_diagonale`,
-      `coup_de_l_escalier`).
-- [ ] **Multi-half-move detector framework** — improve `coup_bonnard`
-      (and future P3 motifs) with a 2-3 ply look-ahead via the PV.
+- [ ] **Remaining P3 motifs from spec §1**: `coup_de_mazette`,
+      `coup_fabre`, `opposition`, `percee`, `enchainement`, plus
+      finales detectors (`opposition_dame_pion`,
+      `dame_contre_3_pions_diagonale`, `coup_de_l_escalier`).
 - [ ] **Active learning loop on OCR** — capture per-position human
       corrections in `dubois_corrections.json`, feed them as few-shot
-      examples on subsequent runs. Already partially designed; never
-      shipped because we pivoted away from Vision.
+      examples on subsequent runs.
 - [ ] **Opening recognition** — extend `features/formations.py` with
       named opening detectors (Roozenburg, Keller, Ghestem,
       Souffleur, …).
 - [ ] **dilf as a published PyPI package** — currently consumed via
-      git URL. Publishing simplifies Ai-draught's `requirements.txt`.
+      git URL. Publishing simplifies draught-master's `requirements.txt`.
 
 ## Out of scope
 
@@ -145,10 +147,11 @@ These items are deliberately not on the roadmap:
   architecture.
 - Engine integration (Scan, sjaak). dilf consumes engines through
   `protocols.EngineProtocol` and `ScanProtocol`; the actual engines
-  live in `Ai-draught/backend/`.
+  live in `draught-master/backend/`.
 
 ## How this document moves
 
-When a tier item ships, check the box. When priorities change, edit
-the relevant section and note the date. The current state section at
-the top should always reflect what's actually on `main`.
+When a tier item ships, check the box and add an entry to
+`CHANGELOG.md`. When priorities change, edit the relevant section and
+note the date. The "Where we are today" section at the top should
+always reflect what's actually on `develop`.
