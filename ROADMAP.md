@@ -51,22 +51,17 @@ Validate before moving on.
       choice), tighten by requiring uniform material gain across all
       tied legal captures. Re-evaluate after 1 week of real usage. (S)
 
-## Tier 2 — Close the consumer contract
+## Tier 2 — closed (was: consumer contract gap)
 
-Two helpers are listed in `INTEROP.md` as "currently-missing".
-draught-master's `tag_existing_exercises.py` runs against a partial
-fallback that leaves `captures=()` empty, which means
-**capture-based detectors never fire on tagged exercises** (coup_royal,
-prise_max_ratee, coup_express, …). High-leverage gap to close.
+The "missing helpers" item in INTEROP turned out to be documentation
+drift, not engineering work: `pedagogy.notation.dubois.parse_move_notation`
+shipped on 2026-05-15 (with king-rafle support) and consumers can call
+`engine.apply_move` through their own `EngineProtocol` adapter. The
+downstream tagging script imports both correctly and fires
+capture-based detectors on real exercises.
 
-- [ ] **`pedagogy.game.apply_move(state, move) -> GameState`** —
-      pure deterministic capture / promotion handling. Round-trip
-      tested against `notation.move_to_notation`. (M)
-- [ ] **`pedagogy.game.parse_move_notation(text, state) -> Move`** —
-      parses "33-28" / "37x19x10" / "Kx32" tolerantly, including the
-      "from-to only" short capture form Scan emits. (M)
-- [ ] **Bump `INTEROP.md`** — move both symbols from
-      "Currently-missing helpers" to the canonical list.
+Coverage proving this lives downstream in
+`draught-master/backend/tests/test_tag_existing_exercises_real.py`.
 
 ## Tier 3 — CI and operations
 
