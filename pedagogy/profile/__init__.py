@@ -9,10 +9,22 @@ SQLite layer described in spec §10.
 from __future__ import annotations
 
 from .aggregator import aggregate_user_profile, compute_accuracy
+from .heatmap_narrator import (
+    HINTS_FR,
+    HeatmapMetric,
+    HeatmapNarrative,
+    SquareCounts,
+    weakness_heatmap_narrative,
+)
 from .recommender import recommend_exercises
 
 __all__ = [
     "aggregate_user_profile",
     "compute_accuracy",
+    "HINTS_FR",
+    "HeatmapMetric",
+    "HeatmapNarrative",
     "recommend_exercises",
+    "SquareCounts",
+    "weakness_heatmap_narrative",
 ]
