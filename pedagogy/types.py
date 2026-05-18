@@ -34,6 +34,19 @@ class Phase(str, Enum):
     ENDGAME = "endgame"          # <= 8 total pieces OR kings on both sides
 
 
+@dataclass(frozen=True)
+class ThreatenedCapture:
+    """A capture move ``by_side`` could play if it were its turn.
+
+    Serializable subset of the engine's :class:`Move` — only the squares
+    needed by a UI overlay (path + captured squares). Frozen so it can
+    safely be a member of the immutable :class:`Features` snapshot.
+    """
+
+    path: tuple[int, ...]
+    captures: tuple[int, ...]
+
+
 @dataclass
 class Features:
     """Purely geometric snapshot of a position. No Scan call involved."""
@@ -70,6 +83,12 @@ class Features:
     # Empty lists when compute_features() was called without an engine.
     hanging_pieces_white: list[int]
     hanging_pieces_black: list[int]
+    # Captures each side could play if it were its turn. Empty when
+    # compute_features() was called without an engine. Listed both
+    # sides so a consumer can render "what would happen if it was X's
+    # turn" symmetrically.
+    threatened_captures_white: list[ThreatenedCapture]
+    threatened_captures_black: list[ThreatenedCapture]
 
     # Promotion
     white_promotion_distance: int   # min(distance from a white piece to row 1)

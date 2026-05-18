@@ -17,7 +17,7 @@ from typing import Final
 
 from ..game import GameState
 from ..protocols import EngineProtocol
-from ..types import Features, Phase
+from ..types import Features, Phase, ThreatenedCapture
 from .geometry import (
     CENTER_EXTENDED,
     LEFT_WING,
@@ -25,7 +25,7 @@ from .geometry import (
     min_promotion_distance,
 )
 from .material import count_material, total_pieces
-from .mobility import count_legal_moves, hanging_pieces
+from .mobility import count_legal_moves, hanging_pieces, threatened_captures
 from .structure import (
     find_backward_pawns,
     find_holes,
@@ -122,6 +122,14 @@ def compute_features(
         black_legal_moves=count_legal_moves(state, "black", engine) if engine else 0,
         hanging_pieces_white=hanging_pieces(state, "white", engine) if engine else [],
         hanging_pieces_black=hanging_pieces(state, "black", engine) if engine else [],
+        threatened_captures_white=[
+            ThreatenedCapture(path=tuple(m.path), captures=tuple(m.captures))
+            for m in threatened_captures(state, "white", engine)
+        ] if engine else [],
+        threatened_captures_black=[
+            ThreatenedCapture(path=tuple(m.path), captures=tuple(m.captures))
+            for m in threatened_captures(state, "black", engine)
+        ] if engine else [],
         white_promotion_distance=min_promotion_distance(state, "white"),
         black_promotion_distance=min_promotion_distance(state, "black"),
         formations=detect_formations(state),
