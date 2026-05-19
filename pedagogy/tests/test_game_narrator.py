@@ -11,12 +11,36 @@ import pytest
 
 from pedagogy.profile import narrate_game
 from pedagogy.types import (
+    Features,
     GameAnalysis,
     MotifMatch,
     MoveVerdict,
     Phase,
     Verdict,
 )
+
+
+def _features(**over: Any) -> Features:
+    """Minimal Features instance — zeros everywhere by default; tests
+    override only the *_white / *_black lists they care about."""
+    defaults: dict[str, Any] = dict(
+        white_men=15, white_kings=0, black_men=15, black_kings=0,
+        material_balance=0,
+        center_count_white=0, center_count_black=0,
+        left_wing_white=0, right_wing_white=0,
+        left_wing_black=0, right_wing_black=0,
+        isolated_pawns_white=[], isolated_pawns_black=[],
+        backward_pawns_white=[], backward_pawns_black=[],
+        holes_white=[], holes_black=[],
+        outposts_white=[], outposts_black=[],
+        white_legal_moves=0, black_legal_moves=0,
+        hanging_pieces_white=[], hanging_pieces_black=[],
+        threatened_captures_white=[], threatened_captures_black=[],
+        white_promotion_distance=5, black_promotion_distance=5,
+        formations=[], phase=Phase.MIDDLEGAME,
+    )
+    defaults.update(over)
+    return Features(**defaults)
 
 
 # ── Fixture builders ────────────────────────────────────────────────────
@@ -31,6 +55,7 @@ def _verdict(
     phase: Phase = Phase.MIDDLEGAME,
     motifs: Optional[list[MotifMatch]] = None,
     notation: str = "32-28",
+    features_after: Optional[Features] = None,
 ) -> MoveVerdict:
     return MoveVerdict(
         move_number=move_number,
@@ -44,6 +69,7 @@ def _verdict(
         verdict=verdict,
         is_forced=False,
         motifs=motifs or [],
+        features_after=features_after,
         phase=phase,
     )
 
@@ -243,15 +269,185 @@ def test_recommended_drills_empty_when_user_missed_nothing():
     assert out["recommended_drills"] == []
 
 
-# ── Stubs for J2 (turning_points + persistent_weaknesses) ───────────────
+# ── Turning points (J2) ────────────────────────────────────────────────
 
 
-def test_turning_points_and_persistent_weaknesses_are_empty_on_j1():
-    """Sanity: the J1 surface ships stubs for the two J2 fields. The
-    contract is that they're always present in the output, never absent —
-    consumers can rely on `out['turning_points']` existing."""
-    out = narrate_game(_analysis([_verdict()]))
-    assert "turning_points" in out
-    assert "persistent_weaknesses" in out
+def test_turning_points_empty_on_clean_game():
+    """All moves under the significance threshold (8 cp) → no tournants."""
+    out = narrate_game(_analysis([
+        _verdict(move_number=1, verdict=Verdict.BEST, delta_winchance=0.0),
+        _verdict(move_number=2, side="black", verdict=Verdict.GOOD, delta_winchance=0.02),
+        _verdict(move_number=3, verdict=Verdict.GOOD, delta_winchance=0.05),
+    ]))
     assert out["turning_points"] == []
+
+
+def test_turning_points_picks_top_k_by_delta_desc():
+    out = narrate_game(_analysis([
+        _verdict(move_number=1, verdict=Verdict.BLUNDER, delta_winchance=0.42, notation="32-28"),
+        _verdict(move_number=3, verdict=Verdict.MISTAKE, delta_winchance=0.18, notation="37-31"),
+        _verdict(move_number=5, verdict=Verdict.INACCURACY, delta_winchance=0.09, notation="33-29"),
+        _verdict(move_number=7, verdict=Verdict.BEST, delta_winchance=0.0),
+    ]), top_k_turning_points=2)
+    assert len(out["turning_points"]) == 2
+    assert [tp["move_number"] for tp in out["turning_points"]] == [1, 3]
+    assert out["turning_points"][0]["delta_cp"] == 42
+    assert out["turning_points"][0]["notation"] == "32-28"
+    assert out["turning_points"][0]["verdict"] == "blunder"
+
+
+def test_turning_points_ties_resolved_by_move_number_asc():
+    """Two equally-costly moves → the earlier one comes first (sets the tone)."""
+    out = narrate_game(_analysis([
+        _verdict(move_number=10, verdict=Verdict.MISTAKE, delta_winchance=0.20),
+        _verdict(move_number=2,  verdict=Verdict.MISTAKE, delta_winchance=0.20),
+    ]))
+    assert [tp["move_number"] for tp in out["turning_points"]] == [2, 10]
+
+
+def test_turning_points_reason_prefers_missed_motif():
+    out = narrate_game(_analysis([
+        _verdict(
+            move_number=15,
+            verdict=Verdict.BLUNDER, delta_winchance=0.40,
+            motifs=[_motif("coup_royal", "missed"),
+                    _motif("sacrifice", "played")],   # missed wins priority
+        ),
+    ]))
+    reason = out["turning_points"][0]["reason"]
+    assert "raté" in reason.lower()
+    assert "coup royal" in reason.lower()
+
+
+def test_turning_points_reason_falls_back_to_played_motif():
+    out = narrate_game(_analysis([
+        _verdict(
+            move_number=15,
+            verdict=Verdict.BLUNDER, delta_winchance=0.40,
+            motifs=[_motif("sacrifice", "played")],
+        ),
+    ]))
+    assert "joué" in out["turning_points"][0]["reason"].lower()
+
+
+def test_turning_points_reason_falls_back_to_verdict_label():
+    out = narrate_game(_analysis([
+        _verdict(move_number=15, verdict=Verdict.BLUNDER, delta_winchance=0.40),
+    ]))
+    # No motifs at all — falls back to the verdict-level FR sentence.
+    assert "Gaffe" in out["turning_points"][0]["reason"]
+
+
+# ── Persistent weaknesses (J2) ──────────────────────────────────────────
+
+
+def test_persistent_weaknesses_detects_simple_long_streak():
+    """Hole on square 23 (user side = white) persists for 6 verdicts → 1 row."""
+    f_with_hole = _features(holes_white=[23])
+    f_clean = _features()
+    verdicts = [
+        _verdict(move_number=1, features_after=f_clean),
+        # streak starts at move 2, holds through 7 inclusive (6 demi-coups)
+        *[
+            _verdict(move_number=n, side="white" if n % 2 else "black",
+                     features_after=f_with_hole)
+            for n in range(2, 8)
+        ],
+        _verdict(move_number=8, features_after=f_clean),
+    ]
+    out = narrate_game(_analysis(verdicts, user_side="white"),
+                       min_streak=5)
+    assert len(out["persistent_weaknesses"]) == 1
+    w = out["persistent_weaknesses"][0]
+    assert w["family"] == "holes"
+    assert w["square"] == 23
+    assert w["side"] == "white"
+    assert w["duration_half_moves"] == 6
+    assert w["first_seen"] == 2
+    assert "23" in w["summary"]
+    assert "6 demi-coups" in w["summary"]
+
+
+def test_persistent_weaknesses_filters_below_min_streak():
+    """3-half-move streak with min_streak=5 → dropped."""
+    f = _features(holes_white=[23])
+    verdicts = [
+        _verdict(move_number=1, features_after=f),
+        _verdict(move_number=2, features_after=f),
+        _verdict(move_number=3, features_after=f),
+        _verdict(move_number=4, features_after=_features()),
+    ]
+    out = narrate_game(_analysis(verdicts, user_side="white"), min_streak=5)
     assert out["persistent_weaknesses"] == []
+
+
+def test_persistent_weaknesses_filters_to_user_side_when_provided():
+    """Hole on white side only — opponent (black) shouldn't appear."""
+    user_hole = _features(holes_white=[22])
+    opp_hole = _features(holes_black=[33])
+    both = _features(holes_white=[22], holes_black=[33])
+    verdicts = [
+        _verdict(move_number=n, features_after=both)
+        for n in range(1, 7)
+    ]
+    out = narrate_game(_analysis(verdicts, user_side="white"), min_streak=5)
+    sides = {w["side"] for w in out["persistent_weaknesses"]}
+    assert sides == {"white"}
+    # Sanity: with no user_side filter, both sides show up.
+    out_both = narrate_game(_analysis(verdicts, user_side=None), min_streak=5)
+    sides_both = {w["side"] for w in out_both["persistent_weaknesses"]}
+    assert sides_both == {"white", "black"}
+
+
+def test_persistent_weaknesses_top_k_orders_by_duration_desc():
+    """Long hole streak should rank above a shorter isolated-pawn streak."""
+    holes_long = _features(holes_white=[23])
+    iso_short = _features(isolated_pawns_white=[10])
+    both = _features(holes_white=[23], isolated_pawns_white=[10])
+    verdicts = (
+        # holes streak: moves 1..10 (10 demi-coups, both holes + iso on
+        # moves 5..7 so the iso has 3-move overlap — it'll be filtered
+        # by min_streak)
+        [_verdict(move_number=n, features_after=holes_long) for n in range(1, 5)]
+        + [_verdict(move_number=n, features_after=both) for n in range(5, 8)]
+        + [_verdict(move_number=n, features_after=holes_long) for n in range(8, 11)]
+        + [_verdict(move_number=11, features_after=_features())]
+    )
+    out = narrate_game(_analysis(verdicts, user_side="white"),
+                       top_k_weaknesses=3, min_streak=3)
+    assert out["persistent_weaknesses"][0]["family"] == "holes"
+    assert out["persistent_weaknesses"][0]["duration_half_moves"] == 10
+    families = [w["family"] for w in out["persistent_weaknesses"]]
+    if len(families) > 1:
+        # The shorter iso streak should land BELOW the longer holes streak.
+        assert families.index("holes") < families.index("isolated")
+
+
+def test_persistent_weaknesses_closes_streak_at_end_of_game():
+    """Hole still active at the last verdict — duration counted up to last move."""
+    f = _features(holes_white=[23])
+    verdicts = [
+        _verdict(move_number=n, features_after=f)
+        for n in range(1, 8)   # 7 demi-coups, no clean verdict to close
+    ]
+    out = narrate_game(_analysis(verdicts, user_side="white"), min_streak=5)
+    assert len(out["persistent_weaknesses"]) == 1
+    assert out["persistent_weaknesses"][0]["duration_half_moves"] == 7
+
+
+def test_persistent_weaknesses_handles_verdicts_without_features():
+    """features_after is None on legacy verdicts — must not raise, and
+    must close any open streak so it doesn't bleed across a gap."""
+    f = _features(holes_white=[23])
+    verdicts = [
+        _verdict(move_number=1, features_after=f),
+        _verdict(move_number=2, features_after=f),
+        _verdict(move_number=3, features_after=None),   # legacy row
+        _verdict(move_number=4, features_after=f),
+        _verdict(move_number=5, features_after=f),
+    ]
+    out = narrate_game(_analysis(verdicts, user_side="white"), min_streak=2)
+    # We expect two streaks: 1-2 (duration 2) and 4-5 (duration 2).
+    # Neither bleeds across the None row.
+    durations = sorted(w["duration_half_moves"] for w in out["persistent_weaknesses"])
+    assert durations == [2, 2]

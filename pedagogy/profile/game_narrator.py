@@ -15,10 +15,12 @@ facts that actually matter when a user opens a finished game:
   - strengths               — short positive callouts
   - recommended_drills      — motif slugs to feed into the exercise picker
 
-**Status: J1** (this commit) — types, headline, phase_summary,
-motif counters, strengths skeleton, recommended_drills. Turning
-points and persistent weaknesses are stubbed (empty lists) and
-land on J2; English templates on J3.
+**Status: J1+J2** (this commit) — types, headline, phase_summary,
+motif counters, strengths skeleton, recommended_drills, plus
+turning_points (top-K by delta_winchance with FR reason templates)
+and persistent_weaknesses (streak detection over
+features_after.{family}_{side} across the whole game). English
+templates on J3.
 
 The function is pure: no DB call, no Scan call, no clock. Callers
 load the analysis from wherever and hand it in.
@@ -84,6 +86,41 @@ PHASE_FR: dict[PhaseLiteral, str] = {
     "middlegame": "milieu de jeu",
     "endgame": "finale",
 }
+
+# Per-weakness-family vocabulary for the persistent-weakness summary
+# strings ("Trou sur 23 pendant 18 demi-coups, à partir du coup 15").
+# Singular form on purpose — the summary is one row per (square,
+# family, side) so we never say "trous" here.
+_FAMILY_LABEL_FR: dict[WeaknessFamily, str] = {
+    "isolated": "Pion isolé",
+    "backward": "Pion retardé",
+    "holes":    "Trou",
+    "outposts": "Poste",   # an outpost is a strength; still flagged when
+                            # it persists, so the user knows what worked.
+}
+_SIDE_BADGE: dict[str, str] = {"white": "⬜", "black": "⬛"}
+
+# Verdict-level FR fallbacks used in the TurningPoint.reason field
+# when no motif explains the move. Lifted from the VERDICT_FALLBACKS
+# table in templates_fr.py — kept inline here so the narrator
+# doesn't import the heavy templates module.
+_TURNING_REASON_FALLBACK_FR: dict[Verdict, str] = {
+    Verdict.BLUNDER:    "Gaffe — coup perdant",
+    Verdict.MISTAKE:    "Erreur — perte significative",
+    Verdict.INACCURACY: "Imprécision",
+    Verdict.GOOD:       "Coup correct",
+    Verdict.EXCELLENT:  "Coup quasi-optimal",
+    Verdict.BEST:       "Meilleur coup",
+    Verdict.BRILLIANT:  "Coup brillant",
+    Verdict.FORCED:     "Coup forcé",
+    Verdict.BOOK:       "Coup de théorie",
+}
+
+# Significance threshold below which a move isn't reported as a
+# turning point even if it makes the top-K — same cutoff as the
+# `inaccuracy` bucket in dilf's verdict scoring (8 cp). Stops the
+# "résumé" from inventing drama in a clean game.
+_TURNING_MIN_DELTA = 0.08
 
 # Quality thresholds for the per-phase 1-liner — lifted from the
 # ACPL conventions used elsewhere in the codebase (Scan annotation +
@@ -236,6 +273,189 @@ def _outcome_fr(result: str, user_side: Optional[str]) -> str:
     return "Victoire" if won else "Défaite"
 
 
+# ── Turning points ──────────────────────────────────────────────────────
+
+
+def _turning_reason_fr(v: MoveVerdict) -> str:
+    """One short FR sentence explaining why this move is a turning point.
+
+    Priority order:
+      1. A motif the move *missed* — the most actionable insight for
+         the user ("Tu as raté coup_royal au coup 15").
+      2. A motif the move *played* — explains a successful but costly
+         choice (rare in turning points, but happens with sacrifices).
+      3. The verdict-level fallback ("Gaffe — coup perdant").
+
+    Roles `threatened` and `suffered` are skipped — those describe
+    the opponent's options, not the player's choice.
+    """
+    missed = [m for m in v.motifs if m.role == "missed"]
+    if missed:
+        slug = missed[0].motif.replace("_", " ")
+        return f"Tu as raté {slug}"
+    played = [m for m in v.motifs if m.role == "played"]
+    if played:
+        slug = played[0].motif.replace("_", " ")
+        return f"Joué : {slug}"
+    return _TURNING_REASON_FALLBACK_FR.get(v.verdict, "Coup décisif")
+
+
+def _turning_points(
+    verdicts: list[MoveVerdict],
+    top_k: int,
+) -> list[TurningPoint]:
+    """The K verdicts that hurt the side-to-move's win chances the most.
+
+    Filtered to ``delta_winchance >= _TURNING_MIN_DELTA`` so a clean
+    game (no real swings) reports zero turning points rather than
+    inflating non-events into "tournants". Ties broken by move_number
+    ascending so the earliest of two equally-costly moves comes first
+    in the list — usually the one that set the tone.
+    """
+    candidates = [v for v in verdicts if v.delta_winchance >= _TURNING_MIN_DELTA]
+    candidates.sort(key=lambda v: (-v.delta_winchance, v.move_number))
+    out: list[TurningPoint] = []
+    for v in candidates[:top_k]:
+        out.append(TurningPoint(
+            move_number=v.move_number,
+            side=v.side,                                # type: ignore[typeddict-item]
+            notation=v.move_notation,
+            delta_cp=round(v.delta_winchance * 100),
+            score_before=v.score_before,
+            score_after=v.score_after,
+            verdict=v.verdict.value,
+            reason=_turning_reason_fr(v),
+        ))
+    return out
+
+
+# ── Persistent weaknesses ──────────────────────────────────────────────
+
+
+# Map (family, side) → attribute name on Features. Same convention as
+# the frontend's aggregateGameHeatmap, kept here so the streak
+# detector doesn't have to know about Python's getattr quirks.
+_FAMILY_FIELD: dict[tuple[WeaknessFamily, str], str] = {
+    ("isolated", "white"): "isolated_pawns_white",
+    ("isolated", "black"): "isolated_pawns_black",
+    ("backward", "white"): "backward_pawns_white",
+    ("backward", "black"): "backward_pawns_black",
+    ("holes",    "white"): "holes_white",
+    ("holes",    "black"): "holes_black",
+    ("outposts", "white"): "outposts_white",
+    ("outposts", "black"): "outposts_black",
+}
+
+
+def _weakness_summary_fr(
+    family: WeaknessFamily, square: int, side: str,
+    duration: int, first_seen: int,
+) -> str:
+    label = _FAMILY_LABEL_FR.get(family, family)
+    badge = _SIDE_BADGE.get(side, side)
+    return (
+        f"{label} sur {square} ({badge}) pendant {duration} demi-coups, "
+        f"à partir du coup {first_seen}"
+    )
+
+
+def _persistent_weaknesses(
+    verdicts: list[MoveVerdict],
+    top_k: int,
+    min_streak: int,
+    user_side: Optional[str],
+) -> list[PersistentWeakness]:
+    """Detect contiguous-half-move streaks where the same (square,
+    family, side) was flagged in ``features_after``, return the
+    longest ``top_k`` of them.
+
+    Walk verdicts in order. For each family × side combo, project the
+    set of currently-active squares; compare with the previous step
+    to find opened streaks (square present now but not before) and
+    closed streaks (present before but not now). Closed streaks get
+    appended with their realised duration. At end-of-game any still-
+    open streak is closed at the last verdict's move_number.
+
+    Filtered down by:
+      - ``duration >= min_streak`` (drops noise — a 1-2 demi-coup
+        blip isn't a "persistent" weakness)
+      - if ``user_side`` is given, only that side's streaks (the user
+        doesn't usually care about the opponent's structure when
+        analysing their own game). Pass ``None`` to keep both sides.
+
+    Top-K ordering: duration desc, then first_seen asc (the streak
+    that started earliest wins ties — often the more revealing
+    pattern). Tie-break on family + square for full determinism.
+    """
+    # (family, side, square) -> first_seen_move_number while the
+    # streak is open. Move out into a list of PersistentWeakness once
+    # closed.
+    open_streaks: dict[tuple[WeaknessFamily, str, int], int] = {}
+    closed: list[PersistentWeakness] = []
+    last_move_number = verdicts[-1].move_number if verdicts else 0
+
+    sides_to_track: tuple[str, ...] = (
+        (user_side,) if user_side else ("white", "black")
+    )
+    families: tuple[WeaknessFamily, ...] = (
+        "isolated", "backward", "holes", "outposts",
+    )
+
+    def _close(key: tuple[WeaknessFamily, str, int], end_move: int) -> None:
+        first_seen = open_streaks.pop(key)
+        duration = end_move - first_seen + 1
+        if duration < min_streak:
+            return
+        family, side, square = key
+        closed.append(PersistentWeakness(
+            family=family,
+            square=square,
+            side=side,                                  # type: ignore[typeddict-item]
+            duration_half_moves=duration,
+            first_seen=first_seen,
+            summary=_weakness_summary_fr(family, square, side, duration, first_seen),
+        ))
+
+    for v in verdicts:
+        feats = v.features_after
+        # Features-less verdict (older row, engine-less compute_features
+        # call) → treat as "nothing active" so any open streak closes at
+        # the previous step. Avoids spurious continuation across an
+        # unreliable observation.
+        active: set[tuple[WeaknessFamily, str, int]] = set()
+        if feats is not None:
+            for side in sides_to_track:
+                for family in families:
+                    field = _FAMILY_FIELD.get((family, side))
+                    if field is None:
+                        continue
+                    for sq in getattr(feats, field, []) or []:
+                        active.add((family, side, int(sq)))
+
+        # Close streaks that stopped being active this verdict.
+        for key in list(open_streaks.keys()):
+            if key not in active:
+                _close(key, v.move_number - 1)
+
+        # Open new streaks for newly-active (family, side, square) tuples.
+        for key in active:
+            if key not in open_streaks:
+                open_streaks[key] = v.move_number
+
+    # End-of-game flush.
+    for key in list(open_streaks.keys()):
+        _close(key, last_move_number)
+
+    # Top-K by (-duration, first_seen, family, square) for stable
+    # ordering. Family + square enter the key as the final tie-breaker
+    # so two streaks of identical duration AND first_seen still sort
+    # deterministically across Python dict orderings.
+    closed.sort(key=lambda w: (
+        -w["duration_half_moves"], w["first_seen"], w["family"], w["square"],
+    ))
+    return closed[:top_k]
+
+
 # ── Public entry point ──────────────────────────────────────────────────
 
 
@@ -276,10 +496,10 @@ def narrate_game(
     return GameNarrative(
         headline=_headline_fr(analysis, side),
         phase_summary=_phase_summary(verdicts, side),
-        # J2 — both lists stay empty until the streak / turning-point
-        # logic lands. Consumers see an empty array, render nothing.
-        turning_points=[],
-        persistent_weaknesses=[],
+        turning_points=_turning_points(verdicts, top_k_turning_points),
+        persistent_weaknesses=_persistent_weaknesses(
+            verdicts, top_k_weaknesses, min_streak, side,
+        ),
         motifs_played=motifs_played,
         motifs_missed=motifs_missed,
         strengths=_strengths_fr(verdicts, motifs_played),
