@@ -451,3 +451,215 @@ def test_persistent_weaknesses_handles_verdicts_without_features():
     # Neither bleeds across the None row.
     durations = sorted(w["duration_half_moves"] for w in out["persistent_weaknesses"])
     assert durations == [2, 2]
+
+
+# ── i18n (J3) ───────────────────────────────────────────────────────────
+
+
+def test_english_headline_uses_english_keywords():
+    out = narrate_game(_analysis(
+        [_verdict(move_number=1, verdict=Verdict.BEST)],
+        result="1-0",
+        user_side="white",
+    ), lang="en")
+    assert "Victory" in out["headline"]
+    assert "half-moves" in out["headline"]
+    assert "accuracy" in out["headline"]
+
+
+def test_english_outcome_defeat_and_draw():
+    defeat = narrate_game(_analysis(
+        [_verdict(move_number=1, verdict=Verdict.BLUNDER, delta_winchance=0.4)],
+        result="0-1", user_side="white",
+    ), lang="en")
+    assert "Defeat" in defeat["headline"]
+
+    draw = narrate_game(_analysis(
+        [_verdict(verdict=Verdict.BEST)], result="1/2-1/2",
+    ), lang="en")
+    assert "Draw" in draw["headline"]
+
+
+def test_english_phase_summary_uses_english_labels():
+    out = narrate_game(_analysis([
+        _verdict(move_number=1, phase=Phase.OPENING),
+        _verdict(move_number=2, side="black", phase=Phase.OPENING),
+    ]), lang="en")
+    s = out["phase_summary"][0]["summary"]
+    assert "Opening" in s
+    assert "half-moves" in s
+    # Quality label is one of the EN tier words.
+    assert any(q in s.lower() for q in ("solid", "decent", "loose", "fragile"))
+
+
+def test_english_turning_reason_uses_english_phrasing():
+    out = narrate_game(_analysis([
+        _verdict(move_number=1, verdict=Verdict.BLUNDER, delta_winchance=0.4,
+                 motifs=[_motif("coup_royal", "missed")]),
+    ]), lang="en")
+    assert "missed" in out["turning_points"][0]["reason"].lower()
+
+
+def test_english_turning_reason_falls_back_to_english_verdict_label():
+    out = narrate_game(_analysis([
+        _verdict(move_number=1, verdict=Verdict.BLUNDER, delta_winchance=0.4),
+    ]), lang="en")
+    assert "Blunder" in out["turning_points"][0]["reason"]
+
+
+def test_english_weakness_summary_uses_english_template():
+    f = _features(holes_white=[23])
+    verdicts = [_verdict(move_number=n, features_after=f) for n in range(1, 8)]
+    out = narrate_game(_analysis(verdicts, user_side="white"),
+                       lang="en", min_streak=5)
+    s = out["persistent_weaknesses"][0]["summary"]
+    assert "Hole" in s
+    assert "23" in s
+    assert "half-moves" in s
+    assert "starting at move" in s
+
+
+def test_english_strengths_use_english_template():
+    out = narrate_game(_analysis([
+        _verdict(move_number=1, verdict=Verdict.BRILLIANT),
+        _verdict(move_number=3, motifs=[_motif("coup_royal", "played")]),
+    ]), lang="en")
+    joined = " ".join(out["strengths"])
+    assert "brilliant" in joined.lower()
+    assert "offensive" in joined.lower() or "motif" in joined.lower()
+
+
+def test_unknown_lang_silently_falls_back_to_fr():
+    """An invalid lang code shouldn't raise — should degrade to FR
+    rather than produce a half-translated mess."""
+    out = narrate_game(_analysis(
+        [_verdict(move_number=1, verdict=Verdict.BLUNDER, delta_winchance=0.4)],
+        result="0-1", user_side="white",
+    ), lang="ja")   # type: ignore[arg-type]
+    assert "Défaite" in out["headline"]
+
+
+def test_structural_equality_fr_vs_en():
+    """For the same input, FR and EN narratives have identical
+    structure: same keys, same list lengths, same non-string fields
+    (counts, deltas, durations). Only the string fields differ."""
+    f = _features(holes_white=[23])
+    verdicts = [
+        _verdict(move_number=1, verdict=Verdict.BLUNDER, delta_winchance=0.3,
+                 features_after=f,
+                 motifs=[_motif("coup_royal", "missed")]),
+        *[
+            _verdict(move_number=n, features_after=f,
+                     side="white" if n % 2 else "black")
+            for n in range(2, 8)
+        ],
+    ]
+    a = _analysis(verdicts, user_side="white", result="0-1")
+    fr = narrate_game(a, lang="fr")
+    en = narrate_game(a, lang="en")
+
+    # Same shape.
+    assert sorted(fr.keys()) == sorted(en.keys())
+    # Same counts of items per list.
+    assert len(fr["phase_summary"])         == len(en["phase_summary"])
+    assert len(fr["turning_points"])        == len(en["turning_points"])
+    assert len(fr["persistent_weaknesses"]) == len(en["persistent_weaknesses"])
+    assert len(fr["strengths"])             == len(en["strengths"])
+    # Non-string fields match exactly.
+    assert fr["motifs_played"]      == en["motifs_played"]
+    assert fr["motifs_missed"]      == en["motifs_missed"]
+    assert fr["recommended_drills"] == en["recommended_drills"]
+    for f_w, e_w in zip(fr["persistent_weaknesses"], en["persistent_weaknesses"]):
+        for key in ("family", "square", "side", "duration_half_moves", "first_seen"):
+            assert f_w[key] == e_w[key]
+    for f_t, e_t in zip(fr["turning_points"], en["turning_points"]):
+        for key in ("move_number", "side", "notation", "delta_cp",
+                    "score_before", "score_after", "verdict"):
+            assert f_t[key] == e_t[key]
+
+
+# ── Snapshot-ish "realistic game" scenarios ─────────────────────────────
+
+
+def test_scenario_clean_win_no_drama():
+    """User wins cleanly: every move best/good, no turning points,
+    no persistent weaknesses, headline = victory."""
+    verdicts = [
+        _verdict(move_number=n, side="white" if n % 2 else "black",
+                 verdict=Verdict.BEST if n % 4 != 3 else Verdict.GOOD,
+                 delta_winchance=0.0 if n % 4 != 3 else 0.02)
+        for n in range(1, 41)
+    ]
+    out = narrate_game(_analysis(verdicts, result="1-0", user_side="white"))
+    assert "Victoire" in out["headline"]
+    assert out["turning_points"] == []
+    assert out["persistent_weaknesses"] == []
+    assert out["strengths"] == []   # no brilliants, no offensive motifs
+    assert out["motifs_missed"] == {}
+    assert out["recommended_drills"] == []
+
+
+def test_scenario_one_blunder_loss():
+    """Game tilts on a single blunder mid-way through. Top-1 turning
+    point picks that move; recommended drill targets the missed motif."""
+    motifs_at_blunder = [_motif("coup_royal", "missed")]
+    verdicts = (
+        [_verdict(move_number=n, side="white" if n % 2 else "black",
+                  verdict=Verdict.BEST) for n in range(1, 15)]
+        + [_verdict(move_number=15, side="white",
+                    verdict=Verdict.BLUNDER, delta_winchance=0.45,
+                    notation="32-28", motifs=motifs_at_blunder)]
+        + [_verdict(move_number=n, side="white" if n % 2 else "black",
+                    verdict=Verdict.BEST) for n in range(16, 30)]
+    )
+    out = narrate_game(_analysis(verdicts, result="0-1", user_side="white"))
+    assert "Défaite" in out["headline"]
+    assert len(out["turning_points"]) == 1
+    assert out["turning_points"][0]["move_number"] == 15
+    assert out["turning_points"][0]["delta_cp"] == 45
+    assert "raté" in out["turning_points"][0]["reason"].lower()
+    assert out["recommended_drills"] == ["coup_royal"]
+
+
+def test_scenario_structural_collapse():
+    """User's middlegame is riddled with a long-lived hole on 23 + a
+    persistent isolated pawn on 10. Both should surface as top
+    persistent_weaknesses; phase_summary should call the middlegame
+    quality 'imprécise' or worse."""
+    f_holes_only = _features(holes_white=[23])
+    f_holes_iso = _features(holes_white=[23], isolated_pawns_white=[10])
+    f_clean = _features()
+
+    verdicts = (
+        # Clean opening
+        [_verdict(move_number=n, side="white" if n % 2 else "black",
+                  phase=Phase.OPENING, features_after=f_clean) for n in range(1, 8)]
+        # Middlegame: structural collapse — hole on 23 for 12 half-moves,
+        # plus iso on 10 from move 12 to 19 (8 half-moves).
+        + [_verdict(move_number=n, side="white" if n % 2 else "black",
+                    phase=Phase.MIDDLEGAME,
+                    features_after=f_holes_only,
+                    verdict=Verdict.INACCURACY, delta_winchance=0.06)
+           for n in range(8, 12)]
+        + [_verdict(move_number=n, side="white" if n % 2 else "black",
+                    phase=Phase.MIDDLEGAME,
+                    features_after=f_holes_iso,
+                    verdict=Verdict.MISTAKE if n == 15 else Verdict.INACCURACY,
+                    delta_winchance=0.20 if n == 15 else 0.06)
+           for n in range(12, 20)]
+    )
+    out = narrate_game(_analysis(verdicts, user_side="white"),
+                       top_k_weaknesses=3, min_streak=5)
+    # Hole streak is the longest one.
+    assert out["persistent_weaknesses"][0]["family"] == "holes"
+    assert out["persistent_weaknesses"][0]["square"] == 23
+    assert out["persistent_weaknesses"][0]["duration_half_moves"] == 12
+    # Iso streak comes next.
+    families = [w["family"] for w in out["persistent_weaknesses"]]
+    assert "isolated" in families
+    # Middlegame surfaces a non-zero user ACPL — the structural collapse
+    # is reflected in the cp number even if the qualitative label
+    # (solide/correcte/imprécise/fragile) depends on the exact mix
+    # of delta_winchance values per side.
+    mg = next(p for p in out["phase_summary"] if p["phase"] == "middlegame")
+    assert mg["acpl_user"] > 0

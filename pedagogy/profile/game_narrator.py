@@ -15,12 +15,10 @@ facts that actually matter when a user opens a finished game:
   - strengths               — short positive callouts
   - recommended_drills      — motif slugs to feed into the exercise picker
 
-**Status: J1+J2** (this commit) — types, headline, phase_summary,
-motif counters, strengths skeleton, recommended_drills, plus
-turning_points (top-K by delta_winchance with FR reason templates)
-and persistent_weaknesses (streak detection over
-features_after.{family}_{side} across the whole game). English
-templates on J3.
+**Status: J1+J2+J3** (this commit) — every public field populated,
+both FR and EN templates honoured (unknown languages silently
+degrade to FR via :func:`_t`). Snapshot-level tests against
+synthesised realistic games included.
 
 The function is pure: no DB call, no Scan call, no clock. Callers
 load the analysis from wherever and hand it in.
@@ -79,62 +77,109 @@ class GameNarrative(TypedDict):
     recommended_drills: list[str]
 
 
-# ── FR templates (EN twin lands on J3, see module docstring) ────────────
+# ── i18n templates ──────────────────────────────────────────────────────
+#
+# Two-language tables (fr / en). Each dispatch helper takes ``lang``
+# and falls back to FR when the requested language is missing. The FR
+# row is therefore the canonical entry — adding a 3rd language only
+# requires extending the inner dicts, no helper-signature change.
 
-PHASE_FR: dict[PhaseLiteral, str] = {
-    "opening": "ouverture",
-    "middlegame": "milieu de jeu",
-    "endgame": "finale",
+Lang = Literal["fr", "en"]
+_SUPPORTED_LANGS: tuple[Lang, ...] = ("fr", "en")
+
+PHASE_LABELS: dict[Lang, dict[PhaseLiteral, str]] = {
+    "fr": {
+        "opening":    "ouverture",
+        "middlegame": "milieu de jeu",
+        "endgame":    "finale",
+    },
+    "en": {
+        "opening":    "opening",
+        "middlegame": "middlegame",
+        "endgame":    "endgame",
+    },
 }
 
 # Per-weakness-family vocabulary for the persistent-weakness summary
-# strings ("Trou sur 23 pendant 18 demi-coups, à partir du coup 15").
-# Singular form on purpose — the summary is one row per (square,
-# family, side) so we never say "trous" here.
-_FAMILY_LABEL_FR: dict[WeaknessFamily, str] = {
-    "isolated": "Pion isolé",
-    "backward": "Pion retardé",
-    "holes":    "Trou",
-    "outposts": "Poste",   # an outpost is a strength; still flagged when
-                            # it persists, so the user knows what worked.
+# strings. Singular form on purpose — the summary is one row per
+# (square, family, side) so we never pluralise here.
+_FAMILY_LABELS: dict[Lang, dict[WeaknessFamily, str]] = {
+    "fr": {
+        "isolated": "Pion isolé",
+        "backward": "Pion retardé",
+        "holes":    "Trou",
+        "outposts": "Poste",
+    },
+    "en": {
+        "isolated": "Isolated pawn",
+        "backward": "Backward pawn",
+        "holes":    "Hole",
+        "outposts": "Outpost",
+    },
 }
+
 _SIDE_BADGE: dict[str, str] = {"white": "⬜", "black": "⬛"}
 
-# Verdict-level FR fallbacks used in the TurningPoint.reason field
-# when no motif explains the move. Lifted from the VERDICT_FALLBACKS
-# table in templates_fr.py — kept inline here so the narrator
-# doesn't import the heavy templates module.
-_TURNING_REASON_FALLBACK_FR: dict[Verdict, str] = {
-    Verdict.BLUNDER:    "Gaffe — coup perdant",
-    Verdict.MISTAKE:    "Erreur — perte significative",
-    Verdict.INACCURACY: "Imprécision",
-    Verdict.GOOD:       "Coup correct",
-    Verdict.EXCELLENT:  "Coup quasi-optimal",
-    Verdict.BEST:       "Meilleur coup",
-    Verdict.BRILLIANT:  "Coup brillant",
-    Verdict.FORCED:     "Coup forcé",
-    Verdict.BOOK:       "Coup de théorie",
+# Verdict-level fallbacks for the TurningPoint.reason field when no
+# motif explains the move. Lifted from the VERDICT_FALLBACKS table in
+# templates_*.py but kept inline so the narrator stays free of that
+# module's import weight.
+_TURNING_REASON_FALLBACK: dict[Lang, dict[Verdict, str]] = {
+    "fr": {
+        Verdict.BLUNDER:    "Gaffe — coup perdant",
+        Verdict.MISTAKE:    "Erreur — perte significative",
+        Verdict.INACCURACY: "Imprécision",
+        Verdict.GOOD:       "Coup correct",
+        Verdict.EXCELLENT:  "Coup quasi-optimal",
+        Verdict.BEST:       "Meilleur coup",
+        Verdict.BRILLIANT:  "Coup brillant",
+        Verdict.FORCED:     "Coup forcé",
+        Verdict.BOOK:       "Coup de théorie",
+    },
+    "en": {
+        Verdict.BLUNDER:    "Blunder — losing move",
+        Verdict.MISTAKE:    "Mistake — significant loss",
+        Verdict.INACCURACY: "Inaccuracy",
+        Verdict.GOOD:       "Good move",
+        Verdict.EXCELLENT:  "Near-best move",
+        Verdict.BEST:       "Best move",
+        Verdict.BRILLIANT:  "Brilliant move",
+        Verdict.FORCED:     "Forced move",
+        Verdict.BOOK:       "Book move",
+    },
 }
 
 # Significance threshold below which a move isn't reported as a
 # turning point even if it makes the top-K — same cutoff as the
 # `inaccuracy` bucket in dilf's verdict scoring (8 cp). Stops the
-# "résumé" from inventing drama in a clean game.
+# narrative from inventing drama in a clean game.
 _TURNING_MIN_DELTA = 0.08
 
 # Quality thresholds for the per-phase 1-liner — lifted from the
 # ACPL conventions used elsewhere in the codebase (Scan annotation +
-# AccuracySummary). 20 cp ≈ "solide", 50 cp ≈ "bavard", 80 cp+ ≈ "fragile".
+# AccuracySummary). 20 cp ≈ "solid", 50 cp ≈ "loose", 80 cp+ ≈ "fragile".
 _PHASE_QUALITY_THRESHOLDS = (20, 50, 80)
-_PHASE_QUALITY_LABELS_FR = ("solide", "correcte", "imprécise", "fragile")
+_PHASE_QUALITY_LABELS: dict[Lang, tuple[str, ...]] = {
+    "fr": ("solide", "correcte", "imprécise", "fragile"),
+    "en": ("solid", "decent", "loose", "fragile"),
+}
 
 
-def _phase_quality_label_fr(acpl: int) -> str:
-    """Map ACPL to a one-word quality tag."""
+def _t(table: dict[Lang, "_T"], lang: Lang) -> "_T":   # noqa: F821 — generic via Any
+    """Dispatch on ``lang`` with FR fallback for unknown languages.
+
+    Kept as a tiny helper so every template lookup goes through the
+    same defaulting logic; adding a 3rd language only means extending
+    each ``table`` dict, no signature change here."""
+    return table.get(lang, table["fr"])
+
+
+def _phase_quality_label(acpl: int, lang: Lang) -> str:
+    labels = _t(_PHASE_QUALITY_LABELS, lang)
     for i, t in enumerate(_PHASE_QUALITY_THRESHOLDS):
         if acpl < t:
-            return _PHASE_QUALITY_LABELS_FR[i]
-    return _PHASE_QUALITY_LABELS_FR[-1]
+            return labels[i]
+    return labels[-1]
 
 
 # ── Aggregation helpers ─────────────────────────────────────────────────
@@ -156,9 +201,16 @@ def _acpl(verdicts: Iterable[MoveVerdict]) -> int:
     return round(sum(losses) / len(losses))
 
 
+_PHASE_SUMMARY_TPL: dict[Lang, str] = {
+    "fr": "{label} {quality} : {acpl} cp ({n} demi-coups)",
+    "en": "{label} {quality}: {acpl} cp ({n} half-moves)",
+}
+
+
 def _phase_summary(
     verdicts: list[MoveVerdict],
     user_side: Optional[str],
+    lang: Lang,
 ) -> list[PhaseSummary]:
     """One :class:`PhaseSummary` per phase that has at least one verdict.
 
@@ -170,6 +222,9 @@ def _phase_summary(
     for v in verdicts:
         by_phase[v.phase].append(v)
 
+    labels = _t(PHASE_LABELS, lang)
+    tpl = _t(_PHASE_SUMMARY_TPL, lang)
+
     out: list[PhaseSummary] = []
     # Preserve the natural phase order regardless of insertion order.
     for phase in (Phase.OPENING, Phase.MIDDLEGAME, Phase.ENDGAME):
@@ -180,9 +235,10 @@ def _phase_summary(
         opp_vs = [v for v in vs if user_side and v.side != user_side]
         acpl_u = _acpl(user_vs) if user_vs else 0
         acpl_o = _acpl(opp_vs) if opp_vs else 0
-        quality = _phase_quality_label_fr(acpl_u)
-        label = PHASE_FR[phase.value]   # type: ignore[index]
-        summary = f"{label.capitalize()} {quality} : {acpl_u} cp ({len(vs)} demi-coups)"
+        quality = _phase_quality_label(acpl_u, lang)
+        label = labels[phase.value]      # type: ignore[index]
+        summary = tpl.format(label=label.capitalize(), quality=quality,
+                             acpl=acpl_u, n=len(vs))
         out.append(PhaseSummary(
             phase=phase.value,           # type: ignore[typeddict-item]
             n_half_moves=len(vs),
@@ -212,35 +268,67 @@ def _motif_counters(
     return _sort(played), _sort(missed)
 
 
-def _strengths_fr(
+_STRENGTHS_BRILLIANT_TPL: dict[Lang, dict[str, str]] = {
+    "fr": {"one": "{n} coup brillant détecté", "many": "{n} coups brillants détectés"},
+    "en": {"one": "{n} brilliant move detected", "many": "{n} brilliant moves detected"},
+}
+_STRENGTHS_MOTIFS_TPL: dict[Lang, dict[str, str]] = {
+    "fr": {
+        "one":  "{n} motif offensif ({slugs})",
+        "many": "{n} motifs offensifs ({slugs})",
+    },
+    "en": {
+        "one":  "{n} offensive motif ({slugs})",
+        "many": "{n} offensive motifs ({slugs})",
+    },
+}
+
+
+def _strengths(
     verdicts: list[MoveVerdict],
     motifs_played: dict[str, int],
+    lang: Lang,
 ) -> list[str]:
-    """Short positive callouts — count brilliants, count offensive
-    motifs played, longest king maneuver (skipped on J1: needs Features
-    streak detection that J2 introduces)."""
+    """Short positive callouts — brilliants count + offensive motifs.
+    Long-running outpost streak skipped for now; the streak detector
+    used in persistent_weaknesses could be reused but it's noisy
+    enough that I'd rather leave it to the dedicated panel."""
     out: list[str] = []
     n_brilliant = sum(1 for v in verdicts if v.verdict == Verdict.BRILLIANT)
     if n_brilliant > 0:
-        word = "coup brillant" if n_brilliant == 1 else "coups brillants"
-        out.append(f"{n_brilliant} {word} détecté{'s' if n_brilliant > 1 else ''}")
+        tpl = _t(_STRENGTHS_BRILLIANT_TPL, lang)["one" if n_brilliant == 1 else "many"]
+        out.append(tpl.format(n=n_brilliant))
     n_motifs = sum(motifs_played.values())
     if n_motifs > 0:
-        out.append(
-            f"{n_motifs} motif{'s' if n_motifs > 1 else ''} offensif{'s' if n_motifs > 1 else ''} "
-            f"({', '.join(motifs_played.keys())})"
-        )
+        tpl = _t(_STRENGTHS_MOTIFS_TPL, lang)["one" if n_motifs == 1 else "many"]
+        out.append(tpl.format(n=n_motifs, slugs=", ".join(motifs_played.keys())))
     return out
 
 
-def _headline_fr(
+_HEADLINE_TPL: dict[Lang, dict[str, str]] = {
+    "fr": {
+        "with_result":    "{outcome} {side} en {n} demi-coups · {acc}% précision",
+        "without_result": "{n} demi-coups · {acc}% précision",
+    },
+    "en": {
+        "with_result":    "{outcome} {side} in {n} half-moves · {acc}% accuracy",
+        "without_result": "{n} half-moves · {acc}% accuracy",
+    },
+}
+_OUTCOME: dict[Lang, dict[str, str]] = {
+    "fr": {"draw": "Nulle", "win": "Victoire", "loss": "Défaite", "raw": "Résultat {r}"},
+    "en": {"draw": "Draw",  "win": "Victory",  "loss": "Defeat",  "raw": "Result {r}"},
+}
+
+
+def _headline(
     analysis: GameAnalysis,
     user_side: Optional[str],
+    lang: Lang,
 ) -> str:
     """One-line scoreboard. Reads ``analysis.summary['result']`` if the
     caller filled it (e.g. "1-0" / "0-1" / "1/2-1/2"); otherwise just
-    reports half-move count + user accuracy.
-    """
+    reports half-move count + user accuracy."""
     verdicts = analysis.verdicts
     n_moves = len(verdicts)
     user_verdicts = (
@@ -248,61 +336,70 @@ def _headline_fr(
     )
     accuracy = round(compute_accuracy(user_verdicts) * 100)
     result = (analysis.summary or {}).get("result")
-    side_label = (
-        "⬜" if user_side == "white" else "⬛" if user_side == "black" else ""
-    )
+    side_label = _SIDE_BADGE.get(user_side or "", "")
 
+    tpl = _t(_HEADLINE_TPL, lang)
     if isinstance(result, str) and result:
-        # Map FMJD result strings to a verbal outcome relative to the user.
-        outcome = _outcome_fr(result, user_side)
-        return f"{outcome} {side_label} en {n_moves} demi-coups · {accuracy}% précision".strip()
-    return f"{n_moves} demi-coups · {accuracy}% précision".strip()
+        outcome = _outcome(result, user_side, lang)
+        return tpl["with_result"].format(
+            outcome=outcome, side=side_label, n=n_moves, acc=accuracy,
+        ).strip()
+    return tpl["without_result"].format(n=n_moves, acc=accuracy).strip()
 
 
-def _outcome_fr(result: str, user_side: Optional[str]) -> str:
-    """Translate a result string to a verb-ish outcome for the headline."""
+def _outcome(result: str, user_side: Optional[str], lang: Lang) -> str:
+    """Map an FMJD result string to a verbal outcome relative to the user."""
     norm = result.strip()
+    words = _t(_OUTCOME, lang)
     if norm in ("1/2-1/2", "½-½", "draw"):
-        return "Nulle"
+        return words["draw"]
     if user_side is None:
-        return f"Résultat {norm}"
+        return words["raw"].format(r=norm)
     won = (
         (norm == "1-0" and user_side == "white")
         or (norm == "0-1" and user_side == "black")
     )
-    return "Victoire" if won else "Défaite"
+    return words["win"] if won else words["loss"]
 
 
 # ── Turning points ──────────────────────────────────────────────────────
 
 
-def _turning_reason_fr(v: MoveVerdict) -> str:
-    """One short FR sentence explaining why this move is a turning point.
+_TURNING_REASON_TPL: dict[Lang, dict[str, str]] = {
+    "fr": {"missed": "Tu as raté {slug}", "played": "Joué : {slug}",
+           "fallback_generic": "Coup décisif"},
+    "en": {"missed": "You missed {slug}", "played": "Played: {slug}",
+           "fallback_generic": "Decisive move"},
+}
+
+
+def _turning_reason(v: MoveVerdict, lang: Lang) -> str:
+    """One short sentence explaining why this move is a turning point.
 
     Priority order:
       1. A motif the move *missed* — the most actionable insight for
-         the user ("Tu as raté coup_royal au coup 15").
+         the user.
       2. A motif the move *played* — explains a successful but costly
          choice (rare in turning points, but happens with sacrifices).
-      3. The verdict-level fallback ("Gaffe — coup perdant").
+      3. The verdict-level fallback ("Blunder — losing move").
 
     Roles `threatened` and `suffered` are skipped — those describe
     the opponent's options, not the player's choice.
     """
+    tpl = _t(_TURNING_REASON_TPL, lang)
     missed = [m for m in v.motifs if m.role == "missed"]
     if missed:
-        slug = missed[0].motif.replace("_", " ")
-        return f"Tu as raté {slug}"
+        return tpl["missed"].format(slug=missed[0].motif.replace("_", " "))
     played = [m for m in v.motifs if m.role == "played"]
     if played:
-        slug = played[0].motif.replace("_", " ")
-        return f"Joué : {slug}"
-    return _TURNING_REASON_FALLBACK_FR.get(v.verdict, "Coup décisif")
+        return tpl["played"].format(slug=played[0].motif.replace("_", " "))
+    return _t(_TURNING_REASON_FALLBACK, lang).get(v.verdict, tpl["fallback_generic"])
 
 
 def _turning_points(
     verdicts: list[MoveVerdict],
     top_k: int,
+    lang: Lang,
 ) -> list[TurningPoint]:
     """The K verdicts that hurt the side-to-move's win chances the most.
 
@@ -324,7 +421,7 @@ def _turning_points(
             score_before=v.score_before,
             score_after=v.score_after,
             verdict=v.verdict.value,
-            reason=_turning_reason_fr(v),
+            reason=_turning_reason(v, lang),
         ))
     return out
 
@@ -347,15 +444,21 @@ _FAMILY_FIELD: dict[tuple[WeaknessFamily, str], str] = {
 }
 
 
-def _weakness_summary_fr(
+_WEAKNESS_SUMMARY_TPL: dict[Lang, str] = {
+    "fr": "{label} sur {square} ({badge}) pendant {dur} demi-coups, à partir du coup {first}",
+    "en": "{label} on {square} ({badge}) for {dur} half-moves, starting at move {first}",
+}
+
+
+def _weakness_summary(
     family: WeaknessFamily, square: int, side: str,
-    duration: int, first_seen: int,
+    duration: int, first_seen: int, lang: Lang,
 ) -> str:
-    label = _FAMILY_LABEL_FR.get(family, family)
+    label = _t(_FAMILY_LABELS, lang).get(family, family)
     badge = _SIDE_BADGE.get(side, side)
-    return (
-        f"{label} sur {square} ({badge}) pendant {duration} demi-coups, "
-        f"à partir du coup {first_seen}"
+    return _t(_WEAKNESS_SUMMARY_TPL, lang).format(
+        label=label, square=square, badge=badge,
+        dur=duration, first=first_seen,
     )
 
 
@@ -364,6 +467,7 @@ def _persistent_weaknesses(
     top_k: int,
     min_streak: int,
     user_side: Optional[str],
+    lang: Lang,
 ) -> list[PersistentWeakness]:
     """Detect contiguous-half-move streaks where the same (square,
     family, side) was flagged in ``features_after``, return the
@@ -413,7 +517,7 @@ def _persistent_weaknesses(
             side=side,                                  # type: ignore[typeddict-item]
             duration_half_moves=duration,
             first_seen=first_seen,
-            summary=_weakness_summary_fr(family, square, side, duration, first_seen),
+            summary=_weakness_summary(family, square, side, duration, first_seen, lang),
         ))
 
     for v in verdicts:
@@ -483,9 +587,11 @@ def narrate_game(
     No I/O, no engine call. Safe to invoke from a request handler
     inside an event loop.
     """
-    if lang != "fr":
-        # J3 backlog: ship EN templates. Defaulting to FR keeps the
-        # contract stable and avoids a misleading half-translated output.
+    # Unknown languages silently degrade to FR rather than emit a
+    # half-translated string. Every template helper goes through _t()
+    # which has the same fallback, but we normalise here too so the
+    # rest of the function can treat `lang` as guaranteed-supported.
+    if lang not in _SUPPORTED_LANGS:
         lang = "fr"
 
     side = user_side or analysis.user_side
@@ -494,15 +600,15 @@ def narrate_game(
     motifs_played, motifs_missed = _motif_counters(verdicts)
 
     return GameNarrative(
-        headline=_headline_fr(analysis, side),
-        phase_summary=_phase_summary(verdicts, side),
-        turning_points=_turning_points(verdicts, top_k_turning_points),
+        headline=_headline(analysis, side, lang),
+        phase_summary=_phase_summary(verdicts, side, lang),
+        turning_points=_turning_points(verdicts, top_k_turning_points, lang),
         persistent_weaknesses=_persistent_weaknesses(
-            verdicts, top_k_weaknesses, min_streak, side,
+            verdicts, top_k_weaknesses, min_streak, side, lang,
         ),
         motifs_played=motifs_played,
         motifs_missed=motifs_missed,
-        strengths=_strengths_fr(verdicts, motifs_played),
+        strengths=_strengths(verdicts, motifs_played, lang),
         # Recommended drills: just the motifs the user MISSED most often,
         # ordered desc. The dict is already sorted by _motif_counters so
         # we just lift the keys.
