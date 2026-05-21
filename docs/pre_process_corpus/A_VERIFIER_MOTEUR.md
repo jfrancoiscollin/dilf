@@ -16,7 +16,7 @@
 
 | Catégorie | Nombre | Bloquant pour publication ? |
 |-----------|--------|------------------------------|
-| Affirmations tactiques à élucider | 5 | Non (concepts, pas fixtures) |
+| Affirmations tactiques à élucider | 6 | 1 prioritaire (CH07_002 : notation corrompue) |
 | Fixtures `final_move=None` — rafles de dame | 18 | Non (limitation reconstruction) |
 | Fixtures `final_move=None` — gambits | 3 | Non (comportement attendu) |
 | Fixtures `final_move=None` — illustratives | 10 | Non (positions de règles) |
@@ -31,7 +31,7 @@ Scan en unités-pion.
 
 ---
 
-## 1. Affirmations tactiques à élucider au moteur (5 cas)
+## 1. Affirmations tactiques à élucider au moteur (6 cas)
 
 Ces concepts mentionnent une « attaque X-Y » ou un mécanisme tactique
 que la **géométrie de pion simple ne confirme pas** (cf
@@ -39,6 +39,35 @@ que la **géométrie de pion simple ne confirme pas** (cf
 ou des coups de dame légitimes, mais Claude **ne les a pas corrigés**
 car la règle §4.7 du cadrage interdit de corriger ce qu'on ne comprend
 pas. À trancher au moteur.
+
+### BEG_CH07_002 — solution publiée probablement corrompue (PRIORITAIRE)
+
+- **Concept publié (faux)** : « Combinaison en 3 phases : (1) placer un
+  pion en 19, (2) acheminer une pièce noire en 30 par envoi à dame,
+  (3) rafle finale 35x2. »
+- **Solution publiée** : `42-37 (19x28) 29-23 (28x19) 37-31 (26x37)
+  48-42 (37x48) 39-34 (48x30) 35x2`
+- **Position de départ (correcte)** : W{23,27,29,35,39,42,48}
+  B{6,8,12,14,19,25,26}, trait aux blancs. Menace : le pion noir 19
+  menace le pion blanc 23.
+- **Incohérences relevées** (analyse utilisateur, joueur confirmé) :
+  1. « Placer un pion en 19 » est impossible — un pion noir **est déjà**
+     en 19 au départ, et c'est aux blancs de jouer. C'est le pion parti
+     en 28 qui se sacrifie (vers 22 selon l'utilisateur), et c'est le
+     pion 19 qui part à dame.
+  2. L'**envoi à dame en 30** décrit (`39-34` puis dame `48x30`) est
+     impossible : le pion blanc 39 a déjà été capturé en amont, donc le
+     sacrifice 39-34 ne peut pas être joué. Le mécanisme ne marcherait
+     que si 39 était encore présent au moment voulu.
+  3. La **rafle finale `35x2`** est impossible : la pièce censée la
+     mener n'est plus sur le plateau au moment annoncé (le pion 19 est
+     parti à dame).
+- **Conclusion** : la `published_notation` est très probablement
+  corrompue (coquille Dubois ou erreur de transcription PDF). Le
+  narratif et le concept ont été **neutralisés** dans le manuel (§7.2)
+  et la fixture (`confidence=low`, `final_move=None`). **Aucune solution
+  de remplacement n'a été inventée** (§4.7). À reconstruire entièrement
+  au moteur Scan depuis la position de départ.
 
 ### BEG_CH07_003 — le plus suspect
 

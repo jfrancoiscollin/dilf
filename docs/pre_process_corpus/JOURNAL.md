@@ -676,3 +676,47 @@ journal chronologique). À traiter lors de la phase
 `verified=False → verified=True` (cadrage §4.6), quand le backend
 Draught Master + Scan est disponible.
 
+
+---
+
+### Bug narratif CH07_002 — solution publiée corrompue (mai 2026)
+
+**Constat utilisateur** (joueur confirmé) : le narratif de `BEG_CH07_002`
+ne tient pas du tout. Analyse détaillée fournie :
+- « placer un pion en 19 » impossible : un pion noir y est déjà au
+  départ, et c'est aux blancs de jouer. C'est le pion parti en 28 qui
+  se sacrifie (vers 22), et le pion 19 qui part à dame.
+- L'envoi à dame en 30 (`39-34` puis dame `48x30`) est impossible : le
+  pion blanc 39 a été capturé avant de pouvoir jouer son sacrifice.
+- La rafle finale `35x2` est impossible : la pièce censée la mener est
+  déjà partie à dame.
+
+**Diagnostic** : la `published_notation` de cette fixture est très
+probablement corrompue (coquille Dubois ou transcription PDF). Tout le
+narratif construit dessus est faux.
+
+**Catégorie d'erreur** : c'est exactement le type que l'outillage
+déterministe (`position_facts.py`) NE détecte PAS — il valide la
+géométrie de base (couleur, coup simple, menace directe) mais ne déroule
+pas une combinaison longue de 6 demi-coups avec promotions et coups de
+dame. Seul un joueur ou le moteur Scan peut l'attraper. Confirmé : la
+position de départ est correcte (W{23,27,29,35,39,42,48}
+B{6,8,12,14,19,25,26}), c'est la SÉQUENCE qui est fausse.
+
+**Action (conforme §4.7 — ne pas inventer de variante)** :
+- Manuel §7.2 : narratif faux remplacé par un encart « solution en cours
+  de vérification moteur » + description de la position de départ
+  vérifiée. Aucune solution inventée.
+- Fixture : `confidence=high → low`, concept et explanation réécrits pour
+  signaler l'incohérence sans la « corriger », `claude_notes` détaillé.
+  `final_move=None` (déjà le cas).
+- `A_VERIFIER_MOTEUR.md` §1 : CH07_002 ajouté en tête comme cas
+  PRIORITAIRE (notation corrompue à reconstruire entièrement au moteur).
+  Compteur 5→6 affirmations à élucider.
+
+**Limite d'outillage confirmée** : aucun validateur automatique ne peut
+attraper une combinaison longue incohérente sans dérouler le jeu avec un
+moteur de règles complet. C'est précisément le rôle de la phase §4.6
+(validation Scan). Les fixtures `confidence=low` sont à traiter en
+priorité lors de cette phase.
+
