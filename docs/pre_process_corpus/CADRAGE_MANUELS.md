@@ -4,6 +4,141 @@
 > À déposer dans les fichiers du projet (et y rester). Chaque nouvelle conversation
 > sur ce sujet doit commencer par : *"Lis le CADRAGE_MANUELS.md et le JOURNAL.md."*
 
+---
+
+## 🛑 PRINCIPE DIRECTEUR — ZÉRO INVENTION (prime sur tout le reste)
+
+> Ce principe a été établi après que la production initiale du manuel
+> Débutant a révélé des combinaisons inventées, des notations fabriquées
+> de mémoire, des couleurs de pièces inversées et un narratif tactique
+> entièrement faux (cf JOURNAL.md). La cause racine unique : **Claude a
+> rédigé du commentaire tactique en s'appuyant sur son « sens du jeu »,
+> qu'il n'a pas.** Claude ne « voit » pas le damier ; sur une combinaison
+> de plus de quelques demi-coups, il produit du plausible-mais-faux.
+>
+> **La règle est donc absolue et prime sur toute autre section de ce
+> document :**
+>
+> **Claude n'invente AUCUNE combinaison, AUCUNE analyse, AUCUN verdict
+> tactique.** Chaque élément du manuel a une source vérifiable :
+>
+> | Élément | Source unique autorisée |
+> |---------|-------------------------|
+> | La position | Extraction pixel du corpus (`extract_diagrams.py`) — jamais saisie de mémoire |
+> | La solution / les coups | `published_notation` recopiée **verbatim** du livre, OU le PV fourni par le moteur Scan |
+> | Le jugement tactique (« ça gagne », « +2 », « meilleur coup X », « menace Y ») | **Moteur Scan uniquement** |
+> | La couleur / géométrie / menace directe | `position_facts.py` (déterministe) |
+> | La structure, le regroupement thématique, la mise en forme | Claude (sans affirmation tactique) |
+>
+> **Le rôle de Claude est de METTRE EN MOTS ce que les outils et le
+> moteur ont établi — rien d'autre.** Si une information tactique n'a
+> été établie ni par le corpus verbatim ni par Scan, Claude ne l'écrit
+> pas : il marque la position `verified=false` et la consigne dans
+> `A_VERIFIER_MOTEUR.md`.
+
+### Ce que Claude PEUT produire seul (déterministe, vérifiable)
+
+- La **description de la position** : pièces, couleurs, trait — via
+  `position_facts.py`, jamais de mémoire.
+- La **notation publiée recopiée verbatim** depuis le PDF (`pdftotext`),
+  jamais paraphrasée ni reconstruite.
+- Les **faits géométriques simples** : coups légaux d'un pion, menace
+  directe pion/pion — via `position_facts.py`.
+- La **structure du manuel** : découpage en chapitres, regroupement des
+  positions du corpus par thème.
+- La **mise en forme pédagogique SANS affirmation tactique** : « voici
+  une position illustrant tel thème ; observez tel motif ».
+
+### Ce que Claude NE produit JAMAIS seul (attend Scan)
+
+- « Cette combinaison gagne » / « mène à +2 » / « est décisive ».
+- « Le meilleur coup est X ».
+- « Les Blancs menacent Y » au-delà de la menace directe pion/pion
+  calculable par `position_facts.py`.
+- Toute **reconstruction d'une variante** non présente verbatim dans le
+  corpus.
+- Tout commentaire qui suppose d'avoir « déroulé » mentalement une
+  combinaison.
+
+### La chaîne de production obligatoire
+
+```
+PDF corpus Dubois
+   │  (1) extract_diagrams.py — extraction pixel, déterministe
+   ▼
+Positions brutes (pièces + trait)
+   │  (2) pdftotext — solution publiée verbatim
+   ▼
+published_notation (texte brut du livre, jamais paraphrasé)
+   │  (3) reconstruct_capture + position_facts.py — déterministe
+   ▼
+final_move + faits géométriques vérifiés
+   │  (4) ⚠️ MOTEUR SCAN (backend Draught Master, hors conversation Claude)
+   │      → lancé par l'utilisateur ou Claude Code
+   │      → dépose un fichier scan/scan_analysis_<niveau>.json
+   ▼
+verified=true + eval + PV (variante principale réelle)
+   │  (5) Claude lit le fichier Scan et RÉDIGE le commentaire À PARTIR
+   │      du PV — sans rien inventer
+   ▼
+Manuel publiable
+```
+
+**Le maillon (4) ne se fait PAS dans une conversation Claude** : Scan
+vit dans le backend Draught Master. L'utilisateur ou Claude Code lance
+Scan et dépose les analyses dans un fichier que Claude lit (cf §4.6 et
+le format ci-dessous). Claude rédige le commentaire en s'appuyant sur le
+champ `pv` (la variante calculée par Scan), jamais en reconstruisant la
+ligne lui-même.
+
+### Format du fichier d'analyses Scan
+
+Emplacement : **`pre_process_corpus/scan/scan_analysis_<niveau>.json`**
+(ex. `scan_analysis_debutant.json`). Une entrée par fixture :
+
+```json
+{
+  "BEG_CH07_001": {
+    "verified": true,
+    "eval_start": -0.4,
+    "best_move": "42-37",
+    "pv": ["42-37", "25x34", "40x20", "15x24", "28-22", "17x28", "32x14"],
+    "eval_after_pv": 1.8,
+    "winning_for": "white",
+    "scan_depth": 19,
+    "notes": "La published_notation correspond au PV de Scan."
+  }
+}
+```
+
+| Champ | Usage pour la rédaction |
+|-------|--------------------------|
+| `verified` | Claude ne rédige de commentaire tactique **que si `true`** |
+| `eval_start` | évaluation de la position de départ (unités-pion) |
+| `best_move` | meilleur coup selon Scan |
+| `pv` | **variante principale complète** — c'est ELLE que Claude commente, jamais une ligne reconstruite |
+| `eval_after_pv` | éval après la séquence (pour qualifier le gain) |
+| `winning_for` | `white` / `black` — camp gagnant |
+| `scan_depth` | profondeur d'analyse (traçabilité) |
+| `notes` | signale notamment si `published_notation` diverge du PV Scan (= notation corrompue, cf CH07_002) |
+
+Quand `published_notation ≠ pv`, **le PV Scan fait foi** ; la notation
+du livre est traitée comme suspecte et la divergence est notée dans le
+commentaire et dans `A_VERIFIER_MOTEUR.md`.
+
+### Garde-fou de publication
+
+**Aucune fixture `verified=false` ne doit être présentée au lecteur en
+production.** Mécanisme retenu : **l'application masque à l'affichage
+les fixtures `verified=false`** (le lecteur ne voit jamais une
+combinaison non vérifiée par Scan). Les fixtures non vérifiées peuvent
+exister dans le code (utiles pour le suivi), mais restent invisibles
+côté lecteur jusqu'à leur passage Scan. *(Défaut proposé — l'utilisateur
+peut préférer un build bloquant ou une branche/dossier séparés ;
+ajuster ici le cas échéant.)*
+
+---
+
 > **Infrastructure technique — outillage obligatoire.**
 > Le repo **`dilf`** (Draught Intelligence Learning Framework) — public à
 > `https://github.com/jfrancoiscollin/dilf` — fournit l'outillage que toute
@@ -292,6 +427,18 @@ Scan via `scan_engine.evaluate_pos()` et en confirmant :
 Ce passage transforme `verified=False` → `verified=True`. **Aucune fixture
 ne devrait entrer en production avec `verified=False`.**
 
+**Mécanique concrète (cf PRINCIPE DIRECTEUR en tête de document)** :
+le moteur Scan n'est PAS accessible dans une conversation Claude (il vit
+dans le backend Draught Master). L'utilisateur ou Claude Code lance Scan
+et dépose les analyses dans
+`pre_process_corpus/scan/scan_analysis_<niveau>.json` (format détaillé
+dans le préambule). Claude lit ce fichier et **rédige le commentaire
+tactique à partir du champ `pv`** (variante principale calculée par
+Scan), jamais d'une ligne qu'il aurait reconstruite. Tant que le fichier
+Scan ne contient pas d'entrée `verified=true` pour une fixture, son
+commentaire tactique reste interdit et la fixture est masquée à
+l'affichage (garde-fou de publication).
+
 ### 4.7. Règle de l'aveu
 
 Si Claude se rend compte en cours de production qu'il a publié une position
@@ -305,10 +452,14 @@ Quand Claude transcrit une position depuis un PDF du corpus :
 
 - Ce qui est **lu directement sur le diagramme** (pièces, trait, légende)
   → `source = CORPUS`, `confidence = high`.
-- Ce qui est **déduit par Claude** (la solution complète si le livre donne
-  juste le premier coup, l'explication pédagogique si le livre n'en donne
-  pas) → reste dans la même position mais `claude_notes` mentionne
-  ce qui est extrapolé.
+- Ce qui n'est **pas écrit dans le livre** (la suite d'une solution dont
+  le livre ne donne que le premier coup, un jugement tactique que le
+  livre n'énonce pas) → **Claude ne le déduit PAS** (cf PRINCIPE
+  DIRECTEUR). Il laisse le champ vide / `final_move=None`, marque
+  `verified=false`, et attend l'analyse Scan. La règle initiale qui
+  autorisait Claude à « déduire la solution complète » est **abrogée** :
+  c'est précisément cette déduction qui a produit les combinaisons
+  fausses du manuel Débutant.
 
 ### 4.9. Règle des thèmes canoniques
 

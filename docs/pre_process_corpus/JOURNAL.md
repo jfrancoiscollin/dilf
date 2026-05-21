@@ -720,3 +720,54 @@ moteur de règles complet. C'est précisément le rôle de la phase §4.6
 (validation Scan). Les fixtures `confidence=low` sont à traiter en
 priorité lors de cette phase.
 
+
+---
+
+### Recadrage majeur — principe « zéro invention » (mai 2026)
+
+**Décision utilisateur** : après le constat répété que Claude n'a pas le
+niveau pour rédiger les commentaires tactiques d'un manuel de dames
+(combinaisons inventées, narratif CH07_002 entièrement faux que
+l'utilisateur a dû dérouler lui-même), le rôle de Claude est recadré.
+
+**Nouveau principe directeur (prime sur tout le cadrage)** : Claude
+n'invente AUCUNE combinaison, AUCUNE analyse, AUCUN verdict tactique.
+- Position ← extraction pixel du corpus (extract_diagrams.py)
+- Solution / coups ← published_notation verbatim OU PV du moteur Scan
+- Jugement tactique ← moteur Scan UNIQUEMENT
+- Couleur / géométrie / menace directe ← position_facts.py
+- Structure, regroupement, mise en forme ← Claude (sans affirmation tactique)
+
+Claude MET EN MOTS ce que les outils et le moteur ont établi, rien d'autre.
+
+**Chaîne de production actée** :
+1. extract_diagrams.py → positions pixel
+2. pdftotext → published_notation verbatim
+3. reconstruct_capture + position_facts.py → final_move + faits géométriques
+4. ⚠️ MOTEUR SCAN (backend, hors conversation Claude) : lancé par
+   l'utilisateur ou Claude Code, dépose scan/scan_analysis_<niveau>.json
+5. Claude lit le fichier Scan et rédige le commentaire À PARTIR du PV
+
+**Comment l'analyse Scan arrive à Claude** (décision utilisateur) :
+« Toi/Claude Code lancez Scan et me déposez les analyses (PV, éval) dans
+un fichier que je lis. » → fichier JSON scan_analysis_<niveau>.json,
+une entrée par fixture (verified, eval_start, best_move, pv,
+eval_after_pv, winning_for, scan_depth, notes). Quand
+published_notation ≠ pv, le PV Scan fait foi.
+
+**Garde-fou de publication (défaut proposé)** : l'app masque les
+fixtures verified=false à l'affichage. Le lecteur ne voit jamais de
+combinaison non vérifiée par Scan. (À confirmer/ajuster par l'utilisateur.)
+
+**Modifications apportées** :
+- CADRAGE_MANUELS.md : préambule directeur « zéro invention » inséré en
+  tête (prime sur tout), §4.6 enrichie (mécanique scan_analysis), §4.8
+  durcie (déduction de solution ABROGÉE).
+- Nouveau dossier scan/ + scan/README.md documentant le format pour
+  Claude Code.
+- README mis à jour.
+
+**Statut** : recadrage documenté. La rédaction du manuel Intermédiaire
+(et la re-validation du Débutant) se fera selon cette chaîne, une fois
+les analyses Scan disponibles dans scan/scan_analysis_debutant.json.
+
