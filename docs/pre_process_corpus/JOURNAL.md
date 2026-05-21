@@ -627,3 +627,53 @@ tournent automatiquement dans l'étape d'audit §5 du cadrage.
   notation soft = faux positifs structurels (listes à puces) déjà documentés
 - Audit manuel : ✅ 2 corrections (CH07_001 prose+fixture, CH11_005 fixture)
 
+
+---
+
+### Génération assistée par position_facts.py (mai 2026)
+
+**Demande utilisateur** : pour chaque position commentée, double-valider
+automatiquement la prose contre la fixture. Choix : option 3 — la prose
+factuelle de base est auto-générée depuis la fixture, Claude ne rédige à
+la main que l'interprétation.
+
+**Livré** : nouveau module `position_facts.py` qui génère une **fiche de
+faits déterministe** pour chaque fixture :
+- pièces + couleur exacte (case → blanc/noir, pion/dame)
+- trait
+- coups simples légaux de chaque pion du camp au trait (géométrie FMJD)
+- menaces de capture immédiates pion/pion (les DEUX camps)
+- published_notation verbatim + trajet de la rafle finale
+
+Deux usages :
+1. `render_facts_sentence(p)` : socle de rédaction (phrase factuelle de base).
+2. `facts_for(p)` : dict structuré pour la double-validation.
+
+**Validation du module** sur les bugs déjà corrigés : le générateur
+reproduit exactement les bonnes réponses —
+- CH07_001 : « le pion noir 25 peut capturer le pion blanc 30 » ✓
+- CH02_001 : `simple_moves = {35: [30]}` (un seul coup) ✓
+- CH02_008 : `simple_moves = {6: [1]}` (un seul coup) ✓
+
+Tous les 3 bugs qu'on avait corrigés à la main auraient été évités si la
+prose avait été dérivée de la fiche.
+
+**Limite documentée (cadrage §4.14 point 5)** : position_facts ne
+calcule de façon fiable que les faits matériels/géométriques simples.
+Les combinaisons tactiques complexes (rafles, coups de dame) ne sont pas
+déroulées — elles restent du ressort du moteur Scan.
+
+**5 affirmations tactiques à vérifier au moteur** (concepts mentionnant
+une « attaque X-Y » dont la géométrie de pion simple ne confirme pas la
+menace — probablement des attaques post-sacrifice ou des coups de dame,
+NON corrigées car §4.7 interdit de corriger ce qu'on ne comprend pas) :
+- BEG_CH04_005, BEG_CH04_008 (collage avec élimination préalable)
+- BEG_CH07_003 : « l'attaque 14-20 sur le pion blanc 25 ouvre un coup
+  de dame à 49 » — 14-20 ne menace pas géométriquement 25 (case de bord,
+  pas d'atterrissage). Solution publiée `(14-20) 25x21 (16x49)` à
+  élucider au moteur.
+- BEG_CH07_004, BEG_CH07_011 (attaques sur plusieurs pions, collage)
+
+Ces 5 cas sont à passer au moteur Scan lors de la phase
+`verified=False → verified=True` (cadrage §4.6).
+

@@ -591,6 +591,37 @@ construire par inspection des fixtures**.
    pion X a deux coups possibles » (faux positifs filtrés par
    heuristique). Voir §5 pour la checklist d'audit complète.
 
+5. **Rédaction assistée par `position_facts.py` (méthode obligatoire
+   pour les manuels Intermédiaire et suivants).** L'expérience du
+   manuel Débutant a montré que décrire une position « de mémoire »
+   produit systématiquement des bugs (couleur inversée, coup
+   impossible, notation fictive). La parade structurelle :
+
+   - **Avant** d'écrire le moindre commentaire sur une position, Claude
+     exécute `position_facts.py <fixture_id>` qui génère la **fiche de
+     faits déterministe** : pièces et leur couleur exacte, trait, coups
+     simples légaux de chaque pion (géométrie FMJD), menaces de capture
+     immédiates pion/pion (les deux camps), `published_notation`
+     verbatim, et trajet de la rafle finale.
+   - Claude rédige la prose **par-dessus cette fiche**, en reprenant les
+     faits tels quels. Il n'invente jamais un fait (couleur, coup,
+     menace) : il le copie de la fiche.
+   - La couche que Claude ajoute par-dessus est uniquement
+     l'**interprétation pédagogique** : pourquoi la combinaison gagne,
+     quel thème elle illustre, quelle est l'idée à retenir. Cette couche
+     n'est PAS vérifiable déterministement et reste sous la
+     responsabilité de Claude (rédaction) et du moteur Scan (vérité
+     tactique, cf §4.6).
+   - **Limite assumée** : `position_facts.py` ne calcule de façon fiable
+     que les faits *matériels et géométriques simples* (couleur, coup de
+     pion, menace directe pion/pion). Il ne déroule PAS les combinaisons
+     tactiques (rafles multiples, coups de dame, sacrifices en chaîne).
+     Pour les affirmations tactiques complexes (« l'attaque X-Y ouvre un
+     coup de dame à Z »), la fiche ne tranche pas — c'est au moteur Scan
+     de valider (§4.6). Claude marque ces affirmations comme
+     « à vérifier au moteur » plutôt que de les corriger à l'aveugle
+     (§4.7 règle de l'aveu).
+
 ---
 
 ## 5. Méthode de travail conversation par conversation
