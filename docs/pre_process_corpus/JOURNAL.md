@@ -580,3 +580,50 @@ Cette désynchronisation prose/fixture n'avait pas été détectée.
 - Audit manuel chapitre par chapitre : ✅ 2 corrections appliquées
   (CH02_001 prose+fixture, CH02_008 fixture)
 
+
+---
+
+### Audit couleur des pièces — bug CH07_001 (mai 2026)
+
+**Constat utilisateur** : sur Draught Master, la prose de `BEG_CH07_001`
+disait « une seule attaque noire (sur le pion blanc 25) » alors que sur
+le diagramme la case 25 est NOIRE.
+
+**Diagnostic** : double erreur dans la prose.
+1. « pion blanc 25 » : la case 25 est noire (B_men contient 25).
+2. « attaque sur le pion 25 » : l'attaque noire porte en réalité sur le
+   pion BLANC 30. Le mécanisme : le pion noir 25 menace de capturer le
+   blanc 30 (25x34 par-dessus 30). Le blanc exploite ce « temps de
+   repos » en jouant un coup utile (42-37) avant que le noir ne soit
+   forcé de capturer.
+
+**Corrections appliquées** :
+- `manuel_debutant.md` §7.1 : « le pion noir 25 menace le pion blanc 30 ».
+- `fixtures_debutant.py` BEG_CH07_001 concept : reformulé pour expliquer
+  correctement le mécanisme (pion noir 25 menace blanc 30).
+
+**Audit couleur étendu** : nouveau détecteur ajouté à
+`validate_prose_vs_fixtures.py` (`_check_color_claims`) qui vérifie que
+toute mention « pion blanc X » / « pion noir X » / « dame blanche X »
+correspond à la couleur réelle de la pièce dans la fixture.
+
+Résultats de l'audit complet :
+- Prose du manuel : 1 bug (CH07_001, corrigé). 0 autre.
+- Concepts/explanations des 166 fixtures : 1 bug détecté
+  (`BEG_CH11_005` : « pion noir en 22 » alors que 22 est blanc — le
+  concept du coup de Rappel était mal formulé). Corrigé : le concept
+  explique maintenant que le Rappel force un pion noir à *revenir
+  capturer* sur la case 22.
+
+**Outillage** : `validate_prose_vs_fixtures.py` cumule désormais 4
+validations : (1) recouvrement de cases prose/fixture, (2) notations
+Dubois citées vs published_notation, (3) affirmations géométriques
+(coups simples légaux FMJD), (4) couleur des pièces annoncée. Les 4
+tournent automatiquement dans l'étape d'audit §5 du cadrage.
+
+**Conformité §5 du cadrage** :
+- Validation moteur : ✅ 135/135 OK (inchangé)
+- Validation prose/fixtures : ✅ géométrie OK, couleur OK ; warnings
+  notation soft = faux positifs structurels (listes à puces) déjà documentés
+- Audit manuel : ✅ 2 corrections (CH07_001 prose+fixture, CH11_005 fixture)
+

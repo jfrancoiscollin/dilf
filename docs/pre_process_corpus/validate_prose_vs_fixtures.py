@@ -165,6 +165,36 @@ def _check_geometric_claims(
     return issues
 
 
+# Pattern "pion/dame blanc(he)/noir(e) X" — pour vérifier la couleur annoncée
+_COLOR_CLAIM = re.compile(
+    r"\b(?:pion|dame)\s+(blanc|blanche|noir|noire)\s+(?:en\s+(?:case\s+)?)?(\d{1,2})\b"
+)
+
+
+def _check_color_claims(
+    text: str, fixture, source_label: str
+) -> list[tuple[str, str, int, str]]:
+    """Détecte les mentions 'pion blanc X' / 'pion noir X' où la couleur
+    annoncée ne correspond pas à la pièce réelle de la fixture.
+
+    Retourne (source_label, mot_couleur_annonce, case, couleur_reelle).
+    """
+    issues = []
+    for m in _COLOR_CLAIM.finditer(text):
+        color_word = m.group(1)
+        case = int(m.group(2))
+        if not (1 <= case <= 50):
+            continue
+        claimed_white = color_word in ("blanc", "blanche")
+        in_white = case in fixture.state.white_men or case in fixture.state.white_kings
+        in_black = case in fixture.state.black_men or case in fixture.state.black_kings
+        if not (in_white or in_black):
+            continue  # case vide — coup hypothétique, on ne juge pas
+        if claimed_white != in_white:
+            issues.append((source_label, color_word, case, "blanc" if in_white else "noir"))
+    return issues
+
+
 def main() -> None:
     fixtures_module_name = os.environ.get("FIXTURES_MODULE", "fixtures_debutant")
     manuel_path = Path(os.environ.get("MANUEL_MD", "manuel_debutant.md"))
@@ -215,6 +245,7 @@ def main() -> None:
     issues_soft: list[tuple] = []     # potentielle invention (à vérifier)
     notation_issues: list[tuple] = [] # notation Dubois citée incohérente avec published_notation
     geometric_issues: list[tuple] = [] # affirmations de coup géométriquement invalides
+    color_issues: list[tuple] = []      # couleur de pièce mal annoncée
     missing_refs: list[str] = []
 
     for match in ref_pattern.finditer(manuel_text):
@@ -318,6 +349,8 @@ def main() -> None:
             paragraph = manuel_text[para_start:para_end]
             for issue in _check_geometric_claims(paragraph, fixture, "prose"):
                 geometric_issues.append((ref_id, *issue))
+            for issue in _check_color_claims(paragraph, fixture, "prose"):
+                color_issues.append((ref_id, *issue))
 
     # Audit géométrique des concepts/explanations de toutes les fixtures
     for p in fixtures_list:
@@ -326,6 +359,8 @@ def main() -> None:
                 continue
             for issue in _check_geometric_claims(text, p, label):
                 geometric_issues.append((p.id, *issue))
+            for issue in _check_color_claims(text, p, label):
+                color_issues.append((p.id, *issue))
 
     # Rapport
     total_refs = sum(1 for _ in ref_pattern.finditer(manuel_text))
@@ -396,12 +431,30 @@ def main() -> None:
             print(f"     invalides          : {invalid}")
         print()
 
-    if not (missing_refs or issues_strict or notation_issues or geometric_issues):
+    if color_issues:
+        # Dédoublonner sur (ref_id, source, case)
+        seen = set()
+        unique = []
+        for entry in color_issues:
+            ref_id, source, claimed, case, actual = entry
+            key = (ref_id, source, case)
+            if key in seen:
+                continue
+            seen.add(key)
+            unique.append(entry)
+        print(f"🚨 {len(unique)} erreur(s) de COULEUR de pièce :")
+        print("    (la prose/le concept annonce une couleur qui ne correspond pas")
+        print("     à la pièce réelle de la fixture)")
+        for ref_id, source, claimed, case, actual in unique:
+            print(f"   - {ref_id} [{source}] : annonce '{claimed} {case}' mais case {case} est {actual.upper()}")
+        print()
+
+    if not (missing_refs or issues_strict or notation_issues or geometric_issues or color_issues):
         print("✅ Aucune désynchronisation grave détectée.")
         if issues_soft:
             print(f"   ({len(issues_soft)} mentions soft à examiner manuellement.)")
 
-    if issues_strict or missing_refs or notation_issues or geometric_issues:
+    if issues_strict or missing_refs or notation_issues or geometric_issues or color_issues:
         sys.exit(2)
 
 
