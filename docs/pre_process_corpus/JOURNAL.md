@@ -663,17 +663,16 @@ calcule de façon fiable que les faits matériels/géométriques simples.
 Les combinaisons tactiques complexes (rafles, coups de dame) ne sont pas
 déroulées — elles restent du ressort du moteur Scan.
 
-**5 affirmations tactiques à vérifier au moteur** (concepts mentionnant
+**5 affirmations tactiques à vérifier au moteur** : concepts mentionnant
 une « attaque X-Y » dont la géométrie de pion simple ne confirme pas la
-menace — probablement des attaques post-sacrifice ou des coups de dame,
+menace (probablement des attaques post-sacrifice ou des coups de dame,
 NON corrigées car §4.7 interdit de corriger ce qu'on ne comprend pas) :
-- BEG_CH04_005, BEG_CH04_008 (collage avec élimination préalable)
-- BEG_CH07_003 : « l'attaque 14-20 sur le pion blanc 25 ouvre un coup
-  de dame à 49 » — 14-20 ne menace pas géométriquement 25 (case de bord,
-  pas d'atterrissage). Solution publiée `(14-20) 25x21 (16x49)` à
-  élucider au moteur.
-- BEG_CH07_004, BEG_CH07_011 (attaques sur plusieurs pions, collage)
+BEG_CH04_005, BEG_CH04_008, BEG_CH07_003, BEG_CH07_004, BEG_CH07_011.
 
-Ces 5 cas sont à passer au moteur Scan lors de la phase
-`verified=False → verified=True` (cadrage §4.6).
+**Ces 5 cas + les 31 fixtures `final_move=None` + la validation
+« gagnant » de l'ensemble sont désormais consignés dans le fichier de
+suivi dédié `A_VERIFIER_MOTEUR.md`** (au lieu d'être enterrés dans ce
+journal chronologique). À traiter lors de la phase
+`verified=False → verified=True` (cadrage §4.6), quand le backend
+Draught Master + Scan est disponible.
 

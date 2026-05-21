@@ -22,6 +22,7 @@ manuel est ici.
 | `fixtures_debutant.py` | 166 fixtures Python, 16 chapitres. Round-trip FEN 166/166 ✓. Validation moteur 135/135 OK. |
 | `RESOLUTIONS_debutant.md` | 11 résolutions (R001-R011) consignées pendant la production. |
 | `BLOCAGES.md` | Document de clôture — 3 blocages tous résolus (coquilles PDF Dubois). |
+| `A_VERIFIER_MOTEUR.md` | Checklist des items en attente de la validation moteur Scan (cadrage §4.6) : 5 affirmations tactiques à élucider, 31 fixtures `final_move=None`, et la validation « gagnant » de l'ensemble. À traiter quand le backend Draught Master + Scan est disponible. |
 | `ameliorations_dilf_debutant.md` | Backlog initial des suggestions dilf (archive — l'état à jour est dans `ETAT_DILF.md`). |
 
 ### Outillage industriel réutilisable (à utiliser pour chaque nouveau manuel)
