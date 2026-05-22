@@ -1,0 +1,1662 @@
+{
+  "BEG_CH01_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH01_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_011": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH02_012": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH03_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH03_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH03_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH03_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH03_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH03_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH03_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH03_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH03_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH03_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH04_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH04_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH04_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH04_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH04_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH04_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH04_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH04_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH04_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH04_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH04_011": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH05_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH05_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH05_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH05_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH05_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH05_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH05_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH05_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH05_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH05_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH06_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH06_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH06_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH06_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH06_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH06_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH06_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH06_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH06_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH06_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH06_011": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_011": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH07_012": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_011": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH08_012": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_011": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH09_012": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_011": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH10_012": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_011": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH11_012": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH12_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH12_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH12_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH12_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH12_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH12_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH12_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH12_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH12_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH12_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH13_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH13_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH13_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH13_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH13_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH13_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH13_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH13_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH13_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH13_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH14_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH14_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH14_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH14_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH14_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH14_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH14_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH14_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH14_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH14_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH15_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH15_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH15_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH15_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH15_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH15_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH15_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH15_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH15_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH15_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH16_001": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH16_002": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH16_003": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH16_004": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH16_005": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH16_006": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH16_007": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH16_008": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH16_009": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  },
+  "BEG_CH16_010": {
+    "best_move": null,
+    "eval_after_pv": 0.0,
+    "eval_start": 0.0,
+    "notes": "Stub — Scan analysis not yet run.",
+    "pv": [],
+    "scan_depth": 0,
+    "verified": false,
+    "winning_for": "draw"
+  }
+}
