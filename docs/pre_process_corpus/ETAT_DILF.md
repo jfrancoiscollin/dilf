@@ -229,8 +229,8 @@ Option A et reporter §1 du backlog à plus tard.
 | §6 | Détecteurs de motifs (10 coups nommés) | 5/16 disponibles | Moyenne |
 | §7 | Validation interactive des blocages | À faire | Moyenne |
 | **§8** | Validateur prose/fixtures | ✅ Outillage local fourni (validate_prose_vs_fixtures.py) | Haute |
-| **S1** | Pipeline `index_prose.py` (chunk + tag + embed + emit) — *stratégie* | À faire | **Haute** |
-| **S2** | Wrapper `StrategicConcept` dans `pedagogy/` — *stratégie* | À faire | Haute |
+| **S1** | Pipeline `index_prose.py` (chunk + tag + embed + emit) — *stratégie* | 🟡 Squelette livré (`scripts/index_prose.py`, 5 sous-commandes, embed optionnel) ; embeddings réels + corpus à câbler | **Haute** |
+| **S2** | Wrapper `StrategicConcept` dans `pedagogy/` — *stratégie* | 🟡 Format livré (`pedagogy/prose/{passages,concepts}.py` conformes §6) ; pas de fixtures encore | Haute |
 | **S3** | `validate_strategic.py` (traçabilité + passage Scan) — *stratégie* | À faire | Haute |
 | S4 | Détection automatique du `system` dans les passages — *stratégie* | À faire | Moyenne |
 | S5 | Banque de positions-types par système (§4.S4) — *stratégie* | À faire | Moyenne |
