@@ -771,3 +771,49 @@ combinaison non vérifiée par Scan. (À confirmer/ajuster par l'utilisateur.)
 (et la re-validation du Débutant) se fera selon cette chaîne, une fois
 les analyses Scan disponibles dans scan/scan_analysis_debutant.json.
 
+
+---
+
+### Ajout du CADRAGE_STRATEGIE.md — contenus stratégiques (mai 2026)
+
+**Décision utilisateur** : étendre le projet aux aspects *stratégiques*
+du jeu (systèmes d'ouverture Roozenburg/Keller, fondamentaux du
+classique, plans de milieu de partie) sans hallucination.
+
+**Problème de fond** : le cadrage tactique repose sur un oracle
+*calculé* (Scan) — une combinaison a une réponse vraie. Une stratégie
+n'en a pas : « le classique cherche le grand chemin » est un énoncé de
+la littérature, pas un calcul. C'est le terrain où le LLM hallucine le
+plus (prose fluide qui sonne juste mais attribue un plan au mauvais
+système, etc.).
+
+**Solution actée (CADRAGE_STRATEGIE.md)** : transposer le protocole
+anti-hallucination sur un oracle *cité* (prose des maîtres du corpus)
+au lieu de *calculé*. Principe : « énonciation stratégique de mémoire
+interdite, le passage de corpus est obligatoire » — analogue de §4.10
+(transcription interdite). Double ancrage : la prose dit le *pourquoi*
+(oracle 1, RAG sur corpus), Scan dit le *combien* sur positions-types
+(oracle 2).
+
+**Points clés** :
+- 3 types d'assertion : CITED (passage sourcé), SYNTHESIS (articulation
+  de plusieurs CITED, plafonnée), ENGINE (chiffré par Scan). Pas de
+  catégorie « connaissance générale » pour le stratégique.
+- 2 usages : A (manuel, relu humain) et B (temps réel app, garde-fou
+  automatique, RAG cité non négociable).
+- Wrapper StrategicConcept (assertions + illustrations).
+- Règle d'or usage B : « pas de passage pertinent = pas de réponse
+  affirmative ».
+
+**Intégrations effectuées** :
+- CADRAGE_MANUELS.md : renvoi vers l'annexe en tête.
+- ETAT_DILF.md §6 : 6 lignes de backlog ajoutées (S1 index_prose.py,
+  S2 StrategicConcept, S3 validate_strategic.py, S4 détection système,
+  S5 banque positions-types, S6 prompt contraint usage B).
+- README mis à jour.
+
+**Bloquant principal** : `index_prose.py` (pendant prose de
+extract_diagrams.py) n'existe pas encore — à créer avant tout contenu
+stratégique en usage B. Mode dégradé possible en usage A (extraction
+pdftotext manuelle, passage_id reconstruit à la main, relu humain).
+

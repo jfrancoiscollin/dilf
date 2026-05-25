@@ -10,7 +10,8 @@ manuel est ici.
 
 | Fichier | Rôle |
 |---|---|
-| `CADRAGE_MANUELS.md` | Protocole maître de production (793 lignes). Décrit les 4 manuels, le format de fixture, le protocole anti-hallucination, le workflow conversation par conversation. |
+| `CADRAGE_MANUELS.md` | Protocole maître de production (tactique). Décrit les 4 manuels, le format de fixture, le protocole anti-hallucination, le workflow conversation par conversation. |
+| `CADRAGE_STRATEGIE.md` | Annexe du cadrage maître pour les contenus *stratégiques* (systèmes d'ouverture, plans de milieu, fondamentaux du classique). Transpose le protocole anti-hallucination sur un oracle *cité* (prose des maîtres) au lieu de *calculé* (Scan). Couvre l'usage manuel (A) et l'explication temps réel (B). |
 | `ETAT_DILF.md` | État réel du framework dilf au démarrage. Liste les modules disponibles (game.py, notation/dubois.py, extract_diagrams.py) et le backlog restant. |
 | `JOURNAL.md` | Trace chronologique de toutes les conversations manuels. Mis à jour à chaque fin de cycle. |
 

@@ -229,6 +229,16 @@ Option A et reporter §1 du backlog à plus tard.
 | §6 | Détecteurs de motifs (10 coups nommés) | 5/16 disponibles | Moyenne |
 | §7 | Validation interactive des blocages | À faire | Moyenne |
 | **§8** | Validateur prose/fixtures | ✅ Outillage local fourni (validate_prose_vs_fixtures.py) | Haute |
+| **S1** | Pipeline `index_prose.py` (chunk + tag + embed + emit) — *stratégie* | À faire | **Haute** |
+| **S2** | Wrapper `StrategicConcept` dans `pedagogy/` — *stratégie* | À faire | Haute |
+| **S3** | `validate_strategic.py` (traçabilité + passage Scan) — *stratégie* | À faire | Haute |
+| S4 | Détection automatique du `system` dans les passages — *stratégie* | À faire | Moyenne |
+| S5 | Banque de positions-types par système (§4.S4) — *stratégie* | À faire | Moyenne |
+| **S6** | Prompt système contraint usage B (garde-fou §8 stratégie) | À faire | **Haute** |
+
+Les lignes **S1-S6** sont induites par `CADRAGE_STRATEGIE.md` (production
+de contenu stratégique). S1, S2, S3, S6 sont bloquantes pour l'usage B
+(explication temps réel dans l'app) ; S4 et S5 améliorent la qualité.
 
 **Pour démarrer Intermédiaire** : §1 et §4 sont les seules suggestions
 qui pourraient bloquer ou ralentir la production. §6 (détecteurs) est

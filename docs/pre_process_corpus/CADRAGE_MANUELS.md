@@ -4,6 +4,14 @@
 > À déposer dans les fichiers du projet (et y rester). Chaque nouvelle conversation
 > sur ce sujet doit commencer par : *"Lis le CADRAGE_MANUELS.md et le JOURNAL.md."*
 
+> **Contenu stratégique :** ce document couvre la production *tactique*
+> (combinaisons vérifiables par Scan). Pour les contenus *stratégiques*
+> (systèmes d'ouverture, plans de milieu de partie, fondamentaux du jeu
+> classique — tout ce qui ne se réduit pas à une rafle calculable), voir
+> l'annexe **`CADRAGE_STRATEGIE.md`**, qui transpose le même protocole
+> anti-hallucination sur un oracle *cité* (prose des maîtres du corpus)
+> plutôt que *calculé* (Scan).
+
 ---
 
 ## 🛑 PRINCIPE DIRECTEUR — ZÉRO INVENTION (prime sur tout le reste)
