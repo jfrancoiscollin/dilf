@@ -21,8 +21,9 @@ est donc directement testable au damier informatique.
 
 **Sources** : 152 des 166 positions sont extraites de l'ouvrage
 *Apprentissage Combinaisons* de Jean-Pierre Dubois (référence francophone
-contemporaine). Les 14 restantes illustrent des règles canoniques ou des
-schémas inventés à fin pédagogique.
+contemporaine). Les 14 restantes se répartissent en 12 positions de
+connaissance générale (règles canoniques, positions standardisées) et
+2 schémas inventés à fin pédagogique.
 
 **Plan du manuel** :
 
@@ -120,9 +121,9 @@ soit **vide**. La capture peut se faire **en avant comme en arrière**
 damier **à la fin de la séquence de prise**, pas pendant.
 
 Voir `BEG_CH02_003` : le pion blanc 31 saute par-dessus le pion noir 27
-et atterrit en 22 (notation `31x22`). Voir aussi `BEG_CH02_004` pour
+et atterrit en 22 (notation `31×22`). Voir aussi `BEG_CH02_004` pour
 illustrer la **capture vers l'arrière** : le pion blanc 22 saute le
-noir 27 vers l'arrière et atterrit en 31 (notation `22x31`) — ce qui
+noir 27 vers l'arrière et atterrit en 31 (notation `22×31`) — ce qui
 serait interdit pour un coup simple.
 
 ### 2.3. Rafle (capture multiple)
@@ -134,7 +135,7 @@ qu'on appelle une **rafle**.
 
 Voir `BEG_CH02_005` : le pion blanc 31 saute le noir 27 (atterrit en 22),
 puis enchaîne en sautant le noir 17 pour atterrir en 11. Notation
-`31x11`, deux pions noirs capturés en une seule séquence.
+`31×11`, deux pions noirs capturés en une seule séquence.
 
 ### 2.4. Prise obligatoire
 
@@ -143,7 +144,7 @@ Quand un pion ou une dame **peut capturer**, la capture est
 des règles les plus distinctives du jeu de dames international.
 
 Voir `BEG_CH02_006` : le pion blanc 31 ne peut pas jouer 31-26 (coup
-simple) parce que la prise `31x22` du noir 27 est disponible — il doit
+simple) parce que la prise `31×22` du noir 27 est disponible — il doit
 prendre, même s'il préférerait jouer ailleurs.
 
 ### 2.5. Prise maximale (règle du nombre)
@@ -154,8 +155,8 @@ même nombre de pièces, le joueur choisit librement (sauf cas spéciaux
 documentés dans la règlementation FMJD).
 
 Voir `BEG_CH02_007` : depuis la position W{31, 38} B{23, 27, 33}, le
-blanc a deux captures possibles — `31x22` ne prend qu'un seul pion (le
-27), tandis que `38x18` prend deux pions (33 et 23). La rafle `38x18`
+blanc a deux captures possibles — `31×22` ne prend qu'un seul pion (le
+27), tandis que `38×18` prend deux pions (33 et 23). La rafle `38×18`
 est **obligatoire** car elle capture le plus.
 
 ### 2.6. Promotion en dame
@@ -590,10 +591,17 @@ fois qu'on l'a vue.
 - **Perot-Mostovoy 1968** (`BEG_CH09_005`)
 - **Ketelaars-Kalsbeek 1997** (`BEG_CH09_006`)
 
-### 9.4. Cas problématique
+### 9.4. Coquille PDF identifiée et résolue
 
-`BEG_CH09_007` (Dubois D5) : la solution publiée Dubois ne se reconstruit
-pas avec la position extraite. Position contestée, voir `BLOCAGES.md`.
+`BEG_CH09_007` (Dubois ch13 D5, page 43) : la solution publiée
+contenait une coquille PDF (`43-38` au lieu de `38-32`) qui rendait la
+notation inapplicable à la position extraite. **Coquille corrigée et
+résolue** — cf R009 dans `RESOLUTIONS_debutant.md`. La fixture dispose
+désormais d'une `published_notation` corrigée et d'un `final_move`
+reconstruit. Ce qu'on retient pédagogiquement : un même chiffre (ici
+`38`) peut être ambigu entre case de départ et case d'arrivée selon
+la position des pions adjacents — toujours valider la notation par
+recherche exhaustive sur la position concrète.
 
 ---
 
@@ -623,10 +631,17 @@ caractéristique.
 `BEG_CH10_009` (Dubois D7) est un **coup Napoléon** —
 `28-22 (17×28) 27-21 (16×27) 31×24` — qui sera détaillé au chapitre 13.
 
-### 10.4. Cas problématique
+### 10.4. Coquille PDF identifiée et résolue
 
-`BEG_CH10_008` (Dubois D6) : mismatch position/solution, voir
-`BLOCAGES.md`.
+`BEG_CH10_008` (Dubois ch14 D6, page 46) : la solution publiée
+contenait une double coquille PDF (`37-31 (26x28)` au lieu de
+`27-21 (17x28)`) qui décalait toute la notation par rapport à la
+position extraite. **Coquille corrigée et résolue** — cf R010 dans
+`RESOLUTIONS_debutant.md`. Ce qu'on retient pédagogiquement : les
+coquilles complexes touchant plusieurs digits cohérents (37↔27,
+31↔21, 26↔17) trahissent souvent un décalage de colonne lors de la
+saisie ; la recherche exhaustive sur la séquence complète permet de
+les détecter.
 
 ---
 
@@ -716,10 +731,16 @@ consécutifs ouvrent la trajectoire de la rafle finale `31→22→33→24→15�
 - **Rafle `40×16`** : `BEG_CH13_008` (D8 — Kolodiev-Weytsman 1973)
 - **Rafle `(...×46)` côté noir** : `BEG_CH13_003` (D3 — Baerends-Stoop 1984)
 
-### 13.3. Cas problématique
+### 13.3. Coquille PDF identifiée et résolue
 
-`BEG_CH13_004` (Dubois D4) : solution publiée entièrement décalée par
-rapport à la position extraite, voir `BLOCAGES.md`.
+`BEG_CH13_004` (Dubois ch17 D4, page 55) : la solution publiée
+contenait une coquille PDF par inversion d'opérandes (`(18x27)` au
+lieu de `(27x18)`, soit l'inverse de la convention `départ × arrivée`).
+**Coquille corrigée et résolue** — cf R011 dans `RESOLUTIONS_debutant.md`.
+Ce qu'on retient pédagogiquement : à la différence des coquilles par
+substitution de chiffres (R009, R010), ici les chiffres sont corrects
+mais leur ordre est inversé — un type de coquille différent qui
+sensibilise au contrôle systématique du sens départ → arrivée.
 
 ---
 
@@ -878,7 +899,7 @@ de l'application pour la charger directement au damier.
 | Coup nommé | Chapitre principal | Aperçus dans | Détecteur dilf |
 |---|---|---|---|
 | Coup de Mazette | (introduit ch3, ch16) | — | ❌ à implémenter |
-| Coup royal | — | (chap général) | ✅ `pedagogy/motifs/coup_royal.py` |
+| Coup royal | ch4 (`BEG_CH04_006`) | — | ✅ `pedagogy/motifs/coup_royal.py` |
 | Coup de l'Express | ch9 | ch13 (D7) | ❌ |
 | Coup de Ricochet | ch10 | — | ❌ |
 | Coup de Rappel | ch11 | ch14 | ❌ |
@@ -914,12 +935,16 @@ documentées dans `docs/dubois-notation.md` du framework dilf
 - **166 positions** réparties sur 16 chapitres
 - **152 du corpus Dubois** (92 %), 12 de connaissance générale (7 %),
   2 inventées (1 %)
-- **132 positions** ont une notation complète reconstruite (79 %)
-- **34 positions** ont `final_move=None` (envois à dame, gambits,
-  blocages — détails dans `BLOCAGES.md` et limitations PR #31)
-- **3 blocages structurels** documentés pour résolution ultérieure
-- **3 coquilles PDF** détectées et corrigées
-- **8 résolutions** consignées dans `RESOLUTIONS_debutant.md`
+- **135 positions** ont une notation complète reconstruite (81 %)
+- **31 positions** ont `final_move=None` (envois à dame, gambits,
+  fixtures illustratives sans rafle — détails dans les `claude_notes`
+  des fixtures et limitations PR #31)
+- **3 blocages structurels** initialement détectés, **tous résolus**
+  (cf R009, R010, R011 dans `RESOLUTIONS_debutant.md`)
+- **6 coquilles PDF** détectées et corrigées (R002, R004, R006, R009,
+  R010, R011)
+- **11 résolutions** consignées dans `RESOLUTIONS_debutant.md`
+  (R001 à R011)
 
 ---
 
