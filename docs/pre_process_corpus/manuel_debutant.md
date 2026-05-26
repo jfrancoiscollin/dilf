@@ -222,7 +222,12 @@ Le schéma générique est :
 Les 10 exercices de ce chapitre sont les D1 à D10 de la page 6 du livre
 *Apprentissage Combinaisons* de Dubois. Ils illustrent trois mécanismes
 fondamentaux : la **prise majoritaire**, le **collage**, et le **coup
-de Mazette**.
+de Mazette**. Toutes les fixtures sont `verified=true` au moteur Scan
+(cf `scan/scan_analysis_debutant.json`) ; chaque sous-section se clôt
+par un tableau **Validation Scan** donnant le premier coup recommandé,
+l'évaluation finale et la profondeur d'analyse. Une éval `+99` signale
+un gain forcé annoncé par Scan, pas une avance matérielle littérale —
+convention détaillée au §7.3.
 
 ### 3.1. La prise majoritaire
 
@@ -231,17 +236,34 @@ une **prise multiple** (plusieurs pions à la fois) par la règle du
 nombre, ce qui dégarnit son camp et ouvre la voie à une rafle blanche
 encore plus longue.
 
-Voir `BEG_CH03_001` (Dubois D1) : `26-21 (17×28) 43×3`. Le sacrifice
-blanc `26-21` est gobé par le noir 17 qui doit prendre par la rafle
-majoritaire `17→26→37→28` (capturant 21, 31, 32). La rafle blanche
-finale `43×3` ramasse alors 38, 28, 19 et 9 en traversant la grande
-diagonale jusqu'à la promotion.
+Exemple canonique — `BEG_CH03_001` (Dubois D1) :
 
-Voir aussi `BEG_CH03_003` (`33-29 (23×21) 26×10`), `BEG_CH03_005`
-(`37-31 (27×20) 25×5`), `BEG_CH03_006` (`34-29 (25×32) 29×38`),
-`BEG_CH03_008` (`33-29 (24×31) 36×20` — oser sacrifier 3 pions
-consécutifs), `BEG_CH03_009` (`44-39 (25×43) 48×10`), `BEG_CH03_010`
-(`34-30 (23×32) 30×37`) pour différentes variantes.
+> `published_notation` Dubois : `26-21 (17×28) 43×3`
+
+Le sacrifice blanc `26-21` est gobé par le noir 17 qui doit prendre par
+la règle de prise majoritaire (3 pions capturés). La rafle blanche
+finale `43×3` traverse la grande diagonale jusqu'à la promotion,
+capturant les pions 38, 28, 19 et 9 (cf `final_move.captures` de la
+fixture).
+
+**Validation Scan** :
+
+| Fixture | Premier coup PV | Éval | Profondeur | Divergence |
+|---------|-----------------|------|-----------|------------|
+| `BEG_CH03_001` | `26-21` | +99.97 | 99 | — |
+| `BEG_CH03_003` | `33-29` | +99.77 | 34 | — |
+| `BEG_CH03_005` | `37-31` | +99.85 | 99 | — |
+| `BEG_CH03_006` | `34-29` | +99.81 | 68 | — |
+| `BEG_CH03_008` | `33-29` | +99.85 | 99 | — |
+| `BEG_CH03_009` | `44-39` | +99.87 | 99 | — |
+| `BEG_CH03_010` | `34-30` | +5.97 | 32 | — |
+
+`published_notation` Dubois pour les variantes additionnelles :
+`BEG_CH03_003` `33-29 (23×21) 26×10`, `BEG_CH03_005`
+`37-31 (27×20) 25×5`, `BEG_CH03_006` `34-29 (25×32) 29×38`,
+`BEG_CH03_008` `33-29 (24×31) 36×20` (sacrifice à 3 pions),
+`BEG_CH03_009` `44-39 (25×43) 48×10`, `BEG_CH03_010`
+`34-30 (23×32) 30×37`.
 
 ### 3.2. Le collage
 
@@ -249,12 +271,24 @@ Mécanisme plus subtil : quand le noir attaque **deux pions blancs**,
 un blanc se sacrifie sur la case-clé de l'attaque, forçant le noir à
 une prise majoritaire qui ouvre la rafle blanche.
 
-Voir `BEG_CH03_004` (Dubois D4) : `34-29 (23×21) 29×7`. Les noirs
-attaquaient deux pions blancs ; le sacrifice `34-29` exploite cette
-configuration pour transformer la menace en combinaison gagnante.
+Exemple — `BEG_CH03_004` (Dubois D4) :
 
-Voir aussi `BEG_CH03_007` (`33-29 (17×37) 29×18`) — collage canonique
-quand le noir attaque 2 pions.
+> `published_notation` Dubois : `34-29 (23×21) 29×7`
+
+Le sacrifice `34-29` transforme la menace adverse (configuration de
+départ documentée par `claude_notes` de la fixture) en combinaison
+gagnante ; la rafle finale `29×7` capture 4 pions noirs et atteint la
+promotion en case 7 (cf `final_move.captures` = 12, 13, 14, 24).
+
+**Validation Scan** :
+
+| Fixture | Premier coup PV | Éval | Profondeur | Divergence |
+|---------|-----------------|------|-----------|------------|
+| `BEG_CH03_004` | `34-29` | +99.81 | 71 | — |
+| `BEG_CH03_007` | `33-29` | +5.62 | 30 | — |
+
+`published_notation` Dubois pour `BEG_CH03_007` :
+`33-29 (17×37) 29×18` (collage canonique sur attaque à 2 pions).
 
 ### 3.3. Le coup de Mazette
 
@@ -262,9 +296,20 @@ Premier des **coups nommés** rencontrés dans ce manuel : un sacrifice
 central qui contraint l'adversaire à une prise, ouvrant une rafle sur
 la grande diagonale.
 
-Voir `BEG_CH03_002` (Dubois D2) : `28-22 (17×28) 32×5` — le sacrifice
-`28-22` force le noir 17 à prendre, et la rafle blanche `32→23→14→5`
-traverse jusqu'à la promotion en capturant 3 pions noirs.
+Exemple — `BEG_CH03_002` (Dubois D2) :
+
+> `published_notation` Dubois : `28-22 (17×28) 32×5`
+
+Le sacrifice `28-22` force le noir 17 à prendre par `17×28`. La rafle
+blanche finale `32×5` capture 3 pions noirs (10, 19, 28 — cf
+`final_move.captures`) et atteint la promotion en case 5 sur la grande
+diagonale.
+
+**Validation Scan** :
+
+| Fixture | Premier coup PV | Éval | Profondeur | Divergence |
+|---------|-----------------|------|-----------|------------|
+| `BEG_CH03_002` | `28-22` | +99.97 | 99 | — |
 
 
 ---
