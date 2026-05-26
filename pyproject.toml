@@ -32,6 +32,13 @@ explanations = [
 include = ["pedagogy*"]
 exclude = ["pedagogy.tests*"]
 
+[tool.setuptools.package-data]
+# Embedding sidecars sit next to their fixture module so retrieval.py
+# can `np.load` them by file-relative path. Without this entry the
+# wheel/sdist ships only .py files and runtime retrieval crashes on
+# any consumer that installs dilf via pip instead of cloning.
+"pedagogy.prose.fixtures" = ["*.npy"]
+
 [tool.pytest.ini_options]
 testpaths = ["pedagogy/tests", "scripts/tests"]
 python_files = ["test_*.py"]
