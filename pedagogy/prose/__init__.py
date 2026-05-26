@@ -21,6 +21,7 @@ from pedagogy.prose.concepts import (
     StrategicConcept,
 )
 from pedagogy.prose.passages import ProsePassage
+from pedagogy.prose.retrieval import search, search_with_vector
 
 __all__ = [
     "Assertion",
@@ -28,4 +29,6 @@ __all__ = [
     "IllustrativePosition",
     "ProsePassage",
     "StrategicConcept",
+    "search",
+    "search_with_vector",
 ]
