@@ -1943,10 +1943,19 @@ de l'application pour la charger directement au damier.
 
 ### B. Sources
 
-- **Jean-Pierre Dubois** — *Apprentissage Combinaisons*, ~120 positions
+- **Jean-Pierre Dubois** — *Apprentissage Combinaisons*, ~152 positions
   utilisées (chapitres 3 à 9 et 13 à 20 du livre).
 - Connaissances générales du jeu pour les chapitres 1 et 2 (règles
-  FMJD canoniques).
+  FMJD canoniques) — 12 positions.
+- 2 positions inventées ad-hoc (ch2, illustrations de règles).
+
+Pour un **audit fixture-par-fixture** (source, référence Dubois, statut
+Scan, statut `final_move`, notes Claude par fixture), voir
+[`sources_debutant.md`](sources_debutant.md). Ce document est généré
+automatiquement par `python3 scripts/regenerate_sources_doc.py` depuis
+`fixtures_debutant.py` et `scan/scan_analysis_debutant.json` — toute
+divergence narrative entre le manuel et ce tableau doit être
+investiguée.
 
 ### C. Notation Dubois
 
