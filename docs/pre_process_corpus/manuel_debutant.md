@@ -1925,21 +1925,133 @@ de l'application pour la charger directement au damier.
 
 ### A. Index des coups nommés
 
+Les **coups nommés** sont des mécanismes combinatoires fréquents
+auxquels la tradition damiste a donné un nom propre. Ils se reconnaissent
+à une **signature tactique** (suite de sacrifices, forme de la rafle,
+position des pions). Cet index reprend les descriptions des chapitres
+correspondants ; cf chapitres 9 à 16 pour le développement complet et
+les fixtures associées.
+
+#### Coup de Mazette — *ch3 (intro), ch16 (variante)*
+
+**Signature** : sacrifice central qui contraint l'adversaire à une
+prise, ouvrant une rafle sur la grande diagonale. Premier des coups
+nommés rencontrés dans ce manuel (cf §3.3).
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Coup royal — *ch4 §4.3 (`BEG_CH04_006`), ch5 §5.2 (`BEG_CH05_003`)*
+
+**Signature** : variante célèbre de collage avec rafle aboutissant en
+case 7. Forme canonique : `path = 40→29→20→9→18→7`, 5 captures.
+
+**Détecteur dilf** : ✅ `pedagogy/motifs/coup_royal.py`.
+
+#### Coup de l'Express — *ch9 (canonique), ch13 (D7)*
+
+**Signature** : **quatre sacrifices consécutifs** qui acheminent les
+pions adverses par paires successives, suivis d'une rafle finale typique
+`33×2` ou `33×4` sur la grande diagonale.
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Coup de Ricochet — *ch10*
+
+**Signature** : rafle qui **revient sur sa case de départ** (ou très
+proche) après avoir traversé une zone clé. Variante du coup de l'Express
+exploitant mieux l'aile.
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Coup de Rappel — *ch11 (canonique), ch14 (combiné Trappe)*
+
+**Signature** : exploite une rafle adverse qui **descend trop bas**
+(souvent jusqu'en case 39 pour les noirs) ; un nouveau sacrifice
+**force le pion à remonter** (« rappel ») où il est capturé.
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Coup Renversé — *ch12 §12.1 (`BEG_CH12_006`)*
+
+**Signature** : mécanisme moins courant mais utile car il **se marie
+facilement avec d'autres coups nommés** (mazette, Philippe, Ricochet).
+Inclut deux variantes : coup de chevron (§12.2) et coup parallèle (§12.4).
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Coup de chevron — *ch12 §12.2 (`BEG_CH12_002`, Datel-Schwarzman 1977)*
+
+**Signature** : variante du coup renversé, nommée d'après la forme de la
+rafle finale `(21×25)` côté noir (`path = 21→32→43→34→25`, 4 captures).
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Coup parallèle — *ch12 §12.4 (`BEG_CH12_008`, Bergsma-Spoelstra 1952)*
+
+**Signature** : variante du coup renversé combinant **plusieurs sacrifices
+parallèles** ; notation Dubois utilise `(ad lib)` pour les captures forcées
+équivalentes.
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Coup Napoléon — *ch13 (canonique), ch10 (D7)*
+
+**Signature** : combinaison en **4 sacrifices** débouchant sur une rafle
+longue typique `31×4`, `39×8` ou `40×16` (selon la diagonale utilisée).
+Forme la plus pure dans Dubois ch17 D9.
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Coup de la Trappe — *ch14 (canonique), ch11 (D5, D6), ch12 (D5)*
+
+**Signature** : un sacrifice préliminaire **piège** un pion adverse
+dans une position où sa capture forcée par un sacrifice subséquent
+**ouvre** la rafle finale. Mécanisme sophistiqué.
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Coup de Talon — *ch15 (canonique), ch8 (D9)*
+
+**Signature** : mécanisme surprenant qui **ne dévoile le point d'appui
+de la rafle qu'au dernier moment**. Formation typique 31-36-37-41-46
+côté blanc qui cache la véritable case de départ.
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Coup Philippe — *ch16 (canonique), ch6 (D1, `BEG_CH06_002`)*
+
+**Signature** : l'un des mécanismes les plus **simples et les mieux
+connus** du répertoire. Déjà abordé au chapitre 6 sous sa forme
+élémentaire.
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Coup turc — *signalé en ch4 (`BEG_CH04_001`), ch6 (`BEG_CH06_004`, `BEG_CH06_011`), ch8 (`BEG_CH08_004`)*
+
+**Signature** : motif où la rafle passe sur la même ligne/colonne
+avec un pion adverse qui se trouve « écrasé » par un saut subséquent.
+Souvent annoté dans `claude_notes` (`coup turc par <case>`) plutôt que
+nommé explicitement par Dubois.
+
+**Détecteur dilf** : ❌ à implémenter.
+
+#### Récapitulatif
+
 | Coup nommé | Chapitre principal | Aperçus dans | Détecteur dilf |
 |---|---|---|---|
-| Coup de Mazette | (introduit ch3, ch16) | — | ❌ à implémenter |
-| Coup royal | ch4 (`BEG_CH04_006`) | — | ✅ `pedagogy/motifs/coup_royal.py` |
+| Coup de Mazette | ch3 §3.3 | ch16 | ❌ à implémenter |
+| Coup royal | ch4 §4.3, ch5 §5.2 | — | ✅ `pedagogy/motifs/coup_royal.py` |
 | Coup de l'Express | ch9 | ch13 (D7) | ❌ |
 | Coup de Ricochet | ch10 | — | ❌ |
 | Coup de Rappel | ch11 | ch14 | ❌ |
-| Coup Renversé | ch12 | — | ❌ |
+| Coup Renversé | ch12 §12.1 | — | ❌ |
+| Coup de chevron | ch12 §12.2 | — | ❌ |
+| Coup parallèle | ch12 §12.4 | — | ❌ |
 | Coup Napoléon | ch13 | ch10 (D7) | ❌ |
 | Coup de la Trappe | ch14 | ch11 (D5, D6), ch12 (D5) | ❌ |
 | Coup de Talon | ch15 | ch8 (D9) | ❌ |
 | Coup Philippe | ch16 | ch6 (D1) | ❌ |
-| Coup parallèle | ch12 (D8) | — | ❌ |
-| Coup de chevron | ch12 (D2) | — | ❌ |
-| Coup turc | ch16 (D1) | — | ❌ |
+| Coup turc | (motif transverse) | ch4, ch6, ch8 | ❌ |
 
 ### B. Sources
 
