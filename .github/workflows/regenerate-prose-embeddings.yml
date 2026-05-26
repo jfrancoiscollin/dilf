@@ -1,0 +1,126 @@
+# Regenerate the prose-passage fixtures + dense embeddings using
+# sentence-transformers (semantic, 384 dims). Triggered manually from
+# the Actions tab — pas en push automatique pour ne pas brûler des
+# minutes à chaque modification du tagger.
+#
+# Why this workflow exists: my sandbox can't reach huggingface.co,
+# so I can't run the high-quality embedding path locally. GitHub
+# runners can. This workflow does the network round-trip for me,
+# commits the regenerated fixtures + .embeddings.npy sidecars, and
+# pushes back to develop.
+
+name: Regenerate prose embeddings
+
+on:
+  workflow_dispatch:
+    inputs:
+      corpora:
+        description: 'Comma-separated corpora to regenerate (or "all").'
+        required: false
+        default: 'all'
+
+permissions:
+  contents: write   # required to push the regenerated fixtures
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout develop
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          # GITHUB_TOKEN by default, sufficient for `permissions: contents: write`.
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install poppler-utils (pdftotext + pdfinfo)
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Install Python deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install sentence-transformers numpy scikit-learn
+
+      - name: Cache HF model (~80 MB)
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-all-MiniLM-L6-v2-v1
+
+      - name: Run pipeline for each corpus
+        env:
+          CORPORA: ${{ inputs.corpora }}
+        run: |
+          set -e
+          declare -A specs=(
+            [roozenburg]="docs/corpus/le_systeme_roozenburg.pdf ROOZENBURG systeme"
+            [keller]="docs/corpus/le_systeme_keller.pdf KELLER systeme"
+            [sijbrands]="docs/corpus/sijbrandscourse.pdf SIJBRANDS course"
+            [springer]="docs/corpus/springercourse.pdf SPRINGER course"
+          )
+          if [ "$CORPORA" = "all" ] || [ -z "$CORPORA" ]; then
+            keys="roozenburg keller sijbrands springer"
+          else
+            keys=$(echo "$CORPORA" | tr ',' ' ')
+          fi
+          for k in $keys; do
+            spec="${specs[$k]:-}"
+            if [ -z "$spec" ]; then
+              echo "unknown corpus: $k (valid: ${!specs[*]})" >&2; exit 1
+            fi
+            read -r pdf src book <<<"$spec"
+            echo "::group::$k → $src/$book"
+            rm -rf .cache/prose
+            python scripts/index_prose.py all --pdf "$pdf" --source "$src" --book "$book"
+            echo "::endgroup::"
+          done
+
+      - name: Sanity-check the regenerated embeddings
+        run: |
+          python - <<'PY'
+          import numpy as np, sys
+          from pathlib import Path
+          ok = True
+          for f in Path('pedagogy/prose/fixtures').glob('*.embeddings.npy'):
+              m = np.load(f)
+              norms = np.linalg.norm(m, axis=1)
+              mean_norm = float(norms.mean())
+              if mean_norm < 0.5:
+                  print(f"::warning::{f.name}: low mean norm ({mean_norm:.3f}), embedding likely degraded")
+              print(f"{f.name}: shape={m.shape} mean_norm={mean_norm:.3f}")
+          PY
+
+      - name: Commit + push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pedagogy/prose/fixtures/
+          if git diff --cached --quiet; then
+            echo "Nothing changed — skipping commit."
+            exit 0
+          fi
+          method=$(python - <<'PY'
+          import numpy as np
+          from pathlib import Path
+          # sentence-transformers vectors are dense & near-unit-norm everywhere;
+          # TF-IDF+LSA produces sparse zero-norm rows on short passages.
+          f = sorted(Path('pedagogy/prose/fixtures').glob('*.embeddings.npy'))[0]
+          m = np.load(f)
+          near_zero = (np.linalg.norm(m, axis=1) < 0.1).sum()
+          print('sentence-transformers' if near_zero == 0 else 'tfidf+lsa')
+          PY
+          )
+          git commit -m "prose: regenerate embeddings via CI ($method)
+
+          Triggered by workflow_dispatch on $(date -u +%Y-%m-%dT%H:%MZ).
+          Inputs: corpora=${{ inputs.corpora }}.
+          [skip ci]"
+          git push origin develop
