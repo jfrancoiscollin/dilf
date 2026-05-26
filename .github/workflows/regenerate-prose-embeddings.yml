@@ -18,13 +18,7 @@ on:
         description: 'Comma-separated corpora to regenerate (or "all").'
         required: false
         default: 'all'
-  # Push-trigger lane: touch and commit the sentinel below to fire the
-  # workflow without using the Actions UI. The sentinel file content
-  # is irrelevant — only the path-filter triggers the run.
-  push:
-    branches: [develop]
-    paths:
-      - '.github/regenerate-embeddings.trigger'
+        type: string
 
 permissions:
   contents: write   # required to push the regenerated fixtures
@@ -64,7 +58,7 @@ jobs:
 
       - name: Run pipeline for each corpus
         env:
-          CORPORA: ${{ inputs.corpora }}
+          CORPORA: ${{ github.event.inputs.corpora }}
         run: |
           set -e
           declare -A specs=(
@@ -128,6 +122,6 @@ jobs:
           git commit -m "prose: regenerate embeddings via CI ($method)
 
           Triggered by workflow_dispatch on $(date -u +%Y-%m-%dT%H:%MZ).
-          Inputs: corpora=${{ inputs.corpora }}.
+          Inputs: corpora=${{ github.event.inputs.corpora }}.
           [skip ci]"
           git push origin develop
