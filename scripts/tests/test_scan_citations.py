@@ -82,12 +82,6 @@ def test_normal_eval_phrasing(index):
     assert "gain forcé" not in block
 
 
-def test_table_row_marks_forced_gain_with_asterisk(index):
-    forced = next(e for e in index.values() if e.eval_after_pv >= FORCED_GAIN_THRESHOLD)
-    row = table_row(forced)
-    assert "*" in row.split("|")[3]  # eval cell
-
-
 def test_table_row_uses_redflag_for_divergence(index):
     diverg = index["BEG_CH15_004"]
     row = table_row(diverg)

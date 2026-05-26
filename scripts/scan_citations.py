@@ -149,8 +149,6 @@ def table_row(entry: ScanEntry) -> str:
     """Return one row for a catalog-style §7.3 table."""
     first = entry.pv[0].replace("x", "×") if entry.pv else entry.best_move.replace("x", "×")
     eval_cell = f"{entry.eval_after_pv:+.2f}"
-    if abs(entry.eval_after_pv) >= FORCED_GAIN_THRESHOLD:
-        eval_cell += "*"  # marker explained in the table's surrounding text
     divergence_cell = "🔴" if entry.has_divergence else "—"
     return (
         f"| `{entry.fixture_id}` | `{first}` | {eval_cell} | "
