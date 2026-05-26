@@ -217,7 +217,7 @@ async def _call_claude(
     lang: str = "fr",
 ) -> str:
     if client is None:
-        import anthropic
+        import anthropic  # type: ignore[import-not-found]
 
         client = anthropic.AsyncAnthropic()
     user_prompt = build_user_prompt(verdict, book_excerpts)

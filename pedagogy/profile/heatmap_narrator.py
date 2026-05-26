@@ -147,7 +147,9 @@ def _count_for(bucket: SquareCounts, metric: HeatmapMetric) -> int:
     """Read one metric out of a square's bucket. ``all`` sums the three
     real weaknesses (outposts excluded — those are strengths)."""
     if metric == "all":
-        return sum(bucket[m] for m in ("isolated", "backward", "holes"))
+        # Per-key literal accesses keep TypedDict strict-mypy happy
+        # (TypedDict keys must be string literals at the call site).
+        return bucket["isolated"] + bucket["backward"] + bucket["holes"]
     return bucket[metric]
 
 

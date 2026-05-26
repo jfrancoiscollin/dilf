@@ -27,7 +27,9 @@ load the analysis from wherever and hand it in.
 from __future__ import annotations
 
 from collections import Counter, defaultdict
-from typing import Iterable, Literal, Optional, TypedDict
+from typing import Iterable, Literal, Optional, TypedDict, TypeVar
+
+_T = TypeVar("_T")
 
 from ..types import GameAnalysis, MoveVerdict, Phase, Verdict
 from .aggregator import compute_accuracy
@@ -165,13 +167,13 @@ _PHASE_QUALITY_LABELS: dict[Lang, tuple[str, ...]] = {
 }
 
 
-def _t(table: dict[Lang, "_T"], lang: Lang) -> "_T":   # noqa: F821 — generic via Any
+def _t(table: dict[Lang, _T], lang: Lang) -> _T:
     """Dispatch on ``lang`` with FR fallback for unknown languages.
 
     Kept as a tiny helper so every template lookup goes through the
     same defaulting logic; adding a 3rd language only means extending
     each ``table`` dict, no signature change here."""
-    return table.get(lang, table["fr"])
+    return table[lang] if lang in table else table["fr"]
 
 
 def _phase_quality_label(acpl: int, lang: Lang) -> str:
@@ -236,11 +238,11 @@ def _phase_summary(
         acpl_u = _acpl(user_vs) if user_vs else 0
         acpl_o = _acpl(opp_vs) if opp_vs else 0
         quality = _phase_quality_label(acpl_u, lang)
-        label = labels[phase.value]      # type: ignore[index]
+        label = labels[phase.value]
         summary = tpl.format(label=label.capitalize(), quality=quality,
                              acpl=acpl_u, n=len(vs))
         out.append(PhaseSummary(
-            phase=phase.value,           # type: ignore[typeddict-item]
+            phase=phase.value,
             n_half_moves=len(vs),
             acpl_user=acpl_u,
             acpl_opponent=acpl_o,
