@@ -18,6 +18,13 @@ on:
         description: 'Comma-separated corpora to regenerate (or "all").'
         required: false
         default: 'all'
+  # Push-trigger lane: touch and commit the sentinel below to fire the
+  # workflow without using the Actions UI. The sentinel file content
+  # is irrelevant — only the path-filter triggers the run.
+  push:
+    branches: [develop]
+    paths:
+      - '.github/regenerate-embeddings.trigger'
 
 permissions:
   contents: write   # required to push the regenerated fixtures
