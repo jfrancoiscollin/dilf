@@ -224,21 +224,71 @@ def tag_passages(passages: Iterable[ProsePassage]) -> List[ProsePassage]:
 
 # ── Step 4: embed ────────────────────────────────────────────────────────
 def embed_passages(
-    passages: List[ProsePassage], model_name: str = "sentence-transformers/all-MiniLM-L6-v2"
+    passages: List[ProsePassage],
+    model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
+    lsa_dim: int = 384,
 ) -> List[ProsePassage]:
-    """Optional dense-vector embedding. No-op if sentence-transformers
-    is not installed — the function logs a warning and returns the
-    input unchanged so the rest of the pipeline still works."""
+    """Dense-vector embedding with graceful fallbacks.
+
+    Three paths, in order of preference:
+
+    1. **sentence-transformers** — best semantic quality. Requires the
+       library AND network access to download the model. Used when both
+       are available.
+    2. **TF-IDF + Truncated SVD (LSA)** — sklearn-only fallback. Fully
+       offline, deterministic, ~384 dims out of TruncatedSVD so the
+       sidecar size matches the sentence-transformers path. Quality is
+       lower than dense neural embeddings but workable for a technical
+       corpus where vocabulary carries most of the signal.
+    3. **No-op** — neither library available; return passages unchanged
+       with a warning. The rest of the pipeline still runs.
+
+    Stays a pure function: returns a new list, doesn't mutate inputs.
+    """
+    # Try path 1: sentence-transformers + network
     try:
         from sentence_transformers import SentenceTransformer  # type: ignore
-    except ImportError:
-        log.warning(
-            "embed: sentence-transformers not installed, skipping. "
-            "Install with: pip install sentence-transformers"
+        try:
+            model = SentenceTransformer(model_name)
+            vectors = model.encode([p.text for p in passages], show_progress_bar=False)
+            method = "sentence-transformers"
+        except OSError as e:
+            # Typically "couldn't connect to huggingface.co" in offline envs.
+            log.warning("embed: sentence-transformers model unavailable (%s) — falling back to TF-IDF+LSA", e.__class__.__name__)
+            raise
+    except (ImportError, OSError):
+        # Try path 2: sklearn TF-IDF + LSA
+        try:
+            from sklearn.feature_extraction.text import TfidfVectorizer  # type: ignore
+            from sklearn.decomposition import TruncatedSVD  # type: ignore
+            import numpy as np  # type: ignore
+        except ImportError:
+            log.warning(
+                "embed: neither sentence-transformers nor scikit-learn available — skipping. "
+                "Install one with: pip install sentence-transformers  OR  pip install scikit-learn"
+            )
+            return passages
+        texts = [p.text for p in passages]
+        # max_features caps memory; sublinear_tf damps long-passage bias.
+        vec = TfidfVectorizer(
+            max_features=20_000,
+            sublinear_tf=True,
+            ngram_range=(1, 2),
+            min_df=2,
         )
-        return passages
-    model = SentenceTransformer(model_name)
-    vectors = model.encode([p.text for p in passages], show_progress_bar=False)
+        tfidf = vec.fit_transform(texts)
+        # Ensure n_components ≤ n_features and ≤ n_samples-1.
+        n_comp = min(lsa_dim, tfidf.shape[1] - 1, tfidf.shape[0] - 1)
+        if n_comp < 2:
+            log.warning("embed: corpus too small for TF-IDF+LSA (n=%d) — skipping", len(texts))
+            return passages
+        svd = TruncatedSVD(n_components=n_comp, random_state=0)
+        vectors = svd.fit_transform(tfidf)
+        # Row-normalize so cosine-sim ≈ dot product downstream.
+        norms = np.linalg.norm(vectors, axis=1, keepdims=True)
+        vectors = vectors / np.where(norms > 0, norms, 1.0)
+        method = f"tfidf+lsa(d={n_comp})"
+
     out: List[ProsePassage] = []
     for p, v in zip(passages, vectors):
         out.append(
@@ -248,7 +298,7 @@ def embed_passages(
                 phase=p.phase, nature=p.nature, embedding=tuple(float(x) for x in v),
             )
         )
-    log.info("embed: %d vectors (dim=%d)", len(out), len(out[0].embedding) if out else 0)
+    log.info("embed: %d vectors (dim=%d, method=%s)", len(out), len(out[0].embedding) if out else 0, method)
     return out
 
 
