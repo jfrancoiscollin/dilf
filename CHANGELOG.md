@@ -9,6 +9,16 @@ see `INTEROP.md` for the contract.
 
 ## Unreleased
 
+### Docs
+
+- **Note d'intégration : base de connaissances stratégique downstream**
+  (`docs/integration/draught-master-strategy-knowledge-base.md`).
+  Enregistre comment draught-master exploite le corpus prose de dilf
+  (passages + ancres « Diagramme N ») pour rendre les diagrammes des
+  manuels interactifs et en dériver une bibliothèque de positions, une
+  base de connaissances thématique et des exercices. **Aucun changement
+  de code dilf ni d'API** : le contrat `INTEROP.md` est inchangé.
+
 ### Fixed
 
 - **Combinaison detectors fire under FMJD prise-max ties** (commit
