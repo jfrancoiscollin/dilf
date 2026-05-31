@@ -32,6 +32,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import re
 import shutil
 import subprocess
@@ -63,20 +64,31 @@ _SYSTEM_KEYWORDS: dict[str, tuple[str, ...]] = {
     "ghestem":    (r"\bghestem\b",),
     "manoury":    (r"\bmanoury\b",),
     "springer":   (r"\bspringer\b",),
-    "classique":  (r"\bclassique\b", r"\bsystème classique\b", r"\bjeu classique\b"),
+    "classique":  (r"\bclassique\b", r"\bsystème classique\b", r"\bjeu classique\b",
+                   r"\bclassical\b"),
 }
 
+# Keywords are bilingual (FR + EN): the older corpora (Keller, Roozenburg,
+# Sijbrands, Springer) are French, but Goedemoed's "A Course in Draughts" is
+# English. English terms never match the French text, so adding them only
+# improves English coverage — no churn to the existing French fixtures.
 _PHASE_KEYWORDS: dict[str, tuple[str, ...]] = {
-    "ouverture": (r"\bouverture\b", r"\bdébut\b", r"\bpremiers coups\b"),
-    "milieu":    (r"\bmilieu de (?:la )?partie\b", r"\bmilieu de jeu\b"),
+    "ouverture": (r"\bouverture\b", r"\bdébut\b", r"\bpremiers coups\b",
+                  r"\bopening\b", r"\bfirst moves\b"),
+    "milieu":    (r"\bmilieu de (?:la )?partie\b", r"\bmilieu de jeu\b",
+                  r"\bmiddlegame\b", r"\bmiddle game\b"),
     "finale":    (r"\bfinale\b", r"\bfinales\b", r"\bend(?:game|ing)\b"),
 }
 
 _NATURE_KEYWORDS: dict[str, tuple[str, ...]] = {
     # Order matters here too — "avertissement" wins over "principe" when both match.
-    "avertissement": (r"\bpiège\b", r"\bgare à\b", r"\bne (?:jamais|pas)\b", r"\bdanger\b"),
-    "plan":          (r"\bplan\b", r"\bstratégie\b", r"\bobjectif\b", r"\bil faut\b"),
-    "principe":      (r"\bprincipe\b", r"\brègle\b", r"\bidée\b"),
+    "avertissement": (r"\bpiège\b", r"\bgare à\b", r"\bne (?:jamais|pas)\b", r"\bdanger\b",
+                      r"\btrap\b", r"\bbeware\b", r"\bnever\b", r"\bmust not\b",
+                      r"\bmistake\b", r"\bwatch out\b"),
+    "plan":          (r"\bplan\b", r"\bstratégie\b", r"\bobjectif\b", r"\bil faut\b",
+                      r"\bstrategy\b", r"\bobjective\b", r"\bwe must\b", r"\bthe (?:idea|plan|goal) is\b"),
+    "principe":      (r"\bprincipe\b", r"\brègle\b", r"\bidée\b",
+                      r"\bprinciple\b", r"\brule\b"),
 }
 
 
@@ -225,7 +237,7 @@ def tag_passages(passages: Iterable[ProsePassage]) -> List[ProsePassage]:
 # ── Step 4: embed ────────────────────────────────────────────────────────
 def embed_passages(
     passages: List[ProsePassage],
-    model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
+    model_name: Optional[str] = None,
     lsa_dim: int = 384,
 ) -> List[ProsePassage]:
     """Dense-vector embedding with graceful fallbacks.
@@ -233,8 +245,9 @@ def embed_passages(
     Three paths, in order of preference:
 
     1. **sentence-transformers** — best semantic quality. Requires the
-       library AND network access to download the model. Used when both
-       are available.
+       library AND the model weights (download from huggingface.co, or a
+       local directory pointed to by ``$PROSE_EMBED_MODEL``). Used when
+       both are available.
     2. **TF-IDF + Truncated SVD (LSA)** — sklearn-only fallback. Fully
        offline, deterministic, ~384 dims out of TruncatedSVD so the
        sidecar size matches the sentence-transformers path. Quality is
@@ -243,9 +256,22 @@ def embed_passages(
     3. **No-op** — neither library available; return passages unchanged
        with a warning. The rest of the pipeline still runs.
 
+    ``$PROSE_EMBED_MODEL`` overrides the model (e.g. a local path to an
+    offline copy of all-MiniLM-L6-v2). When it is set the TF-IDF fallback
+    is **disabled**: its vectors live in a different space than the
+    existing all-MiniLM sidecars, so silently mixing them would corrupt
+    cross-source centroid search. An explicit model that fails is fatal.
+
     Stays a pure function: returns a new list, doesn't mutate inputs.
     """
-    # Try path 1: sentence-transformers + network
+    explicit = os.environ.get("PROSE_EMBED_MODEL")
+    if model_name is None:
+        model_name = explicit or "sentence-transformers/all-MiniLM-L6-v2"
+    # An explicit model means "produce all-MiniLM-compatible vectors or
+    # fail loudly" — never degrade to the incompatible TF-IDF space.
+    require_st = explicit is not None
+
+    # Try path 1: sentence-transformers + model weights
     try:
         from sentence_transformers import SentenceTransformer  # type: ignore
         try:
@@ -254,9 +280,18 @@ def embed_passages(
             method = "sentence-transformers"
         except OSError as e:
             # Typically "couldn't connect to huggingface.co" in offline envs.
+            if require_st:
+                raise RuntimeError(
+                    f"PROSE_EMBED_MODEL={model_name!r} could not be loaded "
+                    f"({e.__class__.__name__}: {e}); refusing to fall back to "
+                    "TF-IDF, which is vector-space-incompatible with the "
+                    "existing all-MiniLM sidecars."
+                ) from e
             log.warning("embed: sentence-transformers model unavailable (%s) — falling back to TF-IDF+LSA", e.__class__.__name__)
             raise
     except (ImportError, OSError):
+        if require_st:
+            raise
         # Try path 2: sklearn TF-IDF + LSA
         try:
             from sklearn.feature_extraction.text import TfidfVectorizer  # type: ignore
