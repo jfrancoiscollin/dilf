@@ -15,3 +15,4 @@ venv/
 
 # Diagram extraction workflow caches (renders + API responses).
 .cache/
+docs/corpus/pcblues/
