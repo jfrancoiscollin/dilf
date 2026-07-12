@@ -123,3 +123,44 @@ def test_king_capture_replay() -> None:
     res = replay_tokens(state, extract_runs("50x22")[0].tokens, "black")
     assert res.ok
     assert set(res.plies[0].resolved.move.captures) == {39, 28}
+
+
+def test_endgame_king_hypothesis_minimized() -> None:
+    """A4 : un pion promu à tort en dame est démoté par la minimisation.
+
+    Board bois avec une VRAIE dame noire en 28 (nécessaire à la rafle
+    longue) et un pion blanc en 33. L'hypothèse qui promeut les deux doit
+    se réduire à la seule dame noire nécessaire.
+    """
+    from scripts.pcblues.boards import DetectedBoard
+    from scripts.pcblues.extract_endgames import _minimize_kings
+    from scripts.pcblues.notation import extract_runs
+
+    # Dame blanche en 27 saute 32 et atterrit LOIN en 43 : dame-only (un
+    # pion en 27 ne peut atterrir qu'en 38). 27 est en case moyenne (pas
+    # d'auto-promotion). Un pion noir supplémentaire en 12 est sur-promu à
+    # tort dans l'hypothèse et doit être démoté.
+    board = DetectedBoard(
+        page=1, index=0, bbox=(0, 0, 1, 1),
+        white_men=(27,), black_men=(32, 12),
+    )
+    run = extract_runs("27x43")[0]  # rafle de dame uniquement
+    # hypothèse sur-promue : dame blanche 27 (nécessaire) + dame noire 12 (inutile)
+    mini = _minimize_kings(board, frozenset({27}), frozenset({12}), run)
+    assert mini is not None
+    wk, bk, res = mini
+    assert wk == frozenset({27})  # la dame blanche nécessaire reste
+    assert bk == frozenset()  # le pion noir 12 faux-promu est démoté
+    assert res.ok
+
+
+def test_endgame_kings_exercised_gate() -> None:
+    """Une dame jamais exercée par la ligne fait échouer le gate."""
+    from scripts.pcblues.extract_endgames import _kings_exercised
+    from scripts.pcblues.replay import replay_tokens
+
+    # dame blanche en 45 inutile à la ligne 33-28 (pion) : non exercée.
+    state = parse_fen("W:WK45,33:B19")
+    res = replay_tokens(state, extract_runs("33-28")[0].tokens, "white")
+    assert res.ok
+    assert not _kings_exercised(res)  # 45 jamais touchée -> refusé

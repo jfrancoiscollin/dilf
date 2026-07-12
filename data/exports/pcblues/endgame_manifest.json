@@ -2,31 +2,31 @@
   "artefact": "A4",
   "export_version": "pcblues-a4-v1",
   "file": "pcblues_endgame_qa.jsonl",
-  "endgames": 10,
+  "endgames": 73,
   "source_deel": {
     "5": {
-      "endgames": 2,
-      "quarantined": 7
+      "endgames": 13,
+      "quarantined": 29
     },
     "30": {
-      "endgames": 0,
-      "quarantined": 16
+      "endgames": 15,
+      "quarantined": 45
     },
     "49": {
-      "endgames": 1,
-      "quarantined": 11
+      "endgames": 7,
+      "quarantined": 23
     },
     "60": {
-      "endgames": 5,
-      "quarantined": 33
+      "endgames": 11,
+      "quarantined": 37
     },
     "61": {
-      "endgames": 1,
-      "quarantined": 31
+      "endgames": 13,
+      "quarantined": 70
     },
     "62": {
-      "endgames": 1,
-      "quarantined": 36
+      "endgames": 14,
+      "quarantined": 108
     }
   },
   "book_claim": "TOUS les expected viennent de l'analyse du livre (book_claim=true) — revalidation moteur À FAIRE côté consommateur avant tout gate dur (le mémo l'exige quand la profondeur le permet)",

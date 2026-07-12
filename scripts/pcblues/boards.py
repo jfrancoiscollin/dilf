@@ -355,6 +355,58 @@ def analyze_board(
     return white_sqs, black_sqs
 
 
+def piece_vertical_extent(gray, bbox: tuple[int, int, int, int], sq: int) -> float:
+    """Normalized vertical extent of the piece blob on ``sq`` (0..~1).
+
+    A dame is drawn as a double-stacked disc, so its piece-material spans
+    more of the cell height than a man's single disc. The measure is
+    border-safe (baseline = median of the cell's four corners, always
+    board colour) but confounded by colour (solid black discs read taller
+    than white rings) and by board-edge frame — so it is a RANKING signal,
+    not an absolute classifier. King status is decided by
+    :mod:`scripts.pcblues.extract_endgames`, arbitrated by replay.
+    """
+    import numpy as np
+
+    x1, y1, x2, y2 = bbox
+    bw = (x2 - x1) / 10.0
+    bh = (y2 - y1) / 10.0
+    rc = _square_rowcol(sq)
+    if rc is None:
+        return 0.0
+    row, col = rc
+    cy0, cy1 = int(y1 + row * bh), int(y1 + (row + 1) * bh)
+    cx0, cx1 = int(x1 + col * bw), int(x1 + (col + 1) * bw)
+    cell = gray[cy0:cy1, cx0:cx1]
+    if cell.size == 0 or cell.shape[0] < 10:
+        return 0.0
+    hgt, wid = cell.shape
+    k = max(2, hgt // 6)
+    corners = np.concatenate(
+        [
+            cell[:k, :k].ravel(),
+            cell[:k, -k:].ravel(),
+            cell[-k:, :k].ravel(),
+            cell[-k:, -k:].ravel(),
+        ]
+    )
+    base = float(np.median(corners))
+    center_cols = cell[:, wid // 4 : 3 * wid // 4]
+    mask = np.abs(center_cols - base) > 45.0
+    rows = np.where(mask.sum(axis=1) >= center_cols.shape[1] * 0.35)[0]
+    if len(rows) < 2:
+        return 0.0
+    return float(rows.max() - rows.min() + 1) / hgt
+
+
+def _square_rowcol(sq: int) -> tuple[int, int] | None:
+    for row in range(10):
+        for col in range(10):
+            if _square_number(row, col) == sq:
+                return row, col
+    return None
+
+
 def analyze_board_band(
     gray, bbox: tuple[int, int, int, int]
 ) -> tuple[list[int], list[int]]:
