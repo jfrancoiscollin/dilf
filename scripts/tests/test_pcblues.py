@@ -164,3 +164,4 @@ def test_endgame_kings_exercised_gate() -> None:
     res = replay_tokens(state, extract_runs("33-28")[0].tokens, "white")
     assert res.ok
     assert not _kings_exercised(res)  # 45 jamais touchée -> refusé
+

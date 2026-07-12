@@ -167,3 +167,28 @@ Outillage (repo dilf) : `scripts/pcblues/` — `manifest.py` (J1, fiches),
 `extract_combos.py` (A2 par volume), `build_a2.py` (assemblage + dédup +
 manifest). Corpus source : deel 1-6 dans `docs/`, deel 7-62 via la release
 GitHub `corpus` (non committés, `.gitignore`).
+
+## EXPORTS-bis — corpus Dubois FMJD (`data/exports/dubois/`)
+
+Extension du principe de raffinerie (section EXPORTS ci-dessus) au corpus
+original dilf `docs/corpus/` — **série Dubois FMJD en tête** (chantier C2).
+Même méthode (extract_diagrams pour la position pixel-extraite + trait
+explicite → re-jeu FMJD → `verified=true`), même contrat.
+
+| artefact | fichier | schéma | consommateur |
+|---|---|---|---|
+| **A2-bis** combinaisons Dubois | `dubois_combos.jsonl` + `dubois_manifest.json` (tag `dubois-a2bis-v1`) | `{id, fen_start, position_hash, seq_moves[], final_rafle, themes[], source, serie, diagram, side_to_move, truncated_at_variation, verified: true}` | mêmes que A2 (enrichissement combos gen mainline, thermomètre) |
+
+Particularités : le trait est donné par la légende (« D<k> : trait aux
+blancs/noirs ») → pas d'hypothèse ; les queues de solution contaminées par
+des variantes sont tronquées au **plus long préfixe légal terminant sur
+rafle** (`truncated_at_variation`) ; l'appariement diagramme↔solution est
+**arbitré par le re-jeu** (index global par D-numéro, une seule solution se
+rejoue depuis une position donnée) → robuste aux headers incohérents. Dédup
+croisée `position_hash` avec pcblues renseignée (`dup_of_pcblues`).
+
+État (au 2026-07-12) : **volume `expert_combinaisons` = 333 combos** (le
+gros rendement) ; `apprentissage`/`perfectionnement` = rendement partiel
+(conventions de notation propres à chaque volume — adaptation au fil de
+l'eau). Licence : J.-P. Dubois, corpus FMJD — vérifier les droits avant
+reprise publique.

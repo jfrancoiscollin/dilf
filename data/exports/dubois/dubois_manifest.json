@@ -1,0 +1,44 @@
+{
+  "artefact": "A2-bis (Dubois)",
+  "export_version": "dubois-a2bis-v1",
+  "file": "dubois_combos.jsonl",
+  "combos": 390,
+  "dedup_interne_dup_of": 4,
+  "dedup_croisee_pcblues": 15,
+  "truncated_at_variation": 87,
+  "source": {
+    "dubois_apprentissage_combinaisons": {
+      "combos": 46,
+      "quarantined": 364,
+      "quarantine_rate": 0.8878
+    },
+    "dubois_expert_combinaisons": {
+      "combos": 333,
+      "quarantined": 127,
+      "quarantine_rate": 0.2761
+    },
+    "dubois_perfectionnement_combinaisons": {
+      "combos": 11,
+      "quarantined": 213,
+      "quarantine_rate": 0.9509
+    }
+  },
+  "couverture_themes": {
+    "sacrifice": 386,
+    "coup_de_talon": 353,
+    "combinaison_2_temps": 245,
+    "combinaison_4_temps": 239,
+    "combinaison_5_temps": 230,
+    "combinaison_3_temps": 219,
+    "coup_philippe": 209,
+    "coup_du_bruleur": 87,
+    "coup_enfilade": 32,
+    "coup_turc": 8,
+    "envoi_a_dame": 2,
+    "coup_raphael": 2,
+    "coup_royal": 1
+  },
+  "verified": "100% (re-jeu FMJD depuis position pixel-extraite extract_diagrams, trait explicite ; queues variantes tronquées au plus long préfixe légal terminant sur rafle)",
+  "position_hash": "sha1(fen)[:16], clé de dédup croisée",
+  "license": "J.-P. Dubois — corpus FMJD. Vérifier les droits avant reprise publique. Usage interne entraînement/QA."
+}

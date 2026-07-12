@@ -1,0 +1,8 @@
+{
+  "source": "dubois_expert_combinaisons",
+  "pdf": "jpdubois_expert_combinaisons_V2.pdf",
+  "combos_verified": 333,
+  "quarantined": 127,
+  "quarantine_rate": 0.2761,
+  "license": "J.-P. Dubois — corpus FMJD. Domaine/usage : vérifier les droits avant reprise publique. Usage interne entraînement/QA."
+}
