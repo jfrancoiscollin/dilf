@@ -29,6 +29,24 @@ diagnostiquées conservées (2e passes). Consommé par jass (ingestion
 `tools/pcblues_ingest.py`, tag de version). Détail : `INTEROP.md` §EXPORTS,
 `JOURNAL.md`, `scripts/pcblues/`.
 
+### Extensions (chantiers d'enrichissement C1-C3, 2026-07-12)
+
+- **C2 — corpus Dubois FMJD** (`scripts/pcblues/extract_dubois.py`,
+  `data/exports/dubois/`, tag `dubois-a2bis-v1`, §EXPORTS-bis d'INTEROP) :
+  même raffinerie re-pointée sur `docs/corpus/` — **789 combinaisons Dubois
+  vérifiées** (expert 404, apprentissage 258, perfectionnement 127 ; 25
+  seulement recouvrent pcblues = matière neuve). `extract_diagrams` avait
+  été construit pour Dubois → positions pixel + trait explicite ; appariement
+  diagramme↔solution arbitré par le re-jeu (index global par D-numéro).
+- **C3 — A4-bis finales Dubois** (`extract_dubois_endgames.py`) : verdict
+  WIN/DRAW des marqueurs de solution, pilote 4 QA (volumes finales en analyse
+  inline = rendement limité par-volume, documenté).
+- **C1 — prédicat de BLOCAGE STRUCTUREL** (`pedagogy/features/blocage.py`,
+  6 tests) : reconnaît par MOBILITÉ (zéro éval) les milieux bloqués
+  ply-cappés (trou d'oracle n°1, ~19 %) → verdict DRAW-de-blocage propre.
+  `mutual_blocked`/`blocage_structurel` sur `EngineProtocol`. Le harnais de
+  notation (TB + arbitre-fort + gate DRAW≥99,9 %) est côté jass.
+
 ---
 >
 > Ce document décrit **ce qui existe et est utilisable**, **ce qui manque
