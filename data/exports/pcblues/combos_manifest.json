@@ -2,8 +2,8 @@
   "artefact": "A2",
   "export_version": "pcblues-a2-v1",
   "file": "pcblues_combos.jsonl",
-  "combos": 10862,
-  "dedup_interne_dup_of": 349,
+  "combos": 20763,
+  "dedup_interne_dup_of": 1934,
   "dedup_croisee": {
     "manual_fixtures_dilf": true,
     "master_2000_jnnw": "à faire côté ingestion jass via position_hash/fen_start",
@@ -28,17 +28,71 @@
       "quarantined": 220,
       "quarantine_rate": 0.4305
     },
+    "4": {
+      "combos": 126,
+      "repaired_4_13": 0,
+      "quarantined": 125,
+      "quarantine_rate": 0.498
+    },
+    "5": {
+      "combos": 0,
+      "repaired_4_13": 0,
+      "quarantined": 142,
+      "quarantine_rate": 1.0
+    },
     "6": {
       "combos": 988,
       "repaired_4_13": 0,
       "quarantined": 576,
       "quarantine_rate": 0.3683
     },
+    "7": {
+      "combos": 391,
+      "repaired_4_13": 0,
+      "quarantined": 137,
+      "quarantine_rate": 0.2595
+    },
+    "8": {
+      "combos": 292,
+      "repaired_4_13": 0,
+      "quarantined": 135,
+      "quarantine_rate": 0.3162
+    },
+    "9": {
+      "combos": 465,
+      "repaired_4_13": 0,
+      "quarantined": 236,
+      "quarantine_rate": 0.3367
+    },
+    "10": {
+      "combos": 318,
+      "repaired_4_13": 0,
+      "quarantined": 567,
+      "quarantine_rate": 0.6407
+    },
+    "11": {
+      "combos": 322,
+      "repaired_4_13": 0,
+      "quarantined": 706,
+      "quarantine_rate": 0.6868
+    },
     "12": {
       "combos": 237,
       "repaired_4_13": 4,
       "quarantined": 124,
       "quarantine_rate": 0.3397
+    },
+    "13": {
+      "combos": 101,
+      "repaired_4_13": 0,
+      "quarantined": 47,
+      "quarantine_rate": 0.3176
+    },
+    "14": {
+      "combos": 225,
+      "repaired_4_13": 0,
+      "quarantined": 130,
+      "quarantine_rate": 0.3662
     },
     "15": {
       "combos": 324,
@@ -58,6 +112,12 @@
       "quarantined": 170,
       "quarantine_rate": 0.3074
     },
+    "18": {
+      "combos": 159,
+      "repaired_4_13": 0,
+      "quarantined": 194,
+      "quarantine_rate": 0.5496
+    },
     "19": {
       "combos": 718,
       "repaired_4_13": 54,
@@ -70,11 +130,41 @@
       "quarantined": 197,
       "quarantine_rate": 0.33
     },
+    "21": {
+      "combos": 547,
+      "repaired_4_13": 0,
+      "quarantined": 243,
+      "quarantine_rate": 0.3076
+    },
+    "22": {
+      "combos": 519,
+      "repaired_4_13": 0,
+      "quarantined": 367,
+      "quarantine_rate": 0.4142
+    },
     "23": {
       "combos": 404,
       "repaired_4_13": 18,
       "quarantined": 183,
       "quarantine_rate": 0.3025
+    },
+    "24": {
+      "combos": 783,
+      "repaired_4_13": 0,
+      "quarantined": 381,
+      "quarantine_rate": 0.3273
+    },
+    "25": {
+      "combos": 26,
+      "repaired_4_13": 0,
+      "quarantined": 18,
+      "quarantine_rate": 0.4091
+    },
+    "26": {
+      "combos": 607,
+      "repaired_4_13": 0,
+      "quarantined": 305,
+      "quarantine_rate": 0.3344
     },
     "27": {
       "combos": 268,
@@ -82,11 +172,53 @@
       "quarantined": 198,
       "quarantine_rate": 0.3968
     },
+    "28": {
+      "combos": 465,
+      "repaired_4_13": 0,
+      "quarantined": 282,
+      "quarantine_rate": 0.3775
+    },
+    "29": {
+      "combos": 331,
+      "repaired_4_13": 0,
+      "quarantined": 317,
+      "quarantine_rate": 0.4892
+    },
+    "30": {
+      "combos": 82,
+      "repaired_4_13": 0,
+      "quarantined": 474,
+      "quarantine_rate": 0.8525
+    },
+    "31": {
+      "combos": 451,
+      "repaired_4_13": 0,
+      "quarantined": 228,
+      "quarantine_rate": 0.3358
+    },
     "32": {
       "combos": 562,
       "repaired_4_13": 56,
       "quarantined": 540,
       "quarantine_rate": 0.4663
+    },
+    "33": {
+      "combos": 354,
+      "repaired_4_13": 0,
+      "quarantined": 261,
+      "quarantine_rate": 0.4244
+    },
+    "34": {
+      "combos": 389,
+      "repaired_4_13": 0,
+      "quarantined": 288,
+      "quarantine_rate": 0.4254
+    },
+    "35": {
+      "combos": 403,
+      "repaired_4_13": 0,
+      "quarantined": 218,
+      "quarantine_rate": 0.351
     },
     "37": {
       "combos": 345,
@@ -99,6 +231,12 @@
       "repaired_4_13": 9,
       "quarantined": 178,
       "quarantine_rate": 0.4111
+    },
+    "41": {
+      "combos": 100,
+      "repaired_4_13": 0,
+      "quarantined": 288,
+      "quarantine_rate": 0.7423
     },
     "43": {
       "combos": 384,
@@ -118,6 +256,30 @@
       "quarantined": 252,
       "quarantine_rate": 0.4315
     },
+    "46": {
+      "combos": 170,
+      "repaired_4_13": 0,
+      "quarantined": 163,
+      "quarantine_rate": 0.4895
+    },
+    "48": {
+      "combos": 430,
+      "repaired_4_13": 0,
+      "quarantined": 279,
+      "quarantine_rate": 0.3935
+    },
+    "49": {
+      "combos": 130,
+      "repaired_4_13": 0,
+      "quarantined": 264,
+      "quarantine_rate": 0.6701
+    },
+    "50": {
+      "combos": 43,
+      "repaired_4_13": 0,
+      "quarantined": 5,
+      "quarantine_rate": 0.1042
+    },
     "51": {
       "combos": 350,
       "repaired_4_13": 51,
@@ -129,6 +291,24 @@
       "repaired_4_13": 2,
       "quarantined": 65,
       "quarantine_rate": 0.2968
+    },
+    "53": {
+      "combos": 278,
+      "repaired_4_13": 0,
+      "quarantined": 107,
+      "quarantine_rate": 0.2779
+    },
+    "54": {
+      "combos": 425,
+      "repaired_4_13": 0,
+      "quarantined": 193,
+      "quarantine_rate": 0.3123
+    },
+    "55": {
+      "combos": 167,
+      "repaired_4_13": 0,
+      "quarantined": 142,
+      "quarantine_rate": 0.4595
     },
     "56": {
       "combos": 422,
@@ -147,23 +327,41 @@
       "repaired_4_13": 19,
       "quarantined": 416,
       "quarantine_rate": 0.4012
+    },
+    "60": {
+      "combos": 91,
+      "repaired_4_13": 0,
+      "quarantined": 623,
+      "quarantine_rate": 0.8725
+    },
+    "61": {
+      "combos": 300,
+      "repaired_4_13": 0,
+      "quarantined": 697,
+      "quarantine_rate": 0.6991
+    },
+    "62": {
+      "combos": 411,
+      "repaired_4_13": 0,
+      "quarantined": 542,
+      "quarantine_rate": 0.5687
     }
   },
   "couverture_themes": {
-    "sacrifice": 10547,
-    "coup_de_talon": 6733,
-    "combinaison_2_temps": 5865,
-    "combinaison_3_temps": 3938,
-    "coup_philippe": 2470,
-    "combinaison_4_temps": 2297,
-    "combinaison_5_temps": 1131,
+    "sacrifice": 20086,
+    "coup_de_talon": 13109,
+    "combinaison_2_temps": 11298,
+    "combinaison_3_temps": 7569,
+    "coup_philippe": 5490,
+    "combinaison_4_temps": 4732,
+    "combinaison_5_temps": 2574,
+    "coup_du_bruleur": 1681,
     "mecanisme_kaan": 1123,
-    "coup_du_bruleur": 952,
-    "coup_enfilade": 571,
-    "envoi_a_dame": 70,
-    "coup_turc": 64,
-    "coup_raphael": 16,
-    "coup_royal": 4
+    "coup_enfilade": 1039,
+    "envoi_a_dame": 199,
+    "coup_turc": 179,
+    "coup_royal": 34,
+    "coup_raphael": 30
   },
   "verified": "100% (re-jeu FMJD complet depuis ancre diagramme — rien ne sort sans)",
   "position_hash": "sha1(fen)[:16], clé de dédup croisée",
