@@ -1,0 +1,10 @@
+{
+  "deel": 42,
+  "pdf": "42.pdf",
+  "blocks_with_header": 125,
+  "games_replayed": 17,
+  "games_quarantined": 33,
+  "midgame_fragments_skipped": 75,
+  "prefs_graded": 11,
+  "license": "PC Blues © Piens Christiaan — attribution obligatoire en reprise publique, pas de modification. Usage interne entraînement/QA : OK."
+}

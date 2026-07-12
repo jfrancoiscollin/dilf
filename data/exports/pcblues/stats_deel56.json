@@ -1,9 +1,9 @@
 {
-  "deel": 15,
-  "pdf": "15.pdf",
-  "pages_scanned": 97,
-  "combos_verified": 324,
-  "quarantined": 106,
-  "quarantine_rate": 0.2465,
+  "deel": 56,
+  "pdf": "56.pdf",
+  "pages_scanned": 136,
+  "combos_verified": 422,
+  "quarantined": 202,
+  "quarantine_rate": 0.3237,
   "license": "PC Blues © Piens Christiaan — attribution obligatoire en reprise publique, pas de modification. Usage interne entraînement/QA : OK."
 }

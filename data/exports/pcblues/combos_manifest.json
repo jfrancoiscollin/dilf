@@ -2,38 +2,82 @@
   "artefact": "A2",
   "export_version": "pcblues-a2-v1",
   "file": "pcblues_combos.jsonl",
-  "combos": 720,
-  "dedup_interne_dup_of": 8,
+  "combos": 3639,
+  "dedup_interne_dup_of": 39,
   "dedup_croisee": {
     "manual_fixtures_dilf": true,
     "master_2000_jnnw": "à faire côté ingestion jass via position_hash/fen_start",
     "0464_combos_jnnw": "à faire côté ingestion jass via position_hash/fen_start"
   },
   "source_deel": {
+    "12": {
+      "combos": 237,
+      "repaired_4_13": 4,
+      "quarantined": 124,
+      "quarantine_rate": 0.3397
+    },
     "15": {
-      "combos": 319,
-      "quarantined": 110,
-      "quarantine_rate": 0.2564
+      "combos": 324,
+      "repaired_4_13": 6,
+      "quarantined": 100,
+      "quarantine_rate": 0.2326
+    },
+    "17": {
+      "combos": 370,
+      "repaired_4_13": 13,
+      "quarantined": 170,
+      "quarantine_rate": 0.3074
     },
     "23": {
-      "combos": 401,
-      "quarantined": 202,
-      "quarantine_rate": 0.335
+      "combos": 404,
+      "repaired_4_13": 18,
+      "quarantined": 183,
+      "quarantine_rate": 0.3025
+    },
+    "37": {
+      "combos": 345,
+      "repaired_4_13": 32,
+      "quarantined": 243,
+      "quarantine_rate": 0.3919
+    },
+    "43": {
+      "combos": 384,
+      "repaired_4_13": 35,
+      "quarantined": 190,
+      "quarantine_rate": 0.312
+    },
+    "51": {
+      "combos": 350,
+      "repaired_4_13": 51,
+      "quarantined": 192,
+      "quarantine_rate": 0.3238
+    },
+    "56": {
+      "combos": 422,
+      "repaired_4_13": 10,
+      "quarantined": 192,
+      "quarantine_rate": 0.3077
+    },
+    "58": {
+      "combos": 615,
+      "repaired_4_13": 19,
+      "quarantined": 116,
+      "quarantine_rate": 0.1547
     }
   },
   "couverture_themes": {
-    "sacrifice": 710,
-    "coup_de_talon": 544,
-    "combinaison_2_temps": 512,
-    "combinaison_3_temps": 407,
-    "combinaison_4_temps": 251,
-    "coup_philippe": 189,
-    "combinaison_5_temps": 131,
-    "coup_du_bruleur": 79,
-    "coup_enfilade": 57,
-    "coup_turc": 8,
-    "envoi_a_dame": 2,
-    "coup_raphael": 2
+    "sacrifice": 3554,
+    "coup_de_talon": 2567,
+    "combinaison_2_temps": 2265,
+    "combinaison_3_temps": 1639,
+    "coup_philippe": 1025,
+    "combinaison_4_temps": 1011,
+    "combinaison_5_temps": 511,
+    "coup_du_bruleur": 383,
+    "coup_enfilade": 249,
+    "coup_turc": 30,
+    "envoi_a_dame": 23,
+    "coup_raphael": 5
   },
   "verified": "100% (re-jeu FMJD complet depuis ancre diagramme — rien ne sort sans)",
   "position_hash": "sha1(fen)[:16], clé de dédup croisée",

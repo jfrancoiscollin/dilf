@@ -1,0 +1,13 @@
+{
+  "artefact": "A1",
+  "export_version": "pcblues-a1-v1",
+  "file": "pcblues_games.pdn",
+  "games": 25,
+  "source_deel": {
+    "36": 8,
+    "42": 17
+  },
+  "verified": "100% (re-jeu FMJD intégral depuis la position initiale ; partie non-rejouable = quarantainée entière)",
+  "warning_result": "Result = provenance uniquement, JAMAIS label WDL",
+  "license": "PC Blues © Piens Christiaan — attribution obligatoire en reprise publique, pas de modification. Usage interne entraînement/QA : OK."
+}

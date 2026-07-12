@@ -67,14 +67,26 @@ def main(argv: list[str] | None = None) -> int:
     per_deel: dict[int, dict] = {}
     for path in sorted(out_dir.glob("combos_deel*.jsonl")):
         recs = [json.loads(l) for l in path.open(encoding="utf-8")]
-        records.extend(recs)
         deel = int(path.stem.replace("combos_deel", ""))
-        stats_path = out_dir / f"stats_deel{deel:02d}.json"
-        stats = json.loads(stats_path.read_text()) if stats_path.exists() else {}
+        repaired_path = out_dir / f"repaired_deel{deel:02d}.jsonl"
+        repaired = (
+            [json.loads(l) for l in repaired_path.open(encoding="utf-8")]
+            if repaired_path.exists()
+            else []
+        )
+        records.extend(recs + repaired)
+        quarantine_path = out_dir / f"quarantine_deel{deel:02d}.jsonl"
+        n_quar = (
+            sum(1 for _ in quarantine_path.open(encoding="utf-8"))
+            if quarantine_path.exists()
+            else None
+        )
+        total = len(recs) + len(repaired) + (n_quar or 0)
         per_deel[deel] = {
             "combos": len(recs),
-            "quarantined": stats.get("quarantined"),
-            "quarantine_rate": stats.get("quarantine_rate"),
+            "repaired_4_13": len(repaired),
+            "quarantined": n_quar,
+            "quarantine_rate": round(n_quar / total, 4) if n_quar is not None and total else None,
         }
 
     records.sort(key=lambda r: (r["deel"], r["page"], r["id"]))
