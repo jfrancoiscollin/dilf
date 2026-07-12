@@ -85,6 +85,27 @@ def board_to_state(board: DetectedBoard) -> GameState:
     )
 
 
+def board_captions(text: str, n_boards: int) -> list[dict]:
+    """Players/year captions of a diagram-grid page, in reading order.
+
+    Grid pages ("Opgaven") caption each board with "Wollaert - Lemmens
+    37-32 ?" above and "79   BK 2000" below. When the number of "A - B"
+    matches equals the number of boards, they pair up in reading order;
+    otherwise no metadata is claimed (jamais de pairage deviné).
+    """
+    pairs = list(_PLAYERS_RE.finditer(text))
+    if n_boards == 0 or len(pairs) != n_boards:
+        return []
+    years = _YEAR_RE.findall(text)
+    return [
+        {
+            "players": f"{m.group(1).strip()} - {m.group(2).strip()}",
+            "year": int(years[i]) if i < len(years) else None,
+        }
+        for i, m in enumerate(pairs)
+    ]
+
+
 def find_context(text: str, first_line: int) -> tuple[str | None, int | None]:
     """Players + year from the prose lines above a run (same page)."""
     lines = text.splitlines()
@@ -112,16 +133,21 @@ def position_hash(fen: str) -> str:
 
 @dataclass
 class PageCarry:
-    """Anchor context carried from the previous page.
+    """Anchor context carried across pages.
 
-    Fragments often flow past a page break: the diagram sits on page N and
-    the variations continue on page N+1, or a variation diverges from an
-    intermediate position of an already-validated mainline. Both anchor
-    sources are kept for one extra page.
+    Fragments often flow past a page break (diagram on page N, variations
+    on N+1), and the exercise sections ("Opgaven" grids -> "Oplossingen"
+    lists) put the anchor diagrams many pages before their solutions. So:
+    ``boards`` holds the previous page only (cheap, tried early), ``pool``
+    accumulates every board of the volume so far (tried last), ``states``
+    holds continuation snapshots of the previous page, and ``meta`` maps
+    ``(page, index)`` -> players/year parsed next to each board.
     """
 
     boards: list[DetectedBoard] = dc_field(default_factory=list)
     states: list[GameState] = dc_field(default_factory=list)
+    pool: list[tuple[int, DetectedBoard]] = dc_field(default_factory=list)
+    meta: dict[tuple[int, int], dict] = dc_field(default_factory=dict)
 
 
 def _record(
@@ -169,7 +195,15 @@ def extract_page(
     carry = carry or PageCarry()
     text = page_text(pdf, page)
     runs = extract_runs(text)
-    boards = boards_of_page(pdf, page, cache) if runs else []
+    # Boards are detected even without runs on the page: the "Opgaven"
+    # grids feed the volume pool that anchors solutions pages later on.
+    boards = boards_of_page(pdf, page, cache)
+    prev_page_pool = [(pg, b) for pg, b in carry.pool if pg == page - 1]
+    older_pool = [(pg, b) for pg, b in reversed(carry.pool) if pg < page - 1]
+
+    meta = dict(carry.meta)
+    for i, caption in enumerate(board_captions(text, len(boards))):
+        meta[(page, i)] = caption
 
     combos: list[dict] = []
     quarantine: list[dict] = []
@@ -181,22 +215,25 @@ def extract_page(
         anchored_res = None
         anchor_kind = None
         board_idx = -1
+        anchored_page = None
         dropped: list = []
 
         # Short runs ("45. ... 44-50 ?") can't be trusted as *emitted*
         # combos but still contribute anchor states for later runs.
         emittable = len(run.tokens) >= MIN_PLIES
 
-        candidate_boards = [("diagram", b) for b in boards] + [
-            ("diagram_prev_page", b) for b in carry.boards
-        ]
+        candidate_boards = (
+            [("diagram", page, b) for b in boards]
+            + [("diagram_prev_page", pg, b) for pg, b in prev_page_pool]
+            + [("diagram_pool", pg, b) for pg, b in older_pool]
+        )
 
         if not emittable:
             # A 1-2 ply run ("45. ... 18-23 ?") is legal from many boards —
             # anchoring on the first match would gamble. Instead it seeds a
             # snapshot from EVERY position it replays from; the next long
             # run validates whichever snapshot was right.
-            for _, board in candidate_boards:
+            for _, _, board in candidate_boards[: len(boards) + len(prev_page_pool)]:
                 res = anchor_run(board_to_state(board), run)
                 if res.ok:
                     new_states.extend(p.state_after for p in res.plies)
@@ -207,11 +244,14 @@ def extract_page(
                     break
             continue
 
-        # 1) exact anchors first: boards of this page + previous page…
-        for anchor, board in candidate_boards:
+        # 1) exact anchors first: boards of this page, previous page, then
+        #    the whole-volume pool (Opgaven grids anchor their Oplossingen
+        #    many pages later)…
+        for anchor, anchor_page, board in candidate_boards:
             res = anchor_run(board_to_state(board), run)
             if res.ok:
                 anchored_res, anchor_kind, board_idx = res, anchor, board.index
+                anchored_page = anchor_page
                 break
             if best_fail is None or (res.failed_at or 0) > (best_fail[0].failed_at or 0):
                 best_fail = (res, board.index)
@@ -228,12 +268,13 @@ def extract_page(
         # 3) …and only as a last resort, board anchors with inline-token
         #    repair (an exact anchor always beats a repaired one).
         if anchored_res is None:
-            for anchor, board in candidate_boards:
+            for anchor, anchor_page, board in candidate_boards:
                 res, run_dropped = anchor_run_with_repair(
                     board_to_state(board), run
                 )
                 if res.ok and run_dropped:
                     anchored_res, anchor_kind, board_idx = res, anchor, board.index
+                    anchored_page = anchor_page
                     dropped = run_dropped
                     break
 
@@ -245,6 +286,13 @@ def extract_page(
                     anchored_res, run, deel, page, board_idx, event, text,
                     anchor_kind,
                 )
+                rec["anchor_page"] = anchored_page
+                # Metadata of the anchor board (Opgaven grid captions)
+                # completes what the solution page's prose doesn't repeat.
+                board_meta = meta.get((anchored_page, board_idx)) if anchored_page else None
+                if board_meta:
+                    rec["players"] = rec["players"] or board_meta.get("players")
+                    rec["year"] = rec["year"] or board_meta.get("year")
                 if dropped:
                     rec["dropped_tokens"] = [
                         f"{t.frm}{'x' if t.capture else '-'}{t.to}" for t in dropped
@@ -267,7 +315,12 @@ def extract_page(
                 }
             )
 
-    next_carry = PageCarry(boards=boards, states=new_states)
+    next_carry = PageCarry(
+        boards=boards,
+        states=new_states,
+        pool=carry.pool + [(page, b) for b in boards],
+        meta=meta,
+    )
     return combos, quarantine, next_carry
 
 
