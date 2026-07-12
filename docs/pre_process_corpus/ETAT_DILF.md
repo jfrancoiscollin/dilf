@@ -4,7 +4,32 @@
 > nouvelle conversation manuel.** À lire en début de chaque conversation
 > après le `CADRAGE_MANUELS.md` et le `JOURNAL.md`.
 >
-> **Mise à jour** : mai 2026 (post-cycle Débutant).
+> **Mise à jour** : 2026-07-12 (campagne PC Blues) ; mai 2026 (post-cycle Débutant).
+
+## 0. ⭐ CAMPAGNE PC BLUES — CORPUS 60 VOLUMES RAFFINÉ (2026-07-12)
+
+Les 60 volumes PC Blues (10 165 pages, © Piens Christiaan) sont passés dans
+la raffinerie `scripts/pcblues/` (extraction texte + pixel → re-jeu FMJD
+complet → artefacts contractuels versionnés). **Livré dans
+`data/exports/pcblues/`** (API gelée, section EXPORTS d'`INTEROP.md`) :
+
+| artefact | contenu |
+|---|---|
+| **A2** `pcblues_combos.jsonl` | **20 803 combinaisons certifiées-jouées** vérifiées (58 vol., +787 réparées §4.13) |
+| **A3** `pcblues_prefs_graded.jsonl` | **10 219 préférences graduées** (5 712 positives !/!!, 4 450 négatives ?/?? certifiées) |
+| **A5** `pcblues_tests.jsonl` | **960 Vaardigheidstesten** vérifiés |
+| **A4** `pcblues_endgame_qa.jsonl` | **73 QA finales** (dames par hypothèse-re-jeu minimisée, book_claim) |
+| **A1** `pcblues_games.pdn` | **26 parties complètes** rejouées |
+
+Principe central : **ancrage-par-re-jeu** (la légalité FMJD intégrale est à
+la fois critère d'appariement diagramme↔séquence, gate de validation
+`verified=true`, et arbitre des hypothèses de vision — 4 rendus de
+diagrammes traités, dames comprises). Rien ne sort sans re-jeu. Quarantaines
+diagnostiquées conservées (2e passes). Consommé par jass (ingestion
+`tools/pcblues_ingest.py`, tag de version). Détail : `INTEROP.md` §EXPORTS,
+`JOURNAL.md`, `scripts/pcblues/`.
+
+---
 >
 > Ce document décrit **ce qui existe et est utilisable**, **ce qui manque
 > encore** et les **patterns observés** pendant la production des manuels.
