@@ -146,15 +146,22 @@ def _solutions(
                 current_serie = ms.group(1)
                 continue
             me = _SOL_ENTRY_RE.match(line)
-            if me and _HAS_MOVE.search(me.group(2)) and "trait aux" not in me.group(2).lower():
+            # Démarre une entrée sur toute ligne « D<k> : » hors légende de
+            # grille (« trait aux »). Le corps peut être un coup (volumes
+            # combos : « D1 : 48-43 … ») OU de la prose (volumes finales :
+            # « D1 : Isidore WEISS - … », le coup arrive plus bas). On
+            # accumule ensuite les lignes porteuses de coups.
+            if me and "trait aux" not in me.group(2).lower():
                 flush()
                 cur_dnum = int(me.group(1))
                 cur_serie_key = (current_serie, cur_dnum) if current_serie else None
                 cur_lines = [me.group(2)]
             elif cur_dnum is not None and _HAS_MOVE.search(line) and "trait aux" not in line.lower():
                 cur_lines.append(line)
-            elif cur_dnum is not None and not line.strip():
-                flush()  # ligne vide = fin d'une solution
+            elif cur_dnum is not None and not line.strip() and any(
+                _HAS_MOVE.search(l) for l in cur_lines
+            ):
+                flush()  # ligne vide APRÈS avoir vu un coup = fin de solution
     flush()
     return (
         {k: v[0] for k, v in by_serie.items()},

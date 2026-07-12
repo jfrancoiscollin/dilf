@@ -1,8 +1,8 @@
 {
   "source": "dubois_apprentissage_combinaisons",
   "pdf": "dubois_apprent_combin.pdf",
-  "combos_verified": 46,
-  "quarantined": 364,
-  "quarantine_rate": 0.8878,
+  "combos_verified": 258,
+  "quarantined": 152,
+  "quarantine_rate": 0.3707,
   "license": "J.-P. Dubois — corpus FMJD. Domaine/usage : vérifier les droits avant reprise publique. Usage interne entraînement/QA."
 }
