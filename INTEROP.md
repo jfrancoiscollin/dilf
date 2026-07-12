@@ -126,3 +126,44 @@ removed or renamed.
 - ROADMAP.md "Out of scope": records what we deliberately do NOT
   expose (engine implementations, real-time analysis, learned
   detectors).
+
+## EXPORTS — corpus PC Blues vers jass (`data/exports/pcblues/`)
+
+dilf est la **raffinerie** du corpus PC Blues (60 volumes, 10 165 pages,
+© Piens Christiaan) : PDF → extraction outillée (couche texte + pixel) →
+validation moteur (re-jeu FMJD complet) → **artefacts neutres versionnés**
+consommés par [`jfrancoiscollin/jass`](https://github.com/jfrancoiscollin/jass).
+jass ne voit JAMAIS un PDF ; dilf ne décide JAMAIS de l'usage
+d'entraînement. Les formats ci-dessous sont une **API gelée** : tout
+changement de schéma = bump de la version d'export (`combos_manifest.json`
+et frères portent le tag, ex. `pcblues-a2-v1`). Les jobs d'ingestion jass
+référencent ce répertoire par tag de version (reproductibilité des fits).
+
+| artefact | fichier | schéma (une ligne JSONL) | consommateur jass |
+|---|---|---|---|
+| **A1** parties | `pcblues_games.pdn` + `games_manifest.json` | PDN, tags White/Black/Event/Date/Result/Annotator + `[Deel "N"]` | paires played-moves pour `rank_finetune` (lignée MAINLINE). ⛔ Result = provenance uniquement, JAMAIS label WDL |
+| **A2** combinaisons | `pcblues_combos.jsonl` + `combos_manifest.json` | `{id, fen_start, position_hash, seq_moves[], seq_published[], final_rafle, themes[], deel, page, event, players, year, anchor, verified: true}` | enrichissement combos du gen mainline (conversion jnnw côté jass) ; sous-ensemble figé → thermomètre |
+| **A3** préférences graduées | `pcblues_prefs_graded.jsonl` | `{fen, move_played, grade ∈ {"!!","!","!?","?","??"}, annotator, deel, page}` | `rank_finetune` — `!` = positives certifiées, `?`/`??` = négatives certifiées |
+| **A4** QA finales | `pcblues_endgame_qa.jsonl` | `{fen, expected ∈ {WIN,DRAW,LOSS}, side_to_move, rationale_courte, book_claim, deel, page}` | harnais des prédicats/vetos (2e examen hors-TB) |
+| **A5** tests | `pcblues_tests.jsonl` | format fixture standard dilf (position + question + solution) | exercices Draught Master + QA |
+
+Règles de relais :
+
+- **Livraison au fil de l'eau** : un volume validé = artefacts committés +
+  manifest à jour ; jass ne bloque jamais sur « le corpus entier ».
+- **Validation moteur = gate** : rien ne sort sans `verified=true`
+  (re-jeu légal FMJD complet, prise maximale globale, promotions). Les
+  séquences irrésolues vont en `quarantine_deelNN.jsonl` avec diagnostic.
+- **Dédup** : `dup_of` interne renseigné ; `position_hash` (sha1 du FEN,
+  16 hex) est la clé de jointure pour la dédup croisée côté ingestion
+  jass (master-2000, 0464/combos — formats jnnw binaires côté jass).
+- **Licence** : PC Blues © Piens Christiaan — attribution obligatoire en
+  reprise publique, pas de modification (rappelée dans chaque manifest).
+- ⛔ **Aucun artefact PC Blues dans le corpus d'entraînement de la lignée
+  FROM-SCRATCH** (pureté de l'expérience) — instruments uniquement
+  (thermomètre A2b, QA A4).
+
+Outillage (repo dilf) : `scripts/pcblues/` — `manifest.py` (J1, fiches),
+`extract_combos.py` (A2 par volume), `build_a2.py` (assemblage + dédup +
+manifest). Corpus source : deel 1-6 dans `docs/`, deel 7-62 via la release
+GitHub `corpus` (non committés, `.gitignore`).
