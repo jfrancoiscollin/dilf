@@ -2,8 +2,8 @@
   "artefact": "A2",
   "export_version": "pcblues-a2-v1",
   "file": "pcblues_combos.jsonl",
-  "combos": 20763,
-  "dedup_interne_dup_of": 1934,
+  "combos": 20803,
+  "dedup_interne_dup_of": 1937,
   "dedup_croisee": {
     "manual_fixtures_dilf": true,
     "master_2000_jnnw": "à faire côté ingestion jass via position_hash/fen_start",
@@ -18,9 +18,9 @@
     },
     "2": {
       "combos": 1123,
-      "repaired_4_13": 0,
-      "quarantined": 605,
-      "quarantine_rate": 0.3501
+      "repaired_4_13": 40,
+      "quarantined": 565,
+      "quarantine_rate": 0.327
     },
     "3": {
       "combos": 287,
@@ -348,16 +348,16 @@
     }
   },
   "couverture_themes": {
-    "sacrifice": 20086,
-    "coup_de_talon": 13109,
-    "combinaison_2_temps": 11298,
-    "combinaison_3_temps": 7569,
-    "coup_philippe": 5490,
-    "combinaison_4_temps": 4732,
-    "combinaison_5_temps": 2574,
-    "coup_du_bruleur": 1681,
+    "sacrifice": 20126,
+    "coup_de_talon": 13136,
+    "combinaison_2_temps": 11325,
+    "combinaison_3_temps": 7588,
+    "coup_philippe": 5498,
+    "combinaison_4_temps": 4742,
+    "combinaison_5_temps": 2578,
+    "coup_du_bruleur": 1682,
     "mecanisme_kaan": 1123,
-    "coup_enfilade": 1039,
+    "coup_enfilade": 1044,
     "envoi_a_dame": 199,
     "coup_turc": 179,
     "coup_royal": 34,
