@@ -454,9 +454,11 @@ def analyze_board_color(rgb, bbox: tuple[int, int, int, int]) -> tuple[list[int]
                 continue
             rb = float((patch[:, :, 0] - patch[:, :, 2]).mean())
             bright = float(patch.mean())
+            # mesuré (deel 2) : vide rb=-51/154, orange rb=+150/106,
+            # blanc rb=0/183
             if rb > 20.0:
                 black_sqs.append(sq)
-            elif rb > -12.0 and bright > 195.0:
+            elif rb > -15.0 and bright > 168.0:
                 white_sqs.append(sq)
     return sorted(white_sqs), sorted(black_sqs)
 
