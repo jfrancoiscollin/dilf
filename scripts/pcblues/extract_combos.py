@@ -161,6 +161,15 @@ def _record(
             final_capture = "x".join(str(s) for s in ply.resolved.move.path)
             break
     fen_start = fen_of(res.plies[0].state_before)
+    graded = [
+        {
+            "fen": fen_of(p.state_before),
+            "move": notation_of(p.resolved.move),
+            "grade": p.token.grade,
+        }
+        for p in res.plies
+        if p.token.grade in {"!!", "!", "!?", "?!", "?", "??"}
+    ]
     return {
         "id": combo_id(deel, page, board_idx, run),
         "fen_start": fen_start,
@@ -179,6 +188,7 @@ def _record(
         "variation": run.variation,
         "anchor": anchor,
         "result": run.result,
+        "graded_moves": graded,
         "verified": True,
     }
 

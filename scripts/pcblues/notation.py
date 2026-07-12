@@ -21,7 +21,9 @@ from dataclasses import dataclass, field
 #: A square is 1-2 digits, optionally zero-padded ("07"). Move numbers are
 #: ``NN.`` — the dot excludes them from square matching.
 _MOVE_RE = re.compile(
-    r"(?:(?P<num>\d{1,3})\.(?P<ellipsis>\s*\.\.\.)?\s*)?"
+    # Ellipse : "16. ... 14-19" (3 points) mais aussi "24...26-31" où le
+    # premier point est consommé par le numéro -> il en reste 2.
+    r"(?:(?P<num>\d{1,3})\.(?P<ellipsis>\s*\.{2,})?\s*)?"
     r"(?P<frm>\d{1,2})\s?(?P<sep>[-x])\s?(?P<to>\d{1,2})"
     r"(?!\d|\.\d)"  # not part of a longer number / decimal
     r"\s*(?P<grade>!!|\?\?|!\?|\?!|!|\?)?"
@@ -68,8 +70,9 @@ def _is_plausible_square(v: int) -> bool:
 
 #: Letters allowed between two tokens of the same run (grades, move numbers,
 #: single-letter variation labels "A"/"B"). More alpha than this = prose ->
-#: the run breaks there ("Met 26-31 komt zwart..." embeds an alternative).
-_PROSE_GAP_ALPHA = 2
+#: the run breaks there ("Met 26-31 komt zwart...", "of 17-12" embed
+#: alternatives — Dutch connectives are >= 2 letters).
+_PROSE_GAP_ALPHA = 1
 
 
 def parse_line_tokens(line: str, line_no: int = 0) -> list[list[MoveToken]]:
@@ -83,6 +86,8 @@ def parse_line_tokens(line: str, line_no: int = 0) -> list[list[MoveToken]]:
     """
     groups: list[list[MoveToken]] = []
     current: list[MoveToken] = []
+    # "47…24-30" (ellipse Unicode, volumes Klubkompetitie) -> "47...24-30".
+    line = line.replace("…", "...")
     # Mask result strings so "2-0" is not read as square 2 -> square 0.
     masked = _RESULT_RE.sub(lambda m: " " * len(m.group(0)), line)
     prev_end = 0

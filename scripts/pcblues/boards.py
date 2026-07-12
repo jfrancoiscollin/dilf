@@ -24,17 +24,23 @@ from pathlib import Path
 
 from scripts.extract_diagrams import (
     BOARD_ASPECT_RANGE,
-    DARK_THRESHOLD,
     DILATION_ITERATIONS,
+    FEN_MARGIN_PX,
+    SAMPLE_RADIUS,
     _render_page_png,
     _shrink_to_border,
-    analyze_board_fen,
+    _square_number,
 )
 
-#: Three boards across an A4 render at 200 dpi -> ~370 px wide each.
-MIN_BOARD_AREA_PCBLUES = 80_000
+#: Three boards across an A4 render at 200 dpi -> ~370 px wide each; the
+#: Klubkompetitie volumes (37/43/51) go down to ~280 px.
+MIN_BOARD_AREA_PCBLUES = 55_000
 #: Wide blobs up to ~4 boards are split before rejection.
 MAX_SPLIT_PARTS = 4
+#: Truly-black threshold: board borders, pieces and text — NOT the coloured
+#: page backgrounds (deel 37+ use a blue gradient that sits ~150-220 in
+#: grayscale and floods the Dubois-era mask of `< 230`).
+BLACK_THRESHOLD = 120
 
 
 @dataclass(frozen=True)
@@ -75,6 +81,32 @@ def _split_wide_blob(
     return boxes
 
 
+def _inner_border(arr, bbox: tuple[int, int, int, int]) -> tuple[int, int, int, int]:
+    """Shrink past a double frame (outer border + white margin + inner border).
+
+    The Klubkompetitie volumes draw their boards inside a decorative outer
+    rectangle; sampling from the outer bbox lands half a square off. A
+    second `_shrink_to_border` pass, started just inside the outer line,
+    finds the inner rectangle when there is one; when the shrink is only
+    the border thickness itself (< 2% of the size), the original bbox is
+    kept (single-frame volumes like deel 15).
+    """
+    x1, y1, x2, y2 = bbox
+    inset = 4
+    if (x2 - x1) <= 4 * inset or (y2 - y1) <= 4 * inset:
+        return bbox
+    inner = _shrink_to_border(arr, x1 + inset, y1 + inset, x2 - inset, y2 - inset)
+    iw, ih = inner[2] - inner[0], inner[3] - inner[1]
+    w, h = x2 - x1, y2 - y1
+    moved = max(
+        inner[0] - (x1 + inset), inner[1] - (y1 + inset),
+        (x2 - inset) - inner[2], (y2 - inset) - inner[3],
+    )
+    if moved > 0.02 * min(w, h) and iw > 0.75 * w and ih > 0.75 * h:
+        return inner
+    return bbox
+
+
 def detect_boards(image_path: Path) -> list[tuple[int, int, int, int]]:
     """Bounding boxes of all boards on a page render, reading order."""
     import numpy as np
@@ -82,7 +114,7 @@ def detect_boards(image_path: Path) -> list[tuple[int, int, int, int]]:
     from scipy import ndimage
 
     arr = np.array(Image.open(image_path).convert("L"))
-    mask = arr < DARK_THRESHOLD
+    mask = arr < BLACK_THRESHOLD
     dilated = ndimage.binary_dilation(mask, iterations=DILATION_ITERATIONS)
     labeled, _ = ndimage.label(dilated)
     boards: list[tuple[int, int, int, int]] = []
@@ -101,6 +133,7 @@ def detect_boards(image_path: Path) -> list[tuple[int, int, int, int]]:
         )
         for cl, ct, cr, cb in candidates:
             tight = _shrink_to_border(arr, cl, ct, cr, cb)
+            tight = _inner_border(arr, tight)
             tw, th = tight[2] - tight[0], tight[3] - tight[1]
             if tw * th < MIN_BOARD_AREA_PCBLUES:
                 continue
@@ -109,6 +142,52 @@ def detect_boards(image_path: Path) -> list[tuple[int, int, int, int]]:
             boards.append(tight)
     boards.sort(key=lambda b: (b[1] // 120, b[0]))
     return boards
+
+
+def analyze_board(
+    gray, bbox: tuple[int, int, int, int]
+) -> tuple[list[int], list[int]]:
+    """Classify the 50 playable squares — rendering-agnostic version.
+
+    PC Blues volumes use two renderings: wooden boards (pieces on dark
+    squares, deel 1-35) and gray-checkered boards (pieces on ~gray squares,
+    Klubkompetitie 37+) where a white piece's patch MEAN is barely above an
+    empty square's. The black outline ring of a piece is the reliable
+    signal: ``min < 100`` inside the patch. Classification:
+
+    * black piece: mean < 90 (dark disc dominates),
+    * white piece: bright disc (mean > 200 — wooden boards, empty dark
+      squares plafonnent ~180) OU anneau/ombrage sombre dans une case
+      claire (mean > 150 et min < 112 — boards gris : pièces min <= 21,
+      cases vides uniformes à 192),
+    * empty otherwise.
+    """
+    x1, y1, x2, y2 = bbox
+    x1i, y1i = x1 + FEN_MARGIN_PX, y1 + FEN_MARGIN_PX
+    bw = (x2 - x1) - 2 * FEN_MARGIN_PX
+    bh = (y2 - y1) - 2 * FEN_MARGIN_PX
+    h, w = gray.shape
+    white_sqs: list[int] = []
+    black_sqs: list[int] = []
+    for row in range(10):
+        for col in range(10):
+            sq = _square_number(row, col)
+            if sq is None:
+                continue
+            cx = int(x1i + (col + 0.5) * bw / 10.0)
+            cy = int(y1i + (row + 0.5) * bh / 10.0)
+            patch = gray[
+                max(0, cy - SAMPLE_RADIUS) : min(h, cy + SAMPLE_RADIUS),
+                max(0, cx - SAMPLE_RADIUS) : min(w, cx + SAMPLE_RADIUS),
+            ]
+            if patch.size == 0:
+                continue
+            mean = float(patch.mean())
+            if mean < 90.0:
+                black_sqs.append(sq)
+            elif mean > 200.0 or (mean > 150.0 and float(patch.min()) < 112.0):
+                white_sqs.append(sq)
+    return sorted(white_sqs), sorted(black_sqs)
 
 
 def boards_of_page(
@@ -125,7 +204,7 @@ def boards_of_page(
     gray = np.asarray(Image.open(png).convert("L"), dtype=float)
     out: list[DetectedBoard] = []
     for idx, bbox in enumerate(detect_boards(png)):
-        white, black = analyze_board_fen(gray, bbox)
+        white, black = analyze_board(gray, bbox)
         out.append(
             DetectedBoard(
                 page=page,
