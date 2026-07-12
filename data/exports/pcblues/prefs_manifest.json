@@ -2,18 +2,18 @@
   "artefact": "A3",
   "export_version": "pcblues-a3-v1",
   "file": "pcblues_prefs_graded.jsonl",
-  "prefs": 2161,
-  "dedup_dropped": 53,
+  "prefs": 5778,
+  "dedup_dropped": 309,
   "grades": {
-    "?": 1177,
-    "!": 922,
-    "!!": 19,
-    "??": 18,
-    "?!": 15,
-    "!?": 10
+    "!": 2882,
+    "?": 2756,
+    "!!": 64,
+    "?!": 28,
+    "??": 24,
+    "!?": 24
   },
-  "positives_certifiees": 941,
-  "negatives_certifiees": 1195,
+  "positives_certifiees": 2946,
+  "negatives_certifiees": 2780,
   "note_negatives": "paire négative : le coup joué est DOMINÉ — exploitation côté jass (inversion de préférence ou meilleur coup annoté si donné)",
   "verified": "chaque fen/move provient d'une séquence rejouée moteur",
   "license": "PC Blues © Piens Christiaan — attribution obligatoire en reprise publique, pas de modification. Usage interne entraînement/QA : OK."

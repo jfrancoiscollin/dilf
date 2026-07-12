@@ -2,14 +2,38 @@
   "artefact": "A2",
   "export_version": "pcblues-a2-v1",
   "file": "pcblues_combos.jsonl",
-  "combos": 3639,
-  "dedup_interne_dup_of": 39,
+  "combos": 10862,
+  "dedup_interne_dup_of": 349,
   "dedup_croisee": {
     "manual_fixtures_dilf": true,
     "master_2000_jnnw": "à faire côté ingestion jass via position_hash/fen_start",
     "0464_combos_jnnw": "à faire côté ingestion jass via position_hash/fen_start"
   },
   "source_deel": {
+    "1": {
+      "combos": 307,
+      "repaired_4_13": 20,
+      "quarantined": 634,
+      "quarantine_rate": 0.6597
+    },
+    "2": {
+      "combos": 1123,
+      "repaired_4_13": 0,
+      "quarantined": 605,
+      "quarantine_rate": 0.3501
+    },
+    "3": {
+      "combos": 287,
+      "repaired_4_13": 4,
+      "quarantined": 220,
+      "quarantine_rate": 0.4305
+    },
+    "6": {
+      "combos": 988,
+      "repaired_4_13": 0,
+      "quarantined": 576,
+      "quarantine_rate": 0.3683
+    },
     "12": {
       "combos": 237,
       "repaired_4_13": 4,
@@ -22,11 +46,29 @@
       "quarantined": 100,
       "quarantine_rate": 0.2326
     },
+    "16": {
+      "combos": 273,
+      "repaired_4_13": 50,
+      "quarantined": 296,
+      "quarantine_rate": 0.4782
+    },
     "17": {
       "combos": 370,
       "repaired_4_13": 13,
       "quarantined": 170,
       "quarantine_rate": 0.3074
+    },
+    "19": {
+      "combos": 718,
+      "repaired_4_13": 54,
+      "quarantined": 455,
+      "quarantine_rate": 0.3708
+    },
+    "20": {
+      "combos": 378,
+      "repaired_4_13": 22,
+      "quarantined": 197,
+      "quarantine_rate": 0.33
     },
     "23": {
       "combos": 404,
@@ -34,11 +76,29 @@
       "quarantined": 183,
       "quarantine_rate": 0.3025
     },
+    "27": {
+      "combos": 268,
+      "repaired_4_13": 33,
+      "quarantined": 198,
+      "quarantine_rate": 0.3968
+    },
+    "32": {
+      "combos": 562,
+      "repaired_4_13": 56,
+      "quarantined": 540,
+      "quarantine_rate": 0.4663
+    },
     "37": {
       "combos": 345,
       "repaired_4_13": 32,
       "quarantined": 243,
       "quarantine_rate": 0.3919
+    },
+    "40": {
+      "combos": 246,
+      "repaired_4_13": 9,
+      "quarantined": 178,
+      "quarantine_rate": 0.4111
     },
     "43": {
       "combos": 384,
@@ -46,11 +106,29 @@
       "quarantined": 190,
       "quarantine_rate": 0.312
     },
+    "44": {
+      "combos": 671,
+      "repaired_4_13": 47,
+      "quarantined": 539,
+      "quarantine_rate": 0.4288
+    },
+    "45": {
+      "combos": 293,
+      "repaired_4_13": 39,
+      "quarantined": 252,
+      "quarantine_rate": 0.4315
+    },
     "51": {
       "combos": 350,
       "repaired_4_13": 51,
       "quarantined": 192,
       "quarantine_rate": 0.3238
+    },
+    "52": {
+      "combos": 152,
+      "repaired_4_13": 2,
+      "quarantined": 65,
+      "quarantine_rate": 0.2968
     },
     "56": {
       "combos": 422,
@@ -63,21 +141,29 @@
       "repaired_4_13": 19,
       "quarantined": 116,
       "quarantine_rate": 0.1547
+    },
+    "59": {
+      "combos": 602,
+      "repaired_4_13": 19,
+      "quarantined": 416,
+      "quarantine_rate": 0.4012
     }
   },
   "couverture_themes": {
-    "sacrifice": 3554,
-    "coup_de_talon": 2567,
-    "combinaison_2_temps": 2265,
-    "combinaison_3_temps": 1639,
-    "coup_philippe": 1025,
-    "combinaison_4_temps": 1011,
-    "combinaison_5_temps": 511,
-    "coup_du_bruleur": 383,
-    "coup_enfilade": 249,
-    "coup_turc": 30,
-    "envoi_a_dame": 23,
-    "coup_raphael": 5
+    "sacrifice": 10547,
+    "coup_de_talon": 6733,
+    "combinaison_2_temps": 5865,
+    "combinaison_3_temps": 3938,
+    "coup_philippe": 2470,
+    "combinaison_4_temps": 2297,
+    "combinaison_5_temps": 1131,
+    "mecanisme_kaan": 1123,
+    "coup_du_bruleur": 952,
+    "coup_enfilade": 571,
+    "envoi_a_dame": 70,
+    "coup_turc": 64,
+    "coup_raphael": 16,
+    "coup_royal": 4
   },
   "verified": "100% (re-jeu FMJD complet depuis ancre diagramme — rien ne sort sans)",
   "position_hash": "sha1(fen)[:16], clé de dédup croisée",

@@ -1,0 +1,18 @@
+{
+  "artefact": "A5",
+  "export_version": "pcblues-a5-v1",
+  "file": "pcblues_tests.jsonl",
+  "tests": 960,
+  "source_deel": {
+    "47": {
+      "tests": 420,
+      "quarantined": 136
+    },
+    "57": {
+      "tests": 540,
+      "quarantined": 47
+    }
+  },
+  "verified": "100% (solution rejouée moteur depuis le diagramme de la grille — l'appariement item/plateau est validé par la légalité)",
+  "license": "PC Blues © Piens Christiaan — attribution obligatoire en reprise publique, pas de modification. Usage interne entraînement/QA : OK."
+}
