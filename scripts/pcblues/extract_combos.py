@@ -74,8 +74,8 @@ def board_to_state(board: DetectedBoard) -> GameState:
     """
     white = set(board.white_men)
     black = set(board.black_men)
-    white_kings = {sq for sq in white if 1 <= sq <= 5}
-    black_kings = {sq for sq in black if 46 <= sq <= 50}
+    white_kings = {sq for sq in white if 1 <= sq <= 5} | set(board.white_kings)
+    black_kings = {sq for sq in black if 46 <= sq <= 50} | set(board.black_kings)
     return GameState(
         white_men=frozenset(white - white_kings),
         white_kings=frozenset(white_kings),

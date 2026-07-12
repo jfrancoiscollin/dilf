@@ -55,6 +55,11 @@ class DetectedBoard:
     bbox: tuple[int, int, int, int]
     white_men: tuple[int, ...]
     black_men: tuple[int, ...]
+    #: Dames détectées (rendu bleu : pièces double-empilées, extension
+    #: verticale > 0.60 case vs ~0.51 pour un pion). Vide pour les rendus
+    #: sans détection de dames.
+    white_kings: tuple[int, ...] = ()
+    black_kings: tuple[int, ...] = ()
 
 
 def _split_wide_blob(
@@ -427,40 +432,53 @@ def detect_boards_color(image_path: Path) -> list[tuple[int, int, int, int]]:
     return boards
 
 
-def analyze_board_color(rgb, bbox: tuple[int, int, int, int]) -> tuple[list[int], list[int]]:
-    """Classification couleur (rendu bleu deel 1-2).
+def analyze_board_color(
+    rgb, bbox: tuple[int, int, int, int]
+) -> tuple[list[int], list[int], list[int], list[int]]:
+    """Classification couleur (rendu bleu deel 1-2, 5…), dames comprises.
 
     Pièces du camp noir = ORANGE (R − B fortement positif) ; pièces
     blanches = disques clairs quasi neutres ; cases vides = bleues
-    (B − R ~ +20).
+    (B − R ~ +20). Les DAMES sont des pièces double-empilées : l'extension
+    verticale des pixels de pièce dans la case dépasse 0.60 (pion ~0.51,
+    dame ~0.70 — mesuré deel 5).
+
+    Returns ``(white_men, black_men, white_kings, black_kings)``.
     """
+    import numpy as np
+
     x1, y1, x2, y2 = bbox
-    bw, bh = (x2 - x1), (y2 - y1)
-    h, w = rgb.shape[:2]
-    white_sqs: list[int] = []
-    black_sqs: list[int] = []
+    bw, bh = (x2 - x1) / 10.0, (y2 - y1) / 10.0
+    white_men: list[int] = []
+    black_men: list[int] = []
+    white_kings: list[int] = []
+    black_kings: list[int] = []
     for row in range(10):
         for col in range(10):
             sq = _square_number(row, col)
             if sq is None:
                 continue
-            cx = int(x1 + (col + 0.5) * bw / 10.0)
-            cy = int(y1 + (row + 0.5) * bh / 10.0)
-            patch = rgb[
-                max(0, cy - SAMPLE_RADIUS) : min(h, cy + SAMPLE_RADIUS),
-                max(0, cx - SAMPLE_RADIUS) : min(w, cx + SAMPLE_RADIUS),
+            cell = rgb[
+                int(y1 + row * bh) : int(y1 + (row + 1) * bh),
+                int(x1 + col * bw) : int(x1 + (col + 1) * bw),
             ]
-            if patch.size == 0:
+            if cell.size == 0:
                 continue
-            rb = float((patch[:, :, 0] - patch[:, :, 2]).mean())
-            bright = float(patch.mean())
-            # mesuré (deel 2) : vide rb=-51/154, orange rb=+150/106,
-            # blanc rb=0/183
-            if rb > 20.0:
-                black_sqs.append(sq)
-            elif rb > -15.0 and bright > 168.0:
-                white_sqs.append(sq)
-    return sorted(white_sqs), sorted(black_sqs)
+            orange = (cell[:, :, 0] - cell[:, :, 2]) > 60
+            whiteish = (np.abs(cell[:, :, 0] - cell[:, :, 2]) < 18) & (
+                cell.mean(axis=2) > 195.0
+            )
+            for mask, men, kings in (
+                (orange, black_men, black_kings),
+                (whiteish, white_men, white_kings),
+            ):
+                if mask.sum() < 60:
+                    continue
+                ys = np.where(mask.any(axis=1))[0]
+                extent = (ys.max() - ys.min() + 1) / bh
+                (kings if extent > 0.60 else men).append(sq)
+                break
+    return sorted(white_men), sorted(black_men), sorted(white_kings), sorted(black_kings)
 
 
 def boards_of_page(
@@ -483,19 +501,39 @@ def boards_of_page(
         color_boxes = detect_boards_color(png)
         if color_boxes:
             rgb = np.asarray(Image.open(png).convert("RGB"), dtype=int)
-            return [
-                DetectedBoard(
-                    page=page,
-                    index=idx,
-                    bbox=bbox,
-                    white_men=tuple(analyze_board_color(rgb, bbox)[0]),
-                    black_men=tuple(analyze_board_color(rgb, bbox)[1]),
+            out_c: list[DetectedBoard] = []
+            for idx, bbox in enumerate(color_boxes):
+                wm, bm, wk, bk = analyze_board_color(rgb, bbox)
+                out_c.append(
+                    DetectedBoard(
+                        page=page, index=idx, bbox=bbox,
+                        white_men=tuple(wm), black_men=tuple(bm),
+                        white_kings=tuple(wk), black_kings=tuple(bk),
+                    )
                 )
-                for idx, bbox in enumerate(color_boxes)
-            ]
+            return out_c
 
+    # Un plateau détecté par bordure peut quand même être un damier BLEU à
+    # pièces couleur (deel 5+) : la dominance bleue de la région tranche
+    # (bois = R-dominant, gris/hachuré = neutre, bleu = B-dominant).
+    rgb = None
     out: list[DetectedBoard] = []
     for idx, bbox in enumerate(bboxes):
+        x1b, y1b, x2b, y2b = bbox
+        if rgb is None:
+            rgb = np.asarray(Image.open(png).convert("RGB"), dtype=int)
+        region = rgb[y1b:y2b, x1b:x2b]
+        blue_frac = float(((region[:, :, 2] - region[:, :, 0]) > 15).mean())
+        if blue_frac > 0.5:
+            wm, bm, wk, bk = analyze_board_color(rgb, bbox)
+            out.append(
+                DetectedBoard(
+                    page=page, index=idx, bbox=bbox,
+                    white_men=tuple(wm), black_men=tuple(bm),
+                    white_kings=tuple(wk), black_kings=tuple(bk),
+                )
+            )
+            continue
         white, black = analyze_board(gray, bbox)
         out.append(
             DetectedBoard(
