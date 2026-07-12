@@ -15,7 +15,7 @@ complet → artefacts contractuels versionnés). **Livré dans
 
 | artefact | contenu |
 |---|---|
-| **A2** `pcblues_combos.jsonl` | **20 803 combinaisons certifiées-jouées** vérifiées (58 vol., +787 réparées §4.13) |
+| **A2** `pcblues_combos.jsonl` | **21 718 combinaisons certifiées-jouées** vérifiées (58 vol., +787 réparées §4.13) |
 | **A3** `pcblues_prefs_graded.jsonl` | **10 219 préférences graduées** (5 712 positives !/!!, 4 450 négatives ?/?? certifiées) |
 | **A5** `pcblues_tests.jsonl` | **960 Vaardigheidstesten** vérifiés |
 | **A4** `pcblues_endgame_qa.jsonl` | **73 QA finales** (dames par hypothèse-re-jeu minimisée, book_claim) |
