@@ -817,3 +817,23 @@ extract_diagrams.py) n'existe pas encore — à créer avant tout contenu
 stratégique en usage B. Mode dégradé possible en usage A (extraction
 pdftotext manuelle, passage_id reconstruit à la main, relu humain).
 
+
+## 2026-07-12 — corpus PC Blues (raffinerie scripts/pcblues/)
+
+- **Nouveau thème (règle §4.9)** : `mecanisme_kaan` — tag dédié du deel 2
+  (« Een verrassend slagmechanisme », Kaan 1945, 411 p. monothématique),
+  ajouté via `extract_combos --extra-theme` à chaque combo vérifiée du
+  volume. Pas un détecteur : un marqueur de provenance thématique.
+- **A4 (QA finales) REPORTÉ, motif documenté** : les volumes de finales
+  (5, 30, 49, 60-62) sont dominés par des positions à DAMES, que
+  l'extraction pixel ne sait pas distinguer des pions (empilements 3D /
+  anneaux, aucun marqueur fiable) ; et les verdicts WIN/DRAW/LOSS y sont
+  énoncés en prose néerlandaise à interpréter. Produire des FEN
+  silencieusement fausses violerait le gate « rien ne sort sans
+  validation moteur » — on préfère livrer plus tard avec (a) une
+  détection de dames dédiée et (b) revalidation moteur des verdicts.
+- Rendus de diagrammes rencontrés (4) : bois (deel ≤ 35), gris/fond bleu
+  (Klubkompetitie 37+), hachuré à pions-anneaux 3D (Vaardigheidstesten
+  47), damier bleu sans bordure à pions orange (deel 1-2, 2009-10).
+  Chacun a sa voie de détection/classification dans scripts/pcblues/boards.py,
+  toutes arbitrées in fine par le re-jeu FMJD.

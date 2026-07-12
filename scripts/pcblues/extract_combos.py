@@ -340,6 +340,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--deel", type=int, required=True)
     ap.add_argument("--event", default=None)
     ap.add_argument("--pages", default=None, help="e.g. 5-97 (default: all)")
+    ap.add_argument(
+        "--extra-theme",
+        default=None,
+        help="thème ajouté à chaque combo du volume (ex. mecanisme_kaan pour "
+        "le deel 2 monothématique — nouveau thème = annonce JOURNAL.md, §4.9)",
+    )
     ap.add_argument("--out", default="data/exports/pcblues")
     ap.add_argument("--cache", default=None)
     ap.add_argument("--progress-every", type=int, default=10)
@@ -371,6 +377,10 @@ def main(argv: list[str] | None = None) -> int:
         combos, quarantine, carry = extract_page(
             pdf, page, args.deel, args.event, cache, carry
         )
+        if args.extra_theme:
+            for rec in combos:
+                if args.extra_theme not in rec["themes"]:
+                    rec["themes"].append(args.extra_theme)
         all_combos.extend(combos)
         all_quarantine.extend(quarantine)
         if (i + 1) % args.progress_every == 0:
