@@ -1,0 +1,12 @@
+{
+  "source": "cid_endgame",
+  "positions": 211,
+  "quarantined": 184,
+  "king_bearing": 62,
+  "verdicts": {
+    "WIN": 123,
+    "null": 67,
+    "LOSS": 21
+  },
+  "license": "CID / The art of Winning (TaoW) — droits à identifier avant reprise publique. Usage interne QA."
+}
