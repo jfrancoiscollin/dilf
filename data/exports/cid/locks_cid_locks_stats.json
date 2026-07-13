@@ -1,0 +1,12 @@
+{
+  "source": "cid_locks",
+  "positions": 113,
+  "quarantined": 63,
+  "king_bearing": 2,
+  "verdicts": {
+    "null": 42,
+    "WIN": 53,
+    "LOSS": 18
+  },
+  "license": "CID / The art of Winning (TaoW) — droits à identifier avant reprise publique. Usage interne QA."
+}
