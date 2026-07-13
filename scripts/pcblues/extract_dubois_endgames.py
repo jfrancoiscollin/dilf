@@ -37,8 +37,8 @@ from .extract_dubois import (
 from .notation import extract_runs
 from .replay import fen_of, replay_tokens
 
-#: « + » collé à un coup (4-15+) OU mots de gain.
-_WIN_RE = re.compile(r"\d[+]|\bgain\b|\bgagne(nt)?\b", re.I)
+#: « + » de gain, collé (4-15+) OU séparé par une espace (« 42-48 + ») OU mots de gain.
+_WIN_RE = re.compile(r"\d\s*[+]|\bgain\b|\bgagne(nt)?\b", re.I)
 #: « = » de nulle, ou mots de nulle. (« remise gegeven » n'existe pas ici.)
 _DRAW_RE = re.compile(r"\bnulle\b|\bremise\b|(?<![\d)])=", re.I)
 
@@ -49,6 +49,116 @@ def _verdict(sol_text: str) -> str | None:
     if win == draw:  # les deux, ou aucun → ambigu
         return None
     return "WIN" if win else "DRAW"
+
+
+#: Labels FR de segmentation d'une solution de finale (à retirer pour ne garder
+#: que les coups) : « Combinaison : … Finale : … », « Forcing : … », « Capture : … ».
+_SOL_LABELS = re.compile(r"\b(Combinaison|Forcing|Capture|Finale|Solution)\s*:", re.I)
+
+
+def _endgame_solution_blocks(pdf: Path, n_pages: int) -> list[tuple[int, str]]:
+    """Blocs « Solution : … » du volume FINALES, en ordre de lecture.
+
+    Le volume `fins_de_parties` (≠ combinaisons) n'utilise PAS les entrées
+    « D<k> : » que lit :func:`_solutions` ; ses solutions sont interfoliées aux
+    pages de diagrammes, en ordre D, sous forme « Solution : <coups> et si : A –
+    … B – … » (parfois préfixées « Combinaison : … Finale : … »). On extrait
+    chaque bloc jusqu'au prochain « Solution : » ou label « D<k> » et on retire
+    les labels FR pour ne garder que la notation.
+    """
+    import pypdf
+
+    reader = pypdf.PdfReader(str(pdf))
+    blocks: list[tuple[int, str]] = []
+    for i in range(min(n_pages, len(reader.pages))):
+        text = reader.pages[i].extract_text() or ""
+        for m in re.finditer(
+            r"Solution\s*:(.*?)(?=(?:D\d+\s*[:\-])|Solution\s*:|$)", text, re.S
+        ):
+            body = _SOL_LABELS.sub(" ", "Solution:" + m.group(1))
+            blocks.append((i + 1, " ".join(body.split())))
+    return blocks
+
+
+def extract_volume_v2(pdf: Path, source: str, cache: Path) -> tuple[list[dict], list[dict]]:
+    """Extraction finales par APPARIEMENT-PAR-RE-JEU (E1).
+
+    Pour chaque bloc-solution (ordre de lecture), on cherche le diagramme d'une
+    fenêtre de lecture qui la précède dont le 1er coup du livre RE-JOUE
+    légalement (ligne complète préférée, sinon plus long préfixe ≥ 1 ply). Le
+    re-jeu est à la fois le critère d'appariement ET la validation. 20× le
+    rendement de la 1re passe (`_solutions` ne lisait que les rares « D<k> : »).
+    """
+    n_pages = _pages(pdf)
+    extracted = _render_extract(pdf, cache, n_pages)
+
+    diags: list[tuple[int, int, object]] = []
+    for rec in extracted:
+        m = _CAPTION_RE.search(rec.get("caption_text") or "")
+        if m:
+            diags.append((rec["page"], int(m.group(1)), _diagram_state(rec)))
+    diags.sort(key=lambda d: (d[0], d[1]))
+
+    blocks = _endgame_solution_blocks(pdf, n_pages)
+
+    records: list[dict] = []
+    quarantine: list[dict] = []
+    seen: set[str] = set()
+    used: set[int] = set()
+    for spage, stext in blocks:
+        runs = [r for r in extract_runs(stext) if r.tokens]
+        if not runs:
+            quarantine.append({"source": source, "page": spage, "reason": "solution sans coups parsables"})
+            continue
+        toks = runs[0].tokens
+        chosen = None  # (diag_index, dpage, dnum, state, result, n_ply)
+        for di, (dpage, dnum, st) in enumerate(diags):
+            if di in used or not (spage - 4 <= dpage <= spage):
+                continue
+            full = replay_tokens(st, toks, st.turn)
+            if full.ok:
+                chosen = (di, dpage, dnum, st, full, len(full.plies))
+                break
+            k = full.failed_at or 0
+            if k >= 1 and chosen is None:
+                pref = replay_tokens(st, toks[:k], st.turn)
+                if pref.ok:
+                    chosen = (di, dpage, dnum, st, pref, k)
+        if chosen is None:
+            quarantine.append({"source": source, "page": spage, "reason": "aucun diagramme ne re-joue la solution"})
+            continue
+        di, dpage, dnum, st, res, n_ply = chosen
+        verdict = _verdict(stext)
+        if verdict is None:
+            quarantine.append({"source": source, "page": spage, "diagram": dnum, "reason": "verdict gain/nulle ambigu ou absent"})
+            continue
+        state0 = res.plies[0].state_before
+        fen = fen_of(state0)
+        ph = position_hash(fen)
+        if ph in seen:
+            continue
+        seen.add(ph)
+        used.add(di)
+        records.append(
+            {
+                "id": f"dubois-endgame-{source[:8]}-d{dnum}-{ph[:8]}",
+                "fen": fen,
+                "position_hash": ph,
+                "side_to_move": st.turn,
+                "expected": verdict,
+                "rationale_courte": " ".join(stext.split())[:180],
+                "book_claim": True,
+                "replay_anchored": True,
+                "verified_engine": False,   # revalidation d14+TB côté jass (gravé A4)
+                "kings": {"white": list(state0.white_kings), "black": list(state0.black_kings)},
+                "source": source,
+                "diagram": dnum,
+                "page": dpage,
+                "solution_plies": n_ply,
+                "verified_position": True,
+            }
+        )
+    return records, quarantine
 
 
 def extract_volume(pdf: Path, source: str, cache: Path) -> tuple[list[dict], list[dict]]:
@@ -146,12 +256,17 @@ def main(argv: list[str] | None = None) -> int:
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
     cache = Path(args.cache or f".cache/dubois/{pdf.stem}")
-    records, quarantine = extract_volume(pdf, args.source, cache)
+    records, quarantine = extract_volume_v2(pdf, args.source, cache)
 
     path = out_dir / f"endgame_{args.source}.jsonl"
     with path.open("w", encoding="utf-8") as fh:
         for rec in records:
             fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    # graines de conversion (E1) : les FEN vérifiées-position, avec verdict en commentaire.
+    with (out_dir / f"endgame_seeds_{args.source}.fen").open("w", encoding="utf-8") as fh:
+        fh.write(f"# endgame seeds (E1) — {args.source} — {len(records)} positions verifiees-position\n")
+        for rec in records:
+            fh.write(f"{rec['fen']}  # {rec['expected']} d{rec['diagram']} p{rec['page']}\n")
     with (out_dir / f"endgame_quarantine_{args.source}.jsonl").open("w", encoding="utf-8") as fh:
         for rec in quarantine:
             fh.write(json.dumps(rec, ensure_ascii=False) + "\n")

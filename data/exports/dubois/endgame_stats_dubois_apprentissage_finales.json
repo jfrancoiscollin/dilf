@@ -1,9 +1,10 @@
 {
   "source": "dubois_apprentissage_finales",
-  "endgames": 4,
-  "quarantined": 216,
+  "endgames": 59,
+  "quarantined": 74,
   "verdicts": {
-    "WIN": 4
+    "WIN": 58,
+    "DRAW": 1
   },
   "license": "J.-P. Dubois — corpus FMJD. Domaine/usage : vérifier les droits avant reprise publique. Usage interne entraînement/QA."
 }
