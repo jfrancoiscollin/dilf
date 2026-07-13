@@ -121,20 +121,113 @@ def extract_volume(pdf: Path, source: str, cache: Path) -> tuple[list[dict], lis
     return records, quarantine
 
 
+class _SimpleBoard:
+    """DetectedBoard minimal (compatible _state_with_kings) pour le chemin
+    Goedemoed : occupancy couleur tunée (gris-échiquier), sans dames."""
+
+    __slots__ = ("white_men", "white_kings", "black_men", "black_kings", "bbox")
+
+    def __init__(self, white_men, black_men, bbox):
+        self.white_men = frozenset(white_men)
+        self.white_kings = frozenset()
+        self.black_men = frozenset(black_men)
+        self.black_kings = frozenset()
+        self.bbox = bbox
+
+
+def extract_goedemoed(pdf: Path, source: str, cache: Path) -> tuple[list[dict], list[dict]]:
+    """Extraction combos Goedemoed (Exercise_2/3, cahiers gris-échiquier).
+
+    Détection tunée (DPI 300, seuils gris) via ``goedemoed_extract.detect_page``
+    + ``analyze`` (occupancy couleur, SANS dames — les combos sont hommes) puis
+    ancrage par re-jeu de la combinaison numérotée (``extract_runs``). Le
+    re-jeu valide la position (position pré-combinaison + ligne gagnante).
+    """
+    import scripts.goedemoed_extract as G
+
+    from .extract_endgames import _state_with_kings
+
+    n_pages = _pages(pdf)
+    reader = pypdf.PdfReader(str(pdf))
+    records: list[dict] = []
+    quarantine: list[dict] = []
+    seen: set[str] = set()
+    empty = frozenset()
+    for pg in range(1, n_pages + 1):
+        try:
+            gray, bboxes, _ = G.detect_page(pdf, pg, cache)
+        except Exception:
+            continue
+        boards = []
+        for bbox in bboxes:
+            white, black = G.analyze(gray, bbox)
+            if _MIN_PIECES <= len(white) <= _MAX_PIECES and _MIN_PIECES <= len(black) <= _MAX_PIECES:
+                boards.append(_SimpleBoard(white, black, bbox))
+        if not boards:
+            continue
+        text = reader.pages[pg - 1].extract_text() or ""
+        runs = [r for r in extract_runs(text) if len(r.tokens) >= 3]
+        used: set[int] = set()
+        for board in boards:
+            got = None
+            state0 = _state_with_kings(board, empty, empty)  # tous hommes + promo-rangée
+            for ri, run in enumerate(runs):
+                if ri in used:
+                    continue
+                res = anchor_run(state0, run)
+                if res.ok:
+                    got = (ri, res)
+                    break
+            if got is None:
+                quarantine.append({"source": source, "page": pg, "reason": "combo non ancrée (re-jeu)"})
+                continue
+            ri, res = got
+            used.add(ri)
+            s0 = res.plies[0].state_before
+            fen = fen_of(s0)
+            ph = position_hash(fen)
+            if ph in seen:
+                continue
+            seen.add(ph)
+            records.append(
+                {
+                    "id": f"goedemoed-{source[:10]}-p{pg}-{ph[:8]}",
+                    "fen": fen,
+                    "position_hash": ph,
+                    "side_to_move": s0.turn,
+                    "expected": None,  # combo : gain matériel, pas de verdict W+/B+ explicite
+                    "book_claim": True,
+                    "replay_anchored": True,
+                    "verified_engine": False,
+                    "combo_plies": len(res.plies),
+                    "kings": {"white": list(s0.white_kings), "black": list(s0.black_kings)},
+                    "source": source,
+                    "page": pg,
+                    "verified_position": True,
+                }
+            )
+    return records, quarantine
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--pdf", required=True)
     ap.add_argument("--source", required=True)
     ap.add_argument("--out", default="data/exports/cid")
     ap.add_argument("--cache", default=None)
-    ap.add_argument("--tag", default="qa", help="préfixe de sortie (ex. locks, endgame)")
+    ap.add_argument("--tag", default="qa", help="préfixe de sortie (ex. locks, endgame, combos)")
+    ap.add_argument("--detector", choices=["cid", "goedemoed"], default="cid",
+                    help="cid = boards_of_page + hyp-dames (prose CID) ; goedemoed = détection gris-échiquier tunée (cahiers Goedemoed)")
     args = ap.parse_args(argv)
 
     pdf = Path(args.pdf)
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
     cache = Path(args.cache or f".cache/cid/{pdf.stem}")
-    records, quarantine = extract_volume(pdf, args.source, cache)
+    if args.detector == "goedemoed":
+        records, quarantine = extract_goedemoed(pdf, args.source, cache)
+    else:
+        records, quarantine = extract_volume(pdf, args.source, cache)
 
     stem = f"{args.tag}_{args.source}"
     path = out_dir / f"{stem}.jsonl"
