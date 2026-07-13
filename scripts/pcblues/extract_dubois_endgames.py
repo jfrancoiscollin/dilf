@@ -161,6 +161,114 @@ def extract_volume_v2(pdf: Path, source: str, cache: Path) -> tuple[list[dict], 
     return records, quarantine
 
 
+def extract_volume_v3(pdf: Path, source: str, cache: Path) -> tuple[list[dict], list[dict]]:
+    """E1 king-aware : appariement-par-re-jeu AVEC hypothèses-de-dames.
+
+    Comme v2 mais les diagrammes viennent de :func:`boards_of_page` (géométrie
+    compatible ``piece_vertical_extent``) et chaque plateau est essayé sous des
+    hypothèses-dames ordonnées par extension verticale (port A4). Le re-jeu +
+    le gate d'exercice des dames + la minimisation tranchent — jamais de FEN à
+    dames silencieusement fausse. Récupère les finales king-heavy que v2
+    (extract_diagrams, dames toujours vides) mettait en quarantaine.
+    """
+    import numpy as np
+    from PIL import Image
+
+    from .boards import boards_of_page
+    from .replay import anchor_run
+    from .extract_endgames import (
+        _king_hypotheses,
+        _kings_exercised,
+        _minimize_kings,
+        _state_with_kings,
+    )
+
+    n_pages = _pages(pdf)
+    blocks = _endgame_solution_blocks(pdf, n_pages)
+
+    page_cache: dict[int, tuple[list, object]] = {}
+
+    def page_diagrams(pg: int):
+        if pg not in page_cache:
+            try:
+                bs = boards_of_page(pdf, pg, cache)
+            except Exception:
+                bs = []
+            bs = [b for b in bs if (b.white_men or b.white_kings) and (b.black_men or b.black_kings)]
+            gray = None
+            png = cache / f"page_{pg:04d}.png"
+            if bs and png.exists():
+                gray = np.asarray(Image.open(png).convert("L"), dtype=float)
+            page_cache[pg] = (bs, gray)
+        return page_cache[pg]
+
+    records: list[dict] = []
+    quarantine: list[dict] = []
+    seen: set[str] = set()
+    used: set[tuple[int, int]] = set()
+    for spage, stext in blocks:
+        runs = [r for r in extract_runs(stext) if r.tokens]
+        if not runs:
+            quarantine.append({"source": source, "page": spage, "reason": "solution sans coups parsables"})
+            continue
+        run = runs[0]
+        chosen = None  # (gid, ReplayResult)
+        for pg in range(max(1, spage - 4), spage + 1):
+            bs, gray = page_diagrams(pg)
+            if gray is None:
+                continue
+            for bi, board in enumerate(bs):
+                gid = (pg, bi)
+                if gid in used:
+                    continue
+                for wk, bk in _king_hypotheses(gray, board):
+                    state0 = _state_with_kings(board, wk, bk)
+                    res = anchor_run(state0, run)
+                    if res.ok and _kings_exercised(res):
+                        mini = _minimize_kings(board, wk, bk, run)
+                        if mini is not None:
+                            chosen = (gid, mini[2])
+                        break
+                if chosen is not None:
+                    break
+            if chosen is not None:
+                break
+        if chosen is None:
+            quarantine.append({"source": source, "page": spage, "reason": "aucun diagramme ne re-joue (hyp. dames incluses)"})
+            continue
+        gid, res = chosen
+        verdict = _verdict(stext)
+        if verdict is None:
+            quarantine.append({"source": source, "page": spage, "reason": "verdict gain/nulle ambigu ou absent"})
+            continue
+        state0 = res.plies[0].state_before
+        fen = fen_of(state0)
+        ph = position_hash(fen)
+        if ph in seen:
+            continue
+        seen.add(ph)
+        used.add(gid)
+        records.append(
+            {
+                "id": f"dubois-endgame-{source[:8]}-p{gid[0]}b{gid[1]}-{ph[:8]}",
+                "fen": fen,
+                "position_hash": ph,
+                "side_to_move": state0.turn,
+                "expected": verdict,
+                "rationale_courte": " ".join(stext.split())[:180],
+                "book_claim": True,
+                "replay_anchored": True,
+                "verified_engine": False,
+                "kings": {"white": list(state0.white_kings), "black": list(state0.black_kings)},
+                "source": source,
+                "page": gid[0],
+                "solution_plies": len(res.plies),
+                "verified_position": True,
+            }
+        )
+    return records, quarantine
+
+
 def extract_volume(pdf: Path, source: str, cache: Path) -> tuple[list[dict], list[dict]]:
     n_pages = _pages(pdf)
     extracted = _render_extract(pdf, cache, n_pages)
@@ -256,7 +364,7 @@ def main(argv: list[str] | None = None) -> int:
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
     cache = Path(args.cache or f".cache/dubois/{pdf.stem}")
-    records, quarantine = extract_volume_v2(pdf, args.source, cache)
+    records, quarantine = extract_volume_v3(pdf, args.source, cache)
 
     path = out_dir / f"endgame_{args.source}.jsonl"
     with path.open("w", encoding="utf-8") as fh:
@@ -266,7 +374,7 @@ def main(argv: list[str] | None = None) -> int:
     with (out_dir / f"endgame_seeds_{args.source}.fen").open("w", encoding="utf-8") as fh:
         fh.write(f"# endgame seeds (E1) — {args.source} — {len(records)} positions verifiees-position\n")
         for rec in records:
-            fh.write(f"{rec['fen']}  # {rec['expected']} d{rec['diagram']} p{rec['page']}\n")
+            fh.write(f"{rec['fen']}  # {rec['expected']} p{rec['page']}\n")
     with (out_dir / f"endgame_quarantine_{args.source}.jsonl").open("w", encoding="utf-8") as fh:
         for rec in quarantine:
             fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
