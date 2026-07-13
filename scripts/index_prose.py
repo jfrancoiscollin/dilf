@@ -496,6 +496,13 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     args = p.parse_args(argv)
     args.cache = args.cache.resolve()
+    # Per-PDF cache subdir when using the DEFAULT cache with a --pdf command.
+    # extract_pdf caches by page NUMBER only (page_NNNN.txt), so a shared cache
+    # silently serves the FIRST PDF's pages to every later PDF (cross-collision
+    # corruption). Deriving <cache>/<pdf-stem> makes the default safe ; an
+    # explicit --cache is respected as-is (caller owns isolation).
+    if args.cache == DEFAULT_CACHE.resolve() and getattr(args, "pdf", None) is not None:
+        args.cache = args.cache / args.pdf.stem
     args.output_dir = args.output_dir.resolve()
     args.intermediate = args.cache / "passages.json"
     return args.func(args)
