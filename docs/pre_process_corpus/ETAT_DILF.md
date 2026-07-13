@@ -47,6 +47,30 @@ diagnostiquées conservées (2e passes). Consommé par jass (ingestion
   `mutual_blocked`/`blocage_structurel` sur `EngineProtocol`. Le harnais de
   notation (TB + arbitre-fort + gate DRAW≥99,9 %) est côté jass.
 
+### Exploitation MAX du corpus original (chantiers E1-E5, 2026-07-13)
+
+> Décision JFC : exploiter le corpus À FOND (indépendamment du verdict A/B). Le
+> tri post-0691 ne change que le ROUTAGE (oracles/QA + RAG ; ⛔ jamais prefs-éval).
+> **Bilan : 73 → 802 positions certifiées par re-jeu + ~6 100 passages RAG.**
+
+- **E1 — finales à l'échelle** : `extract_volume_v3` (appariement-par-re-jeu des
+  blocs « Solution : » + **port des hypothèses-de-dames A4** : `boards_of_page` +
+  extension verticale + gate exercice-dames + minimisation) → **Dubois finales
+  4→66** (20 à dames) ; `extract_cid.py` (prose CID anglaise) → **1.The_endgame
+  211** (62 à dames). `data/exports/dubois/endgame_*`, `data/exports/cid/endgame_*`.
+  S5.The_endgame = 0 (layout à sonder). Consommateur = oracles/QA finale + seeds.
+- **E2 — Locks** (`extract_cid.py` sur `7.Locks`) : **113 verrous vérifiés**
+  (`data/exports/cid/locks_*`) → nourrit la notation P2-blocage (le prédicat C1
+  doit tirer dessus ; verdict par TB).
+- **E3 — Goedemoed** (`extract_cid.py --detector goedemoed`, détection gris-
+  échiquier tunée) : **Exercise_2 150 + Exercise_3 262 = 412 combos** vérifiées
+  (`data/exports/goedemoed/`).
+- **E4 — stratégie/cours → RAG** (`index_prose.py`, ⚠️ `--cache` PAR volume
+  obligatoire, cf bug cache partagé) : **13 volumes ~6 100 passages** (Dubois
+  sens-du-jeu ×5, CID thématiques ×5, cours ×3) → `pedagogy/prose/fixtures/`.
+- **E5 — openings systèmes** : ~0 (les `le_systeme_*` sont de la PROSE, déjà E4).
+- Tout `verified_engine=false` → **revalidation d14+TB côté jass** avant gate dur.
+
 ---
 >
 > Ce document décrit **ce qui existe et est utilisable**, **ce qui manque
