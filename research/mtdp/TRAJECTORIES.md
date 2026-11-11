@@ -22,3 +22,24 @@ have been independently replayed by this module.
 multiple alternative mainlines, or ambiguous captures) are rejected; an
 untrusted engine can still be wrong. For publication, cross-check a subset
 against a second independently implemented FMJD rules engine.
+
+## Exporter CLI (adapter required)
+
+From the repository root, after installing a trusted rules adapter factory:
+
+```bash
+python -m research.mtdp.trajectories \
+  --engine-factory your_rules_adapter:create_engine \
+  --pdn data/exports/pcblues/pcblues_games.pdn \
+  --output .cache/mtdp/trajectories.jsonl \
+  --quarantine .cache/mtdp/quarantine.jsonl
+python -m research.mtdp.summary .cache/mtdp/trajectories.jsonl
+```
+
+The factory must return an object implementing `EngineProtocol` with
+`legal_moves(state)` and `apply_move(state, move)`. Import only trusted
+factories. Each accepted game is exported atomically; rejected games produce
+a separate quarantine record with no partial positions.
+
+A rules adapter and independent FMJD validation are still prerequisites for
+scientifically trusted trajectories. No engine is bundled in MTDP.
