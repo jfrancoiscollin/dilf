@@ -54,3 +54,14 @@ def test_other_source_rejected():
     sample["source"] = "dubois_diagram_fixture"
     with pytest.raises(ValueError, match="Only validated"):
         analyze_dynamics([sample])
+
+
+def test_duplicate_ply_rejected():
+    with pytest.raises(ValueError, match="non-contiguous"):
+        analyze_dynamics([row("g1", 0, "a"), row("g1", 0, "b")])
+
+
+def test_revisits_do_not_cross_game_boundaries():
+    report = analyze_dynamics([row("g1", 0, "same"), row("g2", 0, "same")])
+    assert report["revisited_exact_positions_within_games"] == 0
+    assert report["transitions"] == 0
