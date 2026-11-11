@@ -15,7 +15,6 @@ from typing import Any, Iterable
 class Stratum:
     material_balance: int
     total_pieces_bin: str
-    kings_present: bool
     turn: str
 
 
@@ -26,7 +25,6 @@ def position_stratum(row: dict[str, Any]) -> Stratum:
     return Stratum(
         material_balance=int(metrics["material_balance"]),
         total_pieces_bin=phase,
-        kings_present=bool(row.get("metadata", {}).get("kings_present", False)),
         turn=str(metrics["turn"]),
     )
 
