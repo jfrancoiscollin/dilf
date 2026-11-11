@@ -167,6 +167,26 @@ jobs:
           print(json.dumps(report, sort_keys=True, indent=2))
           PY
 
+      - name: MTDP spatial signature ablation
+        env:
+          PYTHONPATH: ${{ github.workspace }}/dilf:${{ github.workspace }}/draught-master
+        run: |
+          python -m research.mtdp.signature_ablation \
+            --pdn dilf/data/exports/pcblues/pcblues_games.pdn \
+            --output /tmp/mtdp-signature-ablation.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path("/tmp/mtdp-signature-ablation.json").read_text())
+          assert report["games"] == 26
+          assert report["observations"] == 1864
+          variants = report["variants"]
+          assert variants["coarse_turn"]["distinct_fen_pairs"] == 137
+          assert variants["coarse_turn"]["different_legal_move_set_pairs"] == 114
+          assert variants["exact_occupancy"]["distinct_fen_pairs"] == 0
+          print(json.dumps(report, indent=2, sort_keys=True))
+          PY
+
       - name: Archive MTDP research results
         uses: actions/upload-artifact@v4
         with:
@@ -176,6 +196,7 @@ jobs:
             /tmp/mtdp-signature-collisions.json
             /tmp/mtdp-turn-control.json
             /tmp/mtdp-legal-collisions.json
+            /tmp/mtdp-signature-ablation.json
             /tmp/mtdp-quarantine.jsonl
           retention-days: 30
           if-no-files-found: error
