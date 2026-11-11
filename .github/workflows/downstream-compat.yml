@@ -86,3 +86,27 @@ jobs:
           assert not errors, "FMJD replay failed; inspect quarantine output above"
           assert len({r["source_id"] for r in rows}) == 26
           PY
+
+      - name: MTDP spatial dynamics descriptive report
+        env:
+          PYTHONPATH: ${{ github.workspace }}/dilf:${{ github.workspace }}/draught-master
+        run: |
+          python -m research.mtdp.spatial_dynamics \
+            /tmp/mtdp-trajectories.jsonl \
+            --output /tmp/mtdp-spatial-dynamics.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path("/tmp/mtdp-spatial-dynamics.json").read_text())
+          assert report["games"] == 26, "Expected all 26 validated games"
+          assert report["transitions"] > 0, "No trajectory transitions analyzed"
+          assert report["positions"] == report["transitions"] + report["games"]
+          print(json.dumps({
+              key: report[key] for key in (
+                  "schema_version", "games", "positions", "transitions",
+                  "revisited_exact_positions_within_games",
+                  "unchanged_descriptors_transitions",
+                  "descriptor_change_counts", "mean_absolute_ply_change"
+              )
+          }, sort_keys=True, indent=2))
+          PY
