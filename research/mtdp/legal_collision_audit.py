@@ -29,9 +29,11 @@ def audit_legal_collisions(games: list[PdnGame], engine: EngineProtocol) -> dict
     groups: dict[tuple[Any, ...], dict[str, tuple[frozenset[tuple], set[str]]]] = (
         defaultdict(dict)
     )
+    positions_replayed = 0
     for game in games:
         # Complete game validation before using any of its positions.
         trajectory = validated_trajectory(game, engine)
+        positions_replayed += len(trajectory)
         for _, _, state in trajectory:
             metrics = compute_spatial_metrics(state)
             signature = tuple(getattr(metrics, field) for field in _FIELDS)
@@ -73,6 +75,8 @@ def audit_legal_collisions(games: list[PdnGame], engine: EngineProtocol) -> dict
     return {
         "schema_version": "mtdp-legal-collision-v1",
         "games": len(games),
+        "positions_replayed": positions_replayed,
+        "distinct_fens": len({fen for positions in groups.values() for fen in positions}),
         "turn_conditioned_collision_pairs": distinct_pairs,
         "identical_legal_move_set_pairs": equal_pairs,
         "different_legal_move_set_pairs": unequal_pairs,
