@@ -48,3 +48,15 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   (maximum 1,37 pion sur l'échelle de Scan). Échantillon de convenance,
   paires dépendantes. **Prochaine action :** rescoring des mêmes paires
   à profondeur 12 et mesure de la stabilité des désaccords et des coûts.
+
+- 2026-11-11 18:44 UTC — Relais recherche MTDP. Tête initiale
+  `ec8338567f9367b325e3dfbe303894ca5fc6a6b5`, rapport best-move
+  profondeur 8 de l'autre relais lu. Les runs associés à cette tête
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43076530847)
+  et [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43076531157)
+  sont **success**. Commits `eb05ade` et `29d800f` : paramètre CLI
+  `--depth` (défaut 8) et tests de configuration pour préparer la réplication
+  profondeur 12. **Aucun calcul Scan profondeur 12 exécuté à ce stade.**
+  Validation des nouveaux commits : à vérifier. **Prochaine action :**
+  vérifier CI sur `29d800f`, puis relancer les mêmes paires à profondeur 12
+  en conservant les fichiers et SHA des corpus et en comparant les cohortes.
