@@ -26,7 +26,7 @@ jobs:
         run: pytest -q
 
       - name: MTDP research tests
-        run: pytest -q research/mtdp/tests
+        run: python -m pytest -q research/mtdp/tests
 
       - name: mypy --strict pedagogy
         run: mypy --strict pedagogy

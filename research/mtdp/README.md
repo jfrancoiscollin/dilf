@@ -9,7 +9,7 @@ From the repository root:
 
 ```bash
 python -m research.mtdp.dataset --output .cache/mtdp/dubois.jsonl
-pytest research/mtdp/tests -q
+python -m pytest -q research/mtdp/tests
 ```
 
 The first experiment reuses the existing Dubois diagram fixtures and canonical
