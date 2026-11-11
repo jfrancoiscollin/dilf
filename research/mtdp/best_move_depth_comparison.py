@@ -57,6 +57,9 @@ def compare(shallow, deep):
     for field in _PROVENANCE:
         if shallow[field] != deep[field]:
             raise ValueError(f"Different audit provenance: {field}")
+    for field in ("exclusion_inputs", "prior_holdout_only_overlap_fens"):
+        if shallow.get(field) != deep.get(field):
+            raise ValueError(f"Different audit provenance: {field}")
     depths = [shallow["scan_successor_depth"], deep["scan_successor_depth"]]
     if depths[0] >= depths[1]:
         raise ValueError("Expected increasing search depths")

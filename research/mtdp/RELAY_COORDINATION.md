@@ -78,3 +78,19 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   mesure des paires conservées et des transferts coûteux à profondeur 12.
 
 - 2026-11-11 19:45 UTC — Relais recherche MTDP. Tête de départ vérifiée par lecture du journal ; les runs du commit `6c62568` ([CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43080656811), [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43080656712)) sont **success**. Lecture de `BEST_MOVE_DEPTH_SENSITIVITY_2026-11-11.md` : 40 paires externes, 18 optima disjoints à profondeur 12, 12 aux deux profondeurs ; deux transferts PC Blues → externe à regret >= 0,50 pion aux deux profondeurs. Commit `645d13d` : préenregistrement de `LOCAL_NEIGHBORHOOD_PROTOCOL.md` (voisinage diagonal typé rayon deux). **Aucun calcul nouveau ni test du protocole exécuté ; validation de ces nouveaux commits à vérifier.** Prochaine action : implémenter le descripteur rayon deux et ses tests déterministes, puis mesurer sur les cohortes gelées sans changer les seuils.
+
+- 2026-11-11 20 UTC — Relais de validation pour Jass, tête initiale
+  `e9f09dc578303a9efa8cc6111660dfdb9a7cf747`. Le commit qui ajoute cette
+  entrée implémente le rayon deux préenregistré et publie le
+  [rapport PC Blues, cohortes gelées et tournoi rapide](LOCAL_NEIGHBORHOOD_RESULTS_2026-11-11.md).
+  Les [contrôles de la tête initiale](https://github.com/jfrancoiscollin/dilf/actions/runs/43090262166)
+  et [l'intégration initiale](https://github.com/jfrancoiscollin/dilf/actions/runs/43090262147)
+  sont réussis. Le JSON gelé a été reproduit à l'octet et le calcul Scan 3.1
+  profondeur 12 sur 241 nouvelles parties validées a abouti dans le workspace.
+  Les 63 tests MTDP passent. Le rayon deux conserve 17/61 paires PC Blues,
+  toutes divergentes sur au moins un successeur. Sur le tournoi rapide, il
+  conserve 201/752 paires évaluables, dont 98 à optima disjoints. En transfert
+  PC Blues → rapide, il conserve 52/249 paires et 4/13 pertes d'au moins
+  0,50 pion. **Prochaine action :** mesurer la couverture et le regret des
+  trois premiers coups transférés sur les cohortes gelées, pour évaluer
+  l'ordre des coups avant un éventuel benchmark Jass à budget apparié.

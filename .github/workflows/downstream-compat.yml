@@ -213,6 +213,27 @@ jobs:
           print(json.dumps(report, indent=2, sort_keys=True))
           PY
 
+      - name: MTDP typed diagonal neighborhood audit
+        env:
+          PYTHONPATH: ${{ github.workspace }}/dilf:${{ github.workspace }}/draught-master
+        run: |
+          python -m research.mtdp.local_neighborhood \
+            --baseline dilf/data/exports/pcblues/pcblues_games.pdn \
+            --output /tmp/mtdp-local-neighborhood.json
+          python - <<'PY_CHECK'
+          import json
+          from pathlib import Path
+          report = json.loads(Path("/tmp/mtdp-local-neighborhood.json").read_text())["pcblues"]
+          source, = report["inputs"]
+          assert source["accepted"] == source["games"] == 26 and not source["rejected"]
+          quiet, refined = (report["variants"][key] for key in ("quiet", "radius_two"))
+          assert quiet["eligible_fens"] == refined["eligible_fens"]
+          assert quiet["distinct_eligible_signatures"] <= refined["distinct_eligible_signatures"]
+          assert refined["pairs"] <= quiet["pairs"]
+          assert refined["different_legal_actions"] == quiet["different_legal_actions"] == 0
+          print(json.dumps(report, indent=2, sort_keys=True))
+          PY_CHECK
+
       - name: Archive MTDP research results
         uses: actions/upload-artifact@v4
         with:
@@ -224,6 +245,7 @@ jobs:
             /tmp/mtdp-legal-collisions.json
             /tmp/mtdp-signature-ablation.json
             /tmp/mtdp-successors.json
+            /tmp/mtdp-local-neighborhood.json
             /tmp/mtdp-quarantine.jsonl
           retention-days: 30
           if-no-files-found: error

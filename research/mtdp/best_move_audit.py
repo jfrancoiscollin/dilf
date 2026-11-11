@@ -174,11 +174,12 @@ def compare_scores(a: dict[Action, int], b: dict[Action, int]) -> dict:
     }
 
 
-def audit(baseline, holdouts, engine, scan):
+def audit(baseline, holdouts, engine, scan, exclusions=()):
     seen = set()
     base, base_games, base_inputs = load_positions([baseline], engine, seen)
+    excluded, _, excluded_inputs = load_positions(exclusions, engine, seen)
     held, held_games, held_inputs = load_positions(holdouts, engine, seen)
-    novel = {fen: state for fen, state in held.items() if fen not in base}
+    novel = {fen: state for fen, state in held.items() if fen not in base and fen not in excluded}
     base_groups, novel_groups = group_positions(base), group_positions(novel)
     states = base | novel
     scores = {}
@@ -221,7 +222,7 @@ def audit(baseline, holdouts, engine, scan):
     )
     primary = compare(holdout_pairs, held_games, held_games)
     transfer = compare(transfer_pairs, base_games, held_games)
-    return {
+    report = {
         "schema": "mtdp-best-move-v1", "scan_successor_depth": scan.depth,
         "baseline_inputs": base_inputs, "holdout_inputs": held_inputs,
         "baseline_fens": len(base), "holdout_fens": len(held),
@@ -233,23 +234,30 @@ def audit(baseline, holdouts, engine, scan):
             for fen, moves in sorted(scores.items())
         },
     }
+    if excluded_inputs:
+        report["exclusion_inputs"] = excluded_inputs
+        report["prior_holdout_only_overlap_fens"] = len((held.keys() & excluded.keys()) - base.keys())
+    return report
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--baseline", required=True, type=Path)
     parser.add_argument("--holdout", required=True, action="append", type=Path)
+    parser.add_argument("--exclude-previous", type=Path, action="append", default=[],
+                        help="prior holdout PDN whose trajectories and positions are excluded")
     parser.add_argument("--scan", required=True, type=Path)
     parser.add_argument("--depth", type=int, default=DEFAULT_DEPTH,
                         help="Scan successor depth; default 8")
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
-    if len({p.name for p in [args.baseline, *args.holdout]}) != len(args.holdout) + 1:
+    paths = [args.baseline, *args.holdout, *args.exclude_previous]
+    if len({p.name for p in paths}) != len(paths):
         parser.error("PDN filenames must be distinct to identify game sources")
     if args.depth < 1:
         parser.error("--depth must be positive")
     with Scan(args.scan, depth=args.depth) as scan:
-        report = audit(args.baseline, args.holdout, create_engine(), scan)
+        report = audit(args.baseline, args.holdout, create_engine(), scan, args.exclude_previous)
     report["scan_binary_sha256"] = hashlib.sha256(args.scan.read_bytes()).hexdigest()
     args.output.write_text(json.dumps(report, sort_keys=True, indent=2) + "\n", encoding="utf-8")
 

@@ -46,3 +46,36 @@ def test_scan_rejects_invalid_depth_without_starting_engine(tmp_path):
 
     with pytest.raises(ValueError, match="positive"):
         Scan(tmp_path / "scan_linux", depth=0)
+
+
+def test_prior_holdout_fens_are_excluded_from_fresh_pairs(monkeypatch):
+    from types import SimpleNamespace
+
+    from pedagogy.game import parse_fen
+    from research.mtdp import best_move_audit
+
+    base, old, fresh = "W:W:B1", "W:W:B2", "W:W:B3"
+    sources = {
+        "base": [base], "prior": [old], "fresh": [base, old, fresh],
+    }
+
+    def load(paths, engine, seen):
+        name, = paths
+        if name == "fresh":
+            assert seen == {"base", "prior"}
+        seen.add(name)
+        return (
+            {fen: parse_fen(fen) for fen in sources[name]},
+            {fen: {name} for fen in sources[name]},
+            [{"file": name}],
+        )
+
+    monkeypatch.setattr(best_move_audit, "load_positions", load)
+    engine = SimpleNamespace(legal_moves=lambda state: [])
+    report = best_move_audit.audit("base", ["fresh"], engine, SimpleNamespace(depth=12), ["prior"])
+
+    assert report["novel_holdout_fens"] == 1
+    assert report["prior_holdout_only_overlap_fens"] == 1
+    assert not report["holdout_pairs"]
+    pair, = report["pcblues_transfer_pairs"]
+    assert (pair["fen_a"], pair["fen_b"]) == (base, fresh)
