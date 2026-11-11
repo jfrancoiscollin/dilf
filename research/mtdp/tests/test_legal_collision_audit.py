@@ -35,6 +35,9 @@ def test_same_turn_collision_detects_unequal_actions(monkeypatch):
     assert result["different_legal_move_set_pairs"] == 1
     assert result["identical_legal_move_set_pairs"] == 0
     assert len(result["counterexamples"]) == 1
+    assert result["counterexamples"][0]["moves_only_a"] == 1
+    assert result["counterexamples"][0]["moves_only_b"] == 1
+    assert result["counterexamples"][0]["shared_moves"] == 0
 
 
 def test_opposite_turns_never_compared(monkeypatch):
@@ -54,6 +57,7 @@ def test_duplicate_fen_deduplicated_across_games(monkeypatch):
     assert result["turn_conditioned_collision_pairs"] == 1
     assert result["identical_legal_move_set_pairs"] == 1
     assert result["cross_game_collision_pairs"] == 1
+    assert result["different_legal_move_set_cross_game_pairs"] == 0
 
 
 def test_same_fen_inconsistent_actions_fail_closed(monkeypatch):
