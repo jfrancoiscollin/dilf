@@ -159,6 +159,8 @@ jobs:
           from pathlib import Path
           report = json.loads(Path("/tmp/mtdp-legal-collisions.json").read_text())
           assert report["games"] == 26
+          assert report["positions_replayed"] == 1864
+          assert 0 < report["distinct_fens"] <= report["positions_replayed"]
           assert (report["identical_legal_move_set_pairs"]
                   + report["different_legal_move_set_pairs"]
                   == report["turn_conditioned_collision_pairs"])
