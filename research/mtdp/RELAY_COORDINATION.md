@@ -34,3 +34,17 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
 ## Journal de relais
 
 - 2026-11-11 — Initialisation du protocole partagé ; les deux runs associés à `5067457` sont confirmés réussis. Prochaine action : relire l'état réel de la PR et le dernier head SHA, puis auditer les divergences des successeurs avant une nouvelle expérience.
+
+- 2026-11-11 UTC — Relais de validation pour Jass. Tête initiale
+  `3fdddc747a658eaf7f1b19a633742cf433147d84`. Le commit qui introduit
+  cette entrée enregistre le protocole, le script, les tests et le
+  [rapport Scan 3.1](BEST_MOVE_BASELINE_2026-11-11.md). Le
+  [run downstream initial](https://github.com/jfrancoiscollin/dilf/actions/runs/43072960792)
+  confirme 61 divergences de successeurs sur 61 paires PC Blues.
+  Deux exécutions distantes dans le workspace ont produit le même JSON
+  à profondeur 8. Les 53 tests MTDP passent. Sur 40 paires scorées hors PC Blues, 21 ont des
+  ensembles de coups optimaux disjoints. Sur 95 transferts PC Blues
+  vers une position nouvelle, 47 entraînent une perte positive
+  (maximum 1,37 pion sur l'échelle de Scan). Échantillon de convenance,
+  paires dépendantes. **Prochaine action :** rescoring des mêmes paires
+  à profondeur 12 et mesure de la stabilité des désaccords et des coûts.
