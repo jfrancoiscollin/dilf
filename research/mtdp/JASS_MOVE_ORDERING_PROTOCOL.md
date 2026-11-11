@@ -1,6 +1,8 @@
 # MTDP — protocole préenregistré du benchmark Jass à budget de nœuds apparié
 
-Statut : **préenregistré ; non implémenté, non exécuté**. Aucun gain de force ni de vitesse n'est établi.
+Statut : **protocole scientifique préenregistré ; prévalidation mécanique Jass implémentée et exécutée ; benchmark sur cohorte indépendante non exécuté**. Aucun gain de force ni de vitesse n'est établi.
+
+La [prévalidation Jass](jass_preflight/README.md) utilise quatre positions artificielles, trois bras et 36 recherches avec plafonds de nœuds. Deux sorties identiques sont archivées ; le moteur est épinglé à `cfe07fce6385b980553a898e9651d53419589ebc`. Elle ne valide **ni** les classements Scan transférés, **ni** la correspondance des identifiants de coups DILF/Jass, **ni** les gains de recherche. Les [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43111437276) et [tests FMJD/PC Blues](https://github.com/jfrancoiscollin/dilf/actions/runs/43111437195) du commit `107e6ce` réussissent ; le préflight Jass n'est pas exécuté par ces workflows.
 
 ## Question et critère principal
 
