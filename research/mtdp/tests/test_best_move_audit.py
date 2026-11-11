@@ -30,3 +30,19 @@ def test_forced_scores_are_separate_from_ordinary_cost():
     assert result["a_to_b"]["ordinary_regret_centimen"] is None
     assert result["a_to_b"]["best_category"] == "win"
     assert result["a_to_b"]["transferred_category"] == "loss"
+
+
+def test_scan_depth_configuration_without_starting_engine(tmp_path):
+    from research.mtdp.best_move_audit import Scan, DEFAULT_DEPTH
+
+    binary = tmp_path / "scan_linux"
+    assert Scan(binary).depth == DEFAULT_DEPTH == 8
+    assert Scan(binary, depth=12).depth == 12
+
+
+def test_scan_rejects_invalid_depth_without_starting_engine(tmp_path):
+    import pytest
+    from research.mtdp.best_move_audit import Scan
+
+    with pytest.raises(ValueError, match="positive"):
+        Scan(tmp_path / "scan_linux", depth=0)
