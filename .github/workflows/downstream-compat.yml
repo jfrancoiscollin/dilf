@@ -207,7 +207,9 @@ jobs:
           assert report["observations"] == 1864
           assert report["distinct_fen_pairs"] > 0
           assert report["different_legal_action_pairs"] == 0
-          assert report["different_successor_fen_pairs"] <= report["distinct_fen_pairs"]
+          assert report["distinct_fen_pairs"] == 61
+          assert report["different_successor_fen_pairs"] == 61
+          assert report["different_successor_quiet_signature_pairs"] == 61
           print(json.dumps(report, indent=2, sort_keys=True))
           PY
 
