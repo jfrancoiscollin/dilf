@@ -43,6 +43,12 @@ def test_mapping_checks_entire_catalogue(catalogue, message):
         map_root_moves([Move((7, 1), promotion=True)], catalogue)
 
 
+def test_mapping_rejects_duplicate_canonical_actions():
+    move = Move((7, 1), promotion=True)
+    with pytest.raises(MoveMappingError, match="Duplicate DILF canonical action"):
+        map_root_moves([move, move], [("7-1", True)])
+
+
 def test_against_pinned_jass_catalogue():
     executable = os.environ.get("MTDP_JASS_CATALOGUE")
     if not executable:
