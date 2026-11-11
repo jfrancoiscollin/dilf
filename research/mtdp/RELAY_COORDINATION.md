@@ -94,3 +94,18 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   0,50 pion. **Prochaine action :** mesurer la couverture et le regret des
   trois premiers coups transférés sur les cohortes gelées, pour évaluer
   l'ordre des coups avant un éventuel benchmark Jass à budget apparié.
+
+- 2026-11-11 20:46 UTC — Relais recherche MTDP. Tête initiale
+  `489129e13dec14319ec8ac178b7507ea19ed1a0b`, [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43094837410)
+  et [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43094837554)
+  **success** ; toutes les étapes FMJD et PC Blues réussies. Commits
+  `09536bf`, `4abcd59`, `b937b16` : nouvel audit hors-ligne des
+  trois premiers coups transférés, six tests unitaires et protocole
+  `TOP_THREE_TRANSFER_PROTOCOL.md`. **Aucun rapport numérique top-3 exécuté** ;
+  les JSON gelés ne sont pas présents dans cette session. Actions du commit
+  `b937b16` [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43098225137)
+  et [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43098225115)
+  étaient en attente lors du contrôle. **Prochaine action :** vérifier les
+  nouveaux tests, restaurer les deux JSON profondeur 12 épinglés et exécuter
+  `python -m research.mtdp.top_k_transfer ... --k 3` ; contrôler les
+  invariants de couverture et regret avant publication de résultats.
