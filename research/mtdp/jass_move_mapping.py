@@ -23,6 +23,8 @@ def map_root_moves(moves: Iterable[Move], jass_moves: Catalogue) -> dict[Action,
     expected: dict[str, bool] = {}
     for move in moves:
         action = _action_key(move)
+        if action in mapping:
+            raise MoveMappingError(f"Duplicate DILF canonical action: {action}")
         separator = "x" if move.is_capture else "-"
         key = f"{move.from_square}{separator}{move.to_square}"
         if move.is_capture:
