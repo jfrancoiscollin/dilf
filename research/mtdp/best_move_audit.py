@@ -19,12 +19,15 @@ from research.mtdp.draught_master_adapter import create_engine
 from research.mtdp.pdn import PdnReplayError, read_games, validated_trajectory
 from research.mtdp.successor_audit import _action_key, _quiet_signature
 
-DEPTH = 8
+DEFAULT_DEPTH = 8
 Action = tuple[tuple[int, ...], tuple[int, ...], bool]
 
 
 class Scan:
-    def __init__(self, binary: Path):
+    def __init__(self, binary: Path, depth: int = DEFAULT_DEPTH):
+        if depth < 1:
+            raise ValueError("Scan depth must be positive")
+        self.depth = depth
         self.binary = binary.resolve()
         self.lines: Queue[str | None] = Queue()
 
@@ -90,14 +93,14 @@ class Scan:
             for square in squares:
                 board[square - 1] = piece
         position = state.turn[0].upper() + "".join(board)
-        self.send("new-game", f"pos pos={position}", f"level depth={DEPTH}", "go analyze")
-        pattern = re.compile(rf"^info depth={DEPTH}\b.*?\bscore=(-?\d+\.\d+)\b")
+        self.send("new-game", f"pos pos={position}", f"level depth={self.depth}", "go analyze")
+        pattern = re.compile(rf"^info depth={self.depth}\b.*?\bscore=(-?\d+\.\d+)\b")
         scores = [
             int(Decimal(match[1]) * 100)
             for line in self.until("done") if (match := pattern.search(line))
         ]
         if not scores:
-            raise RuntimeError(f"No depth-{DEPTH} score for {state_to_fen(state)}")
+            raise RuntimeError(f"No depth-{self.depth} score for {state_to_fen(state)}")
         return scores[-1]
 
 
@@ -219,7 +222,7 @@ def audit(baseline, holdouts, engine, scan):
     primary = compare(holdout_pairs, held_games, held_games)
     transfer = compare(transfer_pairs, base_games, held_games)
     return {
-        "schema": "mtdp-best-move-v1", "scan_successor_depth": DEPTH,
+        "schema": "mtdp-best-move-v1", "scan_successor_depth": scan.depth,
         "baseline_inputs": base_inputs, "holdout_inputs": held_inputs,
         "baseline_fens": len(base), "holdout_fens": len(held),
         "overlapping_fens": len(held) - len(novel), "novel_holdout_fens": len(novel),
@@ -237,11 +240,15 @@ def main():
     parser.add_argument("--baseline", required=True, type=Path)
     parser.add_argument("--holdout", required=True, action="append", type=Path)
     parser.add_argument("--scan", required=True, type=Path)
+    parser.add_argument("--depth", type=int, default=DEFAULT_DEPTH,
+                        help="Scan successor depth; default 8")
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
     if len({p.name for p in [args.baseline, *args.holdout]}) != len(args.holdout) + 1:
         parser.error("PDN filenames must be distinct to identify game sources")
-    with Scan(args.scan) as scan:
+    if args.depth < 1:
+        parser.error("--depth must be positive")
+    with Scan(args.scan, depth=args.depth) as scan:
         report = audit(args.baseline, args.holdout, create_engine(), scan)
     report["scan_binary_sha256"] = hashlib.sha256(args.scan.read_bytes()).hexdigest()
     args.output.write_text(json.dumps(report, sort_keys=True, indent=2) + "\n", encoding="utf-8")
