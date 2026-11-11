@@ -52,6 +52,7 @@ def audit_legal_collisions(games: list[PdnGame], engine: EngineProtocol) -> dict
     equal_pairs = 0
     unequal_pairs = 0
     cross_game_pairs = 0
+    unequal_cross_game_pairs = 0
     examples: list[dict[str, Any]] = []
     for key, positions in sorted(groups.items()):
         items = sorted(positions.items())
@@ -61,7 +62,9 @@ def audit_legal_collisions(games: list[PdnGame], engine: EngineProtocol) -> dict
                 equal = legal_a == legal_b
                 equal_pairs += int(equal)
                 unequal_pairs += int(not equal)
-                cross_game_pairs += int(len(games_a | games_b) > 1)
+                is_cross_game = len(games_a | games_b) > 1
+                cross_game_pairs += int(is_cross_game)
+                unequal_cross_game_pairs += int(is_cross_game and not equal)
                 if not equal and len(examples) < 10:
                     examples.append({
                         "fen_a": fen_a,
@@ -69,6 +72,9 @@ def audit_legal_collisions(games: list[PdnGame], engine: EngineProtocol) -> dict
                         "turn": key[-1],
                         "legal_moves_a": len(legal_a),
                         "legal_moves_b": len(legal_b),
+                        "moves_only_a": len(legal_a - legal_b),
+                        "moves_only_b": len(legal_b - legal_a),
+                        "shared_moves": len(legal_a & legal_b),
                         "games_a": sorted(games_a),
                         "games_b": sorted(games_b),
                     })
@@ -81,6 +87,7 @@ def audit_legal_collisions(games: list[PdnGame], engine: EngineProtocol) -> dict
         "identical_legal_move_set_pairs": equal_pairs,
         "different_legal_move_set_pairs": unequal_pairs,
         "cross_game_collision_pairs": cross_game_pairs,
+        "different_legal_move_set_cross_game_pairs": unequal_cross_game_pairs,
         "counterexamples": examples,
         "interpretation": (
             "Exact square-indexed legal-action equality is a necessary "
