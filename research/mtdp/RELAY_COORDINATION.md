@@ -60,3 +60,19 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   Validation des nouveaux commits : à vérifier. **Prochaine action :**
   vérifier CI sur `29d800f`, puis relancer les mêmes paires à profondeur 12
   en conservant les fichiers et SHA des corpus et en comparant les cohortes.
+
+- 2026-11-11 19 UTC — Relais de validation pour Jass. Tête initiale
+  `6c62568ca1bfcd0456fbf31e9fa60a58014002ea`. Le commit qui ajoute
+  cette entrée enregistre le comparateur, ses tests et le
+  [rapport de sensibilité à la profondeur](BEST_MOVE_DEPTH_SENSITIVITY_2026-11-11.md).
+  [CI de la tête initiale](https://github.com/jfrancoiscollin/dilf/actions/runs/43080656811)
+  et [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43080656712)
+  réussis. Le rapport profondeur 8 reproduit le SHA précédent et deux runs
+  à profondeur 12 produisent des JSON identiques. Les 58 tests MTDP passent.
+  Sur 40 paires externes, 18 ont des optima disjoints à profondeur 12,
+  dont 12 aux deux profondeurs. Deux des 95 transferts PC Blues vers
+  l'externe dépassent 0,50 pion aux deux profondeurs (1,29 et 1,35 à
+  profondeur 12). Échantillon majoritairement bullet et paires dépendantes.
+  **Prochaine action :** préenregistrer et tester le voisinage diagonal
+  adverse typé de rayon deux sur un nouvel échantillon indépendant, avec
+  mesure des paires conservées et des transferts coûteux à profondeur 12.
