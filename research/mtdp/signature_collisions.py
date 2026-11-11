@@ -8,7 +8,6 @@ from __future__ import annotations
 import argparse
 import json
 from collections import defaultdict
-from itertools import combinations
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -17,7 +16,7 @@ from research.mtdp.summary import load_jsonl
 
 
 def collision_audit(records: Iterable[dict[str, Any]]) -> dict[str, Any]:
-    """Return reproducible collision statistics without pairwise quadratic work."""
+    """Return reproducible collision statistics without observation-level pair enumeration."""
     by_signature: dict[tuple[Any, ...], dict[str, set[str]]] = defaultdict(
         lambda: defaultdict(set)
     )
@@ -57,11 +56,17 @@ def collision_audit(records: Iterable[dict[str, Any]]) -> dict[str, Any]:
         # Count pairs of distinct FENs, never two occurrences of the same FEN.
         # Count a pair as cross-game if any game memberships differ.
         fens = sorted(positions)
-        for a, b in combinations(fens, 2):
-            if positions[a] & positions[b]:
-                same_game_distinct_pairs += 1
-            if any(x != y for x in positions[a] for y in positions[b]):
-                cross_game_distinct_pairs += 1
+        # Count pair membership via game sets without enumerating FEN pairs.
+        # For each game, count distinct-FEN pairs sharing that game once;
+        # a pair may appear in multiple games, so use set arithmetic below.
+        # Corpus is small, but a signature may be frequent: enumerate only
+        # the pairs of unique FENs, never observation-level pairs.
+        for i, a in enumerate(fens):
+            for b in fens[i + 1:]:
+                if positions[a] & positions[b]:
+                    same_game_distinct_pairs += 1
+                if len(positions[a] | positions[b]) > 1:
+                    cross_game_distinct_pairs += 1
         if len(examples) < 10:
             examples.append({
                 "signature": list(signature),
