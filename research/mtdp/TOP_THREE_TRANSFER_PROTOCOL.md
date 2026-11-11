@@ -1,6 +1,6 @@
 # MTDP — pre-analysis specification: top-three transfer candidates
 
-Status: **offline diagnostic implemented, numerical evaluation not yet performed in this relay**. Apply without selecting pairs based on outcome to the **unchanged** depth-12 Scan reports from `BEST_MOVE_DEPTH_SENSITIVITY_2026-11-11.md` and `LOCAL_NEIGHBORHOOD_RESULTS_2026-11-11.md`.
+Status: **completed**. See the [numerical results](TOP_THREE_TRANSFER_RESULTS_2026-11-11.md). The diagnostic uses the **unchanged** depth-12 Scan reports from `BEST_MOVE_DEPTH_SENSITIVITY_2026-11-11.md` and `LOCAL_NEIGHBORHOOD_RESULTS_2026-11-11.md`.
 
 ## Question and estimand
 

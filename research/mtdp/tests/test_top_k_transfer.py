@@ -1,7 +1,7 @@
 """Deterministic tests for the offline top-k transfer diagnostic."""
 import unittest
 
-from research.mtdp.top_k_transfer import _direction, _ranked, analyze
+from research.mtdp.top_k_transfer import _direction, _ranked, _summarize, analyze
 
 
 class TopKTransferTests(unittest.TestCase):
@@ -37,6 +37,19 @@ class TopKTransferTests(unittest.TestCase):
         result = _direction("a", "b", self.scores, 4)
         self.assertTrue(result["covered"])
         self.assertEqual(result["ordinary_regret_centimen"], 0)
+
+    def test_shortlist_can_cover_the_entire_legal_set(self):
+        result = _direction("a", "b", self.scores, 5)
+        self.assertEqual(result["candidate_count"], 4)
+        self.assertEqual(_summarize([result])["full_legal_set_transfers"], 1)
+
+    def test_forced_win_switch_excluded_from_ordinary_regret(self):
+        self.scores["b"][-1]["score"] = 9999
+        result = _direction("a", "b", self.scores, 3)
+        summary = _summarize([result])
+        self.assertEqual(summary["category_switches"], {"win->ordinary": 1})
+        self.assertEqual(summary["ordinary_transfers"], 0)
+        self.assertIsNone(summary["ordinary_regret_max"])
 
     def test_missing_action_rejected(self):
         self.scores["b"].pop()

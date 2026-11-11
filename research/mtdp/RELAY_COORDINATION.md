@@ -109,3 +109,22 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   nouveaux tests, restaurer les deux JSON profondeur 12 épinglés et exécuter
   `python -m research.mtdp.top_k_transfer ... --k 3` ; contrôler les
   invariants de couverture et regret avant publication de résultats.
+
+- 2026-11-11 21:20 UTC — Relais de validation pour Jass. Tête initiale
+  `ed04c845ade26a6b2a98bcf3bb81d93b8dd0e720`. Le commit qui ajoute cette
+  entrée publie le [rapport top-3](TOP_THREE_TRANSFER_RESULTS_2026-11-11.md)
+  par sens de transfert. Les deux rapports Scan épinglés ont été retrouvés
+  et leurs SHA-256 vérifiés. Deux exécutions identiques pour chacun des
+  paramètres k=1 et k=3. Invariants vérifiés sur 2 272 transferts. Sur
+  PC Blues → rapide, la couverture passe de 96/249 à 184/249, les pertes
+  d'au moins 0,50 pion de 13 à 0, et la perte maximale à 0,24 pion avec
+  trois candidats. Ces paires se recoupent et comparent deux tailles de
+  listes. Les 71 tests MTDP et les 643 tests de la suite générale passent
+  après correction d'une f-string invalide qui bloquait la collecte.
+  [CI de la tête initiale](https://github.com/jfrancoiscollin/dilf/actions/runs/43098259673)
+  en attente. [Compatibilité initiale](https://github.com/jfrancoiscollin/dilf/actions/runs/43098259662)
+  signalée en échec au niveau du run et déjà en file d'attente au niveau
+  du job. Les runs consultés n'exécutaient pas cet audit Scan hors ligne.
+  **Prochaine action :** figer le protocole du benchmark Jass sur de
+  nouvelles parties, avec recherche par défaut et contrôle de trois coups
+  canoniques au même budget de nœuds que le transfert.
