@@ -43,3 +43,24 @@ a separate quarantine record with no partial positions.
 
 A rules adapter and independent FMJD validation are still prerequisites for
 scientifically trusted trajectories. No engine is bundled in MTDP.
+
+## Existing draught-master adapter
+
+A thin optional adapter is now available at
+`research.mtdp.draught_master_adapter:create_engine`. It wraps
+`draught-master/backend/game_engine.py` (its `GameState`, `Move`,
+`get_legal_moves`, and `apply_move`) without vendoring the rules.
+
+If the two repositories are checked out side by side:
+
+```bash
+PYTHONPATH="../draught-master:." python -m research.mtdp.trajectories \
+  --engine-factory research.mtdp.draught_master_adapter:create_engine
+```
+
+The adapter preserves men/kings, turn, capture paths and promotions. Each
+move is rechecked against the native legal move list before application.
+The DILF repository does not require draught-master to import its research
+modules or run unit tests. Before trusting the PC Blues export, run an
+integration test using the actual downstream rules implementation and
+independently cross-check replayed FEN sequences.
