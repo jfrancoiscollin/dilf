@@ -62,3 +62,27 @@ jobs:
 
       - name: dilf public API snapshot (sanity)
         run: pytest dilf/pedagogy/tests/test_public_api.py -q
+
+      - name: MTDP replay of PC Blues with real FMJD rules
+        env:
+          PYTHONPATH: ${{ github.workspace }}/dilf:${{ github.workspace }}/draught-master
+        run: |
+          python -m research.mtdp.trajectories \
+            --engine-factory research.mtdp.draught_master_adapter:create_engine \
+            --pdn dilf/data/exports/pcblues/pcblues_games.pdn \
+            --output /tmp/mtdp-trajectories.jsonl \
+            --quarantine /tmp/mtdp-quarantine.jsonl
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from research.mtdp.pdn import read_games
+          games = read_games(Path("dilf/data/exports/pcblues/pcblues_games.pdn"))
+          rows = [json.loads(line) for line in Path("/tmp/mtdp-trajectories.jsonl").read_text().splitlines()]
+          errors = [json.loads(line) for line in Path("/tmp/mtdp-quarantine.jsonl").read_text().splitlines()]
+          print(f"Parsed games: {len(games)}; accepted: {len(games)-len(errors)}; positions: {len(rows)}")
+          if errors:
+              print("Quarantined games:", json.dumps(errors, ensure_ascii=False, indent=2))
+          assert len(games) == 26, "Unexpected PC Blues corpus size"
+          assert not errors, "FMJD replay failed; inspect quarantine output above"
+          assert len({r["source_id"] for r in rows}) == 26
+          PY
