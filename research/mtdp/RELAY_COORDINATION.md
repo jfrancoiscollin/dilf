@@ -130,3 +130,19 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   canoniques au même budget de nœuds que le transfert.
 
 - 2026-11-11 21:43 UTC — Relais recherche MTDP. Lecture du journal et des rapports top-3, confirmation que le run `43098259673` (CI) est encore `queued` et que `43098259662` (downstream) affiche `failure` alors que son job `130783693312` apparaît `queued` : **état incohérent côté GitHub, pas de diagnostic de test possible**. Le commit `c1baeb2554ef59f588b7bcbb4ed0a7e8e36af670` préenregistre `JASS_MOVE_ORDERING_PROTOCOL.md` : cohorte indépendante, trois bras (natif/transfert top-3/témoin canonique), budgets de nœuds appariés, contrôle TT, critères et arrêt. **Benchmark Jass non implémenté et non exécuté.** Prochaine action : vérifier l'état Actions du dernier head puis auditer l'API Jass pour déterminer si la limite de nœuds et l'ordre racine sont injectables sans changer le moteur ; implémenter d'abord les tests d'intégration.
+
+- 2026-11-11 22:22 UTC — Relais de validation pour Jass. Tête initiale
+  `34c1082b50bbe2a85460b1e8c6605b1f9b2b00bb`. Les runs
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43105587481)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43105587507)
+  réussissent. Le dernier artefact PC Blues est `13894171214`.
+  Aucun job GitHub Actions équivalent identifié. Le commit qui introduit cette entrée
+  ajoute le [test d'intégration Jass](jass_preflight/README.md) sur le moteur
+  épinglé à `cfe07fc`. Sur quatre positions de test, les trois bras gardent le
+  même ensemble légal. Les ordres forcés sont visibles dans les traces et
+  les 36 recherches respectent le plafond fixé. Deux exécutions identiques.
+  La suite Jass et les 643 tests DILF passent. Le test utilise des rangs
+  artificiels et l'évaluation artisanale de Jass.
+  **Prochaine action :** préparer et geler le manifeste de la cohorte
+  indépendante, avec sélection des sources sans scores cibles, vérification
+  de la correspondance des coups DILF/Jass et configuration d'évaluation épinglée.
