@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-#include "movegen.hpp"
+#include "move_key.hpp"
 #include "position.hpp"
 #include "search.hpp"
 
@@ -15,15 +15,6 @@
 namespace {
 
 using Order = std::vector<std::string>;
-
-std::string key(const jass::Move& move) {
-    const auto separator = move.is_capture() ? 'x' : '-';
-    std::string result = std::to_string(move.from) + separator + std::to_string(move.to);
-    for (auto squares = move.captured; squares;) {
-        result += 'x' + std::to_string(jass::pop_lsb(squares));
-    }
-    return result;
-}
 
 void require(bool condition, const char* detail) {
     if (!condition) throw std::runtime_error(detail);
@@ -42,7 +33,7 @@ Order legal_order(const jass::Position& position, bool canonical = false) {
         });
     }
     Order keys;
-    for (const auto& move : ordered) keys.push_back(key(move));
+    for (const auto& move : ordered) keys.push_back(jass_move_key(move));
     return keys;
 }
 
@@ -91,9 +82,9 @@ void check_arm(const jass::Position& position, const Order& legal, const Order& 
                 "expected an exact node stop");
     }
     Order catalogue;
-    for (const auto& move : trace.root_actions) catalogue.push_back(key(move));
+    for (const auto& move : trace.root_actions) catalogue.push_back(jass_move_key(move));
     require(catalogue == legal, "search changed the generated legal move catalogue");
-    require(std::find(legal.begin(), legal.end(), key(result.best_move)) != legal.end(),
+    require(std::find(legal.begin(), legal.end(), jass_move_key(result.best_move)) != legal.end(),
             "search returned an illegal move");
     require(!trace.attempts.empty(), "missing root trace");
     const auto& first = trace.attempts.front();
@@ -104,7 +95,7 @@ void check_arm(const jass::Position& position, const Order& legal, const Order& 
         }
         const Order& expected = order.empty() ? legal : order;
         Order visited;
-        for (const auto& action : attempt.actions) visited.push_back(key(action.move));
+        for (const auto& action : attempt.actions) visited.push_back(jass_move_key(action.move));
         require(visited.size() <= expected.size()
                 && std::equal(visited.begin(), visited.end(), expected.begin()),
                 "visited root order disagrees with expected order");
@@ -115,7 +106,7 @@ void check_arm(const jass::Position& position, const Order& legal, const Order& 
     std::cout << position.to_fen() << '\t' << arm << '\t' << budget << '\t'
               << result.nodes << '\t' << result.completed_depth << '\t'
               << jass::search_stop_reason_name(result.stop_reason) << '\t'
-              << key(result.best_move) << '\t' << result.root_order_applications << '\n';
+              << jass_move_key(result.best_move) << '\t' << result.root_order_applications << '\n';
 }
 
 }  // namespace
