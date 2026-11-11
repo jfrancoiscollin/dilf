@@ -39,3 +39,7 @@ contains a schema version, source provenance, a stable position hash, and
 3. Construct non-tactical controls, stratify by material and game phase, and
    compare with out-of-sample engine assessments.
 4. Only promote independently validated metrics into `pedagogy/features/`.
+
+The [legal-action signature ablation](LEGAL_SIGNATURE_ABLATION_2026-11-11.md)
+reports how geometric information affects collision counts on the PC Blues
+replay and gives the reproduction command.

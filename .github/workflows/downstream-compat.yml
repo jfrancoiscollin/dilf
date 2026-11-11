@@ -184,6 +184,10 @@ jobs:
           assert variants["coarse_turn"]["distinct_fen_pairs"] == 137
           assert variants["coarse_turn"]["different_legal_move_set_pairs"] == 114
           assert variants["exact_occupancy"]["distinct_fen_pairs"] == 0
+          assert variants["exact_occupancy"]["distinct_signatures"] == report["distinct_fens"]
+          quiet = variants["quiet_man_geometry"]
+          assert quiet["distinct_fen_pairs"] > 0
+          assert quiet["different_legal_move_set_pairs"] == 0
           print(json.dumps(report, indent=2, sort_keys=True))
           PY
 
