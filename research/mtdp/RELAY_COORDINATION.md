@@ -298,3 +298,22 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   action :** préenregistrer un quatrième tournoi indépendant, fixer le
   classement source à profondeur 12 et évaluer les cibles à profondeur
   16 pour confirmer l'avantage hors ligne à taille égale.
+
+- 2026-11-12 06:28 UTC — Relais recherche MTDP. Tête initiale
+  `c2c938da2deee0cdf3e7986e6e42afbf96d88038`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43163366193)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43163366126)
+  réussies, artefact PC Blues `13919276627`. Aucun job équivalent identifié.
+  Le [gel du quatrième tournoi](https://github.com/jfrancoiscollin/dilf/commit/2eb1c84132723d3913a3b17850f0bdc7552c7f55)
+  précède les scores, avec [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43167755489)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43167755582)
+  réussies. Le commit de cette entrée publie le
+  [contrôle source Scan 12 / cible Scan 16](jass_benchmark/fourth-3onq5G6G/RESULTS_2026-11-12.md).
+  Sur 74 paires d'un tournoi 3+0, 40 ont des optima disjoints. Les trois
+  coups transférés couvrent un optimum sur 55/74 contre 26/74 pour
+  le témoin canonique, avec 0 contre 8 coûts d'au moins un demi-pion
+  parmi 73 scores ordinaires. Les références et la comparaison ont
+  été reproduites à l'octet. 97 tests MTDP avec catalogue Jass et 643
+  tests DILF réussis. **Prochaine action :** préenregistrer un cinquième
+  tournoi indépendant pour un benchmark Jass à budgets de nœuds
+  identiques, avec classement source fixé et témoin de même taille.

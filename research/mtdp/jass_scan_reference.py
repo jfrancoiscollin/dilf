@@ -17,13 +17,17 @@ SCAN_EVAL_SHA256 = "0e7161c38af605f5e367f3f8fe17525d1c40db722714c68921971b386e58
 SCAN_INI_SHA256 = "dc201a7debaf98bb869fb3d6b641adb219df71b0ea22004b2d9b6f51cdb69538"
 
 
-def score_manifest(manifest, engine, scan):
+def score_manifest(manifest, engine, scan, *, role=None):
     if manifest["schema"] != "mtdp-jass-cohort-v1":
         raise ValueError("Expected a frozen Jass cohort")
+    if role not in (None, "source", "target"):
+        raise ValueError(f"Unexpected scoring role: {role}")
+    fen_fields = ("source_fen", "target_fen") if role is None else (f"{role}_fen",)
     expected_actions = {}
     for row in manifest["targets"]:
         actions = tuple(_action(move) for move in row["legal_moves"])
-        for fen in (row["source_fen"], row["target_fen"]):
+        for field in fen_fields:
+            fen = row[field]
             if expected_actions.setdefault(fen, actions) != actions:
                 raise ValueError(f"Inconsistent frozen action set for {fen}")
 
@@ -42,18 +46,21 @@ def score_manifest(manifest, engine, scan):
             except RuntimeError as exc:
                 raise RuntimeError(f"Scan failed for {fen}, action {action}: {exc}") from exc
 
-    transfers = []
-    for row in manifest["targets"]:
-        source, target = row["source_fen"], row["target_fen"]
-        transfer = compare_scores(scores[source], scores[target])
-        transfers.append({"source_fen": source, "target_fen": target, **transfer})
-    return {
+    report = {
         "action_scores_centimen": {
             fen: [{"action": action, "score": score} for action, score in moves.items()]
             for fen, moves in scores.items()
         },
-        "transfers": transfers,
     }
+    if role is None:
+        report["transfers"] = []
+        for row in manifest["targets"]:
+            source, target = row["source_fen"], row["target_fen"]
+            transfer = compare_scores(scores[source], scores[target])
+            report["transfers"].append({"source_fen": source, "target_fen": target, **transfer})
+    else:
+        report["role"] = role
+    return report
 
 
 def main():
@@ -62,6 +69,8 @@ def main():
     parser.add_argument("--scan", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--depth", type=int, help="Override depth for a sensitivity study.")
+    parser.add_argument("--role", choices=("source", "target"),
+                        help="Score only one side of the frozen pairs.")
     args = parser.parse_args()
     if args.depth is not None and args.depth < 1:
         parser.error("--depth must be positive")
@@ -78,7 +87,7 @@ def main():
         parser.error("Scan evaluation data or configuration differs from the pinned checkout")
     depth = settings["scan_successor_depth"] if args.depth is None else args.depth
     with Scan(args.scan, depth=depth) as scan:
-        report = score_manifest(manifest, create_engine(), scan)
+        report = score_manifest(manifest, create_engine(), scan, role=args.role)
     report.update({
         "schema": "mtdp-jass-scan-reference-v1",
         "cohort_sha256": hashlib.sha256(manifest_bytes).hexdigest(),
