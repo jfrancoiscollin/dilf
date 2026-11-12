@@ -317,3 +317,24 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   tests DILF réussis. **Prochaine action :** préenregistrer un cinquième
   tournoi indépendant pour un benchmark Jass à budgets de nœuds
   identiques, avec classement source fixé et témoin de même taille.
+
+- 2026-11-12 07:19 UTC — Relais recherche MTDP. Tête initiale
+  `ee517b24bb2d1b51df1c6a8e70b804bbcb5f8a51`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43168401948)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43168401828)
+  réussies, artefact PC Blues `13920448654`. Aucun job équivalent identifié.
+  [Protocole](https://github.com/jfrancoiscollin/dilf/commit/b6689c731561ba7dc78c7802898a38c7a71027dd)
+  publié avant sélection et
+  [gel](https://github.com/jfrancoiscollin/dilf/commit/139213894ddbb0d0da7c2aed34440dae92713b85)
+  publié avant calcul. Le commit de cette entrée publie le
+  [benchmark Jass à budget égal](jass_benchmark/fifth-LAYRsqON/RESULTS_2026-11-12.md).
+  Sur 20 positions, 12 paires ont des optima disjoints (source Scan 12,
+  cible Scan 16). La liste transférée couvre un optimum sur 14/20
+  contre 9/20 pour le témoin. À 200 000 nœuds le regret Jass moyen
+  transfert moins témoin est +0,0105 pion (IC 95 % −0,0063 à +0,0390).
+  180 recherches au budget exact et 2 188 tentatives racine vérifiées.
+  Références et traces reproduites à l'octet, reçus identiques hors temps
+  mur. 98 tests MTDP, 643 tests DILF et `jass_tests` réussis.
+  **Prochaine action :** préenregistrer sur un nouveau tournoi le
+  contrôle de la signature géométrique face au seul ensemble exact
+  des coups légaux, et mesurer couverture et regret aux profondeurs fixées.
