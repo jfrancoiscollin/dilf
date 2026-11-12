@@ -25,11 +25,28 @@ SCAN_SHA256 = "a634cbb44c9528eab277cdf6cdf8d29d506318ce5fba3f9bc69c2025b5941864"
 BUDGETS = (10_000, 50_000, 200_000)
 
 
-def freeze_cohort(baseline, exclusions, holdout, engine, read_catalogues):
+def _serialize_descriptor(descriptor):
+    version, (turn, men, blockers), neighborhood = descriptor
+    return {
+        "version": version,
+        "turn": turn,
+        "men": sorted(men),
+        "blockers": sorted(blockers),
+        "neighborhood": neighborhood,
+    }
+
+
+def freeze_cohort(baseline, exclusions, holdout, engine, read_catalogues, *, record_provenance=False):
     seen = set()
-    base, base_games, base_inputs = load_positions([baseline], engine, seen)
+    source_plies = {} if record_provenance else None
+    target_plies = {} if record_provenance else None
+    base, base_games, base_inputs = load_positions(
+        [baseline], engine, seen, plies_by_game=source_plies
+    )
     prior, _, prior_inputs = load_positions(exclusions, engine, seen)
-    held, held_games, held_inputs = load_positions([holdout], engine, seen)
+    held, held_games, held_inputs = load_positions(
+        [holdout], engine, seen, plies_by_game=target_plies
+    )
     novel = {fen: state for fen, state in held.items() if fen not in base and fen not in prior}
     base_groups = group_positions(base)
     novel_groups = group_positions(novel)
@@ -81,20 +98,28 @@ def freeze_cohort(baseline, exclusions, holdout, engine, read_catalogues):
             rejected_pairs.append({"target_fen": target, "source_fen": source})
             continue
         counts["covered"] += 1
-        targets.append({
+        source_descriptor = typed_radius_two(base[source])
+        target_descriptor = typed_radius_two(novel[target])
+        row = {
             "target_fen": target,
             "target_games": sorted(held_games[target]),
             "source_fen": source,
             "source_games": sorted(base_games[source]),
             "source_game": min(base_games[source]),
-            "same_typed_radius_two": (
-                typed_radius_two(base[source]) == typed_radius_two(novel[target])
-            ),
+            "same_typed_radius_two": source_descriptor == target_descriptor,
             "legal_moves": [
                 {"action": action, "jass_key": key}
                 for action, key in sorted(mappings[target].items())
             ],
-        })
+        }
+        if record_provenance:
+            row.update({
+                "target_plies_by_game": target_plies[target],
+                "source_plies_by_game": source_plies[source],
+                "target_typed_radius_two": _serialize_descriptor(target_descriptor),
+                "source_typed_radius_two": _serialize_descriptor(source_descriptor),
+            })
+        targets.append(row)
     return {
         "schema": "mtdp-jass-cohort-v1",
         "baseline_inputs": base_inputs,
@@ -136,6 +161,10 @@ def main():
     parser.add_argument("--exclude-previous", required=True, action="append", type=Path)
     parser.add_argument("--holdout", required=True, type=Path)
     parser.add_argument("--jass-catalogue", required=True, type=Path)
+    parser.add_argument(
+        "--record-provenance", action="store_true",
+        help="Record all accepted game plies and both typed descriptors.",
+    )
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
     paths = [args.baseline, *args.exclude_previous, args.holdout]
@@ -147,11 +176,13 @@ def main():
         args.holdout,
         create_engine(),
         lambda states: read_jass_catalogues(args.jass_catalogue, states),
+        record_provenance=args.record_provenance,
     )
     manifest["engine"]["jass_catalogue_sha256"] = hashlib.sha256(
         args.jass_catalogue.read_bytes()
     ).hexdigest()
-    args.output.write_text(json.dumps(manifest, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+    indent = None if args.record_provenance else 2
+    args.output.write_text(json.dumps(manifest, sort_keys=True, indent=indent) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

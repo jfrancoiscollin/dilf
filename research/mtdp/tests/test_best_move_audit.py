@@ -79,3 +79,29 @@ def test_prior_holdout_fens_are_excluded_from_fresh_pairs(monkeypatch):
     assert not report["holdout_pairs"]
     pair, = report["pcblues_transfer_pairs"]
     assert (pair["fen_a"], pair["fen_b"]) == (base, fresh)
+
+
+def test_position_provenance_keeps_all_plies_of_accepted_trajectory(tmp_path, monkeypatch):
+    from pedagogy.game import parse_fen
+    from research.mtdp import best_move_audit
+    from research.mtdp.pdn import PdnGame
+
+    path = tmp_path / "holdout.pdn"
+    path.write_text("")
+    repeated = "W:W31:B20"
+    trajectory = [
+        (0, "", parse_fen(repeated)),
+        (1, "31-26", parse_fen("B:W26:B20")),
+        (4, "20-24", parse_fen(repeated)),
+    ]
+    monkeypatch.setattr(best_move_audit, "read_games", lambda _: [
+        PdnGame(1, {}, ()), PdnGame(2, {}, ()),
+    ])
+    monkeypatch.setattr(best_move_audit, "validated_trajectory", lambda *_: trajectory)
+    plies = {}
+
+    _, games, inputs = best_move_audit.load_positions([path], None, set(), plies_by_game=plies)
+
+    assert inputs[0]["duplicates"] == 1
+    assert games[repeated] == {"holdout.pdn:1"}
+    assert plies[repeated] == {"holdout.pdn:1": [0, 4]}

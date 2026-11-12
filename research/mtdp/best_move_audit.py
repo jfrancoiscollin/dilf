@@ -104,7 +104,7 @@ class Scan:
         return scores[-1]
 
 
-def load_positions(paths, engine, seen_games):
+def load_positions(paths, engine, seen_games, *, plies_by_game=None):
     states = {}
     games_by_fen = defaultdict(set)
     inputs = []
@@ -128,9 +128,11 @@ def load_positions(paths, engine, seen_games):
             seen_games.add(fens)
             source["accepted"] += 1
             game_id = f"{path.name}:{game.index}"
-            for fen, (_, _, state) in zip(fens, trajectory):
+            for fen, (ply, _, state) in zip(fens, trajectory, strict=True):
                 states[fen] = state
                 games_by_fen[fen].add(game_id)
+                if plies_by_game is not None:
+                    plies_by_game.setdefault(fen, {}).setdefault(game_id, []).append(ply)
     return states, games_by_fen, inputs
 
 

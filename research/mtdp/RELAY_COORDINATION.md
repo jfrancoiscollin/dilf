@@ -223,3 +223,20 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   à la vérification des traces avant de produire les scores Scan.
 
 - 2026-11-12 02:47 UTC — Relais recherche MTDP. PR #43 vérifiée **open**. La branche était à un commit de `1e1f645` (publication du préflight initial-only). Actions sur `1e1f645` : [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43136178074) et [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43136178047) **success**. Lecture du préflight : 30 recherches, 609 tentatives racine, restauration de l'ordre natif vérifiée sur fixtures synthétiques ; aucune mesure de qualité sur troisième tournoi. Commit `e98cd40` : `jass_benchmark/THIRD_COHORT_FREEZE_GATE.md` formalise la sélection sans fuite de scores, le gel PDN/manifeste, les exclusions et les critères d'arrêt. **Aucun troisième corpus sélectionné, aucun calcul Scan/Jass effectué, nouveaux commits non validés.** Prochaine action : choisir et télécharger un tournoi FMJD achevé et indépendant, geler le PDN et les exclusions avec SHA-256, puis générer deux fois le manifeste avant tout scoring.
+
+- 2026-11-12 03:24 UTC — Relais recherche MTDP. Tête initiale
+  `a6643f1bd918d2d3d49b3aae0f14fa88cd6056ec`.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43143862415)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43143862144)
+  réussies, artefact PC Blues `13910113633`. Aucun job équivalent identifié.
+  Le commit de cette entrée fige le
+  [troisième tournoi indépendant](jass_benchmark/initial-only-0gB7ETSW/README.md).
+  Sur 81 parties exportées, 72 trajectoires distinctes ont été validées et
+  17 cibles issues de 11 parties partagent la signature et les coups légaux
+  d'une source PC Blues. Aucun chevauchement avec les cibles des deux
+  benchmarks précédents, aucun rejet de correspondance Jass. Deux gels
+  identiques, 82 tests MTDP, 643 tests DILF et `jass_tests` réussis ; trace
+  de préflight reproduite à l'octet. Aucun score Scan calculé sur ce lot.
+  **Prochaine action :** raccorder le runner de benchmark au mode
+  initial-only et vérifier ses traces et budgets sur la cohorte gelée
+  avant le calcul Scan à profondeur 12.
