@@ -135,6 +135,24 @@ UTC at this check. Refresh the chronological listing and freeze the
 next eligible completed arena with both earlier provenances in order
 (`xAnBIxHN`, then `MoXhmT9b`). No new Scan scores were computed.
 
+## Scan input checks with two published freezes
+
+At 16:11 UTC on 12 November the
+[Lidraughts listing](https://lidraughts.org/api/tournament) still showed
+only the two frozen tournaments as finished among the new candidates.
+The detail endpoint for [MIDBy9dl](https://lidraughts.org/api/tournament/MIDBy9dl)
+still showed the scheduled 20:00 UTC start.
+
+The two plans contain 189 event-level target/source pair records.
+They share 30 source FENs, so scoring across both plans would use 106
+distinct source FENs and 179 distinct target FENs. The pinned FMJD
+adapter reproduced every canonical legal action and applied all 1,039
+source and 1,745 target successors. This checked the move catalogues
+without running Scan. The executable, configuration and evaluation
+hashes matched both provenances. The third-freeze input inventory
+verified all 13 exclusion PDNs and 47 prior manifest hashes.
+`prepare-score-plan` refused the two-entry index and wrote no plan.
+
 ## Continue acquisition
 
 From the DILF root, fetch a fresh listing, preserving old snapshots
@@ -190,14 +208,47 @@ hash. Publish the three verified freezes before scoring.
 
 ## Score once per distinct FEN and depth
 
-Create a JSON array of three entries in chronological order. Each
-entry has a `provenance` descriptor containing `path`,
-`stored_sha256` and `content_sha256`. Provenance supplies the
-verified score-plan and eligible-shard descriptors.
+Once the third freeze is published, run these commands from the
+DILF root in Bash. Set `THIRD_EVENT` to the verified event ID and
+`RUN_DIR` to a fresh directory. The input paths below bind the run
+to the three frozen provenances in chronological order.
 
-```sh
+```bash
+set -e
+study=research/mtdp/jass_benchmark/eighth-replication
+events=(xAnBIxHN MoXhmT9b "${THIRD_EVENT:?set the verified third event ID}")
+mkdir -p "$RUN_DIR"
+FREEZE_INDEX="$RUN_DIR/freeze-index.json"
+PACKET_INDEX="$RUN_DIR/packet-index.json"
+
+# Build input descriptors for the uncompressed JSON files used here.
+build_index() {
+  python - "$1" "$2" "$study" "$RUN_DIR" "${events[@]}" <<'PY_INDEX'
+import hashlib
+import sys
+from pathlib import Path
+
+from research.mtdp.jass_benchmark.geometry_ablation import write_json
+
+def descriptor(path):
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    return {"path": str(path), "stored_sha256": digest, "content_sha256": digest}
+
+kind, output, study, run_dir, *events = sys.argv[1:]
+entries = []
+for event in events:
+    entry = {"provenance": descriptor(Path(study) / event / "provenance.json")}
+    if kind == "packet":
+        for role in ("source", "target", "comparison"):
+            entry[role] = descriptor(Path(run_dir) / f"{event}-{role}.json")
+    entries.append(entry)
+write_json(Path(output), entries)
+PY_INDEX
+}
+
 export PYTHONPATH="$PWD:$DRAUGHT_MASTER_ROOT"
 tool=research.mtdp.jass_benchmark.multi_event_replication
+build_index freeze "$FREEZE_INDEX"
 python -m "$tool" prepare-score-plan --freeze-index "$FREEZE_INDEX" --output "$RUN_DIR/merged.json"
 for role in source target; do
   case "$role" in source) depth=12 ;; target) depth=16 ;; esac
@@ -208,22 +259,19 @@ for role in source target; do
     --merged-plan "$RUN_DIR/merged.json" --reference "$RUN_DIR/$role.json" \
     --role "$role" --output-dir "$RUN_DIR"
 done
+for event in "${events[@]}"; do
+  python -m research.mtdp.jass_benchmark.geometry_ablation analyze \
+    --provenance "$study/$event/provenance.json" \
+    --source "$RUN_DIR/$event-source.json" --target "$RUN_DIR/$event-target.json" \
+    --output "$RUN_DIR/$event-comparison.json"
+done
+build_index packet "$PACKET_INDEX"
+python -m "$tool" aggregate --packet-index "$PACKET_INDEX" --output "$RUN_DIR/summary.json"
 ```
 
 The merged scorer deduplicates positions within each role. Splitting
-validates the complete merged scores and produces references bound
-to each original frozen plan digest. Run the individual
-`geometry_ablation analyze` on those references. Create a
-chronological three-entry packet index with descriptors for
-`provenance`, `source`, `target` and `comparison` in each entry.
-Then aggregate:
-
-```sh
-python -m research.mtdp.jass_benchmark.multi_event_replication aggregate \
-  --packet-index "$PACKET_INDEX" --output "$RUN_DIR/summary.json"
-```
-
-The aggregator recomputes event analyses from verified raw scores,
+validates the complete merged scores and binds them to each original
+frozen plan digest. The aggregator recomputes event analyses from verified raw scores,
 checks target, source-selection and game ownership receipts and
 reports target-weighted outcomes with the registered tournament/game
 bootstrap, changed-source subset and leave-one-event-out summaries.

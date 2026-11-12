@@ -487,3 +487,19 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   terminé dans l'ordre du calendrier et publier son gel, en conservant
   les deux premiers comme exclusions. `MIDBy9dl` est annoncé pour
   20:00–20:57 UTC.
+
+- 2026-11-12 16:11 UTC — Relais recherche MTDP. Tête initiale
+  `b103d5012b3ba5628e41fdb6a4523b3a218dfa0d`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43247216991)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43247216948)
+  réussies, artefact PC Blues `13957117638`. Aucun job équivalent actif.
+  Les plans publiés contiennent 189 paires et partagent 30 FEN sources.
+  L'adaptateur FMJD a confirmé et appliqué 1 039 successeurs sources
+  et 1 745 successeurs cibles, sans lancer Scan. Les 13 PDN d'exclusion,
+  les 47 empreintes des manifestes antérieurs et les empreintes Scan
+  concordent. La commande de préparation refuse deux gels et ne produit
+  aucun plan. 114 tests MTDP et 643 tests DILF passent. Le test optionnel
+  du catalogue Jass est sauté. Le commit publie le
+  [contrôle des entrées et les commandes d'indexation](jass_benchmark/eighth-replication/README.md#scan-input-checks-with-two-published-freezes).
+  **Prochaine action :** geler le prochain tournoi 5+0 indépendant
+  terminé. `MIDBy9dl` est toujours annoncé pour 20:00–20:57 UTC.
