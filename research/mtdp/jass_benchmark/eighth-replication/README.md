@@ -265,6 +265,28 @@ independent PDN exports and reproduce the third freeze. Then publish
 that freeze before scoring and inspect the recovered-match summary
 alongside the preregistered paired results.
 
+## Third verified freeze on 12 November
+
+The [21:17 UTC listing](2026-11-12T211740Z-tournaments.json) and
+[detail response](MIDBy9dl-evidence/event-metadata.json) confirm that
+`MIDBy9dl` finished. Two independent
+[PDN downloads](https://lidraughts.org/api/tournament/MIDBy9dl/games)
+matched byte for byte (240,811 bytes). FMJD replay accepted 191 of
+209 records. Seven were duplicates and eleven were quarantined. The
+[provenance](MIDBy9dl/provenance.json) records the exact audit and
+input hashes. The [candidate log](MIDBy9dl-evidence/candidate-log.json)
+binds the chronological selection.
+
+| Event | Eligible | L | LM | LCB | LMB |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `MIDBy9dl` | 12,175 | 147 | 40 | 53 | 40 |
+| Three events | 29,537 | 326 | 102 | 138 | 102 |
+
+All 18 compressed eligible shards, game audit and score plan files
+reproduced byte for byte with Python hash seeds 7 and 61. The three
+freezes are ready for the preregistered Scan run at depths 12 and 16.
+This freeze contains no Scan outcomes.
+
 ## Continue acquisition
 
 From the DILF root, fetch a fresh listing, preserving old snapshots
