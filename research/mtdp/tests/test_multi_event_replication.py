@@ -154,6 +154,8 @@ def test_cli_scores_round_trip_through_three_frozen_events(tmp_path, monkeypatch
         fen, game = f"{event}-target", f"{event}-game"
         rows = [{"fen": fen, "owner": game, "games": [game], "actions": actions,
                  "matches": {arm: [["pc:1", 0, "shared"]] for arm in study.OCCUPANCY_ARMS}}]
+        if event == "C":
+            rows[0]["matches"]["LMB"] = []
         plan = {"schema": "mtdp-jass-cohort-v1",
                 "engine": {"scan_binary_sha256": scan_hashes["scan_linux"]},
                 "targets": [{"source_fen": "shared", "target_fen": fen, "legal_moves": moves}]}
@@ -190,9 +192,18 @@ def test_cli_scores_round_trip_through_three_frozen_events(tmp_path, monkeypatch
     packets, result = tmp_path / "packet-index.json", tmp_path / "summary.json"
     write(packets, entries)
     run(study, "aggregate", "--packet-index", packets, "--output", result)
-    arms = read(result)["pooled"]["arms"]
+    summary = read(result)
+    arms = summary["pooled"]["arms"]
     assert arms["L"]["top1"]["covered"] == 0 and arms["L"]["top1"]["max_centimen"] == 20
     assert arms["L"]["top3"]["covered"] == 3 and arms["L"]["top3"]["max_centimen"] == 0
+    recovered = summary["lcb_recovered_vs_lmb"]
+    assert recovered["pooled"]["targets"] == recovered["pooled"]["owning_games"] == 1
+    assert recovered["by_event"]["A"]["targets"] == 0
+    assert recovered["by_event"]["C"] == recovered["pooled"]
+    for arm in ("L", "LCB"):
+        outcome = recovered["pooled"]["arms"][arm]
+        assert outcome["top1"]["covered"] == 0 and outcome["top1"]["max_centimen"] == 20
+        assert outcome["top3"]["covered"] == 1 and outcome["top3"]["max_centimen"] == 0
     repeated = tmp_path / "repeated.json"
     run(study, "aggregate", "--packet-index", packets, "--output", repeated)
     assert result.read_bytes() == repeated.read_bytes()

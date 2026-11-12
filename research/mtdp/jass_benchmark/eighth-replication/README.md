@@ -225,6 +225,46 @@ detail API, fetch its finished PDN twice and reproduce the freeze.
 Once all three verified freezes are published, score the merged plan
 at the pinned Scan depths 12 and 16 and reproduce its analysis.
 
+## Third arena underway and recovered-match reporting
+
+The [20:13 UTC listing](2026-11-12T201339Z-tournaments.json) places
+`MIDBy9dl` in progress with the same 20:57 UTC finish. Its detail
+API independently confirmed it was in progress. The detail API for
+the earlier rejected `vHeQVFho` still returned HTTP 404. The updated
+[chronology](candidate-log.json) retains `KXaMpuNe` at 23:00 UTC and
+adds `uG0fGZzB` at 02:00 UTC on 13 November as later candidates.
+
+The third-freeze inputs were restored and checked against the frozen
+hashes. The inventory contains 13 exclusion PDNs and 47 prior manifests
+covering 32,355 unique exclusion FENs. The pinned adapter and all three
+Scan file digests matched. PC Blues replay reproduced all 1,864 rows
+byte for byte across 26 games, with zero quarantines.
+
+The [pinned Jass catalogue build](../jass-build-manifest.json) also
+reproduced its executable digest. To check compatibility, load both
+frozen plans with `read_input`, collect their source and target action
+sets with `score_catalogue`, and deduplicate by FEN. For each FEN,
+`map_root_moves` mapped the FMJD adapter's legal moves to the Jass
+catalogue, and its canonical keys exactly matched the frozen set.
+The check covered 285 FENs and 2,784 actions with no mismatches.
+All 116 MTDP tests, including the live catalogue test, and 643 DILF
+tests passed.
+
+The aggregate now includes `lcb_recovered_vs_lmb`, a supplementary
+description of targets matched by LCB with no exact mover-occupancy
+match under LMB. It shows owning-game counts, top-one and top-three
+optimum coverage, ordinary regret and category transitions for LCB and
+the exact-legal-actions control on the same targets. The existing
+preregistered estimates remain the primary analysis. A three-event
+synthetic run tests subset membership, separates first-choice and
+best-of-three regret, and reproduces the output byte for byte.
+
+At this check, the study still had two frozen tournaments and zero new
+Scan scores. Next, check the completed listing and detail, verify two
+independent PDN exports and reproduce the third freeze. Then publish
+that freeze before scoring and inspect the recovered-match summary
+alongside the preregistered paired results.
+
 ## Continue acquisition
 
 From the DILF root, fetch a fresh listing, preserving old snapshots

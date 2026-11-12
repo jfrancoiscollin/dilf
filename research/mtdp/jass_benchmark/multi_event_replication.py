@@ -177,6 +177,16 @@ def coverage_summary(rows, eligible, replayed):
     return {"eligible": eligible, "replayed": replayed, "arms": result}
 
 
+def recovered_match_summary(rows):
+    """Describe quality where relaxing exact occupancy adds an LCB match."""
+    recovered = [row for row in rows if "LCB" in row and "LMB" not in row]
+    return {
+        "targets": len(recovered),
+        "owning_games": len({row["owner"] for row in recovered}),
+        "arms": {arm: summarize_arm(recovered, arm) for arm in ("L", "LCB")},
+    }
+
+
 def validate_freezes(freezes):
     if len(freezes) != 3:
         raise ValueError("Exactly three frozen events are required before scoring or aggregation")
@@ -293,7 +303,8 @@ def aggregate(packets):
         summaries[event] = coverage_summary(matched_rows, counts["eligible"], counts["held_fens"])
         summaries[event]["freeze_counts"] = counts
         summaries[event]["game_count"] = len(provenance["event_game_ids"])
-    overall = coverage_summary([row for rows in events.values() for row in rows],
+    pooled_rows = [row for rows in events.values() for row in rows]
+    overall = coverage_summary(pooled_rows,
                                sum(s["eligible"] for s in summaries.values()),
                                sum(s["replayed"] for s in summaries.values()))
     paired = {
@@ -304,7 +315,13 @@ def aggregate(packets):
         }
         for key, metric in (("paired", "top3"), ("paired_top1", "top1"))
     }
-    return {"events": summaries, "pooled": overall, **paired}
+    return {
+        "events": summaries, "pooled": overall, **paired,
+        "lcb_recovered_vs_lmb": {
+            "pooled": recovered_match_summary(pooled_rows),
+            "by_event": {event: recovered_match_summary(rows) for event, rows in events.items()},
+        },
+    }
 
 
 def main():
