@@ -519,3 +519,16 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   annoncé pour 20:00–20:57 UTC. `KXaMpuNe` est nouvellement annoncé
   pour 23:00–23:57 UTC. **Prochaine action :** contrôler l'export du
   premier tournoi 5+0 admissible terminé et publier son gel avant Scan.
+
+- 2026-11-12 18:17 UTC — Relais recherche MTDP. Tête initiale
+  `5d46b297831120c74b1f7264465b3edb3aeec1d2`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43268015310)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43268015582)
+  réussies, artefact PC Blues `13966762421`. Aucun job équivalent actif.
+  Depuis des copies fraîches du dépôt, de l'adaptateur et de Scan,
+  les 1 346 évaluations de référence du septième tournoi et leur
+  comparaison ont été reproduites à l'octet. 115 tests MTDP, 643 tests
+  DILF et le rejeu PC Blues réussis. Catalogue Jass optionnel sauté.
+  Aucun score sur les nouveaux lots. Le relevé a confirmé deux gels
+  et les créneaux déjà archivés. **Prochaine action :** vérifier le
+  premier export 5+0 indépendant achevé, puis publier le troisième gel.

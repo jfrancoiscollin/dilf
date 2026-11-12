@@ -171,6 +171,22 @@ packet index contains the modified file's correct hash. No actual
 Scan search was run. Local validation passed 115 MTDP tests and 643
 DILF tests. The optional live Jass catalogue test was skipped.
 
+## Scan replay from a fresh checkout
+
+On 12 November, fresh checkouts of DILF and the pinned FMJD adapter
+and a fresh copy of the pinned Scan archive reproduced both
+[seventh-event references and their comparison](../seventh-pRW2Ahpz/RESULTS_2026-11-12.md#reproduction)
+byte for byte. This covered all 586 source successors at depth 12
+and 760 target successors at depth 16. The two runs used one Scan
+thread each and took 15 and 136 seconds respectively in this workspace.
+The comparison digest is
+`88946e1cee8e525ade475c3a7352e479b0ae4bfe879b732ee04d0d212a8860b5`.
+
+The [Lidraughts listing](https://lidraughts.org/api/tournament) at
+18:17 UTC still had two finished candidates and confirmed the
+20:00 and 23:00 UTC scheduled starts. The replay used the archived
+seventh event only. The three-event study still awaits its third freeze.
+
 ## Continue acquisition
 
 From the DILF root, fetch a fresh listing, preserving old snapshots
