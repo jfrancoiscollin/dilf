@@ -1,6 +1,6 @@
 # MTDP — protocole préenregistré du benchmark Jass à budget de nœuds apparié
 
-Statut : **protocole scientifique préenregistré ; prévalidation mécanique Jass implémentée et exécutée ; benchmark sur cohorte indépendante non exécuté**. Aucun gain de force ni de vitesse n'est établi.
+Statut : protocole préenregistré, prévalidation mécanique et [premier benchmark sur cohorte indépendante](jass_benchmark/RESULTS_2026-11-12.md) exécutés.
 
 La [prévalidation Jass](jass_preflight/README.md) utilise quatre positions artificielles, trois bras et 36 recherches avec plafonds de nœuds. Deux sorties identiques sont archivées ; le moteur est épinglé à `cfe07fce6385b980553a898e9651d53419589ebc`. Elle ne valide **ni** les classements Scan transférés, **ni** la correspondance des identifiants de coups DILF/Jass, **ni** les gains de recherche. Les [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43111437276) et [tests FMJD/PC Blues](https://github.com/jfrancoiscollin/dilf/actions/runs/43111437195) du commit `107e6ce` réussissent ; le préflight Jass n'est pas exécuté par ces workflows.
 
@@ -44,4 +44,4 @@ Critère principal : différence appariée de **regret Scan profondeur 12** du c
 
 ## Interprétation
 
-Un gain à budget égal serait une preuve expérimentale **sur cette cohorte et ces réglages**, pas une équivalence stratégique générale des signatures. La comparaison top-3 vs top-1 des rapports antérieurs est un diagnostic de couverture, **pas** un contrôle suffisant du bénéfice de l'ordre de recherche. Aucun chiffre du présent benchmark n'existe à la date de ce protocole.
+Un gain à budget égal serait une preuve expérimentale **sur cette cohorte et ces réglages**, pas une équivalence stratégique générale des signatures. La comparaison top-3 vs top-1 des rapports antérieurs est un diagnostic de couverture, **pas** un contrôle suffisant du bénéfice de l'ordre de recherche.

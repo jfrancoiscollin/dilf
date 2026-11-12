@@ -166,3 +166,18 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   préflight est identique à l'octet. **Prochaine action :** produire les
   scores Scan des actions du manifeste gelé à profondeur 12, puis utiliser
   ces scores dans le benchmark Jass apparié aux trois budgets.
+
+- 2026-11-12 UTC — Relais de validation pour Jass. Tête de départ du
+  calcul `c7e591318b82672b2576959847db07bb2eda81dc`, gel publié avant
+  calcul. [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43126874518)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43126874033)
+  de cette tête réussies. [Résultats et reproduction](jass_benchmark/RESULTS_2026-11-12.md) :
+  18/28 paires à optima Scan disjoints, perte maximale de 1,34 pion pour
+  le premier coup transféré et de 0,12 pion pour le meilleur des trois.
+  Les 252 recherches Jass ont atteint exactement leur plafond et reproduit
+  les mêmes sorties hors temps mur. L'écart moyen face au témoin
+  canonique va de −0,002 à −0,015 pion et les médianes sont nulles.
+  Jass natif atteint une profondeur moyenne supérieure à chaque budget.
+  Les 79 tests MTDP avec catalogue, 643 tests DILF et la suite Jass passent.
+  **Prochaine action :** répliquer le protocole inchangé sur un deuxième
+  tournoi rapide disjoint, avec agrégation par partie cible.

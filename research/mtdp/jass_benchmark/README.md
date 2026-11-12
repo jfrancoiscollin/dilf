@@ -63,8 +63,8 @@ All 79 MTDP tests passed with the Jass catalogue enabled. The Jass suite
 passed and the mechanical preflight reproduced its archived TSV byte for
 byte.
 
-Next, score the frozen source and target legal actions with Scan 3.1 at
-successor depth 12. The three Jass arms use the preflight's handcrafted
+The [benchmark report](RESULTS_2026-11-12.md) scores the frozen legal actions
+with Scan 3.1 at successor depth 12. The three Jass arms use the preflight's handcrafted
 evaluation and fresh 1 MiB TT, with one thread, no time limit and a depth
 ceiling of 64. Use the manifest's action order for the canonical top three
 and the target's Jass keys for both ordered arms. The complete scientific
