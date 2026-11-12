@@ -13,6 +13,9 @@ from pathlib import Path
 from statistics import mean, median
 
 from pedagogy.game import parse_fen
+from research.mtdp.jass_benchmark.depth_sensitivity import legal_actions, validate_reference
+from research.mtdp.jass_benchmark.offline_top3_control import candidate_lists, clustered_interval
+from research.mtdp.jass_scan_reference import SCAN_EVAL_SHA256
 from research.mtdp.top_k_transfer import _action, _category, _ranked
 
 
@@ -69,15 +72,16 @@ def read_run(raw, target, budget, prefix, scores, *, initial_only=False):
     }, ordering_trace
 
 
-def run_benchmark(manifest, reference, runner, *, initial_only=False):
+def run_benchmark(manifest, reference, runner, *, initial_only=False, source_reference=None):
     rng = random.Random(manifest["selection"]["arm_order_seed"])
     score_rows = reference["action_scores_centimen"]
+    source_rows = score_rows if source_reference is None else source_reference["action_scores_centimen"]
     requests, jobs = [], []
     for target in manifest["targets"]:
         canonical = [_action(move) for move in target["legal_moves"]]
         keys = {move: row["jass_key"] for move, row in zip(canonical, target["legal_moves"], strict=True)}
         scores = dict(_ranked(score_rows[target["target_fen"]]))
-        source = _ranked(score_rows[target["source_fen"]])
+        source = _ranked(source_rows[target["source_fen"]])
         if set(canonical) != scores.keys() or set(canonical) != {move for move, _ in source}:
             raise ValueError("Scan action scores do not match the frozen manifest")
         prefixes = {
@@ -85,6 +89,9 @@ def run_benchmark(manifest, reference, runner, *, initial_only=False):
             "transfer": [keys[move] for move, _ in source[:3]],
             "canonical": [keys[move] for move in canonical[:3]],
         }
+        if source_reference is not None:
+            _, lists = candidate_lists(target["legal_moves"], dict(source))
+            prefixes.update({arm: lists[arm] for arm in ("transfer", "canonical")})
         for budget in manifest["engine"]["jass_node_budgets"]:
             arms = list(prefixes)
             rng.shuffle(arms)
@@ -218,22 +225,71 @@ def write_jsonl(path, rows):
             output.write(json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n")
 
 
+
+def validate_cross_depth(manifest, source, target, cohort_hash):
+    if (manifest["schema"] != "mtdp-jass-cohort-v1"
+            or not manifest["targets"] or manifest["mapping_errors"] or manifest["mapping_rejected_pairs"]
+            or manifest["engine"]["scan_successor_depth"] != 12):
+        raise ValueError("Invalid frozen cross-depth cohort")
+    expected = legal_actions(manifest["targets"])
+    hashes = {"scan_linux": manifest["engine"]["scan_binary_sha256"], "data/eval": SCAN_EVAL_SHA256}
+    for role, reference, depth in (("source", source, 12), ("target", target, 16)):
+        if reference.get("role") != role:
+            raise ValueError(f"Expected the {role} Scan reference")
+        fens = {row[f"{role}_fen"] for row in manifest["targets"]}
+        validate_reference(reference, {fen: expected[fen] for fen in fens}, hashes, cohort_hash, depth)
+
+
+def cross_depth_intervals(rows):
+    comparisons = {}
+    for control in ("canonical", "native"):
+        observations = []
+        single_game = []
+        for row in rows:
+            transfer = row["arms"]["transfer"]["ordinary_regret_centimen"]
+            baseline = row["arms"][control]["ordinary_regret_centimen"]
+            if transfer is None or baseline is None:
+                continue
+            value = ("holdout", min(row["target_games"]), transfer - baseline)
+            observations.append(value)
+            if len(row["target_games"]) == 1:
+                single_game.append(value)
+        comparisons[control] = {
+            "whole_game_bootstrap": clustered_interval(observations),
+            "single_game_sensitivity": {
+                "ordinary_pairs": len(single_game),
+                "mean_delta_centimen": mean(value for _, _, value in single_game) if single_game else None,
+                **clustered_interval(single_game),
+            },
+        }
+    return comparisons
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("manifest", "scan-reference", "runner", "output-dir"):
         parser.add_argument(f"--{name}", required=True, type=Path)
     parser.add_argument("--initial-only", action="store_true")
+    parser.add_argument("--source-scan-reference", type=Path)
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_text())
     reference = json.loads(args.scan_reference.read_text())
-    if (
+    source_reference = None
+    if args.source_scan_reference:
+        if not args.initial_only:
+            parser.error("--source-scan-reference requires --initial-only")
+        source_reference = json.loads(args.source_scan_reference.read_text())
+        validate_cross_depth(manifest, source_reference, reference, sha256(args.manifest))
+    elif (
         reference["schema"] != "mtdp-jass-scan-reference-v1"
         or reference["cohort_sha256"] != sha256(args.manifest)
         or reference["scan_binary_sha256"] != manifest["engine"]["scan_binary_sha256"]
         or reference["scan_successor_depth"] != manifest["engine"]["scan_successor_depth"]
     ):
         parser.error("Scan reference does not match the frozen manifest")
-    paired, traces = run_benchmark(manifest, reference, args.runner, initial_only=args.initial_only)
+    paired, traces = run_benchmark(
+        manifest, reference, args.runner, initial_only=args.initial_only, source_reference=source_reference,
+    )
     by_budget, by_source_game = defaultdict(list), defaultdict(lambda: defaultdict(list))
     for row in paired:
         by_budget[row["budget"]].append(row)
@@ -247,9 +303,14 @@ def main():
         "jass_commit": manifest["engine"]["jass_commit"],
         "runner_sha256": sha256(args.runner), "cohort_sha256": sha256(args.manifest),
         "scan_reference_sha256": sha256(args.scan_reference), "settings": manifest["engine"],
+        **({"source_scan_reference_sha256": sha256(args.source_scan_reference),
+            "source_scan_depth": 12, "target_scan_depth": 16} if source_reference is not None else {}),
     })
     write_json(args.output_dir / "summary.json", {
         "searches": len(traces),
+        **({"cross_depth_intervals_centimen": {
+            budget: cross_depth_intervals(rows) for budget, rows in by_budget.items()
+        }} if source_reference is not None else {}),
         "by_budget": {budget: summarize(rows) for budget, rows in by_budget.items()},
         "by_target_game": {
             budget: summarize_target_games(rows) for budget, rows in by_budget.items()
