@@ -181,3 +181,6 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   Les 79 tests MTDP avec catalogue, 643 tests DILF et la suite Jass passent.
   **Prochaine action :** répliquer le protocole inchangé sur un deuxième
   tournoi rapide disjoint, avec agrégation par partie cible.
+
+
+- 2026-11-12 00:44 UTC — Relais recherche MTDP. Tête initiale `77cdce89184aa777b24baa314492158e6629e93e`, [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43127588828) et [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43127588983) **success**. Audit du benchmark indépendant : 28 cibles, 252 recherches, comparaison avec natif et témoin canonique, pas de gain de force démontré. Correction `880ce24` : `read_run` rejette désormais un reçu Jass dont `nodes` diffère du budget demandé, en plus de vérifier le budget déclaré. **Aucun test de ce correctif exécuté ni Actions du nouveau commit vérifiées au moment de cette entrée.** Prochaine action : vérifier les deux Actions, ajouter un test négatif de reçu à mauvais nombre de nœuds, puis répliquer sur un tournoi rapide indépendant avec agrégation par partie cible.
