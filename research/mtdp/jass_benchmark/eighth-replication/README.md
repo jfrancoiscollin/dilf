@@ -20,6 +20,20 @@ chronological gate. There are no new eligible freezes or Scan
 scores. Event metadata is a first filter. PDN and replay
 independence still need verification for any finished candidate.
 
+## Updated listing at 11:18:48 UTC
+
+The [second snapshot](2026-11-12T111848Z-tournaments.json) still had
+**0/3** new finished metadata candidates. It now shows the 11:00 UTC
+arena underway and another standard 5+0 arena announced before the
+14:00 UTC start. Eligibility of all three remains to be verified
+from the completed exports and replay.
+
+| Event | Listed start UTC | Listed finish UTC | Status |
+| --- | --- | --- | --- |
+| [xAnBIxHN](https://lidraughts.org/tournament/xAnBIxHN) | 11:00 | 11:57 | Started |
+| [vHeQVFho](https://lidraughts.org/tournament/vHeQVFho) | 11:52 | 12:37 | Scheduled |
+| [MoXhmT9b](https://lidraughts.org/tournament/MoXhmT9b) | 14:00 | 14:57 | Scheduled |
+
 ## Continue acquisition
 
 From the DILF root, fetch a fresh listing, preserving old snapshots
@@ -42,12 +56,36 @@ python -m research.mtdp.jass_benchmark.multi_event_replication candidates \
   "${args[@]}" --output "$study/candidate-log.json"
 ```
 
-For each candidate in order, use the [seventh freeze](../seventh-pRW2Ahpz/FREEZE.md)
-procedure with all historical PDNs and eligible manifests, including
-seventh. When freezing a later event, also exclude the PDNs and
-eligible manifests from earlier events in this replication. Verify
-the PDN, game IDs and canonical FENs, document exclusions and repeat
-each freeze. Publish all three freezes before scoring.
+## Freeze the next finished candidate
+
+Download the finished event's detail JSON and PDN from the public API.
+Use the filename `mtdp-lidraughts-$EVENT.pdn`. Keep all earlier verified
+Lidraughts PDNs in `PDN_DIR`; their names and hashes are in the
+[seventh provenance](../seventh-pRW2Ahpz/provenance.json) and the
+provenance of any earlier freezes from this replication. The freeze
+command checks those exports and archived target manifests, verifies the
+Scan build without executing it, rejects overlapping game IDs and
+performs the pinned FMJD replay. It packages the eligible shards, game
+audit and score plan with their hashes.
+
+```sh
+export PYTHONPATH="$PWD:$DRAUGHT_MASTER_ROOT"
+python -m research.mtdp.jass_benchmark.multi_event_freeze \
+  --candidate-log "$study/candidate-log.json" --event-metadata "$EVENT_METADATA" \
+  --pdn "$PDN_DIR/mtdp-lidraughts-$EVENT.pdn" --pdn-dir "$PDN_DIR" \
+  --adapter "$DRAUGHT_MASTER_ROOT" --scan "$SCAN_ROOT/scan_linux" \
+  --downloaded-at "$PDN_RETRIEVED_UTC" --output "$study/$EVENT"
+```
+
+For subsequent events, pass a `--previous-freeze` provenance path for
+each earlier event in this replication, in chronological order. If an
+earlier candidate is rejected, preserve the evidence in the chronology
+log and pass `--rejections` with the recorded event IDs and reasons.
+The next candidate must be finished in both the listing and the detail
+response. `--pdn-repeat` can verify an independent duplicate download.
+Repeat the freeze with a different Python hash seed and compare
+`eligible_sha256`, score-plan content hash and game-audit content
+hash. Publish the three verified freezes before scoring.
 
 ## Score once per distinct FEN and depth
 
@@ -94,3 +132,12 @@ Local validation before event acquisition completed 112 MTDP tests,
 643 DILF tests and FMJD replay of 26 PC Blues games (1,864 positions,
 zero quarantined games). The optional live Jass catalogue test was
 skipped. No new event scoring is part of this status report.
+
+The follow-up freeze tooling was rehearsed against the archived seventh
+event. Its 6,146 eligible rows, score plan and game audit reproduced
+their original hashes. All 11 exclusion PDNs and previous target
+manifests were verified for the next event. One initial download of
+the 2024 rapid PDN differed from the pinned bytes. Two subsequent
+fetches returned the expected digest. The freeze keeps the digest
+check in force. The updated local suite passed 114 MTDP tests and
+643 DILF tests, with the optional Jass catalogue test skipped.

@@ -396,3 +396,21 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   **Prochaine action :** rafraîchir le relevé et vérifier les exports
   dans l'ordre dès la fin des tournois. Publier les trois gels avant
   tout score, puis exécuter le plan commun.
+
+- 2026-11-12 11:24 UTC — Relais recherche MTDP. Tête initiale
+  `581723619e1033c3b0ac9bc766e9e96c8cad1421`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43200471262)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43200471245)
+  réussies, artefact PC Blues `13935161415`. Aucun job équivalent identifié.
+  [Relevé actualisé](jass_benchmark/eighth-replication/README.md)
+  à 11:18:48 UTC : `xAnBIxHN` en cours, `vHeQVFho` nouvellement
+  annoncé, `MoXhmT9b` annoncé ; **0/3** nouveaux tournois terminés.
+  Le gel s'exécute par une commande qui valide l'ordre des candidats,
+  le PDN, les empreintes et les exclusions. Répétition sur le septième
+  tournoi : 6 146 positions, plan de scores et audit identiques.
+  Les 11 PDN d'exclusion sont vérifiés. Un export historique différent
+  a été récupéré à l'identique après deux nouvelles tentatives.
+  114 tests MTDP et 643 tests DILF réussis ; catalogue Jass optionnel sauté.
+  **Prochaine action :** récupérer le premier export terminé et publier
+  son gel, puis procéder dans l'ordre jusqu'aux trois gels. Aucun score
+  nouveau avant leur publication.
