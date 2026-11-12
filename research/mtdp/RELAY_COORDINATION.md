@@ -280,3 +280,21 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   le témoin hors ligne de trois coups canoniques, puis comparer à taille
   de liste égale les couvertures et regrets des deux listes, sur les trois
   manifestes et aux profondeurs 12 et 16.
+
+- 2026-11-12 05:20 UTC — Relais recherche MTDP. Tête initiale
+  `da6eba7040e9578a38871e73878b23453332c9bc`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43156595507)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43156595525)
+  de cette tête réussies, artefact PC Blues `13916341745`. Aucun job
+  équivalent identifié. Le commit de cette entrée publie le
+  [contrôle hors ligne à taille égale](jass_benchmark/offline-top3-control/RESULTS_2026-11-12.md).
+  Les 120 cibles sont conservées aux deux profondeurs. La liste transférée
+  contient un optimum dans 81/120 cas à profondeur 12 et 89/120 à
+  profondeur 16, contre 51/120 à chaque profondeur pour le témoin
+  canonique. À profondeur 16, le regret moyen du meilleur candidat est
+  0,022 contre 0,113 pion. Deux exécutions identiques, 92 tests MTDP et
+  643 tests DILF réussis. Le test optionnel avec le catalogue Jass vivant
+  a été sauté, les correspondances gelées ont été utilisées. **Prochaine
+  action :** préenregistrer un quatrième tournoi indépendant, fixer le
+  classement source à profondeur 12 et évaluer les cibles à profondeur
+  16 pour confirmer l'avantage hors ligne à taille égale.
