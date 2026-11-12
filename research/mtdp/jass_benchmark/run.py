@@ -30,6 +30,7 @@ def read_run(raw, target, budget, prefix, scores):
     if (
         parse_fen(fen) != parse_fen(target["target_fen"])
         or int(actual_budget) != budget
+        or int(nodes) != budget
         or len(legal_keys) != len(by_key)
         or set(legal_keys) != by_key.keys()
         or order.split(",") != expected_order
