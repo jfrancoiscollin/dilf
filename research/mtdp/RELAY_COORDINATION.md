@@ -358,3 +358,24 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   **Prochaine action :** préenregistrer une ablation qui garde les coups
   légaux et les bloqueurs exacts, en remplaçant les cases de tous les
   pions du joueur au trait par leur nombre.
+
+- 2026-11-12 09:23 UTC — Relais recherche MTDP. Tête initiale
+  `95b2db99b6f9c4ee79729bdf1964935d0844f5da`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43186039717)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43186039684)
+  réussies, artefact PC Blues `13928476846`. Aucun job équivalent identifié.
+  [Addendum](https://github.com/jfrancoiscollin/dilf/commit/4806c83db089f24797b914c5ceef774ce18e41ef)
+  avant sélection et [gel](https://github.com/jfrancoiscollin/dilf/commit/827deec4677312ecf771966002a97aa95261a52c)
+  avant les scores. Le
+  [rapport du septième tournoi](jass_benchmark/seventh-pRW2Ahpz/RESULTS_2026-11-12.md)
+  porte sur 6 146 positions admissibles. Coups légaux seuls : 78
+  correspondances ; occupation exacte : 21 ; nombre et bloqueurs
+  exacts : 32 ; géométrie exacte : 21. Le comptage récupère 11
+  appariements, dont huit avec un optimum dans les trois candidats.
+  Regret du meilleur des trois identique sur les 21 paires communes
+  du contraste principal ; le choix de source ne change qu'une fois.
+  Références, analyse et reproduction du sixième rapport identiques.
+  107 tests MTDP et 643 tests DILF réussis ; catalogue Jass optionnel
+  sauté. **Prochaine action :** préenregistrer une réplication
+  multi-tournois avec les quatre règles, mesurer séparément les
+  paires où la source change et les pertes extrêmes.
