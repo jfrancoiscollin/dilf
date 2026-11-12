@@ -36,7 +36,10 @@ def _serialize_descriptor(descriptor):
     }
 
 
-def freeze_cohort(baseline, exclusions, holdout, engine, read_catalogues, *, record_provenance=False):
+def freeze_cohort(
+    baseline, exclusions, holdout, engine, read_catalogues, *,
+    record_provenance=False, include_forced=False, game_audit=None,
+):
     seen = set()
     source_plies = {} if record_provenance else None
     target_plies = {} if record_provenance else None
@@ -45,7 +48,7 @@ def freeze_cohort(baseline, exclusions, holdout, engine, read_catalogues, *, rec
     )
     prior, _, prior_inputs = load_positions(exclusions, engine, seen)
     held, held_games, held_inputs = load_positions(
-        [holdout], engine, seen, plies_by_game=target_plies
+        [holdout], engine, seen, plies_by_game=target_plies, game_audit=game_audit
     )
     novel = {fen: state for fen, state in held.items() if fen not in base and fen not in prior}
     base_groups = group_positions(base)
@@ -59,7 +62,7 @@ def freeze_cohort(baseline, exclusions, holdout, engine, read_catalogues, *, rec
         for target in fens:
             counts["quiet_candidates"] += 1
             target_moves = engine.legal_moves(novel[target])
-            if len(target_moves) < 2:
+            if not target_moves or (len(target_moves) == 1 and not include_forced):
                 counts["forced_move" if target_moves else "terminal"] += 1
                 continue
             sources = base_groups.get(signature, ())
@@ -97,6 +100,8 @@ def freeze_cohort(baseline, exclusions, holdout, engine, read_catalogues, *, rec
             counts["mapping_rejected"] += 1
             rejected_pairs.append({"target_fen": target, "source_fen": source})
             continue
+        if mappings[target] != mappings[source]:
+            raise MoveMappingError(f"Different source and target Jass keys for {target}")
         counts["covered"] += 1
         source_descriptor = typed_radius_two(base[source])
         target_descriptor = typed_radius_two(novel[target])
@@ -165,22 +170,31 @@ def main():
         "--record-provenance", action="store_true",
         help="Record all accepted game plies and both typed descriptors.",
     )
+    parser.add_argument("--include-forced", action="store_true",
+                        help="Retain eligible positions with one legal move.")
+    parser.add_argument("--game-audit", type=Path, help="Write per-game replay outcomes.")
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
     paths = [args.baseline, *args.exclude_previous, args.holdout]
     if len({path.name for path in paths}) != len(paths):
         parser.error("PDN filenames must be distinct to identify game sources")
+    game_audit = {} if args.game_audit else None
     manifest = freeze_cohort(
         args.baseline,
         args.exclude_previous,
         args.holdout,
         create_engine(),
         lambda states: read_jass_catalogues(args.jass_catalogue, states),
-        record_provenance=args.record_provenance,
+        record_provenance=args.record_provenance, include_forced=args.include_forced,
+        game_audit=game_audit,
     )
     manifest["engine"]["jass_catalogue_sha256"] = hashlib.sha256(
         args.jass_catalogue.read_bytes()
     ).hexdigest()
+    if args.include_forced:
+        manifest["selection"]["include_forced"] = True
+    if args.game_audit:
+        args.game_audit.write_text(json.dumps(game_audit, sort_keys=True, indent=2) + "\n")
     indent = None if args.record_provenance else 2
     args.output.write_text(json.dumps(manifest, sort_keys=True, indent=indent) + "\n", encoding="utf-8")
 

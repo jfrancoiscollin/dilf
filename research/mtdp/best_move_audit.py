@@ -104,7 +104,7 @@ class Scan:
         return scores[-1]
 
 
-def load_positions(paths, engine, seen_games, *, plies_by_game=None):
+def load_positions(paths, engine, seen_games, *, plies_by_game=None, game_audit=None):
     states = {}
     games_by_fen = defaultdict(set)
     inputs = []
@@ -116,18 +116,27 @@ def load_positions(paths, engine, seen_games, *, plies_by_game=None):
         }
         inputs.append(source)
         for game in games:
+            game_id = f"{path.name}:{game.index}"
             try:
                 trajectory = validated_trajectory(game, engine)
             except PdnReplayError as exc:
                 source["rejected"].append({"game": game.index, "error": str(exc)})
+                if game_audit is not None:
+                    game_audit[game_id] = {"status": "rejected", "error": str(exc)}
                 continue
             fens = tuple(state_to_fen(state) for _, _, state in trajectory)
-            if fens in seen_games:
+            duplicate = fens in seen_games
+            if game_audit is not None:
+                game_audit[game_id] = {
+                    "status": "duplicate" if duplicate else "accepted",
+                    "validated_plies": len(trajectory) - 1,
+                    "trajectory_sha256": hashlib.sha256("\n".join(fens).encode()).hexdigest(),
+                }
+            if duplicate:
                 source["duplicates"] += 1
                 continue
             seen_games.add(fens)
             source["accepted"] += 1
-            game_id = f"{path.name}:{game.index}"
             for fen, (ply, _, state) in zip(fens, trajectory, strict=True):
                 states[fen] = state
                 games_by_fen[fen].add(game_id)
