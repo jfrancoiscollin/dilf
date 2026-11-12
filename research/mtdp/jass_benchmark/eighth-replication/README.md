@@ -1,5 +1,8 @@
 # Multi-event replication status — 12 November 2026
 
+The three-event replication is complete. See the [Scan results and
+reproduction instructions](scan-results/RESULTS_2026-11-12.md).
+
 The [preregistered protocol](../../EIGHTH_MULTI_EVENT_REPLICATION_PROTOCOL_2026-11-12.md)
 requires the next three independent eligible 5+0 arenas after
 `pRW2Ahpz`. At 10:19:52 UTC the [Lidraughts tournament API](https://lidraughts.org/api/tournament)
