@@ -258,3 +258,5 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   le contrôle de sensibilité de Scan à profondeur 16 sur les trois manifestes
   gelés, avec coûts des transferts et coûts des coups Jass déjà choisis,
   puis lancer ce calcul avec les mêmes sources et actions légales.
+
+- 2026-11-12 03:39 UTC — Relais recherche MTDP. PR #43 **open** vérifiée ; journal lu jusqu'au benchmark initial-only. Les workflows du gel `7e006787` [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43148069640) et [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43148069648) sont **success**. Commit `b8fc04b` : préenregistrement de `SCAN_DEPTH16_SENSITIVITY_PROTOCOL_2026-11-12.md` pour les 3 cohortes gelées (28+75+17 cibles), avec audit des SHA, scores de tous les successeurs, regrets des coups Jass déjà choisis et bootstrap par partie. **Aucun calcul profondeur 16, aucun nouveau test exécuté ; Actions du nouveau commit non confirmées.** Prochaine action : auditer les références et binaires épinglés, vérifier les empreintes et implémenter le comparateur 12/16 avant de lancer Scan 16 sur ressources gratuites.
