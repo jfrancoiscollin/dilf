@@ -72,7 +72,10 @@ def read_run(raw, target, budget, prefix, scores, *, initial_only=False):
     }, ordering_trace
 
 
-def run_benchmark(manifest, reference, runner, *, initial_only=False, source_reference=None):
+def run_benchmark(manifest, reference, runner, *, initial_only=False, source_reference=None,
+                  compare_spatial_sources=False):
+    if compare_spatial_sources and (not initial_only or source_reference is None):
+        raise ValueError("Spatial source comparison needs initial-only ordering and source scores")
     rng = random.Random(manifest["selection"]["arm_order_seed"])
     score_rows = reference["action_scores_centimen"]
     source_rows = score_rows if source_reference is None else source_reference["action_scores_centimen"]
@@ -92,6 +95,12 @@ def run_benchmark(manifest, reference, runner, *, initial_only=False, source_ref
         if source_reference is not None:
             _, lists = candidate_lists(target["legal_moves"], dict(source))
             prefixes.update({arm: lists[arm] for arm in ("transfer", "canonical")})
+        if compare_spatial_sources:
+            if target["source_fens"]["L"] != target["source_fen"]:
+                raise ValueError("L source differs from the frozen baseline")
+            spatial_scores = dict(_ranked(source_rows[target["source_fens"]["LCB"]]))
+            _, spatial_lists = candidate_lists(target["legal_moves"], spatial_scores)
+            prefixes = {"native": [], "L": lists["transfer"], "LCB": spatial_lists["transfer"]}
         for budget in manifest["engine"]["jass_node_budgets"]:
             arms = list(prefixes)
             rng.shuffle(arms)
@@ -123,6 +132,9 @@ def run_benchmark(manifest, reference, runner, *, initial_only=False, source_ref
             key: target[key] for key in ("target_fen", "target_games", "source_fen", "source_game")
         }
         pair = {**identity, "budget": budget, "arm_order": arms, "arms": {}}
+        if compare_spatial_sources:
+            pair["source_fens"] = target["source_fens"]
+            pair["prefixes"] = prefixes
         parsed = {}
         for arm in arms:
             receipt, trace = read_run(
@@ -144,20 +156,20 @@ def run_benchmark(manifest, reference, runner, *, initial_only=False, source_ref
     return paired, traces
 
 
-def summarize(rows):
+def summarize(rows, *, treatment="transfer", controls=("canonical", "native")):
     comparisons = {}
-    for control in ("canonical", "native"):
+    for control in controls:
         deltas, node_deltas = [], []
         changed = 0
         for row in rows:
-            transfer, baseline = row["arms"]["transfer"], row["arms"][control]
+            transfer, baseline = row["arms"][treatment], row["arms"][control]
             changed += transfer["best_move"] != baseline["best_move"]
             a, b = transfer["ordinary_regret_centimen"], baseline["ordinary_regret_centimen"]
             if a is not None and b is not None:
                 deltas.append(a - b)
             nodes = row["nodes_at_common_depth"]
-            if nodes["transfer"] is not None and nodes[control] is not None:
-                node_deltas.append(nodes["transfer"] - nodes[control])
+            if nodes[treatment] is not None and nodes[control] is not None:
+                node_deltas.append(nodes[treatment] - nodes[control])
         comparisons[control] = {
             "ordinary_pairs": len(deltas), "changed_moves": changed,
             "transfer_better": sum(value < 0 for value in deltas),
@@ -182,7 +194,7 @@ def summarize(rows):
                     if receipt["scan_best_category"] != receipt["scan_chosen_category"]
                 )),
             }
-            for arm in ("native", "transfer", "canonical")
+            for arm in (treatment, *controls)
         },
     }
 

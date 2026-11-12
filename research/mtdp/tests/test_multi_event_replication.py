@@ -2,6 +2,7 @@ import hashlib
 import json
 import sys
 from copy import deepcopy
+from datetime import datetime, timezone
 
 import pytest
 
@@ -32,6 +33,23 @@ def test_candidates_keep_old_finished_records_and_chronological_order():
     assert result["pending_events"] == ["third"]
     assert {r["id"]: r["candidate_status"] for r in result["candidate_log"]}["pRW2Ahpz"] == "used"
     assert {r["id"]: r["candidate_status"] for r in result["candidate_log"]}["aborted"] == "not_completed"
+
+
+def test_spatial_jass_cutoff_keeps_the_first_outstanding_candidate():
+    cutoff = multi_event_freeze.SPATIAL_JASS_CUTOFF
+    listing = {"retrieved_at": "2026-11-13T03:00:00Z", "events": [
+        row("old", "created", cutoff - 1000),
+        row("first", "started", cutoff),
+        row("later", "finished", cutoff + 1000),
+    ]}
+    metadata = {
+        "id": "later", "startsAt": datetime.fromtimestamp((cutoff + 1000) / 1000, timezone.utc).isoformat(),
+        "isFinished": True, "variant": "standard", "clock": {"limit": 300, "increment": 0},
+    }
+    log = study.candidates([listing])
+    with pytest.raises(ValueError, match="not finished"):
+        multi_event_freeze.require_next_candidate(log, metadata, set(), {}, cutoff=cutoff)
+    multi_event_freeze.require_next_candidate(log, metadata, set(), {"first": "unavailable"}, cutoff=cutoff)
 
 
 def sample_packet(event, hour, costs):

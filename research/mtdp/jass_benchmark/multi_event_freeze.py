@@ -18,6 +18,7 @@ from research.mtdp.jass_cohort import ADAPTER_COMMIT
 BASELINE = Path("data/exports/pcblues/pcblues_games.pdn")
 SEVENTH = Path("research/mtdp/jass_benchmark/seventh-pRW2Ahpz/provenance.json")
 PROTOCOL = "79e389aad3b7e58e110f19a38df6d5a58d83f5d3"
+SPATIAL_JASS_CUTOFF = int(datetime.fromisoformat("2026-11-12T23:00:00+00:00").timestamp() * 1000)
 
 
 def sha256(data):
@@ -28,10 +29,11 @@ def json_bytes(value):
     return (json.dumps(value, sort_keys=True, separators=(",", ":")) + "\n").encode()
 
 
-def require_next_candidate(log, metadata, used, rejected):
+def require_next_candidate(log, metadata, used, rejected, *, cutoff=0):
     outstanding = [row for row in log["candidate_log"]
                    if row["candidate_status"] in ("needs_pdn_and_replay", "pending_finish")
-                   and row["id"] not in used and row["id"] not in rejected]
+                   and row["id"] not in used and row["id"] not in rejected
+                   and row["starts_at"] >= cutoff]
     if not outstanding or outstanding[0]["candidate_status"] != "needs_pdn_and_replay":
         raise ValueError("The next chronological candidate is not finished in the listing")
     candidate = outstanding[0]
@@ -109,10 +111,14 @@ def main():
     parser.add_argument("--downloaded-at", required=True)
     parser.add_argument("--pdn-repeat", type=Path)
     parser.add_argument("--previous-freeze", action="append", default=[], type=Path)
+    parser.add_argument("--spatial-jass", action="store_true", help="Freeze the prospective Jass arena")
     parser.add_argument("--rejections", type=Path, help="JSON mapping of earlier rejected event IDs to recorded reasons")
     args = parser.parse_args()
     later = [json.loads(path.read_text()) for path in args.previous_freeze]
-    if len(later) > 2:
+    if args.spatial_jass:
+        if [row["event"]["id"] for row in later] != ["xAnBIxHN", "MoXhmT9b", "MIDBy9dl"]:
+            parser.error("Spatial Jass requires all three eighth-study freezes in order")
+    elif len(later) > 2:
         parser.error("The protocol requires exactly three events")
     used = {row["event"]["id"] for row in later}
     raw_log, raw_meta = args.candidate_log.read_bytes(), args.event_metadata.read_bytes()
@@ -121,7 +127,8 @@ def main():
     if not isinstance(rejected, dict) or any(not isinstance(reason, str) or not reason.strip()
                                               for reason in rejected.values()):
         parser.error("Every rejected event needs a reason")
-    require_next_candidate(json.loads(raw_log), metadata, used, rejected)
+    require_next_candidate(json.loads(raw_log), metadata, used, rejected,
+                           cutoff=SPATIAL_JASS_CUTOFF if args.spatial_jass else 0)
     revision = subprocess.check_output(["git", "-C", args.adapter, "rev-parse", "HEAD"], text=True).strip()
     if revision != ADAPTER_COMMIT:
         raise ValueError("draught-master is not at the pinned adapter revision")
@@ -148,7 +155,8 @@ def main():
     selection_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     package(args.output, summary, rows, plan, audit, {
         "event": {key: metadata[key] for key in ("id", "fullName", "startsAt", "variant", "clock", "isFinished")},
-        "selection": {"protocol_commit": PROTOCOL, "code_commit": selection_commit,
+        "selection": {"protocol_commit": selection_commit if args.spatial_jass else PROTOCOL,
+                      "code_commit": selection_commit,
                       "candidate_log_sha256": sha256(raw_log), "event_metadata_sha256": sha256(raw_meta),
                       "rejections": rejected, "source": "minimum (game ID, ply, FEN)",
                       "ownership": "first target game ID", "bootstrap_seed": 20261112},
