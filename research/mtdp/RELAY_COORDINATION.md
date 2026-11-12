@@ -338,3 +338,23 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   **Prochaine action :** préenregistrer sur un nouveau tournoi le
   contrôle de la signature géométrique face au seul ensemble exact
   des coups légaux, et mesurer couverture et regret aux profondeurs fixées.
+
+- 2026-11-12 08:22 UTC — Relais recherche MTDP. Tête initiale
+  `80323bc29587cc88494e1c9fcfbe771d169c982f`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43177832614)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43177832625)
+  réussies, artefact PC Blues `13925790094`. Aucun job équivalent identifié.
+  [Gel](https://github.com/jfrancoiscollin/dilf/commit/e0ea77201179bbd8fe03c3a26d130bf6e90a37d1)
+  publié avant les scores, [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43181880383)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43181880404)
+  réussies. Ce commit publie le
+  [contrôle coups légaux seuls / géométrie](jass_benchmark/sixth-xmzj1bLG/RESULTS_2026-11-12.md).
+  Sur 8 633 positions, 138 correspondances avec les coups légaux seuls
+  contre 39 avec la signature. Sur les 39 cibles communes, une seule
+  source change, avec un gain de 0,31 pion sur le premier coup.
+  Les deux listes de trois ont le même regret sur chacune des
+  39 cibles. Références et comparaison reproduites à l'octet.
+  102 tests MTDP et 643 tests DILF réussis ; catalogue Jass optionnel sauté.
+  **Prochaine action :** préenregistrer une ablation qui garde les coups
+  légaux et les bloqueurs exacts, en remplaçant les cases de tous les
+  pions du joueur au trait par leur nombre.
