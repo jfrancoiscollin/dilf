@@ -468,3 +468,22 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   du catalogue Jass est sauté. Un gel sur trois, aucun nouveau score.
   **Prochaine action :** vérifier après 14:57 UTC l'export final de
   `MoXhmT9b` et geler ce tournoi s'il est admissible.
+
+- 2026-11-12 15:19 UTC — Relais recherche MTDP. Tête initiale
+  `fa33de05f351713b08fd7119b870b1ed10ee1fc0`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43235710788)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43235711059)
+  réussies, artefact PC Blues `13951474077`. Aucun job équivalent actif.
+  Ce commit publie le
+  [deuxième gel](jass_benchmark/eighth-replication/README.md#second-verified-freeze-at-1519-utc).
+  Deux exports `MoXhmT9b` identiques, 142 parties acceptées sur 155,
+  neuf doublons et quatre captures ambiguës. 9 293 positions admissibles,
+  dont 74 appariements L, 29 LM, 39 LCB et 29 LMB. Aucun recouvrement
+  de FEN admissibles ou d'identifiants de parties avec le premier gel.
+  Fichiers de données, plan et audit reproduits à l'octet. 114 tests
+  MTDP, 643 tests DILF et le rejeu PC Blues (26 parties) passent.
+  Test optionnel du catalogue Jass sauté. Deux gels sur trois, aucun score
+  nouveau. **Prochaine action :** vérifier le prochain tournoi 5+0
+  terminé dans l'ordre du calendrier et publier son gel, en conservant
+  les deux premiers comme exclusions. `MIDBy9dl` est annoncé pour
+  20:00–20:57 UTC.

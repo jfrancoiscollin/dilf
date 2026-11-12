@@ -108,6 +108,33 @@ Extract Scan from the [pinned source archive](https://codeload.github.com/rhalbe
 The freeze command independently checks the adapter revision, all
 input and manifest digests, and the three Scan file digests.
 
+## Second verified freeze at 15:19 UTC
+
+The [listing](2026-11-12T151904Z-tournaments.json) and
+[detail response](MoXhmT9b-evidence/event-metadata.json) confirm
+`MoXhmT9b` finished. Two independent [PDN exports](https://lidraughts.org/api/tournament/MoXhmT9b/games)
+matched byte-for-byte (178,542 bytes). The FMJD replay accepted 142
+of 155 records. Nine were duplicates and four had ambiguous capture
+notation. The [frozen provenance](MoXhmT9b/provenance.json) includes
+the counts and digests. The [archived candidate log](MoXhmT9b-evidence/candidate-log.json)
+and recorded rejection for `vHeQVFho` fix the selection evidence.
+
+| Positions | Eligible | L | LM | LCB | LMB |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `MoXhmT9b` | 9,293 | 74 | 29 | 39 | 29 |
+
+The score plan contains 80 target/source pairs, with 74 distinct
+target FENs and 59 distinct source FENs. The two frozen events share
+no eligible target FENs or game IDs. All compressed data shards, the
+score plan and the audit reproduced byte-for-byte with Python hash
+seeds 7 and 61. The 114 MTDP tests, 643 DILF tests and PC Blues replay
+passed. The optional live Jass catalogue test was skipped.
+
+The gate is **2/3**. `MIDBy9dl` was still scheduled for 20:00–20:57
+UTC at this check. Refresh the chronological listing and freeze the
+next eligible completed arena with both earlier provenances in order
+(`xAnBIxHN`, then `MoXhmT9b`). No new Scan scores were computed.
+
 ## Continue acquisition
 
 From the DILF root, fetch a fresh listing, preserving old snapshots
