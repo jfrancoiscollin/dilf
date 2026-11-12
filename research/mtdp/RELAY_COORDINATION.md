@@ -379,3 +379,20 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   sauté. **Prochaine action :** préenregistrer une réplication
   multi-tournois avec les quatre règles, mesurer séparément les
   paires où la source change et les pertes extrêmes.
+
+- 2026-11-12 10:26 UTC — Relais recherche MTDP. Tête initiale
+  `79e389aad3b7e58e110f19a38df6d5a58d83f5d3`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43194394032)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43194394099)
+  réussies, artefact PC Blues `13932915439`. Aucun job équivalent identifié.
+  Le [relevé chronologique](jass_benchmark/eighth-replication/README.md)
+  à 10:19:52 UTC donne **0/3** nouveaux tournois 5+0 terminés.
+  Les deux suivants annoncés sont `xAnBIxHN` et `MoXhmT9b`.
+  Aucun gel ni score nouveau. Le code prépare le plan commun de
+  scores et l'analyse à deux niveaux (tournoi puis partie), avec
+  contrôle des empreintes et des chevauchements. 112 tests MTDP,
+  643 tests DILF et le rejeu des 26 parties PC Blues (1 864 positions)
+  réussis ; catalogue Jass optionnel sauté.
+  **Prochaine action :** rafraîchir le relevé et vérifier les exports
+  dans l'ordre dès la fin des tournois. Publier les trois gels avant
+  tout score, puis exécuter le plan commun.

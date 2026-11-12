@@ -1,0 +1,117 @@
+from copy import deepcopy
+
+import pytest
+
+from research.mtdp.jass_benchmark import multi_event_replication as study
+
+
+def row(event_id, phase, start, *, minutes=5, status=30):
+    return {"id": event_id, "phase": phase, "starts_at": start, "finishes_at": start + 3_420_000,
+            "clock": {"limit": minutes * 60, "increment": 0},
+            "system": "arena", "variant": "standard", "status": status}
+
+
+def test_candidates_keep_old_finished_records_and_chronological_order():
+    after = study.AFTER
+    old = {"retrieved_at": "2026-11-12T10:00:00Z", "events": [
+        row("prior", "finished", after - 1), row("pRW2Ahpz", "finished", after),
+        row("first", "finished", after + 1), row("later", "created", after + 2, status=10),
+        row("wrong-cadence", "finished", after + 3, minutes=3),
+        row("aborted", "finished", after + 4, status=35),
+    ]}
+    new = {"retrieved_at": "2026-11-12T12:00:00Z", "events": [
+        row("third", "started", after + 5, status=20), row("later", "finished", after + 2),
+        row("first", "created", after + 1, status=10),
+    ]}
+    result = study.candidates([new, old])
+    assert result["metadata_candidates"] == ["first", "later"]
+    assert result["pending_events"] == ["third"]
+    assert {r["id"]: r["candidate_status"] for r in result["candidate_log"]}["pRW2Ahpz"] == "used"
+    assert {r["id"]: r["candidate_status"] for r in result["candidate_log"]}["aborted"] == "not_completed"
+
+
+def sample_packet(event, hour, costs):
+    arms = list(study.OCCUPANCY_ARMS)
+    rows, frozen = [], []
+    for index, (game, value, changes) in enumerate(costs):
+        fen = f"{event}-fen{index}"
+        original, updated = ["pc:1", 0, "source"], ["pc:2", 2, "other"]
+        selected = {arm: original if arm == "L" or not changes else updated for arm in arms}
+        row = {"fen": fen, "owner": game, "selected_sources": selected,
+               "match_counts": dict.fromkeys(arms, 1)}
+        for arm in arms:
+            cost = 100 if arm == "L" else 100 + value
+            outcome = {"ordinary_regret_centimen": cost, "covered": cost == 0,
+                       "best_category": "ordinary", "candidate_category": "ordinary"}
+            row[arm] = {"top1": outcome, "top3": outcome, "disjoint_optima": False}
+        rows.append(row)
+        frozen.append({"fen": fen, "owner": game, "matches": {arm: [selected[arm]] for arm in arms}})
+    provenance = {
+        "event": {"id": event, "startsAt": f"2026-11-12T{hour}:00:00Z", "isFinished": True,
+                  "variant": "standard", "clock": {"limit": 300, "increment": 0}},
+        "arms": arms, "event_game_ids": [f"{event}-game"],
+        "inputs": {"event": [{"sha256": event}]},
+        "counts": {"eligible": len(rows), "held_fens": len(rows) + 1},
+    }
+    return provenance, {"targets": len(rows), "matched_rows": rows}, frozen
+
+
+def test_pooled_regret_is_target_weighted_and_changed_subset_is_explicit():
+    packets = [
+        sample_packet("A", "11", [("same-game", 0, False), ("same-game", 0, False)]),
+        sample_packet("B", "14", [("game", 30, True)]),
+        sample_packet("C", "17", [("game", -10, True)]),
+    ]
+    first = study.aggregate(packets)
+    assert first == study.aggregate(packets)
+    full = first["paired"]["LCB_vs_L"]
+    assert full["mean_regret_delta_centimen"] == 5
+    assert full["targets"] == 4 and full["owning_games"] == 3 and full["changed_sources"] == 2
+    assert full["regret_interval"]["events"] == 3
+    assert full["leave_one_event_out"]["A"]["mean_regret_delta_centimen"] == 10
+    changed = first["paired"]["LCB_vs_L_changed_sources"]
+    assert changed["targets"] == 2 and changed["regret_interval"]["events"] == 2
+    assert changed["mean_regret_delta_centimen"] == 10
+
+
+def test_rejects_partial_and_overlapping_freezes_and_changed_source():
+    packets = [sample_packet(event, hour, [("game", 0, False)])
+               for event, hour in zip(("A", "B", "C"), ("11", "14", "17"), strict=True)]
+    with pytest.raises(ValueError, match="Exactly three"):
+        study.aggregate(packets[:2])
+    overlapping = deepcopy(packets)
+    overlapping[1][0]["event_game_ids"] = overlapping[0][0]["event_game_ids"]
+    with pytest.raises(ValueError, match="overlap"):
+        study.aggregate(overlapping)
+    changed = deepcopy(packets)
+    changed[1][1]["matched_rows"][0]["selected_sources"]["LCB"] = ["elsewhere", 2, "fen"]
+    with pytest.raises(ValueError, match="frozen source"):
+        study.aggregate(changed)
+
+
+def test_single_event_interval_is_not_estimable_even_with_two_games():
+    assert study.hierarchical_interval([("one", "g1", 1), ("one", "g2", 2)]) == {
+        "events": 1, "games": 2, "ci95": None,
+    }
+
+
+def test_merged_sources_deduplicate_and_split_with_event_digest():
+    move = {"action": [[31, 26], [], False]}
+    plans = [{
+        "schema": "mtdp-jass-cohort-v1", "engine": {"scan_binary_sha256": "scan"},
+        "targets": [{"source_fen": "shared", "target_fen": event, "legal_moves": [move]}],
+    } for event in ("A", "B", "C")]
+    merged = study.merge_score_plans(plans)
+    assert list(study.score_catalogue(merged, "source")) == ["shared"]
+    assert list(study.score_catalogue(merged, "target")) == ["A", "B", "C"]
+    receipt = {
+        "schema": "mtdp-jass-scan-reference-v1", "cohort_sha256": "merged", "scan_binary_sha256": "scan",
+        "scan_eval_sha256": study.SCAN_EVAL_SHA256, "scan_successor_depth": 12, "role": "source",
+        "action_scores_centimen": {"shared": [{**move, "score": 20}]},
+    }
+    tagged = [(event, plan, f"digest-{event}") for event, plan in zip(("A", "B", "C"), plans, strict=True)]
+    split = study.split_reference(merged, "merged", receipt, tagged, "source")
+    assert split["A"]["cohort_sha256"] == "digest-A"
+    assert split["B"]["action_scores_centimen"] == split["C"]["action_scores_centimen"] == receipt["action_scores_centimen"]
+    with pytest.raises(ValueError, match="cohort_sha256"):
+        study.split_reference(merged, "different", receipt, tagged, "source")
