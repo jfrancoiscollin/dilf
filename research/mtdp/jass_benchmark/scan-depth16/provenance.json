@@ -1,0 +1,102 @@
+{
+  "cohorts": {
+    "0gB7ETSW": {
+      "inputs": {
+        "build": {
+          "content_sha256": "d6dbadb8069e133d3a6f99b5072927cb302369865395e7922923f71ff48b5736",
+          "path": "research/mtdp/jass_benchmark/initial-only-0gB7ETSW/jass-build-manifest.json",
+          "stored_sha256": "d6dbadb8069e133d3a6f99b5072927cb302369865395e7922923f71ff48b5736"
+        },
+        "manifest": {
+          "content_sha256": "57d3e60fc3c52211a56ccc8548062afd567d9d8cae4723cad9ec90ff2ed74f99",
+          "path": "research/mtdp/jass_benchmark/initial-only-0gB7ETSW/cohort-manifest.json.gz",
+          "stored_sha256": "cf7dc2cefc121d1c46b6d8ae13e1816b4f69e3b3700d75f0805fadf46ff972d2"
+        },
+        "receipts": {
+          "content_sha256": "d814a2643229935f3c19ec944822f38452da170bd1284a7e3ea0268a74841916",
+          "path": "research/mtdp/jass_benchmark/initial-only-0gB7ETSW/paired-results.jsonl.gz",
+          "stored_sha256": "de24d171a0fb562e042ba857eb19b774e6b1145543ff9816fc5520e7d035f2ca"
+        },
+        "reference12": {
+          "content_sha256": "0b2a6306721c367f148108f149dc3c37e7c1d48c69c00752f1d5d79e46f724d9",
+          "path": "research/mtdp/jass_benchmark/initial-only-0gB7ETSW/scan-reference.json.gz",
+          "stored_sha256": "ec03033a551f8e81faeb92fa99add9c8cbb5c9385c32b870d5507d6d5822680a"
+        }
+      },
+      "reference16": {
+        "content_sha256": "6da3755f20c0a2bc15ffb1150215aee73a0388ca3b3e28b8f4619f143e58a82e",
+        "path": "research/mtdp/jass_benchmark/scan-depth16/0gB7ETSW-reference16.json.gz",
+        "stored_sha256": "9d69eb2466652a2291ab94c11628259828ee180735a3426497a43837b3031d8b"
+      },
+      "targets": 17
+    },
+    "Z3s40c6H": {
+      "inputs": {
+        "build": {
+          "content_sha256": "f03cc0d68093d9b3c4d6fbf328094391b317a0eccd3d7a172d3d2a06b2158896",
+          "path": "research/mtdp/jass_benchmark/jass-build-manifest.json",
+          "stored_sha256": "f03cc0d68093d9b3c4d6fbf328094391b317a0eccd3d7a172d3d2a06b2158896"
+        },
+        "manifest": {
+          "content_sha256": "3c763000c9c07e4f1cc59b94bcc832971c48a60348ea9d6ea6e0aa8d5f7fd8f1",
+          "path": "research/mtdp/jass_benchmark/cohort-manifest.json",
+          "stored_sha256": "3c763000c9c07e4f1cc59b94bcc832971c48a60348ea9d6ea6e0aa8d5f7fd8f1"
+        },
+        "receipts": {
+          "content_sha256": "c68c665304b8e0c8e011ad578646c51b2ab21809426f101137f0e8eb5496eb18",
+          "path": "research/mtdp/jass_benchmark/paired-results.jsonl.gz",
+          "stored_sha256": "919584753305aefd6d42c8aeacc509902a984194a2a1fb3f14b270e314044311"
+        },
+        "reference12": {
+          "content_sha256": "902d39412188de4e8c809f1c894c6d6b2e741eed124a698c5e10d01cfae847dc",
+          "path": "research/mtdp/jass_benchmark/scan-reference.json",
+          "stored_sha256": "902d39412188de4e8c809f1c894c6d6b2e741eed124a698c5e10d01cfae847dc"
+        }
+      },
+      "reference16": {
+        "content_sha256": "bc9b7824162e47f856e491cc7ddeef2ec69d91e3a66c8250c47ab6bbf15c5ca7",
+        "path": "research/mtdp/jass_benchmark/scan-depth16/Z3s40c6H-reference16.json.gz",
+        "stored_sha256": "000288f24169e5419976eec5c3541227082caf750907be90295cf8dd7a4506e2"
+      },
+      "targets": 28
+    },
+    "iPQl7g7q": {
+      "inputs": {
+        "build": {
+          "content_sha256": "8f4c425e9bd122b508117bfdad974761887b4d95474d7b6b91ab11f3b7c3fcce",
+          "path": "research/mtdp/jass_benchmark/replication-iPQl7g7q/jass-build-manifest.json",
+          "stored_sha256": "8f4c425e9bd122b508117bfdad974761887b4d95474d7b6b91ab11f3b7c3fcce"
+        },
+        "manifest": {
+          "content_sha256": "1c7b1543ac5b38500c9f4d61588c3e0778b40e5487de0d3500a1c09868668231",
+          "path": "research/mtdp/jass_benchmark/replication-iPQl7g7q/cohort-manifest.json",
+          "stored_sha256": "1c7b1543ac5b38500c9f4d61588c3e0778b40e5487de0d3500a1c09868668231"
+        },
+        "receipts": {
+          "content_sha256": "594ab72297bc75ee11abd53985c4b7afaf923f4603decf002fc2c76b4648be5b",
+          "path": "research/mtdp/jass_benchmark/replication-iPQl7g7q/paired-results.jsonl.gz",
+          "stored_sha256": "12cc74b9dd00c751f7dfb73010245b3cc4f5c6612c2e8c25534e69acd433a725"
+        },
+        "reference12": {
+          "content_sha256": "f9823097374c62dc39246f81fef3fc6f8461606b7d0dacb930b29d3852fcbe5f",
+          "path": "research/mtdp/jass_benchmark/replication-iPQl7g7q/scan-reference.json.gz",
+          "stored_sha256": "dc8f13e7c09810250e6fbbece5c0af6468bc2b322c789bf8cb7b0c06f641a6b8"
+        }
+      },
+      "reference16": {
+        "content_sha256": "70ca66b5b4b37dc7baf0fe96f24a7998e73adc3bf1def7090d0886198fb0c44d",
+        "path": "research/mtdp/jass_benchmark/scan-depth16/iPQl7g7q-reference16.json.gz",
+        "stored_sha256": "50f34d872b73ceca27fc400ca8122f8003b0ae0bf7cb8e356157897adda81b70"
+      },
+      "targets": 75
+    }
+  },
+  "draught_master_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "scan_commit": "7aae17e7b7bfc47744601afb1ee7655e18983ce5",
+  "scan_sha256": {
+    "data/eval": "0e7161c38af605f5e367f3f8fe17525d1c40db722714c68921971b386e58abba",
+    "scan.ini": "dc201a7debaf98bb869fb3d6b641adb219df71b0ea22004b2d9b6f51cdb69538",
+    "scan_linux": "a634cbb44c9528eab277cdf6cdf8d29d506318ce5fba3f9bc69c2025b5941864"
+  },
+  "source_head": "863606da8033c0851f43fa4b9090ed5807a5b8c2"
+}

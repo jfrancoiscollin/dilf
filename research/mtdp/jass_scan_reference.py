@@ -37,7 +37,10 @@ def score_manifest(manifest, engine, scan):
         scores[fen] = {}
         for action in actions:
             successor = engine.apply_move(state, moves[action])
-            scores[fen][action] = -scan.score(successor) if engine.legal_moves(successor) else 10000
+            try:
+                scores[fen][action] = -scan.score(successor) if engine.legal_moves(successor) else 10000
+            except RuntimeError as exc:
+                raise RuntimeError(f"Scan failed for {fen}, action {action}: {exc}") from exc
 
     transfers = []
     for row in manifest["targets"]:
@@ -58,7 +61,10 @@ def main():
     parser.add_argument("--manifest", required=True, type=Path)
     parser.add_argument("--scan", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--depth", type=int, help="Override depth for a sensitivity study.")
     args = parser.parse_args()
+    if args.depth is not None and args.depth < 1:
+        parser.error("--depth must be positive")
     manifest_bytes = args.manifest.read_bytes()
     manifest = json.loads(manifest_bytes)
     settings = manifest["engine"]
@@ -70,14 +76,15 @@ def main():
     ini_sha256 = hashlib.sha256((scan_dir / "scan.ini").read_bytes()).hexdigest()
     if eval_sha256 != SCAN_EVAL_SHA256 or ini_sha256 != SCAN_INI_SHA256:
         parser.error("Scan evaluation data or configuration differs from the pinned checkout")
-    with Scan(args.scan, depth=settings["scan_successor_depth"]) as scan:
+    depth = settings["scan_successor_depth"] if args.depth is None else args.depth
+    with Scan(args.scan, depth=depth) as scan:
         report = score_manifest(manifest, create_engine(), scan)
     report.update({
         "schema": "mtdp-jass-scan-reference-v1",
         "cohort_sha256": hashlib.sha256(manifest_bytes).hexdigest(),
         "scan_binary_sha256": binary_sha256,
         "scan_eval_sha256": eval_sha256,
-        "scan_successor_depth": settings["scan_successor_depth"],
+        "scan_successor_depth": depth,
     })
     args.output.write_text(
         json.dumps(report, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8"

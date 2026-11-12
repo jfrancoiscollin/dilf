@@ -260,3 +260,23 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   puis lancer ce calcul avec les mêmes sources et actions légales.
 
 - 2026-11-12 03:39 UTC — Relais recherche MTDP. PR #43 **open** vérifiée ; journal lu jusqu'au benchmark initial-only. Les workflows du gel `7e006787` [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43148069640) et [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43148069648) sont **success**. Commit `b8fc04b` : préenregistrement de `SCAN_DEPTH16_SENSITIVITY_PROTOCOL_2026-11-12.md` pour les 3 cohortes gelées (28+75+17 cibles), avec audit des SHA, scores de tous les successeurs, regrets des coups Jass déjà choisis et bootstrap par partie. **Aucun calcul profondeur 16, aucun nouveau test exécuté ; Actions du nouveau commit non confirmées.** Prochaine action : auditer les références et binaires épinglés, vérifier les empreintes et implémenter le comparateur 12/16 avant de lancer Scan 16 sur ressources gratuites.
+
+- 2026-11-12 04:19 UTC — Relais recherche MTDP. Tête initiale
+  `863606da8033c0851f43fa4b9090ed5807a5b8c2`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43149688965)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43149688960)
+  réussies, artefact PC Blues `13913107150`. Aucun job équivalent identifié.
+  Le commit de cette entrée publie le
+  [contrôle Scan 12/16](jass_benchmark/scan-depth16/RESULTS_2026-11-12.md),
+  les empreintes, les références et le comparateur. 120 cibles conservées,
+  2 067 successeurs scorés, 69 paires à optima disjoints à chaque profondeur,
+  dont 49 communes. Au seuil d'un demi-pion, le premier coup coûteux passe
+  de 12 à 6 cas ; le meilleur des trois conserve un cas à 1,28 pion.
+  Les 1 080 coups Jass archivés réévalués ne montrent pas de gain cohérent.
+  Références reproduites à l'octet sur les cohortes de 28 et 17 cibles ;
+  référence à 75 cibles exécutée une fois, avec concordance exacte sur
+  les sources partagées entre cohortes. Comparaison reproduite à l'octet,
+  86 tests MTDP et 643 tests DILF réussis. **Prochaine action :** préenregistrer
+  le témoin hors ligne de trois coups canoniques, puis comparer à taille
+  de liste égale les couvertures et regrets des deux listes, sur les trois
+  manifestes et aux profondeurs 12 et 16.
