@@ -34,6 +34,36 @@ from the completed exports and replay.
 | [vHeQVFho](https://lidraughts.org/tournament/vHeQVFho) | 11:52 | 12:37 | Scheduled |
 | [MoXhmT9b](https://lidraughts.org/tournament/MoXhmT9b) | 14:00 | 14:57 | Scheduled |
 
+## First verified freeze at 12:17 UTC
+
+The [third listing](2026-11-12T121710Z-tournaments.json) and
+[finished event detail](xAnBIxHN-evidence/event-metadata.json) confirm that
+`xAnBIxHN` finished at the scheduled 11:57 UTC cutoff. Two independent
+downloads of its [game export](https://lidraughts.org/api/tournament/xAnBIxHN/games)
+matched byte-for-byte. FMJD replay accepted 129 of 141 records. Four were
+duplicates, and eight used ambiguous capture notation and were quarantined.
+The [frozen provenance](xAnBIxHN/provenance.json) and game audit retain
+the counts, hashes and quarantine reasons.
+
+The freeze contains 8,069 eligible positions. Exact legal actions (L)
+match 105, mover occupancy (LM) matches 33, mover count with immediate
+blockers (LCB) matches 46, and mover occupancy with blockers (LMB) matches
+33. These are counts before scoring. The score plan has 109 target/source
+pair records across the four rules, using 77 distinct source FENs.
+Independent runs with Python hash seeds 7 and 61 reproduced the eligible
+rows, score plan and game audit. The Scan binary, configuration and
+evaluation-file digests matched the prior study.
+
+The gate is **1/3**. The previously announced `vHeQVFho` was absent from
+the third listing. The [endpoint check](vHeQVFho-endpoint-check.json)
+returned HTTP 404 from the detail API, tournament page and games API before its listed 12:37 UTC finish. Retain it in the
+chronology and recheck after that time. If it remains unavailable,
+record the post-finish evidence and use the rejection mechanism below.
+`MoXhmT9b` is still scheduled for 14:00–14:57 UTC. Keep the first event
+PDN in the exclusion inventory and pass
+`--previous-freeze "$study/xAnBIxHN/provenance.json"` for the next freeze.
+The three-event scoring gate has not been opened.
+
 ## Continue acquisition
 
 From the DILF root, fetch a fresh listing, preserving old snapshots

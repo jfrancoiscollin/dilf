@@ -414,3 +414,23 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   **Prochaine action :** récupérer le premier export terminé et publier
   son gel, puis procéder dans l'ordre jusqu'aux trois gels. Aucun score
   nouveau avant leur publication.
+
+- 2026-11-12 12:20 UTC — Relais recherche MTDP. Tête initiale
+  `e4267247f49bd5a2bb143c4aafcaaeff28f35a09`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43208957078)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43208957079)
+  réussies, artefact PC Blues `13938739193`. Aucun job équivalent identifié.
+  [Premier gel](jass_benchmark/eighth-replication/xAnBIxHN/provenance.json)
+  de la réplication publié avant tout score. Deux téléchargements du
+  PDN identiques. Rejeu FMJD : 129 parties acceptées sur 141, quatre
+  doublons et huit captures ambiguës. Les 8 069 positions admissibles,
+  le plan et l'audit sont identiques avec deux graines de hachage.
+  Les 114 tests MTDP et 643 tests DILF passent, de même que le rejeu
+  PC Blues (26 parties, 1 864 positions, aucune quarantaine).
+  Le test optionnel du catalogue Jass a été sauté.
+  **Prochaine action :** recontrôler `vHeQVFho` après 12:37 UTC.
+  Il a disparu du relevé et ses trois endpoints renvoyaient 404
+  avant la fin annoncée. S'il reste indisponible, archiver le
+  constat et l'exclure explicitement, puis vérifier `MoXhmT9b`
+  après 14:57 UTC. Conserver l'ordre chronologique et publier
+  les trois gels avant de calculer les scores Scan.
