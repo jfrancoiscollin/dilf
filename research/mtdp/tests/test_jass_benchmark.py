@@ -41,3 +41,20 @@ def test_target_game_summary_weights_games_equally_and_assigns_shared_fen_once()
         "ordinary_games": 2, "transfer_better_games": 1, "transfer_worse_games": 1,
         "mean_game_delta_centimen": 5, "median_game_delta_centimen": 5,
     }
+
+
+def test_initial_only_receipt_requires_adaptive_order_fields():
+    fen = "W:W31:B20"
+    move = {"action": [[31, 26], [], False], "jass_key": "31-26"}
+    target = {"target_fen": fen, "legal_moves": [move]}
+    scores = {((31, 26), (), False): 14}
+    fields = [fen, "10000", "10000", "5", "nodes", "31-26", "20", "8", "", "31-26", "31-26"]
+    attempt = "1:1:1:1:14:31-26"
+    with pytest.raises(ValueError, match="trace mode"):
+        read_run("\t".join([*fields, attempt]), target, 10000, ["31-26"], scores, initial_only=True)
+
+    raw = "\t".join([*fields, attempt + ":31-26:31-26"])
+    _, trace = read_run(raw, target, 10000, ["31-26"], scores, initial_only=True)
+    assert trace["verified_schedule_applications"] == 1
+    assert trace["attempts"][0]["expected"] == ["31-26"]
+    assert trace["attempts"][0]["best_move"] == "31-26"

@@ -240,3 +240,21 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   **Prochaine action :** raccorder le runner de benchmark au mode
   initial-only et vérifier ses traces et budgets sur la cohorte gelée
   avant le calcul Scan à profondeur 12.
+
+- 2026-11-12 03:30 UTC — Relais recherche MTDP. Tête initiale
+  `7e00678710a8090a18879aefbe0ce689856c7f6e`, gel publié avant le scoring.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43148069640)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43148069648)
+  de cette tête réussies. Le commit de cette entrée publie le
+  [benchmark initial-only](jass_benchmark/initial-only-0gB7ETSW/RESULTS_2026-11-12.md).
+  Optima Scan 3.1 profondeur 12 disjoints sur 11/17 paires ; coût maximal
+  de 1,56 pion avec le premier coup transféré, 0,07 avec le meilleur des
+  trois. Les 153 recherches Jass ont consommé exactement leur budget ;
+  les trois bras ont choisi les mêmes coups pour chaque cible et budget.
+  Les 1 875 tentatives racine confirment la reprise de l'ordre adaptatif.
+  Deux calculs reproduits à l'identique hors temps mur ; 83 tests MTDP,
+  643 tests DILF, `jass_tests` et la reproduction des traces historiques
+  réussis. Un seul tournoi, 17 positions. **Prochaine action :** préenregistrer
+  le contrôle de sensibilité de Scan à profondeur 16 sur les trois manifestes
+  gelés, avec coûts des transferts et coûts des coups Jass déjà choisis,
+  puis lancer ce calcul avec les mêmes sources et actions légales.

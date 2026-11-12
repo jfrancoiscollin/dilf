@@ -20,7 +20,7 @@ def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def read_run(raw, target, budget, prefix, scores):
+def read_run(raw, target, budget, prefix, scores, *, initial_only=False):
     (
         fen, actual_budget, nodes, depth, stop, best, score, elapsed, pv, legal, order, *attempts
     ) = raw.split("\t")
@@ -39,15 +39,26 @@ def read_run(raw, target, budget, prefix, scores):
         raise ValueError(f"Unexpected Jass receipt for {fen}")
     trace = []
     for attempt in attempts:
-        level, index, completed, all_visited, spent, visited = attempt.split(":")
-        trace.append({
+        level, index, completed, all_visited, spent, visited, *ordering = attempt.split(":")
+        if len(ordering) != (2 if initial_only else 0):
+            raise ValueError(f"Jass trace mode differs from request for {fen}")
+        row = {
             "depth": int(level), "attempt": int(index), "completed": completed == "1",
             "all_actions_searched": all_visited == "1", "nodes_after": int(spent),
             "visited": visited.split(",") if visited else [],
-        })
+        }
+        if initial_only:
+            best_at_attempt, expected = ordering
+            row["best_move"] = best_at_attempt
+            row["expected"] = expected.split(",")
+        trace.append(row)
     best_scan = max(scores.values())
     chosen_scan = scores[by_key[best]]
     ordinary = _category(best_scan) == _category(chosen_scan) == "ordinary"
+    ordering_trace = {"legal": legal_keys, "root_order": expected_order, "attempts": trace}
+    if initial_only:
+        ordering_trace["verified_schedule_applications"] = int(bool(prefix))
+        ordering_trace["fresh_tt_mib"] = 1
     return {
         "nodes": int(nodes), "completed_depth": int(depth), "stop": stop,
         "best_move": best, "jass_score": int(score), "elapsed_us": int(elapsed),
@@ -55,10 +66,10 @@ def read_run(raw, target, budget, prefix, scores):
         "scan_optimal": best_scan == chosen_scan,
         "scan_best_category": _category(best_scan), "scan_chosen_category": _category(chosen_scan),
         "ordinary_regret_centimen": best_scan - chosen_scan if ordinary else None,
-    }, {"legal": legal_keys, "root_order": expected_order, "attempts": trace}
+    }, ordering_trace
 
 
-def run_benchmark(manifest, reference, runner):
+def run_benchmark(manifest, reference, runner, *, initial_only=False):
     rng = random.Random(manifest["selection"]["arm_order_seed"])
     score_rows = reference["action_scores_centimen"]
     requests, jobs = [], []
@@ -86,8 +97,11 @@ def run_benchmark(manifest, reference, runner):
     environment.pop("JASS_EGDB_PATH", None)
     environment.pop("JASS_EGDB_MTC_PATH", None)
     environment["JASS_TRACE_ROOT"] = "0"
+    command = [str(runner.resolve())]
+    if initial_only:
+        command.append("--initial-only")
     result = subprocess.run(
-        [str(runner.resolve())], input="\n".join(requests) + "\n",
+        command, input="\n".join(requests) + "\n",
         text=True, capture_output=True, env=environment,
     )
     if result.returncode:
@@ -104,7 +118,9 @@ def run_benchmark(manifest, reference, runner):
         pair = {**identity, "budget": budget, "arm_order": arms, "arms": {}}
         parsed = {}
         for arm in arms:
-            receipt, trace = read_run(next(receipts), target, budget, prefixes[arm], scores)
+            receipt, trace = read_run(
+                next(receipts), target, budget, prefixes[arm], scores, initial_only=initial_only,
+            )
             pair["arms"][arm] = receipt
             parsed[arm] = trace["attempts"]
             traces.append({"target_fen": target["target_fen"], "budget": budget, "arm": arm, **trace})
@@ -206,6 +222,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("manifest", "scan-reference", "runner", "output-dir"):
         parser.add_argument(f"--{name}", required=True, type=Path)
+    parser.add_argument("--initial-only", action="store_true")
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_text())
     reference = json.loads(args.scan_reference.read_text())
@@ -216,7 +233,7 @@ def main():
         or reference["scan_successor_depth"] != manifest["engine"]["scan_successor_depth"]
     ):
         parser.error("Scan reference does not match the frozen manifest")
-    paired, traces = run_benchmark(manifest, reference, args.runner)
+    paired, traces = run_benchmark(manifest, reference, args.runner, initial_only=args.initial_only)
     by_budget, by_source_game = defaultdict(list), defaultdict(lambda: defaultdict(list))
     for row in paired:
         by_budget[row["budget"]].append(row)
@@ -226,6 +243,7 @@ def main():
     write_jsonl(args.output_dir / "paired-results.jsonl", paired)
     write_jsonl(args.output_dir / "root-order-traces.jsonl", traces)
     write_json(args.output_dir / "jass-build-manifest.json", {
+        "root_order_mode": "initial-only" if args.initial_only else "persistent",
         "jass_commit": manifest["engine"]["jass_commit"],
         "runner_sha256": sha256(args.runner), "cohort_sha256": sha256(args.manifest),
         "scan_reference_sha256": sha256(args.scan_reference), "settings": manifest["engine"],

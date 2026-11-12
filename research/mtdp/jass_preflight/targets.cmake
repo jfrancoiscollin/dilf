@@ -18,3 +18,7 @@ add_executable(mtdp_jass_benchmark
     $<TARGET_OBJECTS:jass_t3_f6_runtime>)
 target_compile_features(mtdp_jass_benchmark PRIVATE cxx_std_20)
 target_link_libraries(mtdp_jass_benchmark PRIVATE jass_lib jass_warnings)
+
+if(MTDP_JASS_INITIAL_ONLY)
+    target_compile_definitions(mtdp_jass_benchmark PRIVATE MTDP_JASS_INITIAL_ONLY)
+endif()
