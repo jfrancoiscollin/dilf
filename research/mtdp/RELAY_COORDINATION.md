@@ -503,3 +503,19 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   [contrôle des entrées et les commandes d'indexation](jass_benchmark/eighth-replication/README.md#scan-input-checks-with-two-published-freezes).
   **Prochaine action :** geler le prochain tournoi 5+0 indépendant
   terminé. `MIDBy9dl` est toujours annoncé pour 20:00–20:57 UTC.
+
+- 2026-11-12 17:16 UTC — Relais recherche MTDP. Tête initiale
+  `34a8bf3f09a5260a3cd8778ba019fda9781b1e4d`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43256401930)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43256401991)
+  réussies, artefact PC Blues `13960559152`. Aucun job équivalent actif.
+  Ce commit publie le
+  [relevé et le test d'intégration](jass_benchmark/eighth-replication/README.md#scoring-pipeline-rehearsal-and-updated-schedule).
+  Le test sur trois gels synthétiques vérifie la préparation, la
+  séparation des scores, la reconstruction par tournoi et
+  l'agrégation. Résumé reproduit à l'octet et analyse altérée rejetée.
+  115 tests MTDP et 643 tests DILF réussis, catalogue Jass optionnel sauté.
+  Toujours deux gels et aucun nouveau score Scan. `MIDBy9dl` reste
+  annoncé pour 20:00–20:57 UTC. `KXaMpuNe` est nouvellement annoncé
+  pour 23:00–23:57 UTC. **Prochaine action :** contrôler l'export du
+  premier tournoi 5+0 admissible terminé et publier son gel avant Scan.

@@ -1,7 +1,11 @@
+import hashlib
+import json
+import sys
 from copy import deepcopy
 
 import pytest
 
+from research.mtdp.jass_benchmark import geometry_ablation, multi_event_freeze
 from research.mtdp.jass_benchmark import multi_event_replication as study
 
 
@@ -115,3 +119,79 @@ def test_merged_sources_deduplicate_and_split_with_event_digest():
     assert split["B"]["action_scores_centimen"] == split["C"]["action_scores_centimen"] == receipt["action_scores_centimen"]
     with pytest.raises(ValueError, match="cohort_sha256"):
         study.split_reference(merged, "different", receipt, tagged, "source")
+
+
+def test_cli_scores_round_trip_through_three_frozen_events(tmp_path, monkeypatch):
+    def run(module, *args):
+        monkeypatch.setattr(sys, "argv", [module.__name__, *map(str, args)])
+        module.main()
+
+    def read(path):
+        return json.loads(path.read_bytes())
+
+    def descriptor(path):
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        return {"path": str(path), "stored_sha256": digest, "content_sha256": digest}
+
+    write = geometry_ablation.write_json
+    actions = [[[31, 26], [], False], [[32, 27], [], False]]
+    moves = [{"action": action} for action in actions]
+    scan_hashes = {"scan_linux": "test-scan", "data/eval": study.SCAN_EVAL_SHA256}
+    events = ("A", "B", "C")
+    entries = []
+    for event, hour in zip(events, ("11", "14", "17"), strict=True):
+        provenance, _, _ = sample_packet(event, hour, [(f"{event}-game", 0, False)])
+        fen, game = f"{event}-target", f"{event}-game"
+        rows = [{"fen": fen, "owner": game, "games": [game], "actions": actions,
+                 "matches": {arm: [["pc:1", 0, "shared"]] for arm in study.OCCUPANCY_ARMS}}]
+        plan = {"schema": "mtdp-jass-cohort-v1",
+                "engine": {"scan_binary_sha256": scan_hashes["scan_linux"]},
+                "targets": [{"source_fen": "shared", "target_fen": fen, "legal_moves": moves}]}
+        multi_event_freeze.package(tmp_path / event, provenance, rows, plan, {},
+                                   {"scan_sha256": scan_hashes})
+        entries.append({"provenance": descriptor(tmp_path / event / "provenance.json")})
+
+    index, merged_path = tmp_path / "freeze-index.json", tmp_path / "merged.json"
+    write(index, entries)
+    run(study, "prepare-score-plan", "--freeze-index", index, "--output", merged_path)
+    merged = read(merged_path)
+    for role, depth, scores in (("source", 12, (30, 0)), ("target", 16, (0, 20))):
+        fens = study.score_catalogue(merged, role)
+        assert len(fens) == (1 if role == "source" else 3)
+        receipt = tmp_path / f"{role}.json"
+        write(receipt, {
+            "schema": "mtdp-jass-scan-reference-v1", "role": role, "scan_successor_depth": depth,
+            "scan_binary_sha256": scan_hashes["scan_linux"], "scan_eval_sha256": scan_hashes["data/eval"],
+            "cohort_sha256": descriptor(merged_path)["content_sha256"],
+            "action_scores_centimen": {fen: [{**move, "score": score}
+                                             for move, score in zip(moves, scores, strict=True)]
+                                       for fen in fens},
+        })
+        run(study, "split-reference", "--freeze-index", index, "--merged-plan", merged_path,
+            "--reference", receipt, "--role", role, "--output-dir", tmp_path)
+
+    for event, entry in zip(events, entries, strict=True):
+        source, target, comparison = (tmp_path / f"{event}-{role}.json"
+                                      for role in ("source", "target", "comparison"))
+        run(geometry_ablation, "analyze", "--provenance", entry["provenance"]["path"],
+            "--source", source, "--target", target, "--output", comparison)
+        entry.update(source=descriptor(source), target=descriptor(target), comparison=descriptor(comparison))
+
+    packets, result = tmp_path / "packet-index.json", tmp_path / "summary.json"
+    write(packets, entries)
+    run(study, "aggregate", "--packet-index", packets, "--output", result)
+    arms = read(result)["pooled"]["arms"]
+    assert arms["L"]["top1"]["covered"] == 0 and arms["L"]["top1"]["max_centimen"] == 20
+    assert arms["L"]["top3"]["covered"] == 3 and arms["L"]["top3"]["max_centimen"] == 0
+    repeated = tmp_path / "repeated.json"
+    run(study, "aggregate", "--packet-index", packets, "--output", repeated)
+    assert result.read_bytes() == repeated.read_bytes()
+
+    comparison = tmp_path / "A-comparison.json"
+    edited = read(comparison)
+    edited["matched_rows"][0]["L"]["top1"]["ordinary_regret_centimen"] += 1
+    write(comparison, edited)
+    entries[0]["comparison"] = descriptor(comparison)
+    write(packets, entries)
+    with pytest.raises(ValueError, match="does not reproduce"):
+        run(study, "aggregate", "--packet-index", packets, "--output", result)

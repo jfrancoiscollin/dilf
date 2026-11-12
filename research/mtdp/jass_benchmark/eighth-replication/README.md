@@ -153,6 +153,24 @@ hashes matched both provenances. The third-freeze input inventory
 verified all 13 exclusion PDNs and 47 prior manifest hashes.
 `prepare-score-plan` refused the two-entry index and wrote no plan.
 
+## Scoring pipeline rehearsal and updated schedule
+
+The [17:16 UTC listing](2026-11-12T171625Z-tournaments.json) still
+shows only two finished candidates. `MIDBy9dl` remains scheduled
+for 20:00–20:57 UTC. [KXaMpuNe](https://lidraughts.org/tournament/KXaMpuNe)
+was newly listed for 23:00–23:57 UTC, after `MIDBy9dl`.
+Both are candidates until their exports and replay pass verification.
+
+The [CLI integration test](../../tests/test_multi_event_replication.py)
+rehearses the complete post-Scan path with three synthetic freezes and
+synthetic score receipts. One source FEN shared by all three events
+is represented once in the merged reference. Each split receipt is
+bound to its frozen plan. Aggregation reproduces identical bytes on
+a second run and rejects a modified event analysis even when the
+packet index contains the modified file's correct hash. No actual
+Scan search was run. Local validation passed 115 MTDP tests and 643
+DILF tests. The optional live Jass catalogue test was skipped.
+
 ## Continue acquisition
 
 From the DILF root, fetch a fresh listing, preserving old snapshots
