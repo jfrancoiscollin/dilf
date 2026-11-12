@@ -9,16 +9,20 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 from statistics import fmean
+from urllib.parse import urlsplit
 
 from research.mtdp.best_move_audit import load_positions
 from research.mtdp.draught_master_adapter import create_engine
 from research.mtdp.jass_benchmark.depth_sensitivity import distribution, read_input, regret, validate_reference
 from research.mtdp.jass_benchmark.offline_top3_control import clustered_interval
 from research.mtdp.jass_cohort import ADAPTER_COMMIT, SCAN_COMMIT, SCAN_SHA256
+from research.mtdp.pdn import read_games
 from research.mtdp.successor_audit import _action_key, _quiet_signature
 from research.mtdp.top_k_transfer import _action
 
 ARMS = ("L", "LG")
+OCCUPANCY_ARMS = ("L", "LM", "LCB", "LMB")
+OCCUPANCY_CONTRASTS = (("LM", "L"), ("LCB", "L"), ("LMB", "L"), ("LMB", "LCB"))
 
 
 def quiet_catalogue(state, engine):
@@ -42,11 +46,62 @@ def enumerate_matches(index, catalogue):
     }
 
 
+def occupancy_catalogue(state, engine):
+    if state.kings_of(state.turn):
+        return None, "mover_king"
+    actions = tuple(sorted(map(_action_key, engine.legal_moves(state))))
+    if len(set(actions)) != len(actions):
+        raise ValueError("Duplicate canonical action")
+    signature = _quiet_signature(state)
+    capturing = any(action[1] for action in actions)
+    if capturing != (signature is None):
+        raise ValueError("FMJD capture status disagrees with quiet geometry")
+    if capturing:
+        return None, "capture"
+    if len(actions) < 2:
+        return None, "terminal" if not actions else "forced"
+    return (actions, signature), "eligible"
+
+
+def enumerate_occupancy_matches(index, catalogue):
+    actions, (turn, men, blockers) = catalogue
+    rows = sorted(index.get((turn, actions), []))
+    return {
+        "L": [identity for identity, _ in rows],
+        "LM": [identity for identity, key in rows if key[1] == men],
+        "LCB": [identity for identity, key in rows if len(key[1]) == len(men) and key[2] == blockers],
+        "LMB": [identity for identity, key in rows if key == (turn, men, blockers)],
+    }
+
+
+def check_event_game_ids(holdout, previous):
+    def public_ids(path):
+        ids = []
+        for game in read_games(path):
+            url = urlsplit(game.tags.get("Site", ""))
+            first = url.path.lstrip("/").split("/")[0]
+            if url.hostname == "lidraughts.org" and len(first) == 8 and first.isalnum():
+                ids.append(first)
+        return ids
+
+    ids = public_ids(holdout)
+    if len(ids) != len(read_games(holdout)) or len(ids) != len(set(ids)):
+        raise ValueError("Holdout must have a unique public game ID for every PDN game")
+    prior = {game_id for path in previous for game_id in public_ids(path)}
+    if overlap := set(ids) & prior:
+        raise ValueError(f"Holdout overlaps earlier game IDs: {sorted(overlap)}")
+    return ids
+
+
 def novel_targets(held, base, prior, frozen):
     return sorted(held.keys() - base.keys() - prior.keys() - frozen)
 
 
-def freeze(baseline, exclusions, holdout, prior_fens, engine):
+def freeze(baseline, exclusions, holdout, prior_fens, engine, *, mover_occupancy=False):
+    arms = OCCUPANCY_ARMS if mover_occupancy else ARMS
+    classify = occupancy_catalogue if mover_occupancy else quiet_catalogue
+    matcher = enumerate_occupancy_matches if mover_occupancy else enumerate_matches
+    public_game_ids = check_event_game_ids(holdout, [baseline, *exclusions]) if mover_occupancy else None
     seen = set()
     source_plies, game_audit = {}, {}
     base, _, base_inputs = load_positions([baseline], engine, seen, plies_by_game=source_plies)
@@ -56,22 +111,26 @@ def freeze(baseline, exclusions, holdout, prior_fens, engine):
     held, held_games, held_inputs = load_positions([holdout], engine, seen, game_audit=game_audit)
     index = defaultdict(list)
     for fen, state in base.items():
-        catalogue, _ = quiet_catalogue(state, engine)
+        catalogue, _ = classify(state, engine)
         if catalogue is None:
             continue
         actions, signature = catalogue
         game = min(source_plies[fen])
-        index[actions].append(((game, min(source_plies[fen][game]), fen), signature))
+        lookup = (signature[0], actions) if mover_occupancy else actions
+        index[lookup].append(((game, min(source_plies[fen][game]), fen), signature))
 
     rows, score_pairs = [], []
     counts = Counter(dict.fromkeys(("eligible", "terminal", "forced", "non_quiet"), 0))
+    if mover_occupancy:
+        del counts["non_quiet"]
+        counts.update({"mover_king": 0, "capture": 0})
     for fen in novel_targets(held, base, prior, prior_fens):
-        catalogue, status = quiet_catalogue(held[fen], engine)
+        catalogue, status = classify(held[fen], engine)
         counts[status] += 1
         if catalogue is None:
             continue
         actions, signature = catalogue
-        matches = enumerate_matches(index, catalogue)
+        matches = matcher(index, catalogue)
         game_ids = sorted(held_games[fen])
         side, men, blockers = signature
         rows.append({
@@ -79,7 +138,7 @@ def freeze(baseline, exclusions, holdout, prior_fens, engine):
             "actions": actions, "geometry": [side, sorted(men), sorted(blockers)],
             "matches": matches,
         })
-        selected = {matches[arm][0][2] for arm in ARMS if matches[arm]}
+        selected = {matches[arm][0][2] for arm in arms if matches[arm]}
         for source_fen in sorted(selected):
             score_pairs.append({"source_fen": source_fen, "target_fen": fen,
                                 "legal_moves": [{"action": action} for action in actions]})
@@ -93,9 +152,15 @@ def freeze(baseline, exclusions, holdout, prior_fens, engine):
             "overlap_prior_manifest": len(held.keys() & prior_fens),
             "eligible_source_fens": sum(map(len, index.values())),
             **counts,
-            **{arm: sum(bool(row["matches"][arm]) for row in rows) for arm in ARMS},
+            **{arm: sum(bool(row["matches"][arm]) for row in rows) for arm in arms},
         },
     }
+    if mover_occupancy:
+        summary["arms"] = arms
+        summary["event_game_ids"] = public_game_ids
+        summary["counts"]["novel_replayed_fens"] = sum(
+            counts[key] for key in ("eligible", "terminal", "forced", "mover_king", "capture")
+        )
     plan = {
         "schema": "mtdp-jass-cohort-v1",
         "engine": {"scan_binary_sha256": SCAN_SHA256, "scan_commit": SCAN_COMMIT,
@@ -140,13 +205,13 @@ def summarize_arm(records, arm):
     }
 
 
-def paired_summary(records):
-    pairs = [row for row in records if all(arm in row for arm in ARMS)]
+def paired_summary(records, stricter="LG", control="L"):
+    pairs = [row for row in records if stricter in row and control in row]
     metrics = {}
     for name in ("top1", "top3"):
         coverage, costs = [], []
         for row in pairs:
-            a, b = row["LG"][name], row["L"][name]
+            a, b = row[stricter][name], row[control][name]
             identity = ("holdout", row["owner"])
             coverage.append((*identity, int(a["covered"]) - int(b["covered"])))
             x, y = a["ordinary_regret_centimen"], b["ordinary_regret_centimen"]
@@ -158,21 +223,31 @@ def paired_summary(records):
             "regret_delta_centimen": distribution([value for _, _, value in costs]),
             "regret_ci": clustered_interval(costs),
         }
-    return {"paired": len(pairs), "different_source": sum(row["source_differs"] for row in pairs), **metrics}
+    changed = sum(
+        row["selected_sources"][stricter] != row["selected_sources"][control]
+        if "selected_sources" in row else row["source_differs"]
+        for row in pairs
+    )
+    return {"paired": len(pairs), "different_source": changed, **metrics}
 
 
 def analyze(rows, source, target, provenance):
+    arms = tuple(provenance.get("arms", ARMS))
+    if arms not in (ARMS, OCCUPANCY_ARMS):
+        raise ValueError("Unexpected frozen matching arms")
+    mover_occupancy = arms == OCCUPANCY_ARMS
+    constraints = (("LM", "L"), ("LCB", "L"), ("LMB", "LM"), ("LMB", "LCB")) if mover_occupancy else (("LG", "L"),)
     expected = {"source": {}, "target": {}}
     for row in rows:
         actions = {_action({"action": value}) for value in row["actions"]}
         if len(actions) != len(row["actions"]):
             raise ValueError("Duplicate frozen action")
-        a, b = (row["matches"][arm] for arm in ARMS)
-        if not {tuple(match) for match in b} <= {tuple(match) for match in a}:
-            raise ValueError("Geometry matches must be legal matches")
-        if a:
+        sets = {arm: {tuple(match) for match in row["matches"][arm]} for arm in arms}
+        if any(not sets[a] <= sets[b] for a, b in constraints):
+            raise ValueError("Geometry matches must be legal matches and obey arm nesting")
+        if sets["L"]:
             expected["target"][row["fen"]] = actions
-        for arm in ARMS:
+        for arm in arms:
             matches = row["matches"][arm]
             if matches:
                 fen = matches[0][2]
@@ -184,24 +259,41 @@ def analyze(rows, source, target, provenance):
             raise ValueError(f"Wrong reference role: {role}")
         scores[role] = validate_reference(reference, expected[role], provenance["scan_sha256"],
                                           provenance["score_plan"]["content_sha256"], depth)
+        if mover_occupancy and any(abs(value) > 10_000 for moves in scores[role].values() for value in moves.values()):
+            raise ValueError(f"Invalid {role} Scan score category")
     records = []
     for row in rows:
         matches = row["matches"]
         record = {"fen": row["fen"], "games": row["games"], "owner": row["owner"],
-                  "match_counts": {arm: len(matches[arm]) for arm in ARMS},
-                  "source_differs": bool(matches["LG"] and matches["L"][0] != matches["LG"][0])}
-        for arm in ARMS:
+                  "match_counts": {arm: len(matches[arm]) for arm in arms}}
+        if mover_occupancy:
+            record["selected_sources"] = {arm: matches[arm][0] for arm in arms if matches[arm]}
+        else:
+            record["source_differs"] = bool(matches["LG"] and matches["L"][0] != matches["LG"][0])
+        for arm in arms:
             if matches[arm]:
                 fen = matches[arm][0][2]
                 scored = scores["target"][row["fen"]]
                 record[arm] = outcomes(scores["source"][fen], scored, min(3, len(scored)))
         records.append(record)
-    return {
-        "targets": len(rows), "arms": {arm: summarize_arm(records, arm) for arm in ARMS},
-        "paired": paired_summary(records),
-        "single_game_sensitivity": paired_summary([row for row in records if len(row["games"]) == 1]),
+    single = [row for row in records if len(row["games"]) == 1]
+    report = {
+        "targets": len(rows), "arms": {arm: summarize_arm(records, arm) for arm in arms},
         "matched_rows": [row for row in records if "L" in row],
     }
+    if mover_occupancy:
+        report["paired"] = {f"{a}_vs_{b}": paired_summary(records, a, b) for a, b in OCCUPANCY_CONTRASTS}
+        report["single_game_sensitivity"] = {
+            f"{a}_vs_{b}": paired_summary(single, a, b) for a, b in OCCUPANCY_CONTRASTS
+        }
+        for arm, summary in report["arms"].items():
+            for metric in ("top1", "top3"):
+                outcome = summary[metric]
+                outcome["catastrophic"] = outcome["at_least_50"] + sum(outcome["category_transitions"].values())
+    else:
+        report["paired"] = paired_summary(records)
+        report["single_game_sensitivity"] = paired_summary(single)
+    return report
 
 
 def write_json(path, value):
@@ -224,13 +316,20 @@ def main():
         freezing.add_argument(f"--{name}", required=True, type=Path)
     for name in ("exclude-previous", "prior-manifest"):
         freezing.add_argument(f"--{name}", required=True, action="append", type=Path)
+    freezing.add_argument("--mover-occupancy", action="store_true")
+    freezing.add_argument("--prior-eligible-shard", action="append", default=[], type=Path)
     analysis = mode.add_parser("analyze")
     for name in ("provenance", "source", "target", "output"):
         analysis.add_argument(f"--{name}", required=True, type=Path)
     args = parser.parse_args()
     if args.mode == "freeze":
-        summary, rows, plan, audit = freeze(args.baseline, args.exclude_previous, args.holdout,
-                                            prior_fens(args.prior_manifest), create_engine())
+        excluded = prior_fens(args.prior_manifest)
+        for shard in args.prior_eligible_shard:
+            excluded.update(row["fen"] for row in json.loads(gzip.decompress(shard.read_bytes())))
+        summary, rows, plan, audit = freeze(
+            args.baseline, args.exclude_previous, args.holdout, excluded, create_engine(),
+            mover_occupancy=args.mover_occupancy,
+        )
         args.output_dir.mkdir(parents=True, exist_ok=True)
         for name, value in (("freeze-summary", summary), ("eligible", rows), ("score-plan", plan), ("game-audit", audit)):
             write_json(args.output_dir / f"{name}.json", value)
