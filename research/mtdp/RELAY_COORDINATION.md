@@ -152,3 +152,17 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
 - 2026-11-12 — Relais de validation pour Jass, tête initiale `44bfa0976228980dfda17b7b33d196a18ef48632`. [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43114783011) et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43114782996) réussies, artefact PC Blues `13898335751`. Aucun job équivalent identifié. [Correspondance DILF/Jass](jass_preflight/README.md) vérifiée sur les 26 parties PC Blues : 1 749 FEN appariées sur 1 750, dont 1 313 sans prise et 436 avec prise. Le contrôle exclut une position où deux chemins de prise partagent une seule clé Jass. Les 78 tests MTDP, les 643 tests DILF et la suite Jass passent ; le préflight reste identique à l'octet. **Prochaine action :** geler le manifeste indépendant prévu par le protocole Jass, appliquer le contrôle de correspondance avant tout calcul et rapporter les exclusions, puis produire les classements Scan à profondeur 12 et exécuter les trois bras aux budgets préenregistrés.
 
 - 2026-11-11 23:47 UTC — Relais recherche MTDP. Tête initiale `b3ccfd54022b1756af169d0ef5fea1ab06934c5e` ; [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43119582257) et [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43119581944) **success**. Audit de `jass_move_mapping.py` : une action canonique DILF dupliquée pouvait écraser silencieusement une entrée du dictionnaire ; correction `13298c7` et test de non-régression `195a7a9`. **Aucun test exécuté localement** ; aucun workflow trouvé sur `195a7a9` lors de la première vérification. Le benchmark indépendant Jass reste non exécuté. **Prochaine action :** confirmer les Actions du nouveau head, puis figer le manifeste indépendant et vérifier l'exclusion des clés de prise ambiguës avant le benchmark.
+
+- 2026-11-12 UTC — Relais de validation pour Jass. Tête initiale
+  `ae3790b39f20cbf27812fa12adcadf0fc7dcb50b`. [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43122625371)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43122625307)
+  réussies, artefact PC Blues `13901342350`. Aucun job équivalent identifié.
+  Le commit de cette entrée fige le [lot indépendant](jass_benchmark/README.md)
+  avant tout calcul de scores. Sur 66 parties exportées, 62 trajectoires
+  distinctes et 6 046 FEN nouvelles après exclusion des corpus précédents.
+  28 cibles dans 17 parties ont une source PC Blues et une correspondance
+  complète des coups DILF/Jass, sans rejet d'appariement. Deux gels identiques.
+  Les 79 tests MTDP avec catalogue Jass et la suite Jass passent. Le
+  préflight est identique à l'octet. **Prochaine action :** produire les
+  scores Scan des actions du manifeste gelé à profondeur 12, puis utiliser
+  ces scores dans le benchmark Jass apparié aux trois budgets.
