@@ -64,6 +64,25 @@ PDN in the exclusion inventory and pass
 `--previous-freeze "$study/xAnBIxHN/provenance.json"` for the next freeze.
 The three-event scoring gate has not been opened.
 
+## Post-finish candidate check at 13:13 UTC
+
+The [new listing](2026-11-12T131326Z-tournaments.json) still shows
+only one finished new 5+0 arena. The tournament page, detail API and
+PDN export for `vHeQVFho` again returned HTTP 404 after its announced
+12:37 UTC finish. The [endpoint receipt](vHeQVFho-post-finish-endpoint-check.json)
+and [rejection record](rejections.json) preserve the observation and
+the reason for exclusion. The raw chronology retains the original
+announcement. Pass `--rejections "$study/rejections.json"` to subsequent
+freezes. If the event reappears with a completed export before the next
+freeze, review its eligibility in chronological order first.
+
+The next known candidate, `MoXhmT9b`, is scheduled for 14:00–14:57 UTC.
+The freeze check rejected it while still scheduled, even after applying
+the recorded exclusion. The replication remains at **1/3** with zero
+new Scan scores. Refresh the listing after 14:57 UTC, check the
+candidate's detail and fetch its completed PDN twice before attempting
+its freeze. A third eligible event is still needed.
+
 ## Continue acquisition
 
 From the DILF root, fetch a fresh listing, preserving old snapshots

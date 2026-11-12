@@ -434,3 +434,21 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   constat et l'exclure explicitement, puis vérifier `MoXhmT9b`
   après 14:57 UTC. Conserver l'ordre chronologique et publier
   les trois gels avant de calculer les scores Scan.
+
+- 2026-11-12 13:13 UTC — Relais recherche MTDP. Tête initiale
+  `9338b56eecc3bc4507ae2a9b4330d7ea79bfb387`, PR #43 ouverte.
+  [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43217138238)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43217138392)
+  réussies, artefact PC Blues `13943932475`. Aucun job équivalent en cours
+  ou en attente. Les jobs CI signalés en attente sont liés à des têtes
+  du 11 novembre. Ce commit publie le
+  [relevé après la fin annoncée](jass_benchmark/eighth-replication/README.md#post-finish-candidate-check-at-1313-utc).
+  `vHeQVFho` est absent du calendrier et ses trois endpoints renvoient
+  encore 404. Le fichier `rejections.json` conserve le motif d'exclusion
+  et le relevé chronologique conserve l'annonce initiale.
+  `MoXhmT9b` est annoncé et le contrôle refuse son gel à ce stade.
+  114 tests MTDP, 643 tests DILF et le rejeu PC Blues (26 parties,
+  1 864 positions, aucune quarantaine) réussis. Test optionnel du
+  catalogue Jass sauté. Toujours un gel sur trois, aucun nouveau score.
+  **Prochaine action :** revérifier le calendrier et tenter le gel de
+  `MoXhmT9b` après 14:57 UTC si son export est disponible et admissible.
