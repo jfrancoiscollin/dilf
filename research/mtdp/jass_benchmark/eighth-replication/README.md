@@ -83,6 +83,31 @@ new Scan scores. Refresh the listing after 14:57 UTC, check the
 candidate's detail and fetch its completed PDN twice before attempting
 its freeze. A third eligible event is still needed.
 
+## Candidate check and input restoration at 14:14 UTC
+
+The [listing](2026-11-12T141444Z-tournaments.json) shows `MoXhmT9b`
+in progress with a scheduled 14:57 UTC finish and a new standard
+5+0 candidate, [MIDBy9dl](https://lidraughts.org/tournament/MIDBy9dl),
+scheduled for 20:00–20:57 UTC. The gate refused to freeze `MoXhmT9b`
+while it was running. The replication remains at **1/3**.
+
+The first freeze was rebuilt from a fresh download of the pinned
+inputs. Its 11 eligible-position shards (8,069 rows), score plan and
+game audit reproduced byte-for-byte with `PYTHONHASHSEED=131`.
+The Scan Linux executable, configuration and evaluation data
+matched the frozen digests. No Scan scores were computed.
+
+To restore inputs on a fresh machine, use the newest frozen
+`provenance.json` and fetch each `mtdp-lidraughts-<id>.pdn` from
+`https://lidraughts.org/api/tournament/<id>/games`. Read the filenames and
+SHA-256 values from both `inputs.exclusions` and `inputs.event`.
+Check every download against its recorded SHA-256 and retry on a
+mismatch with a fresh query parameter. Keep the two local club PDNs in
+`docs/parties` of the [pinned adapter checkout](https://github.com/jfrancoiscollin/draught-master/tree/0e5189fbb251bf5eaf2e613d0f878bb17c740311).
+Extract Scan from the [pinned source archive](https://codeload.github.com/rhalbersma/scan/tar.gz/7aae17e7b7bfc47744601afb1ee7655e18983ce5).
+The freeze command independently checks the adapter revision, all
+input and manifest digests, and the three Scan file digests.
+
 ## Continue acquisition
 
 From the DILF root, fetch a fresh listing, preserving old snapshots
