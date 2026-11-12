@@ -164,6 +164,34 @@ def summarize(rows):
     }
 
 
+def summarize_target_games(rows):
+    """Assign each distinct FEN to one target game, then weight games equally."""
+    games = defaultdict(list)
+    for row in rows:
+        games[min(row["target_games"])].append(row)
+    by_game = {game: summarize(group) for game, group in sorted(games.items())}
+    comparisons = {}
+    for control in ("canonical", "native"):
+        means = [
+            summary["comparisons"][control]["mean_delta_centimen"]
+            for summary in by_game.values()
+            if summary["comparisons"][control]["ordinary_pairs"]
+        ]
+        comparisons[control] = {
+            "ordinary_games": len(means),
+            "transfer_better_games": sum(value < 0 for value in means),
+            "transfer_worse_games": sum(value > 0 for value in means),
+            "mean_game_delta_centimen": mean(means) if means else None,
+            "median_game_delta_centimen": median(means) if means else None,
+        }
+    return {
+        "games": len(games),
+        "targets_in_multiple_games": sum(len(row["target_games"]) > 1 for row in rows),
+        "comparisons": comparisons,
+        "by_game": by_game,
+    }
+
+
 def write_json(path, value):
     path.write_text(json.dumps(value, sort_keys=True, indent=2) + "\n", encoding="utf-8")
 
@@ -205,6 +233,9 @@ def main():
     write_json(args.output_dir / "summary.json", {
         "searches": len(traces),
         "by_budget": {budget: summarize(rows) for budget, rows in by_budget.items()},
+        "by_target_game": {
+            budget: summarize_target_games(rows) for budget, rows in by_budget.items()
+        },
         "by_source_game": {
             game: {budget: summarize(rows) for budget, rows in budgets.items()}
             for game, budgets in by_source_game.items()
