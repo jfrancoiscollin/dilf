@@ -184,3 +184,20 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
 
 
 - 2026-11-12 00:44 UTC — Relais recherche MTDP. Tête initiale `77cdce89184aa777b24baa314492158e6629e93e`, [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43127588828) et [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43127588983) **success**. Audit du benchmark indépendant : 28 cibles, 252 recherches, comparaison avec natif et témoin canonique, pas de gain de force démontré. Correction `880ce24` : `read_run` rejette désormais un reçu Jass dont `nodes` diffère du budget demandé, en plus de vérifier le budget déclaré. **Aucun test de ce correctif exécuté ni Actions du nouveau commit vérifiées au moment de cette entrée.** Prochaine action : vérifier les deux Actions, ajouter un test négatif de reçu à mauvais nombre de nœuds, puis répliquer sur un tournoi rapide indépendant avec agrégation par partie cible.
+
+- 2026-11-12 — Réplication Jass à partir de la tête `cd75b60`. Les deux
+  Actions du gel `ad2ca47` ([CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43133648237),
+  [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43133648166))
+  ont réussi. Aucun job de réplication équivalent identifié. Le
+  [rapport reproductible](jass_benchmark/replication-iPQl7g7q/RESULTS_2026-11-12.md)
+  couvre 75 cibles d'un deuxième tournoi rapide. Scan 3.1 profondeur 12
+  trouve 40/75 paires à optima disjoints. La perte maximale est de 3,80
+  pions avec le premier coup et de 1,20 avec le meilleur des trois.
+  Les 675 recherches Jass ont consommé exactement leur budget, avec deux
+  exécutions identiques hors temps mur. À 200 000 nœuds le transfert
+  perd en moyenne face aux deux témoins, y compris par partie cible.
+  Les 81 tests MTDP, 643 tests DILF et 10 tests CTest de Jass passent.
+  **Prochaine action :** préenregistrer puis tracer un test où les trois
+  coups sont proposés à la première itération seule, pour préserver
+  l'ordre adaptatif natif ensuite. Utiliser le même traitement pour le
+  témoin canonique, puis tester sur une nouvelle cohorte gelée.
