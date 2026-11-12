@@ -1,6 +1,7 @@
 # MTDP/Jass — preregistration: seed root ordering at iteration one only
 
-Status: **preregistered design, NOT implemented, NOT executed** (2026-11-12).
+Status (2026-11-12): [mechanistic preflight passed](jass_preflight/INITIAL_ONLY_RESULTS_2026-11-12.md).
+Independent cohort and playing-quality benchmark pending.
 This is a new experiment following the independent 28-target benchmark and the
 75-target replication. It does not reinterpret those already observed outcomes.
 

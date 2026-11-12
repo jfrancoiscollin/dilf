@@ -204,3 +204,20 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
 
 
 - 2026-11-12 01:40 UTC — Relais recherche MTDP. Audit du dernier journal : la réplication indépendante sur 75 cibles / 675 recherches est documentée dans `jass_benchmark/replication-iPQl7g7q/RESULTS_2026-11-12.md`, sans gain robuste du transfert. Les Actions du commit `cd75b60` [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43129516678) et [downstream](https://github.com/jfrancoiscollin/dilf/actions/runs/43129516321) sont **success**. Commit `3007707` : protocole `JASS_INITIAL_ONLY_PROTOCOL.md` préenregistrant l'ordre top-3 uniquement à la première itération et la restauration adaptative native, avec contrôle des traces, troisième cohorte gelée et analyse groupée par partie. **Aucune implémentation Jass ni nouvelle recherche exécutée**. Prochaine action : auditer le code racine de Jass et implémenter la variante initial-only avec tests de récupération de l'ordre natif, avant tout scoring.
+
+- 2026-11-12 02:18 UTC — Relais recherche MTDP. Tête initiale
+  `1e1f64512461021995af164ca3132a62255d8c23`. [CI](https://github.com/jfrancoiscollin/dilf/actions/runs/43136178074)
+  et [compatibilité](https://github.com/jfrancoiscollin/dilf/actions/runs/43136178047)
+  réussies, artefact PC Blues `13907129037`. Aucun job équivalent identifié.
+  Le commit qui ajoute cette entrée publie le
+  [patch Jass et son préflight reproductible](jass_preflight/INITIAL_ONLY_RESULTS_2026-11-12.md).
+  L'ordre imposé ne persiste plus au-delà de la première itération.
+  Les 30 recherches sur quatre fixtures ont atteint exactement leur budget.
+  Les 609 traces d'itération et de reprise se reproduisent à l'octet et
+  confirment la reprise de l'ordre adaptatif dès la profondeur 2.
+  Le préflight historique se reproduit aussi à l'octet. Le test CTest
+  `jass_tests`, les 81 tests MTDP avec catalogue et les 643 tests DILF
+  passent. Aucun score sur un troisième tournoi n'a été calculé.
+  **Prochaine action :** geler le PDN et le manifeste d'un troisième
+  tournoi disjoint, puis raccorder le runner du benchmark à ce mode et
+  à la vérification des traces avant de produire les scores Scan.
