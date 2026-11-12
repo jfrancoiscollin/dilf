@@ -66,16 +66,26 @@ def test_pooled_regret_is_target_weighted_and_changed_subset_is_explicit():
         sample_packet("B", "14", [("game", 30, True)]),
         sample_packet("C", "17", [("game", -10, True)]),
     ]
+    row = packets[1][1]["matched_rows"][0]
+    row["LCB"]["top1"] = {**row["LCB"]["top1"], "ordinary_regret_centimen": 150}
     first = study.aggregate(packets)
     assert first == study.aggregate(packets)
     full = first["paired"]["LCB_vs_L"]
     assert full["mean_regret_delta_centimen"] == 5
     assert full["targets"] == 4 and full["owning_games"] == 3 and full["changed_sources"] == 2
+    assert full["changed_source_rate"] == 0.5
+    assert full["by_event"]["A"]["changed_source_rate"] == 0
     assert full["regret_interval"]["events"] == 3
     assert full["leave_one_event_out"]["A"]["mean_regret_delta_centimen"] == 10
     changed = first["paired"]["LCB_vs_L_changed_sources"]
     assert changed["targets"] == 2 and changed["regret_interval"]["events"] == 2
     assert changed["mean_regret_delta_centimen"] == 10
+    top1 = first["paired_top1"]["LCB_vs_L"]
+    assert top1["mean_regret_delta_centimen"] == 10
+    assert top1["changed_source_rate"] == full["changed_source_rate"]
+    top1_changed = first["paired_top1"]["LCB_vs_L_changed_sources"]
+    assert top1_changed["mean_regret_delta_centimen"] == 20
+    assert top1_changed["by_event"]["A"]["changed_source_rate"] is None
 
 
 def test_rejects_partial_and_overlapping_freezes_and_changed_source():

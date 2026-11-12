@@ -187,6 +187,44 @@ The [Lidraughts listing](https://lidraughts.org/api/tournament) at
 20:00 and 23:00 UTC scheduled starts. The replay used the archived
 seventh event only. The three-event study still awaits its third freeze.
 
+## Paired top-one reporting and pre-score audit at 19:12 UTC
+
+The [19:12 UTC listing](2026-11-12T191226Z-tournaments.json) still
+shows only the two frozen events as finished candidates.
+`MIDBy9dl` remains scheduled for 20:00–20:57 UTC, followed by
+`KXaMpuNe` at 23:00–23:57 UTC.
+
+Reading the verified eligible-position shards gives these counts before
+any new Scan search. Each cell lists targets followed by owning games.
+
+| Event | L/LCB common | Different selected source under LCB vs L | LCB matches beyond LMB |
+| --- | ---: | ---: | ---: |
+| `xAnBIxHN` | 46 / 32 | 3 / 3 | 13 / 9 |
+| `MoXhmT9b` | 39 / 29 | 5 / 5 | 10 / 10 |
+| Total | 85 / 61 | 8 / 8 | 23 / 19 |
+
+To reproduce these counts, read each provenance's `eligible_shards`
+using `depth_sensitivity.read_input`. Select rows with a nonempty
+`matches["LCB"]`, then count separately those whose first LCB and L
+source receipts differ and those with empty `matches["LMB"]`. Count
+distinct `owner` values per subset. Thus far 8 of 85 common targets
+(9.4%) change source, so the effect on those targets should be read
+alongside their game count.
+
+The pooled output now exposes `paired_top1` as a supplementary
+diagnostic, using the same paired target populations and hierarchical
+bootstrap as `paired`, which retains the preregistered best-of-three
+estimand. Both report selected-source change rates. The synthetic test
+verifies that first-choice regret and best-of-three regret can differ.
+Local validation passed 115 MTDP tests and 643 DILF tests, and FMJD
+replayed 26 PC Blues games with zero quarantines. The optional live
+Jass catalogue test was skipped.
+
+After 20:57 UTC, verify the third candidate in the listing and the
+detail API, fetch its finished PDN twice and reproduce the freeze.
+Once all three verified freezes are published, score the merged plan
+at the pinned Scan depths 12 and 16 and reproduce its analysis.
+
 ## Continue acquisition
 
 From the DILF root, fetch a fresh listing, preserving old snapshots

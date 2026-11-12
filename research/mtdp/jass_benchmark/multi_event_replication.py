@@ -111,11 +111,11 @@ def paired_observations(events, treatment, control, changed_only):
             yield event, row["owner"], changed, row[treatment], row[control]
 
 
-def contrast(events, treatment, control, changed_only):
+def contrast(events, treatment, control, changed_only, *, metric="top3"):
     pairs = list(paired_observations(events, treatment, control, changed_only))
     costs, coverage = [], []
     for event, game, _, treatment_row, control_row in pairs:
-        a, b = treatment_row["top3"], control_row["top3"]
+        a, b = treatment_row[metric], control_row[metric]
         coverage.append((event, game, int(a["covered"]) - int(b["covered"])))
         x, y = a["ordinary_regret_centimen"], b["ordinary_regret_centimen"]
         if x is not None and y is not None:
@@ -128,9 +128,12 @@ def contrast(events, treatment, control, changed_only):
     for event in events:
         local_pairs = [row for row in pairs if row[0] == event]
         local_costs = [row for row in costs if row[0] == event]
+        changed_sources = sum(row[2] for row in local_pairs)
         per_event[event] = {
             "targets": len(local_pairs), "owning_games": len({row[1] for row in local_pairs}),
-            "changed_sources": sum(row[2] for row in local_pairs), "ordinary_pairs": len(local_costs),
+            "changed_sources": changed_sources,
+            "changed_source_rate": changed_sources / len(local_pairs) if local_pairs else None,
+            "ordinary_pairs": len(local_costs),
             "mean_regret_delta_centimen": mean(local_costs),
             "mean_coverage_delta": mean([row for row in coverage if row[0] == event]),
         }
@@ -140,9 +143,12 @@ def contrast(events, treatment, control, changed_only):
     for event in events:
         kept = [row for row in costs if row[0] != event]
         leave_one_out[event] = {"ordinary_pairs": len(kept), "mean_regret_delta_centimen": mean(kept)}
+    changed_sources = sum(row[2] for row in pairs)
     return {
         "targets": len(pairs), "owning_games": len({(event, game) for event, game, *_ in pairs}),
-        "changed_sources": sum(row[2] for row in pairs), "ordinary_pairs": len(costs),
+        "changed_sources": changed_sources,
+        "changed_source_rate": changed_sources / len(pairs) if pairs else None,
+        "ordinary_pairs": len(costs),
         "mean_regret_delta_centimen": mean(costs), "mean_coverage_delta": mean(coverage),
         "regret_interval": hierarchical_interval(costs), "coverage_interval": hierarchical_interval(coverage),
         "by_event": per_event, "event_regret_range": [min(estimates), max(estimates)] if estimates else None,
@@ -290,10 +296,15 @@ def aggregate(packets):
     overall = coverage_summary([row for rows in events.values() for row in rows],
                                sum(s["eligible"] for s in summaries.values()),
                                sum(s["replayed"] for s in summaries.values()))
-    return {"events": summaries, "pooled": overall, "paired": {
-        f"{a}_vs_{b}" + ("_changed_sources" if changed else ""): contrast(events, a, b, changed)
-        for a, b, changed in CONTRASTS
-    }}
+    paired = {
+        key: {
+            f"{a}_vs_{b}" + ("_changed_sources" if changed else ""):
+            contrast(events, a, b, changed, metric=metric)
+            for a, b, changed in CONTRASTS
+        }
+        for key, metric in (("paired", "top3"), ("paired_top1", "top1"))
+    }
+    return {"events": summaries, "pooled": overall, **paired}
 
 
 def main():
