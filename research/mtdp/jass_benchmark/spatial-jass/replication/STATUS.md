@@ -282,3 +282,30 @@ gzip -n -c "$JASS_OUTPUT/paired-results.jsonl" > "$ARENA/results/paired-results.
 
 Run the five-arena aggregation above after the per-arena files
 are in place. Repeat aggregation and compare the summary bytes.
+
+## Fourth verified freeze on 13 November
+
+The [15:19 UTC listing](20261113T151904Z-tournaments.json) and
+[finished detail](MtDQWBNR-evidence/event-metadata.json) confirm
+MtDQWBNR as the fourth eligible arena. Two separately fetched final
+PDNs matched byte for byte (174,747 bytes). FMJD replay accepted
+140 of 151 records. Five were duplicate trajectories and six used
+ambiguous capture notation. The
+[chronology](MtDQWBNR-evidence/candidate-log.json) and
+[provenance](MtDQWBNR/provenance.json) record those checks.
+
+Of 8,983 eligible positions, L matches 90, LCB 33 and LMB 24.
+The [manifest](MtDQWBNR/manifest.json) includes 33 common targets
+from 22 owning games. Three targets select a different PC Blues
+source under LCB. Jass and FMJD agree on the 344 target actions
+and the corresponding source mappings. The freeze and manifest
+reproduced byte for byte with Python hash seeds 7 and 61.
+All 127 MTDP and 643 DILF tests passed.
+
+Four of five arenas are frozen, with 125 common targets. The next
+listed candidate is CARZrQpl, scheduled for 16:00–22:00 UTC on
+13 November. Recheck the chronology and obtain two final exports
+after it finishes. Keep the four frozen exports in the exclusion
+inventory and add MtDQWBNR as the eighth ordered
+`--previous-freeze`. After publishing the fifth freeze, run the
+five-manifest check and follow the scoring handoff above.
