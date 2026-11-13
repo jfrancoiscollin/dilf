@@ -58,3 +58,22 @@ def test_initial_only_receipt_requires_adaptive_order_fields():
     assert trace["verified_schedule_applications"] == 1
     assert trace["attempts"][0]["expected"] == ["31-26"]
     assert trace["attempts"][0]["best_move"] == "31-26"
+
+
+def test_spatial_receipt_accepts_only_explicit_depth_ceiling():
+    fen = "W:W31:B20"
+    move = {"action": [[31, 26], [], False], "jass_key": "31-26"}
+    target = {"target_fen": fen, "legal_moves": [move]}
+    scores = {((31, 26), (), False): 14}
+    fields = [fen, "10000", "927", "64", "depth_ceiling", "31-26",
+              "20", "8", "", "31-26", "31-26"]
+    receipt, _ = read_run("\t".join(fields), target, 10000, [], scores,
+                          record_depth_ceiling=True)
+    assert receipt["nodes"] == 927
+    assert receipt["stop"] == "depth_ceiling"
+    with pytest.raises(ValueError, match="Unexpected Jass receipt"):
+        read_run("\t".join(fields), target, 10000, [], scores)
+    fields[4] = "nodes"
+    with pytest.raises(ValueError, match="Unexpected Jass receipt"):
+        read_run("\t".join(fields), target, 10000, [], scores,
+                 record_depth_ceiling=True)

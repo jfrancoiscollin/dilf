@@ -23,17 +23,21 @@ def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def read_run(raw, target, budget, prefix, scores, *, initial_only=False):
+def read_run(raw, target, budget, prefix, scores, *, initial_only=False, record_depth_ceiling=False):
     (
         fen, actual_budget, nodes, depth, stop, best, score, elapsed, pv, legal, order, *attempts
     ) = raw.split("\t")
     by_key = {move["jass_key"]: _action(move) for move in target["legal_moves"]}
     legal_keys = legal.split(",")
     expected_order = prefix + [key for key in legal_keys if key not in prefix]
+    depth_ceiling = (
+        record_depth_ceiling and stop == "depth_ceiling" and int(depth) == 64
+        and 0 < int(nodes) < budget
+    )
     if (
         parse_fen(fen) != parse_fen(target["target_fen"])
         or int(actual_budget) != budget
-        or int(nodes) != budget
+        or (not depth_ceiling and (int(nodes) != budget or stop == "depth_ceiling"))
         or len(legal_keys) != len(by_key)
         or set(legal_keys) != by_key.keys()
         or order.split(",") != expected_order
@@ -116,6 +120,8 @@ def run_benchmark(manifest, reference, runner, *, initial_only=False, source_ref
     command = [str(runner.resolve())]
     if initial_only:
         command.append("--initial-only")
+    if compare_spatial_sources:
+        command.append("--record-depth-ceiling")
     result = subprocess.run(
         command, input="\n".join(requests) + "\n",
         text=True, capture_output=True, env=environment,
@@ -139,6 +145,7 @@ def run_benchmark(manifest, reference, runner, *, initial_only=False, source_ref
         for arm in arms:
             receipt, trace = read_run(
                 next(receipts), target, budget, prefixes[arm], scores, initial_only=initial_only,
+                record_depth_ceiling=compare_spatial_sources,
             )
             pair["arms"][arm] = receipt
             parsed[arm] = trace["attempts"]

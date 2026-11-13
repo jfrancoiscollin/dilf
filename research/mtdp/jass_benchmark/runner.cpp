@@ -20,7 +20,7 @@ std::string joined(const Order& keys) {
     return result;
 }
 
-void run(const std::string& fen, std::uint64_t budget, const Order& prefix, bool initial_only) {
+void run(const std::string& fen, std::uint64_t budget, const Order& prefix, bool initial_only, bool record_depth_ceiling) {
     const auto position = jass::Position::from_fen(fen);
     if (!position || budget == 0) throw std::runtime_error("Invalid FEN or node budget");
     jass::MoveList moves;
@@ -61,10 +61,14 @@ void run(const std::string& fen, std::uint64_t budget, const Order& prefix, bool
         std::chrono::steady_clock::now() - start).count();
     const std::size_t expected_applications =
         prefix.empty() ? 0 : (initial_only ? 1 : trace.attempts.size());
-    if (result.nodes != budget) {
+    const bool depth_ceiling = record_depth_ceiling && result.nodes < budget
+        && result.stop_reason == jass::SearchStopReason::None
+        && result.completed_depth == limits.max_depth;
+    if (result.nodes != budget && !depth_ceiling) {
         throw std::runtime_error("Node budget mismatch for " + fen + ": consumed "
             + std::to_string(result.nodes) + " of " + std::to_string(budget)
-            + " (" + jass::search_stop_reason_name(result.stop_reason) + ")");
+            + " (" + jass::search_stop_reason_name(result.stop_reason)
+            + ", depth " + std::to_string(result.completed_depth) + ")");
     }
     if (result.root_order_failures != 0
         || result.root_order_applications != expected_applications
@@ -80,7 +84,8 @@ void run(const std::string& fen, std::uint64_t budget, const Order& prefix, bool
     Order pv;
     for (const auto& move : result.pv) pv.push_back(jass_move_key(move));
     std::cout << position->to_fen() << '\t' << budget << '\t' << result.nodes << '\t'
-              << result.completed_depth << '\t' << jass::search_stop_reason_name(result.stop_reason)
+              << result.completed_depth << '\t'
+              << (depth_ceiling ? "depth_ceiling" : jass::search_stop_reason_name(result.stop_reason))
               << '\t' << jass_move_key(result.best_move) << '\t' << result.score << '\t'
               << elapsed << '\t' << joined(pv) << '\t' << joined(legal) << '\t' << joined(order);
     Order adaptive = legal;
@@ -118,8 +123,12 @@ void run(const std::string& fen, std::uint64_t budget, const Order& prefix, bool
 
 int main(int argc, char** argv) {
     try {
-        const bool initial_only = argc == 2 && std::string(argv[1]) == "--initial-only";
-        if (argc != 1 && !initial_only) throw std::runtime_error("Invalid benchmark option");
+        const bool initial_only = argc >= 2 && std::string(argv[1]) == "--initial-only";
+        const bool record_depth_ceiling = argc == 3 && initial_only
+            && std::string(argv[2]) == "--record-depth-ceiling";
+        if (argc != 1 && !(argc == 2 && initial_only) && !record_depth_ceiling) {
+            throw std::runtime_error("Invalid benchmark option");
+        }
 #ifndef MTDP_JASS_INITIAL_ONLY
         if (initial_only) throw std::runtime_error("Runner built without initial-only support");
 #endif
@@ -130,7 +139,7 @@ int main(int argc, char** argv) {
             if (!(input >> fen >> budget)) throw std::runtime_error("Invalid benchmark row");
             Order prefix;
             for (std::string key; input >> key;) prefix.push_back(key);
-            run(fen, budget, prefix, initial_only);
+            run(fen, budget, prefix, initial_only, record_depth_ceiling);
         }
     } catch (const std::exception& error) {
         std::cerr << error.what() << '\n';

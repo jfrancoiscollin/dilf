@@ -22,8 +22,8 @@ def test_cross_depth_requests_use_only_source_scores_and_bytewise_keys(monkeypat
         captured.append(set(input.splitlines()))
         return SimpleNamespace(returncode=0, stdout="receipt\n" * 3)
 
-    def read_run(_raw, _target, budget, prefix, _scores, *, initial_only):
-        assert initial_only
+    def read_run(_raw, _target, budget, prefix, _scores, *, initial_only, record_depth_ceiling):
+        assert initial_only and not record_depth_ceiling
         return {"completed_depth": 1}, {"attempts": [{"depth": 1, "completed": True, "nodes_after": budget}]}
 
     monkeypatch.setattr(run.subprocess, "run", subprocess_run)
@@ -57,12 +57,12 @@ def test_spatial_arms_use_their_own_source_and_same_budget(monkeypatch):
     captured = []
 
     def subprocess_run(command, *, input, **kwargs):
-        assert command[-1] == "--initial-only"
+        assert command[-2:] == ["--initial-only", "--record-depth-ceiling"]
         captured.append(input)
         return SimpleNamespace(returncode=0, stdout="receipt\n" * 3)
 
-    def read_run(_raw, _target, budget, prefix, _scores, *, initial_only):
-        assert initial_only
+    def read_run(_raw, _target, budget, prefix, _scores, *, initial_only, record_depth_ceiling):
+        assert initial_only and record_depth_ceiling
         return {"completed_depth": 1}, {"attempts": [{"depth": 1, "completed": True, "nodes_after": budget}]}
 
     monkeypatch.setattr(run.subprocess, "run", subprocess_run)

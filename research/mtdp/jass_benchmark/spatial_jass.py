@@ -71,11 +71,23 @@ def source_diagnostic(manifest, scores):
 
 
 def summarize_budget(rows, event):
-    result = summarize(rows, treatment="LCB", controls=("L", "native"))
-    result["owning_games"] = len({min(row["target_games"]) for row in rows})
+    capped = [
+        {"target_fen": row["target_fen"], "arms": {
+            arm: {"nodes": receipt["nodes"], "completed_depth": receipt["completed_depth"]}
+            for arm, receipt in row["arms"].items() if receipt["stop"] == "depth_ceiling"
+        }}
+        for row in rows if any(receipt["stop"] == "depth_ceiling" for receipt in row["arms"].values())
+    ]
+    capped_fens = {row["target_fen"] for row in capped}
+    complete = [row for row in rows if row["target_fen"] not in capped_fens]
+    result = summarize(complete, treatment="LCB", controls=("L", "native")) if complete else {
+        "targets": 0, "comparisons": {}, "arms": {},
+    }
+    result.update({"planned_targets": len(rows), "complete": not capped, "depth_ceiling": capped})
+    result["owning_games"] = len({min(row["target_games"]) for row in complete})
     for control, comparison in result["comparisons"].items():
         observations = []
-        for row in rows:
+        for row in complete:
             a, b = (row["arms"][arm]["ordinary_regret_centimen"] for arm in ("LCB", control))
             if a is not None and b is not None:
                 observations.append((event, min(row["target_games"]), a - b))
