@@ -217,3 +217,32 @@ detail and two exports. Keep the three frozen exports in the
 exclusion inventory and add GYEtKzUg as the seventh ordered
 `--previous-freeze`. Start new scoring after all five freezes
 are published.
+
+## Input inventory before the fourth freeze
+
+On the published three-arena cohort, `validate_replication_history`
+and `previous_inputs` verified 18 exclusion PDNs and 101 archived
+manifests and shards covering 72,697 distinct excluded FENs. To
+repeat the check, supply the seventh study's provenance first to
+`previous_inputs`, followed by the three eighth-study provenances,
+the KXaMpuNe pilot and the three replication freezes in order. Pass
+the restored PDN directory and the pinned FMJD checkout. The
+`read_freeze` and `score_catalogue` checks give the following
+workload for the three published manifests:
+
+| Arena | Source actions at depth 12 | Target actions at depth 16 | Planned Jass searches |
+| --- | ---: | ---: | ---: |
+| uG0fGZzB | 225 | 249 | 225 |
+| l45uk39x | 116 | 115 | 108 |
+| GYEtKzUg | 424 | 555 | 495 |
+| Total | 765 | 919 | 828 |
+
+Actions count distinct FEN/action pairs within each arena and role.
+Search counts cover three budgets and three arms per target. These
+counts come from the frozen manifests before scoring.
+
+The [13:16 UTC listing](20261113T131647Z-tournaments.json) and event
+details confirm MtDQWBNR is scheduled for 14:00–14:57 UTC. The next
+listed candidate, CARZrQpl, is a six-hour standard 5+0 arena
+scheduled for 16:00–22:00 UTC. Refresh the chronology after 14:57 UTC
+and check two final MtDQWBNR exports before freezing it.
