@@ -89,3 +89,36 @@ The second candidate, l45uk39x, was still scheduled when checked at
 07:15 UTC on 13 November. After 08:57 UTC, verify the completed detail
 and two independent final exports, then reproduce the second freeze.
 The five-freeze gate still applies to all new scoring.
+
+## Engine rebuild and archived pilot replay on 13 November
+
+The [08:21 UTC listing](20261113T082159Z-tournaments.json) shows
+l45uk39x underway, with a scheduled finish at 08:57 UTC. GYEtKzUg
+and MtDQWBNR are the next listed standard 5+0 candidates, scheduled
+for 11:00–11:57 and 14:00–14:57 UTC. The cohort has one verified
+arena. The next action is to check the finished listing and detail
+for l45uk39x and compare two independently fetched final PDNs.
+
+A fresh checkout restored all 14 archived Lidraughts exports in the
+first arena's provenance inventory. Every SHA-256 matched. A second
+download of uG0fGZzB also matched byte for byte. The pinned FMJD
+adapter, the two club PDNs and the Scan 3.1 executable, configuration
+and evaluation data passed the freeze input checks. Rebuilding the
+first freeze under hash seed 61 reproduced its six position shards,
+score plan and replay audit byte for byte. The new provenance receipt
+reflects the checkout and output path used for this rehearsal.
+
+GCC 14.2.0 and CMake 4.4.4 rebuilt the pinned Jass catalogue and
+initial-only benchmark runner with their archived SHA-256 values.
+Using the rebuilt catalogue under hash seed 7 reproduced the first
+arena manifest byte for byte. All 124 MTDP tests, including the live
+catalogue test, all 643 DILF tests and the Jass CTest suite passed.
+
+To reproduce the engine check, follow the
+[pilot build and run commands](../PROTOCOL.md#reproduction), using
+the published pilot manifest, Scan receipts and source diagnostic.
+Replaying those frozen inputs with the rebuilt runner reproduced all
+306 root-order traces byte for byte after filtering by budget in
+record order. The 102 paired receipts and the summary also agreed
+after omitting the timing fields. This replay used the archived pilot.
+Scoring on the replication cohort starts after all five freezes.
