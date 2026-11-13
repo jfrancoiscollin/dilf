@@ -237,6 +237,15 @@ def pool(packets, budget, *, changed_only):
                                       "reference_category": a["scan_best_category"],
                                       "LCB_category": a["scan_chosen_category"],
                                       "control_category": b["scan_chosen_category"]})
+        leave_one_out = {}
+        for event in arena_rows:
+            kept = [(arena, game, delta) for arena, game, delta in observations if arena != event]
+            leave_one_out[event] = {
+                "ordinary_pairs": len(kept),
+                "contributing_arenas": len({arena for arena, _, _ in kept}),
+                "contributing_games": len({(arena, game) for arena, game, _ in kept}),
+                "mean_delta_centimen": fmean(delta for _, _, delta in kept) if kept else None,
+            }
         comparisons[control] = {
             "ordinary_pairs": len(observations),
             "nonordinary_pairs": len(complete) - len(observations),
@@ -244,6 +253,7 @@ def pool(packets, budget, *, changed_only):
             "optimum_pairs": optimum_pairs,
             "mean_delta_centimen": fmean(row[2] for row in observations) if observations else None,
             "arena_game_bootstrap": hierarchical_interval(observations),
+            "leave_one_arena_out": leave_one_out,
             "changed_moves": changed_moves,
         }
     return {

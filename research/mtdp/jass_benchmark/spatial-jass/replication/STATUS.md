@@ -434,3 +434,22 @@ CARZrQpl as the next candidate. The acquisition gate correctly
 refused it while in progress. After 22:00 UTC, refresh the listing,
 check the finished detail and compare two final PDNs. Reproduce and
 publish the fifth freeze before scoring.
+
+## Sensitivity to a single arena
+
+The pooled report recomputes the ordinary paired regret mean with each
+arena omitted in turn. It preserves position weighting and reports the
+remaining pairs, contributing arenas and owning games for each budget
+and subset. This is a descriptive check for an effect concentrated in
+one tournament. The primary estimate still uses the full frozen cohort
+subject to the registered receipt and ordinary-score rules.
+
+The archived pilot yields no remaining estimate when its only arena
+is omitted. In a synthetic five-arena test with a known nonzero regret
+sum in one arena, the estimate drops to zero when that arena is omitted.
+The earlier three-arena Scan summary also reproduced byte for byte
+from its archived score receipts. All 132 MTDP and 643 DILF tests passed.
+
+The [21:11 UTC listing](20261113T211141Z-tournaments.json) shows
+CARZrQpl still in progress. After 22:00 UTC verify its finished detail
+and two final exports, then publish the fifth freeze before scoring.

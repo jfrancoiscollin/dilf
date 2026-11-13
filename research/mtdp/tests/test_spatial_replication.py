@@ -59,6 +59,10 @@ def test_published_pilot_receipts_validate_against_scan():
     assert comparisons["native"]["optimum_pairs"] == {
         "both_optimal": 5, "lcb_only": 1, "control_only": 0, "neither_optimal": 27,
     }
+    assert comparisons["L"]["leave_one_arena_out"]["KXaMpuNe"] == {
+        "ordinary_pairs": 0, "contributing_arenas": 0, "contributing_games": 0,
+        "mean_delta_centimen": None,
+    }
 
 
 def test_equal_prefix_searches_agree_except_for_elapsed_time():
@@ -126,13 +130,26 @@ def test_replication_requires_five_disjoint_arenas_and_excludes_ceiling_pairs():
         rows = [{**row, "target_fen": event + row["target_fen"]} for row in receipts]
         packets.append((previous, [{"fen": event + row["fen"]} for row in frozen], changed, rows))
 
+    # Give one arena a nonzero ordinary regret difference to exercise
+    # the position-weighted sensitivity estimate with a known sum.
+    modified = next(row for row in packets[-1][3] if row["budget"] == 50_000
+                    and all(arm["stop"] == "nodes" for arm in row["arms"].values())
+                    and row["arms"]["LCB"]["ordinary_regret_centimen"] is not None)
+    modified["arms"] = deepcopy(modified["arms"])
+    modified["arms"]["LCB"]["ordinary_regret_centimen"] += 124
     result = aggregate(packets, "protocol")
     primary = result["by_budget"][50_000]["all"]
     assert not primary["complete"]
     assert primary["planned_targets"] == 170
     assert primary["budget_complete_targets"] == 165
     assert primary["comparisons"]["L"]["ordinary_pairs"] == 155
-    assert primary["comparisons"]["L"]["mean_delta_centimen"] == 0
+    assert primary["comparisons"]["L"]["mean_delta_centimen"] == pytest.approx(124 / 155)
+    leave_one_out = primary["comparisons"]["L"]["leave_one_arena_out"]
+    assert leave_one_out["arena4"] == {
+        "ordinary_pairs": 124, "contributing_arenas": 4, "contributing_games": 68,
+        "mean_delta_centimen": 0,
+    }
+    assert leave_one_out["arena0"]["mean_delta_centimen"] == 1
     assert sum(primary["comparisons"]["L"]["chosen_category_pairs_control_to_lcb"].values()) == 165
     assert primary["comparisons"]["L"]["arena_game_bootstrap"]["events"] == 5
     assert result["by_budget"][50_000]["changed_prefix"]["budget_complete_targets"] == 10
