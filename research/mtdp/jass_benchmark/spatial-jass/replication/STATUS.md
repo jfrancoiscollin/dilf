@@ -408,3 +408,29 @@ The [19:18 UTC listing](20261113T191845Z-tournaments.json) shows
 CARZrQpl underway. After 22:00 UTC, check the finished detail and
 compare two final PDNs. Publish the fifth freeze and verify the full
 cohort before scoring.
+
+## Acquisition rehearsal before the fifth freeze
+
+Converted the 19:18 UTC listing from the raw API response to the
+normalized snapshot format expected by `candidates`. The normalized
+receipt retains the original response digest and retrieval time. To
+rebuild the chronology, include the eighth-study `*-tournaments.json`
+files and the initial and dated listings from both the pilot and this
+directory. Pass each file as `--snapshot` to the `candidates` mode of
+`multi_event_replication`. A regression test loads the full chronology.
+
+Restored and verified all 19 exclusion PDNs and 113 archived manifests
+and shards covering 81,680 excluded FENs. The pinned Scan executable,
+configuration and evaluation data match the freeze. The rebuilt Jass
+runner and catalogue match the pilot digests and the Jass CTest passed.
+On the four published manifests, the pinned FMJD adapter applied all
+1,078 source and 1,263 target successors. The four freezes contained
+27,541 distinct eligible FENs and 457 distinct public game IDs.
+All 132 MTDP and 643 DILF tests passed locally. These checks used no
+new Scan scores or Jass search outcomes.
+
+The [20:16 UTC listing](20261113T201634Z-tournaments.json) leaves
+CARZrQpl as the next candidate. The acquisition gate correctly
+refused it while in progress. After 22:00 UTC, refresh the listing,
+check the finished detail and compare two final PDNs. Reproduce and
+publish the fifth freeze before scoring.

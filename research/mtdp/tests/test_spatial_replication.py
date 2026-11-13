@@ -7,12 +7,28 @@ from pathlib import Path
 
 import pytest
 
+from research.mtdp.jass_benchmark.multi_event_replication import candidates
+from research.mtdp.jass_benchmark.spatial_jass import prepare, verify_equal_prefix_receipts
 from research.mtdp.jass_benchmark.spatial_replication import (
     BUDGETS, REPLICATION_CUTOFF, aggregate, pool, read_arena, validate_traces,
 )
-from research.mtdp.jass_benchmark.spatial_jass import prepare, verify_equal_prefix_receipts
 
 PILOT = Path("research/mtdp/jass_benchmark/spatial-jass/KXaMpuNe")
+
+
+def test_replication_listing_archive_rebuilds_fourth_freeze_chronology():
+    spatial = PILOT.parent
+    replication = spatial / "replication"
+    paths = [
+        *(spatial.parent / "eighth-replication").glob("*-tournaments.json"),
+        spatial / "initial-listing.json", *spatial.glob("*-tournaments.json"),
+        replication / "initial-listing.json", *replication.glob("*-tournaments.json"),
+    ]
+    log = candidates([json.loads(path.read_bytes()) for path in paths])
+    finished = [row["id"] for row in log["candidate_log"]
+                if row["starts_at"] >= REPLICATION_CUTOFF
+                and row["candidate_status"] == "needs_pdn_and_replay"]
+    assert finished[:4] == ["uG0fGZzB", "l45uk39x", "GYEtKzUg", "MtDQWBNR"]
 
 
 @pytest.mark.parametrize("event", ["uG0fGZzB", "l45uk39x"])
