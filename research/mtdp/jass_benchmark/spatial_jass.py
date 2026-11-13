@@ -106,6 +106,8 @@ def main():
         for name in ("manifest", "source", "output"):
             command.add_argument(f"--{name}", required=True, type=Path)
         if mode == "run":
+            command.add_argument("--replication", action="store_true",
+                                 help="Run every frozen arena, including zero changed prefixes")
             for name in ("target", "runner", "diagnostic"):
                 command.add_argument(f"--{name}", required=True, type=Path)
     args = parser.parse_args()
@@ -136,7 +138,7 @@ def main():
     if target.get("role") != "target":
         raise ValueError("Expected a target Scan reference")
     validate_reference(target, score_catalogue(manifest, "target"), hashes, sha256(args.manifest), 16)
-    if not diagnostic["changed_prefix_targets"]:
+    if not diagnostic["changed_prefix_targets"] and not args.replication:
         raise ValueError("No changed prefixes: there is no LCB-versus-L search contrast")
     benchmark = {**manifest, "targets": manifest["benchmark_targets"]}
     pairs, traces = run_benchmark(benchmark, target, args.runner, initial_only=True,

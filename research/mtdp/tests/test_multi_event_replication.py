@@ -234,3 +234,25 @@ def test_cli_scores_round_trip_through_three_frozen_events(tmp_path, monkeypatch
     write(packets, entries)
     with pytest.raises(ValueError, match="does not reproduce"):
         run(study, "aggregate", "--packet-index", packets, "--output", result)
+
+
+def test_spatial_replication_history_enforces_protocol_and_fixed_arena_count():
+    freeze = multi_event_freeze
+    previous = [{"event": {"id": event}} for event in freeze.REPLICATION_BASE]
+    assert freeze.validate_replication_history(previous, "digest") is None
+    with pytest.raises(ValueError, match="freezes and pilot"):
+        freeze.validate_replication_history(previous[:-1], "digest")
+    for index in range(freeze.REPLICATION_ARENAS):
+        start = freeze.REPLICATION_CUTOFF + index * 3_600_000
+        previous.append({
+            "event": {"id": f"new{index}", "startsAt": datetime.fromtimestamp(
+                start / 1000, timezone.utc
+            ).isoformat()},
+            "selection": {"protocol_sha256": "digest"},
+        })
+        if index == 0:
+            assert freeze.validate_replication_history(previous, "digest") == (start, "new0")
+            with pytest.raises(ValueError, match="same protocol"):
+                freeze.validate_replication_history(previous, "different")
+    with pytest.raises(ValueError, match="already frozen"):
+        freeze.validate_replication_history(previous, "digest")

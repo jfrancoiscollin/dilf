@@ -20,6 +20,12 @@ SEVENTH = Path("research/mtdp/jass_benchmark/seventh-pRW2Ahpz/provenance.json")
 PROTOCOL = "79e389aad3b7e58e110f19a38df6d5a58d83f5d3"
 SPATIAL_JASS_CUTOFF = int(datetime.fromisoformat("2026-11-12T23:00:00+00:00").timestamp() * 1000)
 
+REPLICATION_CUTOFF = int(datetime.fromisoformat("2026-11-13T02:00:00+00:00").timestamp() * 1000)
+REPLICATION_ARENAS = 5
+EIGHTH_EVENTS = ("xAnBIxHN", "MoXhmT9b", "MIDBy9dl")
+REPLICATION_BASE = (*EIGHTH_EVENTS, "KXaMpuNe")
+REPLICATION_PROTOCOL = Path("research/mtdp/jass_benchmark/spatial-jass/replication/PROTOCOL.md")
+
 
 def sha256(data):
     return hashlib.sha256(data).hexdigest()
@@ -29,7 +35,7 @@ def json_bytes(value):
     return (json.dumps(value, sort_keys=True, separators=(",", ":")) + "\n").encode()
 
 
-def require_next_candidate(log, metadata, used, rejected, *, cutoff=0):
+def require_next_candidate(log, metadata, used, rejected, *, cutoff=0, previous_event=None):
     outstanding = [row for row in log["candidate_log"]
                    if row["candidate_status"] in ("needs_pdn_and_replay", "pending_finish")
                    and row["id"] not in used and row["id"] not in rejected
@@ -37,11 +43,30 @@ def require_next_candidate(log, metadata, used, rejected, *, cutoff=0):
     if not outstanding or outstanding[0]["candidate_status"] != "needs_pdn_and_replay":
         raise ValueError("The next chronological candidate is not finished in the listing")
     candidate = outstanding[0]
+    if previous_event is not None and (candidate["starts_at"], candidate["id"]) <= previous_event:
+        raise ValueError("The next candidate predates an already frozen arena")
     start = int(datetime.fromisoformat(metadata["startsAt"].replace("Z", "+00:00")).timestamp() * 1000)
     if (metadata["id"] != candidate["id"] or start != candidate["starts_at"]
             or not metadata.get("isFinished") or metadata["variant"] != "standard"
             or metadata["clock"] != {"limit": 300, "increment": 0}):
         raise ValueError("Detail metadata does not match the next finished standard 5+0 candidate")
+
+
+def validate_replication_history(previous, protocol_digest):
+    ids = tuple(row["event"]["id"] for row in previous)
+    additional = previous[len(REPLICATION_BASE):]
+    if ids[:len(REPLICATION_BASE)] != REPLICATION_BASE or len(set(ids)) != len(ids):
+        raise ValueError("Replication requires the eighth-study freezes and pilot in order")
+    if len(additional) >= REPLICATION_ARENAS:
+        raise ValueError("The five replication arenas are already frozen")
+    starts = [
+        (int(datetime.fromisoformat(row["event"]["startsAt"]).timestamp() * 1000), row["event"]["id"])
+        for row in additional
+    ]
+    if (starts != sorted(starts) or any(start < REPLICATION_CUTOFF for start, _ in starts)
+            or any(row["selection"].get("protocol_sha256") != protocol_digest for row in additional)):
+        raise ValueError("Previous replication freezes must follow the same protocol in chronological order")
+    return starts[-1] if starts else None
 
 
 def previous_inputs(provenances, pdn_dir, adapter):
@@ -111,12 +136,23 @@ def main():
     parser.add_argument("--downloaded-at", required=True)
     parser.add_argument("--pdn-repeat", type=Path)
     parser.add_argument("--previous-freeze", action="append", default=[], type=Path)
-    parser.add_argument("--spatial-jass", action="store_true", help="Freeze the prospective Jass arena")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--spatial-jass", action="store_true", help="Freeze the prospective Jass arena")
+    mode.add_argument("--spatial-jass-replication", action="store_true", help="Freeze a replication arena")
     parser.add_argument("--rejections", type=Path, help="JSON mapping of earlier rejected event IDs to recorded reasons")
     args = parser.parse_args()
     later = [json.loads(path.read_text()) for path in args.previous_freeze]
-    if args.spatial_jass:
-        if [row["event"]["id"] for row in later] != ["xAnBIxHN", "MoXhmT9b", "MIDBy9dl"]:
+    protocol_digest = previous_event = None
+    cutoff = 0
+    if args.spatial_jass_replication:
+        if args.pdn_repeat is None:
+            parser.error("The replication requires a second independent PDN download")
+        protocol_digest = sha256(REPLICATION_PROTOCOL.read_bytes())
+        previous_event = validate_replication_history(later, protocol_digest)
+        cutoff = REPLICATION_CUTOFF
+    elif args.spatial_jass:
+        cutoff = SPATIAL_JASS_CUTOFF
+        if tuple(row["event"]["id"] for row in later) != EIGHTH_EVENTS:
             parser.error("Spatial Jass requires all three eighth-study freezes in order")
     elif len(later) > 2:
         parser.error("The protocol requires exactly three events")
@@ -128,7 +164,7 @@ def main():
                                               for reason in rejected.values()):
         parser.error("Every rejected event needs a reason")
     require_next_candidate(json.loads(raw_log), metadata, used, rejected,
-                           cutoff=SPATIAL_JASS_CUTOFF if args.spatial_jass else 0)
+                           cutoff=cutoff, previous_event=previous_event)
     revision = subprocess.check_output(["git", "-C", args.adapter, "rev-parse", "HEAD"], text=True).strip()
     if revision != ADAPTER_COMMIT:
         raise ValueError("draught-master is not at the pinned adapter revision")
@@ -155,7 +191,8 @@ def main():
     selection_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     package(args.output, summary, rows, plan, audit, {
         "event": {key: metadata[key] for key in ("id", "fullName", "startsAt", "variant", "clock", "isFinished")},
-        "selection": {"protocol_commit": selection_commit if args.spatial_jass else PROTOCOL,
+        "selection": {"protocol_commit": selection_commit if cutoff else PROTOCOL,
+                      **({"protocol_sha256": protocol_digest} if protocol_digest is not None else {}),
                       "code_commit": selection_commit,
                       "candidate_log_sha256": sha256(raw_log), "event_metadata_sha256": sha256(raw_meta),
                       "rejections": rejected, "source": "minimum (game ID, ply, FEN)",
