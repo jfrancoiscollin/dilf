@@ -518,3 +518,13 @@ for the primary contrast and individual disagreement costs. The next
 scientific check is a depth-18 Scan reference sensitivity on the five
 primary-budget LCB-versus-L disagreements, using the archived Jass
 choices unchanged.
+
+## Scan depth-18 check of the five disagreements
+
+All 48 legal successors were rescored with the pinned Scan 3.1
+build. The direction of all five costs remained the same and
+one LCB move became optimal at depth 18. See the
+[depth sensitivity report](depth18/RESULTS_2026-11-14.md) for
+individual results and reproduction. Next, compare initial
+first-choice and top-three transfer on the full five-arena cohort
+using the existing Scan receipts.
