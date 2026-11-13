@@ -327,3 +327,28 @@ The [16:10 UTC listing](20261113T161020Z-tournaments.json) and
 tournament detail confirmed CARZrQpl was underway. Its scheduled finish
 is 22:00 UTC on 13 November. Recheck the finished listing and detail,
 then fetch two final exports for the fifth freeze.
+
+## Rehearsal with identical initial orders
+
+A rehearsal on the archived KXaMpuNe pilot checked that
+`spatial_jass run --replication` retains an arena whose two
+transfer rules always produce the same ordered prefix. Remove the
+two FENs in the pilot diagnostic's `changed_prefix_targets` from
+`benchmark_targets` and from the target side of `targets`. For
+each archived Scan receipt, retain the FENs in the corresponding
+`score_catalogue` of the reduced manifest and set `cohort_sha256`
+to the reduced manifest's digest. Regenerate the diagnostic with
+`spatial_jass diagnose` and use the pinned pilot runner.
+
+The pilot guard returned the expected error without the replication
+flag. With the flag, Jass ran all 288 planned searches on the 32
+retained positions. At each of the three budgets, all arms used the
+full budget on 31 positions and reached the depth ceiling early on
+one. L and LCB selected the same move in every complete comparison.
+The diagnostic and changed-prefix summaries recorded zero positions
+with a changed order. This rehearsal used existing Scan scores.
+
+The [17:11 UTC listing](20261113T171132Z-tournaments.json) confirms
+CARZrQpl is underway with a scheduled finish at 22:00 UTC. The next
+listed standard 5+0 arena is 8uv85HML at 23:00 UTC. Check CARZrQpl's
+completed detail and two final exports before the fifth freeze.
