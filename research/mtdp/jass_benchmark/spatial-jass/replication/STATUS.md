@@ -246,3 +246,39 @@ details confirm MtDQWBNR is scheduled for 14:00–14:57 UTC. The next
 listed candidate, CARZrQpl, is a six-hour standard 5+0 arena
 scheduled for 16:00–22:00 UTC. Refresh the chronology after 14:57 UTC
 and check two final MtDQWBNR exports before freezing it.
+
+## Scoring handoff
+
+With the pinned Scan 3.1 build and FMJD adapter, the archived
+KXaMpuNe pilot reference reproduced byte for byte at both registered
+depths. The source run covered 302 actions at depth 12 (13 seconds)
+and the target run covered 323 actions at depth 16 (120 seconds).
+Regenerating the source diagnostic from the new receipt also
+reproduced the published bytes. The replay used the archived pilot.
+
+The [14:19 UTC listing](20261113T141948Z-tournaments.json) shows
+MtDQWBNR underway. Its scheduled finish remains 14:57 UTC on
+13 November. The next step is to verify the finished detail and
+compare two final PDNs before the fourth freeze.
+
+After publication of all five freezes, save the output of
+`spatial_replication --check-freezes` before starting Scan. For
+each nonempty manifest, use the
+[pilot scoring commands](../PROTOCOL.md#reproduction) with Scan
+depth 12 for `source.json` and depth 16 for `results/target.json`.
+Generate `source-diagnostic.json` and publish the source and
+ordered-prefix change counts before running Jass. If a Scan
+attempt fails, diagnose the reported FEN and action, then retry
+that arena and role with the same manifest and settings.
+
+Use `spatial_jass run --replication` for each nonempty arena.
+Point its output at a fresh directory. Preserve the root-order
+traces, the runner summary and the paired receipts. For pooling,
+place the paired receipts under `results/` with:
+
+```sh
+gzip -n -c "$JASS_OUTPUT/paired-results.jsonl" > "$ARENA/results/paired-results.jsonl.gz"
+```
+
+Run the five-arena aggregation above after the per-arena files
+are in place. Repeat aggregation and compare the summary bytes.
