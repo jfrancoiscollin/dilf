@@ -15,7 +15,9 @@ from research.mtdp.jass_benchmark.multi_event_freeze import (
 from research.mtdp.jass_benchmark.multi_event_replication import hierarchical_interval, score_catalogue
 from research.mtdp.jass_benchmark.offline_top3_control import candidate_lists
 from research.mtdp.jass_benchmark.run import sha256
-from research.mtdp.jass_benchmark.spatial_jass import BUDGETS, source_diagnostic, summarize_budget
+from research.mtdp.jass_benchmark.spatial_jass import (
+    BUDGETS, source_diagnostic, summarize_budget, verify_equal_prefix_receipts,
+)
 from research.mtdp.jass_cohort import ADAPTER_COMMIT, JASS_COMMIT, SCAN_COMMIT
 from research.mtdp.top_k_transfer import _action, _category
 
@@ -129,6 +131,7 @@ def read_arena(directory):
                     or receipt["scan_best_category"] != _category(best)
                     or receipt["scan_chosen_category"] != _category(chosen)):
                 raise ValueError(f"Receipt differs from the Scan reference: {fen}")
+        verify_equal_prefix_receipts(row)
     return provenance, frozen, diagnostic, rows
 
 

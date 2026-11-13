@@ -70,6 +70,19 @@ def source_diagnostic(manifest, scores):
     }
 
 
+def verify_equal_prefix_receipts(row):
+    """Equal L and LCB root orders must reproduce the same search."""
+    if row["prefixes"]["L"] != row["prefixes"]["LCB"]:
+        return
+    left, right = ({key: value for key, value in row["arms"][arm].items() if key != "elapsed_us"}
+                   for arm in ARMS)
+    if left != right or row["nodes_at_common_depth"]["L"] != row["nodes_at_common_depth"]["LCB"]:
+        raise ValueError(
+            f"L and LCB searches diverged with the same prefix: "
+            f"{row['target_fen']} at {row['budget']} nodes"
+        )
+
+
 def summarize_budget(rows, event):
     capped = [
         {"target_fen": row["target_fen"], "arms": {
@@ -143,6 +156,8 @@ def main():
     benchmark = {**manifest, "targets": manifest["benchmark_targets"]}
     pairs, traces = run_benchmark(benchmark, target, args.runner, initial_only=True,
                                   source_reference=source, compare_spatial_sources=True)
+    for row in pairs:
+        verify_equal_prefix_receipts(row)
     changed = set(diagnostic["changed_prefix_targets"])
     args.output.mkdir(parents=True, exist_ok=False)
     write_jsonl(args.output / "paired-results.jsonl", pairs)

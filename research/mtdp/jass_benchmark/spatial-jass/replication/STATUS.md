@@ -66,3 +66,26 @@ catalogues and Scan references before pooling. It records per-arena
 coverage, exact-budget and ceiling outcomes, and changed-move costs.
 The archived pilot receipts and a synthetic five-arena packet exercise
 the checks and the pooled estimator.
+
+## Determinism check before the next freeze
+
+L and LCB sometimes supply the same ordered list to the same Jass
+position and node budget. With a fresh table and one thread, the
+resulting search receipts must agree apart from elapsed time. The
+runner checks this before writing new results and the aggregator checks
+it again when reading archived receipts. An unexpected difference
+identifies the position and budget for diagnosis and retry.
+
+All 96 equal-prefix pairs in the archived KXaMpuNe pilot agreed,
+including the three pairs that reached the depth ceiling. A regression
+test changes an elapsed time and a search score independently to
+verify that the timing variation passes and the score change fails.
+The independent three-arena Scan analysis also reproduced its archived
+summary byte for byte using the frozen receipts. Local validation
+passed 123 MTDP tests and 643 DILF tests. The live Jass catalogue test
+was skipped.
+
+The second candidate, l45uk39x, was still scheduled when checked at
+07:15 UTC on 13 November. After 08:57 UTC, verify the completed detail
+and two independent final exports, then reproduce the second freeze.
+The five-freeze gate still applies to all new scoring.

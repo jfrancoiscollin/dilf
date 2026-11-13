@@ -7,6 +7,7 @@ import pytest
 from research.mtdp.jass_benchmark.spatial_replication import (
     BUDGETS, REPLICATION_CUTOFF, aggregate, read_arena,
 )
+from research.mtdp.jass_benchmark.spatial_jass import verify_equal_prefix_receipts
 
 PILOT = Path("research/mtdp/jass_benchmark/spatial-jass/KXaMpuNe")
 
@@ -16,6 +17,20 @@ def test_published_pilot_receipts_validate_against_scan():
     assert diagnostic["matched"] == 34
     assert len(rows) == 34 * len(BUDGETS)
     assert sum(arm["stop"] == "depth_ceiling" for row in rows for arm in row["arms"].values()) == 9
+
+
+def test_equal_prefix_searches_agree_except_for_elapsed_time():
+    _, _, _, rows = read_arena(PILOT)
+    same_prefix = [row for row in rows if row["prefixes"]["L"] == row["prefixes"]["LCB"]]
+    assert len(same_prefix) == 96
+    row = deepcopy(same_prefix[0])
+    row["arms"]["LCB"]["elapsed_us"] += 1
+    verify_equal_prefix_receipts(row)
+    row["arms"]["LCB"]["jass_score"] += 1
+    with pytest.raises(ValueError, match="searches diverged with the same prefix"):
+        verify_equal_prefix_receipts(row)
+    row["prefixes"]["LCB"] = list(reversed(row["prefixes"]["L"]))
+    verify_equal_prefix_receipts(row)
 
 
 def test_replication_requires_five_disjoint_arenas_and_excludes_ceiling_pairs():
