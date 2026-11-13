@@ -122,3 +122,31 @@ Replaying those frozen inputs with the rebuilt runner reproduced all
 record order. The 102 paired receipts and the summary also agreed
 after omitting the timing fields. This replay used the archived pilot.
 Scoring on the replication cohort starts after all five freezes.
+
+## Second verified freeze on 13 November
+
+The [09:14 UTC listing](20261113T091433Z-tournaments.json) and
+[finished detail](l45uk39x-evidence/event-metadata.json) identify
+l45uk39x as the second eligible completed arena. Two final PDN
+downloads made with different request URLs matched byte for byte
+(83,924 bytes). FMJD replay accepted 70 of 72 records, with one
+duplicate trajectory and one ambiguous capture record quarantined.
+The [candidate log](l45uk39x-evidence/candidate-log.json) and
+[provenance](l45uk39x/provenance.json) record the selection,
+independence checks and input digests.
+
+The freeze contains 4,392 eligible positions. L matches 29, LCB
+matches 12 and LMB matches 10. The [manifest](l45uk39x/manifest.json)
+contains all 12 common L/LCB positions from nine owning games.
+One selects a different PC Blues source under LCB. Jass and FMJD
+agree on all 115 legal actions at those targets. The freeze and
+manifest reproduced byte for byte with Python hash seeds 7 and 61.
+All 124 MTDP tests, including the live catalogue check, and 643
+DILF tests passed.
+
+Two of five arenas are now frozen. The next candidate is GYEtKzUg,
+scheduled for 11:00–11:57 UTC on 13 November. After it finishes,
+refresh the chronology, check the detail and compare two final PDNs.
+Keep both replication exports in the exclusion inventory and pass
+l45uk39x as the sixth ordered `--previous-freeze`. All five freezes
+must be published before new Scan or Jass scoring.
