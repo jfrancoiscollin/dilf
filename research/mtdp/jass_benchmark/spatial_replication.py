@@ -152,13 +152,21 @@ def pool(packets, budget, *, changed_only):
                         if all(receipt["stop"] == "nodes" for receipt in row["arms"].values()))
 
     comparisons = {}
+    optimum_labels = {
+        (True, True): "both_optimal",
+        (True, False): "lcb_only",
+        (False, True): "control_only",
+        (False, False): "neither_optimal",
+    }
     for control in ("L", "native"):
         observations, changed_moves = [], []
         category_pairs = Counter()
+        optimum_pairs = dict.fromkeys(optimum_labels.values(), 0)
         for event, row in complete:
             a, b = (row["arms"][arm] for arm in ("LCB", control))
             left, right = a["ordinary_regret_centimen"], b["ordinary_regret_centimen"]
             category_pairs[f'{b["scan_chosen_category"]}->{a["scan_chosen_category"]}'] += 1
+            optimum_pairs[optimum_labels[a["scan_optimal"], b["scan_optimal"]]] += 1
             if left is not None and right is not None:
                 observations.append((event, min(row["target_games"]), left - right))
             if a["best_move"] != b["best_move"]:
@@ -173,6 +181,7 @@ def pool(packets, budget, *, changed_only):
             "ordinary_pairs": len(observations),
             "nonordinary_pairs": len(complete) - len(observations),
             "chosen_category_pairs_control_to_lcb": dict(category_pairs),
+            "optimum_pairs": optimum_pairs,
             "mean_delta_centimen": fmean(row[2] for row in observations) if observations else None,
             "arena_game_bootstrap": hierarchical_interval(observations),
             "changed_moves": changed_moves,

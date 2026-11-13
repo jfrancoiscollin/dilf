@@ -352,3 +352,22 @@ The [17:11 UTC listing](20261113T171132Z-tournaments.json) confirms
 CARZrQpl is underway with a scheduled finish at 22:00 UTC. The next
 listed standard 5+0 arena is 8uv85HML at 23:00 UTC. Check CARZrQpl's
 completed detail and two final exports before the fifth freeze.
+
+## Paired optimum counts
+
+The pooled summary now reports joint optimum hits for LCB versus
+each control at every budget and in the changed-prefix subset. It
+counts both arms optimal, LCB alone optimal, the control alone
+optimal and neither optimal on positions where all arms reached
+the budget. The counts use the pinned Scan reference, including ties.
+This supplements the registered paired regret endpoint.
+
+The archived pilot regression verifies the 50,000-node counts on
+33 budget-complete positions. LCB and L both hit an optimum on six
+positions and neither did on 27. Against native Jass, five positions
+had both optimal and one had LCB alone optimal. These are checks
+against existing pilot receipts.
+
+The [18:18 UTC listing](20261113T181825Z-tournaments.json) shows
+CARZrQpl still underway. The next acquisition is its finished detail
+and two final PDNs after 22:00 UTC, followed by the fifth freeze.

@@ -31,10 +31,17 @@ def test_prepare_reproduces_frozen_source_and_target_mappings(event):
 
 
 def test_published_pilot_receipts_validate_against_scan():
-    _, _, diagnostic, rows = read_arena(PILOT)
+    provenance, frozen, diagnostic, rows = read_arena(PILOT)
     assert diagnostic["matched"] == 34
     assert len(rows) == 34 * len(BUDGETS)
     assert sum(arm["stop"] == "depth_ceiling" for row in rows for arm in row["arms"].values()) == 9
+    comparisons = pool([(provenance, frozen, diagnostic, rows)], 50_000, changed_only=False)["comparisons"]
+    assert comparisons["L"]["optimum_pairs"] == {
+        "both_optimal": 6, "lcb_only": 0, "control_only": 0, "neither_optimal": 27,
+    }
+    assert comparisons["native"]["optimum_pairs"] == {
+        "both_optimal": 5, "lcb_only": 1, "control_only": 0, "neither_optimal": 27,
+    }
 
 
 def test_equal_prefix_searches_agree_except_for_elapsed_time():
