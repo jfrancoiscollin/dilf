@@ -309,3 +309,21 @@ after it finishes. Keep the four frozen exports in the exclusion
 inventory and add MtDQWBNR as the eighth ordered
 `--previous-freeze`. After publishing the fifth freeze, run the
 five-manifest check and follow the scoring handoff above.
+
+## Stop reason validation while the fifth arena runs
+
+The spatial Jass reader now checks the stop reason together with the
+consumed node count before saving search receipts. An exact-budget
+receipt must report `nodes`. The explicit depth-64 ceiling receipt
+continues to be recorded when it legitimately uses fewer nodes.
+This makes the live check agree with the pooled validation and
+identifies the FEN, requested budget, stop reason and depth on failure.
+The regression test rejects a time-stop receipt even when the node
+count equals the requested budget. The archived pilot replay
+reproduced all 306 traces byte for byte and the paired receipts
+after excluding elapsed times. All 127 MTDP and 643 DILF tests passed.
+
+The [16:10 UTC listing](20261113T161020Z-tournaments.json) and
+tournament detail confirmed CARZrQpl was underway. Its scheduled finish
+is 22:00 UTC on 13 November. Recheck the finished listing and detail,
+then fetch two final exports for the fifth freeze.

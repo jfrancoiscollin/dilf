@@ -34,16 +34,22 @@ def read_run(raw, target, budget, prefix, scores, *, initial_only=False, record_
         record_depth_ceiling and stop == "depth_ceiling" and int(depth) == 64
         and 0 < int(nodes) < budget
     )
+    exact_budget = int(nodes) == budget and (
+        stop == "nodes" if record_depth_ceiling else stop != "depth_ceiling"
+    )
     if (
         parse_fen(fen) != parse_fen(target["target_fen"])
         or int(actual_budget) != budget
-        or (not depth_ceiling and (int(nodes) != budget or stop == "depth_ceiling"))
+        or not (exact_budget or depth_ceiling)
         or len(legal_keys) != len(by_key)
         or set(legal_keys) != by_key.keys()
         or order.split(",") != expected_order
         or best not in by_key
     ):
-        raise ValueError(f"Unexpected Jass receipt for {fen}")
+        raise ValueError(
+            f"Unexpected Jass receipt for {fen} at {budget} nodes: "
+            f"reported {nodes} nodes, stop={stop}, depth={depth}"
+        )
     trace = []
     for attempt in attempts:
         level, index, completed, all_visited, spent, visited, *ordering = attempt.split(":")

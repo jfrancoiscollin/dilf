@@ -77,3 +77,11 @@ def test_spatial_receipt_accepts_only_explicit_depth_ceiling():
     with pytest.raises(ValueError, match="Unexpected Jass receipt"):
         read_run("\t".join(fields), target, 10000, [], scores,
                  record_depth_ceiling=True)
+    fields[2:5] = ["10000", "5", "time"]
+    with pytest.raises(ValueError, match="reported 10000 nodes, stop=time"):
+        read_run("\t".join(fields), target, 10000, [], scores,
+                 record_depth_ceiling=True)
+    fields[4] = "nodes"
+    receipt, _ = read_run("\t".join(fields), target, 10000, [], scores,
+                          record_depth_ceiling=True)
+    assert receipt["stop"] == "nodes"
