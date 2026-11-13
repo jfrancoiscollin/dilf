@@ -150,3 +150,22 @@ refresh the chronology, check the detail and compare two final PDNs.
 Keep both replication exports in the exclusion inventory and pass
 l45uk39x as the sixth ordered `--previous-freeze`. All five freezes
 must be published before new Scan or Jass scoring.
+
+## Paired category reporting before the third freeze
+
+The pooled summary now counts the chosen Scan categories jointly
+for each control and LCB on budget-complete positions. Each changed
+move also records both chosen categories and the reference category.
+An ordinary pair reports its signed regret difference in centimen.
+A pair with a categorical result carries no numerical difference.
+The primary endpoint and its population follow the original protocol.
+
+Replaying the archived pilot at 50,000 nodes gave 31 ordinary pairs
+and two loss-to-loss pairs for each comparison. Against native Jass,
+the two changed moves had regret differences of −10 and +3 centimen.
+A synthetic ordinary-to-loss example verified the categorical path.
+
+The [10:19 UTC listing](20261113T101921Z-tournaments.json) still puts
+GYEtKzUg next, scheduled for 11:00–11:57 UTC on 13 November. Check
+its final listing and detail after 11:57 UTC and fetch two independent
+final PDNs before freezing. The cohort remains at two verified arenas.

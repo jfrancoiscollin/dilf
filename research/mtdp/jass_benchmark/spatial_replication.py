@@ -3,6 +3,7 @@
 import argparse
 import gzip
 import json
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
 from statistics import fmean
@@ -153,18 +154,25 @@ def pool(packets, budget, *, changed_only):
     comparisons = {}
     for control in ("L", "native"):
         observations, changed_moves = [], []
+        category_pairs = Counter()
         for event, row in complete:
             a, b = (row["arms"][arm] for arm in ("LCB", control))
             left, right = a["ordinary_regret_centimen"], b["ordinary_regret_centimen"]
+            category_pairs[f'{b["scan_chosen_category"]}->{a["scan_chosen_category"]}'] += 1
             if left is not None and right is not None:
                 observations.append((event, min(row["target_games"]), left - right))
             if a["best_move"] != b["best_move"]:
                 changed_moves.append({"arena": event, "fen": row["target_fen"],
                                       "LCB_move": a["best_move"], "control_move": b["best_move"],
-                                      "LCB_regret_centimen": left, "control_regret_centimen": right})
+                                      "LCB_regret_centimen": left, "control_regret_centimen": right,
+                                      "delta_centimen": left - right if left is not None and right is not None else None,
+                                      "reference_category": a["scan_best_category"],
+                                      "LCB_category": a["scan_chosen_category"],
+                                      "control_category": b["scan_chosen_category"]})
         comparisons[control] = {
             "ordinary_pairs": len(observations),
             "nonordinary_pairs": len(complete) - len(observations),
+            "chosen_category_pairs_control_to_lcb": dict(category_pairs),
             "mean_delta_centimen": fmean(row[2] for row in observations) if observations else None,
             "arena_game_bootstrap": hierarchical_interval(observations),
             "changed_moves": changed_moves,

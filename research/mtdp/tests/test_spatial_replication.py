@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from research.mtdp.jass_benchmark.spatial_replication import (
-    BUDGETS, REPLICATION_CUTOFF, aggregate, read_arena,
+    BUDGETS, REPLICATION_CUTOFF, aggregate, pool, read_arena,
 )
 from research.mtdp.jass_benchmark.spatial_jass import verify_equal_prefix_receipts
 
@@ -58,6 +58,7 @@ def test_replication_requires_five_disjoint_arenas_and_excludes_ceiling_pairs():
     assert primary["budget_complete_targets"] == 165
     assert primary["comparisons"]["L"]["ordinary_pairs"] == 155
     assert primary["comparisons"]["L"]["mean_delta_centimen"] == 0
+    assert sum(primary["comparisons"]["L"]["chosen_category_pairs_control_to_lcb"].values()) == 165
     assert primary["comparisons"]["L"]["arena_game_bootstrap"]["events"] == 5
     assert result["by_budget"][50_000]["changed_prefix"]["budget_complete_targets"] == 10
     with pytest.raises(ValueError, match="Exactly five"):
@@ -65,6 +66,25 @@ def test_replication_requires_five_disjoint_arenas_and_excludes_ceiling_pairs():
     packets[-1][0]["event_game_ids"] = packets[0][0]["event_game_ids"]
     with pytest.raises(ValueError, match="overlapping"):
         aggregate(packets, "protocol")
+
+
+def test_changed_move_reports_category_without_numeric_regret():
+    provenance, _, diagnostic, rows = read_arena(PILOT)
+    row = deepcopy(next(row for row in rows if row["budget"] == 50_000
+                        and all(arm["stop"] == "nodes" for arm in row["arms"].values())
+                        and row["arms"]["LCB"]["ordinary_regret_centimen"] is not None))
+    row["arms"]["LCB"].update(best_move="alternate", ordinary_regret_centimen=None,
+                              scan_chosen_category="loss")
+    result = pool([(provenance, [], diagnostic, [row])], 50_000, changed_only=False)
+    comparison = result["comparisons"]["L"]
+    assert comparison["ordinary_pairs"] == 0
+    assert comparison["nonordinary_pairs"] == 1
+    assert comparison["chosen_category_pairs_control_to_lcb"] == {"ordinary->loss": 1}
+    change, = comparison["changed_moves"]
+    assert (change["reference_category"], change["LCB_category"], change["control_category"]) == (
+        "ordinary", "loss", "ordinary",
+    )
+    assert change["delta_centimen"] is None
 
 
 def test_scoring_precheck_detects_substituted_source(monkeypatch):
