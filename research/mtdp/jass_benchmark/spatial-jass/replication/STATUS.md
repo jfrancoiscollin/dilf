@@ -190,3 +190,30 @@ GYEtKzUg underway with a scheduled finish at 11:57 UTC. After that
 time check the finished listing and detail and fetch its final PDN
 twice before the third freeze. The five-freeze scoring gate still
 applies.
+
+## Third verified freeze on 13 November
+
+The [12:16 UTC listing](20261113T121652Z-tournaments.json) and
+[finished detail](GYEtKzUg-evidence/event-metadata.json) confirm
+GYEtKzUg as the third eligible arena. Two separately fetched final
+PDNs matched byte for byte (193,304 bytes). FMJD replay accepted
+151 of 165 records, with eight duplicate trajectories and six
+rejected records. The [chronology](GYEtKzUg-evidence/candidate-log.json)
+and [provenance](GYEtKzUg/provenance.json) preserve the acquisition
+and exclusion evidence.
+
+Of 9,839 eligible positions, L matches 139, LCB 55 and LMB 38.
+The [manifest](GYEtKzUg/manifest.json) includes all 55 common L/LCB
+targets from 27 owning games. Four targets select a different
+PC Blues source under LCB. Jass and FMJD agree on all 555 target
+actions and the corresponding source mappings. The complete freeze
+and manifest reproduced byte for byte with Python hash seeds 7 and
+61. All 127 MTDP and 643 DILF tests passed.
+
+Three of five arenas are frozen, with 92 common targets so far.
+The next candidate is MtDQWBNR on 13 November, scheduled for
+14:00–14:57 UTC. After it finishes, verify its final listing,
+detail and two exports. Keep the three frozen exports in the
+exclusion inventory and add GYEtKzUg as the seventh ordered
+`--previous-freeze`. Start new scoring after all five freezes
+are published.
