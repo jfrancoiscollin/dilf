@@ -508,3 +508,13 @@ are ready for the five-arena aggregation. CARZrQpl target scoring and
 its 3,132 Jass searches are the remaining inputs. Use the published
 depth-12 source receipts and diagnostic unchanged. Check for active
 processes or existing complete receipts before restarting a job.
+
+## Completed fixed-budget replication
+
+All five Scan depth-16 target references, all 4,257 Jass searches,
+and the audited pooled summary are published. Both aggregation runs
+reproduced identical bytes. See the [results](RESULTS_2026-11-13.md)
+for the primary contrast and individual disagreement costs. The next
+scientific check is a depth-18 Scan reference sensitivity on the five
+primary-budget LCB-versus-L disagreements, using the archived Jass
+choices unchanged.
