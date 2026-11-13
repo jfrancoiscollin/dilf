@@ -497,3 +497,14 @@ After target scoring, run all 4,257 Jass searches and aggregate the
 paired receipts and root traces. The four other arenas contain nine
 changed prefixes between them, so retain the single-arena sensitivity
 estimates when interpreting the primary contrast.
+
+## First four scored arenas
+
+The first four arenas have complete Scan depth-16 target references,
+paired Jass receipts and root-order archives. Re-reading them with
+`spatial_replication.read_arena` verified all 1,125 searches, which
+each reached their requested node budget. The four result directories
+are ready for the five-arena aggregation. CARZrQpl target scoring and
+its 3,132 Jass searches are the remaining inputs. Use the published
+depth-12 source receipts and diagnostic unchanged. Check for active
+processes or existing complete receipts before restarting a job.
