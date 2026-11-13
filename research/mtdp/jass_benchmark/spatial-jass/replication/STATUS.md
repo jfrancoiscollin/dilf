@@ -476,3 +476,24 @@ The [five-arena precheck](frozen-cohort.json) binds all 473 targets
 and the five manifest digests. With the freeze published, score
 sources at Scan depth 12 and targets at depth 16, publish the
 ordered-prefix diagnostic, then run Jass at the three fixed budgets.
+
+## Scan source diagnostic before Jass
+
+Scan 3.1 scored 2,366 distinct-within-arena source actions at
+successor depth 12. All 64 source changes also changed the ordered
+top-three prefix. These diagnostics were computed before Jass.
+
+| Arena | Common targets | Changed sources | Changed prefixes |
+| --- | ---: | ---: | ---: |
+| uG0fGZzB | 25 | 1 | 1 |
+| l45uk39x | 12 | 1 | 1 |
+| GYEtKzUg | 55 | 4 | 4 |
+| MtDQWBNR | 33 | 3 | 3 |
+| CARZrQpl | 348 | 55 | 55 |
+| Total | 473 | 64 | 64 |
+
+The target Scan run covers 4,622 actions at successor depth 16.
+After target scoring, run all 4,257 Jass searches and aggregate the
+paired receipts and root traces. The four other arenas contain nine
+changed prefixes between them, so retain the single-arena sensitivity
+estimates when interpreting the primary contrast.
