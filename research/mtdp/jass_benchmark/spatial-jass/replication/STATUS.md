@@ -29,6 +29,14 @@ Include the first arena export in the exclusion inventory and its
 provenance as the fifth `--previous-freeze`. Scan and Jass scoring
 starts after all five freezes have been published.
 
+## Updated tournament listing
+
+The [05:15 UTC listing on 13 November](20261113T051550Z-tournaments.json)
+still lists l45uk39x as the next candidate (08:00–08:57 UTC) and adds
+[GYEtKzUg](https://lidraughts.org/tournament/GYEtKzUg) for 11:00–11:57 UTC.
+The cohort remains at one verified arena. After 08:57 UTC, refresh the
+listing and verify two independently fetched final exports for l45uk39x.
+
 ## Verify all five manifests before scoring
 
 Run the command below with the five published arena directories in
