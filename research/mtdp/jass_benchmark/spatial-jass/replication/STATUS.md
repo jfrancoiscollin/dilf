@@ -169,3 +169,24 @@ The [10:19 UTC listing](20261113T101921Z-tournaments.json) still puts
 GYEtKzUg next, scheduled for 11:00–11:57 UTC on 13 November. Check
 its final listing and detail after 11:57 UTC and fetch two independent
 final PDNs before freezing. The cohort remains at two verified arenas.
+
+## Live source and target action check
+
+Manifest preparation now compares the pinned Jass and FMJD action
+mappings on the selected PC Blues source positions as well as the
+held-out target positions. For each pair it verifies that the
+canonical actions have the same Jass keys at both ends before the
+source ranking can be used at the target.
+
+The first two manifests reproduced byte for byte with the pinned
+catalogue. Counting distinct positions within each role and arena,
+the check covered 35 source positions (341 actions) and 37 target
+positions (364 actions). Run `spatial_jass prepare` on each published
+provenance with the [pilot command](../PROTOCOL.md#reproduction)
+and compare its output to the published manifest.
+
+The [11:12 UTC listing](20261113T111225Z-tournaments.json) shows
+GYEtKzUg underway with a scheduled finish at 11:57 UTC. After that
+time check the finished listing and detail and fetch its final PDN
+twice before the third freeze. The five-freeze scoring gate still
+applies.

@@ -1,3 +1,5 @@
+import json
+import os
 from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
@@ -7,9 +9,25 @@ import pytest
 from research.mtdp.jass_benchmark.spatial_replication import (
     BUDGETS, REPLICATION_CUTOFF, aggregate, pool, read_arena,
 )
-from research.mtdp.jass_benchmark.spatial_jass import verify_equal_prefix_receipts
+from research.mtdp.jass_benchmark.spatial_jass import prepare, verify_equal_prefix_receipts
 
 PILOT = Path("research/mtdp/jass_benchmark/spatial-jass/KXaMpuNe")
+
+
+@pytest.mark.parametrize("event", ["uG0fGZzB", "l45uk39x"])
+def test_prepare_reproduces_frozen_source_and_target_mappings(event):
+    executable = os.environ.get("MTDP_JASS_CATALOGUE")
+    if not executable:
+        pytest.skip("Build the optional Jass integration target and set MTDP_JASS_CATALOGUE")
+    directory = PILOT.parent / "replication" / event
+    provenance = json.loads((directory / "provenance.json").read_bytes())
+    archived = json.loads((directory / "manifest.json").read_bytes())
+    del archived["provenance_sha256"]
+    # The published digest identifies the build used at freeze time.
+    del archived["engine"]["jass_catalogue_sha256"]
+    actual = json.loads(json.dumps(prepare(provenance, Path(executable))))
+    del actual["engine"]["jass_catalogue_sha256"]
+    assert actual == archived
 
 
 def test_published_pilot_receipts_validate_against_scan():

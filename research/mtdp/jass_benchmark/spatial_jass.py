@@ -29,6 +29,13 @@ def prepare(provenance, catalogue):
     engine = create_engine()
     states = [parse_fen(row["fen"]) for row in eligible]
     legal = read_jass_catalogues(catalogue, states)
+    source_fens = sorted({row["matches"][arm][0][2] for row in eligible for arm in ARMS})
+    source_states = [parse_fen(fen) for fen in source_fens]
+    source_moves = read_jass_catalogues(catalogue, source_states)
+    source_mappings = {
+        fen: map_root_moves(engine.legal_moves(state), jass_moves)
+        for fen, state, jass_moves in zip(source_fens, source_states, source_moves, strict=True)
+    }
     for row, state, jass_moves in zip(eligible, states, legal, strict=True):
         mapping = map_root_moves(engine.legal_moves(state), jass_moves)
         sources = {arm: row["matches"][arm][0] for arm in ARMS}
@@ -36,6 +43,8 @@ def prepare(provenance, catalogue):
             raise ValueError(f"Frozen target actions differ for {row['fen']}")
         if any(mapping.keys() != expected[source[2]] for source in sources.values()):
             raise ValueError(f"Frozen source actions differ for {row['fen']}")
+        if any(mapping != source_mappings[source[2]] for source in sources.values()):
+            raise ValueError(f"Live source action mapping differs for {row['fen']}")
         targets.append({
             "target_fen": row["fen"], "target_games": row["games"],
             "source_fen": sources["L"][2], "source_game": sources["L"][0],
