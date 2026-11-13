@@ -69,6 +69,65 @@ def read_freeze(directory):
     return provenance, frozen, manifest
 
 
+def validate_traces(directory, rows, targets):
+    """Bind each archived root trace to its frozen actions and paired receipt."""
+    for budget in BUDGETS:
+        expected = {(row["target_fen"], arm): row for row in rows if row["budget"] == budget
+                    for arm in row["arms"]}
+        path = directory / f"results/traces-{budget}.jsonl.gz"
+        with gzip.open(path, "rt", encoding="utf-8") as archive:
+            for line in archive:
+                trace = json.loads(line)
+                fen, arm = trace["target_fen"], trace["arm"]
+                row = expected.pop((fen, arm), None)
+                if row is None or trace["budget"] != budget:
+                    raise ValueError(f"Unexpected or duplicate root trace: {fen}, {arm}, {budget} nodes")
+                legal = trace["legal"]
+                keys = {move["jass_key"] for move in targets[fen]["legal_moves"]}
+                prefix = row["prefixes"][arm]
+                root = prefix + [move for move in legal if move not in prefix]
+                attempts = trace["attempts"]
+                if (len(legal) != len(keys) or set(legal) != keys or trace["root_order"] != root
+                        or trace["fresh_tt_mib"] != 1 or trace["verified_schedule_applications"] != bool(prefix)
+                        or not attempts or attempts[0]["depth"] != 1 or attempts[-1]["depth"] < 2
+                        or not attempts[0]["completed"] or not attempts[0]["all_actions_searched"]):
+                    raise ValueError(f"Invalid root trace settings: {fen}, {arm}, {budget} nodes")
+                receipt = row["arms"][arm]
+                adaptive, completed_nodes = list(legal), {}
+                previous_depth, previous_nodes, previous_completed = 0, 0, False
+                for attempt in attempts:
+                    depth, nodes = attempt["depth"], attempt["nodes_after"]
+                    if previous_depth and depth != previous_depth:
+                        if depth != previous_depth + 1 or not previous_completed:
+                            raise ValueError(f"Invalid root trace depth: {fen}, {arm}, {budget} nodes")
+                        index = adaptive.index(completed_nodes[previous_depth][1])
+                        adaptive[0], adaptive[index] = adaptive[index], adaptive[0]
+                    order = root if depth == 1 else adaptive
+                    visited = attempt["visited"]
+                    if (attempt["expected"] != order or visited != order[:len(visited)]
+                            or (attempt["all_actions_searched"] and visited != order)
+                            or not previous_nodes <= nodes <= receipt["nodes"]
+                            or attempt["best_move"] not in keys):
+                        raise ValueError(f"Invalid root trace attempt: {fen}, {arm}, {budget} nodes")
+                    previous_completed = attempt["completed"]
+                    if previous_completed:
+                        completed_nodes[depth] = (nodes, attempt["best_move"])
+                    previous_depth, previous_nodes = depth, nodes
+                completed_depth = receipt["completed_depth"]
+                common_depth = min(result["completed_depth"] for result in row["arms"].values())
+                # An interrupted aspiration retry discards the entire depth,
+                # even if an earlier window at that depth completed.
+                last_complete_depth = previous_depth - int(not previous_completed)
+                if (previous_nodes != receipt["nodes"] or last_complete_depth != completed_depth
+                        or completed_nodes[completed_depth][1] != receipt["best_move"]
+                        or row["common_completed_depth"] != common_depth
+                        or row["nodes_at_common_depth"][arm] != completed_nodes.get(common_depth, (None,))[0]):
+                    raise ValueError(f"Root trace disagrees with paired receipt: {fen}, {arm}, {budget} nodes")
+        if expected:
+            fen, arm = next(iter(expected))
+            raise ValueError(f"Missing root trace: {fen}, {arm}, {budget} nodes")
+
+
 def read_arena(directory):
     provenance, frozen, manifest = read_freeze(directory)
     targets = {row["target_fen"]: row for row in manifest["benchmark_targets"]}
@@ -133,6 +192,7 @@ def read_arena(directory):
                     or receipt["scan_chosen_category"] != _category(chosen)):
                 raise ValueError(f"Receipt differs from the Scan reference: {fen}")
         verify_equal_prefix_receipts(row)
+    validate_traces(directory, rows, targets)
     return provenance, frozen, diagnostic, rows
 
 

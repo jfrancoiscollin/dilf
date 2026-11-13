@@ -60,6 +60,10 @@ Supply each arena directory in chronological order. Keep its manifest,
 provenance, eligible shards, source scores and diagnostic at the paths
 used in the pilot. Place the target scores and gzip-compressed paired
 JSONL under `results/` as `target.json` and `paired-results.jsonl.gz`.
+Archive the root traces under `results/traces-10000.jsonl.gz`,
+`results/traces-50000.jsonl.gz` and `results/traces-200000.jsonl.gz`,
+retaining one record per FEN, budget and arm. The aggregator checks
+these archives against the paired receipts and frozen move lists.
 An arena with no common targets needs its freeze and empty manifest.
 The command checks the diagnostic and paired receipts against the frozen
 catalogues and Scan references before pooling. It records per-arena
@@ -278,6 +282,20 @@ place the paired receipts under `results/` with:
 
 ```sh
 gzip -n -c "$JASS_OUTPUT/paired-results.jsonl" > "$ARENA/results/paired-results.jsonl.gz"
+python - "$JASS_OUTPUT/root-order-traces.jsonl" "$ARENA/results" <<'PY'
+import gzip
+import json
+import sys
+from pathlib import Path
+
+from research.mtdp.jass_benchmark.spatial_jass import BUDGETS
+
+rows = Path(sys.argv[1]).read_bytes().splitlines(keepends=True)
+for budget in BUDGETS:
+    archive = Path(sys.argv[2]) / f"traces-{budget}.jsonl.gz"
+    with archive.open("wb") as out, gzip.GzipFile(fileobj=out, filename="", mode="wb", mtime=0) as stream:
+        stream.writelines(row for row in rows if json.loads(row)["budget"] == budget)
+PY
 ```
 
 Run the five-arena aggregation above after the per-arena files
@@ -371,3 +389,22 @@ against existing pilot receipts.
 The [18:18 UTC listing](20261113T181825Z-tournaments.json) shows
 CARZrQpl still underway. The next acquisition is its finished detail
 and two final PDNs after 22:00 UTC, followed by the fifth freeze.
+
+## Root trace audit before scoring
+
+The pooled analysis now requires exactly one root-order trace per
+frozen target, budget and arm. It reconstructs the initial ordering
+and subsequent adaptive ordering from the legal catalogue, compares
+the observed visits, and checks final nodes, completed depth, chosen
+move and nodes at common depth against the paired receipts. An
+interrupted aspiration retry invalidates the current depth even when
+an earlier window at that depth completed.
+
+`read_arena` validates all 306 traces and 102 paired receipts in the
+archived pilot. Regression tests reject missing and duplicate traces,
+a corrupted adaptive order and a mismatched final node count. All
+131 MTDP and 643 DILF tests passed locally.
+The [19:18 UTC listing](20261113T191845Z-tournaments.json) shows
+CARZrQpl underway. After 22:00 UTC, check the finished detail and
+compare two final PDNs. Publish the fifth freeze and verify the full
+cohort before scoring.

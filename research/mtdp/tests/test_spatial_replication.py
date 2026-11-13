@@ -1,3 +1,4 @@
+import gzip
 import json
 import os
 from copy import deepcopy
@@ -7,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from research.mtdp.jass_benchmark.spatial_replication import (
-    BUDGETS, REPLICATION_CUTOFF, aggregate, pool, read_arena,
+    BUDGETS, REPLICATION_CUTOFF, aggregate, pool, read_arena, validate_traces,
 )
 from research.mtdp.jass_benchmark.spatial_jass import prepare, verify_equal_prefix_receipts
 
@@ -56,6 +57,39 @@ def test_equal_prefix_searches_agree_except_for_elapsed_time():
         verify_equal_prefix_receipts(row)
     row["prefixes"]["LCB"] = list(reversed(row["prefixes"]["L"]))
     verify_equal_prefix_receipts(row)
+
+
+@pytest.mark.parametrize(("corruption", "error"), [
+    ("missing", "Missing root trace"),
+    ("duplicate", "Unexpected or duplicate root trace"),
+    ("order", "Invalid root trace attempt"),
+    ("nodes", "Root trace disagrees with paired receipt"),
+])
+def test_trace_audit_rejects_corrupted_archives(tmp_path, corruption, error):
+    _, _, _, rows = read_arena(PILOT)
+    manifest = json.loads((PILOT / "manifest.json").read_bytes())
+    targets = {row["target_fen"]: row for row in manifest["benchmark_targets"]}
+    results = tmp_path / "results"
+    results.mkdir()
+    for budget in BUDGETS:
+        path = PILOT / "results" / f"traces-{budget}.jsonl.gz"
+        (results / path.name).write_bytes(path.read_bytes())
+    path = results / "traces-50000.jsonl.gz"
+    with gzip.open(path, "rt", encoding="utf-8") as archive:
+        traces = [json.loads(line) for line in archive]
+    if corruption == "missing":
+        traces.pop()
+    elif corruption == "duplicate":
+        traces.append(traces[0])
+    elif corruption == "order":
+        traces[0]["attempts"][1]["expected"].reverse()
+    else:
+        traces[0]["attempts"][-1]["nodes_after"] -= 1
+    with gzip.open(path, "wt", encoding="utf-8") as archive:
+        for trace in traces:
+            archive.write(json.dumps(trace) + "\n")
+    with pytest.raises(ValueError, match=error):
+        validate_traces(tmp_path, rows, targets)
 
 
 def test_replication_requires_five_disjoint_arenas_and_excludes_ceiling_pairs():
