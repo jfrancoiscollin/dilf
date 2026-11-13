@@ -453,3 +453,26 @@ from its archived score receipts. All 132 MTDP and 643 DILF tests passed.
 The [21:11 UTC listing](20261113T211141Z-tournaments.json) shows
 CARZrQpl still in progress. After 22:00 UTC verify its finished detail
 and two final exports, then publish the fifth freeze before scoring.
+
+## Fifth verified freeze on 13 November
+
+The [22:13 UTC listing](20261113T221306Z-tournaments.json) and
+[finished detail](CARZrQpl-evidence/event-metadata.json) confirm CARZrQpl
+as the fifth chronological candidate. Two separately downloaded final
+PDNs matched byte for byte (2,121,245 bytes). FMJD replay accepted
+1,701 of 1,831 records, with 56 duplicate trajectories and 74 replay
+rejections. The [chronology](CARZrQpl-evidence/candidate-log.json)
+and [provenance](CARZrQpl/provenance.json) retain the evidence.
+
+Of 107,129 eligible positions, L matched 1,073 and LCB matched 348.
+All 348 common targets from 268 owning games are in the
+[manifest](CARZrQpl/manifest.json). LCB selected a different PC Blues
+source on 55 positions. Jass and FMJD agreed on the 3,359 target
+actions and the source mappings. Both freezes and manifests matched
+byte for byte under Python hash seeds 7 and 61. All 132 MTDP and 643
+DILF tests passed.
+
+The [five-arena precheck](frozen-cohort.json) binds all 473 targets
+and the five manifest digests. With the freeze published, score
+sources at Scan depth 12 and targets at depth 16, publish the
+ordered-prefix diagnostic, then run Jass at the three fixed budgets.
