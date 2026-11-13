@@ -16,10 +16,11 @@ from research.mtdp.jass_benchmark.multi_event_replication import hierarchical_in
 from research.mtdp.jass_benchmark.offline_top3_control import candidate_lists
 from research.mtdp.jass_benchmark.run import sha256
 from research.mtdp.jass_benchmark.spatial_jass import BUDGETS, source_diagnostic, summarize_budget
+from research.mtdp.jass_cohort import ADAPTER_COMMIT, JASS_COMMIT, SCAN_COMMIT
 from research.mtdp.top_k_transfer import _action, _category
 
 
-def read_arena(directory):
+def read_freeze(directory):
     provenance_path = directory / "provenance.json"
     manifest_path = directory / "manifest.json"
     provenance = json.loads(provenance_path.read_bytes())
@@ -28,12 +29,46 @@ def read_arena(directory):
             or manifest["event"] != provenance["event"]["id"]):
         raise ValueError(f"Manifest is not bound to the arena freeze: {directory}")
     frozen = [row for shard in provenance["eligible_shards"] for row in read_input(shard)]
-    matched = {row["fen"]: row["games"] for row in frozen if row["matches"]["LCB"]}
+    matched = {row["fen"]: row for row in frozen if row["matches"]["LCB"]}
     targets = {row["target_fen"]: row for row in manifest["benchmark_targets"]}
     if (len(frozen) != manifest["eligible"] or len(frozen) != provenance["counts"]["eligible"]
             or len(targets) != len(manifest["benchmark_targets"])
-            or matched != {fen: row["target_games"] for fen, row in targets.items()}):
+            or len(matched) != provenance["counts"]["LCB"]
+            or matched.keys() != targets.keys()):
         raise ValueError(f"Manifest target population differs from freeze: {directory}")
+    for fen, row in matched.items():
+        target = targets[fen]
+        sources = {arm: row["matches"][arm][0] for arm in ("L", "LCB")}
+        if (target["target_games"] != row["games"]
+                or target["source_fens"] != {arm: source[2] for arm, source in sources.items()}
+                or target["source_fen"] != sources["L"][2] or target["source_game"] != sources["L"][0]
+                or [move["action"] for move in target["legal_moves"]] != row["actions"]):
+            raise ValueError(f"Manifest target differs from frozen position: {fen}")
+    expected_pairs = {
+        (source, fen): row["legal_moves"]
+        for fen, row in targets.items() for source in row["source_fens"].values()
+    }
+    actual_pairs = {
+        (row["source_fen"], row["target_fen"]): row["legal_moves"] for row in manifest["targets"]
+    }
+    settings = {
+        "jass_node_budgets": list(BUDGETS),
+        "scan_successor_depth": 12,
+        "target_scan_successor_depth": 16,
+        "draught_master_commit": ADAPTER_COMMIT,
+        "jass_commit": JASS_COMMIT,
+        "scan_commit": SCAN_COMMIT,
+        "scan_binary_sha256": provenance["scan_sha256"]["scan_linux"],
+    }
+    if (len(actual_pairs) != len(manifest["targets"]) or actual_pairs != expected_pairs
+            or any(manifest["engine"].get(key) != value for key, value in settings.items())):
+        raise ValueError(f"Manifest scoring plan differs from frozen targets or settings: {directory}")
+    return provenance, frozen, manifest
+
+
+def read_arena(directory):
+    provenance, frozen, manifest = read_freeze(directory)
+    targets = {row["target_fen"]: row for row in manifest["benchmark_targets"]}
     if not targets:
         return provenance, frozen, {"matched": 0, "changed_source": 0, "changed_prefix_targets": []}, []
 
@@ -43,7 +78,7 @@ def read_arena(directory):
     target = json.loads((directory / "results/target.json").read_bytes())
     if source.get("role") != "source" or target.get("role") != "target":
         raise ValueError(f"Unexpected Scan reference roles: {directory}")
-    manifest_digest = sha256(manifest_path)
+    manifest_digest = sha256(directory / "manifest.json")
     scores = {
         role: validate_reference(reference, score_catalogue(manifest, role),
                                  provenance["scan_sha256"], manifest_digest, depth)
@@ -71,7 +106,7 @@ def read_arena(directory):
     }
     for row in rows:
         fen = row["target_fen"]
-        if (row["target_games"] != matched[fen] or row["source_fens"] != targets[fen]["source_fens"]
+        if (row["target_games"] != targets[fen]["target_games"] or row["source_fens"] != targets[fen]["source_fens"]
                 or set(row["arms"]) != {"L", "LCB", "native"}
                 or row["prefixes"] != prefixes[fen]):
             raise ValueError(f"Receipt differs from manifest or diagnostic: {fen}")
@@ -142,13 +177,12 @@ def pool(packets, budget, *, changed_only):
     }
 
 
-def aggregate(packets, protocol_digest):
-    if len(packets) != REPLICATION_ARENAS:
+def validate_cohort(freezes, protocol_digest):
+    if len(freezes) != REPLICATION_ARENAS:
         raise ValueError("Exactly five replication arenas are required")
     fens, games, exports, ids = set(), set(), set(), set()
     previous = (REPLICATION_CUTOFF, "")
-    cohorts = {}
-    for provenance, frozen, diagnostic, _ in packets:
+    for provenance, frozen in freezes:
         event = provenance["event"]
         event_id = event["id"]
         start = int(datetime.fromisoformat(event["startsAt"]).timestamp() * 1000)
@@ -166,6 +200,13 @@ def aggregate(packets, protocol_digest):
         fens.update(local_fens)
         games.update(local_games)
         exports.add(digest)
+
+
+def aggregate(packets, protocol_digest):
+    validate_cohort([(provenance, frozen) for provenance, frozen, _, _ in packets], protocol_digest)
+    cohorts = {}
+    for provenance, frozen, diagnostic, _ in packets:
+        event_id = provenance["event"]["id"]
         cohorts[event_id] = {
             "eligible": len(frozen), "common": diagnostic["matched"],
             "changed_source": diagnostic["changed_source"],
@@ -185,10 +226,25 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--arena", type=Path, action="append", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--check-freezes", action="store_true",
+                        help="Verify the five frozen manifests before scoring")
     args = parser.parse_args()
     if len(args.arena) != REPLICATION_ARENAS:
         parser.error("Pass exactly five arena directories in chronological order")
-    write_json(args.output, aggregate([read_arena(path) for path in args.arena], sha256(REPLICATION_PROTOCOL)))
+    protocol_digest = sha256(REPLICATION_PROTOCOL)
+    if args.check_freezes:
+        freezes = [read_freeze(path) for path in args.arena]
+        validate_cohort([(provenance, frozen) for provenance, frozen, _ in freezes], protocol_digest)
+        write_json(args.output, {
+            "protocol_sha256": protocol_digest,
+            "arenas": [{
+                "event": manifest["event"], "eligible": manifest["eligible"],
+                "matched": len(manifest["benchmark_targets"]),
+                "manifest_sha256": sha256(path / "manifest.json"),
+            } for path, (_, _, manifest) in zip(args.arena, freezes, strict=True)],
+        })
+        return
+    write_json(args.output, aggregate([read_arena(path) for path in args.arena], protocol_digest))
 
 
 if __name__ == "__main__":

@@ -50,3 +50,23 @@ def test_replication_requires_five_disjoint_arenas_and_excludes_ceiling_pairs():
     packets[-1][0]["event_game_ids"] = packets[0][0]["event_game_ids"]
     with pytest.raises(ValueError, match="overlapping"):
         aggregate(packets, "protocol")
+
+
+def test_scoring_precheck_detects_substituted_source(monkeypatch):
+    from research.mtdp.jass_benchmark import spatial_replication as study
+
+    arena = PILOT.parent / "replication/uG0fGZzB"
+    _, frozen, manifest = study.read_freeze(arena)
+    assert len(frozen) == 4327
+    assert len(manifest["benchmark_targets"]) == 25
+    original_loads = study.json.loads
+
+    def substitute_manifest(raw):
+        data = original_loads(raw)
+        if isinstance(data, dict) and "benchmark_targets" in data:
+            data["benchmark_targets"][0]["source_fens"]["LCB"] = "substituted"
+        return data
+
+    monkeypatch.setattr(study.json, "loads", substitute_manifest)
+    with pytest.raises(ValueError, match="differs from frozen position"):
+        study.read_freeze(arena)

@@ -29,6 +29,15 @@ Include the first arena export in the exclusion inventory and its
 provenance as the fifth `--previous-freeze`. Scan and Jass scoring
 starts after all five freezes have been published.
 
+## Verify all five manifests before scoring
+
+Run the command below with the five published arena directories in
+chronological order and add `--check-freezes`. Save the output as the
+scoring input inventory. The check works before Scan receipts exist.
+It verifies the selected PC Blues sources, legal actions, fixed budgets
+and cross-arena independence, and records each manifest digest. The first
+published freeze passed its manifest check on a clean checkout.
+
 ## Reproduce the pooled analysis
 
 After five verified freezes and their searches, run from the repository root:
