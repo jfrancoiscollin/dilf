@@ -60,3 +60,30 @@ def aggregate_feasibility(total_nodes: int, verification_nodes: list[int]) -> di
         "positions_over_cap": over_cap,
         "all_positions_fit": over_cap == 0,
     }
+
+
+def capped_probe_limit(total_nodes: int, spent_verification: int,
+                       requested_nodes: int) -> int:
+    """Bound a proposed probe by the remaining verification allowance.
+
+    Zero means the caller must skip the probe and use the preregistered
+    fallback. This is a *request* limit, not a measured-node receipt.
+    """
+    remaining = next_probe_limit(total_nodes, spent_verification)
+    if type(requested_nodes) is not int or requested_nodes < 0:
+        raise ValueError("Requested probe nodes must be a nonnegative integer")
+    return min(remaining, requested_nodes)
+
+
+def record_probe_nodes(total_nodes: int, spent_verification: int,
+                       requested_limit: int, measured_nodes: int) -> int:
+    """Accept only an actual metered receipt within the issued probe limit.
+
+    Never substitute the requested limit for measured usage. Fail closed if
+    the engine reports more nodes than permitted by either bound.
+    """
+    allowed = capped_probe_limit(total_nodes, spent_verification, requested_limit)
+    if (type(measured_nodes) is not int or measured_nodes < 0
+            or measured_nodes > allowed):
+        raise ValueError("Probe receipt exceeds issued limit or is invalid")
+    return spent_verification + measured_nodes
