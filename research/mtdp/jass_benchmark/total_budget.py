@@ -33,10 +33,10 @@ def verify_receipt(total_nodes: int, verification_nodes: int,
     main_limit = main_search_limit(total_nodes, verification_nodes)
     if type(main_nodes) is not int or main_nodes < 0 or main_nodes > main_limit:
         raise ValueError("Invalid metered main-search node count")
-    if not depth_ceiling and main_nodes != main_limit:
-        raise ValueError("Non-ceiling replay did not exhaust its allocated budget")
     if type(depth_ceiling) is not bool:
         raise ValueError("Depth-ceiling flag must be boolean")
+    if not depth_ceiling and main_nodes != main_limit:
+        raise ValueError("Non-ceiling replay did not exhaust its allocated budget")
     return not depth_ceiling
 
 
