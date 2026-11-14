@@ -87,3 +87,27 @@ def record_probe_nodes(total_nodes: int, spent_verification: int,
             or measured_nodes > allowed):
         raise ValueError("Probe receipt exceeds issued limit or is invalid")
     return spent_verification + measured_nodes
+
+
+def audit_probe_sequence(total_nodes: int,
+                         probes: list[tuple[int, int]]) -> dict[str, int]:
+    """Replay ordered (issued_limit, measured_nodes) receipts without Jass.
+
+    Each receipt is checked against the *remaining* 10% allowance, so a
+    previously valid standalone probe cannot be reused after the cap is spent.
+    The result is an accounting audit, not evidence of engine execution.
+    """
+    spent = 0
+    if type(probes) is not list:
+        raise ValueError("Probe sequence must be a list")
+    for receipt in probes:
+        if (type(receipt) is not tuple or len(receipt) != 2):
+            raise ValueError("Each probe receipt must be a (limit, nodes) tuple")
+        issued, measured = receipt
+        spent = record_probe_nodes(total_nodes, spent, issued, measured)
+    return {
+        "probe_count": len(probes),
+        "verification_nodes": spent,
+        "verification_remaining": next_probe_limit(total_nodes, spent),
+        "main_search_limit": main_search_limit(total_nodes, spent),
+    }
