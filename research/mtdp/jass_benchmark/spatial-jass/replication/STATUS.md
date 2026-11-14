@@ -599,3 +599,12 @@ for Black in the +291-centimen case. See the
 [endgame report](LARGEST_NATIVE_DISAGREEMENT_2026-11-14.md) for the
 principal variations and exact outcomes. Next, apply the same WDL
 check to the remaining disagreements with at most six pieces.
+
+## Exact outcomes on the covered native disagreements
+
+Two of the 20 LCB/native disagreements have six pieces. All seven
+legal moves across those positions lose for Black, so neither choice
+changes the theoretical outcome. The [bitbase report](NATIVE_DISAGREEMENTS_WDL_2026-11-14.md)
+records the two positions and reproduction. Next, design a controlled
+replay of the 48 depth-one ties with the LCB visit order and the
+archived native tie winner fixed separately.

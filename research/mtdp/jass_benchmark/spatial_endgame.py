@@ -1,12 +1,13 @@
-"""Check the largest native disagreement against Scan's six-piece bitbases."""
+"""Check the native disagreements covered by Scan's six-piece bitbases."""
 
 import argparse
 import hashlib
+import json
 import re
 import subprocess
 from pathlib import Path
 
-from pedagogy.game import parse_fen, state_to_fen
+from pedagogy.game import notation, parse_fen, state_to_fen
 from research.mtdp.best_move_audit import Scan
 from research.mtdp.draught_master_adapter import create_engine
 from research.mtdp.jass_benchmark.geometry_ablation import write_json
@@ -37,22 +38,28 @@ def load_position_scores(scan, state):
     return {"score_for_side_to_move": score, "pv": pv.split()}
 
 
-def analyze(binary, table_binary, archive):
-    binary, table_binary = binary.resolve(), table_binary.resolve()
-    for engine in (binary, table_binary):
-        if sha256(engine) != SCAN_SHA256 or sha256(engine.parent / "data/eval") != SCAN_EVAL_SHA256:
-            raise ValueError(f"Scan binary or evaluation file does not match the pinned build: {engine}")
+def verify_scan(engine):
+    if sha256(engine) != SCAN_SHA256 or sha256(engine.parent / "data/eval") != SCAN_EVAL_SHA256:
+        raise ValueError(f"Scan binary or evaluation file does not match the pinned build: {engine}")
+
+
+def verify_archive(archive):
     with archive.open("rb") as stream:
         archive_digest = hashlib.file_digest(stream, "sha256").hexdigest()
     if archive_digest != TABLE_SHA256:
         raise ValueError("Bitbase archive differs from the recorded download")
-    rules = create_engine()
-    root = parse_fen(FEN)
-    successors = {
-        f"{move.path[0]}-{move.path[-1]}": rules.apply_move(root, move)
-        for move in rules.legal_moves(root)
-    }
-    states = [root, *successors.values()]
+    return archive_digest
+
+
+def legal_successors(rules, root):
+    moves = rules.legal_moves(root)
+    successors = {notation(move): rules.apply_move(root, move) for move in moves}
+    if len(successors) != len(moves) or any(move.is_capture for move in moves):
+        raise ValueError("Expected unambiguous quiet root moves")
+    return successors
+
+
+def probe(table_binary, states):
     fens = [state_to_fen(state) for state in states]
     commands = ["0"]
     for fen in fens:
@@ -66,13 +73,23 @@ def analyze(binary, table_binary, archive):
     if ([side for side, _ in probes] != [state.turn for state in states]
             or echoed != fens):
         raise ValueError(f"Incomplete or misordered bitbase probes: {probes}")
+    return [result for _, result in probes]
+
+
+def analyze(binary, table_binary, archive):
+    binary, table_binary = binary.resolve(), table_binary.resolve()
+    for engine in (binary, table_binary):
+        verify_scan(engine)
+    archive_digest = verify_archive(archive)
+    root = parse_fen(FEN)
+    successors = legal_successors(create_engine(), root)
+    root_result, *probes = probe(table_binary, [root, *successors.values()])
     with Scan(binary, depth=18) as scan:
         moves = {
             move: {"successor": state_to_fen(state), "result_for_black": INVERT[result],
                    "scan_depth18": load_position_scores(scan, state)}
-            for (move, state), (_, result) in zip(successors.items(), probes[1:], strict=True)
+            for (move, state), result in zip(successors.items(), probes, strict=True)
         }
-    root_result = probes[0][1]
     if root_result != max((row["result_for_black"] for row in moves.values()),
                           key=("loss", "draw", "win").index):
         raise ValueError("Root bitbase result differs from its best legal successor")
@@ -82,12 +99,63 @@ def analyze(binary, table_binary, archive):
             "bitbase_ini_sha256": sha256(table_binary.parent / "scan.ini")}
 
 
+def audit_disagreements(reference, table_binary, archive):
+    table_binary = table_binary.resolve()
+    verify_scan(table_binary)
+    archive_digest = verify_archive(archive)
+    summary = json.loads(reference.read_bytes())
+    if summary["budget"] != 50_000:
+        raise ValueError("Expected the 50,000-node disagreement receipt")
+    rules = create_engine()
+    positions, states = [], []
+    for row in summary["positions"]:
+        root = parse_fen(row["fen"])
+        pieces = sum(map(len, (root.white_men, root.black_men, root.white_kings, root.black_kings)))
+        if pieces > 6:
+            continue
+        successors = legal_successors(rules, root)
+        choices = {arm: row["arms"][arm]["move"] for arm in ("LCB", "native")}
+        if choices["LCB"] == choices["native"]:
+            raise ValueError(f"Expected different archived choices: {row['fen']}")
+        positions.append((row, root, pieces, successors, choices))
+        states.extend((root, *successors.values()))
+
+    results = iter(probe(table_binary, states))
+    output = []
+    for row, root, pieces, successors, choices in positions:
+        root_result = next(results)
+        moves = {move: {"successor": state_to_fen(state), "result_for_mover": INVERT[next(results)]}
+                 for move, state in successors.items()}
+        if root_result != max((move["result_for_mover"] for move in moves.values()),
+                              key=("loss", "draw", "win").index):
+            raise ValueError(f"Root result differs from its best successor: {row['fen']}")
+        output.append({
+            "arena": row["arena"], "fen": row["fen"], "pieces": pieces, "mover": root.turn,
+            "result_for_mover": root_result, "legal_moves": moves, "choices": choices,
+            "different_theoretical_outcome": (
+                moves[choices["LCB"]]["result_for_mover"] != moves[choices["native"]]["result_for_mover"]
+            ),
+        })
+    return {"reference_sha256": sha256(reference), "budget": summary["budget"],
+            "total_disagreements": len(summary["positions"]), "positions": output,
+            "scan_binary_sha256": SCAN_SHA256, "bitbase_url": TABLE_URL,
+            "bitbase_archive_sha256": archive_digest,
+            "bitbase_ini_sha256": sha256(table_binary.parent / "scan.ini")}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    for name in ("scan", "table-scan", "archive", "output"):
+    sources = parser.add_mutually_exclusive_group(required=True)
+    sources.add_argument("--scan", type=Path)
+    sources.add_argument("--disagreements", type=Path)
+    for name in ("table-scan", "archive", "output"):
         parser.add_argument(f"--{name}", type=Path, required=True)
     args = parser.parse_args()
-    write_json(args.output, analyze(args.scan, args.table_scan, args.archive))
+    if args.disagreements:
+        report = audit_disagreements(args.disagreements, args.table_scan, args.archive)
+    else:
+        report = analyze(args.scan, args.table_scan, args.archive)
+    write_json(args.output, report)
 
 
 if __name__ == "__main__":
