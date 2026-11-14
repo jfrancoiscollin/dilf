@@ -64,3 +64,18 @@ def test_invalid_probe_cost_rejected_with_clear_error(probe):
     with pytest.raises(ValueError, match="Invalid depth-one probe node cost"):
         audit({"positions": [receipt("a", "one", probe, 10)]},
               50_000, expected_positions=1)
+
+
+def test_per_arena_costs_are_separate_and_sum_to_cohort():
+    result = audit({"positions": [
+        receipt("west", "one", 5_100, 6_000),
+        receipt("east", "two", 100, 5_500),
+        receipt("east", "three", 200, 300),
+    ]}, 50_000, expected_positions=3)
+    by_arena = result["by_arena"]
+    assert list(by_arena) == ["east", "west"]
+    assert by_arena["west"]["depth_one_probe_lower_bound"]["positions_over_cap"] == 1
+    assert by_arena["east"]["depth_one_probe_lower_bound"]["positions_over_cap"] == 0
+    assert by_arena["east"]["full_historical_auxiliary_cost"]["positions_over_cap"] == 1
+    assert sum(item["depth_one_probe_lower_bound"]["measured_verification_nodes"]
+               for item in by_arena.values()) == result["depth_one_probe_lower_bound"]["measured_verification_nodes"]
