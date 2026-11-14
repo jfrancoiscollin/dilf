@@ -6,8 +6,8 @@ from research.mtdp.jass_benchmark.spatial_prospective import combine, select
 
 
 def test_live_scores_with_a_bound_do_not_trigger_intervention(monkeypatch):
-    target = {"legal_moves": [{"action": [[31, 26], [], False]},
-                              {"action": [[32, 27], [], False]}]}
+    target = {"legal_moves": [{"action": [[31, 26], [], False], "jass_key": "31-26"},
+                              {"action": [[32, 27], [], False], "jass_key": "32-27"}]}
     order = ["31-26", "32-27"]
 
     def replay(_runner, _target, _scores, prefix, *, budget):
@@ -73,8 +73,8 @@ def test_pinned_runner_exact_tie_and_unique_winner():
     ["31-26", "33-28"],
 ])
 def test_prospective_rejects_mismatched_live_legal_catalogue(monkeypatch, live_order):
-    target = {"legal_moves": [{"action": [[31, 26], [], False]},
-                              {"action": [[32, 27], [], False]}]}
+    target = {"legal_moves": [{"action": [[31, 26], [], False], "jass_key": "31-26"},
+                              {"action": [[32, 27], [], False], "jass_key": "32-27"}]}
     def replay(_runner, _target, _scores, _prefix, *, budget):
         return ({"winner": "31-26", "score": 1, "moves": []},
                 {"nodes": budget}, {"legal": live_order, "attempts": []})
