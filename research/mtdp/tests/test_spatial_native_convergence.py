@@ -1,4 +1,4 @@
-from research.mtdp.jass_benchmark.spatial_native_convergence import compare, summarize
+from research.mtdp.jass_benchmark.spatial_native_convergence import compare, early_search, summarize
 
 
 def test_comparison_uses_both_arms_and_ignores_interrupted_aspiration_retry():
@@ -25,3 +25,17 @@ def test_comparison_uses_both_arms_and_ignores_interrupted_aspiration_retry():
     assert result["common_depths_with_different_best_move"] == [1]
     assert result["agreement_after_last_disagreement"] == 2
     assert summarize([result])["positions_with_later_common_depth_agreement"] == 1
+
+def test_early_search_compares_nodes_and_the_order_at_depth_two():
+    traces = {
+        arm: {"attempts": [
+            {"depth": 1, "nodes_after": nodes},
+            {"depth": 2, "expected": ["a", "b"]},
+            {"depth": 3, "expected": ["b", "a"]},
+        ]} for arm, nodes in (("LCB", 23), ("native", 30))
+    }
+    assert early_search(traces) == {
+        "depth_one_nodes": {"LCB": 23, "native": 30},
+        "depth_one_node_delta": -7,
+        "same_depth_two_order": True,
+    }

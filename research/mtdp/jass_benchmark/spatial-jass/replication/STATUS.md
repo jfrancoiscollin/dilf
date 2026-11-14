@@ -556,3 +556,12 @@ every commonly completed depth and at the end. See the
 [trace comparison](NATIVE_CONVERGENCE_2026-11-14.md). Next, inspect
 depth-one node cost and depth-two order at 50,000 nodes across the full
 cohort, including the positions with different LCB and native moves.
+
+## Early search on the full cohort
+
+At 50,000 nodes all 20 LCB/native final disagreements already had
+different winners at depth one. The root order at depth two agreed
+on all 425 positions with the same depth-one winner. See the
+[full-cohort trace report](NATIVE_EARLY_SEARCH_2026-11-14.md).
+Next, reproduce the 48 depth-one disagreements with root action
+scores logged to test how many are ties.
