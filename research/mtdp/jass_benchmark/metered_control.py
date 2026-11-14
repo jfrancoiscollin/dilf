@@ -27,8 +27,10 @@ def _window_exact(receipt: dict, move: str, window: tuple[int, int]) -> bool:
         and type(receipt.get("completed")) is bool
         and receipt["completed"]
         and _integer(receipt.get("score"))
-        and receipt.get("alpha_before") == a
-        and receipt.get("beta") == b
+        and _integer(receipt.get("alpha_before"))
+        and _integer(receipt.get("beta"))
+        and receipt["alpha_before"] == a
+        and receipt["beta"] == b
         and a < receipt["score"] < b
     )
 
