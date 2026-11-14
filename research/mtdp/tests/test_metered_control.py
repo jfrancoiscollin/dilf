@@ -119,3 +119,16 @@ def test_invalid_live_legal_order_rejected_before_spending(order):
                 preliminary=lambda _: pytest.fail("No calls"),
                 probe=lambda *_: pytest.fail("No calls"),
                 main=lambda *_: pytest.fail("No calls"))
+
+
+def test_incomplete_preliminary_without_winner_falls_back_and_meters_cost():
+    def incomplete(limit):
+        return {"nodes": 32, "completed": False}
+    def main(chosen, limit):
+        assert chosen is None and limit == 9968
+        return {"nodes": limit, "depth_ceiling": False}
+    report = execute(total_nodes=10_000, native_order=["a", "b"],
+                     preliminary=incomplete,
+                     probe=lambda *_: pytest.fail("No verification after incomplete receipt"), main=main)
+    assert report["fallback_reason"] == "preliminary_incomplete_or_bounded"
+    assert report["verification_nodes"] == 32
