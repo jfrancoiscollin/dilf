@@ -1,0 +1,56 @@
+"""Retrospective verification-cost audit; never claims an equal-compute run."""
+
+import argparse
+import gzip
+import json
+from pathlib import Path
+
+from research.mtdp.jass_benchmark.total_budget import aggregate_feasibility
+
+
+def audit(report: dict, budget: int) -> dict:
+    """Audit independently metered depth-one probe costs on frozen positions.
+
+    These costs are a *lower bound* on the old auxiliary verification work,
+    not a measurement of a future capped or short-circuited runner.
+    """
+    if type(budget) is not int or budget <= 0:
+        raise ValueError("Budget must be a positive integer")
+    rows = report["positions"]
+    selected = [row for row in rows if row["budget"] == budget]
+    keys = [(row["event"], row["fen"]) for row in selected]
+    if len(keys) != len(set(keys)):
+        raise ValueError("Duplicate position receipts")
+    if not selected:
+        raise ValueError("No receipts for requested budget")
+    costs = [row["probe_depth_one_nodes"] for row in selected]
+    auxiliary = [row["auxiliary_nodes"] for row in selected]
+    if any(type(n) is not int or n < 0 for n in auxiliary):
+        raise ValueError("Invalid auxiliary node cost")
+    if any(probe > total for probe, total in zip(costs, auxiliary, strict=True)):
+        raise ValueError("Depth-one probes exceed metered auxiliary cost")
+    lower = aggregate_feasibility(budget, costs)
+    full = aggregate_feasibility(budget, auxiliary)
+    return {
+        "budget": budget,
+        "depth_one_probe_lower_bound": lower,
+        "full_historical_auxiliary_cost": full,
+        "interpretation": (
+            "Retrospective audit only: depth-one probe nodes are a lower bound; "
+            "historical full-search auxiliary nodes are not a capped-run measurement."
+        ),
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--report", required=True, type=Path)
+    parser.add_argument("--budget", required=True, type=int)
+    args = parser.parse_args()
+    with gzip.open(args.report, "rt", encoding="utf-8") as stream:
+        report = json.load(stream)
+    print(json.dumps(audit(report, args.budget), sort_keys=True, indent=2))
+
+
+if __name__ == "__main__":
+    main()
