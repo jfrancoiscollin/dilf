@@ -16,7 +16,7 @@ BUDGET = 50_000
 ARMS = ("LCB", "native")
 
 
-def replay(runner, target, scores, prefix, *, forced_winner=None):
+def replay(runner, target, scores, prefix, *, forced_winner=None, budget=BUDGET):
     fen = target["target_fen"]
     env = {key: value for key, value in os.environ.items()
            if key not in ("JASS_EGDB_PATH", "JASS_EGDB_MTC_PATH", "MTDP_DEPTH_ONE_WINNER")}
@@ -25,7 +25,7 @@ def replay(runner, target, scores, prefix, *, forced_winner=None):
         env["MTDP_DEPTH_ONE_WINNER"] = forced_winner
     result = subprocess.run(
         [str(runner.resolve()), "--initial-only", "--record-depth-ceiling"],
-        input=" ".join([fen, str(BUDGET), *prefix]) + "\n",
+        input=" ".join([fen, str(budget), *prefix]) + "\n",
         check=True, capture_output=True, text=True, env=env,
     )
     moves, ends, receipts = [], [], []
@@ -42,7 +42,7 @@ def replay(runner, target, scores, prefix, *, forced_winner=None):
         if fields["event"] == "end":
             ends.append(fields)
     raw, = receipts
-    receipt, trace = read_run(raw, target, BUDGET, prefix, scores,
+    receipt, trace = read_run(raw, target, budget, prefix, scores,
                               initial_only=True, record_depth_ceiling=True)
     end, = ends
     attempt = trace["attempts"][0]

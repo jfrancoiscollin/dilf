@@ -617,3 +617,11 @@ at 50,000 nodes, including the 20 original final disagreements. See
 the [intervention report](TIE_INTERVENTION_2026-11-14.md). Next,
 validate a native-order tie rule that does not use archived winners
 and compare it across the full cohort.
+
+## Native-order tie-break with metered verification
+
+The [473-position replay](PROSPECTIVE_TIEBREAK_RESULTS_2026-11-14.md)
+reproduced all native final moves at each fixed main-search budget.
+The verification searches have a separately measured cost. Next,
+freeze an end-to-end budget that includes verification and test it on
+a new chronological holdout.
