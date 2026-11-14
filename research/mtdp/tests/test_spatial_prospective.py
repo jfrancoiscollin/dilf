@@ -64,3 +64,20 @@ def test_pinned_runner_exact_tie_and_unique_winner():
         assert (log["winner"], chosen, status) == (original, expected, kind)
         assert exact_scores[original] == exact_scores[chosen] == max(exact_scores.values())
     assert not cases
+
+
+@pytest.mark.parametrize("live_order", [
+    ["31-26", "31-26"],
+    ["31-26", "32-27", "33-28"],
+    ["31-26"],
+    ["31-26", "33-28"],
+])
+def test_prospective_rejects_mismatched_live_legal_catalogue(monkeypatch, live_order):
+    target = {"legal_moves": [{"action": [[31, 26], [], False]},
+                              {"action": [[32, 27], [], False]}]}
+    def replay(_runner, _target, _scores, _prefix, *, budget):
+        return ({"winner": "31-26", "score": 1, "moves": []},
+                {"nodes": budget}, {"legal": live_order, "attempts": []})
+    monkeypatch.setattr("research.mtdp.jass_benchmark.spatial_prospective.replay", replay)
+    with pytest.raises(ValueError, match="legal order"):
+        select(None, target, ["31-26", "32-27"])
