@@ -34,7 +34,8 @@ jobs:
           archive=research/mtdp/jass_benchmark/spatial-jass/replication/prospective-tiebreak-results.json.gz
           for budget in 10000 50000 200000; do
             python -m research.mtdp.jass_benchmark.prospective_cost_audit \
-              --report "$archive" --budget "$budget" --expected-positions 473
+              --report "$archive" --budget "$budget" --expected-positions 473 \
+              $([ "$budget" = 200000 ] && echo --check-alignment || true)
           done
 
       - name: mypy --strict pedagogy
