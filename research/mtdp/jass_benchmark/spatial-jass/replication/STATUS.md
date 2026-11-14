@@ -591,3 +591,11 @@ The two largest LCB costs persisted at +291 and +50 centimen. See
 the [depth sensitivity report](native-depth18/RESULTS_2026-11-14.md).
 Next, inspect the largest case's principal variations and exact
 six-piece endgame result if available.
+
+## Exact endgame check of the largest disagreement
+
+Scan's six-piece bitbases classify all three legal moves as losses
+for Black in the +291-centimen case. See the
+[endgame report](LARGEST_NATIVE_DISAGREEMENT_2026-11-14.md) for the
+principal variations and exact outcomes. Next, apply the same WDL
+check to the remaining disagreements with at most six pieces.
