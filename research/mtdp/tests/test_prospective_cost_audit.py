@@ -92,3 +92,19 @@ def test_lower_bound_only_proves_historical_probe_overruns():
         "equal_compute_success_established": False,
     }
     assert result["full_historical_auxiliary_cost"]["positions_over_cap"] == 2
+
+
+@pytest.mark.parametrize("invalid_budget", [True, 1.5, "50000", 0, -1])
+def test_malformed_receipt_budget_rejected(invalid_budget):
+    with pytest.raises(ValueError, match="Invalid receipt budget"):
+        audit({"positions": [receipt("arena", "fen", 10, 20,
+                                      budget=invalid_budget)]}, 50_000)
+
+
+@pytest.mark.parametrize("event,fen", [
+    ("", "fen"), ("arena", ""), (None, "fen"),
+    ("arena", None), (1, "fen"), ("arena", 123),
+])
+def test_malformed_position_identity_rejected(event, fen):
+    with pytest.raises(ValueError, match="Invalid receipt position identity"):
+        audit({"positions": [receipt(event, fen, 10, 20)]}, 50_000)
