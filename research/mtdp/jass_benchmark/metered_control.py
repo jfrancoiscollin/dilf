@@ -112,6 +112,8 @@ def execute(
     depth_ceiling = result.get("depth_ceiling")
     complete = verify_receipt(total_nodes, spent, result.get("nodes"),
                               depth_ceiling=depth_ceiling)
+    if depth_ceiling and result["nodes"] == final_limit:
+        raise ValueError("Depth ceiling cannot claim an exhausted node budget")
     return {
         "total_nodes": total_nodes, "verification_nodes": spent,
         "main_nodes": result["nodes"], "main_limit": final_limit,
