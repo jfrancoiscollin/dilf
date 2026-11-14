@@ -1,0 +1,25 @@
+diff --git a/src/search.cpp b/src/search.cpp
+index 06ab9a87c..1e5d8a613 100644
+--- a/src/search.cpp
++++ b/src/search.cpp
+@@ -30,0 +31 @@
++#include <stdexcept>
+@@ -2016,0 +2018,18 @@ SearchResult search(const Position& pos, const SearchLimits& limits,
++        // Research intervention: change only the committed depth-one winner.
++        if (depth == 1) {
++            if (const char* forced = std::getenv("MTDP_DEPTH_ONE_WINNER")) {
++                if (!limits.search_decision_trace || s.stopped)
++                    throw std::runtime_error("Depth-one intervention needs a completed trace");
++                auto& attempt = limits.search_decision_trace->attempts.back();
++                const auto& actions = attempt.actions;
++                const auto entry = std::find_if(actions.begin(), actions.end(), [&](const auto& action) {
++                    return root_trace_move(action.move) == forced;
++                });
++                if (!attempt.all_actions_searched || entry == actions.end()
++                    || !entry->completed || entry->score != iter_score)
++                    throw std::runtime_error("Requested move does not tie the depth-one winner");
++                iter_best = entry->move;
++                attempt.best_move = iter_best;
++            }
++        }
++

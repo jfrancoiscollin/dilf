@@ -608,3 +608,12 @@ changes the theoretical outcome. The [bitbase report](NATIVE_DISAGREEMENTS_WDL_2
 records the two positions and reproduction. Next, design a controlled
 replay of the 48 depth-one ties with the LCB visit order and the
 archived native tie winner fixed separately.
+
+## Controlled replay of depth-one ties
+
+With LCB's original depth-one visit order and the native tied winner,
+all 48 searches reproduced the native depth-two order and final move
+at 50,000 nodes, including the 20 original final disagreements. See
+the [intervention report](TIE_INTERVENTION_2026-11-14.md). Next,
+validate a native-order tie rule that does not use archived winners
+and compare it across the full cohort.

@@ -16,11 +16,13 @@ BUDGET = 50_000
 ARMS = ("LCB", "native")
 
 
-def replay(runner, target, scores, prefix):
+def replay(runner, target, scores, prefix, *, forced_winner=None):
     fen = target["target_fen"]
     env = {key: value for key, value in os.environ.items()
-           if key not in ("JASS_EGDB_PATH", "JASS_EGDB_MTC_PATH")}
+           if key not in ("JASS_EGDB_PATH", "JASS_EGDB_MTC_PATH", "MTDP_DEPTH_ONE_WINNER")}
     env["JASS_TRACE_ROOT"] = "1"
+    if forced_winner is not None:
+        env["MTDP_DEPTH_ONE_WINNER"] = forced_winner
     result = subprocess.run(
         [str(runner.resolve()), "--initial-only", "--record-depth-ceiling"],
         input=" ".join([fen, str(BUDGET), *prefix]) + "\n",
@@ -44,7 +46,7 @@ def replay(runner, target, scores, prefix):
                               initial_only=True, record_depth_ceiling=True)
     end, = ends
     attempt = trace["attempts"][0]
-    if (end["complete"] != "1" or end["bestmove"] != attempt["best_move"]
+    if (end["complete"] != "1" or (forced_winner or end["bestmove"]) != attempt["best_move"]
             or int(end["nodes"]) != attempt["nodes_after"]
             or [move["move"] for move in moves] != attempt["visited"]):
         raise ValueError(f"Depth-one score log differs from structured trace: {fen}")
