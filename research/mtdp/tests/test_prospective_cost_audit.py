@@ -57,3 +57,10 @@ def test_invalid_frozen_cohort_size_rejected(expected):
     with pytest.raises(ValueError, match="Expected cohort size"):
         audit({"positions": [receipt("a", "one", 100, 200)]},
               50_000, expected_positions=expected)
+
+
+@pytest.mark.parametrize("probe", [True, 1.5, "4", None, -1])
+def test_invalid_probe_cost_rejected_with_clear_error(probe):
+    with pytest.raises(ValueError, match="Invalid depth-one probe node cost"):
+        audit({"positions": [receipt("a", "one", probe, 10)]},
+              50_000, expected_positions=1)
