@@ -104,10 +104,16 @@ def main() -> None:
     parser.add_argument("--budget", required=True, type=int)
     parser.add_argument("--expected-positions", required=True, type=int,
                         help="Frozen cohort size; reject partial archives")
+    parser.add_argument("--check-alignment", action="store_true",
+                        help="Require identical frozen cohorts across the three standard budgets")
     args = parser.parse_args()
     with gzip.open(args.report, "rt", encoding="utf-8") as stream:
         report = json.load(stream)
-    print(json.dumps(audit(report, args.budget, expected_positions=args.expected_positions), sort_keys=True, indent=2))
+    result = audit(report, args.budget, expected_positions=args.expected_positions)
+    if args.check_alignment:
+        result["cohort_alignment"] = audit_cohort_alignment(
+            report, expected_positions=args.expected_positions)
+    print(json.dumps(result, sort_keys=True, indent=2))
 
 
 if __name__ == "__main__":
