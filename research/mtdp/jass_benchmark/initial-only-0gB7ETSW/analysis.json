@@ -1,0 +1,62 @@
+{
+  "primary": {
+    "leave_selected_source_game_out_mean_centimen": {
+      "pcblues_games.pdn:12": 0,
+      "pcblues_games.pdn:15": 0,
+      "pcblues_games.pdn:16": 0,
+      "pcblues_games.pdn:17": 0,
+      "pcblues_games.pdn:9": 0
+    },
+    "mean_delta_centimen": 0,
+    "mean_target_game_delta_centimen": 0,
+    "median_delta_centimen": 0,
+    "median_target_game_delta_centimen": 0,
+    "missing_ordinary_positions": 0,
+    "ordinary_positions": 17,
+    "target_game_bootstrap_95_ci_centimen": [
+      0.0,
+      0.0
+    ],
+    "target_game_means_centimen": {
+      "mtdp-lidraughts-0gB7ETSW.pdn:12": 0,
+      "mtdp-lidraughts-0gB7ETSW.pdn:14": 0,
+      "mtdp-lidraughts-0gB7ETSW.pdn:30": 0,
+      "mtdp-lidraughts-0gB7ETSW.pdn:31": 0,
+      "mtdp-lidraughts-0gB7ETSW.pdn:37": 0,
+      "mtdp-lidraughts-0gB7ETSW.pdn:4": 0,
+      "mtdp-lidraughts-0gB7ETSW.pdn:56": 0,
+      "mtdp-lidraughts-0gB7ETSW.pdn:65": 0,
+      "mtdp-lidraughts-0gB7ETSW.pdn:68": 0,
+      "mtdp-lidraughts-0gB7ETSW.pdn:70": 0,
+      "mtdp-lidraughts-0gB7ETSW.pdn:78": 0
+    }
+  },
+  "scan_transfer": {
+    "disjoint_optima": 11,
+    "pairs": 17,
+    "top_1": {
+      "category_switches": {},
+      "directional_transfers": 17,
+      "full_legal_set_transfers": 0,
+      "optimal_covered": 6,
+      "ordinary_regret_at_least_50": 4,
+      "ordinary_regret_max": 156,
+      "ordinary_regret_mean_centimen": 36.1764705882353,
+      "ordinary_regret_median_centimen": 3,
+      "ordinary_regret_positive": 11,
+      "ordinary_transfers": 17
+    },
+    "top_3": {
+      "category_switches": {},
+      "directional_transfers": 17,
+      "full_legal_set_transfers": 0,
+      "optimal_covered": 13,
+      "ordinary_regret_at_least_50": 0,
+      "ordinary_regret_max": 7,
+      "ordinary_regret_mean_centimen": 0.8823529411764706,
+      "ordinary_regret_median_centimen": 0,
+      "ordinary_regret_positive": 4,
+      "ordinary_transfers": 17
+    }
+  }
+}

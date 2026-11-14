@@ -1,0 +1,22 @@
+{
+  "cohort_sha256": "1c7b1543ac5b38500c9f4d61588c3e0778b40e5487de0d3500a1c09868668231",
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "runner_sha256": "0f998e952dbfce4cdaa595604d16c604be70c56e86b4e99fa13bdb0bbec9a190",
+  "scan_reference_sha256": "f9823097374c62dc39246f81fef3fc6f8461606b7d0dacb930b29d3852fcbe5f",
+  "settings": {
+    "draught_master_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+    "jass_catalogue_sha256": "c4065367a315534284a3b9937b97fe51e2e2b011a26b2889ada435c0845aecfd",
+    "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+    "jass_evaluation": "handcrafted",
+    "jass_fresh_tt_mib": 1,
+    "jass_node_budgets": [
+      10000,
+      50000,
+      200000
+    ],
+    "jass_threads": 1,
+    "scan_binary_sha256": "a634cbb44c9528eab277cdf6cdf8d29d506318ce5fba3f9bc69c2025b5941864",
+    "scan_commit": "7aae17e7b7bfc47744601afb1ee7655e18983ce5",
+    "scan_successor_depth": 12
+  }
+}

@@ -54,9 +54,8 @@ def test_source_filter_restricts_results():
     qvec = shards_by_src[target].matrix[0]
     hits = retrieval.search_with_vector(qvec, k=10, sources=(target,))
     assert hits, "filtered search returned nothing"
-    assert all(p.source == target for _, p in hits), (
-        "source filter leaked: got sources " f"{{{p.source for _, p in hits}}}"
-    )
+    actual_sources = {p.source for _, p in hits}
+    assert actual_sources == {target}, f"source filter leaked: got sources {actual_sources}"
 
 
 def test_unknown_source_raises():

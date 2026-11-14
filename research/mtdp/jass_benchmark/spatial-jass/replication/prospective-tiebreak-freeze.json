@@ -1,0 +1,19 @@
+{
+  "budgets": [
+    10000,
+    50000,
+    200000
+  ],
+  "build_flags": {
+    "CMAKE_BUILD_TYPE": "Release",
+    "JASS_ENABLE_SIMD": "OFF",
+    "JASS_NATIVE": "OFF",
+    "MTDP_JASS_INITIAL_ONLY": "ON"
+  },
+  "cohort_sha256": "3037ae17d3c563c9d9c6977563c352d299ba776d11138c359b1ddd6ee6dff88b",
+  "initial_only_patch_sha256": "2db2475b729b4deac6ad9beada89abbaa17617aaf2749b2da9e2193fd8d7d273",
+  "intervention_patch_sha256": "2d77879629982fea8cabb8f0a33722a05d5c10df19c20f8b471946830318d873",
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "positions": 473,
+  "protocol_sha256": "d6c5c6be71ef3a97d3bda508ea3ca558e2d8a60db3c2d5830f55ec346e58b94c"
+}

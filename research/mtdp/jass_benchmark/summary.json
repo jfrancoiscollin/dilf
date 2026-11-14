@@ -1,0 +1,2137 @@
+{
+  "by_budget": {
+    "10000": {
+      "arms": {
+        "canonical": {
+          "category_switches": {},
+          "mean_completed_depth": 7.428571428571429,
+          "median_elapsed_us": 2751.0,
+          "scan_optima": 5,
+          "stop_reasons": {
+            "nodes": 28
+          }
+        },
+        "native": {
+          "category_switches": {},
+          "mean_completed_depth": 7.714285714285714,
+          "median_elapsed_us": 2716.5,
+          "scan_optima": 6,
+          "stop_reasons": {
+            "nodes": 28
+          }
+        },
+        "transfer": {
+          "category_switches": {},
+          "mean_completed_depth": 7.25,
+          "median_elapsed_us": 2874.0,
+          "scan_optima": 5,
+          "stop_reasons": {
+            "nodes": 28
+          }
+        }
+      },
+      "comparisons": {
+        "canonical": {
+          "changed_moves": 10,
+          "common_depth_pairs": 28,
+          "mean_delta_centimen": -0.21428571428571427,
+          "median_delta_centimen": 0.0,
+          "median_node_delta_at_common_depth": -55.5,
+          "ordinary_pairs": 28,
+          "transfer_better": 4,
+          "transfer_worse": 5
+        },
+        "native": {
+          "changed_moves": 8,
+          "common_depth_pairs": 28,
+          "mean_delta_centimen": 0.39285714285714285,
+          "median_delta_centimen": 0.0,
+          "median_node_delta_at_common_depth": 1012.0,
+          "ordinary_pairs": 28,
+          "transfer_better": 3,
+          "transfer_worse": 5
+        }
+      },
+      "targets": 28
+    },
+    "50000": {
+      "arms": {
+        "canonical": {
+          "category_switches": {},
+          "mean_completed_depth": 10.964285714285714,
+          "median_elapsed_us": 10227.5,
+          "scan_optima": 5,
+          "stop_reasons": {
+            "nodes": 28
+          }
+        },
+        "native": {
+          "category_switches": {},
+          "mean_completed_depth": 11.5,
+          "median_elapsed_us": 10033.5,
+          "scan_optima": 6,
+          "stop_reasons": {
+            "nodes": 28
+          }
+        },
+        "transfer": {
+          "category_switches": {},
+          "mean_completed_depth": 11.035714285714286,
+          "median_elapsed_us": 10266.5,
+          "scan_optima": 9,
+          "stop_reasons": {
+            "nodes": 28
+          }
+        }
+      },
+      "comparisons": {
+        "canonical": {
+          "changed_moves": 18,
+          "common_depth_pairs": 28,
+          "mean_delta_centimen": -1.4642857142857142,
+          "median_delta_centimen": 0.0,
+          "median_node_delta_at_common_depth": 3173.0,
+          "ordinary_pairs": 28,
+          "transfer_better": 11,
+          "transfer_worse": 7
+        },
+        "native": {
+          "changed_moves": 15,
+          "common_depth_pairs": 28,
+          "mean_delta_centimen": -1.6785714285714286,
+          "median_delta_centimen": 0.0,
+          "median_node_delta_at_common_depth": 4783.5,
+          "ordinary_pairs": 28,
+          "transfer_better": 8,
+          "transfer_worse": 7
+        }
+      },
+      "targets": 28
+    },
+    "200000": {
+      "arms": {
+        "canonical": {
+          "category_switches": {},
+          "mean_completed_depth": 14.321428571428571,
+          "median_elapsed_us": 40070.0,
+          "scan_optima": 2,
+          "stop_reasons": {
+            "nodes": 28
+          }
+        },
+        "native": {
+          "category_switches": {},
+          "mean_completed_depth": 15,
+          "median_elapsed_us": 40333.5,
+          "scan_optima": 4,
+          "stop_reasons": {
+            "nodes": 28
+          }
+        },
+        "transfer": {
+          "category_switches": {},
+          "mean_completed_depth": 14,
+          "median_elapsed_us": 40005.0,
+          "scan_optima": 7,
+          "stop_reasons": {
+            "nodes": 28
+          }
+        }
+      },
+      "comparisons": {
+        "canonical": {
+          "changed_moves": 11,
+          "common_depth_pairs": 28,
+          "mean_delta_centimen": -0.7142857142857143,
+          "median_delta_centimen": 0.0,
+          "median_node_delta_at_common_depth": 3560.0,
+          "ordinary_pairs": 28,
+          "transfer_better": 8,
+          "transfer_worse": 3
+        },
+        "native": {
+          "changed_moves": 11,
+          "common_depth_pairs": 28,
+          "mean_delta_centimen": -1.4642857142857142,
+          "median_delta_centimen": 0.0,
+          "median_node_delta_at_common_depth": 30449.0,
+          "ordinary_pairs": 28,
+          "transfer_better": 6,
+          "transfer_worse": 5
+        }
+      },
+      "targets": 28
+    }
+  },
+  "by_source_game": {
+    "pcblues_games.pdn:1": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 6.5,
+            "median_elapsed_us": 2764.5,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 7,
+            "median_elapsed_us": 2637.5,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 6,
+            "median_elapsed_us": 2775.0,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0.0,
+            "median_node_delta_at_common_depth": -150.5,
+            "ordinary_pairs": 2,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": -1,
+            "median_delta_centimen": -1.0,
+            "median_node_delta_at_common_depth": 3145.0,
+            "ordinary_pairs": 2,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 2
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 9,
+            "median_elapsed_us": 9302.0,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 11,
+            "median_elapsed_us": 10054.0,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 9.5,
+            "median_elapsed_us": 10338.0,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": 1.5,
+            "median_delta_centimen": 1.5,
+            "median_node_delta_at_common_depth": 2238.0,
+            "ordinary_pairs": 2,
+            "transfer_better": 0,
+            "transfer_worse": 1
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": 1.5,
+            "median_delta_centimen": 1.5,
+            "median_node_delta_at_common_depth": 12961.0,
+            "ordinary_pairs": 2,
+            "transfer_better": 0,
+            "transfer_worse": 1
+          }
+        },
+        "targets": 2
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 14,
+            "median_elapsed_us": 39528.5,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 14.5,
+            "median_elapsed_us": 37475.5,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 13,
+            "median_elapsed_us": 38677.5,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0.0,
+            "median_node_delta_at_common_depth": 13563.5,
+            "ordinary_pairs": 2,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": -13,
+            "median_delta_centimen": -13.0,
+            "median_node_delta_at_common_depth": 51050.0,
+            "ordinary_pairs": 2,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 2
+      }
+    },
+    "pcblues_games.pdn:10": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 7.333333333333333,
+            "median_elapsed_us": 2541,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 2673,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 7.666666666666667,
+            "median_elapsed_us": 3019,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": -0.6666666666666666,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 69,
+            "ordinary_pairs": 3,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": -0.6666666666666666,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 837,
+            "ordinary_pairs": 3,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 3
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 11.666666666666666,
+            "median_elapsed_us": 10818,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 11.666666666666666,
+            "median_elapsed_us": 11012,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 11.333333333333334,
+            "median_elapsed_us": 10672,
+            "scan_optima": 3,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 2,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": -6,
+            "median_delta_centimen": -5,
+            "median_node_delta_at_common_depth": 3912,
+            "ordinary_pairs": 3,
+            "transfer_better": 2,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 3,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": -9,
+            "median_delta_centimen": -9,
+            "median_node_delta_at_common_depth": 1362,
+            "ordinary_pairs": 3,
+            "transfer_better": 3,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 3
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 15,
+            "median_elapsed_us": 42344,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 16.333333333333332,
+            "median_elapsed_us": 41065,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 14,
+            "median_elapsed_us": 39992,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": 1.6666666666666667,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 53561,
+            "ordinary_pairs": 3,
+            "transfer_better": 0,
+            "transfer_worse": 1
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": -3,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 49503,
+            "ordinary_pairs": 3,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 3
+      }
+    },
+    "pcblues_games.pdn:12": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 2893,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 7.666666666666667,
+            "median_elapsed_us": 2712,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 7.333333333333333,
+            "median_elapsed_us": 2630,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 2,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": 3,
+            "median_delta_centimen": 1,
+            "median_node_delta_at_common_depth": 2072,
+            "ordinary_pairs": 3,
+            "transfer_better": 0,
+            "transfer_worse": 2
+          },
+          "native": {
+            "changed_moves": 2,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": 3,
+            "median_delta_centimen": 1,
+            "median_node_delta_at_common_depth": 2751,
+            "ordinary_pairs": 3,
+            "transfer_better": 0,
+            "transfer_worse": 2
+          }
+        },
+        "targets": 3
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 12.333333333333334,
+            "median_elapsed_us": 9877,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 12,
+            "median_elapsed_us": 9290,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 10.666666666666666,
+            "median_elapsed_us": 10368,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 2,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": 1.3333333333333333,
+            "median_delta_centimen": 1,
+            "median_node_delta_at_common_depth": 14578,
+            "ordinary_pairs": 3,
+            "transfer_better": 0,
+            "transfer_worse": 2
+          },
+          "native": {
+            "changed_moves": 3,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": -4,
+            "median_delta_centimen": 1,
+            "median_node_delta_at_common_depth": 15607,
+            "ordinary_pairs": 3,
+            "transfer_better": 1,
+            "transfer_worse": 2
+          }
+        },
+        "targets": 3
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 15.666666666666666,
+            "median_elapsed_us": 40210,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 15,
+            "median_elapsed_us": 41939,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 14.666666666666666,
+            "median_elapsed_us": 39588,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": 2.6666666666666665,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 30565,
+            "ordinary_pairs": 3,
+            "transfer_better": 0,
+            "transfer_worse": 1
+          },
+          "native": {
+            "changed_moves": 2,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": -6.333333333333333,
+            "median_delta_centimen": -3,
+            "median_node_delta_at_common_depth": 31768,
+            "ordinary_pairs": 3,
+            "transfer_better": 2,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 3
+      }
+    },
+    "pcblues_games.pdn:15": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 6.666666666666667,
+            "median_elapsed_us": 2691,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 7,
+            "median_elapsed_us": 2492,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 6.666666666666667,
+            "median_elapsed_us": 2666,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 2,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": 0.6666666666666666,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -254,
+            "ordinary_pairs": 3,
+            "transfer_better": 0,
+            "transfer_worse": 1
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": 0.3333333333333333,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 302,
+            "ordinary_pairs": 3,
+            "transfer_better": 0,
+            "transfer_worse": 1
+          }
+        },
+        "targets": 3
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 10.666666666666666,
+            "median_elapsed_us": 10246,
+            "scan_optima": 2,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 11,
+            "median_elapsed_us": 9989,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 11.333333333333334,
+            "median_elapsed_us": 9681,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 3,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 1,
+            "median_node_delta_at_common_depth": -3934,
+            "ordinary_pairs": 3,
+            "transfer_better": 1,
+            "transfer_worse": 2
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": -0.3333333333333333,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -2779,
+            "ordinary_pairs": 3,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 3
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 13.666666666666666,
+            "median_elapsed_us": 38926,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 15,
+            "median_elapsed_us": 38858,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 14.333333333333334,
+            "median_elapsed_us": 40018,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 3
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": -0.6666666666666666,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -48425,
+            "ordinary_pairs": 3,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 3,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -22437,
+            "ordinary_pairs": 3,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 3
+      }
+    },
+    "pcblues_games.pdn:16": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 2491,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 9,
+            "median_elapsed_us": 2484,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 7,
+            "median_elapsed_us": 2696,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 2211,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 5124,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 12,
+            "median_elapsed_us": 9686,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 12,
+            "median_elapsed_us": 9803,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 11,
+            "median_elapsed_us": 9649,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": -6,
+            "median_delta_centimen": -6,
+            "median_node_delta_at_common_depth": 22037,
+            "ordinary_pairs": 1,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": -17,
+            "median_delta_centimen": -17,
+            "median_node_delta_at_common_depth": 22665,
+            "ordinary_pairs": 1,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 14,
+            "median_elapsed_us": 37816,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 16,
+            "median_elapsed_us": 38365,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 13,
+            "median_elapsed_us": 41846,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 71639,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 86283,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      }
+    },
+    "pcblues_games.pdn:17": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 7.5,
+            "median_elapsed_us": 2880.0,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 8
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 2767.5,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 8
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 7.25,
+            "median_elapsed_us": 2925.0,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 8
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 3,
+            "common_depth_pairs": 8,
+            "mean_delta_centimen": -0.5,
+            "median_delta_centimen": 0.0,
+            "median_node_delta_at_common_depth": -758.0,
+            "ordinary_pairs": 8,
+            "transfer_better": 2,
+            "transfer_worse": 1
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 8,
+            "mean_delta_centimen": 1.25,
+            "median_delta_centimen": 0.0,
+            "median_node_delta_at_common_depth": 979.0,
+            "ordinary_pairs": 8,
+            "transfer_better": 0,
+            "transfer_worse": 1
+          }
+        },
+        "targets": 8
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 10.5,
+            "median_elapsed_us": 10303.5,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 8
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 11.5,
+            "median_elapsed_us": 10268.0,
+            "scan_optima": 3,
+            "stop_reasons": {
+              "nodes": 8
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 10.875,
+            "median_elapsed_us": 10266.5,
+            "scan_optima": 2,
+            "stop_reasons": {
+              "nodes": 8
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 4,
+            "common_depth_pairs": 8,
+            "mean_delta_centimen": -3,
+            "median_delta_centimen": -1.0,
+            "median_node_delta_at_common_depth": 843.0,
+            "ordinary_pairs": 8,
+            "transfer_better": 4,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 2,
+            "common_depth_pairs": 8,
+            "mean_delta_centimen": 0.5,
+            "median_delta_centimen": 0.0,
+            "median_node_delta_at_common_depth": 3853.5,
+            "ordinary_pairs": 8,
+            "transfer_better": 0,
+            "transfer_worse": 2
+          }
+        },
+        "targets": 8
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 13.875,
+            "median_elapsed_us": 39425.5,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 8
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 14.75,
+            "median_elapsed_us": 41033.5,
+            "scan_optima": 3,
+            "stop_reasons": {
+              "nodes": 8
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 13.625,
+            "median_elapsed_us": 38907.0,
+            "scan_optima": 3,
+            "stop_reasons": {
+              "nodes": 8
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 5,
+            "common_depth_pairs": 8,
+            "mean_delta_centimen": -1.375,
+            "median_delta_centimen": -1.5,
+            "median_node_delta_at_common_depth": -7017.5,
+            "ordinary_pairs": 8,
+            "transfer_better": 4,
+            "transfer_worse": 1
+          },
+          "native": {
+            "changed_moves": 4,
+            "common_depth_pairs": 8,
+            "mean_delta_centimen": 2,
+            "median_delta_centimen": 0.0,
+            "median_node_delta_at_common_depth": 24620.0,
+            "ordinary_pairs": 8,
+            "transfer_better": 1,
+            "transfer_worse": 3
+          }
+        },
+        "targets": 8
+      }
+    },
+    "pcblues_games.pdn:2": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 3915.5,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 7.5,
+            "median_elapsed_us": 2773.5,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 7,
+            "median_elapsed_us": 2624.0,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": 1,
+            "median_delta_centimen": 1.0,
+            "median_node_delta_at_common_depth": 1421.0,
+            "ordinary_pairs": 2,
+            "transfer_better": 0,
+            "transfer_worse": 1
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": 1,
+            "median_delta_centimen": 1.0,
+            "median_node_delta_at_common_depth": 1008.5,
+            "ordinary_pairs": 2,
+            "transfer_better": 0,
+            "transfer_worse": 1
+          }
+        },
+        "targets": 2
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 11.5,
+            "median_elapsed_us": 11130.5,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 12,
+            "median_elapsed_us": 10789.5,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 10.5,
+            "median_elapsed_us": 10508.0,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 2,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": 11,
+            "median_delta_centimen": 11.0,
+            "median_node_delta_at_common_depth": 11837.5,
+            "ordinary_pairs": 2,
+            "transfer_better": 0,
+            "transfer_worse": 2
+          },
+          "native": {
+            "changed_moves": 2,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": 11,
+            "median_delta_centimen": 11.0,
+            "median_node_delta_at_common_depth": 2881.0,
+            "ordinary_pairs": 2,
+            "transfer_better": 0,
+            "transfer_worse": 2
+          }
+        },
+        "targets": 2
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 13.5,
+            "median_elapsed_us": 43817.0,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 14.5,
+            "median_elapsed_us": 39644.0,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 12.5,
+            "median_elapsed_us": 40358.0,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": -2.5,
+            "median_delta_centimen": -2.5,
+            "median_node_delta_at_common_depth": 67691.0,
+            "ordinary_pairs": 2,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0.0,
+            "median_node_delta_at_common_depth": 64223.5,
+            "ordinary_pairs": 2,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 2
+      }
+    },
+    "pcblues_games.pdn:21": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 2693,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 2697,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 3207,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -821,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 4,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 10,
+            "median_elapsed_us": 254956,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 10,
+            "median_elapsed_us": 10961,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 12,
+            "median_elapsed_us": 10971,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": -3,
+            "median_delta_centimen": -3,
+            "median_node_delta_at_common_depth": 5857,
+            "ordinary_pairs": 1,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 502,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 16,
+            "median_elapsed_us": 43447,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 16,
+            "median_elapsed_us": 42606,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 16,
+            "median_elapsed_us": 43127,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -15564,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -14788,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      }
+    },
+    "pcblues_games.pdn:23": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 7,
+            "median_elapsed_us": 2895.0,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 7,
+            "median_elapsed_us": 2735.5,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 7.5,
+            "median_elapsed_us": 2942.5,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": -6.5,
+            "median_delta_centimen": -6.5,
+            "median_node_delta_at_common_depth": -420.5,
+            "ordinary_pairs": 2,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0.0,
+            "median_node_delta_at_common_depth": -849.0,
+            "ordinary_pairs": 2,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 2
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 11,
+            "median_elapsed_us": 10022.5,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 12,
+            "median_elapsed_us": 10134.5,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 12,
+            "median_elapsed_us": 10816.5,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": -7,
+            "median_delta_centimen": -7.0,
+            "median_node_delta_at_common_depth": -3196.0,
+            "ordinary_pairs": 2,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": -7,
+            "median_delta_centimen": -7.0,
+            "median_node_delta_at_common_depth": 7473.5,
+            "ordinary_pairs": 2,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 2
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 14,
+            "median_elapsed_us": 41276.5,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 14.5,
+            "median_elapsed_us": 40284.0,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 15,
+            "median_elapsed_us": 45214.0,
+            "scan_optima": 1,
+            "stop_reasons": {
+              "nodes": 2
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 2,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": -7.5,
+            "median_delta_centimen": -7.5,
+            "median_node_delta_at_common_depth": -30203.0,
+            "ordinary_pairs": 2,
+            "transfer_better": 2,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 2,
+            "mean_delta_centimen": -7,
+            "median_delta_centimen": -7.0,
+            "median_node_delta_at_common_depth": -15896.0,
+            "ordinary_pairs": 2,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 2
+      }
+    },
+    "pcblues_games.pdn:26": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 6860,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 46298,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 3016,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -447,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 1786,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 11,
+            "median_elapsed_us": 10176,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 11,
+            "median_elapsed_us": 10340,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 11,
+            "median_elapsed_us": 10000,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -3660,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -7016,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 14,
+            "median_elapsed_us": 42558,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 14,
+            "median_elapsed_us": 37666,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 14,
+            "median_elapsed_us": 44590,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -9889,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 7,
+            "median_delta_centimen": 7,
+            "median_node_delta_at_common_depth": 24120,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 1
+          }
+        },
+        "targets": 1
+      }
+    },
+    "pcblues_games.pdn:6": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 7,
+            "median_elapsed_us": 3347,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 2777,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 3207,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -1069,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 310,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 10,
+            "median_elapsed_us": 11266,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 12,
+            "median_elapsed_us": 9667,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 11,
+            "median_elapsed_us": 9957,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 1,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": -5,
+            "median_delta_centimen": -5,
+            "median_node_delta_at_common_depth": -13630,
+            "ordinary_pairs": 1,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": -5,
+            "median_delta_centimen": -5,
+            "median_node_delta_at_common_depth": 730,
+            "ordinary_pairs": 1,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 14,
+            "median_elapsed_us": 40420,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 15,
+            "median_elapsed_us": 38749,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 14,
+            "median_elapsed_us": 37515,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -14654,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 4,
+            "median_delta_centimen": 4,
+            "median_node_delta_at_common_depth": 80348,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 1
+          }
+        },
+        "targets": 1
+      }
+    },
+    "pcblues_games.pdn:7": {
+      "10000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 2747,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 2840,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 8,
+            "median_elapsed_us": 2867,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 0,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 1,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": -7,
+            "median_delta_centimen": -7,
+            "median_node_delta_at_common_depth": 959,
+            "ordinary_pairs": 1,
+            "transfer_better": 1,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      },
+      "50000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 13,
+            "median_elapsed_us": 10391,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 11,
+            "median_elapsed_us": 9931,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 13,
+            "median_elapsed_us": 10126,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 0,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -22399,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      },
+      "200000": {
+        "arms": {
+          "canonical": {
+            "category_switches": {},
+            "mean_completed_depth": 16,
+            "median_elapsed_us": 41510,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "native": {
+            "category_switches": {},
+            "mean_completed_depth": 15,
+            "median_elapsed_us": 40398,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          },
+          "transfer": {
+            "category_switches": {},
+            "mean_completed_depth": 16,
+            "median_elapsed_us": 41762,
+            "scan_optima": 0,
+            "stop_reasons": {
+              "nodes": 1
+            }
+          }
+        },
+        "comparisons": {
+          "canonical": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": 0,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          },
+          "native": {
+            "changed_moves": 0,
+            "common_depth_pairs": 1,
+            "mean_delta_centimen": 0,
+            "median_delta_centimen": 0,
+            "median_node_delta_at_common_depth": -37112,
+            "ordinary_pairs": 1,
+            "transfer_better": 0,
+            "transfer_worse": 0
+          }
+        },
+        "targets": 1
+      }
+    }
+  },
+  "searches": 252
+}
