@@ -24,8 +24,10 @@ def select(runner, target, prefix):
     blank = {_action(move): 0 for move in target["legal_moves"]}
     original, baseline, trace = replay(runner, target, blank, prefix, budget=BUDGETS[0])
     order = trace["legal"]
+    keys = [move["jass_key"] for move in target["legal_moves"]]
     if (not order or len(order) != len(set(order))
-            or set(order) != set(blank) or len(blank) != len(target["legal_moves"])):
+            or set(order) != set(keys) or len(keys) != len(set(keys))
+            or len(blank) != len(target["legal_moves"])):
         raise ValueError("Live native legal order disagrees with unique target actions")
     scores, completed, exact = {}, {}, {}
     probe_nodes = 0
