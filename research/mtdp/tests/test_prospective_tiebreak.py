@@ -44,3 +44,23 @@ def test_inconsistent_winner_rejected():
 def test_boolean_score_rejected():
     with pytest.raises(ValueError):
         select(["a", "b"], {"a": True, "b": 1})
+
+
+@pytest.mark.parametrize("order", [["", "b"], [1, "b"], [None, "b"]])
+def test_invalid_move_keys_rejected(order):
+    with pytest.raises(ValueError):
+        select(order, dict.fromkeys(order, 2))
+
+
+@pytest.mark.parametrize("field", ["completed", "exact"])
+def test_truthy_nonboolean_evidence_rejected(field):
+    evidence = {"a": "yes", "b": True}
+    kwargs = {field: evidence}
+    with pytest.raises(ValueError):
+        select(["a", "b"], {"a": 2, "b": 2}, **kwargs)
+
+
+def test_native_order_changes_tie_choice_but_not_score():
+    scores = {"a": 4, "b": 4, "c": 1}
+    assert select(["a", "b", "c"], scores) == "a"
+    assert select(["b", "a", "c"], scores) == "b"
