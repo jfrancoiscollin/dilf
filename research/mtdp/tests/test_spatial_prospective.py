@@ -81,3 +81,19 @@ def test_prospective_rejects_mismatched_live_legal_catalogue(monkeypatch, live_o
     monkeypatch.setattr("research.mtdp.jass_benchmark.spatial_prospective.replay", replay)
     with pytest.raises(ValueError, match="legal order"):
         select(None, target, ["31-26", "32-27"])
+
+
+@pytest.mark.parametrize("auxiliary,probe", [
+    (-1, 0), (10, -1), (5, 6), (True, 0), (10, "5"),
+])
+def test_aggregation_rejects_invalid_verification_cost(tmp_path, auxiliary, probe):
+    root = {"event": {"id": "arena"}}
+    packets = [(root, [], {}, [{"target_fen": "position", "budget": 50_000}])]
+    path = tmp_path / "receipt.json"
+    path.write_text(json.dumps({
+        "freeze_sha256": "freeze", "runner_sha256": "runner",
+        "positions": [{"event": "arena", "fen": "position", "budget": 50_000,
+                       "auxiliary_nodes": auxiliary, "probe_depth_one_nodes": probe}],
+    }))
+    with pytest.raises(ValueError, match="auxiliary verification node accounting"):
+        combine([path], packets, "freeze")
