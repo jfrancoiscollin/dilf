@@ -583,3 +583,11 @@ dominated by one +243 case. See the
 [trajectory and cost report](TIE_OUTCOMES_2026-11-14.md). Next,
 rescore all 20 disagreements at Scan depth 18 to test how the
 costs depend on the target reference.
+
+## Depth-18 sensitivity of native Jass disagreements
+
+Scan rescored all 190 legal successors on the same 20 disagreements.
+The two largest LCB costs persisted at +291 and +50 centimen. See
+the [depth sensitivity report](native-depth18/RESULTS_2026-11-14.md).
+Next, inspect the largest case's principal variations and exact
+six-piece endgame result if available.

@@ -1,4 +1,4 @@
-"""Rescore the frozen 50,000-node LCB-versus-L move disagreements."""
+"""Rescore the frozen 50,000-node LCB move disagreements with a frozen control."""
 
 import argparse
 import json
@@ -14,10 +14,11 @@ from research.mtdp.top_k_transfer import _action
 
 BUDGET = 50_000
 DEPTH = 18
-ARMS = ("LCB", "L")
+CONTROLS = ("L", "native")
 
 
-def prepare(arenas):
+def prepare(arenas, *, control="L"):
+    arms = ("LCB", control)
     packets = [read_arena(arena) for arena in arenas]
     validate_cohort([(provenance, frozen) for provenance, frozen, _, _ in packets],
                     sha256(REPLICATION_PROTOCOL))
@@ -29,7 +30,7 @@ def prepare(arenas):
         selected = [
             row for row in rows if row["budget"] == BUDGET
             and all(arm["stop"] == "nodes" for arm in row["arms"].values())
-            and row["arms"]["LCB"]["best_move"] != row["arms"]["L"]["best_move"]
+            and row["arms"]["LCB"]["best_move"] != row["arms"][control]["best_move"]
         ]
         if not selected:
             continue
@@ -45,12 +46,13 @@ def prepare(arenas):
                 arm: {key: row["arms"][arm][key] for key in (
                     "best_move", "scan_centimen", "scan_optimal", "scan_best_category",
                     "scan_chosen_category", "ordinary_regret_centimen",
-                )} for arm in ARMS
+                )} for arm in arms
             }}
     return {
         "schema": "mtdp-jass-cohort-v1",
         "engine": {"scan_binary_sha256": hashes["scan_linux"], "scan_successor_depth": DEPTH},
         "budget": BUDGET, "scan_sha256": hashes, "targets": targets,
+        **({"control": control} if control != "L" else {}),
         "choices": choices, "inputs": inputs,
     }
 
@@ -58,6 +60,8 @@ def prepare(arenas):
 def compare(manifest, reference, digest):
     if reference.get("role") != "target":
         raise ValueError("Expected a target Scan reference")
+    control = manifest.get("control", "L")
+    arms = ("LCB", control)
     scores = validate_reference(reference, score_catalogue(manifest, "target"),
                                 manifest["scan_sha256"], digest, DEPTH)
     positions = []
@@ -68,7 +72,7 @@ def compare(manifest, reference, digest):
         scored = scores[fen]
         best = max(scored.values())
         outcomes = {}
-        for arm in ARMS:
+        for arm in arms:
             prior = choice["arms"][arm]
             move = prior["best_move"]
             value = scored[keys[move]]
@@ -85,10 +89,10 @@ def compare(manifest, reference, digest):
             }
         deltas = {}
         for depth in ("depth16", "depth18"):
-            a, b = (outcomes[arm][depth]["ordinary_regret_centimen"] for arm in ARMS)
+            a, b = (outcomes[arm][depth]["ordinary_regret_centimen"] for arm in arms)
             deltas[depth] = a - b if a is not None and b is not None else None
         positions.append({"arena": choice["arena"], "fen": fen, "arms": outcomes,
-                          "lcb_minus_l_centimen": deltas})
+                          f"lcb_minus_{control.lower()}_centimen": deltas})
     return {"budget": BUDGET, "manifest_sha256": digest, "positions": positions}
 
 
@@ -98,10 +102,11 @@ def main():
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--reference", type=Path)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--control", choices=CONTROLS, default="L")
     args = parser.parse_args()
     if (args.reference is None) != (args.output is None):
         parser.error("--reference and --output must be supplied together")
-    manifest = prepare(args.arena)
+    manifest = prepare(args.arena, control=args.control)
     if args.reference is None:
         write_json(args.manifest, manifest)
         return
