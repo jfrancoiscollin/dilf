@@ -30,6 +30,8 @@ def audit(report: dict, budget: int, *, expected_positions: int | None = None) -
             raise ValueError("Incomplete frozen cohort for requested budget")
     costs = [row["probe_depth_one_nodes"] for row in selected]
     auxiliary = [row["auxiliary_nodes"] for row in selected]
+    if any(type(n) is not int or n < 0 for n in costs):
+        raise ValueError("Invalid depth-one probe node cost")
     if any(type(n) is not int or n < 0 for n in auxiliary):
         raise ValueError("Invalid auxiliary node cost")
     if any(probe > total for probe, total in zip(costs, auxiliary, strict=True)):
