@@ -38,8 +38,7 @@ def audit(report: dict, budget: int, *, expected_positions: int | None = None) -
         raise ValueError("Depth-one probes exceed metered auxiliary cost")
     lower = aggregate_feasibility(budget, costs)
     full = aggregate_feasibility(budget, auxiliary)
-    arenas = {}
-    for event in sorted({row["event"] for row in selected}):
+    # A probe-only overrun proves the historical full-probe method cannot fit.\n    # A probe-only fit does NOT establish that a future capped runner will fit.\n    proven_over_cap = lower["positions_over_cap"]\n    arenas = {}\n    for event in sorted({row["event"] for row in selected}):
         group = [row for row in selected if row["event"] == event]
         arenas[event] = {
             "depth_one_probe_lower_bound": aggregate_feasibility(
@@ -51,10 +50,9 @@ def audit(report: dict, budget: int, *, expected_positions: int | None = None) -
         "budget": budget,
         "depth_one_probe_lower_bound": lower,
         "full_historical_auxiliary_cost": full,
-        "by_arena": arenas,
-        "interpretation": (
+        "by_arena": arenas,\n        "historical_full_probe_method": {\n            "provably_over_cap_from_depth_one": proven_over_cap,\n            "not_ruled_out_by_depth_one": len(selected) - proven_over_cap,\n            "equal_compute_success_established": False,\n        },\n        "interpretation": (
             "Retrospective audit only: depth-one probe nodes are a lower bound; "
-            "historical full-search auxiliary nodes are not a capped-run measurement."
+            "historical full-search auxiliary nodes are not a capped-run measurement; "\n            "positions below the depth-one lower-bound cap remain inconclusive."
         ),
     }
 
