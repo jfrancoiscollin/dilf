@@ -17,7 +17,13 @@ def audit(report: dict, budget: int, *, expected_positions: int | None = None) -
     if type(budget) is not int or budget <= 0:
         raise ValueError("Budget must be a positive integer")
     rows = report["positions"]
+    if any(type(row["budget"]) is not int or row["budget"] <= 0 for row in rows):
+        raise ValueError("Invalid receipt budget")
     selected = [row for row in rows if row["budget"] == budget]
+    if any(not isinstance(row["event"], str) or not row["event"]
+           or not isinstance(row["fen"], str) or not row["fen"]
+           for row in selected):
+        raise ValueError("Invalid receipt position identity")
     keys = [(row["event"], row["fen"]) for row in selected]
     if len(keys) != len(set(keys)):
         raise ValueError("Duplicate position receipts")
