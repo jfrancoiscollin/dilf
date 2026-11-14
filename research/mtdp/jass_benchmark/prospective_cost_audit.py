@@ -38,10 +38,20 @@ def audit(report: dict, budget: int, *, expected_positions: int | None = None) -
         raise ValueError("Depth-one probes exceed metered auxiliary cost")
     lower = aggregate_feasibility(budget, costs)
     full = aggregate_feasibility(budget, auxiliary)
+    arenas = {}
+    for event in sorted({row["event"] for row in selected}):
+        group = [row for row in selected if row["event"] == event]
+        arenas[event] = {
+            "depth_one_probe_lower_bound": aggregate_feasibility(
+                budget, [row["probe_depth_one_nodes"] for row in group]),
+            "full_historical_auxiliary_cost": aggregate_feasibility(
+                budget, [row["auxiliary_nodes"] for row in group]),
+        }
     return {
         "budget": budget,
         "depth_one_probe_lower_bound": lower,
         "full_historical_auxiliary_cost": full,
+        "by_arena": arenas,
         "interpretation": (
             "Retrospective audit only: depth-one probe nodes are a lower bound; "
             "historical full-search auxiliary nodes are not a capped-run measurement."
