@@ -139,3 +139,23 @@ def test_depth_ceiling_cannot_relabel_exact_budget_search():
         execute(total_nodes=10_000, native_order=["a", "b"],
                 preliminary=preliminary, probe=probe,
                 main=lambda _winner, limit: {"nodes": limit, "depth_ceiling": True})
+
+
+@pytest.mark.parametrize("field,bad", [
+    ("alpha_before", -100.0), ("beta", 100.0),
+    ("alpha_before", "-100"), ("beta", "100"),
+])
+def test_probe_window_requires_exact_integer_receipts(field, bad):
+    """Numeric equality alone must not certify a typed exact-score window."""
+    calls = []
+    def malformed(move, limit):
+        calls.append(move)
+        return {**probe(move, limit), field: bad}
+    def main(intervention, limit):
+        assert intervention is None
+        return {"nodes": limit, "depth_ceiling": False}
+    result = execute(total_nodes=10_000, native_order=["a", "b"],
+                     preliminary=preliminary, probe=malformed, main=main)
+    assert calls == ["a"]
+    assert result["decision_reason"] == "probe_incomplete_or_bounded"
+    assert result["intervention"] is None
