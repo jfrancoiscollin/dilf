@@ -538,3 +538,12 @@ favours LCB in the pooled sample and changes sign without CARZrQpl.
 Best-of-three regret slightly favours L. The next check uses the
 archived 50,000-node receipts to count how often search recovers or
 displaces an optimum relative to each transferred first choice.
+
+## First-choice to final-move transitions
+
+At 50,000 nodes, both arms finished with an optimum on 19 of the 64
+changed-prefix positions. LCB recovered three and lost optimum status
+on 13. L recovered 15 and lost optimum status on 14. See the
+[transition report](SEARCH_TRANSITIONS_2026-11-14.md). Next, compare
+the LCB and native root traces on those 64 positions to distinguish
+identical depth-one orders from later convergence.
