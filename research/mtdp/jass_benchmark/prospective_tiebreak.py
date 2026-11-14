@@ -19,13 +19,17 @@ def choose_native_order_tie(
     Incomplete, bounded, missing or non-comparable scores cannot establish a tie.
     All legal candidates must have an exact completed score before intervention.
     """
-    if not native_order or len(set(native_order)) != len(native_order):
-        raise ValueError("Native legal move order must be nonempty and unique")
+    if (not native_order or any(not isinstance(move, str) or not move for move in native_order)
+            or len(set(native_order)) != len(native_order)):
+        raise ValueError("Native legal move order must contain unique nonempty move keys")
     legal = set(native_order)
     if lcb_winner not in legal:
         raise ValueError("LCB winner is not a legal move")
     if set(scores) != legal or set(completed) != legal or set(exact) != legal:
         return lcb_winner
+    if (any(type(value) is not bool for value in completed.values())
+            or any(type(value) is not bool for value in exact.values())):
+        raise ValueError("Completion and exactness must be explicit booleans")
     if not all(completed.values()) or not all(exact.values()):
         return lcb_winner
     if any(type(value) is not int for value in scores.values()):
