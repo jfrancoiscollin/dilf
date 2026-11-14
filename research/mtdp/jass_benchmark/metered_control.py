@@ -61,43 +61,49 @@ def execute(
         receipts.append({"phase": "preliminary", "issued_limit": limit, "nodes": first["nodes"]})
         if first.get("completed") is True and first["nodes"] == 0:
             raise ValueError("Completed preliminary search cannot have zero metered nodes")
-        winner, best_score = first.get("winner"), first.get("score")
-        a, b = first.get("alpha_before"), first.get("beta")
-        if (winner not in order or not _integer(best_score)
-                or not _integer(a) or not _integer(b) or a >= b):
-            raise ValueError("Invalid live preliminary winner or window")
-        window = a, b
-        if first.get("completed") is not True or not a < best_score < b:
+        if first.get("completed") is not True:
+            # A capped preliminary call may stop before identifying any winner.
             reason = "preliminary_incomplete_or_bounded"
         else:
-            scores = {}
-            reason = "verification_budget_exhausted"
-            for move in order:
-                limit = next_probe_limit(total_nodes, spent)
-                if not limit:
-                    break
-                result = probe(move, limit)
-                if not isinstance(result, dict):
-                    raise ValueError("Invalid probe receipt")
-                spent = record_probe_nodes(total_nodes, spent, limit, result.get("nodes"))
-                receipts.append({"phase": "probe", "move": move, "issued_limit": limit,
-                                 "nodes": result["nodes"]})
-                if result.get("completed") is True and result["nodes"] == 0:
-                    raise ValueError("Completed probe cannot have zero metered nodes")
-                if not _window_exact(result, move, window):
-                    reason = "probe_incomplete_or_bounded"
-                    break
-                scores[move] = result["score"]
+            winner, best_score = first.get("winner"), first.get("score")
+            a, b = first.get("alpha_before"), first.get("beta")
+            if (winner not in order or not _integer(best_score)
+                    or not _integer(a) or not _integer(b) or a >= b):
+                raise ValueError("Invalid completed preliminary winner or window")
+            window = a, b
+            if not a < best_score < b:
+                reason = "preliminary_incomplete_or_bounded"
             else:
-                if max(scores.values()) != best_score or scores[winner] != best_score:
-                    reason = "inconsistent_exact_scores"
+                scores = {}
+                reason = "verification_budget_exhausted"
+                for move in order:
+                    limit = next_probe_limit(total_nodes, spent)
+                    if not limit:
+                        break
+                    result = probe(move, limit)
+                    if not isinstance(result, dict):
+                        raise ValueError("Invalid probe receipt")
+                    spent = record_probe_nodes(total_nodes, spent, limit, result.get("nodes"))
+                    receipts.append({"phase": "probe", "move": move, "issued_limit": limit,
+                                     "nodes": result["nodes"]})
+                    if result.get("completed") is True and result["nodes"] == 0:
+                        raise ValueError("Completed probe cannot have zero metered nodes")
+                    if not _window_exact(result, move, window):
+                        reason = "probe_incomplete_or_bounded"
+                        break
+                    scores[move] = result["score"]
                 else:
-                    selected = choose_native_order_tie(
-                        order, scores, completed={m: True for m in order},
-                        exact={m: True for m in order}, lcb_winner=winner,
-                    )
-                    chosen = selected if selected != winner else None
-                    reason = "verified_tie" if chosen else "verified_no_change"
+                    if max(scores.values()) != best_score or scores[winner] != best_score:
+                        reason = "inconsistent_exact_scores"
+                    else:
+                        selected = choose_native_order_tie(
+                            order, scores, completed={m: True for m in order},
+                            exact={m: True for m in order}, lcb_winner=winner,
+                        )
+                        chosen = selected if selected != winner else None
+                        ties = sum(value == best_score for value in scores.values()) > 1
+                        reason = ("verified_tie" if chosen else
+                                  "verified_tie_same_winner" if ties else "verified_unique_best")
     # No verification after the first missing, incomplete, or bounded receipt.
     final_limit = total_nodes - spent
     result = main(chosen, final_limit)
