@@ -113,3 +113,35 @@ def test_probe_receipt_cannot_spend_after_cap_exhaustion():
     from research.mtdp.jass_benchmark.total_budget import record_probe_nodes
     with pytest.raises(ValueError, match="Probe receipt"):
         record_probe_nodes(10_000, 1_000, 100, 1)
+
+
+def test_ordered_probe_audit_accounts_for_actual_nodes():
+    from research.mtdp.jass_benchmark.total_budget import audit_probe_sequence
+    assert audit_probe_sequence(10_000, [(600, 450), (550, 500), (50, 50)]) == {
+        "probe_count": 3,
+        "verification_nodes": 1_000,
+        "verification_remaining": 0,
+        "main_search_limit": 9_000,
+    }
+
+
+def test_ordered_probe_audit_does_not_pool_caps_or_reuse_spent_budget():
+    from research.mtdp.jass_benchmark.total_budget import audit_probe_sequence
+    with pytest.raises(ValueError, match="Probe receipt"):
+        audit_probe_sequence(10_000, [(1_000, 900), (200, 101)])
+
+
+@pytest.mark.parametrize("bad", [None, (), [(100,)], [[100, 50]], [(True, 0)],
+                                     [(100, True)], [(100, 101)]])
+def test_ordered_probe_audit_rejects_malformed_receipts(bad):
+    from research.mtdp.jass_benchmark.total_budget import audit_probe_sequence
+    with pytest.raises(ValueError):
+        audit_probe_sequence(10_000, bad)
+
+
+def test_empty_probe_sequence_preserves_main_budget():
+    from research.mtdp.jass_benchmark.total_budget import audit_probe_sequence
+    assert audit_probe_sequence(50_000, []) == {
+        "probe_count": 0, "verification_nodes": 0,
+        "verification_remaining": 5_000, "main_search_limit": 50_000,
+    }
