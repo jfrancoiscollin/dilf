@@ -79,3 +79,16 @@ def test_per_arena_costs_are_separate_and_sum_to_cohort():
     assert by_arena["east"]["full_historical_auxiliary_cost"]["positions_over_cap"] == 1
     assert sum(item["depth_one_probe_lower_bound"]["measured_verification_nodes"]
                for item in by_arena.values()) == result["depth_one_probe_lower_bound"]["measured_verification_nodes"]
+
+
+def test_lower_bound_only_proves_historical_probe_overruns():
+    result = audit({"positions": [
+        receipt("arena", "over", 5_001, 8_000),
+        receipt("arena", "uncertain", 4_999, 9_000),
+    ]}, 50_000, expected_positions=2)
+    assert result["historical_full_probe_method"] == {
+        "provably_over_cap_from_depth_one": 1,
+        "not_ruled_out_by_depth_one": 1,
+        "equal_compute_success_established": False,
+    }
+    assert result["full_historical_auxiliary_cost"]["positions_over_cap"] == 2
