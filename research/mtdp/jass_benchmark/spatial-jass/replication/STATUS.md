@@ -574,3 +574,12 @@ including the 20 final disagreements. See the
 [score audit](DEPTH_ONE_TIES_2026-11-14.md). Next, compare Scan regret
 and the agreement trajectory for the 20 persistent and 28 resolved
 disagreements using the archived 50,000-node receipts.
+
+## Outcomes after a depth-one score tie
+
+Of the 48 audited ties, 20 still yielded different final moves at
+50,000 nodes. Their mean LCB-minus-native regret was +11.8 centimen,
+dominated by one +243 case. See the
+[trajectory and cost report](TIE_OUTCOMES_2026-11-14.md). Next,
+rescore all 20 disagreements at Scan depth 18 to test how the
+costs depend on the target reference.
