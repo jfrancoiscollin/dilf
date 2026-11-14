@@ -47,6 +47,8 @@ def aggregate_feasibility(total_nodes: int, verification_nodes: list[int]) -> di
     independently fit its own cap; surplus from another position is not pooled.
     """
     cap = verification_cap(total_nodes)
+    if not verification_nodes:
+        raise ValueError("Cannot establish cohort feasibility from an empty cohort")
     if any(type(nodes) is not int or nodes < 0 for nodes in verification_nodes):
         raise ValueError("Invalid metered verification nodes")
     over_cap = sum(nodes > cap for nodes in verification_nodes)
