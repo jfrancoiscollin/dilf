@@ -8,7 +8,7 @@ from pathlib import Path
 from research.mtdp.jass_benchmark.total_budget import aggregate_feasibility
 
 
-def audit(report: dict, budget: int) -> dict:
+def audit(report: dict, budget: int, *, expected_positions: int | None = None) -> dict:
     """Audit independently metered depth-one probe costs on frozen positions.
 
     These costs are a *lower bound* on the old auxiliary verification work,
@@ -23,6 +23,11 @@ def audit(report: dict, budget: int) -> dict:
         raise ValueError("Duplicate position receipts")
     if not selected:
         raise ValueError("No receipts for requested budget")
+    if expected_positions is not None:
+        if type(expected_positions) is not int or expected_positions <= 0:
+            raise ValueError("Expected cohort size must be a positive integer")
+        if len(selected) != expected_positions:
+            raise ValueError("Incomplete frozen cohort for requested budget")
     costs = [row["probe_depth_one_nodes"] for row in selected]
     auxiliary = [row["auxiliary_nodes"] for row in selected]
     if any(type(n) is not int or n < 0 for n in auxiliary):
@@ -46,10 +51,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--report", required=True, type=Path)
     parser.add_argument("--budget", required=True, type=int)
+    parser.add_argument("--expected-positions", required=True, type=int,
+                        help="Frozen cohort size; reject partial archives")
     args = parser.parse_args()
     with gzip.open(args.report, "rt", encoding="utf-8") as stream:
         report = json.load(stream)
-    print(json.dumps(audit(report, args.budget), sort_keys=True, indent=2))
+    print(json.dumps(audit(report, args.budget, expected_positions=args.expected_positions), sort_keys=True, indent=2))
 
 
 if __name__ == "__main__":
