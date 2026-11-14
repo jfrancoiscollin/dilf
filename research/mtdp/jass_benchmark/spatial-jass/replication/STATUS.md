@@ -565,3 +565,12 @@ on all 425 positions with the same depth-one winner. See the
 [full-cohort trace report](NATIVE_EARLY_SEARCH_2026-11-14.md).
 Next, reproduce the 48 depth-one disagreements with root action
 scores logged to test how many are ties.
+
+## Depth-one score ties
+
+Both original searches and forced-first probes confirmed equal
+depth-one scores on all 48 LCB/native depth-one disagreements,
+including the 20 final disagreements. See the
+[score audit](DEPTH_ONE_TIES_2026-11-14.md). Next, compare Scan regret
+and the agreement trajectory for the 20 persistent and 28 resolved
+disagreements using the archived 50,000-node receipts.
