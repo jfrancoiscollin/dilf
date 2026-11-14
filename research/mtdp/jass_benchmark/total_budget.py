@@ -38,3 +38,23 @@ def verify_receipt(total_nodes: int, verification_nodes: int,
     if type(depth_ceiling) is not bool:
         raise ValueError("Depth-ceiling flag must be boolean")
     return not depth_ceiling
+
+
+def aggregate_feasibility(total_nodes: int, verification_nodes: list[int]) -> dict[str, int | bool]:
+    """Audit a frozen cohort's metered verification cost, without rerunning Jass.
+
+    Aggregate feasibility is necessary but not sufficient: each position must
+    independently fit its own cap; surplus from another position is not pooled.
+    """
+    cap = verification_cap(total_nodes)
+    if any(type(nodes) is not int or nodes < 0 for nodes in verification_nodes):
+        raise ValueError("Invalid metered verification nodes")
+    over_cap = sum(nodes > cap for nodes in verification_nodes)
+    return {
+        "positions": len(verification_nodes),
+        "per_position_cap": cap,
+        "aggregate_cap": cap * len(verification_nodes),
+        "measured_verification_nodes": sum(verification_nodes),
+        "positions_over_cap": over_cap,
+        "all_positions_fit": over_cap == 0,
+    }
