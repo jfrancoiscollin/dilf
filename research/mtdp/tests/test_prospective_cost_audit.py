@@ -2,7 +2,7 @@
 
 import pytest
 
-from research.mtdp.jass_benchmark.prospective_cost_audit import audit
+from research.mtdp.jass_benchmark.prospective_cost_audit import audit, audit_cohort_alignment
 
 
 def receipt(event, fen, probe, auxiliary, budget=50_000):
@@ -108,3 +108,29 @@ def test_malformed_receipt_budget_rejected(invalid_budget):
 def test_malformed_position_identity_rejected(event, fen):
     with pytest.raises(ValueError, match="Invalid receipt position identity"):
         audit({"positions": [receipt(event, fen, 10, 20)]}, 50_000)
+
+
+def test_frozen_cohorts_align_even_when_archive_order_differs():
+    report = {"positions": [
+        receipt("a", "fen1", 1, 2, budget=10_000),
+        receipt("b", "fen2", 3, 4, budget=10_000),
+        receipt("b", "fen2", 5, 6, budget=50_000),
+        receipt("a", "fen1", 7, 8, budget=50_000),
+    ]}
+    assert audit_cohort_alignment(report, (10_000, 50_000),
+                                  expected_positions=2)["identical_frozen_cohorts"]
+
+
+def test_frozen_cohort_identity_mismatch_is_rejected():
+    report = {"positions": [
+        receipt("a", "fen1", 1, 2, budget=10_000),
+        receipt("a", "different", 1, 2, budget=50_000),
+    ]}
+    with pytest.raises(ValueError, match="identities differ"):
+        audit_cohort_alignment(report, (10_000, 50_000), expected_positions=1)
+
+
+@pytest.mark.parametrize("budgets", [(), (10_000, 10_000), (True,), (0,)])
+def test_invalid_comparison_budgets_rejected(budgets):
+    with pytest.raises(ValueError):
+        audit_cohort_alignment({"positions": []}, budgets, expected_positions=1)
