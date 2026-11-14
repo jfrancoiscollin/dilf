@@ -547,3 +547,12 @@ on 13. L recovered 15 and lost optimum status on 14. See the
 [transition report](SEARCH_TRANSITIONS_2026-11-14.md). Next, compare
 the LCB and native root traces on those 64 positions to distinguish
 identical depth-one orders from later convergence.
+
+## LCB versus native root traces
+
+On all 64 changed-prefix positions at each budget, LCB and native Jass
+started from different root orders and selected the same best move at
+every commonly completed depth and at the end. See the
+[trace comparison](NATIVE_CONVERGENCE_2026-11-14.md). Next, inspect
+depth-one node cost and depth-two order at 50,000 nodes across the full
+cohort, including the positions with different LCB and native moves.
