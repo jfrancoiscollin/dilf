@@ -158,6 +158,12 @@ def combine(paths, packets, freeze_digest):
                 for row in receipts}
     if actual != expected or len(actual) != len(rows) or len(digests) != 1:
         raise ValueError("Missing, duplicate or incompatible control receipts")
+    for row in rows:
+        if (type(row.get("auxiliary_nodes")) is not int or row["auxiliary_nodes"] < 0
+                or type(row.get("probe_depth_one_nodes")) is not int
+                or row["probe_depth_one_nodes"] < 0
+                or row["probe_depth_one_nodes"] > row["auxiliary_nodes"]):
+            raise ValueError("Invalid auxiliary verification node accounting")
     summaries = {}
     for budget in BUDGETS:
         subset = [row for row in rows if row["budget"] == budget]
