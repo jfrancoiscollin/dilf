@@ -132,3 +132,10 @@ def test_incomplete_preliminary_without_winner_falls_back_and_meters_cost():
                      probe=lambda *_: pytest.fail("No verification after incomplete receipt"), main=main)
     assert report["fallback_reason"] == "preliminary_incomplete_or_bounded"
     assert report["verification_nodes"] == 32
+
+
+def test_depth_ceiling_cannot_relabel_exact_budget_search():
+    with pytest.raises(ValueError, match="Depth ceiling cannot claim"):
+        execute(total_nodes=10_000, native_order=["a", "b"],
+                preliminary=preliminary, probe=probe,
+                main=lambda _winner, limit: {"nodes": limit, "depth_ceiling": True})
