@@ -74,6 +74,30 @@ def audit(report: dict, budget: int, *, expected_positions: int | None = None) -
     }
 
 
+
+def audit_cohort_alignment(report: dict, budgets: tuple[int, ...] = (10_000, 50_000, 200_000),
+                           *, expected_positions: int = 473) -> dict:
+    """Require identical frozen (event, FEN) identities at every budget.
+
+    This is an archive-integrity check, not an equal-compute comparison.
+    """
+    if not budgets or any(type(b) is not int or b <= 0 for b in budgets):
+        raise ValueError("Invalid comparison budgets")
+    if len(set(budgets)) != len(budgets):
+        raise ValueError("Duplicate comparison budgets")
+    cohorts = {}
+    for budget in budgets:
+        audit(report, budget, expected_positions=expected_positions)
+        cohorts[budget] = {(row["event"], row["fen"])
+                           for row in report["positions"] if row["budget"] == budget}
+    reference = cohorts[budgets[0]]
+    for budget in budgets[1:]:
+        if cohorts[budget] != reference:
+            raise ValueError("Frozen cohort identities differ between budgets")
+    return {"budgets": list(budgets), "aligned_positions": len(reference),
+            "identical_frozen_cohorts": True}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--report", required=True, type=Path)
