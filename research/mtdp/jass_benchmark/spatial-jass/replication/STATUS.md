@@ -528,3 +528,13 @@ one LCB move became optimal at depth 18. See the
 individual results and reproduction. Next, compare initial
 first-choice and top-three transfer on the full five-arena cohort
 using the existing Scan receipts.
+
+## Initial candidate quality before search
+
+The [candidate quality report](CANDIDATE_QUALITY_2026-11-14.md)
+compares first choice and best of three on all 473 common targets
+and on the 64 changed prefixes. The first-choice regret difference
+favours LCB in the pooled sample and changes sign without CARZrQpl.
+Best-of-three regret slightly favours L. The next check uses the
+archived 50,000-node receipts to count how often search recovers or
+displaces an optimum relative to each transferred first choice.

@@ -128,12 +128,7 @@ def validate_traces(directory, rows, targets):
             raise ValueError(f"Missing root trace: {fen}, {arm}, {budget} nodes")
 
 
-def read_arena(directory):
-    provenance, frozen, manifest = read_freeze(directory)
-    targets = {row["target_fen"]: row for row in manifest["benchmark_targets"]}
-    if not targets:
-        return provenance, frozen, {"matched": 0, "changed_source": 0, "changed_prefix_targets": []}, []
-
+def read_scan_scores(directory, provenance, manifest):
     diagnostic = json.loads((directory / "source-diagnostic.json").read_bytes())
     source_path = directory / "source.json"
     source = json.loads(source_path.read_bytes())
@@ -152,6 +147,16 @@ def read_arena(directory):
     }
     if diagnostic != expected_diagnostic:
         raise ValueError(f"Source diagnostic does not match the frozen manifest: {directory}")
+    return diagnostic, scores
+
+
+def read_arena(directory):
+    provenance, frozen, manifest = read_freeze(directory)
+    targets = {row["target_fen"]: row for row in manifest["benchmark_targets"]}
+    if not targets:
+        return provenance, frozen, {"matched": 0, "changed_source": 0, "changed_prefix_targets": []}, []
+
+    diagnostic, scores = read_scan_scores(directory, provenance, manifest)
     path = directory / "results/paired-results.jsonl.gz"
     with gzip.open(path, "rt", encoding="utf-8") as archive:
         rows = [json.loads(line) for line in archive]
