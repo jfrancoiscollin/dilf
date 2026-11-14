@@ -46,3 +46,27 @@ def test_invalid_main_nodes_rejected(main):
 def test_over_cap_probe_does_not_get_to_steal_main_nodes():
     with pytest.raises(ValueError):
         main_search_limit(10_000, 1_001)
+
+
+def test_aggregate_feasibility_cannot_pool_unused_per_position_budget():
+    from research.mtdp.jass_benchmark.total_budget import aggregate_feasibility
+    report = aggregate_feasibility(50_000, [0, 6_000])
+    assert report == {
+        "positions": 2, "per_position_cap": 5_000,
+        "aggregate_cap": 10_000, "measured_verification_nodes": 6_000,
+        "positions_over_cap": 1, "all_positions_fit": False,
+    }
+
+
+def test_aggregate_feasibility_valid_cohort():
+    from research.mtdp.jass_benchmark.total_budget import aggregate_feasibility
+    report = aggregate_feasibility(50_000, [1_000, 5_000])
+    assert report["all_positions_fit"] is True
+    assert report["positions_over_cap"] == 0
+
+
+@pytest.mark.parametrize("invalid", [[-1], [True], [1.2]])
+def test_aggregate_feasibility_rejects_invalid_nodes(invalid):
+    from research.mtdp.jass_benchmark.total_budget import aggregate_feasibility
+    with pytest.raises(ValueError, match="Invalid metered"):
+        aggregate_feasibility(50_000, invalid)
