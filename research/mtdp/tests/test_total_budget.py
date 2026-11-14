@@ -70,3 +70,9 @@ def test_aggregate_feasibility_rejects_invalid_nodes(invalid):
     from research.mtdp.jass_benchmark.total_budget import aggregate_feasibility
     with pytest.raises(ValueError, match="Invalid metered"):
         aggregate_feasibility(50_000, invalid)
+
+
+def test_empty_cohort_cannot_be_declared_feasible():
+    from research.mtdp.jass_benchmark.total_budget import aggregate_feasibility
+    with pytest.raises(ValueError, match="empty cohort"):
+        aggregate_feasibility(50_000, [])
