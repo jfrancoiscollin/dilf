@@ -82,3 +82,34 @@ def test_empty_cohort_cannot_be_declared_feasible():
 def test_depth_ceiling_requires_explicit_boolean(flag):
     with pytest.raises(ValueError, match="Depth-ceiling flag must be boolean"):
         verify_receipt(10_000, 500, 9_500, depth_ceiling=flag)
+
+
+def test_capped_probe_limit_and_actual_receipts():
+    from research.mtdp.jass_benchmark.total_budget import (
+        capped_probe_limit, record_probe_nodes,
+    )
+    assert capped_probe_limit(10_000, 900, 500) == 100
+    assert record_probe_nodes(10_000, 900, 100, 80) == 980
+    assert capped_probe_limit(10_000, 980, 100) == 20
+    assert record_probe_nodes(10_000, 980, 20, 20) == 1_000
+    assert capped_probe_limit(10_000, 1_000, 500) == 0
+
+
+@pytest.mark.parametrize("requested", [-1, True, 1.5, None])
+def test_capped_probe_rejects_invalid_requested_limit(requested):
+    from research.mtdp.jass_benchmark.total_budget import capped_probe_limit
+    with pytest.raises(ValueError, match="Requested probe nodes"):
+        capped_probe_limit(10_000, 0, requested)
+
+
+@pytest.mark.parametrize("measured", [-1, True, 1.5, None, 101])
+def test_probe_receipt_must_be_measured_and_within_issued_limit(measured):
+    from research.mtdp.jass_benchmark.total_budget import record_probe_nodes
+    with pytest.raises(ValueError, match="Probe receipt"):
+        record_probe_nodes(10_000, 900, 100, measured)
+
+
+def test_probe_receipt_cannot_spend_after_cap_exhaustion():
+    from research.mtdp.jass_benchmark.total_budget import record_probe_nodes
+    with pytest.raises(ValueError, match="Probe receipt"):
+        record_probe_nodes(10_000, 1_000, 100, 1)
