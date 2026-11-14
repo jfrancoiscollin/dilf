@@ -37,3 +37,23 @@ def test_only_requested_budget_is_used():
     ]}, 10_000)
     assert result["depth_one_probe_lower_bound"]["positions"] == 1
     assert result["depth_one_probe_lower_bound"]["measured_verification_nodes"] == 200
+
+
+def test_partial_frozen_cohort_rejected():
+    with pytest.raises(ValueError, match="Incomplete frozen cohort"):
+        audit({"positions": [receipt("a", "one", 100, 200)]},
+              50_000, expected_positions=473)
+
+
+def test_complete_frozen_cohort_accepted():
+    result = audit({"positions": [receipt("a", str(i), 100, 200)
+                                   for i in range(473)]},
+                   50_000, expected_positions=473)
+    assert result["depth_one_probe_lower_bound"]["positions"] == 473
+
+
+@pytest.mark.parametrize("expected", [0, -1, True, 1.5])
+def test_invalid_frozen_cohort_size_rejected(expected):
+    with pytest.raises(ValueError, match="Expected cohort size"):
+        audit({"positions": [receipt("a", "one", 100, 200)]},
+              50_000, expected_positions=expected)
