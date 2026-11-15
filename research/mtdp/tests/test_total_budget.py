@@ -127,7 +127,7 @@ def test_ordered_probe_audit_accounts_for_actual_nodes():
 
 def test_ordered_probe_audit_does_not_pool_caps_or_reuse_spent_budget():
     from research.mtdp.jass_benchmark.total_budget import audit_probe_sequence
-    with pytest.raises(ValueError, match="Probe receipt"):
+    with pytest.raises(ValueError, match="Issued probe limit"):
         audit_probe_sequence(10_000, [(1_000, 900), (200, 101)])
 
 
@@ -145,3 +145,15 @@ def test_empty_probe_sequence_preserves_main_budget():
         "probe_count": 0, "verification_nodes": 0,
         "verification_remaining": 5_000, "main_search_limit": 50_000,
     }
+
+
+def test_issued_probe_limit_must_be_capped_before_engine_call():
+    from research.mtdp.jass_benchmark.total_budget import record_probe_nodes
+    with pytest.raises(ValueError, match="Issued probe limit"):
+        record_probe_nodes(10_000, 900, 200, 50)
+
+
+def test_exhausted_verification_cap_rejects_even_zero_node_probe():
+    from research.mtdp.jass_benchmark.total_budget import record_probe_nodes
+    with pytest.raises(ValueError, match="Issued probe limit"):
+        record_probe_nodes(10_000, 1_000, 1, 0)
