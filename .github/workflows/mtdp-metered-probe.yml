@@ -17,6 +17,10 @@ on:
       - '.github/workflows/mtdp-metered-probe.yml'
   workflow_dispatch:
 
+concurrency:
+  group: mtdp-metered-probe-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   pinned-jass-first-root:
     runs-on: ubuntu-latest
