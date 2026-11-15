@@ -143,10 +143,12 @@ def run(replication: Path, event: str, budget: int,
                 for row in receipts
             ),
             "control_matches_native": sum(
-                # The controlled main search has a real choice recorded separately
-                # in its own receipt, retained by the protocol's strict parser.
-                row["intervention"] is None and row["native_baseline"]["best_move"]
-                == row["lcb_baseline"]["best_move"] for row in receipts
+                row["control_main"]["best_move"] == row["native_baseline"]["best_move"]
+                for row in receipts
+            ),
+            "control_matches_lcb": sum(
+                row["control_main"]["best_move"] == row["lcb_baseline"]["best_move"]
+                for row in receipts
             ),
         },
     }
