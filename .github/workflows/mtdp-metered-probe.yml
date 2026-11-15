@@ -178,7 +178,11 @@ jobs:
           print("All four frozen king positions accepted with identical board identity")
           PY
 
+      # The 473x3 receipt run succeeded at SHA a4f252d and is pinned by the
+      # separate retrospective quality gate. Do not rerun it on every PR edit.
+      # A full, fresh rerun remains available through workflow_dispatch.
       - name: Five frozen arenas, real equal-compute 10k/50k/200k
+        if: github.event_name == 'workflow_dispatch'
         timeout-minutes: 90
         env:
           JASS_TRACE_ROOT: '0'
