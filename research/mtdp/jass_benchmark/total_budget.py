@@ -141,3 +141,41 @@ def audit_complete_search(total_nodes: int, probes: list[tuple[int, int]],
         "total_measured_nodes": verification["verification_nodes"] + main_nodes,
         "comparable": comparable,
     }
+
+
+def audit_paired_searches(
+    total_nodes: int,
+    baseline: dict[str, dict[str, int | bool]],
+    treatment: dict[str, dict[str, int | bool]],
+) -> dict[str, int | bool]:
+    """Check paired, equal-compute receipts without inferring playing strength.
+
+    Keys are frozen position identifiers (for example arena plus FEN).
+    Each arm must contain exactly the same unique positions, and every receipt
+    must have been independently audited with audit_complete_search.
+    """
+    verification_cap(total_nodes)
+    if (type(baseline) is not dict or type(treatment) is not dict
+            or not baseline or baseline.keys() != treatment.keys()):
+        raise ValueError("Paired cohorts must have identical nonempty position IDs")
+    if any(type(key) is not str or not key for key in baseline):
+        raise ValueError("Position IDs must be nonempty strings")
+    for arm in (baseline, treatment):
+        for receipt in arm.values():
+            if type(receipt) is not dict:
+                raise ValueError("Invalid search receipt")
+            nodes = receipt.get("total_measured_nodes")
+            comparable = receipt.get("comparable")
+            if (type(nodes) is not int or nodes < 0 or nodes > total_nodes
+                    or type(comparable) is not bool):
+                raise ValueError("Invalid search receipt")
+            if comparable and nodes != total_nodes:
+                raise ValueError("Comparable receipt must exhaust position budget")
+    paired = sum(baseline[key]["comparable"] and treatment[key]["comparable"]
+                 for key in baseline)
+    return {
+        "positions": len(baseline),
+        "paired_comparable": paired,
+        "paired_excluded": len(baseline) - paired,
+        "all_pairs_comparable": paired == len(baseline),
+    }
