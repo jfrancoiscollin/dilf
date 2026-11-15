@@ -157,3 +157,17 @@ def test_exhausted_verification_cap_rejects_even_zero_node_probe():
     from research.mtdp.jass_benchmark.total_budget import record_probe_nodes
     with pytest.raises(ValueError, match="Issued probe limit"):
         record_probe_nodes(10_000, 1_000, 1, 0)
+
+
+def test_zero_limit_is_skip_not_a_measured_probe():
+    from research.mtdp.jass_benchmark.total_budget import (
+        audit_probe_sequence, record_probe_nodes,
+    )
+    with pytest.raises(ValueError, match="Zero-node probe"):
+        record_probe_nodes(10_000, 0, 0, 0)
+    with pytest.raises(ValueError, match="Zero-node probe"):
+        audit_probe_sequence(10_000, [(0, 0)])
+    with pytest.raises(ValueError, match="Zero-node probe"):
+        audit_probe_sequence(9, [(0, 0)])
+    # Skipping a probe is represented by an empty receipt sequence.
+    assert audit_probe_sequence(9, [])["main_search_limit"] == 9
