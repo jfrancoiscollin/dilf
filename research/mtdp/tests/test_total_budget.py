@@ -201,3 +201,39 @@ def test_complete_position_receipt_rejects_overspend():
     from research.mtdp.jass_benchmark.total_budget import audit_complete_search
     with pytest.raises(ValueError, match="Invalid metered main-search"):
         audit_complete_search(10_000, [(100, 80)], 9_921)
+
+
+def test_paired_cohort_requires_equal_ids_and_full_budget():
+    from research.mtdp.jass_benchmark.total_budget import audit_paired_searches
+    full = {"total_measured_nodes": 10_000, "comparable": True}
+    ceiling = {"total_measured_nodes": 9_000, "comparable": False}
+    report = audit_paired_searches(
+        10_000, {"arena:a": full, "arena:b": full},
+        {"arena:a": full, "arena:b": ceiling},
+    )
+    assert report == {
+        "positions": 2, "paired_comparable": 1,
+        "paired_excluded": 1, "all_pairs_comparable": False,
+    }
+    with pytest.raises(ValueError, match="identical nonempty"):
+        audit_paired_searches(10_000, {"a": full}, {"b": full})
+    with pytest.raises(ValueError, match="exhaust"):
+        audit_paired_searches(
+            10_000, {"a": {"total_measured_nodes": 9_999, "comparable": True}},
+            {"a": full},
+        )
+
+
+@pytest.mark.parametrize("invalid", [
+    {"total_measured_nodes": True, "comparable": True},
+    {"total_measured_nodes": 10_001, "comparable": True},
+    {"total_measured_nodes": 10_000, "comparable": 1},
+    {"total_measured_nodes": 10_000},
+])
+def test_paired_cohort_rejects_malformed_receipts(invalid):
+    from research.mtdp.jass_benchmark.total_budget import audit_paired_searches
+    with pytest.raises(ValueError, match="Invalid search receipt"):
+        audit_paired_searches(
+            10_000, {"a": invalid},
+            {"a": {"total_measured_nodes": 10_000, "comparable": True}},
+        )
