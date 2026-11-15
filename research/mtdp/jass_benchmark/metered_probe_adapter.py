@@ -46,6 +46,9 @@ def parse_receipt(raw: str, *, mode: str, fen: str, issued_limit: int,
     if (limit != issued_limit or nodes < 0 or nodes > limit
             or visited < 0 or legal_count <= 0 or visited > legal_count):
         raise ValueError("Invalid metered node or action accounting")
+    # Jass returns its bound label using enum presentation casing; normalize
+    # only the label, never a numeric score or completion flag.
+    bound = bound.lower()
     if complete_text not in ("0", "1") or bound not in ("exact", "lower", "upper", "none") \
             or stop not in ("nodes", "none"):
         raise ValueError("Invalid completion, stop or bound evidence")
