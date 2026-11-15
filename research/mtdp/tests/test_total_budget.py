@@ -171,3 +171,33 @@ def test_zero_limit_is_skip_not_a_measured_probe():
         audit_probe_sequence(9, [(0, 0)])
     # Skipping a probe is represented by an empty receipt sequence.
     assert audit_probe_sequence(9, [])["main_search_limit"] == 9
+
+
+def test_complete_position_receipt_is_comparable_at_equal_total_budget():
+    from research.mtdp.jass_benchmark.total_budget import audit_complete_search
+    result = audit_complete_search(10_000, [(600, 450), (550, 500), (50, 50)], 9_000)
+    assert result == {
+        "probe_count": 3, "verification_nodes": 1_000,
+        "verification_remaining": 0, "main_search_limit": 9_000,
+        "main_nodes": 9_000, "total_measured_nodes": 10_000,
+        "comparable": True,
+    }
+
+
+def test_complete_position_receipt_rejects_unexplained_shortfall():
+    from research.mtdp.jass_benchmark.total_budget import audit_complete_search
+    with pytest.raises(ValueError, match="did not exhaust"):
+        audit_complete_search(10_000, [(100, 80)], 9_919)
+
+
+def test_complete_position_receipt_marks_depth_ceiling_noncomparable():
+    from research.mtdp.jass_benchmark.total_budget import audit_complete_search
+    result = audit_complete_search(10_000, [(100, 80)], 9_000, depth_ceiling=True)
+    assert result["total_measured_nodes"] == 9_080
+    assert result["comparable"] is False
+
+
+def test_complete_position_receipt_rejects_overspend():
+    from research.mtdp.jass_benchmark.total_budget import audit_complete_search
+    with pytest.raises(ValueError, match="Invalid metered main-search"):
+        audit_complete_search(10_000, [(100, 80)], 9_921)
