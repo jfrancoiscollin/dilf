@@ -101,3 +101,21 @@ def test_fen_identity_rejects_duplicate_or_invalid_squares(malformed):
     from research.mtdp.jass_benchmark.metered_engine_smoke import _position_identity
     with pytest.raises(ValueError):
         _position_identity(malformed)
+
+
+@pytest.mark.parametrize("best_move", ["99-99", ""])
+def test_main_search_rejects_nonlegal_reported_winner(monkeypatch, tmp_path, best_move):
+    """A full-budget receipt cannot certify a move outside its live catalogue."""
+    from subprocess import CompletedProcess
+
+    fen = "W:W31:B20"
+    fields = [fen, "100", "100", "1", "nodes", best_move, "0",
+              "unused", "unused", "31-26,31-27", "31-26,31-27", "1:complete"]
+
+    def fake_run(*args, **kwargs):
+        return CompletedProcess(args[0], 0, "\\t".join(fields) + "\\n", "")
+
+    monkeypatch.setattr(metered_engine_smoke.subprocess, "run", fake_run)
+    with pytest.raises(ValueError, match="best move outside the legal catalogue"):
+        metered_engine_smoke.main_search(tmp_path / "jass", fen, [], None,
+                                        100, ["31-26", "31-27"])
