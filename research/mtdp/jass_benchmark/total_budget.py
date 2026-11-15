@@ -83,6 +83,10 @@ def record_probe_nodes(total_nodes: int, spent_verification: int,
     the engine reports more nodes than permitted by either bound.
     """
     allowed = capped_probe_limit(total_nodes, spent_verification, requested_limit)
+    # Zero is a skip/fallback sentinel, never a valid engine invocation.
+    # Otherwise a fabricated (0, 0) receipt could count as a probe.
+    if requested_limit == 0:
+        raise ValueError("Zero-node probe must be skipped, not recorded")
     # An issued engine limit must already be capped by the caller. Silently
     # clipping it here would validate a receipt from an over-budget invocation.
     if requested_limit > allowed:
