@@ -22,3 +22,11 @@ target_link_libraries(mtdp_jass_benchmark PRIVATE jass_lib jass_warnings)
 if(MTDP_JASS_INITIAL_ONLY)
     target_compile_definitions(mtdp_jass_benchmark PRIVATE MTDP_JASS_INITIAL_ONLY)
 endif()
+
+# Research-only metered depth-one probe. Requires first-root-action.patch in
+# the disposable, pinned Jass checkout; does not modify production defaults.
+add_executable(mtdp_jass_metered_probe
+    "${CMAKE_CURRENT_LIST_DIR}/metered_probe.cpp"
+    $<TARGET_OBJECTS:jass_t3_f6_runtime>)
+target_compile_features(mtdp_jass_metered_probe PRIVATE cxx_std_20)
+target_link_libraries(mtdp_jass_metered_probe PRIVATE jass_lib jass_warnings)
