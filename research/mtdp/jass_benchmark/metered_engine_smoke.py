@@ -1,0 +1,109 @@
+"""End-to-end *engineering smoke* for the metered MTDP Jass control.
+
+Two disposable binaries based on the SAME pinned Jass revision are required:
+- the first-root research probe (first-root-action.patch);
+- the initial-only search with retrospective winner intervention patches.
+No Scan reference or archived winner enters the selector. A standard opening
+position is diagnostic only, never a substitute for prospective cohort scoring.
+"""
+
+import argparse
+import os
+import subprocess
+from pathlib import Path
+from collections.abc import Sequence
+
+from research.mtdp.jass_benchmark.metered_control import execute
+from research.mtdp.jass_benchmark.metered_probe_adapter import run_depth_one
+from research.mtdp.jass_benchmark.total_budget import verification_cap
+
+
+def main_search(binary: Path, fen: str, prefix: Sequence[str],
+                forced: str | None, limit: int, native_order: Sequence[str]) -> dict:
+    if type(limit) is not int or limit <= 0:
+        raise ValueError("Main search requires a positive residual limit")
+    env = {k: v for k, v in os.environ.items() if k not in (
+        "MTDP_DEPTH_ONE_WINNER", "JASS_EGDB_PATH", "JASS_EGDB_MTC_PATH",
+    )}
+    env["JASS_TRACE_ROOT"] = "0"
+    if forced is not None:
+        if forced not in native_order:
+            raise ValueError("Forced winner is not a live legal action")
+        env["MTDP_DEPTH_ONE_WINNER"] = forced
+    line = " ".join([fen, str(limit), *prefix]) + "\n"
+    run = subprocess.run([str(binary.resolve()), "--initial-only", "--record-depth-ceiling"],
+                         input=line, text=True, capture_output=True, check=True, env=env)
+    rows = run.stdout.splitlines()
+    if len(rows) != 1:
+        raise ValueError("Main Jass runner returned multiple or missing receipts")
+    values = rows[0].split("\t")
+    if len(values) < 12 or values[0] != fen:
+        raise ValueError("Malformed main Jass root receipt")
+    try:
+        issued, nodes, completed_depth = map(int, values[1:4])
+    except ValueError as error:
+        raise ValueError("Noninteger main Jass receipt") from error
+    reason = values[4]
+    legal = values[9].split(",")
+    order = values[10].split(",")
+    if issued != limit or nodes < 0 or nodes > limit or reason not in (
+        "nodes", "depth_ceiling",
+    ):
+        raise ValueError("Invalid Jass main search budget or stop reason")
+    if (legal != list(native_order) or set(order) != set(legal)
+            or len(order) != len(set(order)) or order[:len(prefix)] != list(prefix)):
+        raise ValueError("Main Jass root catalogue or LCB prefix differs")
+    if not values[11].startswith("1:") or completed_depth < 1:
+        raise ValueError("Main Jass search did not complete the first depth")
+    if forced is not None and forced not in legal:
+        raise ValueError("Main Jass forced an illegal move")
+    return {"nodes": nodes, "depth_ceiling": reason == "depth_ceiling",
+            "best_move": values[5], "score": int(values[6]),
+            "completed_depth": completed_depth, "stop": reason}
+
+
+def technical_smoke(probe_binary: Path, main_binary: Path,
+                    fen: str, *, total_nodes: int, prefix: Sequence[str]) -> dict:
+    """Meter one current-position verification and actual remaining-budget search."""
+    cap = verification_cap(total_nodes)
+    if cap == 0:
+        raise ValueError("Technical smoke requires positive verification allowance")
+    initial = run_depth_one(probe_binary, fen, mode="preliminary", limit=cap,
+                            prefix=prefix)
+    native = initial["native_order"]
+    if any(key not in native for key in prefix) or len(set(prefix)) != len(prefix):
+        raise ValueError("Prefix differs from the live legal order")
+    def preliminary(limit):
+        if limit != cap:
+            raise ValueError("Preliminary receipt issued for different cap")
+        # This is the fresh, actual preliminary execution above; no replay and
+        # no archived receipt. execute charges its measured nodes exactly once.
+        return initial
+    def probe(move, limit):
+        return run_depth_one(probe_binary, fen, mode="probe", limit=limit,
+                             prefix=[move], expected_legal_order=native)
+    def main(forced, limit):
+        return main_search(main_binary, fen, prefix, forced, limit, native)
+    report = execute(total_nodes=total_nodes, native_order=native,
+                     preliminary=preliminary, probe=probe, main=main)
+    return {**report, "native_legal_actions": len(native),
+            "preliminary_nodes": initial["nodes"],
+            "scope": "technical_engineering_smoke_not_strength_evidence"}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--probe-runner", type=Path, required=True)
+    parser.add_argument("--main-runner", type=Path, required=True)
+    parser.add_argument("--fen", required=True)
+    parser.add_argument("--total-nodes", type=int, required=True)
+    parser.add_argument("--prefix", nargs="*", default=[])
+    args = parser.parse_args()
+    import json
+    print(json.dumps(technical_smoke(args.probe_runner, args.main_runner,
+                    args.fen, total_nodes=args.total_nodes, prefix=args.prefix),
+                    sort_keys=True, indent=2))
+
+
+if __name__ == "__main__":
+    main()
