@@ -83,6 +83,10 @@ def record_probe_nodes(total_nodes: int, spent_verification: int,
     the engine reports more nodes than permitted by either bound.
     """
     allowed = capped_probe_limit(total_nodes, spent_verification, requested_limit)
+    # An issued engine limit must already be capped by the caller. Silently
+    # clipping it here would validate a receipt from an over-budget invocation.
+    if requested_limit > allowed:
+        raise ValueError("Issued probe limit exceeds remaining verification allowance")
     if (type(measured_nodes) is not int or measured_nodes < 0
             or measured_nodes > allowed):
         raise ValueError("Probe receipt exceeds issued limit or is invalid")
