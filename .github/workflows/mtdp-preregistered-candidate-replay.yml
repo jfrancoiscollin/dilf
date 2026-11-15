@@ -1,0 +1,126 @@
+name: mtdp-preregistered-candidate-replay
+
+# Runs only on the new candidate replay module/protocol edits or explicit manual dispatch.
+# Strictly pre-score. Never downloads Scan-16 outcomes or claims a frozen holdout.
+on:
+  pull_request:
+    paths:
+      - 'research/mtdp/jass_benchmark/prospective_candidate_replay.py'
+      - 'research/mtdp/tests/test_prospective_candidate_replay.py'
+      - '.github/workflows/mtdp-preregistered-candidate-replay.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mtdp-independent-candidate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  fmjd-replay-and-exclusions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PYTHONPATH: ${{ github.workspace }}/dilf:${{ github.workspace }}/draught-master
+    steps:
+      - name: Check out DILF research only
+        uses: actions/checkout@v4
+        with:
+          path: dilf
+      - name: Check out pinned FMJD engine adapter
+        uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: draught-master
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned research dependencies
+        run: |
+          set -euo pipefail
+          pip install -e './dilf[dev,extract,explanations]'
+          sed -i '/dilf/d' draught-master/backend/requirements.txt
+          pip install -r draught-master/backend/requirements.txt
+          pip install -r draught-master/requirements-dev.txt
+      - name: Fetch exact candidate and historical public PDNs before scoring
+        run: |
+          set -euo pipefail
+          cd dilf
+          python - <<'PY'
+          import hashlib
+          import json
+          import time
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+
+          root = Path('/tmp/mtdp-independent')
+          hist = root / 'previous-pdn'
+          hist.mkdir(parents=True, exist_ok=True)
+          archive = json.loads(Path(
+              'research/mtdp/jass_benchmark/spatial-jass/replication/CARZrQpl/provenance.json'
+          ).read_bytes())
+          records = [
+              row for row in [*archive['inputs']['exclusions'], *archive['inputs']['event']]
+              if row['file'].startswith('mtdp-lidraughts-')
+          ]
+          assert len(records) == 18, len(records)
+          expected_new = '916639e4daf7fae419bd4a9bb4a3530ce62f3eb40ea97f7582762e6cebf68de2'
+
+          def get(url, expected, destination):
+              attempts = []
+              for i in range(4):
+                  try:
+                      request = Request(url, headers={
+                          'User-Agent': 'MTDP-scientific-replay/1.0',
+                          'Cache-Control': 'no-cache',
+                      })
+                      with urlopen(request, timeout=55) as response:
+                          data = response.read()
+                      observed = hashlib.sha256(data).hexdigest()
+                      attempts.append({'bytes': len(data), 'sha256': observed})
+                      if observed == expected and data:
+                          destination.write_bytes(data)
+                          return {'url': url, 'bytes': len(data), 'sha256': observed,
+                                  'attempts': attempts}
+                  except Exception as error:
+                      attempts.append({'error': type(error).__name__})
+                  time.sleep(min(2 * (i + 1), 8))
+              raise ValueError(f'Unable to verify immutable PDN at {url}: {attempts}')
+
+          candidate = root / 'mtdp-lidraughts-fFgE7oED.pdn'
+          new_url = 'https://lidraughts.org/api/tournament/fFgE7oED/games'
+          a = get(new_url, expected_new, candidate)
+          b = get(new_url, expected_new, root / 'independent-repeat.pdn')
+          assert candidate.read_bytes() == (root / 'independent-repeat.pdn').read_bytes()
+
+          log = {'candidate': {'first': a, 'independent_repeat': b}, 'previous': {}}
+          for record in records:
+              name = record['file']
+              event = name.removeprefix('mtdp-lidraughts-').removesuffix('.pdn')
+              url = f'https://lidraughts.org/api/tournament/{event}/games'
+              log['previous'][event] = get(url, record['sha256'], hist / name)
+              print(f'Prior event verified: {event} ({log["previous"][event]["bytes"]} bytes)', flush=True)
+          (root / 'downloads.json').write_text(json.dumps(log, sort_keys=True, indent=2) + '\n')
+          print(f'Validated {len(records)} previous PDNs plus 2 candidate copies')
+          PY
+      - name: Run FMJD legal replay, archive FEN and whole-game independence gate
+        run: |
+          set -euo pipefail
+          cd dilf
+          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py
+          python -m research.mtdp.jass_benchmark.prospective_candidate_replay \
+            --root . \
+            --pdn /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
+            --history /tmp/mtdp-independent/previous-pdn \
+            --output /tmp/mtdp-independent/candidate-replay.json
+          echo 'No Scan scores or retrospective winners used; this report is NOT a scientific freeze.'
+      - name: Preserve all input provenance and prospective replay diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          path: /tmp/mtdp-independent/
+          retention-days: 30
+          if-no-files-found: warn
