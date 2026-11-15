@@ -10,6 +10,9 @@ on:
       - 'research/mtdp/jass_preflight/targets.cmake'
       - 'research/mtdp/jass_benchmark/metered_probe_adapter.py'
       - 'research/mtdp/jass_benchmark/metered_engine_smoke.py'
+      - 'research/mtdp/jass_benchmark/metered_archive_gate.py'
+      - 'research/mtdp/tests/test_metered_archive_gate.py'
+      - 'research/mtdp/tests/test_metered_engine_smoke.py'
       - 'research/mtdp/tests/test_metered_probe_adapter.py'
       - '.github/workflows/mtdp-metered-probe.yml'
   workflow_dispatch:
@@ -129,3 +132,78 @@ jobs:
             --main-runner /tmp/mtdp-main-build/mtdp_jass_benchmark \
             --fen "W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20" \
             --total-nodes 10000 --prefix 31-26
+
+      - name: Frozen source-only engineering preflight across five arenas
+        env:
+          JASS_TRACE_ROOT: '0'
+        run: |
+          set -euo pipefail
+          cd dilf
+          replication=research/mtdp/jass_benchmark/spatial-jass/replication
+          mkdir -p /tmp/mtdp-archive-gate/diagnostic
+          for event in uG0fGZzB l45uk39x GYEtKzUg MtDQWBNR CARZrQpl; do
+            python -m research.mtdp.jass_benchmark.metered_archive_gate \
+              --replication "$replication" --arena "$event" --budget 10000 \
+              --diagnostic-limit 1 \
+              --probe-runner /tmp/mtdp-metered-build/mtdp_jass_metered_probe \
+              --main-runner /tmp/mtdp-main-build/mtdp_jass_benchmark \
+              --output "/tmp/mtdp-archive-gate/diagnostic/$event.json"
+          done
+
+      - name: Five frozen arenas, real equal-compute 10k/50k/200k
+        timeout-minutes: 90
+        env:
+          JASS_TRACE_ROOT: '0'
+        run: |
+          set -euo pipefail
+          cd dilf
+          replication=research/mtdp/jass_benchmark/spatial-jass/replication
+          for budget in 10000 50000 200000; do
+            mkdir -p "/tmp/mtdp-archive-gate/$budget"
+            for event in uG0fGZzB l45uk39x GYEtKzUg MtDQWBNR CARZrQpl; do
+              python -m research.mtdp.jass_benchmark.metered_archive_gate \
+                --replication "$replication" --arena "$event" --budget "$budget" \
+                --probe-runner /tmp/mtdp-metered-build/mtdp_jass_metered_probe \
+                --main-runner /tmp/mtdp-main-build/mtdp_jass_benchmark \
+                --output "/tmp/mtdp-archive-gate/$budget/$event.json"
+            done
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path("/tmp/mtdp-archive-gate")
+          events = ("uG0fGZzB", "l45uk39x", "GYEtKzUg", "MtDQWBNR", "CARZrQpl")
+          expected = {"uG0fGZzB": 25, "l45uk39x": 12, "GYEtKzUg": 55,
+                      "MtDQWBNR": 33, "CARZrQpl": 348}
+          cohorts = []
+          for budget in (10000, 50000, 200000):
+              population = set()
+              count = 0
+              for event in events:
+                  packet = json.loads((root / str(budget) / f"{event}.json").read_text())
+                  rows = packet["positions"]
+                  assert packet["full_arena"] and len(rows) == expected[event]
+                  assert packet["summary"]["all_paired_comparable"] is True
+                  keys = {(row["event"], row["fen"]) for row in rows}
+                  assert len(keys) == len(rows) and not keys & population
+                  assert all(row["budget"] == budget and row["paired_comparable"]
+                             and row["verification_nodes"] + row["main_nodes"] == budget
+                             and row["verification_nodes"] <= budget // 10
+                             for row in rows)
+                  population.update(keys)
+                  count += len(rows)
+              assert count == len(population) == 473
+              cohorts.append(population)
+              print(f"Frozen technical-only cohort: {count} paired positions at {budget:,} nodes")
+          assert cohorts[0] == cohorts[1] == cohorts[2]
+          print("Frozen identities match at all three equal-compute budgets")
+          PY
+
+      - name: Preserve frozen technical gate receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-metered-archive-technical-gate
+          path: /tmp/mtdp-archive-gate/
+          retention-days: 30
+          if-no-files-found: warn
