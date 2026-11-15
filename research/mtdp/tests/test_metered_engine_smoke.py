@@ -73,3 +73,31 @@ def test_invalid_prefix_rejected_before_main(monkeypatch):
         metered_engine_smoke.technical_smoke(
             None, None, "fen", total_nodes=10_000, prefix=["illegal"])
     assert not any(entry[0] == "main" for entry in calls)
+
+
+def test_king_first_archived_fen_matches_jass_men_first_canonicalization():
+    from research.mtdp.jass_benchmark.metered_engine_smoke import _position_identity
+    archive = "B:WK2,25,35,40,48:B15,37"
+    canonical = "B:W25,35,40,48,K2:B15,37"
+    assert _position_identity(archive) == _position_identity(canonical)
+
+
+@pytest.mark.parametrize("altered", [
+    "W:W25,35,40,48,K2:B15,37",  # changed side to move
+    "B:W2,25,35,40,48:B15,37",  # king demoted
+    "B:W25,35,40,48,K3:B15,37",  # king moved
+    "B:W25,35,40,48,K2:B15,38",  # opponent moved
+])
+def test_fen_identity_rejects_semantic_changes(altered):
+    from research.mtdp.jass_benchmark.metered_engine_smoke import _position_identity
+    assert _position_identity(altered) != _position_identity("B:WK2,25,35,40,48:B15,37")
+
+
+@pytest.mark.parametrize("malformed", [
+    "B:W25,25:B15", "B:WK51,25:B15", "B:W0:B15",
+    "B:W25:BK25", "B:W25:B15,15", "B:W25:B1x",
+])
+def test_fen_identity_rejects_duplicate_or_invalid_squares(malformed):
+    from research.mtdp.jass_benchmark.metered_engine_smoke import _position_identity
+    with pytest.raises(ValueError):
+        _position_identity(malformed)
