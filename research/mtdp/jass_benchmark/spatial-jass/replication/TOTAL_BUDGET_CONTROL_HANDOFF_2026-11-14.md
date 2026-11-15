@@ -18,7 +18,7 @@ node budget, not another retrospective replay with uncharged verification.
   Every measured preliminary/probe node is still charged. The main search
   receives all remaining nodes, also on fallback. A depth-ceiling exception
   is explicitly excluded from the complete-budget comparison.
-- `research/mtdp/tests/test_metered_control.py` has 17 locally passing
+- `research/mtdp/tests/test_metered_control.py` has dedicated
   simulated-engine cases, including negative receipts and a preliminary
   search that stops without a usable winner.
 - The module is a **callback contract only**. It is *not connected to the
@@ -63,3 +63,40 @@ cost: 50.95 million nodes. At a 10% cap, the depth-one historical lower
 bound alone exceeds the cap on 65/473 targets at 10k; at 50k and 200k,
 depth-one cost alone is inconclusive. There is no successful prospective
 equal-compute or strength result yet.
+
+## 15 November update — opt-in Jass first-root integration
+
+- A new research-only patch `jass_preflight/first-root-action.patch` adds
+  `SearchLimits::research_first_root_action_only` to the **pinned** Jass
+  `cfe07fce`. Its default is `false`; production code paths are unaffected.
+  It rejects non-depth-one, multi-thread or non-exact-node invocations, and
+  stops at the first root action. Root catalogue and true search accounting
+  are retained in the existing `SearchDecisionTrace`.
+- `jass_preflight/metered_probe.cpp` compiles as the isolated
+  `mtdp_jass_metered_probe` executable. Input is
+  `preliminary|probe FEN hard_node_cap [ordered_root_keys]`; one call builds
+  a **fresh** transposition table and emits `mtdp-probe-v1` TSV including
+  issued cap, measured nodes, visited and legal root actions, exactness bound,
+  full window and live native move order. In probe mode, exactly the first
+  requested legal action is visited; it never reads archived native winners.
+- GitHub Actions
+  [first executable smoke](https://github.com/jfrancoiscollin/dilf/actions/runs/43693357113)
+  passed patch application, the native C++ build, the complete pinned Jass
+  CTest suite and real depth-one searches. On the standard starting position
+  the 200k-node-limit preliminary depth-one search used **30 nodes** to visit
+  nine legal actions, and a one-action probe used **6 nodes**. Those are
+  **fixture diagnostics**, not a cohort estimate or strength result.
+- The strict Python adapter `jass_benchmark/metered_probe_adapter.py`
+  verifies the exact TSV receipt schema, legal order, root count, limit,
+  completion, full-window bound, and proposed action. A first parser
+  integration run exposed the engine's mixed-case enum bound label; this was
+  corrected by case-normalizing the label only and adding regression tests.
+  The final CI of the fix must be checked before certifying integration.
+
+**Remaining gate:** Connect the actual preliminary/probe callbacks to
+`metered_control.execute`, then run a *real* initial-only **main Jass replay**
+with the remaining node limit and no reused TT. Verify the nonintervention
+baseline plus forced-tie C++ patch on the *same pinned engine revision and
+build flags*. Reject any case where the trace, root order, bound, node totals
+or completeness differ. This isolated smoke test is not yet the prospective
+473-position engineering check, nor a new independent held-out comparison.
