@@ -86,8 +86,18 @@ def technical_smoke(probe_binary: Path, main_binary: Path,
         return main_search(main_binary, fen, prefix, forced, limit, native)
     report = execute(total_nodes=total_nodes, native_order=native,
                      preliminary=preliminary, probe=probe, main=main)
+    # Paired equal-total-node controls: fresh independent searches, not
+    # another intervention or additional nodes charged to the treatment.
+    baseline_native = main_search(main_binary, fen, [], None, total_nodes, native)
+    baseline_lcb = main_search(main_binary, fen, prefix, None, total_nodes, native)
+    complete_controls = (
+        not baseline_native["depth_ceiling"] and baseline_native["nodes"] == total_nodes
+        and not baseline_lcb["depth_ceiling"] and baseline_lcb["nodes"] == total_nodes
+    )
     return {**report, "native_legal_actions": len(native),
             "preliminary_nodes": initial["nodes"],
+            "native_baseline": baseline_native, "lcb_baseline": baseline_lcb,
+            "paired_comparable": report["complete_budget"] and complete_controls,
             "scope": "technical_engineering_smoke_not_strength_evidence"}
 
 
