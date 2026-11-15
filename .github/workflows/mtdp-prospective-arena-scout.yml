@@ -17,7 +17,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Only acquire when the scout protocol changes
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = workflow_dispatch ] ||
+             git diff --name-only HEAD^ HEAD | grep -Fxq '.github/workflows/mtdp-prospective-arena-scout.yml'; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Read-only candidate evidence already pinned; no new acquisition needed."
+          fi
       - name: Snapshot current candidate metadata and listing
+        if: steps.gate.outputs.run == 'true'
         run: |
           set -euo pipefail
           mkdir -p /tmp/mtdp-scout
@@ -32,6 +45,7 @@ jobs:
             -o /tmp/mtdp-scout/candidate-detail.json || true
 
       - name: Verify completion, 5+0 rules and independently fetched exports
+        if: steps.gate.outputs.run == 'true'
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -136,7 +150,7 @@ jobs:
           PY
 
       - name: Preserve read-only input evidence
-        if: always()
+        if: steps.gate.outputs.run == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: mtdp-prospective-candidate-raw-evidence
