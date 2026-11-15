@@ -98,8 +98,10 @@ def record_probe_nodes(total_nodes: int, spent_verification: int,
 
 
 def audit_probe_sequence(total_nodes: int,
-                         probes: list[tuple[int, int]]) -> dict[str, int]:
+                         probes: list[tuple[int, int] | list[int]]) -> dict[str, int]:
     """Replay ordered (issued_limit, measured_nodes) receipts without Jass.
+
+    Accept tuple pairs in Python and list pairs from JSON/JSONL round-trips.
 
     Each receipt is checked against the *remaining* 10% allowance, so a
     previously valid standalone probe cannot be reused after the cap is spent.
@@ -109,7 +111,7 @@ def audit_probe_sequence(total_nodes: int,
     if type(probes) is not list:
         raise ValueError("Probe sequence must be a list")
     for receipt in probes:
-        if (type(receipt) is not tuple or len(receipt) != 2):
+        if (type(receipt) not in (tuple, list) or len(receipt) != 2):
             raise ValueError("Each probe receipt must be a (limit, nodes) tuple")
         issued, measured = receipt
         spent = record_probe_nodes(total_nodes, spent, issued, measured)
