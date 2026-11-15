@@ -82,8 +82,11 @@ def technical_smoke(probe_binary: Path, main_binary: Path,
     def probe(move, limit):
         return run_depth_one(probe_binary, fen, mode="probe", limit=limit,
                              prefix=[move], expected_legal_order=native)
+    controlled_main_receipt = {}
     def main(forced, limit):
-        return main_search(main_binary, fen, prefix, forced, limit, native)
+        receipt = main_search(main_binary, fen, prefix, forced, limit, native)
+        controlled_main_receipt.update(receipt)
+        return receipt
     report = execute(total_nodes=total_nodes, native_order=native,
                      preliminary=preliminary, probe=probe, main=main)
     # Paired equal-total-node controls: fresh independent searches, not
@@ -96,6 +99,7 @@ def technical_smoke(probe_binary: Path, main_binary: Path,
     )
     return {**report, "native_legal_actions": len(native),
             "preliminary_nodes": initial["nodes"],
+            "control_main": controlled_main_receipt,
             "native_baseline": baseline_native, "lcb_baseline": baseline_lcb,
             "paired_comparable": report["complete_budget"] and complete_controls,
             "scope": "technical_engineering_smoke_not_strength_evidence"}
