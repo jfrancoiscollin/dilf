@@ -113,7 +113,7 @@ def test_main_search_rejects_nonlegal_reported_winner(monkeypatch, tmp_path, bes
               "unused", "unused", "31-26,31-27", "31-26,31-27", "1:complete"]
 
     def fake_run(*args, **kwargs):
-        return CompletedProcess(args[0], 0, "\\t".join(fields) + "\\n", "")
+        return CompletedProcess(args[0], 0, "\t".join(fields) + "\n", "")
 
     monkeypatch.setattr(metered_engine_smoke.subprocess, "run", fake_run)
     with pytest.raises(ValueError, match="best move outside the legal catalogue"):
