@@ -9,6 +9,7 @@ on:
       - 'research/mtdp/jass_preflight/metered_probe.cpp'
       - 'research/mtdp/jass_preflight/targets.cmake'
       - 'research/mtdp/jass_benchmark/metered_probe_adapter.py'
+      - 'research/mtdp/jass_benchmark/metered_engine_smoke.py'
       - 'research/mtdp/tests/test_metered_probe_adapter.py'
       - '.github/workflows/mtdp-metered-probe.yml'
   workflow_dispatch:
@@ -94,3 +95,37 @@ jobs:
           assert probe["nodes"] > 0 and probe["nodes"] <= 200000
           print("Parsed independent full-window metered Jass receipts")
           PY
+
+      - name: Check out second pinned Jass for main search
+        uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/jass
+          ref: cfe07fce6385b980553a898e9651d53419589ebc
+          path: jass-main
+
+      - name: Apply initial-only and winner patches to disposable main engine
+        run: |
+          set -euo pipefail
+          patches="$GITHUB_WORKSPACE/dilf/research/mtdp/jass_preflight"
+          git -C jass-main apply --check "$patches/initial-only.patch"
+          git -C jass-main apply "$patches/initial-only.patch"
+          git -C jass-main apply --check "$patches/depth-one-winner.patch"
+          git -C jass-main apply "$patches/depth-one-winner.patch"
+          git -C jass-main diff --check
+
+      - name: Build second pinned Jass and run actual equal-total-node smoke
+        env:
+          JASS_TRACE_ROOT: '0'
+        run: |
+          set -euo pipefail
+          cmake -S jass-main -B /tmp/mtdp-main-build -DCMAKE_BUILD_TYPE=Release \
+            -DJASS_ENABLE_SIMD=OFF -DJASS_NATIVE=OFF \
+            -DMTDP_JASS_INITIAL_ONLY=ON \
+            -DCMAKE_PROJECT_jass_INCLUDE="$GITHUB_WORKSPACE/dilf/research/mtdp/jass_preflight/targets.cmake"
+          cmake --build /tmp/mtdp-main-build --target mtdp_jass_benchmark -j 2
+          cd dilf
+          python -m research.mtdp.jass_benchmark.metered_engine_smoke \
+            --probe-runner /tmp/mtdp-metered-build/mtdp_jass_metered_probe \
+            --main-runner /tmp/mtdp-main-build/mtdp_jass_benchmark \
+            --fen "W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20" \
+            --total-nodes 10000 --prefix 31-26
