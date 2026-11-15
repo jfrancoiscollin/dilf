@@ -28,9 +28,12 @@ def fake_engine(monkeypatch, *, incomplete=False):
     def main(_binary, _fen, _prefix, forced, limit, live):
         calls.append(("main", limit, forced))
         assert live == native
-        assert limit == (9000 if incomplete else 9540)
-        assert forced == (None if incomplete else "a")
-        return {"nodes": limit, "depth_ceiling": False}
+        if limit == 10_000:
+            assert forced is None
+        else:
+            assert limit == (9000 if incomplete else 9540)
+            assert forced == (None if incomplete else "a")
+        return {"nodes": limit, "depth_ceiling": False, "best_move": "a", "stop": "nodes"}
 
     monkeypatch.setattr(metered_engine_smoke, "run_depth_one", replay)
     monkeypatch.setattr(metered_engine_smoke, "main_search", main)
@@ -45,7 +48,7 @@ def test_real_callback_contract_accounts_for_verification_exactly_once(monkeypat
     assert result["intervention"] == "a"
     assert result["verification_nodes"] == 460
     assert result["main_nodes"] == 9540
-    assert result["complete_budget"] is True
+    assert result["complete_budget"] is True\n    assert result["paired_comparable"] is True\n    assert result["native_baseline"]["nodes"] == 10_000\n    assert result["lcb_baseline"]["nodes"] == 10_000
     assert [entry[0] for entry in calls].count("preliminary") == 1
     assert [entry[0] for entry in calls].count("probe") == 3
 
@@ -57,7 +60,7 @@ def test_incomplete_preflight_falls_back_and_spends_full_remaining_nodes(monkeyp
     assert result["decision_reason"] == "preliminary_incomplete_or_bounded"
     assert result["intervention"] is None
     assert result["verification_nodes"] + result["main_nodes"] == 10_000
-    assert not any(entry[0] == "probe" for entry in calls)
+    assert not any(entry[0] == "probe" for entry in calls)\n    assert result["paired_comparable"] is True
 
 
 def test_invalid_prefix_rejected_before_main(monkeypatch):
