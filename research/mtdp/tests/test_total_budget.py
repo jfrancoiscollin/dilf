@@ -131,7 +131,7 @@ def test_ordered_probe_audit_does_not_pool_caps_or_reuse_spent_budget():
         audit_probe_sequence(10_000, [(1_000, 900), (200, 101)])
 
 
-@pytest.mark.parametrize("bad", [None, (), [(100,)], [[100, 50]], [(True, 0)],
+@pytest.mark.parametrize("bad", [None, (), [(100,)], [[100]], [(True, 0)],
                                      [(100, True)], [(100, 101)]])
 def test_ordered_probe_audit_rejects_malformed_receipts(bad):
     from research.mtdp.jass_benchmark.total_budget import audit_probe_sequence
@@ -271,3 +271,15 @@ def test_raw_paired_audit_requires_explicit_ceiling_and_valid_probes():
         audit_paired_raw_searches(10_000, {"a": full}, {
             "a": {"probes": [(1_001, 1)], "main_nodes": 9_999,
                   "depth_ceiling": False}})
+
+
+def test_raw_paired_audit_accepts_json_roundtrip_receipts():
+    import json
+    from research.mtdp.jass_benchmark.total_budget import audit_paired_raw_searches
+    raw = {"probes": [(100, 80)], "main_nodes": 9_920, "depth_ceiling": False}
+    restored = json.loads(json.dumps({"position:a": raw}))
+    assert restored["position:a"]["probes"] == [[100, 80]]
+    assert audit_paired_raw_searches(10_000, restored, restored) == {
+        "positions": 1, "paired_comparable": 1,
+        "paired_excluded": 0, "all_pairs_comparable": True,
+    }
