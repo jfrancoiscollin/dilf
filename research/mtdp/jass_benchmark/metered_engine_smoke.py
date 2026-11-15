@@ -18,6 +18,36 @@ from research.mtdp.jass_benchmark.metered_probe_adapter import run_depth_one
 from research.mtdp.jass_benchmark.total_budget import verification_cap
 
 
+def _position_identity(fen: str) -> tuple:
+    """Canonical FMJD piece identity, independent of king/list ordering.
+
+    Jass serializes men before kings, whereas frozen PDNs may put a king
+    first. This accepts formatting differences ONLY when every exact side,
+    occupied square and man/king identity matches.
+    """
+    fields = fen.split(":")
+    if len(fields) != 3 or fields[0] not in ("W", "B"):
+        raise ValueError("Invalid metered position FEN")
+    pieces = []
+    occupied = set()
+    for tag, field in zip(("W", "B"), fields[1:], strict=True):
+        if not field.startswith(tag):
+            raise ValueError("Invalid metered FEN colour order")
+        parsed = []
+        for token in (field[1:].split(",") if len(field) > 1 else []):
+            king = token.startswith("K")
+            square_text = token[1:] if king else token
+            if (not square_text.isdigit() or str(int(square_text)) != square_text):
+                raise ValueError("Invalid metered FEN square")
+            square = int(square_text)
+            if square < 1 or square > 50 or square in occupied:
+                raise ValueError("Duplicate or out-of-range metered FEN square")
+            occupied.add(square)
+            parsed.append((square, king))
+        pieces.append(tuple(sorted(parsed)))
+    return fields[0], *pieces
+
+
 def main_search(binary: Path, fen: str, prefix: Sequence[str],
                 forced: str | None, limit: int, native_order: Sequence[str]) -> dict:
     if type(limit) is not int or limit <= 0:
@@ -37,7 +67,7 @@ def main_search(binary: Path, fen: str, prefix: Sequence[str],
     if len(rows) != 1:
         raise ValueError("Main Jass runner returned multiple or missing receipts")
     values = rows[0].split("\t")
-    if len(values) < 12 or values[0] != fen:
+    if len(values) < 12 or _position_identity(values[0]) != _position_identity(fen):
         observed = values[0] if values else None
         raise ValueError(
             f"Malformed main Jass root receipt: requested={fen!r} "
