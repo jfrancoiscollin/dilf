@@ -111,7 +111,7 @@ def test_probe_receipt_must_be_measured_and_within_issued_limit(measured):
 
 def test_probe_receipt_cannot_spend_after_cap_exhaustion():
     from research.mtdp.jass_benchmark.total_budget import record_probe_nodes
-    with pytest.raises(ValueError, match="Probe receipt"):
+    with pytest.raises(ValueError, match="Issued probe limit exceeds remaining verification allowance"):
         record_probe_nodes(10_000, 1_000, 100, 1)
 
 
