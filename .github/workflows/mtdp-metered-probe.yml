@@ -107,10 +107,10 @@ jobs:
         run: |
           set -euo pipefail
           patches="$GITHUB_WORKSPACE/dilf/research/mtdp/jass_preflight"
-          git -C jass-main apply --check "$patches/initial-only.patch"
-          git -C jass-main apply "$patches/initial-only.patch"
-          git -C jass-main apply --check "$patches/depth-one-winner.patch"
-          git -C jass-main apply "$patches/depth-one-winner.patch"
+          git -C jass-main apply --unidiff-zero --check "$patches/initial-only.patch"
+          git -C jass-main apply --unidiff-zero "$patches/initial-only.patch"
+          git -C jass-main apply --unidiff-zero --check "$patches/depth-one-winner.patch"
+          git -C jass-main apply --unidiff-zero "$patches/depth-one-winner.patch"
           git -C jass-main diff --check
 
       - name: Build second pinned Jass and run actual equal-total-node smoke
