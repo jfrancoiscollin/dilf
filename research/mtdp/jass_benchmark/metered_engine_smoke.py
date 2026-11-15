@@ -92,6 +92,8 @@ def main_search(binary: Path, fen: str, prefix: Sequence[str],
         raise ValueError("Main Jass search did not complete the first depth")
     if forced is not None and forced not in legal:
         raise ValueError("Main Jass forced an illegal move")
+    if values[5] not in legal:
+        raise ValueError("Main Jass returned a best move outside the legal catalogue")
     return {"nodes": nodes, "depth_ceiling": reason == "depth_ceiling",
             "best_move": values[5], "score": int(values[6]),
             "completed_depth": completed_depth, "stop": reason}
