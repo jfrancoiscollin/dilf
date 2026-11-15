@@ -8,6 +8,8 @@ on:
       - 'research/mtdp/jass_preflight/first-root-action.patch'
       - 'research/mtdp/jass_preflight/metered_probe.cpp'
       - 'research/mtdp/jass_preflight/targets.cmake'
+      - 'research/mtdp/jass_benchmark/metered_probe_adapter.py'
+      - 'research/mtdp/tests/test_metered_probe_adapter.py'
       - '.github/workflows/mtdp-metered-probe.yml'
   workflow_dispatch:
 
