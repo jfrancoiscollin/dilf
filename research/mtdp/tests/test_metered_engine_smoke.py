@@ -48,7 +48,10 @@ def test_real_callback_contract_accounts_for_verification_exactly_once(monkeypat
     assert result["intervention"] == "a"
     assert result["verification_nodes"] == 460
     assert result["main_nodes"] == 9540
-    assert result["complete_budget"] is True\n    assert result["paired_comparable"] is True\n    assert result["native_baseline"]["nodes"] == 10_000\n    assert result["lcb_baseline"]["nodes"] == 10_000
+    assert result["complete_budget"] is True
+    assert result["paired_comparable"] is True
+    assert result["native_baseline"]["nodes"] == 10_000
+    assert result["lcb_baseline"]["nodes"] == 10_000
     assert [entry[0] for entry in calls].count("preliminary") == 1
     assert [entry[0] for entry in calls].count("probe") == 3
 
@@ -60,7 +63,8 @@ def test_incomplete_preflight_falls_back_and_spends_full_remaining_nodes(monkeyp
     assert result["decision_reason"] == "preliminary_incomplete_or_bounded"
     assert result["intervention"] is None
     assert result["verification_nodes"] + result["main_nodes"] == 10_000
-    assert not any(entry[0] == "probe" for entry in calls)\n    assert result["paired_comparable"] is True
+    assert not any(entry[0] == "probe" for entry in calls)
+    assert result["paired_comparable"] is True
 
 
 def test_invalid_prefix_rejected_before_main(monkeypatch):
