@@ -78,3 +78,17 @@ jobs:
           assert bad.returncode != 0, bad.stdout
           print("Pinned Jass real search probe:", records)
           PY
+          cd dilf
+          python - <<'PY'
+          from pathlib import Path
+          from research.mtdp.jass_benchmark.metered_probe_adapter import run_depth_one
+          fen = "W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          exe = Path("/tmp/mtdp-metered-build/mtdp_jass_metered_probe")
+          preliminary = run_depth_one(exe, fen, mode="preliminary", limit=200000, prefix=["31-26"])
+          probe = run_depth_one(exe, fen, mode="probe", limit=200000,
+                                prefix=["31-26"], expected_legal_order=preliminary["native_order"])
+          assert preliminary["completed"] and probe["completed"]
+          assert probe["move"] == "31-26" and probe["score"] is not None
+          assert probe["nodes"] > 0 and probe["nodes"] <= 200000
+          print("Parsed independent full-window metered Jass receipts")
+          PY
