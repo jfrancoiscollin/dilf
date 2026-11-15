@@ -85,3 +85,10 @@ def test_probe_must_not_accept_nonpositive_or_boolean_issued_budget():
     for bad in (0, -1, True, 1.0):
         with pytest.raises(ValueError, match="issued"):
             receipt(limit=bad)
+
+
+@pytest.mark.parametrize("label", ["EXACT", "Exact", "exact"])
+def test_engine_bound_label_case_is_normalized(label):
+    values = list(FIELDS)
+    values[10] = label
+    assert receipt(values)["bound"] == "exact"
