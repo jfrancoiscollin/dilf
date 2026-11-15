@@ -106,10 +106,16 @@ def run(replication: Path, event: str, budget: int,
         selection = selection[:diagnostic_limit]
     receipts = []
     for item in selection:
-        outcome = technical_smoke(
-            probe_binary, main_binary, item["target_fen"],
-            total_nodes=budget, prefix=item["prefix"],
-        )
+        try:
+            outcome = technical_smoke(
+                probe_binary, main_binary, item["target_fen"],
+                total_nodes=budget, prefix=item["prefix"],
+            )
+        except Exception as error:
+            raise RuntimeError(
+                f"Archived engineering gate halted: event={event} "
+                f"budget={budget} target_fen={item['target_fen']}"
+            ) from error
         if (outcome["native_legal_actions"] != item["legal_count"]
                 or not outcome["paired_comparable"]
                 or outcome["verification_nodes"] > budget // 10
