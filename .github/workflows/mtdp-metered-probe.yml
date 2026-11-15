@@ -150,6 +150,30 @@ jobs:
               --output "/tmp/mtdp-archive-gate/diagnostic/$event.json"
           done
 
+      - name: Validate archived kings against Jass canonical piece identity
+        env:
+          JASS_TRACE_ROOT: '0'
+        run: |
+          set -euo pipefail
+          cd dilf
+          python - <<'PY'
+          from pathlib import Path
+          from research.mtdp.jass_benchmark.metered_archive_gate import read_frozen_arena
+          from research.mtdp.jass_benchmark.metered_engine_smoke import technical_smoke
+          root = Path("research/mtdp/jass_benchmark/spatial-jass/replication")
+          _, cases, _ = read_frozen_arena(root, "CARZrQpl")
+          kings = [case for case in cases if "K" in case["target_fen"]]
+          assert len(kings) == 4, "Archived king cohort changed"
+          for case in kings:
+              result = technical_smoke(
+                  Path("/tmp/mtdp-metered-build/mtdp_jass_metered_probe"),
+                  Path("/tmp/mtdp-main-build/mtdp_jass_benchmark"),
+                  case["target_fen"], total_nodes=10000, prefix=case["prefix"],
+              )
+              assert result["paired_comparable"], case["target_fen"]
+          print("All four frozen king positions accepted with identical board identity")
+          PY
+
       - name: Five frozen arenas, real equal-compute 10k/50k/200k
         timeout-minutes: 90
         env:
