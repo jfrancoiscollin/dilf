@@ -1,0 +1,57 @@
+diff --git a/src/search.hpp b/src/search.hpp
+--- a/src/search.hpp
++++ b/src/search.hpp
+@@ -248,7 +248,10 @@
+     // Diagnostic-only root ordering schedule. Format:
+     // "1:31-26,31-27;2:31-27,31-26". Every depth must list every
+     // legal root move exactly once. Empty preserves production ordering.
+-    std::string root_order_schedule;
++    std::string root_order_schedule;
++    // Isolated research probe: evaluate just the first root action at depth 1.
++    // Production search never activates this opt-in flag.
++    bool research_first_root_action_only = false;
+ };
+ 
+ struct SearchResult {
+diff --git a/src/search.cpp b/src/search.cpp
+--- a/src/search.cpp
++++ b/src/search.cpp
+@@ -24,7 +24,8 @@
+ #include <chrono>
+ #include <cmath>
+ #include <iostream>
+-#include <sstream>
++#include <sstream>
++#include <stdexcept>
+ #include <string>
+ #include <string_view>
+ #include <thread>
+@@ -1590,8 +1590,14 @@
+ SearchResult search(const Position& pos, const SearchLimits& limits,
+                     TranspositionTable& tt,
+                     const std::vector<ZobristHash>& game_history) {
+-    SearchResult res;
+-    breakdown_reset();
++    SearchResult res;
++    if (limits.research_first_root_action_only
++        && (limits.max_depth != 1 || limits.threads != 1
++            || limits.node_limit_mode != NodeLimitMode::Exact
++            || limits.max_nodes == 0 || !limits.search_decision_trace)) {
++        throw std::invalid_argument("Research first-root probe requires depth=1, one thread, exact node cap and trace");
++    }
++    breakdown_reset();
+     if (limits.search_decision_trace) {
+         *limits.search_decision_trace = SearchDecisionTrace{};
+     }
+@@ -1884,7 +1884,10 @@
+                      << " cutoff=" << (cur_alpha >= beta ? 1 : 0);
+                 emit_root_trace(line.str());
+             }
+-            if (cur_alpha >= beta) break;  // beta cut-off (narrow window)
++            if (cur_alpha >= beta) break;  // beta cut-off (narrow window)
++            // Research-only first-action probe; the other legal root actions
++            // remain in the trace catalogue but are not searched or scored.
++            if (limits.research_first_root_action_only) break;
+         }
+         if (root_trace_enabled()) {
+             std::ostringstream line;
