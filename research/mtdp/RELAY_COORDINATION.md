@@ -532,3 +532,33 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   Aucun score sur les nouveaux lots. Le relevé a confirmé deux gels
   et les créneaux déjà archivés. **Prochaine action :** vérifier le
   premier export 5+0 indépendant achevé, puis publier le troisième gel.
+
+- 2026-11-15 08:28 UTC — Integration technique à budget **total** égal
+  publiée sur la branche `research/mtdp-foundation` (PR #43, toujours
+  brouillon). Le patch Jass opt-in `jass_preflight/first-root-action.patch`
+  a compilé sur le commit épinglé `cfe07fce`, de même que le runner
+  `mtdp_jass_metered_probe` et le runner principal initial-only avec son
+  patch d'intervention. [GitHub Actions](https://github.com/jfrancoiscollin/dilf/actions/runs/43694555622)
+  a exécuté une comparaison technique réelle à trois bras sur la **seule
+  position initiale**, avec 9 coups légaux et 10 000 nœuds par bras :
+  vérification MTDP = 100 nœuds (30 préliminaires + 70 sondes), recherche
+  principale = 9 900 ; natif = 10 000 ; LCB inchangé = 10 000.
+  `paired_comparable=true`, aucun dépassement et pas d'intervention
+  (meilleur score unique). Les deux témoins terminent sur `32-27`.
+  **Ceci valide la mécanique et la comptabilité sur une fixture, pas la
+  force de jeu ni le benchmark prospectif.** Le parseur des reçus C++ est
+  vérifié contre de vraies sorties ; une différence de casse de l'enum
+  `Exact` a été corrigée. Le nouveau script
+  `research/mtdp/jass_benchmark/metered_engine_smoke.py` peut reproduire
+  ce test après compilation des deux exécutables. Le patch et le runner
+  utilisent des checkouts jetables du même commit Jass ; aucune
+  modification de production.
+
+  **Prochaine action :** faire passer les tests Python du dernier commit
+  (un défaut d'échappement dans un nouveau test a été corrigé), puis
+  réaliser une **validation technique** du nouveau moteur sur les 473
+  positions gelées (fonds et coûts par position, retombées de 10 %, reçus
+  indépendants), sans prétendre à un nouveau holdout ; enfin geler une
+  nouvelle arène admissible avant le calcul Scan cible et le benchmark
+  prospectif à 10k/50k/200k sur les mêmes positions, contrôle vs natif/LCB
+  et intervalle par partie.
