@@ -179,3 +179,36 @@ def audit_paired_searches(
         "paired_excluded": len(baseline) - paired,
         "all_pairs_comparable": paired == len(baseline),
     }
+
+
+def audit_paired_raw_searches(
+    total_nodes: int,
+    baseline: dict[str, dict],
+    treatment: dict[str, dict],
+) -> dict[str, int | bool]:
+    """Recompute every paired receipt from raw metered probe/main records.
+
+    Unlike audit_paired_searches, this entry point does not trust a caller's
+    precomputed 'comparable' flag or total. Each position requires probes,
+    main_nodes and an explicit depth_ceiling flag.
+    """
+    verification_cap(total_nodes)
+    if (type(baseline) is not dict or type(treatment) is not dict
+            or not baseline or baseline.keys() != treatment.keys()):
+        raise ValueError("Paired cohorts must have identical nonempty position IDs")
+    audited = []
+    for arm in (baseline, treatment):
+        receipts = {}
+        for position_id, raw in arm.items():
+            if type(position_id) is not str or not position_id:
+                raise ValueError("Position IDs must be nonempty strings")
+            if type(raw) is not dict or set(raw) != {
+                "probes", "main_nodes", "depth_ceiling"
+            }:
+                raise ValueError("Raw receipt must contain probes, main_nodes and depth_ceiling")
+            receipts[position_id] = audit_complete_search(
+                total_nodes, raw["probes"], raw["main_nodes"],
+                depth_ceiling=raw["depth_ceiling"],
+            )
+        audited.append(receipts)
+    return audit_paired_searches(total_nodes, audited[0], audited[1])
