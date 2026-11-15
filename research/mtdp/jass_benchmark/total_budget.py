@@ -119,3 +119,25 @@ def audit_probe_sequence(total_nodes: int,
         "verification_remaining": next_probe_limit(total_nodes, spent),
         "main_search_limit": main_search_limit(total_nodes, spent),
     }
+
+
+def audit_complete_search(total_nodes: int, probes: list[tuple[int, int]],
+                          main_nodes: int, *,
+                          depth_ceiling: bool = False) -> dict[str, int | bool]:
+    """Reconcile ordered verification receipts with a metered main search.
+
+    This is a post-run audit only; it does not invoke an engine. A complete
+    non-ceiling replay must consume the full position budget. Ceiling-limited
+    replays are explicitly marked non-comparable rather than silently passed.
+    """
+    verification = audit_probe_sequence(total_nodes, probes)
+    comparable = verify_receipt(
+        total_nodes, verification["verification_nodes"], main_nodes,
+        depth_ceiling=depth_ceiling,
+    )
+    return {
+        **verification,
+        "main_nodes": main_nodes,
+        "total_measured_nodes": verification["verification_nodes"] + main_nodes,
+        "comparable": comparable,
+    }
