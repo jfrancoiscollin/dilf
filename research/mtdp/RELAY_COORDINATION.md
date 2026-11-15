@@ -602,3 +602,42 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   retrospective archived cohort is only diagnostic, not prospective evidence.
   The final scientific efficacy test still requires a newly frozen,
   independent held-out arena under the preregistered protocol.
+
+- 2026-11-15 12:58 UTC — **Disposition définitive de l'audit archivé
+  à budget égal.** [Action #43709965786](https://github.com/jfrancoiscollin/dilf/actions/runs/43709965786)
+  passée sur `a4f252d`: 473 positions × 3 budgets (10k/50k/200k),
+  tous les reçus exacts, aucun dépassement ni fallback, 48 demandes
+  d'intervention, 97 égalités exactes (48 choix déplacés, 49 inchangés),
+  376 maxima uniques. Vérification moyenne 185,723 nœuds et maximum
+  422, donc 1,857 %/0,371 %/0,093 % des trois budgets. MTDP reprend
+  respectivement 467/472/473 coups natifs, contre 457/453/457 pour
+  LCB. Artefact Jass ID `14160023070`.
+  
+  [Analyse de qualité Scan16 rétrospective #43716022780](https://github.com/jfrancoiscollin/dilf/actions/runs/43716022780)
+  passée, artefact `14162397806`, aucune recherche Jass rejouée :
+  sur les 469 cas de regret ordinaire définis, à 10k **2 choix MTDP
+  meilleurs et 4 pires** que natif (+0,2516 centimen de regret moyen),
+  à 50k **0 meilleur et 1 pire** (+0,0149), à 200k mêmes 473 choix
+  que natif (0 écart). Les sept divergences de choix provenaient **toutes
+  de cas sans intervention de départage** : elles sont compatibles avec
+  le coût de vérification retranché du budget de recherche. L'amélioration
+  de la force de jeu est **non démontrée**. Voir
+  `jass_benchmark/spatial-jass/replication/REAL_NODE_METERED_ARCHIVE_VERDICT_2026-11-15.md`.
+  **Ne pas requalifier cet audit déjà vu en holdout scientifique.**
+  
+  Le contrôle préliminaire du nouveau candidat indépendant
+  `fFgE7oED` est réussi
+  [Action #43716538357](https://github.com/jfrancoiscollin/dilf/actions/runs/43716538357)
+  (ID artefact `14162552242`). Tournoi terminé en 5+0
+  standard, début **2026-11-14 11:00:00 UTC**. Deux PDN de 169 802
+  octets identiques, SHA256
+  `916639e4daf7fae419bd4a9bb4a3530ce62f3eb40ea97f7582762e6cebf68de2`.
+  Métadonnées et listings conservés. **Ce n'est pas encore un gel** :
+  vérifier le premier rang chronologique et les exclusions de toutes les
+  anciennes parties/FEN, rejouer les règles FMJD, figer les entrées
+  et hashes AVANT le Scan16. Voir
+  `jass_benchmark/spatial-jass/replication/METERED_PROSPECTIVE_CANDIDATE_CHECK_2026-11-15.md`.
+  N'exécuter le nouveau protocole prospectif que sur un échantillon
+  indépendant ainsi figé. Les deux automatismes MTDP existants peuvent
+  reprendre sur cette étape et ne doivent pas répéter les campagnes
+  archivées à 473×3 positions sans besoin de vérification.
