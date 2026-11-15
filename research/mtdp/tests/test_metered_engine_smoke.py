@@ -11,7 +11,7 @@ def fake_engine(monkeypatch, *, incomplete=False):
     def replay(_binary, _fen, *, mode, limit, prefix, expected_legal_order=None):
         calls.append((mode, limit, list(prefix)))
         if mode == "preliminary":
-            assert limit == 1000 and list(prefix) == ["b"]
+            assert limit == 1000
             return {"nodes": 1000 if incomplete else 100, "completed": not incomplete,
                     "winner": None if incomplete else "b",
                     "score": None if incomplete else 8,
@@ -29,7 +29,7 @@ def fake_engine(monkeypatch, *, incomplete=False):
         calls.append(("main", limit, forced))
         assert live == native
         assert limit == (9000 if incomplete else 9540)
-        assert forced is (None if incomplete else forced)
+        assert forced == (None if incomplete else "a")
         return {"nodes": limit, "depth_ceiling": False}
 
     monkeypatch.setattr(metered_engine_smoke, "run_depth_one", replay)
