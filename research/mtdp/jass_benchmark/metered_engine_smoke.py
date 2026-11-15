@@ -38,7 +38,12 @@ def main_search(binary: Path, fen: str, prefix: Sequence[str],
         raise ValueError("Main Jass runner returned multiple or missing receipts")
     values = rows[0].split("\t")
     if len(values) < 12 or values[0] != fen:
-        raise ValueError("Malformed main Jass root receipt")
+        observed = values[0] if values else None
+        raise ValueError(
+            f"Malformed main Jass root receipt: requested={fen!r} "
+            f"observed={observed!r} fields={len(values)} "
+            f"raw_prefix={rows[0][:150]!r}"
+        )
     try:
         issued, nodes, completed_depth = map(int, values[1:4])
     except ValueError as error:
