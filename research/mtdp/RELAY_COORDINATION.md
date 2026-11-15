@@ -562,3 +562,43 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   nouvelle arène admissible avant le calcul Scan cible et le benchmark
   prospectif à 10k/50k/200k sur les mêmes positions, contrôle vs natif/LCB
   et intervalle par partie.
+
+- 2026-11-15 — Real-node archived engineering cohort handoff (NOT an
+  independent scientific holdout). New reproducible
+  `research/mtdp/jass_benchmark/metered_archive_gate.py` reads all five
+  previously frozen arena manifests and **only Scan-12 source scores** to
+  reconstruct each frozen LCB prefix. It does **not** read Scan-16 target
+  scores, archived native winners, or reported strengths to select actions.
+  Checks include hashes of arena/source/provenance, legal catalogues,
+  independent preliminary depth-one probes, fresh main-table execution,
+  actual total-node costs of MTDP/native/LCB at 10k/50k/200k, and per-arena
+  and cross-budget identity preservation. Detailed JSON artifacts are uploaded
+  from `mtdp-metered-probe` GitHub Actions.
+  
+  First run [43697600464](https://github.com/jfrancoiscollin/dilf/actions/runs/43697600464)
+  validated **125 positions** in the first four independent archived arenas
+  at 10k: every MTDP/native/LCB pair comparable, 11 verified tie
+  interventions, 123/125 controlled final moves matching native versus
+  122/125 LCB final moves matching native; mean 208.096 verification nodes
+  per position (2.081% of 10k), all under the 10% cap. The fifth arena
+  stopped on a **textual FEN encoding difference** in
+  `B:WK2,25,35,40,48:B15,37`: Jass returned the equivalent
+  `B:W25,35,40,48,K2:B15,37`. This was traced to Jass writing men
+  before kings. `metered_engine_smoke._position_identity` now verifies
+  actual colour/square/king identities instead of comparing serialized text,
+  and rejects any true board discrepancy. Four archived king fixtures pass
+  the fixed pinned-engine technical preflight.
+  
+  The most recent long-running technical archive workflow is
+  [43698148848](https://github.com/jfrancoiscollin/dilf/actions/runs/43698148848)
+  on `e83647fa` (state **in progress at last check**). Python CI and
+  downstream compatibility both passed at that commit. The CI workflow now
+  uses a per-PR concurrency group to cancel superseded future heavy jobs.
+  **Do not claim 473-position or three-budget results before retrieving
+  final verified receipts.** If the archive run fails, inspect exact event,
+  budget and FEN and repair/re-run; if it completes, extract the per-arena
+  JSON artifacts and publish fallback/intervention costs and true paired
+  final-move comparisons. Any later Scan-16 outcome analysis of this
+  retrospective archived cohort is only diagnostic, not prospective evidence.
+  The final scientific efficacy test still requires a newly frozen,
+  independent held-out arena under the preregistered protocol.
