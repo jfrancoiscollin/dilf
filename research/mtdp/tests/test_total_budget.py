@@ -237,3 +237,37 @@ def test_paired_cohort_rejects_malformed_receipts(invalid):
             10_000, {"a": invalid},
             {"a": {"total_measured_nodes": 10_000, "comparable": True}},
         )
+
+
+def test_raw_paired_audit_recomputes_node_receipts():
+    from research.mtdp.jass_benchmark.total_budget import audit_paired_raw_searches
+    full = {"probes": [(100, 80)], "main_nodes": 9_920,
+            "depth_ceiling": False}
+    ceiling = {"probes": [], "main_nodes": 9_000,
+               "depth_ceiling": True}
+    assert audit_paired_raw_searches(
+        10_000, {"a": full, "b": full}, {"a": full, "b": ceiling}
+    ) == {
+        "positions": 2, "paired_comparable": 1,
+        "paired_excluded": 1, "all_pairs_comparable": False,
+    }
+
+
+def test_raw_paired_audit_rejects_fabricated_full_budget():
+    from research.mtdp.jass_benchmark.total_budget import audit_paired_raw_searches
+    full = {"probes": [], "main_nodes": 10_000, "depth_ceiling": False}
+    short = {"probes": [], "main_nodes": 9_999, "depth_ceiling": False}
+    with pytest.raises(ValueError, match="did not exhaust"):
+        audit_paired_raw_searches(10_000, {"a": full}, {"a": short})
+
+
+def test_raw_paired_audit_requires_explicit_ceiling_and_valid_probes():
+    from research.mtdp.jass_benchmark.total_budget import audit_paired_raw_searches
+    full = {"probes": [], "main_nodes": 10_000, "depth_ceiling": False}
+    with pytest.raises(ValueError, match="Raw receipt"):
+        audit_paired_raw_searches(10_000, {"a": full}, {
+            "a": {"probes": [], "main_nodes": 10_000}})
+    with pytest.raises(ValueError, match="Issued probe limit"):
+        audit_paired_raw_searches(10_000, {"a": full}, {
+            "a": {"probes": [(1_001, 1)], "main_nodes": 9_999,
+                  "depth_ceiling": False}})
