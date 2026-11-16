@@ -641,3 +641,6 @@ Les mises à jour du journal doivent utiliser le blob SHA fraîchement relu. Si 
   indépendant ainsi figé. Les deux automatismes MTDP existants peuvent
   reprendre sur cette étape et ne doivent pas répéter les campagnes
   archivées à 473×3 positions sans besoin de vérification.
+
+
+- 2026-11-16 20:30 UTC — **MTDP-D1 handoff (design only; no performance claim)**. Dedicated protocol created at [`research/mtdp/decision_equivalence/PROTOCOL.md`](https://github.com/jfrancoiscollin/dilf/blob/0b1c6ba5fb8afc02d82d5f2cf759789da7a48add/research/mtdp/decision_equivalence/PROTOCOL.md), commit `0b1c6ba5`. D1 owns score-blind signatures, action-ranking stability, top-K regret and eventual ordering-only Jass experiments. Other relays continue general FMJD validation and the independent `fFgE7oED` tie-break holdout; **do not use its 78 reserved targets for D1 tuning**. Explicit D1-A through D1-E gates include same-position paired baselines, group independence, tactical safety, metered equal-node comparisons and fail-closed checks. The 61 PC Blues signature pairs are legal-action equivalence only; the 473 archived Jass comparisons have **no equal-budget quality improvement**. **Next D1 action:** implement score-blind signature audit and synthetic tests; no new Scan scoring or Jass production edits. This entry coordinates scope, not a new empirical result.
