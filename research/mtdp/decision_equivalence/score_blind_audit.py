@@ -90,9 +90,8 @@ def audit(records: Iterable[dict[str, Any]], *, max_examples: int = 12) -> dict[
             for (fa, a), (fb, b) in combinations(sorted(group), 2):
                 total += 1
                 mismatch = a["actions"] != b["actions"]
-                cross_game = bool(a["games"] - b["games"]) or bool(b["games"] - a["games"])
-                # Cross-game provenance requires at least one distinct game,
-                # but shared game membership does not imply independent origins.
+                cross_game = len(a["games"] | b["games"]) > 1
+                # Distinct game provenance is descriptive, not independence proof.
                 different += int(mismatch)
                 same += int(not mismatch)
                 cross += int(cross_game)
