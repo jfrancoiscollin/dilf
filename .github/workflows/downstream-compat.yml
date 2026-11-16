@@ -265,6 +265,7 @@ jobs:
         with:
           name: mtdp-pcblues-spatial-dynamics
           path: |
+            /tmp/mtdp-trajectories.jsonl
             /tmp/mtdp-spatial-dynamics.json
             /tmp/mtdp-signature-collisions.json
             /tmp/mtdp-turn-control.json
