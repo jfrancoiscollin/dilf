@@ -30,6 +30,29 @@ jobs:
           ref: develop
           path: draught-master
 
+      - name: Record exact FMJD engine and DILF revisions
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+          def revision(path):
+              return subprocess.check_output(
+                  ["git", "-C", path, "rev-parse", "HEAD"], text=True
+              ).strip()
+          provenance = {
+              "schema_version": "mtdp-fmjd-provenance-v1",
+              "dilf_sha": revision("dilf"),
+              "draught_master_sha": revision("draught-master"),
+              "draught_master_requested_ref": "develop",
+          }
+          Path("/tmp/mtdp-fmjd-provenance.json").write_text(
+              json.dumps(provenance, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps(provenance, sort_keys=True))
+          PY
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -246,5 +269,6 @@ jobs:
             /tmp/mtdp-successors.json
             /tmp/mtdp-local-neighborhood.json
             /tmp/mtdp-quarantine.jsonl
+            /tmp/mtdp-fmjd-provenance.json
           retention-days: 30
           if-no-files-found: error
