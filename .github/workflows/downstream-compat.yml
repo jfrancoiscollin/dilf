@@ -260,6 +260,40 @@ jobs:
           print(json.dumps(report, indent=2, sort_keys=True))
           PY_CHECK
 
+      - name: Verify complete MTDP artifact inputs
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          names = (
+              "mtdp-trajectories.jsonl",
+              "mtdp-spatial-dynamics.json",
+              "mtdp-signature-collisions.json",
+              "mtdp-turn-control.json",
+              "mtdp-legal-collisions.json",
+              "mtdp-signature-ablation.json",
+              "mtdp-successors.json",
+              "mtdp-local-neighborhood.json",
+              "mtdp-quarantine.jsonl",
+              "mtdp-fmjd-provenance.json",
+          )
+          for name in names:
+              path = Path("/tmp") / name
+              assert path.is_file(), f"Missing required artifact input: {path}"
+              if name.endswith(".json"):
+                  json.loads(path.read_text(encoding="utf-8"))
+              elif name == "mtdp-trajectories.jsonl":
+                  rows = path.read_text(encoding="utf-8").splitlines()
+                  assert rows, "Empty validated trajectory archive"
+                  for line in rows:
+                      json.loads(line)
+              print(f"Verified {name}: {path.stat().st_size} bytes")
+          provenance = json.loads(Path("/tmp/mtdp-fmjd-provenance.json").read_text())
+          for key in ("dilf_sha", "dilf_source_sha", "draught_master_sha"):
+              assert len(provenance[key]) == 40, f"Invalid provenance SHA: {key}"
+          PY
+
       - name: Archive MTDP research results
         uses: actions/upload-artifact@v4
         with:
