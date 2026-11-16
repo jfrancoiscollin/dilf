@@ -31,9 +31,12 @@ jobs:
           path: draught-master
 
       - name: Record exact FMJD engine and DILF revisions
+        env:
+          DILF_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           python - <<'PY'
           import json
+          import os
           import subprocess
           from pathlib import Path
           def revision(path):
@@ -43,6 +46,7 @@ jobs:
           provenance = {
               "schema_version": "mtdp-fmjd-provenance-v1",
               "dilf_sha": revision("dilf"),
+              "dilf_source_sha": os.environ["DILF_SOURCE_SHA"],
               "draught_master_sha": revision("draught-master"),
               "draught_master_requested_ref": "develop",
           }
