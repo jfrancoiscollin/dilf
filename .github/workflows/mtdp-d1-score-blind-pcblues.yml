@@ -42,7 +42,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/mtdp-d1
-          python -m pytest -q dilf/research/mtdp/tests/test_decision_equivalence.py
+          python -m pytest -q dilf/research/mtdp/tests/test_decision_equivalence_audit.py dilf/research/mtdp/tests/test_decision_equivalence_fmjd_export.py
           python -m research.mtdp.decision_equivalence.fmjd_export \
             --pdn dilf/data/exports/pcblues/pcblues_games.pdn \
             --output /tmp/mtdp-d1/pcblues-score-blind.jsonl \
