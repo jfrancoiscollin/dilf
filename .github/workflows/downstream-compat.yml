@@ -294,6 +294,47 @@ jobs:
               assert len(provenance[key]) == 40, f"Invalid provenance SHA: {key}"
           PY
 
+      - name: Generate MTDP artifact SHA-256 manifest
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path("/tmp")
+          names = (
+              "mtdp-trajectories.jsonl",
+              "mtdp-spatial-dynamics.json",
+              "mtdp-signature-collisions.json",
+              "mtdp-turn-control.json",
+              "mtdp-legal-collisions.json",
+              "mtdp-signature-ablation.json",
+              "mtdp-successors.json",
+              "mtdp-local-neighborhood.json",
+              "mtdp-quarantine.jsonl",
+              "mtdp-fmjd-provenance.json",
+          )
+          files = {}
+          for name in names:
+              data = (root / name).read_bytes()
+              files[name] = {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest(),
+              }
+          manifest = {
+              "schema_version": "mtdp-artifact-manifest-v1",
+              "files": files,
+          }
+          destination = root / "mtdp-artifact-manifest.json"
+          destination.write_text(
+              json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          assert len(files) == 10
+          for name, entry in files.items():
+              assert hashlib.sha256((root / name).read_bytes()).hexdigest() == entry["sha256"]
+          print(f"Verified SHA-256 manifest for {len(files)} inputs")
+
       - name: Archive MTDP research results
         uses: actions/upload-artifact@v4
         with:
@@ -309,5 +350,6 @@ jobs:
             /tmp/mtdp-local-neighborhood.json
             /tmp/mtdp-quarantine.jsonl
             /tmp/mtdp-fmjd-provenance.json
+            /tmp/mtdp-artifact-manifest.json
           retention-days: 30
           if-no-files-found: error
