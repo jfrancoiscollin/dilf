@@ -91,7 +91,10 @@ jobs:
           }
           (root / 'provenance.json').write_text(json.dumps(provenance,sort_keys=True,indent=2)+'\n')
           print(json.dumps({'observations':audit['observations'],'distinct_fens':audit['distinct_fens'],
-              'signature_counts':{k:v['distinct_signatures'] for k,v in audit['signature_audits'].items()}},sort_keys=True))
+              'signature_counts':{k:v['distinct_signatures'] for k,v in audit['signature_audits'].items()},
+              'pair_overlap':{k:{m:v[m] for m in ('distinct_fen_pairs','same_legal_action_pairs',
+                  'same_legal_actions_disjoint_owning_games_pairs','different_legal_action_pairs')}
+                  for k,v in sorted(buckets.items())}},sort_keys=True))
           PY
       - name: Archive score-blind engineering evidence
         if: always()
