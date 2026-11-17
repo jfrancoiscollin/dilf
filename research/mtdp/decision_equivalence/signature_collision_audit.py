@@ -1,6 +1,7 @@
 """Score-blind D1-B signature collision audit; no strategic equivalence claims."""
 import argparse
 import json
+from itertools import combinations
 from collections import defaultdict
 from pathlib import Path
 
@@ -37,8 +38,15 @@ def audit(records):
         for game, signatures, successor in rows:
             groups[signatures[name]].append((game, successor))
         collisions = [v for v in groups.values() if len(v) > 1]
+        pairs = [pair for group in collisions for pair in combinations(group, 2)]
         report["families"][name] = {
             "unique_signatures": len(groups),
+            "collision_pairs": len(pairs),
+            "cross_game_collision_pairs": sum(a[0] != b[0] for a, b in pairs),
+            "successor_divergent_collision_pairs": sum(a[1] != b[1] for a, b in pairs),
+            "cross_game_successor_divergent_pairs": sum(
+                a[0] != b[0] and a[1] != b[1] for a, b in pairs
+            ),
             "compression_ratio": len(rows) / len(groups),
             "collision_groups": len(collisions),
             "positions_in_collision_groups": sum(len(v) for v in collisions),
