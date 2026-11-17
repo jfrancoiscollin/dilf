@@ -48,6 +48,10 @@ def verify(manifest_path):
             raise ValueError(f"registry row count mismatch: {group}")
         for line in records:
             record = json.loads(line)
+            if isinstance(record, dict) and any(
+                token in key.lower() for key in record for token in ("score", "eval", "regret", "best_move", "rank", "wdl")
+            ):
+                raise ValueError(f"score-derived field in exclusion registry: {group}")
             if not isinstance(record, dict) or not any(isinstance(record.get(k), str) and record[k] for k in ("game_id", "trajectory_sha256", "fen_sha256")):
                 raise ValueError(f"invalid exclusion identity: {group}")
             for key in ("trajectory_sha256", "fen_sha256"):
