@@ -50,6 +50,11 @@ def verify(manifest_path):
             record = json.loads(line)
             if not isinstance(record, dict) or not any(isinstance(record.get(k), str) and record[k] for k in ("game_id", "trajectory_sha256", "fen_sha256")):
                 raise ValueError(f"invalid exclusion identity: {group}")
+            for key in ("trajectory_sha256", "fen_sha256"):
+                if key in record:
+                    value = record[key]
+                    if not isinstance(value, str) or len(value) != 64 or any(c not in "0123456789abcdef" for c in value):
+                        raise ValueError(f"invalid {key} digest: {group}")
         groups.add(group)
         paths.add(target)
         result.append({"group": group, "rows": rows, "sha256": digest})
