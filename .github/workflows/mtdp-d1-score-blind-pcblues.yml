@@ -56,8 +56,10 @@ jobs:
           audit = json.loads((root / 'pcblues-audit.json').read_text())
           assert audit['observations'] == 1864, audit
           assert audit['distinct_fens'] == 1750, audit
-          assert set(audit['signature_audits']) == {'E','L','Q'}, audit
+          assert set(audit['signature_audits']) == {'E','L','LCB','Q'}, audit
           assert audit['signature_audits']['E']['distinct_fen_pairs'] == 0
+          assert audit['signature_audits']['LCB']['different_legal_action_pairs'] == 0
+          assert audit['signature_audits']['LCB']['distinct_signatures'] >= audit['signature_audits']['L']['distinct_signatures']
           assert audit['signature_audits']['Q']['different_legal_action_pairs'] == 0
           assert audit['signature_audits']['Q']['distinct_fen_pairs'] == 61
           provenance = {
