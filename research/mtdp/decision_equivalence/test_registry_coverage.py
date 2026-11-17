@@ -65,7 +65,7 @@ def test_reject_score_leak_in_registry(tmp_path, forbidden):
     path, entries = make_inventory(tmp_path)
     entry = entries[0]
     registry = tmp_path / entry["path"]
-    payload = (json.dumps({"game_id": "historical-game", forbidden: 0}) + "\\n").encode()
+    payload = (json.dumps({"game_id": "historical-game", forbidden: 0}) + "\n").encode()
     registry.write_bytes(payload)
     entry["sha256"] = hashlib.sha256(payload).hexdigest()
     path.write_text(json.dumps({"registries": entries}), encoding="utf-8")
