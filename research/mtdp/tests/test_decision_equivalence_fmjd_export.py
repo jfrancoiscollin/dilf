@@ -24,8 +24,11 @@ class FakeEngine:
 def test_exact_and_quiet_signature_are_score_blind():
     state = initial_state()
     row = position_record(state, "fixture", FakeEngine())
-    assert set(row["signatures"]) == {"E", "L", "Q"}
+    assert set(row["signatures"]) == {"E", "L", "LCB", "Q"}
     assert row["signatures"]["Q"][0] == "quiet-v1"
+    assert row["signatures"]["LCB"][0] == "quiet-lcb-v1"
+    assert row["signatures"]["LCB"][2] == row["signatures"]["L"][1]
+    assert row["signatures"]["LCB"][3] == 20
     assert row["game_id"] == "fixture"
     assert len(row["actions"]) == 1
     assert "score" not in str(row).lower()
