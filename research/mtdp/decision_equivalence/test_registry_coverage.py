@@ -88,3 +88,30 @@ def test_reject_nested_score_leak_in_registry(tmp_path, nested):
     path.write_text(json.dumps({"registries": entries}), encoding="utf-8")
     with pytest.raises(ValueError, match="score-derived field"):
         verify(path)
+
+
+@pytest.mark.parametrize("rows", [
+    [{"game_id": "g", "fen_sha256": "a" * 64}, {"fen_sha256": "a" * 64, "game_id": "g"}],
+    [{"game_id": "g", "fen_sha256": "a" * 64}, {"game_id": "g", "fen_sha256": "a" * 64}],
+])
+def test_reject_duplicate_registry_rows_regardless_of_key_order(tmp_path, rows):
+    path, entries = make_inventory(tmp_path)
+    entry = entries[0]
+    payload = "".join(json.dumps(row) + "\\n" for row in rows).encode()
+    (tmp_path / entry["path"]).write_bytes(payload)
+    entry["sha256"] = hashlib.sha256(payload).hexdigest()
+    entry["rows"] = len(rows)
+    path.write_text(json.dumps({"registries": entries}), encoding="utf-8")
+    with pytest.raises(ValueError, match="duplicate exclusion record"):
+        verify(path)
+
+
+def test_reject_whitespace_only_game_identity(tmp_path):
+    path, entries = make_inventory(tmp_path)
+    entry = entries[0]
+    payload = b'{"game_id":"   "}\\n'
+    (tmp_path / entry["path"]).write_bytes(payload)
+    entry["sha256"] = hashlib.sha256(payload).hexdigest()
+    path.write_text(json.dumps({"registries": entries}), encoding="utf-8")
+    with pytest.raises(ValueError, match="invalid exclusion identity"):
+        verify(path)
