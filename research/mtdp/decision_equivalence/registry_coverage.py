@@ -15,6 +15,21 @@ REQUIRED_GROUPS = frozenset({
 })
 
 
+FORBIDDEN_SCORE_TOKENS = ("score", "eval", "regret", "best_move", "rank", "wdl")
+
+
+def reject_score_fields(value, group):
+    """Inspect nested provenance too: scores must not enter exclusion inputs."""
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if any(token in str(key).lower() for token in FORBIDDEN_SCORE_TOKENS):
+                raise ValueError(f"score-derived field in exclusion registry: {group}")
+            reject_score_fields(child, group)
+    elif isinstance(value, list):
+        for child in value:
+            reject_score_fields(child, group)
+
+
 def verify(manifest_path):
     path = Path(manifest_path)
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -48,10 +63,7 @@ def verify(manifest_path):
             raise ValueError(f"registry row count mismatch: {group}")
         for line in records:
             record = json.loads(line)
-            if isinstance(record, dict) and any(
-                token in key.lower() for key in record for token in ("score", "eval", "regret", "best_move", "rank", "wdl")
-            ):
-                raise ValueError(f"score-derived field in exclusion registry: {group}")
+            reject_score_fields(record, group)
             if not isinstance(record, dict) or not any(isinstance(record.get(k), str) and record[k] for k in ("game_id", "trajectory_sha256", "fen_sha256")):
                 raise ValueError(f"invalid exclusion identity: {group}")
             for key in ("trajectory_sha256", "fen_sha256"):
