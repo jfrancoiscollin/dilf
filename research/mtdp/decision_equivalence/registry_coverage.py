@@ -30,9 +30,19 @@ def reject_score_fields(value, group):
             reject_score_fields(child, group)
 
 
+def reject_duplicate_json_keys(pairs):
+    """Fail closed on ambiguous JSON objects rather than silently keeping the last key."""
+    obj = {}
+    for key, value in pairs:
+        if key in obj:
+            raise ValueError(f"duplicate JSON object key: {key}")
+        obj[key] = value
+    return obj
+
+
 def verify(manifest_path):
     path = Path(manifest_path)
-    data = json.loads(path.read_text(encoding="utf-8"))
+    data = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=reject_duplicate_json_keys)
     if not isinstance(data, dict) or set(data) != {"registries"}:
         raise ValueError("inventory must contain exactly registries")
     entries = data["registries"]
@@ -63,7 +73,7 @@ def verify(manifest_path):
             raise ValueError(f"registry row count mismatch: {group}")
         seen_records = set()
         for line in records:
-            record = json.loads(line)
+            record = json.loads(line, object_pairs_hook=reject_duplicate_json_keys)
             reject_score_fields(record, group)
             # Repeated exclusion rows inflate coverage counts without adding evidence.
             # Canonical JSON detects duplicates despite key order or whitespace.
