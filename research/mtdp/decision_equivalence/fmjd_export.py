@@ -30,7 +30,7 @@ def _typed_board(state: Any) -> list[Any]:
 
 
 def position_record(state: Any, game_id: str, engine: Any) -> dict[str, Any]:
-    """Emit exact E/L and quiet geometry Q; no LCB claim or Scan scores."""
+    """Emit E/L/Q and published LCB count/blocker key; no Scan scores."""
     moves = list(engine.legal_moves(state))
     actions = [_action_key(move) for move in moves]
     if len({json.dumps(a) for a in actions}) != len(actions):
@@ -42,9 +42,15 @@ def position_record(state: Any, game_id: str, engine: Any) -> dict[str, Any]:
     # immediate captures; tactical and king positions fall back to exact E.
     if quiet is None:
         q = ["exact-fallback", state.turn, board]
+        lcb = ["exact-fallback", state.turn, board]
     else:
         turn, men, blockers = quiet
         q = ["quiet-v1", turn, sorted(men), sorted(blockers)]
+        # Published LCB matching rule (geometry_ablation.py): identical
+        # turn and complete legal-action catalogue, same mover-men count,
+        # and identical immediate opponent blockers. Do not substitute
+        # mover occupancy for count or omit the legal-action fingerprint.
+        lcb = ["quiet-lcb-v1", turn, actions, len(men), sorted(blockers)]
     return {
         "fen": state_to_fen(state),
         "game_id": game_id,
@@ -52,6 +58,7 @@ def position_record(state: Any, game_id: str, engine: Any) -> dict[str, Any]:
         "signatures": {
             "E": [state.turn, board],
             "L": [state.turn, actions],
+            "LCB": lcb,
             "Q": q,
         },
     }
