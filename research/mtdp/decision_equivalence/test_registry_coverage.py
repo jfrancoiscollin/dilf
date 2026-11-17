@@ -58,3 +58,16 @@ def test_reject_malformed_identity_digest(tmp_path, key, bad):
     path.write_text(json.dumps({"registries": entries}), encoding="utf-8")
     with pytest.raises(ValueError, match="invalid .* digest"):
         verify(path)
+
+
+@pytest.mark.parametrize("forbidden", ["scan_score", "best_move", "wdl", "action_rank", "regret_cp", "evaluation"])
+def test_reject_score_leak_in_registry(tmp_path, forbidden):
+    path, entries = make_inventory(tmp_path)
+    entry = entries[0]
+    registry = tmp_path / entry["path"]
+    payload = (json.dumps({"game_id": "historical-game", forbidden: 0}) + "\\n").encode()
+    registry.write_bytes(payload)
+    entry["sha256"] = hashlib.sha256(payload).hexdigest()
+    path.write_text(json.dumps({"registries": entries}), encoding="utf-8")
+    with pytest.raises(ValueError, match="score-derived field"):
+        verify(path)
