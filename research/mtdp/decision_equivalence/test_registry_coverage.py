@@ -115,3 +115,26 @@ def test_reject_whitespace_only_game_identity(tmp_path):
     path.write_text(json.dumps({"registries": entries}), encoding="utf-8")
     with pytest.raises(ValueError, match="invalid exclusion identity"):
         verify(path)
+
+
+@pytest.mark.parametrize("payload", [
+    '{"game_id":"g","game_id":"other"}\\n',
+    '{"game_id":"g","provenance":{"source":"a","source":"b"}}\\n',
+])
+def test_reject_duplicate_json_keys_in_registry(tmp_path, payload):
+    path, entries = make_inventory(tmp_path)
+    entry = entries[0]
+    raw = payload.encode()
+    (tmp_path / entry["path"]).write_bytes(raw)
+    entry["sha256"] = hashlib.sha256(raw).hexdigest()
+    path.write_text(json.dumps({"registries": entries}), encoding="utf-8")
+    with pytest.raises(ValueError, match="duplicate JSON object key"):
+        verify(path)
+
+
+def test_reject_duplicate_json_keys_in_inventory(tmp_path):
+    path, _ = make_inventory(tmp_path)
+    original = path.read_text(encoding="utf-8")
+    path.write_text('{"registries":[],"registries":' + original.split('"registries":', 1)[1], encoding="utf-8")
+    with pytest.raises(ValueError, match="duplicate JSON object key"):
+        verify(path)
