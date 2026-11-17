@@ -118,8 +118,8 @@ def test_reject_whitespace_only_game_identity(tmp_path):
 
 
 @pytest.mark.parametrize("payload", [
-    '{"game_id":"g","game_id":"other"}\\n',
-    '{"game_id":"g","provenance":{"source":"a","source":"b"}}\\n',
+    '{"game_id":"g","game_id":"other"}\n',
+    '{"game_id":"g","provenance":{"source":"a","source":"b"}}\n',
 ])
 def test_reject_duplicate_json_keys_in_registry(tmp_path, payload):
     path, entries = make_inventory(tmp_path)
