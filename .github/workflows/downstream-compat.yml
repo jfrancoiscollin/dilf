@@ -23,11 +23,11 @@ jobs:
         with:
           path: dilf
 
-      - name: Check out draught-master:develop
+      - name: Check out pinned draught-master FMJD revision
         uses: actions/checkout@v4
         with:
           repository: jfrancoiscollin/draught-master
-          ref: develop
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
           path: draught-master
 
       - name: Record exact FMJD engine and DILF revisions
@@ -48,7 +48,7 @@ jobs:
               "dilf_sha": revision("dilf"),
               "dilf_source_sha": os.environ["DILF_SOURCE_SHA"],
               "draught_master_sha": revision("draught-master"),
-              "draught_master_requested_ref": "develop",
+              "draught_master_requested_ref": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
           }
           Path("/tmp/mtdp-fmjd-provenance.json").write_text(
               json.dumps(provenance, indent=2, sort_keys=True) + "\n",
