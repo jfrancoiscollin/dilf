@@ -1,8 +1,7 @@
 """Score-blind D1-B signature collision audit; no strategic equivalence claims."""
 import argparse
 import json
-from itertools import combinations
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 
@@ -38,15 +37,29 @@ def audit(records):
         for game, signatures, successor in rows:
             groups[signatures[name]].append((game, successor))
         collisions = [v for v in groups.values() if len(v) > 1]
-        pairs = [pair for group in collisions for pair in combinations(group, 2)]
+        # Count unordered pairs by multiplicity, not quadratic enumeration.
+        choose2 = lambda n: n * (n - 1) // 2
+        pair_total = cross_game = divergent = cross_divergent = 0
+        for group in collisions:
+            n = len(group)
+            games = Counter(g for g, _ in group)
+            successors = Counter(s for _, s in group)
+            joint = Counter(group)
+            pair_total += choose2(n)
+            cross_game += choose2(n) - sum(choose2(v) for v in games.values())
+            divergent += choose2(n) - sum(choose2(v) for v in successors.values())
+            cross_divergent += (
+                choose2(n)
+                - sum(choose2(v) for v in games.values())
+                - sum(choose2(v) for v in successors.values())
+                + sum(choose2(v) for v in joint.values())
+            )
         report["families"][name] = {
             "unique_signatures": len(groups),
-            "collision_pairs": len(pairs),
-            "cross_game_collision_pairs": sum(a[0] != b[0] for a, b in pairs),
-            "successor_divergent_collision_pairs": sum(a[1] != b[1] for a, b in pairs),
-            "cross_game_successor_divergent_pairs": sum(
-                a[0] != b[0] and a[1] != b[1] for a, b in pairs
-            ),
+            "collision_pairs": pair_total,
+            "cross_game_collision_pairs": cross_game,
+            "successor_divergent_collision_pairs": divergent,
+            "cross_game_successor_divergent_pairs": cross_divergent,
             "compression_ratio": len(rows) / len(groups),
             "collision_groups": len(collisions),
             "positions_in_collision_groups": sum(len(v) for v in collisions),
