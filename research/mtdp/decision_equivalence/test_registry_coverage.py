@@ -41,3 +41,20 @@ def test_fail_closed(tmp_path, failure):
     path.write_text(json.dumps({"registries": entries}), encoding="utf-8")
     with pytest.raises((ValueError, FileNotFoundError)):
         verify(path)
+
+
+@pytest.mark.parametrize("key,bad", [
+    ("fen_sha256", "not-a-digest"),
+    ("trajectory_sha256", "A" * 64),
+    ("fen_sha256", 123),
+])
+def test_reject_malformed_identity_digest(tmp_path, key, bad):
+    path, entries = make_inventory(tmp_path)
+    entry = entries[0]
+    registry = tmp_path / entry["path"]
+    payload = (json.dumps({"game_id": "historical-game", key: bad}) + "\\n").encode()
+    registry.write_bytes(payload)
+    entry["sha256"] = hashlib.sha256(payload).hexdigest()
+    path.write_text(json.dumps({"registries": entries}), encoding="utf-8")
+    with pytest.raises(ValueError, match="invalid .* digest"):
+        verify(path)
