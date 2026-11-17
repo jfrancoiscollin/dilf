@@ -42,11 +42,14 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/mtdp-d1
-          python -m pytest -q dilf/research/mtdp/tests/test_decision_equivalence_audit.py dilf/research/mtdp/tests/test_decision_equivalence_fmjd_export.py
+          python -m pytest -q dilf/research/mtdp/tests/test_decision_equivalence_audit.py dilf/research/mtdp/tests/test_decision_equivalence_fmjd_export.py dilf/research/mtdp/decision_equivalence/tests/test_pair_overlap.py
           python -m research.mtdp.decision_equivalence.fmjd_export \
             --pdn dilf/data/exports/pcblues/pcblues_games.pdn \
             --output /tmp/mtdp-d1/pcblues-score-blind.jsonl \
             --audit-output /tmp/mtdp-d1/pcblues-audit.json
+          python -m research.mtdp.decision_equivalence.pair_overlap \
+            --input /tmp/mtdp-d1/pcblues-score-blind.jsonl \
+            --output /tmp/mtdp-d1/pcblues-pair-overlap.json
           python - <<'PY'
           import json
           from pathlib import Path
@@ -62,6 +65,15 @@ jobs:
           assert audit['signature_audits']['LCB']['distinct_signatures'] >= audit['signature_audits']['L']['distinct_signatures']
           assert audit['signature_audits']['Q']['different_legal_action_pairs'] == 0
           assert audit['signature_audits']['Q']['distinct_fen_pairs'] == 61
+          overlap = json.loads((root / 'pcblues-pair-overlap.json').read_text())
+          buckets = overlap['buckets']
+          assert overlap['distinct_fens'] == audit['distinct_fens']
+          assert overlap['distinct_signatures'] == {
+              k: audit['signature_audits'][k]['distinct_signatures'] for k in ('LCB','Q')
+          }
+          assert buckets['common']['distinct_fen_pairs'] + buckets['q_only']['distinct_fen_pairs'] == 61
+          assert buckets['common']['distinct_fen_pairs'] + buckets['lcb_only']['distinct_fen_pairs'] == audit['signature_audits']['LCB']['distinct_fen_pairs']
+          assert all(buckets[k]['different_legal_action_pairs'] == 0 for k in buckets)
           provenance = {
             'scope':'historical_PC_Blues_engineering_only_no_independent_efficacy',
             'dilf_sha': subprocess.check_output(['git','-C','dilf','rev-parse','HEAD'],text=True).strip(),
@@ -74,6 +86,7 @@ jobs:
               'observations': audit['observations'],
               'distinct_fens': audit['distinct_fens'],
               'signatures': audit['signature_audits'],
+              'pair_overlap': {k: {m: v for m, v in b.items() if m != 'examples'} for k, b in buckets.items()},
             },
           }
           (root / 'provenance.json').write_text(json.dumps(provenance,sort_keys=True,indent=2)+'\n')
