@@ -61,10 +61,17 @@ def verify(manifest_path):
         records = payload.splitlines()
         if len(records) != rows or any(not line.strip() for line in records):
             raise ValueError(f"registry row count mismatch: {group}")
+        seen_records = set()
         for line in records:
             record = json.loads(line)
             reject_score_fields(record, group)
-            if not isinstance(record, dict) or not any(isinstance(record.get(k), str) and record[k] for k in ("game_id", "trajectory_sha256", "fen_sha256")):
+            # Repeated exclusion rows inflate coverage counts without adding evidence.
+            # Canonical JSON detects duplicates despite key order or whitespace.
+            canonical = json.dumps(record, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+            if canonical in seen_records:
+                raise ValueError(f"duplicate exclusion record: {group}")
+            seen_records.add(canonical)
+            if not isinstance(record, dict) or not any(isinstance(record.get(k), str) and record[k].strip() for k in ("game_id", "trajectory_sha256", "fen_sha256")):
                 raise ValueError(f"invalid exclusion identity: {group}")
             for key in ("trajectory_sha256", "fen_sha256"):
                 if key in record:
