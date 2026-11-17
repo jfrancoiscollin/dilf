@@ -72,6 +72,7 @@ def compare_pairs(records: Iterable[dict[str, Any]], *, max_examples: int = 12) 
         "limitations": [
             "Same signature or legal actions do not imply the same successor, best move, or minimax value",
             "Cross-game provenance does not prove sample independence",
+            "Same-legal-action pairs are only mapping candidates, not best-move-equivalent or independent holdout pairs",
             "Historical score-blind diagnostic only; no Scan ranking, regret, or Jass strength measured",
         ],
     }
@@ -79,6 +80,8 @@ def compare_pairs(records: Iterable[dict[str, Any]], *, max_examples: int = 12) 
         legal_mismatch = 0
         cross_game = 0
         strict_cross_game = 0
+        eligible_action_mapped = 0
+        eligible_disjoint_game = 0
         examples = []
         for a, b in sorted(matched):
             left, right = by_fen[a], by_fen[b]
@@ -88,6 +91,8 @@ def compare_pairs(records: Iterable[dict[str, Any]], *, max_examples: int = 12) 
             legal_mismatch += int(mismatch)
             cross_game += int(cross)
             strict_cross_game += int(strict_cross)
+            eligible_action_mapped += int(not mismatch)
+            eligible_disjoint_game += int(not mismatch and strict_cross)
             if len(examples) < max_examples:
                 examples.append({
                     "fen_a": a, "fen_b": b,
@@ -100,6 +105,8 @@ def compare_pairs(records: Iterable[dict[str, Any]], *, max_examples: int = 12) 
             "different_legal_action_pairs": legal_mismatch,
             "cross_game_provenance_pairs": cross_game,
             "disjoint_owning_games_pairs": strict_cross_game,
+            "same_legal_action_pairs": eligible_action_mapped,
+            "same_legal_actions_disjoint_owning_games_pairs": eligible_disjoint_game,
             "examples": examples,
         }
     assert sum(v["distinct_fen_pairs"] for v in result["buckets"].values()) == len(
