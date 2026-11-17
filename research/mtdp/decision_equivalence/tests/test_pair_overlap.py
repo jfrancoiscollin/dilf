@@ -28,6 +28,12 @@ def test_partition_and_cross_game_provenance():
     assert buckets["q_only"]["distinct_fen_pairs"] == 2  # A-D, B-D
     assert buckets["q_only"]["different_legal_action_pairs"] == 2
     assert buckets["common"]["disjoint_owning_games_pairs"] == 1
+    assert buckets["common"]["same_legal_action_pairs"] == 1
+    assert buckets["common"]["same_legal_actions_disjoint_owning_games_pairs"] == 1
+    assert buckets["lcb_only"]["same_legal_action_pairs"] == 2
+    assert buckets["lcb_only"]["same_legal_actions_disjoint_owning_games_pairs"] == 1
+    assert buckets["q_only"]["same_legal_action_pairs"] == 0
+    assert buckets["q_only"]["same_legal_actions_disjoint_owning_games_pairs"] == 0
     assert buckets["lcb_only"]["disjoint_owning_games_pairs"] == 1
     assert result["distinct_signatures"] == {"LCB": 3, "Q": 3}
     assert result["distinct_fens"] == 5
@@ -41,6 +47,8 @@ def test_duplicate_fen_provenance_not_counted_twice():
     assert result["distinct_fens"] == 2
     assert result["buckets"]["common"]["cross_game_provenance_pairs"] == 1
     assert result["buckets"]["common"]["disjoint_owning_games_pairs"] == 0
+    assert result["buckets"]["common"]["same_legal_action_pairs"] == 1
+    assert result["buckets"]["common"]["same_legal_actions_disjoint_owning_games_pairs"] == 0
 
 
 def test_deterministic_under_row_permutation():
