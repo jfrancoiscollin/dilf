@@ -6,6 +6,8 @@ on:
   pull_request:
     paths:
       - 'research/mtdp/jass_benchmark/prospective_candidate_replay.py'
+      - 'research/mtdp/jass_benchmark/candidate_ambiguities.py'
+      - 'research/mtdp/tests/test_candidate_ambiguities.py'
       - 'research/mtdp/tests/test_prospective_candidate_replay.py'
       - '.github/workflows/mtdp-preregistered-candidate-replay.yml'
   workflow_dispatch:
@@ -109,12 +111,18 @@ jobs:
         run: |
           set -euo pipefail
           cd dilf
-          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py
+          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py
           python -m research.mtdp.jass_benchmark.prospective_candidate_replay \
             --root . \
             --pdn /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
             --history /tmp/mtdp-independent/previous-pdn \
             --output /tmp/mtdp-independent/candidate-replay.json
+          python -m research.mtdp.jass_benchmark.candidate_ambiguities \
+            --pdn /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
+            --adapter ../draught-master \
+            --output /tmp/mtdp-independent/candidate-ambiguities.json
+          cmp /tmp/mtdp-independent/candidate-ambiguities.json \
+            research/mtdp/jass_benchmark/spatial-jass/replication/fFgE7oED-ambiguities.json
           echo 'No Scan scores or retrospective winners used; this report is NOT a scientific freeze.'
       - name: Preserve all input provenance and prospective replay diagnostics
         if: always()

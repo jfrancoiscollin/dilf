@@ -625,3 +625,15 @@ reproduced all native final moves at each fixed main-search budget.
 The verification searches have a separately measured cost. Next,
 freeze an end-to-end budget that includes verification and test it on
 a new chronological holdout.
+
+## 18 November: individual reserved-candidate ambiguity diagnostic
+
+The [five-case diagnostic](CANDIDATE_AMBIGUITIES_2026-11-18.md) now identifies
+public games, first rejected ply, both legal trajectories, captures and successor
+FENs for fFgE7oED. All five route ambiguities have a single board successor at
+that ply. Six targeted tests passed locally; the JSON reproduced byte for byte
+across executions. Whole-game quarantine remains mandatory. No score, scientific
+freeze, best-move equivalence or equal-budget performance result was produced.
+The existing replay workflow now validates and preserves this diagnostic.
+Next: prove chronological selection, then pinned Jass action mapping before
+freeze; keep fFgE7oED and 78 targets reserved from D1. See RELAY_COORDINATION.md.
