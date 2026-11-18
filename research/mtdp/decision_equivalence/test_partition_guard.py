@@ -44,3 +44,22 @@ def test_reserved_game_and_position():
 def test_empty_rejected():
     with pytest.raises(ValueError):
         validate_partition([])
+
+
+@pytest.mark.parametrize("metadata", [
+    {"Scan_Score": 12},
+    {"nested": {"best_move": "32-28"}},
+    {"arrays": [{"evaluation": 0}]},
+    {"outer": [{"WDL": "win"}]},
+])
+def test_nested_and_case_varied_target_leakage_rejected(metadata):
+    r = rows()
+    r[0]["metadata"] = metadata
+    with pytest.raises(ValueError):
+        validate_partition(r)
+
+
+def test_score_blind_metadata_is_allowed():
+    r = rows()
+    r[0]["metadata"] = {"source": {"tournament": "historical"}, "tags": ["quiet"]}
+    assert validate_partition(r)["positions"] == 3
