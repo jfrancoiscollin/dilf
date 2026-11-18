@@ -98,3 +98,32 @@ stored integer is 0.01 HUB unit; a universal 100-units-per-material-man mapping
 is not certified. This source-only audit changes no score, cohort, threshold,
 selection or budget. Preserve the historical JSON field names for compatibility
 and explain their integer Scan-unit meaning when reporting costs.
+
+
+## Remote confirmation — 20:38 UTC
+
+HEAD `3cde4b240a7fecfa14d31f0fc6555a2c34ce2635` has **7/7 successful workflows**.
+Candidate [run 44391508543](https://github.com/jfrancoiscollin/dilf/actions/runs/44391508543),
+job `135110307948`: **79 tests passed in 0.33 s**. Exact pinned Scan startup
+succeeded at 12/16 on the initial position (-1/0; no target quality evidence).
+The complete FMJD/Jass synthetic rehearsal again gives one manufactured target,
+ten actions and identical proposal/manifest/publication hashes under seeds 7/61;
+production refusal and raw CRLF preservation remain true. Old fFgE7oED replay
+remains `e9de3a4c…118a16b` and all quarantines remain unchanged.
+
+Artifact [14467758050](https://github.com/jfrancoiscollin/dilf/actions/runs/44391508543/artifacts/14467758050)
+was actually downloaded and checked: 6,824,383 bytes, ZIP SHA-256
+`0b9e6d3a814dfe2e0039f9db536c3687c235d6dafdb9be83c4b71187835c2aa2`.
+All ten inventory payloads in each synthetic bundle, all three report hashes,
+registry and canonical-history index hashes were verified after extraction.
+Exact receipts are committed in `named-published-reference-ci-2026-11-18.json`.
+The earlier run was automatically cancelled by preserved D1 commits
+`88dc22c`/`2a4d4d1`; no duplicate manual campaign or technical-failure rerun.
+
+Still no real P1RUlfJc export/freeze/reference. Next: the named Jass source-only
+campaign adapter and two runner build receipts; retain all three arms, total
+budgets and ceiling/fallback exceptions. Final collection is after 20:57 UTC,
+then reproduce and publish a verified freeze before any new scoring. No Jeff PC
+is needed for the engines exercised remotely. This documentation-only evidence
+commit can start fresh automatic checks; the validated code snapshot is the HEAD
+above, and later checks must not be claimed complete before observation.

@@ -723,3 +723,16 @@ on the standard initial position at both depths; no target export or new quality
 estimate. See `NAMED_PUBLISHED_REFERENCE_GATE_2026-11-18.md` and startup JSON.
 New workflow integration awaits confirmation. Next: publication-bound three-arm
 Jass runner and build receipts; final collection only after 20:57 UTC.
+
+
+### Reference entry point confirmed remotely — 2026-11-18 20:38 UTC
+
+HEAD `3cde4b2`: **7/7 workflows success**, candidate `44391508543`, **79 tests**.
+Real pinned Scan initial-position startup passed at both 12/16; synthetic FMJD/Jass
+bundle hashes repeat under seeds 7/61 and remain refused for production.
+Artifact `14467758050` downloaded; ZIP, both bundle inventories and registry/index
+hashes verified. See `named-published-reference-ci-2026-11-18.json`.
+Source-only unit audit clarifies stored integers = 0.01 HUB unit, without a
+universal material-man calibration or changed score/threshold.
+Next: named publication-bound source-only Jass three-arm campaign and runner
+build provenance; final acquisition after 20:57 UTC, freeze before scoring.
