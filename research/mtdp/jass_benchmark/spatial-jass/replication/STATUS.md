@@ -673,3 +673,17 @@ No P1RUlfJc game export, position population, freeze or score was produced.
 Next connect the unchanged selectors and canonical trajectory guard to these
 inputs, plus the event-parameterized Jass catalogue; fetch final data only
 after 20:57 UTC. Both events remain reserved from D1.
+
+## 18 November: shared selector and complete historical trajectory gate
+
+The [named-arena replay pipeline](NAMED_ARENA_REPLAY_PIPELINE_2026-11-18.md)
+reproduces the old fFgE7oED report exactly after extracting the shared selector.
+All 4,375 historical games were replayed: 4,051 distinct complete trajectories,
+151 duplicates, 173 whole-game quarantines. Verified historical prefixes cover
+411,980 distinct FENs; no ambiguous continuation is inferred. Two hash seeds
+reproduce the complete index. 39 targeted tests pass locally.
+The production proposal entry point connects registered final inputs, historical
+IDs/tokens/trajectories/FENs, atomic target replay, source selection and Jass
+catalogues. It remains closed before 20:57 UTC and always emits an unfrozen
+proposal. No P1RUlfJc game or new score was acquired. Next rehearse acquisition
+receipts and synthetic proposal/publication, then freeze after actual completion.

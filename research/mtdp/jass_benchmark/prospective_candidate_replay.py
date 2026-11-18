@@ -114,39 +114,9 @@ def checked_history(root: Path, history: Path, previous: dict,
             "candidate_duplicate_public_game_ids": 0}
 
 
-def audit(root: Path, pdn: Path, history: Path) -> dict:
-    previous = json.loads((root / PREVIOUS).read_bytes())
-    if previous.get("event", {}).get("id") != "CARZrQpl":
-        raise ValueError("Previous latest fixed tournament unexpectedly changed")
-    payload = pdn.read_bytes()
-    if digest(payload) != EXPECTED_PDN_SHA256:
-        raise ValueError("Candidate PDN does not match two independent frozen downloads")
-    if pdn.name != f"mtdp-lidraughts-{EXPECTED_EVENT}.pdn":
-        raise ValueError("Prospective PDN filename changed")
-    ids = set(public_ids(pdn))
-    overlap, archival = validated_archive_fens(root, previous)
-    independence = checked_history(root, history, previous, ids)
-    base = root / BASELINE
-    if digest(base.read_bytes()) != previous["inputs"]["baseline"][0]["sha256"]:
-        raise ValueError("PC Blues baseline changed")
 
-    engine = create_engine()
-    first_ply = {}
-    source_states, _, base_record = load_positions(
-        [base], engine, set(), plies_by_game=first_ply,
-    )
-    if (base_record[0]["accepted"] != 26 or base_record[0]["rejected"]
-            or base_record[0]["duplicates"]):
-        raise ValueError("PC Blues FMJD baseline no longer reproduces")
-    replay_audit = {}
-    target_states, target_games, target_record = load_positions(
-        [pdn], engine, set(), game_audit=replay_audit,
-    )
-    record = target_record[0]
-    if record["accepted"] == 0 or record["games"] != len(ids):
-        raise ValueError("Prospective game replay yielded no validated games")
-    if len(replay_audit) != record["games"]:
-        raise ValueError("FMJD replay did not audit every original public game")
+def select_population(source_states, first_ply, target_states, target_games, overlap, engine):
+    """The registered L/LCB selection, shared without changing its ordering."""
     excluded_source = set(source_states)
     novel = sorted(set(target_states) - overlap - excluded_source)
     index = defaultdict(list)
@@ -184,6 +154,46 @@ def audit(root: Path, pdn: Path, history: Path) -> dict:
                 arm: matches[arm][0][0] for arm in ("L", "LCB")
             },
         })
+    return selection, category, novel
+
+
+def audit(root: Path, pdn: Path, history: Path) -> dict:
+    previous = json.loads((root / PREVIOUS).read_bytes())
+    if previous.get("event", {}).get("id") != "CARZrQpl":
+        raise ValueError("Previous latest fixed tournament unexpectedly changed")
+    payload = pdn.read_bytes()
+    if digest(payload) != EXPECTED_PDN_SHA256:
+        raise ValueError("Candidate PDN does not match two independent frozen downloads")
+    if pdn.name != f"mtdp-lidraughts-{EXPECTED_EVENT}.pdn":
+        raise ValueError("Prospective PDN filename changed")
+    ids = set(public_ids(pdn))
+    overlap, archival = validated_archive_fens(root, previous)
+    independence = checked_history(root, history, previous, ids)
+    base = root / BASELINE
+    if digest(base.read_bytes()) != previous["inputs"]["baseline"][0]["sha256"]:
+        raise ValueError("PC Blues baseline changed")
+
+    engine = create_engine()
+    first_ply = {}
+    source_states, _, base_record = load_positions(
+        [base], engine, set(), plies_by_game=first_ply,
+    )
+    if (base_record[0]["accepted"] != 26 or base_record[0]["rejected"]
+            or base_record[0]["duplicates"]):
+        raise ValueError("PC Blues FMJD baseline no longer reproduces")
+    replay_audit = {}
+    target_states, target_games, target_record = load_positions(
+        [pdn], engine, set(), game_audit=replay_audit,
+    )
+    record = target_record[0]
+    if record["accepted"] == 0 or record["games"] != len(ids):
+        raise ValueError("Prospective game replay yielded no validated games")
+    if len(replay_audit) != record["games"]:
+        raise ValueError("FMJD replay did not audit every original public game")
+    excluded_source = set(source_states)
+    selection, category, novel = select_population(
+        source_states, first_ply, target_states, target_games, overlap, engine,
+    )
     return {
         "schema": "mtdp-preregistered-candidate-fmjd-replay-audit-v1",
         "scope": "before_scan_scores_no_scientific_freeze_chronology_not_proven",

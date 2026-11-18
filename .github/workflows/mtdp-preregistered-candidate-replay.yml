@@ -9,6 +9,9 @@ on:
       - 'research/mtdp/jass_benchmark/candidate_ambiguities.py'
       - 'research/mtdp/jass_benchmark/candidate_jass_catalogue.py'
       - 'research/mtdp/jass_benchmark/named_arena_inputs.py'
+      - 'research/mtdp/jass_benchmark/named_arena_replay.py'
+      - 'research/mtdp/tests/test_named_arena_replay.py'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-trajectory-index-summary.json'
       - 'research/mtdp/tests/test_named_arena_inputs.py'
       - 'research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-exclusion-inputs-summary.json'
       - 'research/mtdp/tests/test_candidate_jass_catalogue.py'
@@ -129,7 +132,7 @@ jobs:
         run: |
           set -euo pipefail
           cd dilf
-          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py research/mtdp/tests/test_named_arena_inputs.py
+          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py research/mtdp/tests/test_named_arena_inputs.py research/mtdp/tests/test_named_arena_replay.py
           python -m research.mtdp.jass_benchmark.prospective_candidate_replay \
             --root . \
             --pdn /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
@@ -168,6 +171,20 @@ jobs:
           expected = json.loads(Path('research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-exclusion-inputs-summary.json').read_bytes())
           actual = Path('/tmp/mtdp-independent/P1RUlfJc-exclusions.json').read_bytes()
           assert hashlib.sha256(actual).hexdigest() == expected['registry_sha256']
+          PY
+          python -m research.mtdp.jass_benchmark.named_arena_replay history \
+            --root . --registry /tmp/mtdp-independent/P1RUlfJc-exclusions.json \
+            --history /tmp/mtdp-independent/previous-pdn \
+            --reserved /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
+            --adapter ../draught-master \
+            --output /tmp/mtdp-independent/P1RUlfJc-canonical-history.json
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          expected = json.loads(Path('research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-trajectory-index-summary.json').read_bytes())
+          actual = Path('/tmp/mtdp-independent/P1RUlfJc-canonical-history.json').read_bytes()
+          assert hashlib.sha256(actual).hexdigest() == expected['index_sha256']
           PY
           echo 'No Scan scores or retrospective winners used; this report is NOT a scientific freeze.'
       - name: Preserve all input provenance and prospective replay diagnostics
