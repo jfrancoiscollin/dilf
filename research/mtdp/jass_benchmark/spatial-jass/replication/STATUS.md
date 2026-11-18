@@ -736,3 +736,17 @@ Source-only unit audit clarifies stored integers = 0.01 HUB unit, without a
 universal material-man calibration or changed score/threshold.
 Next: named publication-bound source-only Jass three-arm campaign and runner
 build provenance; final acquisition after 20:57 UTC, freeze before scoring.
+
+
+### Named prospective replication completed — 2026-11-18 21:30 UTC
+
+Freeze `5a050b1`: 33 targets/26 owner games/34 sources/327 actions, two-seed
+reproduction, published proof before scoring. Decisions and analysis plan/code
+published `dad9e70` before target Scan16. All three budgets have 33 paired targets,
+zero ceilings; control/native same choices on 33/33 at every budget. Primary
+50k mean regret difference 0, within-sample game-bootstrap CI [0,0], 25 attributed
+game clusters; no population equivalence/Elo claim. Registered source12→target16
+LCB transfer is target-optimal 12/33, mean regret 10.6970/max129 integer Scan units.
+See `P1RUlfJc-RESULTS_2026-11-18.md` and complete raw references/decision archive.
+Next: exploratory source16→target16 sensitivity, without changing primary
+source12/decisions/analysis or D1 campaigns. Current CI confirmation pending.
