@@ -1,6 +1,13 @@
 """Synthetic regression tests: never interpret signature collisions as minimax."""
 import unittest
-from research.mtdp.decision_equivalence.signature_collision_audit import audit
+import json
+import sys
+import tempfile
+from contextlib import redirect_stdout
+from io import StringIO
+from pathlib import Path
+from unittest.mock import patch
+from research.mtdp.decision_equivalence.signature_collision_audit import audit, main
 
 
 def row(game, pos, sig, successor):
@@ -9,6 +16,18 @@ def row(game, pos, sig, successor):
 
 
 class CollisionAuditTests(unittest.TestCase):
+    def test_jsonl_cli_round_trip(self):
+        records = [row("a", "1", "x", "next1"), row("b", "2", "x", "next2")]
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "records.jsonl"
+            source.write_text("".join(json.dumps(r) + "\n" for r in records), encoding="utf-8")
+            output = StringIO()
+            with patch.object(sys, "argv", ["signature_collision_audit", str(source)]):
+                with redirect_stdout(output):
+                    main()
+            report = json.loads(output.getvalue())
+        self.assertEqual(report["families"]["L"]["successor_divergent_collision_pairs"], 1)
+
     def test_collision_not_successor_equivalence(self):
         report = audit([row("a", "1", "x", "next1"),
                         row("b", "2", "x", "next2"),
