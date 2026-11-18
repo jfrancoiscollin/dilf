@@ -37,5 +37,26 @@ class TestGameOverlap(unittest.TestCase):
         self.assertEqual(len(find_cross_split_windows(rows)), 1)
 
 
+    def test_same_split_is_not_cross_split_evidence(self):
+        rows = self.rows("A", "train", ["a", "b", "c"])
+        rows += self.rows("B", "train", ["a", "b", "c"])
+        self.assertEqual(find_cross_split_windows(rows), [])
+
+    def test_multiple_test_aliases_reported_once_and_sorted(self):
+        rows = self.rows("A", "train", ["a", "b", "c"])
+        rows += self.rows("Z", "test", ["a", "b", "c"])
+        rows += self.rows("B", "test", ["a", "b", "c"])
+        matches = find_cross_split_windows(rows)
+        self.assertEqual(len(matches), 1)
+        self.assertEqual(matches[0]["train_games"], ["A"])
+        self.assertEqual(matches[0]["test_games"], ["B", "Z"])
+
+    def test_invalid_window_rejected(self):
+        rows = self.rows("A", "train", ["a", "b", "c"])
+        for window in (0, 1, -1, 2.0, True):
+            with self.subTest(window=window):
+                with self.assertRaises(ValueError):
+                    find_cross_split_windows(rows, window=window)
+
 if __name__ == "__main__":
     unittest.main()
