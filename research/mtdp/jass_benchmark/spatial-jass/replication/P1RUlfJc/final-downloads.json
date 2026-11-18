@@ -1,0 +1,108 @@
+{
+  "candidate": {
+    "first": {
+      "attempts": [
+        {
+          "bytes": 272395,
+          "http_status": 200,
+          "request_id": "89df0a0165354432a43c2c57a31f981c",
+          "requested_at_utc": "2026-11-18T21:11:17.030290+00:00",
+          "retrieved_at_utc": "2026-11-18T21:11:37.811316+00:00",
+          "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439"
+        }
+      ],
+      "bytes": 272395,
+      "http_status": 200,
+      "request_id": "89df0a0165354432a43c2c57a31f981c",
+      "requested_at_utc": "2026-11-18T21:11:17.030290+00:00",
+      "retrieved_at_utc": "2026-11-18T21:11:37.811316+00:00",
+      "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439",
+      "url": "https://lidraughts.org/api/tournament/P1RUlfJc/games"
+    },
+    "independent_repeat": {
+      "attempts": [
+        {
+          "bytes": 272395,
+          "http_status": 200,
+          "request_id": "cf87574a26e04092ae7c1e5dd7834a67",
+          "requested_at_utc": "2026-11-18T21:11:37.811382+00:00",
+          "retrieved_at_utc": "2026-11-18T21:11:59.017488+00:00",
+          "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439"
+        }
+      ],
+      "bytes": 272395,
+      "http_status": 200,
+      "request_id": "cf87574a26e04092ae7c1e5dd7834a67",
+      "requested_at_utc": "2026-11-18T21:11:37.811382+00:00",
+      "retrieved_at_utc": "2026-11-18T21:11:59.017488+00:00",
+      "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439",
+      "url": "https://lidraughts.org/api/tournament/P1RUlfJc/games"
+    },
+    "matching": true,
+    "number": 1
+  },
+  "metadata": {
+    "attempts": [
+      {
+        "bytes": 2726,
+        "http_status": 200,
+        "request_id": "9838d6d761e649c4b7b06fa9ebd62d1e",
+        "requested_at_utc": "2026-11-18T21:11:10.248717+00:00",
+        "retrieved_at_utc": "2026-11-18T21:11:17.029877+00:00",
+        "sha256": "977be471f60c523e4a21c0a1f28bbac8c16b8199946bb3d6cf8688cf0a9668d3"
+      }
+    ],
+    "bytes": 2726,
+    "http_status": 200,
+    "projection_sha256": "f5b881327114c434ec913e4e34fff3f5374437aa34a3074f2e050177a25ab595",
+    "request_id": "9838d6d761e649c4b7b06fa9ebd62d1e",
+    "requested_at_utc": "2026-11-18T21:11:10.248717+00:00",
+    "retrieved_at_utc": "2026-11-18T21:11:17.029877+00:00",
+    "sha256": "977be471f60c523e4a21c0a1f28bbac8c16b8199946bb3d6cf8688cf0a9668d3",
+    "url": "https://lidraughts.org/api/tournament/P1RUlfJc"
+  },
+  "pair_attempts": [
+    {
+      "first": {
+        "attempts": [
+          {
+            "bytes": 272395,
+            "http_status": 200,
+            "request_id": "89df0a0165354432a43c2c57a31f981c",
+            "requested_at_utc": "2026-11-18T21:11:17.030290+00:00",
+            "retrieved_at_utc": "2026-11-18T21:11:37.811316+00:00",
+            "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439"
+          }
+        ],
+        "bytes": 272395,
+        "http_status": 200,
+        "request_id": "89df0a0165354432a43c2c57a31f981c",
+        "requested_at_utc": "2026-11-18T21:11:17.030290+00:00",
+        "retrieved_at_utc": "2026-11-18T21:11:37.811316+00:00",
+        "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439",
+        "url": "https://lidraughts.org/api/tournament/P1RUlfJc/games"
+      },
+      "independent_repeat": {
+        "attempts": [
+          {
+            "bytes": 272395,
+            "http_status": 200,
+            "request_id": "cf87574a26e04092ae7c1e5dd7834a67",
+            "requested_at_utc": "2026-11-18T21:11:37.811382+00:00",
+            "retrieved_at_utc": "2026-11-18T21:11:59.017488+00:00",
+            "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439"
+          }
+        ],
+        "bytes": 272395,
+        "http_status": 200,
+        "request_id": "cf87574a26e04092ae7c1e5dd7834a67",
+        "requested_at_utc": "2026-11-18T21:11:37.811382+00:00",
+        "retrieved_at_utc": "2026-11-18T21:11:59.017488+00:00",
+        "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439",
+        "url": "https://lidraughts.org/api/tournament/P1RUlfJc/games"
+      },
+      "matching": true,
+      "number": 1
+    }
+  ]
+}
