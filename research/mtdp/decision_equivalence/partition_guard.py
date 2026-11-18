@@ -11,6 +11,20 @@ FORBIDDEN = frozenset({"score", "scores", "scan_score", "eval", "evaluation",
                        "best_move", "best_action", "rank", "ranking", "wdl"})
 
 
+def _reject_target_fields(value):
+    """Reject score-bearing fields recursively, including inside metadata arrays."""
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if not isinstance(key, str):
+                raise ValueError("non-string metadata key")
+            if key.casefold() in FORBIDDEN:
+                raise ValueError("target score leakage")
+            _reject_target_fields(child)
+    elif isinstance(value, (list, tuple)):
+        for child in value:
+            _reject_target_fields(child)
+
+
 def validate_partition(rows, reserved_game_ids=(), reserved_position_ids=()):
     """Validate chronological, game-disjoint score-blind train/test rows.
 
@@ -26,8 +40,9 @@ def validate_partition(rows, reserved_game_ids=(), reserved_position_ids=()):
     seen_positions, game_split, last_ply = set(), {}, {}
     manifest = []
     for row in rows:
-        if not isinstance(row, dict) or FORBIDDEN.intersection(row):
-            raise ValueError("non-score-blind or invalid record")
+        if not isinstance(row, dict):
+            raise ValueError("invalid record")
+        _reject_target_fields(row)
         g, p, ply, split = (row.get(k) for k in ("game_id", "position_id", "ply", "split"))
         if not isinstance(g, str) or not g or not isinstance(p, str) or not p:
             raise ValueError("missing identity")
