@@ -63,3 +63,20 @@ def test_distinct_fens_still_accepted():
     result = audit_exact_fen_overlap([row("a", "1", "W:W31:B20"),
                                       row("b", "2", "B:W31:B20")])
     assert result["positions"] == 2
+
+
+def test_reject_reused_position_identity_with_different_fens_across_games():
+    with pytest.raises(ValueError, match="duplicate position identity"):
+        audit_exact_fen_overlap([row("a", "shared", "W:W31:B20"),
+                                 row("b", "shared", "B:W31:B20")])
+
+
+def test_reject_reused_position_identity_with_different_fens_within_game():
+    with pytest.raises(ValueError, match="duplicate position identity"):
+        audit_exact_fen_overlap([row("a", "shared", "W:W31:B20"),
+                                 row("a", "shared", "B:W31:B20")])
+
+
+def test_distinct_position_identities_and_fens_accepted():
+    assert audit_exact_fen_overlap([row("a", "p1", "W:W31:B20"),
+                                    row("b", "p2", "B:W31:B20")])["positions"] == 2
