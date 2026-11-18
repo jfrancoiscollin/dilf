@@ -72,6 +72,16 @@ def audit(records):
     return report
 
 
+def reject_duplicate_keys(pairs):
+    """Reject ambiguous JSON objects, including nested signature maps."""
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("jsonl", type=Path)
@@ -79,7 +89,7 @@ def main():
     def reject_nonfinite(value):
         raise ValueError(f"nonfinite JSON constant: {value}")
     with args.jsonl.open(encoding="utf-8") as handle:
-        records = [json.loads(line, parse_constant=reject_nonfinite) for line in handle]
+        records = [json.loads(line, parse_constant=reject_nonfinite,\n                              object_pairs_hook=reject_duplicate_keys) for line in handle]
     print(json.dumps(audit(records), sort_keys=True, indent=2))
 
 
