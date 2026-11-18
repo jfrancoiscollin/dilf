@@ -776,3 +776,15 @@ confirms all published counts/costs and99 fully paired receipts. Proofs in
 `P1RUlfJc-results-verification.json`. Next unique action: register separate future
 multi-arena replication before play; no tuning or reuse of P1RUlfJc as a fresh
 holdout. Entire P1RUlfJc/fFgE7oED remain reserved from D1. Jeff PC not required.
+
+
+### New two-arena registration prepared — 2026-11-18 22:19 UTC
+
+New exact cohort: s7ahYqL4 (18 Nov23:00UTC) and D9PF2OSW (19 Nov02:00UTC),
+official standard5+0/57min, metadata positively future, no games/scores acquired.
+Pinned registration/protocol and17local gate tests; live publication proof before
+first start required. Joint final gate after19Nov02:57UTC only, joint two-seed
+population freeze before scores. Entire events reserved outside D1. All historical
+exclusions plus entire P1RUlfJc must be extended before collection. Previous P1RUlfJc
+primary/exploratory findings unchanged. Next:publish proof, extend exclusions,
+explicit new-study adapter preserving frozen scientific kernels. New CI pending.
