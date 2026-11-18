@@ -78,3 +78,44 @@ then publish a joint freeze before source12/source16/target16 or Jass search.
 Do not reuse the P1RUlfJc fixed-ID CLI by patching globals, IDs or clock guards.
 No D1 signature/refinement/top-K campaign has been started. Jeff's PC is not
 needed for these accessible remote input checks.
+
+
+## Joint final acquisition adapter prepared — 22:33 UTC
+
+`two_arena_acquisition` now provides explicit `acquire`/`check` modes for this
+study. The real clock is checked before HTTP or directory creation. After the
+joint finish, both finished metadata records must match before *any* game GET.
+Then each event receives two distinct matching exports and independent request
+IDs/timestamps/hashes, with all four IDs globally unique. Divergent pairs are
+retained/retried; transport retries reuse the previously tested HTTP helper.
+If a repeat download fails, its already acquired first bytes and receipt remain
+on disk. Failures record their identity/attempt ledger, never a successful freeze.
+Existing directories/results are refused, metadata prose is projected out, and
+final validation rechecks both events and every receipt. Empty/non-PDN HTTP
+responses are reported as input failure, never fabricated as scored zero results;
+a valid replay with zero eligible targets must still be preserved by the next
+population adapter.
+
+**154 targeted local tests pass**, including8 new in-memory transport/future-clock
+cases: premature access, metadata ordering, unfinished second event, divergent
+pairs, technical repeat failure preserving the first response, changed bytes,
+reused request ID, and overwrite refusal. A production CLI invocation with the
+actual current clock was also refused before output creation. No real new game
+export was downloaded and no future position/score was observed.
+
+```sh
+# Only after both registered finishes and actual finished metadata:
+python -m research.mtdp.jass_benchmark.two_arena_acquisition acquire \
+  --root . --directory /tmp/two-named-final-UNIQUE
+python -m research.mtdp.jass_benchmark.two_arena_acquisition check \
+  --root . --directory /tmp/two-named-final-UNIQUE
+```
+
+These successful input checks remain `scientific_freeze:false`. The remaining
+next action is the explicit joint population/proposal/freeze adapter, including
+whole-game/FEN cross-arena exclusions and exact Jass action mappings; test it
+synthetically before using actual exports. Do not start source/target scoring or
+Jass search without the joint published position freeze. D1 commits c9bd6b7,
+9013d75,09d020d and1e08f8c were preserved; their latest coordination explicitly
+acknowledges all four whole-event reservations. No D1 metrics or campaign was
+modified here. New workflow confirmation remains pending.

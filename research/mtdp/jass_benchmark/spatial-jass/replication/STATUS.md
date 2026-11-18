@@ -799,3 +799,14 @@ prefixes; seeds7/61 byte-identical SHA8dac5c60…666dc32.146local targeted tests
 new workflow cache/digest integration pending. Two future whole events reserved
 outside D1; joint final gate19Nov02:57UTC. Next:explicit new-study final/joint
 freeze adapter with synthetic cross-event tests; no real new games or scores yet.
+
+
+### Joint final acquisition prepared — 18 Nov22:33 UTC
+
+Explicit new-study collect/check modes, actual clock blocks before any HTTP or
+mkdir until both scheduled ends. Both finished metadata records precede game
+GETs,4unique request IDs and two matching exports per event; retries/partial
+failure artifacts retained, no overwrite.154local tests pass, real-clock CLI
+refusal confirmed. No new actual game/FEN/score. D1 concurrent commits preserved.
+Next:joint population/proposal/freeze adapter with cross-arena game/FEN exclusions,
+all mappings and7/61 reproduction; synthetic validation before joint final data.
