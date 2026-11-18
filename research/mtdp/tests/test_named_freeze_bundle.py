@@ -113,6 +113,10 @@ def test_real_git_remote_proof_and_worktree_independence(monkeypatch, tmp_path):
     assert checked['scientific_freeze'] is True
     (target / 'manifest.json').write_text('uncommitted edit')
     assert gate.verify_publication(repo, str(relative), published)['manifest_sha256'] == checked['manifest_sha256']
+    from research.mtdp.jass_benchmark.named_arena_execution import published_manifest
+    manifest, proof = published_manifest(repo, str(relative), published)
+    assert manifest == json.loads(payloads['manifest.json'])
+    assert proof['manifest_sha256'] == checked['manifest_sha256']
 
 def test_prepare_runs_both_real_hash_seed_child_commands(monkeypatch, tmp_path):
     monkeypatch.setattr(gate, '_now', lambda: NOW)

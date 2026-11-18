@@ -13,6 +13,8 @@ on:
       - 'research/mtdp/jass_benchmark/named_arena_acquisition.py'
       - 'research/mtdp/jass_benchmark/named_freeze_bundle.py'
       - 'research/mtdp/jass_benchmark/named_arena_rehearsal.py'
+      - 'research/mtdp/jass_benchmark/named_arena_execution.py'
+      - 'research/mtdp/tests/test_named_arena_execution.py'
       - 'research/mtdp/tests/test_named_arena_acquisition.py'
       - 'research/mtdp/tests/test_named_freeze_bundle.py'
       - 'research/mtdp/tests/test_named_arena_replay.py'
@@ -55,6 +57,12 @@ jobs:
           repository: jfrancoiscollin/jass
           ref: cfe07fce6385b980553a898e9651d53419589ebc
           path: jass
+      - name: Check out exact Scan binary for initial-position engineering smoke only
+        uses: actions/checkout@v4
+        with:
+          repository: rhalbersma/scan
+          ref: 7aae17e7b7bfc47744601afb1ee7655e18983ce5
+          path: scan
       - name: Build legal catalogue without search or scoring
         run: |
           set -euo pipefail
@@ -72,6 +80,35 @@ jobs:
           sed '/dilf/d' draught-master/backend/requirements.txt > /tmp/mtdp-backend-requirements.txt
           pip install -r /tmp/mtdp-backend-requirements.txt
           pip install -r draught-master/requirements-dev.txt
+      - name: Verify Scan pins and execute initial-position depth 12 and 16 smoke
+        run: |
+          set -euo pipefail
+          cd dilf
+          python - <<'PY'
+          import json
+          import time
+          from pathlib import Path
+          from pedagogy.game import parse_fen
+          from research.mtdp.best_move_audit import Scan
+          from research.mtdp.jass_benchmark.named_arena_execution import scan_fingerprints
+          from research.mtdp.jass_cohort import SCAN_SHA256
+          binary = Path('../scan/scan_linux')
+          fingerprints = scan_fingerprints(binary, {'scan_binary_sha256': SCAN_SHA256})
+          state = parse_fen('W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')
+          observed = []
+          for depth in (12, 16):
+              started = time.monotonic()
+              with Scan(binary, depth=depth) as scan:
+                  score = scan.score(state)
+              observed.append({'depth': depth, 'score': score, 'wall_seconds': round(time.monotonic() - started, 3)})
+          report = {'schema': 'mtdp-scan-engineering-smoke-v1', 'scientific_freeze': False,
+                    'scope': 'standard_initial_position_engine_startup_only_no_cohort_result',
+                    'fingerprints': fingerprints, 'observed': observed}
+          output = Path('/tmp/mtdp-independent/scan-engineering-smoke.json')
+          output.parent.mkdir(parents=True, exist_ok=True)
+          output.write_text(json.dumps(report, sort_keys=True, indent=2) + '\n')
+          print(json.dumps(report, sort_keys=True))
+          PY
       - name: Fetch exact candidate and historical public PDNs before scoring
         run: |
           set -euo pipefail
@@ -137,7 +174,7 @@ jobs:
         run: |
           set -euo pipefail
           cd dilf
-          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py research/mtdp/tests/test_named_arena_inputs.py research/mtdp/tests/test_named_arena_replay.py research/mtdp/tests/test_named_arena_acquisition.py research/mtdp/tests/test_named_freeze_bundle.py
+          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py research/mtdp/tests/test_named_arena_inputs.py research/mtdp/tests/test_named_arena_replay.py research/mtdp/tests/test_named_arena_acquisition.py research/mtdp/tests/test_named_freeze_bundle.py research/mtdp/tests/test_named_arena_execution.py
           python -m research.mtdp.jass_benchmark.prospective_candidate_replay \
             --root . \
             --pdn /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \

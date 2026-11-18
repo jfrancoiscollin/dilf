@@ -1,0 +1,22 @@
+{
+  "fingerprints": {
+    "data/eval": "0e7161c38af605f5e367f3f8fe17525d1c40db722714c68921971b386e58abba",
+    "scan.ini": "dc201a7debaf98bb869fb3d6b641adb219df71b0ea22004b2d9b6f51cdb69538",
+    "scan_linux": "a634cbb44c9528eab277cdf6cdf8d29d506318ce5fba3f9bc69c2025b5941864"
+  },
+  "observed": [
+    {
+      "depth": 12,
+      "score": -1,
+      "wall_seconds": 0.216
+    },
+    {
+      "depth": 16,
+      "score": 0,
+      "wall_seconds": 0.287
+    }
+  ],
+  "schema": "mtdp-scan-engineering-smoke-v1",
+  "scientific_freeze": false,
+  "scope": "standard_initial_position_engine_startup_only_no_cohort_result"
+}

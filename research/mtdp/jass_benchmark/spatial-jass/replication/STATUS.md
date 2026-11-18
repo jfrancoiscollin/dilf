@@ -711,3 +711,15 @@ HEAD `069d5c2`: 7/7 workflows success. Candidate run `44381395324` confirms
 Next: bind execution to verified committed publication and pinned Scan/Jass
 runners. Final real acquisition remains after 20:57 UTC only; all D1 reservations
 and quarantines remain. Generic scoring CLI alone is insufficient publication proof.
+
+
+### Published reference dispatch prepared — 2026-11-18 20:21 UTC
+
+`named_arena_execution` rechecks the remote freeze and loads the committed
+manifest before any engine input/output; pins running method, Scan binary/eval/ini
+and FMJD import, fixes source/target depths 12/16, validates complete actions and
+never overwrites results. 79 targeted local tests pass. Actual pinned Scan runs
+on the standard initial position at both depths; no target export or new quality
+estimate. See `NAMED_PUBLISHED_REFERENCE_GATE_2026-11-18.md` and startup JSON.
+New workflow integration awaits confirmation. Next: publication-bound three-arm
+Jass runner and build receipts; final collection only after 20:57 UTC.
