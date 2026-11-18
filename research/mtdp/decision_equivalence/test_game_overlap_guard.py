@@ -72,5 +72,24 @@ class TestGameOverlap(unittest.TestCase):
         self.assertEqual(len(matches), 1)
         self.assertEqual(matches[0]["fen_window"], ["a", "b", "c"])
 
+    def test_same_game_id_cannot_cross_splits(self):
+        rows = self.rows("A", "train", ["a", "b", "c"])
+        rows += self.rows("A", "test", ["d", "e", "f"])
+        with self.assertRaises(ValueError):
+            find_cross_split_windows(rows)
+
+    def test_offset_windows_are_detected(self):
+        rows = self.rows("A", "train", ["x", "a", "b", "c"])
+        rows += self.rows("B", "test", ["a", "b", "c", "y"])
+        matches = find_cross_split_windows(rows, window=3)
+        self.assertEqual(len(matches), 1)
+        self.assertEqual(matches[0]["fen_window"], ["a", "b", "c"])
+
+    def test_two_ply_window_is_supported(self):
+        rows = self.rows("A", "train", ["a", "b"])
+        rows += self.rows("B", "test", ["a", "b"])
+        self.assertEqual(len(find_cross_split_windows(rows, window=2)), 1)
+        self.assertEqual(find_cross_split_windows(rows, window=3), [])
+
 if __name__ == "__main__":
     unittest.main()
