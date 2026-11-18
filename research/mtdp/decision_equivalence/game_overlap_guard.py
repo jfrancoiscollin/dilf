@@ -9,7 +9,7 @@ from collections import defaultdict
 def find_cross_split_windows(rows, window=3):
     """Find identical ordered FEN windows shared by train and test games.
 
-    Windows cover consecutive records, not necessarily consecutive plies.
+    Windows cover strictly consecutive plies, never merely adjacent records.
     No Scan/Jass scores may be supplied. This is a conservative alias check,
     not FMJD canonicalization or an independence certificate.
     """
@@ -31,11 +31,14 @@ def find_cross_split_windows(rows, window=3):
         if g in last and ply <= last[g]:
             raise ValueError("non-increasing ply")
         splits[g], last[g] = split, ply
-        games[g].append("".join(fen.split()))
+        games[g].append((ply, "".join(fen.split())))
     index = defaultdict(lambda: {"train": set(), "test": set()})
     for g, seq in games.items():
         for i in range(len(seq) - window + 1):
-            index[tuple(seq[i:i + window])][splits[g]].add(g)
+            segment = seq[i:i + window]
+            if any(segment[j + 1][0] != segment[j][0] + 1 for j in range(window - 1)):
+                continue
+            index[tuple(fen for _, fen in segment)][splits[g]].add(g)
     return [{"train_games": sorted(v["train"]), "test_games": sorted(v["test"]),
              "fen_window": list(k)} for k, v in sorted(index.items())
             if v["train"] and v["test"]]
