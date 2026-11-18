@@ -75,6 +75,14 @@ def test_invalid_prefix_rejected_before_main(monkeypatch):
     assert not any(entry[0] == "main" for entry in calls)
 
 
+def test_same_count_but_different_frozen_actions_stop_before_main(monkeypatch):
+    calls = fake_engine(monkeypatch)
+    with pytest.raises(ValueError, match='frozen legal keys'):
+        metered_engine_smoke.technical_smoke(None, None, 'fen', total_nodes=10000,
+                                           prefix=['b'], expected_legal_keys=['a', 'b', 'wrong'])
+    assert not any(row[0] == 'main' for row in calls)
+
+
 def test_king_first_archived_fen_matches_jass_men_first_canonicalization():
     from research.mtdp.jass_benchmark.metered_engine_smoke import _position_identity
     archive = "B:WK2,25,35,40,48:B15,37"

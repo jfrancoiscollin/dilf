@@ -1,0 +1,47 @@
+{
+  "binaries": {
+    "catalogue": {
+      "archive_path": "research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-runtime/catalogue.gz",
+      "archive_sha256": "c016e78a35324ccf4f692f7219322bfcdf2507474989801a6119f125412fd4b2",
+      "bytes": 73472,
+      "sha256": "c4065367a315534284a3b9937b97fe51e2e2b011a26b2889ada435c0845aecfd"
+    },
+    "main": {
+      "archive_path": "research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-runtime/main.gz",
+      "archive_sha256": "cee627a6835e010269bb99b99e3684925510974c5dc5c9554b91e259b46cfcea",
+      "bytes": 275296,
+      "sha256": "d372a3347d452e6c6be23ad6858d0bcddf4626eb84ad21a9e7640ddd79527856"
+    },
+    "probe": {
+      "archive_path": "research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-runtime/probe.gz",
+      "archive_sha256": "5c9e2342542286e36a38bbd5070d611a572ce96e81b52e871b9fb09d1fed0d76",
+      "bytes": 265184,
+      "sha256": "7fce773dbc5f71d378d62350e014449abbd18fb5a0e695e930db04f17d01b2b6"
+    }
+  },
+  "build_inputs": {
+    "research/mtdp/jass_benchmark/runner.cpp": "7d6f80defbdfa999a22db465c370075fe1337016b2ca06db37ecd1a91ec9b0d0",
+    "research/mtdp/jass_preflight/depth-one-winner.patch": "2d77879629982fea8cabb8f0a33722a05d5c10df19c20f8b471946830318d873",
+    "research/mtdp/jass_preflight/first-root-action.patch": "89629250480ced93e131221350fd4dad28c429a1c90075bb52d0c53c89a4957d",
+    "research/mtdp/jass_preflight/initial-only.patch": "2db2475b729b4deac6ad9beada89abbaa17617aaf2749b2da9e2193fd8d7d273",
+    "research/mtdp/jass_preflight/metered_probe.cpp": "949c76167bda7b97c2162db24d10b24919136ba9afd00421b9ba2999b8d69241",
+    "research/mtdp/jass_preflight/move_key.hpp": "efd35b851ee6e4654c804356429f2a2983db945c69237d7c743905835776008d",
+    "research/mtdp/jass_preflight/targets.cmake": "11cedf28e28eabca29d2514c20fca83943470999302552f40fe67b3bbb6a594a"
+  },
+  "build_recipe": "NAMED_METERED_CAMPAIGN_2026-11-18.md",
+  "cmake": "cmake version 4.4.5",
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "configuration": {
+    "build_type": "Release",
+    "main_initial_only": true,
+    "native": false,
+    "simd": false
+  },
+  "jass_checkout_diffs": {
+    "main": "a7904ec0c37c687bb510d0a0dc8ece7e5e50cbeea37bb565272a852152a9098b",
+    "probe": "509b1b8b05f62a8f4fc4a916cabf4e81268387a916973976cff29bfbf1a7ad68"
+  },
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "schema": "mtdp-named-jass-runner-builds-v1",
+  "scope": "pre_score_engineering_builds_not_cohort_results"
+}

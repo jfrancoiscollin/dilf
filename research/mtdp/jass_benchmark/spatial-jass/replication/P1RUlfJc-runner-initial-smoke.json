@@ -1,0 +1,305 @@
+{
+  "rows": [
+    {
+      "budget": 10000,
+      "complete_budget": true,
+      "control_main": {
+        "best_move": "32-27",
+        "completed_depth": 6,
+        "depth_ceiling": false,
+        "nodes": 9900,
+        "score": 0,
+        "stop": "nodes"
+      },
+      "decision_reason": "verified_unique_best",
+      "fallback_reason": null,
+      "intervention": null,
+      "lcb_baseline": {
+        "best_move": "32-27",
+        "completed_depth": 6,
+        "depth_ceiling": false,
+        "nodes": 10000,
+        "score": 0,
+        "stop": "nodes"
+      },
+      "main_limit": 9900,
+      "main_nodes": 9900,
+      "native_baseline": {
+        "best_move": "32-27",
+        "completed_depth": 6,
+        "depth_ceiling": false,
+        "nodes": 10000,
+        "score": 0,
+        "stop": "nodes"
+      },
+      "native_legal_actions": 9,
+      "paired_comparable": true,
+      "preliminary_nodes": 30,
+      "scope": "technical_engineering_smoke_not_strength_evidence",
+      "total_nodes": 10000,
+      "verification_nodes": 100,
+      "verification_receipts": [
+        {
+          "issued_limit": 1000,
+          "nodes": 30,
+          "phase": "preliminary"
+        },
+        {
+          "issued_limit": 970,
+          "move": "31-26",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 964,
+          "move": "32-27",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 958,
+          "move": "33-28",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 948,
+          "move": "34-29",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 938,
+          "move": "35-30",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 932,
+          "move": "31-27",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 926,
+          "move": "32-28",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 916,
+          "move": "33-29",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 906,
+          "move": "34-30",
+          "nodes": 6,
+          "phase": "probe"
+        }
+      ]
+    },
+    {
+      "budget": 50000,
+      "complete_budget": true,
+      "control_main": {
+        "best_move": "34-30",
+        "completed_depth": 11,
+        "depth_ceiling": false,
+        "nodes": 49900,
+        "score": -1,
+        "stop": "nodes"
+      },
+      "decision_reason": "verified_unique_best",
+      "fallback_reason": null,
+      "intervention": null,
+      "lcb_baseline": {
+        "best_move": "34-30",
+        "completed_depth": 11,
+        "depth_ceiling": false,
+        "nodes": 50000,
+        "score": -1,
+        "stop": "nodes"
+      },
+      "main_limit": 49900,
+      "main_nodes": 49900,
+      "native_baseline": {
+        "best_move": "34-30",
+        "completed_depth": 11,
+        "depth_ceiling": false,
+        "nodes": 50000,
+        "score": -1,
+        "stop": "nodes"
+      },
+      "native_legal_actions": 9,
+      "paired_comparable": true,
+      "preliminary_nodes": 30,
+      "scope": "technical_engineering_smoke_not_strength_evidence",
+      "total_nodes": 50000,
+      "verification_nodes": 100,
+      "verification_receipts": [
+        {
+          "issued_limit": 5000,
+          "nodes": 30,
+          "phase": "preliminary"
+        },
+        {
+          "issued_limit": 4970,
+          "move": "31-26",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 4964,
+          "move": "32-27",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 4958,
+          "move": "33-28",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 4948,
+          "move": "34-29",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 4938,
+          "move": "35-30",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 4932,
+          "move": "31-27",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 4926,
+          "move": "32-28",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 4916,
+          "move": "33-29",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 4906,
+          "move": "34-30",
+          "nodes": 6,
+          "phase": "probe"
+        }
+      ]
+    },
+    {
+      "budget": 200000,
+      "complete_budget": true,
+      "control_main": {
+        "best_move": "32-28",
+        "completed_depth": 13,
+        "depth_ceiling": false,
+        "nodes": 199900,
+        "score": -1,
+        "stop": "nodes"
+      },
+      "decision_reason": "verified_unique_best",
+      "fallback_reason": null,
+      "intervention": null,
+      "lcb_baseline": {
+        "best_move": "32-28",
+        "completed_depth": 13,
+        "depth_ceiling": false,
+        "nodes": 200000,
+        "score": -1,
+        "stop": "nodes"
+      },
+      "main_limit": 199900,
+      "main_nodes": 199900,
+      "native_baseline": {
+        "best_move": "32-28",
+        "completed_depth": 13,
+        "depth_ceiling": false,
+        "nodes": 200000,
+        "score": -1,
+        "stop": "nodes"
+      },
+      "native_legal_actions": 9,
+      "paired_comparable": true,
+      "preliminary_nodes": 30,
+      "scope": "technical_engineering_smoke_not_strength_evidence",
+      "total_nodes": 200000,
+      "verification_nodes": 100,
+      "verification_receipts": [
+        {
+          "issued_limit": 20000,
+          "nodes": 30,
+          "phase": "preliminary"
+        },
+        {
+          "issued_limit": 19970,
+          "move": "31-26",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 19964,
+          "move": "32-27",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 19958,
+          "move": "33-28",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 19948,
+          "move": "34-29",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 19938,
+          "move": "35-30",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 19932,
+          "move": "31-27",
+          "nodes": 6,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 19926,
+          "move": "32-28",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 19916,
+          "move": "33-29",
+          "nodes": 10,
+          "phase": "probe"
+        },
+        {
+          "issued_limit": 19906,
+          "move": "34-30",
+          "nodes": 6,
+          "phase": "probe"
+        }
+      ]
+    }
+  ],
+  "scope": "synthetic_initial_position_engineering_only"
+}

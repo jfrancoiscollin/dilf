@@ -100,7 +100,8 @@ def main_search(binary: Path, fen: str, prefix: Sequence[str],
 
 
 def technical_smoke(probe_binary: Path, main_binary: Path,
-                    fen: str, *, total_nodes: int, prefix: Sequence[str]) -> dict:
+                    fen: str, *, total_nodes: int, prefix: Sequence[str],
+                    expected_legal_keys: Sequence[str] | None = None) -> dict:
     """Meter one current-position verification and actual remaining-budget search."""
     cap = verification_cap(total_nodes)
     if cap == 0:
@@ -108,6 +109,9 @@ def technical_smoke(probe_binary: Path, main_binary: Path,
     initial = run_depth_one(probe_binary, fen, mode="preliminary", limit=cap,
                             prefix=prefix)
     native = initial["native_order"]
+    if expected_legal_keys is not None and (len(native) != len(expected_legal_keys)
+                                          or set(native) != set(expected_legal_keys)):
+        raise ValueError("Live native actions differ from frozen legal keys")
     if any(key not in native for key in prefix) or len(set(prefix)) != len(prefix):
         raise ValueError("Prefix differs from the live legal order")
     def preliminary(limit):
