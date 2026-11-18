@@ -106,3 +106,68 @@ It distinguishes cross-depth transfer error from equal-depth disagreement but
 cannot be relabelled a new held-out confirmation. No new signature, D1 campaign,
 threshold or cohort is selected. Entire P1RUlfJc/fFgE7oED remain reserved from D1.
 New CI checks on the current branch remain to be confirmed separately.
+
+
+## Completed exploratory equal-depth control and full-signature annotation
+
+The follow-up implementation was fixed in `6cf0445` after the primary result and
+before computing source16. It re-verifies the same immutable freeze and uses the
+already published target16 packet from `f741ed6`. No primary source12, decisions,
+analysis or selected source FEN is changed. This is an **exploratory sensitivity
+on the already observed cohort**, not another independent confirmation.
+
+At source16/target16, the existing LCB source pick is optimal on **13/33** targets;
+optimal sets intersect in **16/33**, so **17/33 pairs have disjoint optimum sets**.
+Mean selected-action ordinary regret is 10.6667, maximum129 integer Scan units.
+For L, the selected source pick is optimal12/33, sets intersect15/33, mean10.7879.
+The source12-to-source16 change therefore does not remove the finite-reference
+transfer disagreements. The separate source16 packet is marked
+`primary_source_usable=false` and is rejected by the primary depth12 campaign gate.
+
+LCB is weaker than the full quiet signature: it matches legal actions, mover man
+count and blocker descriptor, while full `_quiet_signature` also fixes the exact
+mover-man squares. **Do not describe all 33 LCB matches as full-signature matches.**
+A separately labelled post-hoc annotation computes the *existing* full signature
+without learning a new signature or changing any target/source. All 33 rows and
+both equal/different strata are retained in `P1RUlfJc-full-quiet-annotation.json`.
+
+| Source choice, existing full quiet signature equal | Pairs | Owner games | Disjoint optimum sets | Source pick optimal | Mean regret (all pairs) | Mean positive regret | Max |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| L | 24 | 17 | 12 | 9 | 6.875 | 11.0 (15 cases) | 97 |
+| LCB | **25** | **18** | **13** | **9** | **6.88** | **10.75 (16 cases)** | **97** |
+
+For the LCB/full-signature stratum, three additional suboptimal chosen moves arise
+from ties: optimum sets intersect but the deterministic first source maximizer is
+not target-optimal. This distinguishes set disagreement from a tie-breaking cost.
+These are concrete counterexamples to preservation of the **finite Scan16 optimal
+move set** by this descriptor on the examined pairs; no minimax implication or
+population error-rate guarantee follows. The annotation was selected after the
+primary outcome, so its subgroup rates/costs remain descriptive and exploratory.
+All values are stored integer Scan units; maximum97 equals0.97 HUB display unit,
+not a certified0.97 material pawn.
+
+Reproduce the source16 control with `named_source16_sensitivity` using the same
+freeze and published primary-reference commit, then `named_signature_annotation`.
+The latter never scores, searches, selects a different source or removes a row;
+it rejects population/ownership changes and undefined (non-quiet) signatures.
+Per-case primary/secondary references, exact optimal sets and all labels/costs
+are committed. **125 local targeted tests pass** after the annotation checks;
+new CI must still be observed on the published head.
+
+Next foundation control: prospectively register a separate multi-arena replication
+with fixed identities before play, preserving the existing signatures, all
+selected positions, total budgets and adverse/empty-result reporting. This would
+assess tournament-to-tournament stability; it must not pool this exploratory
+subgroup as a fresh confirmatory cohort. Coordinate all new IDs/exclusions with
+D1 before use. No D1 refinement/top-K/dimension campaign is authorized by these
+results, and entire P1RUlfJc/fFgE7oED remain excluded from D1 fitting/thresholds.
+
+
+A reproducible full-signature counterexample is frozen target game235: the source
+Scan16 maximizer is `19-23`, whereas the target's maximizer is `11-16`.
+The target scores are -120 for the transferred `19-23` and -23 for `11-16`, giving
+97 integer units of regret. Both complete source/target FENs and action optima
+are recoverable from the manifest and annotation JSON; no ambiguous move was
+used. The exact mover-man squares and blocker descriptor coincide, while other
+opponent placements differ. This demonstrates the descriptor's loss of relevant
+information for this finite reference, without establishing minimax truth.

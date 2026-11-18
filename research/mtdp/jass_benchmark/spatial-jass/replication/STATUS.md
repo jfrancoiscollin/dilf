@@ -750,3 +750,16 @@ LCB transfer is target-optimal 12/33, mean regret 10.6970/max129 integer Scan un
 See `P1RUlfJc-RESULTS_2026-11-18.md` and complete raw references/decision archive.
 Next: exploratory source16→target16 sensitivity, without changing primary
 source12/decisions/analysis or D1 campaigns. Current CI confirmation pending.
+
+
+### Equal-depth sensitivity completed — 2026-11-18 21:39 UTC
+
+Exploratory source16→same target16: LCB pick13/33 optimal, optimum sets disjoint
+17/33, mean ordinary regret10.6667/max129. Existing full-quiet-signature annotation
+on fixed LCB pairs:25 pairs/18 owner games,13 disjoint optimum sets,9 optimal
+source picks; mean regret6.88, positive-only mean10.75 (16 cases), max97.
+All33 rows/both strata retained; primary source12/Jass null result unchanged.
+See source16/reference/comparison/annotation JSON and expanded results report.
+125 targeted tests pass locally; latest CI still to confirm.
+Next: pre-register separate future multi-arena replication, IDs before play,
+with D1 reservations; no tuning or relabelling of the observed subgroup.
