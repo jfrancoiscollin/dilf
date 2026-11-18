@@ -1,0 +1,22 @@
+{
+  "analysis_sha256": "3d4f552367f29544934645caf1d0ae9ebf537e4cec19e8083c92a693fc23aa24",
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 20261113,
+  "bootstrap_unit": "whole target game, lexicographically smallest owner as in previous replication",
+  "comparisons": [
+    "control-native",
+    "control-lcb"
+  ],
+  "decision_campaign_complete": true,
+  "frozen_commit": "5a050b1068154a527cc5f35a8f795919def2dcce",
+  "ordinary_score_units": "integer Scan = 0.01 HUB; categorical scores separate",
+  "paired_per_budget": 33,
+  "percentile_indices": [
+    249,
+    9749
+  ],
+  "primary_budget": 50000,
+  "schema": "mtdp-named-quality-analysis-plan-v1",
+  "status": "analysis_implementation_before_target_reference",
+  "target_reference_acquired": false
+}
