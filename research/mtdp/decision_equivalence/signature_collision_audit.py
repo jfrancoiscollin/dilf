@@ -89,7 +89,8 @@ def main():
     def reject_nonfinite(value):
         raise ValueError(f"nonfinite JSON constant: {value}")
     with args.jsonl.open(encoding="utf-8") as handle:
-        records = [json.loads(line, parse_constant=reject_nonfinite,\n                              object_pairs_hook=reject_duplicate_keys) for line in handle]
+        records = [json.loads(line, parse_constant=reject_nonfinite,
+                              object_pairs_hook=reject_duplicate_keys) for line in handle]
     print(json.dumps(audit(records), sort_keys=True, indent=2))
 
 
