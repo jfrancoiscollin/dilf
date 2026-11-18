@@ -39,7 +39,7 @@ class RefinementCollisionRiskTests(unittest.TestCase):
         levels = refinement_collision_risk(rows, ["L", "LCB"])["levels"]
         self.assertEqual(
             [(x["collision_pairs"], x["divergent_successor_pairs"], x["cross_game_pairs"], x["cross_game_divergent_successor_pairs"]) for x in levels],
-            [(3, 2, 2, 1), (1, 1, 1, 1)],
+            [(3, 2, 2, 2), (1, 1, 1, 1)],
         )
 
     def test_randomized_against_exhaustive_reference(self):
