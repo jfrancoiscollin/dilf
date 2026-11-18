@@ -687,3 +687,15 @@ IDs/tokens/trajectories/FENs, atomic target replay, source selection and Jass
 catalogues. It remains closed before 20:57 UTC and always emits an unfrozen
 proposal. No P1RUlfJc game or new score was acquired. Next rehearse acquisition
 receipts and synthetic proposal/publication, then freeze after actual completion.
+
+## 18 November evening: acquisition/publication tools recorded
+
+[NAMED_FREEZE_REHEARSAL_2026-11-18.md](NAMED_FREEZE_REHEARSAL_2026-11-18.md)
+records the final-input collector, two-seed bundle preparation, exact-byte tree
+export and verification of an actual research-branch ancestor commit. 59 local
+targeted tests pass. The earlier local-only preparation was not in the remote
+branch; its integration is being revalidated in CI with simulated HTTP/time
+and real FMJD/Jass. Synthetic outputs are permanently refused for real scoring.
+No actual P1RUlfJc game was acquired or frozen. Next connect the three-arm
+execution adapter to verified publication and check binaries, then acquire and
+freeze only after actual completion (not before 20:57 UTC).

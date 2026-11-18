@@ -10,6 +10,11 @@ on:
       - 'research/mtdp/jass_benchmark/candidate_jass_catalogue.py'
       - 'research/mtdp/jass_benchmark/named_arena_inputs.py'
       - 'research/mtdp/jass_benchmark/named_arena_replay.py'
+      - 'research/mtdp/jass_benchmark/named_arena_acquisition.py'
+      - 'research/mtdp/jass_benchmark/named_freeze_bundle.py'
+      - 'research/mtdp/jass_benchmark/named_arena_rehearsal.py'
+      - 'research/mtdp/tests/test_named_arena_acquisition.py'
+      - 'research/mtdp/tests/test_named_freeze_bundle.py'
       - 'research/mtdp/tests/test_named_arena_replay.py'
       - 'research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-trajectory-index-summary.json'
       - 'research/mtdp/tests/test_named_arena_inputs.py'
@@ -132,7 +137,7 @@ jobs:
         run: |
           set -euo pipefail
           cd dilf
-          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py research/mtdp/tests/test_named_arena_inputs.py research/mtdp/tests/test_named_arena_replay.py
+          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py research/mtdp/tests/test_named_arena_inputs.py research/mtdp/tests/test_named_arena_replay.py research/mtdp/tests/test_named_arena_acquisition.py research/mtdp/tests/test_named_freeze_bundle.py
           python -m research.mtdp.jass_benchmark.prospective_candidate_replay \
             --root . \
             --pdn /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
@@ -185,6 +190,22 @@ jobs:
           expected = json.loads(Path('research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-trajectory-index-summary.json').read_bytes())
           actual = Path('/tmp/mtdp-independent/P1RUlfJc-canonical-history.json').read_bytes()
           assert hashlib.sha256(actual).hexdigest() == expected['index_sha256']
+          PY
+          for seed in 7 61; do
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.named_arena_rehearsal \
+              --root . --registry /tmp/mtdp-independent/P1RUlfJc-exclusions.json \
+              --index /tmp/mtdp-independent/P1RUlfJc-canonical-history.json \
+              --adapter ../draught-master --jass ../jass \
+              --executable /tmp/mtdp-catalogue-build/mtdp_jass_legal_catalogue \
+              --output /tmp/mtdp-independent/synthetic-rehearsal-seed$seed
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          reports = [json.loads(Path(f'/tmp/mtdp-independent/synthetic-rehearsal-seed{seed}/rehearsal-report.json').read_bytes()) for seed in (7, 61)]
+          for key in ('proposal_sha256', 'manifest_sha256', 'publication_sha256'):
+              assert reports[0][key] == reports[1][key], f'Synthetic reproduction differs: {key}'
+          assert all(r['synthetic_rehearsal'] and not r['scientific_freeze'] and r['production_validator_refused'] for r in reports)
           PY
           echo 'No Scan scores or retrospective winners used; this report is NOT a scientific freeze.'
       - name: Preserve all input provenance and prospective replay diagnostics
