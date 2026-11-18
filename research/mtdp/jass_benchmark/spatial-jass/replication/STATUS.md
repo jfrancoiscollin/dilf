@@ -763,3 +763,16 @@ See source16/reference/comparison/annotation JSON and expanded results report.
 125 targeted tests pass locally; latest CI still to confirm.
 Next: pre-register separate future multi-arena replication, IDs before play,
 with D1 reservations; no tuning or relabelling of the observed subgroup.
+
+
+### Validation confirmed — 2026-11-18 21:51 UTC
+
+HEAD `0bcabd4`:7/7 workflows success; candidate44404104714/job135154797763,
+125 targeted tests passed. Artifact14473163987 downloaded, ZIP SHA
+`8d552ce91164b685f61ac8d2a557cd96ca6a28088278d1b5b3285abcdfc172d8`,
+6,824,390 bytes; payload/registry/index hashes verified. Primary real-data analysis
+reproduces byte-identically under seeds7/61; independent raw-score/node recalculation
+confirms all published counts/costs and99 fully paired receipts. Proofs in
+`P1RUlfJc-results-verification.json`. Next unique action: register separate future
+multi-arena replication before play; no tuning or reuse of P1RUlfJc as a fresh
+holdout. Entire P1RUlfJc/fFgE7oED remain reserved from D1. Jeff PC not required.

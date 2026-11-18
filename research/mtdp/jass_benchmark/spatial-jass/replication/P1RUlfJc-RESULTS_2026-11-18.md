@@ -171,3 +171,41 @@ are recoverable from the manifest and annotation JSON; no ambiguous move was
 used. The exact mover-man squares and blocker descriptor coincide, while other
 opponent placements differ. This demonstrates the descriptor's loss of relevant
 information for this finite reference, without establishing minimax truth.
+
+
+## Final verified controls — 21:51 UTC
+
+Validated code HEAD `0bcabd4c516ed67c0f7d30cf33babd65d1bea2e3` has **seven successful
+workflows**, including [candidate run44404104714](https://github.com/jfrancoiscollin/dilf/actions/runs/44404104714),
+job135154797763, **125 targeted tests passed**. Real pinned Scan startup and the
+FMJD/Jass synthetic engineering rehearsal pass; both synthetic bundles remain
+rejected for production and their hashes repeat under seeds7/61. These CI checks
+are separate from the actual named-arena engine/reference calculations archived
+above; they do not rerun the real33-target campaign.
+
+Artifact [14473163987](https://github.com/jfrancoiscollin/dilf/actions/runs/44404104714/artifacts/14473163987)
+was downloaded, **6,824,390 bytes**, ZIP SHA-256
+`8d552ce91164b685f61ac8d2a557cd96ca6a28088278d1b5b3285abcdfc172d8`.
+ZIP bytes, both complete synthetic payload inventories, three repeated report
+hashes and pinned historical registry/index were checked after extraction.
+
+The actual primary analysis was independently rerun with process hash seeds7/61:
+both files equal the committed quality JSON byte for byte, SHA-256
+`a7c151b6d8a2c24577e3c224295359100eb669ad73643583d1c1f0068db55e9b`.
+A direct recalculation from raw source16/target16 action scores (without using
+the comparison-report aggregation) independently reproduces the full-signature
+LCB stratum:25 pairs,13 disjoint optimum sets,9 optimal picks, total regret172,
+mean6.88,16 positive costs averaging10.75, max97. All99 raw decision receipts were
+also checked independently: exact three-arm totals, all verification nodes
+charged, no ceiling, native/control identical moves, **25,740,000 total Jass
+nodes** across positions/budgets/arms. Scan reference search work is separate
+from that Jass-node total.
+
+`P1RUlfJc-results-verification.json` contains these checks and all input digests.
+No technical engine job failed; missing local CMake was corrected before successful
+builds. Superseded Actions runs were replaced by newer commits, without duplicate
+manual campaigns. This final evidence-only documentation commit may trigger new
+automatic checks; do not attribute their unobserved result to this completed run.
+Next action remains prospective multi-arena registration before games, with all
+new reservations recorded for D1. No Jeff PC, paid spending, deployment or merge
+was needed.
