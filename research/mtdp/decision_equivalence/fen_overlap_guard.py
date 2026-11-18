@@ -31,16 +31,16 @@ def audit_exact_fen_overlap(rows, reserved_fens=()):
         g, p, fen = (row.get(k) for k in ("game_id", "position_id", "fen"))
         if any(not isinstance(x, str) or not x.strip() for x in (g, p, fen)):
             raise ValueError("missing identity or FEN")
-        if alias in reserved_aliases:
-            raise ValueError("reserved prospective FEN whitespace alias overlap")
-        if fen in reserved:
-            raise ValueError("reserved prospective FEN overlap")
         # Conservative textual alias quarantine; not FMJD canonicalization.
         alias = ''.join(fen.split())
-        if alias in seen_whitespace_aliases:
-            raise ValueError("duplicate FEN whitespace alias")
+        if fen in reserved:
+            raise ValueError("reserved prospective FEN overlap")
+        if alias in reserved_aliases:
+            raise ValueError("reserved prospective FEN whitespace alias overlap")
         if fen in seen:
             raise ValueError("duplicate exact FEN")
+        if alias in seen_whitespace_aliases:
+            raise ValueError("duplicate FEN whitespace alias")
         seen.add(fen)
         seen_whitespace_aliases.add(alias)
         manifest.append((g, p, fen))
