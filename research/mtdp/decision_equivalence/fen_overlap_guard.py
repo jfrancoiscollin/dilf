@@ -21,6 +21,7 @@ def audit_exact_fen_overlap(rows, reserved_fens=()):
     if any(not isinstance(f, str) or not f.strip() for f in reserved):
         raise ValueError("invalid reserved FEN")
     seen = set()
+    seen_position_ids = set()
     seen_whitespace_aliases = set()
     reserved_aliases = {''.join(f.split()) for f in reserved}
     manifest = []
@@ -31,6 +32,11 @@ def audit_exact_fen_overlap(rows, reserved_fens=()):
         g, p, fen = (row.get(k) for k in ("game_id", "position_id", "fen"))
         if any(not isinstance(x, str) or not x.strip() for x in (g, p, fen)):
             raise ValueError("missing identity or FEN")
+        # Position identifiers must also be globally unique across games.
+        # A different FEN under the same identifier is provenance corruption.
+        if p in seen_position_ids:
+            raise ValueError("duplicate position identity")
+        seen_position_ids.add(p)
         # Conservative textual alias quarantine; not FMJD canonicalization.
         alias = ''.join(fen.split())
         if fen in reserved:
