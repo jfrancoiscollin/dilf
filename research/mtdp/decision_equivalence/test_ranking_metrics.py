@@ -50,5 +50,41 @@ class RankingMetricTests(unittest.TestCase):
                 evaluate_order(*args)
 
 
+    def test_score_translation_preserves_rank_and_regret(self):
+        legal = ["a", "b", "c", "d"]
+        ordered = ["b", "d", "a", "c"]
+        scores = {"a": -8, "b": 3, "c": 3, "d": 0}
+        baseline = evaluate_order(legal, ordered, scores)
+        shifted = evaluate_order(legal, ordered, {k: v + 1000 for k, v in scores.items()})
+        self.assertEqual(baseline, shifted)
+
+    def test_all_optimal_actions_have_zero_regret_for_first_action(self):
+        legal = ["a", "b", "c", "d"]
+        scores = {a: 7 for a in legal}
+        for first in legal:
+            order = [first] + [a for a in legal if a != first]
+            result = evaluate_order(legal, order, scores)
+            self.assertEqual(result["first_optimum_rank"], 1)
+            self.assertEqual(result["first_action_regret_raw"], 0)
+            self.assertEqual(result["top3_oracle_regret_raw"], 0)
+
+    def test_oracle_regret_never_exceeds_first_action_regret(self):
+        legal = ["a", "b", "c", "d", "e"]
+        scores = {"a": -5, "b": 0, "c": 8, "d": 3, "e": -1}
+        for first in legal:
+            order = [first] + [a for a in legal if a != first]
+            result = evaluate_order(legal, order, scores)
+            self.assertGreaterEqual(result["first_action_regret_raw"],
+                                    result["top3_oracle_regret_raw"])
+            self.assertGreaterEqual(result["top3_oracle_regret_raw"], 0)
+
+    def test_legal_enumeration_order_does_not_change_metrics(self):
+        scores = {"a": -2, "b": 4, "c": 9, "d": 1}
+        ordered = ["b", "d", "a", "c"]
+        first = evaluate_order(["a", "b", "c", "d"], ordered, scores)
+        second = evaluate_order(["d", "c", "b", "a"], ordered, scores)
+        self.assertEqual(first, second)
+
+
 if __name__ == "__main__":
     unittest.main()
