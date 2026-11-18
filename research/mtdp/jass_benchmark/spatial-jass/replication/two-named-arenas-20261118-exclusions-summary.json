@@ -1,0 +1,27 @@
+{
+  "added_complete_trajectories_already_historical": 5,
+  "added_event": {
+    "all_games_and_confirmed_prefixes": true,
+    "freeze_commit": "5a050b1068154a527cc5f35a8f795919def2dcce",
+    "games": 241,
+    "id": "P1RUlfJc",
+    "pdn_sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439"
+  },
+  "added_event_status_counts": {
+    "duplicate": 2,
+    "indexed": 230,
+    "quarantined": 9
+  },
+  "complete_trajectory_fingerprints": 4276,
+  "confirmed_fens": 433363,
+  "exclusions_sha256": "8dac5c60e1eaa10ff8e3e27f5c1fb0d0307edaeaec438e7c9bdc33b3e666dc32",
+  "historical_games": 4616,
+  "implementation_sha256": "1a4f9d87fd097e44dcb8b77ee28df8a1d655931ae483202f049245a87e0be3c0",
+  "public_ids": 4582,
+  "schema": "mtdp-two-arena-historical-exclusions-summary-v1",
+  "scientific_freeze": false,
+  "scope": "historical_exclusions_only_no_future_cohort_data_or_scores",
+  "sources": 23,
+  "study_id": "two-named-arenas-20261118",
+  "token_fingerprints": 4458
+}

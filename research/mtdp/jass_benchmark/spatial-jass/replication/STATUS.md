@@ -788,3 +788,14 @@ population freeze before scores. Entire events reserved outside D1. All historic
 exclusions plus entire P1RUlfJc must be extended before collection. Previous P1RUlfJc
 primary/exploratory findings unchanged. Next:publish proof, extend exclusions,
 explicit new-study adapter preserving frozen scientific kernels. New CI pending.
+
+
+### Prospective publication proven and historical cache extended — 18 Nov22:27 UTC
+
+Registration2a3089c observed on the live research ref at22:20:37UTC before both
+starts. Exact receipts committed. Whole P1RUlfJc extension now433363 confirmed
+FENs/4276 full trajectories/4582IDs across4616 games, including legal quarantined
+prefixes; seeds7/61 byte-identical SHA8dac5c60…666dc32.146local targeted tests pass,
+new workflow cache/digest integration pending. Two future whole events reserved
+outside D1; joint final gate19Nov02:57UTC. Next:explicit new-study final/joint
+freeze adapter with synthetic cross-event tests; no real new games or scores yet.

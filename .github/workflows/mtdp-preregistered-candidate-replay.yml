@@ -24,6 +24,9 @@ on:
       - 'research/mtdp/tests/test_named_signature_annotation.py'
       - 'research/mtdp/jass_benchmark/two_arena_registration.py'
       - 'research/mtdp/tests/test_two_arena_registration.py'
+      - 'research/mtdp/jass_benchmark/two_arena_exclusions.py'
+      - 'research/mtdp/tests/test_two_arena_exclusions.py'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-20261118-exclusions-summary.json'
       - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-20261118-registration.json'
       - 'research/mtdp/jass_benchmark/spatial-jass/replication/TWO_NAMED_ARENAS_PREREGISTRATION_2026-11-18.md'
       - 'research/mtdp/tests/test_named_arena_execution.py'
@@ -186,7 +189,7 @@ jobs:
         run: |
           set -euo pipefail
           cd dilf
-          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py research/mtdp/tests/test_named_arena_inputs.py research/mtdp/tests/test_named_arena_replay.py research/mtdp/tests/test_named_arena_acquisition.py research/mtdp/tests/test_named_freeze_bundle.py research/mtdp/tests/test_named_arena_execution.py research/mtdp/tests/test_named_metered_campaign.py research/mtdp/tests/test_metered_engine_smoke.py research/mtdp/tests/test_named_campaign_quality.py research/mtdp/tests/test_named_source16_sensitivity.py research/mtdp/tests/test_named_signature_annotation.py research/mtdp/tests/test_two_arena_registration.py
+          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py research/mtdp/tests/test_named_arena_inputs.py research/mtdp/tests/test_named_arena_replay.py research/mtdp/tests/test_named_arena_acquisition.py research/mtdp/tests/test_named_freeze_bundle.py research/mtdp/tests/test_named_arena_execution.py research/mtdp/tests/test_named_metered_campaign.py research/mtdp/tests/test_metered_engine_smoke.py research/mtdp/tests/test_named_campaign_quality.py research/mtdp/tests/test_named_source16_sensitivity.py research/mtdp/tests/test_named_signature_annotation.py research/mtdp/tests/test_two_arena_registration.py research/mtdp/tests/test_two_arena_exclusions.py
           python -m research.mtdp.jass_benchmark.prospective_candidate_replay \
             --root . \
             --pdn /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
@@ -239,6 +242,25 @@ jobs:
           expected = json.loads(Path('research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-trajectory-index-summary.json').read_bytes())
           actual = Path('/tmp/mtdp-independent/P1RUlfJc-canonical-history.json').read_bytes()
           assert hashlib.sha256(actual).hexdigest() == expected['index_sha256']
+          PY
+          python -m research.mtdp.jass_benchmark.two_arena_registration check --root .
+          for seed in 7 61; do
+            if [ "$seed" = 7 ]; then output=/tmp/mtdp-independent/two-arena-exclusions.json; else output=/tmp/two-arena-exclusions-repeat.json; fi
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.two_arena_exclusions \
+              --root . --base-registry /tmp/mtdp-independent/P1RUlfJc-exclusions.json \
+              --base-index /tmp/mtdp-independent/P1RUlfJc-canonical-history.json \
+              --adapter ../draught-master --output "$output"
+          done
+          cmp /tmp/mtdp-independent/two-arena-exclusions.json /tmp/two-arena-exclusions-repeat.json
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          expected = json.loads(Path('research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-20261118-exclusions-summary.json').read_bytes())
+          raw = Path('/tmp/mtdp-independent/two-arena-exclusions.json').read_bytes()
+          observed = hashlib.sha256(raw).hexdigest()
+          assert observed == expected['exclusions_sha256']
+          Path('/tmp/mtdp-independent/two-arena-exclusions-reproduction.json').write_text(json.dumps({'hash_seeds': [7, 61], 'identical': True, 'sha256': observed, 'scientific_freeze': False}, sort_keys=True, indent=2) + '\n')
           PY
           for seed in 7 61; do
             PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.named_arena_rehearsal \
