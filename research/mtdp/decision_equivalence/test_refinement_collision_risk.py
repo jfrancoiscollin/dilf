@@ -23,6 +23,8 @@ def exhaustive(rows, family):
         len(pairs),
         sum(a["successor_fingerprint"] != b["successor_fingerprint"] for a, b in pairs),
         sum(a["game_id"] != b["game_id"] for a, b in pairs),
+        sum(a["game_id"] != b["game_id"] and
+            a["successor_fingerprint"] != b["successor_fingerprint"] for a, b in pairs),
     )
 
 
@@ -36,8 +38,8 @@ class RefinementCollisionRiskTests(unittest.TestCase):
         ]
         levels = refinement_collision_risk(rows, ["L", "LCB"])["levels"]
         self.assertEqual(
-            [(x["collision_pairs"], x["divergent_successor_pairs"], x["cross_game_pairs"]) for x in levels],
-            [(3, 2, 2), (1, 1, 1)],
+            [(x["collision_pairs"], x["divergent_successor_pairs"], x["cross_game_pairs"], x["cross_game_divergent_successor_pairs"]) for x in levels],
+            [(3, 2, 2, 1), (1, 1, 1, 1)],
         )
 
     def test_randomized_against_exhaustive_reference(self):
@@ -53,7 +55,7 @@ class RefinementCollisionRiskTests(unittest.TestCase):
             for family, level in zip(("L", "LCB"), levels):
                 self.assertEqual(
                     (level["collision_pairs"], level["divergent_successor_pairs"],
-                     level["cross_game_pairs"]),
+                     level["cross_game_pairs"], level["cross_game_divergent_successor_pairs"]),
                     exhaustive(rows, family),
                 )
 
