@@ -1,0 +1,32 @@
+{
+  "eval_sha256": "0e7161c38af605f5e367f3f8fe17525d1c40db722714c68921971b386e58abba",
+  "eval_weight_units_per_integer_score": 10,
+  "first_six_signed_big_endian_weights": [
+    1295,
+    1193,
+    3516,
+    3579,
+    3250,
+    3247
+  ],
+  "hub_export": "integer_score / 100.0, fixed two decimal places",
+  "interpretation": "One stored integer is 0.01 HUB display unit. A universal 100 stored units per material man is not established; material coefficients depend on phase, patterns and drawish terms also contribute. No threshold or score data changed.",
+  "man_material_only_phase_coefficients_integer_score": [
+    129.5,
+    119.3
+  ],
+  "ordinary_inclusive_integer_range": [
+    -8000,
+    8000
+  ],
+  "reference_import": "int(Decimal(hub_score) * 100)",
+  "scan_commit": "7aae17e7b7bfc47744601afb1ee7655e18983ce5",
+  "schema": "mtdp-pinned-scan-score-contract-source-audit-v1",
+  "scope": "source_and_pinned_weight_audit_no_target_scores",
+  "source_sha256": {
+    "src/eval.cpp": "7c155fb03c6192bd25ec956b1e5da0d72d84c2ae28ff19cb8296cf6a43a78bf8",
+    "src/libmy.cpp": "9208cab6c8369f529340d84d1c4ee25ad39f1f761814ad2001dc0793c4367863",
+    "src/score.hpp": "c1e77f4b7188a66ed2ed8063b3a3ba5c1905bad5531a653f4e0ff7a926805e74",
+    "src/search.cpp": "f4e37ba85ed03886cd798b21dadc4fda4093cd716f9dbeb1e033f41cffc5f9f8"
+  }
+}

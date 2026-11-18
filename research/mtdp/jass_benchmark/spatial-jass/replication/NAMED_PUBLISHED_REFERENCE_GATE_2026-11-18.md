@@ -88,3 +88,13 @@ population (including empty/failure cases) before any new scoring. No D1 cohort
 or threshold is changed: fFgE7oED and P1RUlfJc remain entirely reserved. Jeff's PC
 was not needed: the actual pinned reference binary executed on the available
 remote machine.
+
+
+## Reference-unit clarification for foundation and D1
+
+The accompanying `SCAN_SCORE_CONTRACT_AUDIT_2026-11-18.md` confirms exact HUB
+scaling and ordinary-category boundaries from pinned source and weights. One
+stored integer is 0.01 HUB unit; a universal 100-units-per-material-man mapping
+is not certified. This source-only audit changes no score, cohort, threshold,
+selection or budget. Preserve the historical JSON field names for compatibility
+and explain their integer Scan-unit meaning when reporting costs.
