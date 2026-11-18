@@ -7,6 +7,8 @@ on:
     paths:
       - 'research/mtdp/jass_benchmark/prospective_candidate_replay.py'
       - 'research/mtdp/jass_benchmark/candidate_ambiguities.py'
+      - 'research/mtdp/jass_benchmark/candidate_jass_catalogue.py'
+      - 'research/mtdp/tests/test_candidate_jass_catalogue.py'
       - 'research/mtdp/tests/test_candidate_ambiguities.py'
       - 'research/mtdp/tests/test_prospective_candidate_replay.py'
       - '.github/workflows/mtdp-preregistered-candidate-replay.yml'
@@ -36,6 +38,19 @@ jobs:
           repository: jfrancoiscollin/draught-master
           ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
           path: draught-master
+      - name: Check out pinned Jass for legal catalogues only
+        uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/jass
+          ref: cfe07fce6385b980553a898e9651d53419589ebc
+          path: jass
+      - name: Build legal catalogue without search or scoring
+        run: |
+          set -euo pipefail
+          cmake -S jass -B /tmp/mtdp-catalogue-build -DCMAKE_BUILD_TYPE=Release \
+            -DJASS_ENABLE_SIMD=OFF -DJASS_NATIVE=OFF \
+            -DCMAKE_PROJECT_jass_INCLUDE="$GITHUB_WORKSPACE/dilf/research/mtdp/jass_preflight/targets.cmake"
+          cmake --build /tmp/mtdp-catalogue-build --target mtdp_jass_legal_catalogue -j 2
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -43,8 +58,8 @@ jobs:
         run: |
           set -euo pipefail
           pip install -e './dilf[dev,extract,explanations]'
-          sed -i '/dilf/d' draught-master/backend/requirements.txt
-          pip install -r draught-master/backend/requirements.txt
+          sed '/dilf/d' draught-master/backend/requirements.txt > /tmp/mtdp-backend-requirements.txt
+          pip install -r /tmp/mtdp-backend-requirements.txt
           pip install -r draught-master/requirements-dev.txt
       - name: Fetch exact candidate and historical public PDNs before scoring
         run: |
@@ -111,7 +126,7 @@ jobs:
         run: |
           set -euo pipefail
           cd dilf
-          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py
+          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py
           python -m research.mtdp.jass_benchmark.prospective_candidate_replay \
             --root . \
             --pdn /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
@@ -123,6 +138,21 @@ jobs:
             --output /tmp/mtdp-independent/candidate-ambiguities.json
           cmp /tmp/mtdp-independent/candidate-ambiguities.json \
             research/mtdp/jass_benchmark/spatial-jass/replication/fFgE7oED-ambiguities.json
+          python -m research.mtdp.jass_benchmark.candidate_jass_catalogue \
+            --replay /tmp/mtdp-independent/candidate-replay.json \
+            --executable /tmp/mtdp-catalogue-build/mtdp_jass_legal_catalogue \
+            --jass ../jass --adapter ../draught-master \
+            --output /tmp/mtdp-independent/candidate-jass-catalogue.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected = json.loads(Path('research/mtdp/jass_benchmark/spatial-jass/replication/fFgE7oED-jass-catalogue.json').read_bytes())
+          actual = json.loads(Path('/tmp/mtdp-independent/candidate-jass-catalogue.json').read_bytes())
+          # Compiler/platform may change the executable bytes; all action mappings must match.
+          expected.pop('executable_sha256')
+          actual.pop('executable_sha256')
+          assert actual == expected, 'Candidate action mappings or provenance changed'
+          PY
           echo 'No Scan scores or retrospective winners used; this report is NOT a scientific freeze.'
       - name: Preserve all input provenance and prospective replay diagnostics
         if: always()

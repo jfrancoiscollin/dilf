@@ -637,3 +637,15 @@ freeze, best-move equivalence or equal-budget performance result was produced.
 The existing replay workflow now validates and preserves this diagnostic.
 Next: prove chronological selection, then pinned Jass action mapping before
 freeze; keep fFgE7oED and 78 targets reserved from D1. See RELAY_COORDINATION.md.
+
+## 18 November: pinned Jass catalogue prerequisite passed locally
+
+The [new catalogue receipt and chronology audit](CANDIDATE_JASS_CATALOGUE_2026-11-18.md)
+check all 78 reserved targets and 46 selected source FENs against the pinned
+Jass/FMJD engines: 124 distinct positions, 759 target actions, no mapping
+mismatch. Two hash-seed runs matched byte for byte; 11 targeted tests passed.
+This is a legal-action gate, without scores, search outcomes or a scientific
+freeze. The existing workflow now rebuilds and compares the receipt.
+Current calendar and finished-page sources do not recover the cutoff instant;
+next recover a complete durable listing covering simultaneous start-time ties
+at 14 November 11:00 UTC. Keep fFgE7oED and its 78 targets reserved from D1.
