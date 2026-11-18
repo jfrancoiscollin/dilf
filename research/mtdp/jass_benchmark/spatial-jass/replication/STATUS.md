@@ -699,3 +699,15 @@ and real FMJD/Jass. Synthetic outputs are permanently refused for real scoring.
 No actual P1RUlfJc game was acquired or frozen. Next connect the three-arm
 execution adapter to verified publication and check binaries, then acquire and
 freeze only after actual completion (not before 20:57 UTC).
+
+
+### Named arena preparation: remote integration confirmed, 2026-11-18 19:38 UTC
+
+HEAD `069d5c2`: 7/7 workflows success. Candidate run `44381395324` confirms
+59 targeted tests and real FMJD/Jass synthetic replay, seeds 7/61 identical,
+1 manufactured target/10 actions, production rejection intact. Artifact
+`14462853825` downloaded and ZIP/inventory hashes verified; see
+`named-freeze-rehearsal-ci-2026-11-18.json`. No new real target export/freeze/score.
+Next: bind execution to verified committed publication and pinned Scan/Jass
+runners. Final real acquisition remains after 20:57 UTC only; all D1 reservations
+and quarantines remain. Generic scoring CLI alone is insufficient publication proof.

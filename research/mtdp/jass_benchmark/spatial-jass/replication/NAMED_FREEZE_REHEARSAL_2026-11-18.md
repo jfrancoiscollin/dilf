@@ -110,3 +110,42 @@ smoke checks only until the real freeze. Both fFgE7oED (entire event, 78 targets
 and P1RUlfJc (entire event/future FENs) remain reserved from D1 fitting, signature
 selection and thresholds. No PC from Jeff is required for these input-stage
 checks, and no new strategic-equivalence result is claimed.
+
+## Confirmed integration evidence — 19:38 UTC
+
+Commit `b7fb22ac88791573943d7b478512419ab0cbf85f` published the new tools.
+D1 commits `6dafdc9` and `069d5c2` were preserved; the latter head has **seven
+successful workflows**. The new D1 numerical-gates document was read; it is
+still a proposal, with no D1 cohort or thresholds frozen by this relay.
+
+Candidate [run 44381395324](https://github.com/jfrancoiscollin/dilf/actions/runs/44381395324),
+job `135074404038`, confirms **59 tests passed** and the complete real-FMJD/Jass
+synthetic rehearsal under seeds 7/61: one manufactured target, ten legal actions,
+three in-memory HTTP requests, raw CRLF preserved, production validator refusal,
+and `scientific_freeze: false`. Both processes produced identical digests:
+
+| Payload | SHA-256 |
+| --- | --- |
+| proposal | `13b62ca816f3fb155b6e69fdb2f68ef51366035135bf521c4779318a642eb33f` |
+| manifest | `cf5afc998605f8d743f59c040a61fadc143e4341ee33e69929087d64feaff9a6` |
+| publication | `28549e9afb734ae528dacc5c13c0007ed2309b4b59b6a788620a353caa8e39a4` |
+
+Artifact [14462853825](https://github.com/jfrancoiscollin/dilf/actions/runs/44381395324/artifacts/14462853825)
+was downloaded: 6,823,874 bytes, SHA-256
+`5b2130472bd92b9eabecde81c7a384d85a4cdbafd3a7997561fa654f81c54c8e`.
+ZIP bytes, the two report hashes and every bundled inventory payload were checked
+after download. The archive also contains the full historical registry/index.
+The old fFgE7oED replay remains `e9de3a4c…118a16b`, 78 targets/46 sources/759
+target actions; all original quarantines remain. Machine-readable evidence:
+`named-freeze-rehearsal-ci-2026-11-18.json`.
+
+These are engineering results, not a new best-move/regret estimate. No real
+P1RUlfJc export or target score was acquired, and no real freeze was published.
+The existing generic `jass_scan_reference` CLI accepts the cohort schema alone;
+it must **not** be called directly on a prepared named bundle. The next adapter
+must first verify the published snapshot and load its committed manifest, then
+bind the pinned Scan binary/evaluation/configuration and both patched Jass
+runners before any scoring or search. `metered_archive_gate` remains specific
+to the old five-arena inventory; copying its archive acceptance condition would
+not authorize this arena. Keep the registered 12/16 depths, three arms and total
+budgets, including all failures/empty populations and depth-ceiling exceptions.
