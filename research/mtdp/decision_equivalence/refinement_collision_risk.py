@@ -24,26 +24,36 @@ def refinement_collision_risk(records, families):
         groups = defaultdict(list)
         for row in rows:
             groups[row["signatures"][family]].append(row)
-        collisions = divergent = cross_game = 0
+        collisions = divergent = cross_game = cross_game_divergent = 0
         for members in groups.values():
             n = len(members)
             collisions += n * (n - 1) // 2
             by_successor = defaultdict(int)
             by_game = defaultdict(int)
+            by_game_successor = defaultdict(int)
             for row in members:
                 by_successor[row["successor_fingerprint"]] += 1
                 by_game[row["game_id"]] += 1
+                by_game_successor[(row["game_id"], row["successor_fingerprint"])] += 1
             divergent += n * (n - 1) // 2 - sum(
                 k * (k - 1) // 2 for k in by_successor.values()
             )
             cross_game += n * (n - 1) // 2 - sum(
                 k * (k - 1) // 2 for k in by_game.values()
             )
+            # Inclusion-exclusion: different games AND different successor maps.
+            cross_game_divergent += (
+                n * (n - 1) // 2
+                - sum(k * (k - 1) // 2 for k in by_game.values())
+                - sum(k * (k - 1) // 2 for k in by_successor.values())
+                + sum(k * (k - 1) // 2 for k in by_game_successor.values())
+            )
         result.append({
             "family": family, "positions": len(rows),
             "classes": len(groups), "collision_pairs": collisions,
             "divergent_successor_pairs": divergent,
             "cross_game_pairs": cross_game,
+            "cross_game_divergent_successor_pairs": cross_game_divergent,
         })
     return {"levels": result, "interpretation": "score_blind_structural_only"}
 
