@@ -48,6 +48,8 @@ def final_metadata(reg, metadata, now):
         raise ValueError("Final export gate is closed until the scheduled finish")
     if metadata.get("isFinished") is not True:
         raise ValueError("Named event is not confirmed finished")
+    if metadata.get("secondsToStart", 0) != 0:
+        raise ValueError("Finished metadata has an inconsistent countdown")
     for key in ("id", "createdBy", "system", "variant", "clock", "minutes"):
         if metadata.get(key) != expected[key]:
             raise ValueError(f"Named event metadata changed: {key}")

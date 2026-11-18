@@ -668,7 +668,7 @@ now verify 22 historical PDNs/4,375 game records, 4,341 public IDs and 205,098
 confirmed historical FENs. All five fFgE7oED quarantines remain; only their
 verified prefixes contribute FEN exclusions. Two hash-seed runs reproduced
 one registry digest. The final-input gate refuses premature or inconsistent
-metadata, exports and acquisition receipts. 26 targeted tests pass locally.
+metadata, exports and acquisition receipts. 27 targeted tests pass locally.
 No P1RUlfJc game export, position population, freeze or score was produced.
 Next connect the unchanged selectors and canonical trajectory guard to these
 inputs, plus the event-parameterized Jass catalogue; fetch final data only

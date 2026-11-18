@@ -53,6 +53,7 @@ it as `P1RUlfJc-exclusions.json` in its provenance artifact.
 - A timezone-aware check time at or after **18 November 20:57 UTC**.
 - Final metadata with literal `isFinished: true`, exact event ID, creator,
   standard variant, arena system, 300+0 clock, start and 57-minute duration.
+  An explicit nonzero start countdown contradicting finished status is rejected.
 - Two distinct export files, with identical nonempty bytes.
 - Two acquisition receipts tied to the exact event URL, byte count and SHA-256,
   each retrieved after the scheduled finish and before the check, with distinct
@@ -69,11 +70,11 @@ No population, legal replay or search-quality claim follows from this gate.
 
 ## Tests and reproduction
 
-15 new regressions passed locally, including premature files, nonliteral
+16 new regressions passed locally, including premature files, nonliteral
 finished flags, event/format drift, same-file and different-byte inputs,
 corrupt/reused/premature receipts, changed preregistration and strict ambiguity
 prefix handling. Together with the three existing prospective gate modules,
-**26 targeted tests passed**. The workflow includes all 26 explicitly.
+**27 targeted tests passed**. The workflow includes all 27 explicitly.
 
 ```sh
 PYTHONPATH="$PWD:$PWD/../draught-master" python -m research.mtdp.jass_benchmark.named_arena_inputs registry \

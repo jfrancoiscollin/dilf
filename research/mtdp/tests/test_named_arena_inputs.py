@@ -15,6 +15,7 @@ def fixtures(tmp_path):
     reg = gate.registration(ROOT)
     metadata = copy.deepcopy(reg['event'])
     metadata['isFinished'] = True
+    metadata['secondsToStart'] = 0
     first, repeat = tmp_path / 'first.pdn', tmp_path / 'repeat.pdn'
     first.write_bytes(b'synthetic fixture, not an acquired event')
     repeat.write_bytes(first.read_bytes())
@@ -108,3 +109,10 @@ def test_ambiguous_game_contributes_only_verified_prefix_states():
     assert fens == {'W:W31:BK1', 'B:W26:BK1'}
     assert engine.calls == 1
     assert quarantined[0]['game'] == 46 and quarantined[0]['ply'] == 2
+
+
+def test_finished_metadata_cannot_keep_a_future_countdown(tmp_path):
+    metadata, first, repeat, log = fixtures(tmp_path)
+    metadata["secondsToStart"] = 60
+    with pytest.raises(ValueError, match="inconsistent countdown"):
+        invoke(tmp_path, metadata, first, repeat, log)
