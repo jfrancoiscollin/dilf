@@ -45,3 +45,21 @@ def test_reject_nested_target_score():
 def test_reject_invalid_input(rows):
     with pytest.raises(ValueError):
         audit_exact_fen_overlap(rows)
+
+
+def test_reject_whitespace_alias_between_games():
+    with pytest.raises(ValueError, match="duplicate FEN whitespace alias"):
+        audit_exact_fen_overlap([row("a", "1", "W:W31:B20"),
+                                 row("b", "2", " W:W31:B20 ")])
+
+
+def test_reject_whitespace_alias_against_reserved():
+    with pytest.raises(ValueError, match="reserved prospective FEN whitespace alias"):
+        audit_exact_fen_overlap([row("a", "1", " W:W31:B20 ")],
+                                reserved_fens=["W:W31:B20"])
+
+
+def test_distinct_fens_still_accepted():
+    result = audit_exact_fen_overlap([row("a", "1", "W:W31:B20"),
+                                      row("b", "2", "B:W31:B20")])
+    assert result["positions"] == 2
