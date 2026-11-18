@@ -58,5 +58,19 @@ class TestGameOverlap(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     find_cross_split_windows(rows, window=window)
 
+    def test_gapped_plies_do_not_form_false_game_alias(self):
+        rows = self.rows("A", "train", ["a", "b", "c"])
+        rows[1]["ply"], rows[2]["ply"] = 2, 4
+        rows += self.rows("B", "test", ["a", "b", "c"])
+        self.assertEqual(find_cross_split_windows(rows, window=3), [])
+
+    def test_only_consecutive_subwindow_is_eligible(self):
+        rows = self.rows("A", "train", ["x", "a", "b", "c"])
+        rows[1]["ply"], rows[2]["ply"], rows[3]["ply"] = 2, 3, 4
+        rows += self.rows("B", "test", ["a", "b", "c"])
+        matches = find_cross_split_windows(rows, window=3)
+        self.assertEqual(len(matches), 1)
+        self.assertEqual(matches[0]["fen_window"], ["a", "b", "c"])
+
 if __name__ == "__main__":
     unittest.main()
