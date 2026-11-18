@@ -660,3 +660,16 @@ Both entire events are reserved from D1. Do not switch the named event based on
 its later population or outcomes. After 20:57 UTC, collect final metadata and
 two independent PDNs, verify all exclusions including fFgE7oED, and publish
 all target/source mappings before any scoring. No position freeze yet.
+
+## 18 November: named-event inputs prepared without target games
+
+[Input gates and exclusion rehearsal](NAMED_ARENA_INPUT_GATES_2026-11-18.md)
+now verify 22 historical PDNs/4,375 game records, 4,341 public IDs and 205,098
+confirmed historical FENs. All five fFgE7oED quarantines remain; only their
+verified prefixes contribute FEN exclusions. Two hash-seed runs reproduced
+one registry digest. The final-input gate refuses premature or inconsistent
+metadata, exports and acquisition receipts. 26 targeted tests pass locally.
+No P1RUlfJc game export, position population, freeze or score was produced.
+Next connect the unchanged selectors and canonical trajectory guard to these
+inputs, plus the event-parameterized Jass catalogue; fetch final data only
+after 20:57 UTC. Both events remain reserved from D1.
