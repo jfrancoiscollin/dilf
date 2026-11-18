@@ -649,3 +649,14 @@ freeze. The existing workflow now rebuilds and compares the receipt.
 Current calendar and finished-page sources do not recover the cutoff instant;
 next recover a complete durable listing covering simultaneous start-time ties
 at 14 November 11:00 UTC. Keep fFgE7oED and its 78 targets reserved from D1.
+
+## 18 November: a separate named event registered before its start
+
+[New study registration](NAMED_ARENA_TOTAL_BUDGET_PREREGISTRATION_2026-11-18.md)
+fixes P1RUlfJc, official standard 5+0 arena scheduled 20:00–20:57 UTC today.
+This named prospective replication keeps the total-budget contrast unchanged;
+it does not certify or silently replace the blocked historical fFgE7oED study.
+Both entire events are reserved from D1. Do not switch the named event based on
+its later population or outcomes. After 20:57 UTC, collect final metadata and
+two independent PDNs, verify all exclusions including fFgE7oED, and publish
+all target/source mappings before any scoring. No position freeze yet.

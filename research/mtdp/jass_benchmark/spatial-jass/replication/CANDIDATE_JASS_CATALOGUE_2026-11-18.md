@@ -1,6 +1,6 @@
 # Reserved candidate: pinned Jass action gate and chronology gap
 
-Status: **legal-action check passed locally; chronology unresolved; no freeze
+Status: **legal-action check passed locally and in CI; chronology unresolved; no freeze
 or scoring**. This is an independent technical prerequisite, run while
 historical chronology sources are being investigated. It does not waive the
 chronological gate or duplicate a D1 signature/top-K experiment.
@@ -45,7 +45,7 @@ incomplete catalogues and source/target disagreement despite individually valid
 catalogues. The updated existing candidate-replay workflow builds the same
 exporter, recomputes this receipt and compares every field except the
 compiler-dependent executable hash. Its own executable hash is preserved in
-the artifact. CI of the new implementation must be checked after publication.
+the artifact. CI confirmed on descendant HEAD `ae3e6646511d71ce6f88c3e7e236804c6b95d9d8`: all seven workflows succeeded. The [candidate run 44324826343](https://github.com/jfrancoiscollin/dilf/actions/runs/44324826343) executed 11 tests and reproduced all 124 position mappings and 759 target actions. Artifact `14436224802` has ZIP SHA-256 `90288b96c19e73742402ab68ed75b2bcfb9588553054f9e32809d2f4496e46f4`. The original run on `8d62f76f` was cancelled by concurrent D1 commits; the equivalent descendant run was followed instead of duplicated.
 
 ## Reproduce without scoring
 
