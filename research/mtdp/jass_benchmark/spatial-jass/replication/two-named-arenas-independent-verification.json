@@ -1,0 +1,142 @@
+{
+  "Jass_independent": {
+    "10000": {
+      "all_three_arm_nodes": 1140000,
+      "control_native_same_choices": 38,
+      "optimum_hits": {
+        "control": 10,
+        "lcb": 10,
+        "native": 10
+      },
+      "positions": 38,
+      "sum_regret": {
+        "control": 388,
+        "lcb": 388,
+        "native": 388
+      }
+    },
+    "200000": {
+      "all_three_arm_nodes": 22800000,
+      "control_native_same_choices": 38,
+      "optimum_hits": {
+        "control": 15,
+        "lcb": 15,
+        "native": 15
+      },
+      "positions": 38,
+      "sum_regret": {
+        "control": 230,
+        "lcb": 230,
+        "native": 230
+      }
+    },
+    "50000": {
+      "all_three_arm_nodes": 5700000,
+      "control_native_same_choices": 38,
+      "optimum_hits": {
+        "control": 11,
+        "lcb": 12,
+        "native": 11
+      },
+      "positions": 38,
+      "sum_regret": {
+        "control": 324,
+        "lcb": 313,
+        "native": 324
+      }
+    }
+  },
+  "analysis_hash_seeds": [
+    7,
+    61
+  ],
+  "analysis_identical": true,
+  "analysis_sha256": "3fd8f480902e50ffcace15552f5ad71e29571e08d0bf340c167d8ad9e21d45e7",
+  "independent_bootstrap": {
+    "cost_ci95": [
+      5.476190476190476,
+      52.708333333333336
+    ],
+    "disjoint_ci95": [
+      0.36,
+      0.7142857142857143
+    ],
+    "matches_primary_report": true,
+    "percentile_indices": [
+      249,
+      9749
+    ],
+    "resamples": 10000,
+    "seed": 20261113
+  },
+  "maximum_cost_case": {
+    "cost": 260,
+    "disjoint": true,
+    "event": "s7ahYqL4",
+    "fen": "B:W27,30,31,33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,18,19,20,23",
+    "owner": "mtdp-lidraughts-s7ahYqL4.pdn:145",
+    "pick_optimal": false,
+    "source_fen": "B:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,18,19,20,23",
+    "source_pick": [
+      [
+        17,
+        21
+      ],
+      [],
+      false
+    ],
+    "target_best": 13,
+    "target_optima": [
+      [
+        [
+          20,
+          25
+        ],
+        [],
+        false
+      ]
+    ],
+    "target_transferred": -247
+  },
+  "primary_geometry": {
+    "D9PF2OSW": {
+      "cost_sum": 179,
+      "disjoint": 4,
+      "max": 146,
+      "mean": 19.88888888888889,
+      "median": 0,
+      "n": 9,
+      "optimal_picks": 5,
+      "owners": 8,
+      "positive_mean": 44.75,
+      "positive_n": 4
+    },
+    "all": {
+      "cost_sum": 743,
+      "disjoint": 14,
+      "max": 260,
+      "mean": 28.576923076923077,
+      "median": 1.0,
+      "n": 26,
+      "optimal_picks": 11,
+      "owners": 22,
+      "positive_mean": 49.53333333333333,
+      "positive_n": 15
+    },
+    "s7ahYqL4": {
+      "cost_sum": 564,
+      "disjoint": 10,
+      "max": 260,
+      "mean": 33.1764705882353,
+      "median": 2,
+      "n": 17,
+      "optimal_picks": 6,
+      "owners": 14,
+      "positive_mean": 51.27272727272727,
+      "positive_n": 11
+    }
+  },
+  "same_signature_checked_from_FEN": true,
+  "schema": "mtdp-two-arena-independent-raw-score-check-v1",
+  "scope": "independent_direct_raw_score_recalculation_no_reference_search_or_mask_change"
+}

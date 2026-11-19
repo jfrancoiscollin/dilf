@@ -1,0 +1,16 @@
+{
+  "all_Jass_node_budgets_and_quality_recalculated": true,
+  "byte_identical": true,
+  "bytes": 391120,
+  "direct_raw_scores_recalculated": true,
+  "freeze_commit": "3fa9a56a3fa60954d5391d7e1b302c07e04f1f04",
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "independent_processes": true,
+  "pretarget_analysis_commit": "03b1a270b12244a03df715f265f597bd0f00cd50",
+  "primary_bootstrap_independently_recalculated": true,
+  "schema": "mtdp-two-arena-analysis-reproduction-v1",
+  "sha256": "3fd8f480902e50ffcace15552f5ad71e29571e08d0bf340c167d8ad9e21d45e7"
+}
