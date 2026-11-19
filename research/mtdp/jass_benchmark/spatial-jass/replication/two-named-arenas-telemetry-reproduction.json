@@ -1,0 +1,14 @@
+{
+  "all_targeted_H13_tests_passed": 241,
+  "audit_sha256": "95a5cade6055ceca051f8751b12f486c0fece6e633e6563b6b679c3dc477f63c",
+  "byte_identical": true,
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "independent_verification": "two-named-arenas-telemetry-independent-verification.json",
+  "new_engine_searches": 0,
+  "new_synthetic_tests_passed": 8,
+  "original_receipts_checked": 114,
+  "schema": "mtdp-telemetry-local-reproduction-v1"
+}

@@ -7,6 +7,10 @@ on:
       - 'research/mtdp/jass_benchmark/two_arena_crossed_depth.py'
       - 'research/mtdp/jass_benchmark/verify_two_arena_crossed_depth.py'
       - 'research/mtdp/tests/test_two_arena_crossed_depth.py'
+      - 'research/mtdp/jass_benchmark/two_arena_telemetry_audit.py'
+      - 'research/mtdp/jass_benchmark/verify_two_arena_telemetry.py'
+      - 'research/mtdp/tests/test_two_arena_telemetry_audit.py'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-telemetry-*.json'
       - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-crossed-depth-*.json'
       - '.github/workflows/mtdp-crossed-depth-replay.yml'
   workflow_dispatch:
@@ -19,6 +23,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  offline-telemetry-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install pytest
+      - name: Audit all published node receipts without engine search
+        run: |
+          set -euo pipefail
+          python -m pytest -q research/mtdp/tests/test_two_arena_telemetry_audit.py
+          mkdir /tmp/mtdp-telemetry
+          for seed in 7 61; do
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.two_arena_telemetry_audit --root . --output /tmp/mtdp-telemetry/seed$seed.json
+          done
+          cmp /tmp/mtdp-telemetry/seed7.json /tmp/mtdp-telemetry/seed61.json
+          cmp /tmp/mtdp-telemetry/seed7.json research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-telemetry-audit.json
+          python -m research.mtdp.jass_benchmark.verify_two_arena_telemetry --root . --report /tmp/mtdp-telemetry/seed7.json --output /tmp/mtdp-telemetry/independent.json
+          cmp /tmp/mtdp-telemetry/independent.json research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-telemetry-independent-verification.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mtdp-telemetry-offline-audit
+          path: /tmp/mtdp-telemetry/
+          retention-days: 30
+          if-no-files-found: warn
   offline-archive-replay:
     runs-on: ubuntu-latest
     timeout-minutes: 10
