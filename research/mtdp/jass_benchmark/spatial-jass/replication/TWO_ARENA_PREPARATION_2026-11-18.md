@@ -119,3 +119,74 @@ Jass search without the joint published position freeze. D1 commits c9bd6b7,
 9013d75,09d020d and1e08f8c were preserved; their latest coordination explicitly
 acknowledges all four whole-event reservations. No D1 metrics or campaign was
 modified here. New workflow confirmation remains pending.
+
+
+## Joint score-blind population adapter — 19 November 01:31 UTC
+
+Starting head `543641430b60e6ac18de4e822e920ef5290ab3b0`: PR43 open/draft,
+all seven workflows successful, including candidate replay44429025541 and
+D1 validation44429025755. Candidate artifact14485234955 was downloaded and
+checked (ZIP SHA256 `7deed8d0208e492490514080189b7b2df66cb28eceb07e5bb775f89aa155a48b`).
+The historical cache was recovered with the unchanged pinned SHA256 above.
+No equivalent new-cohort experiment was active at this head. D1's latest
+ranking-validation changes and all four whole-event reservations were read.
+
+`two_arena_replay` adds an explicit new-study proposal entry point. Its first
+operation is the joint final-input check with the real clock; no backend or
+new PDN replay is reached before the gate. It checks the historical cache,
+PC Blues baseline and archived legal-catalogue bytes, requires committed clean
+implementation files, and reuses the unchanged L/LCB selector and atomic
+whole-game replay. Selected sources are never replaced after a mapping failure.
+Acquisition files are copied byte-exactly into distinct canonical event names,
+avoiding owner collisions between their identically named `first.pdn` files.
+
+Both full-quiet equality strata for each already selected L/LCB source are
+labelled before scores, with the lexicographically first owner frozen. Entire
+first-event IDs, tokens, complete canonical trajectories and all legally
+confirmed prefix FENs are added to the later event's exclusions. This includes
+rejected/quarantined games; no full trajectory is invented for a quarantine.
+Per-event game audits, every selected pair, mappings, strata (including zero),
+plies and index provenance remain in the proposal. This is **not** a joint
+freeze, reference ranking, target score, or Jass search authorization.
+
+Local validation: **163 targeted tests passed**, including9 new temporal,
+changed-cache, ownership, full-mask, empty-stratum and cross-event exclusion
+checks. A real empty FMJD/Jass catalogue returned zero targets/actions without
+error. Actual-clock invocation refused before target files were read.
+`two_arena_rehearsal` uses only manufactured Synthetic-tagged games, six mocked
+HTTP responses and a scoped fake clock in this separate diagnostic module;
+none of the frozen P1 modules/IDs/clock globals is patched. The real FMJD engine
+and archived Jass legal catalogue produced1 target/10 actions in each arena,
+rejecting a later whole-game token alias. Independent processes7/61 produced
+byte-identical proposals and preserved raw CRLF bytes. These are engineering
+fixtures, not observed tournament positions or new scientific outcomes.
+The existing workflow now runs these tests/rehearsals without adding a search
+campaign or fetching either new real event; its new CI remains to be confirmed.
+
+Reproduce on a clean committed checkout, with FMJD on PYTHONPATH:
+
+```sh
+for seed in 7 61; do
+  PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.two_arena_rehearsal \
+    --root . --exclusions /tmp/mtdp-independent/two-arena-exclusions.json \
+    --adapter ../draught-master --executable /tmp/mtdp-two-arena-archived-catalogue \
+    --output /tmp/two-arena-synthetic-UNIQUE-$seed
+done
+cmp /tmp/two-arena-synthetic-UNIQUE-7/synthetic-proposal.json /tmp/two-arena-synthetic-UNIQUE-61/synthetic-proposal.json
+```
+
+The catalogue restoration (archive/raw hashes checked) and full historical-cache
+reproduction are in the existing workflow. Production proposal CLI accepts the
+same root/cache/adapter/catalogue flags, plus `--directory` for the final input
+collector and `--output` for a new, exclusive JSON file. It has no clock override.
+
+**Next unique H13 action:** implement/validate the explicit joint publication
+bundle and remote-ancestor freeze verifier (pre-start proof, exact inputs,
+7/61 subprocesses, all proposal/method hashes, synthetic rejection). Then, only
+after **19 November02:57UTC /03:57Paris** and both conforming finished metadata,
+acquire the two final exports per event, reproduce both real populations and
+publish/verify the joint freeze before source12/source16/target16 or Jass.
+No real exports/FENs/scores of s7ahYqL4 or D9PF2OSW have been acquired here.
+Both events plus all P1RUlfJc/fFgE7oED remain outside D1 fitting, top-K,
+thresholds, signatures/refinement, dimension selection and validation. No D1
+campaign was duplicated. Jeff's PC is not required for this remote preparation.
