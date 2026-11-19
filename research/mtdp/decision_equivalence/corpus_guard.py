@@ -28,6 +28,40 @@ def _reject_target_fields(value, location="row"):
             _reject_target_fields(child, f"{location}[{index}]")
 
 
+# Closed admission schema. Unknown fields are rejected even if their names
+# are not recognized by TARGET_FIELDS; producer extensions require review.
+ROW_FIELDS = frozenset({"game_id", "tournament_id", "event_id", "fen",
+                        "split", "ply", "source_pdn_sha256", "metadata"})
+METADATA_FIELDS = frozenset({"source", "tags"})
+SOURCE_FIELDS = frozenset({"pdn_sha256"})
+
+
+def _check_schema(row, location):
+    unknown = set(row) - ROW_FIELDS
+    if unknown:
+        raise ValueError(f"{location}: unknown manifest fields {sorted(unknown)}")
+    if "source_pdn_sha256" in row:
+        digest = row["source_pdn_sha256"]
+        if not isinstance(digest, str) or len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+            raise ValueError(f"{location}: invalid source_pdn_sha256")
+    if "metadata" not in row:
+        return
+    metadata = row["metadata"]
+    if not isinstance(metadata, dict) or set(metadata) - METADATA_FIELDS:
+        raise ValueError(f"{location}: unknown metadata fields or invalid metadata")
+    if "source" in metadata:
+        source = metadata["source"]
+        if not isinstance(source, dict) or set(source) != SOURCE_FIELDS:
+            raise ValueError(f"{location}: invalid metadata.source")
+        digest = source["pdn_sha256"]
+        if not isinstance(digest, str) or len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+            raise ValueError(f"{location}: invalid metadata.source.pdn_sha256")
+    if "tags" in metadata:
+        tags = metadata["tags"]
+        if not isinstance(tags, list) or any(not isinstance(t, str) or not t.strip() for t in tags):
+            raise ValueError(f"{location}: invalid metadata.tags")
+
+
 def audit(rows, *, reserved_events=RESERVED_EVENTS):
     """Reject reserved events, game/FEN leakage, duplicate game/ply."""
     if not isinstance(rows, list) or not rows:
@@ -38,6 +72,7 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
         if not isinstance(row, dict):
             raise ValueError(f"row {i}: object required")
         _reject_target_fields(row, f"row {i}")
+        _check_schema(row, f"row {i}")
         for field in ("game_id", "tournament_id", "event_id", "fen", "split"):
             if not isinstance(row.get(field), str) or not row[field].strip():
                 raise ValueError(f"row {i}: missing {field}")
