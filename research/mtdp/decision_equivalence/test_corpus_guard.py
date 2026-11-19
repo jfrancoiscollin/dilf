@@ -155,5 +155,20 @@ def test_closed_manifest_schema_rejects_unreviewed_fields(extra):
 def test_closed_manifest_schema_accepts_reviewed_provenance():
     record = row()
     record["source_pdn_sha256"] = "a" * 64
-    record["metadata"] = {"source": {"pdn_sha256": "b" * 64}, "tags": ["historical"]}
+    record["metadata"] = {"source": {"pdn_sha256": "a" * 64}, "tags": ["historical"]}
     assert audit([record])["rows"] == 1
+
+
+def test_conflicting_source_hashes_rejected():
+    record = row()
+    record["source_pdn_sha256"] = "a" * 64
+    record["metadata"] = {"source": {"pdn_sha256": "b" * 64}}
+    with pytest.raises(ValueError, match="conflicting source PDN"):
+        audit([record])
+
+
+def test_matching_source_hashes_allowed():
+    record = row()
+    record["source_pdn_sha256"] = "a" * 64
+    record["metadata"] = {"source": {"pdn_sha256": "a" * 64}}
+    assert audit([record])["score_blind"] is True
