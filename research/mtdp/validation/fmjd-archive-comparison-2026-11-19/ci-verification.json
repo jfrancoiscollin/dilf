@@ -1,0 +1,76 @@
+{
+  "CI_comparison_and_cmp_success": true,
+  "CI_core_passed": 643,
+  "CI_general_job": 135740431681,
+  "CI_general_run": 44575126043,
+  "CI_research_passed": 668,
+  "CI_research_skipped": 4,
+  "data_members_byte_identical": 9,
+  "engine_calls_in_archive_comparison": 0,
+  "files_sha256": {
+    "research/mtdp/fmjd_artifact_comparison.py": "776cf6b05c6d236ffd895a8583c34bc69400c6554850466c70bae462903ff607",
+    "research/mtdp/tests/test_fmjd_artifact_comparison.py": "ca1a5902a667da504cbe061a4e50b55d357cfba00b33cde93fc65cfa53af1202",
+    "research/mtdp/validation/fmjd-archive-comparison-2026-11-19/comparison.json": "3a2564eb375a6ed6064484888dae2aed7880af767066fd743872ca7682ca3449"
+  },
+  "internal_manifest_entries_verified_total": 20,
+  "local_comparison_tests": 5,
+  "local_targeted_tests": 57,
+  "new_independent_cohort": false,
+  "schema": "mtdp-fmjd-archive-comparison-ci-v1",
+  "source_artifacts_downloaded_and_zip_sha256_verified": [
+    14545492498,
+    14550374124
+  ],
+  "validated_commit": "2806b643c5040410690553fef0d96a5b593858cb",
+  "verified_at_utc": "2026-11-19T17:19:29.315538+00:00",
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "id": 44575125877,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44575125982,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44575125866,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44575126024,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44575125910,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44575126129,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44575126043,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44575125906,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ]
+}

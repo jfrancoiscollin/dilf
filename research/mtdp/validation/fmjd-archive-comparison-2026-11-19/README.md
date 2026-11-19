@@ -20,3 +20,7 @@ python -m pytest -q research/mtdp/tests/test_fmjd_artifact_comparison.py
 ```
 
 Five focused comparison tests pass locally, alongside 21 prospective-manifest and 31 D1 corpus-guard tests (57 total). New CI is checked separately after publication. D1's remaining closed-schema/producer-compatibility and real-corpus legality gates stay its responsibility. H13 waits for independent qualification before freezing the next executable prospective protocol/cohort. All four reserved events and their games/FEN remain excluded from D1 fitting/independent validation/tuning. Jeff's PC is not required.
+
+## Verified publication
+
+Code/data2806b643c5040410690553fef0d96a5b593858cb published with expected exact tree; all8Actions successful. CI44575126043/job135740431681 reports643core and668MTDP tests passed (4skipped), and the explicit no-engine comparison/cmp step succeeds. All57local targeted tests ran. See ci-verification.json for hashes/run IDs. Next successor adds only proof/docs; check its CI next passage.
