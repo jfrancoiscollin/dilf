@@ -40,6 +40,16 @@ def load(raw, expected_sha256):
     if (set(provenance) != required
             or provenance['schema_version'] != 'mtdp-fmjd-provenance-v1'):
         raise ValueError('Unexpected provenance schema')
+    # Provenance must be usable as a revision identifier, not just carry
+    # the expected keys. A self-consistent manifest alone cannot ensure this.
+    for key in ('dilf_sha', 'dilf_source_sha', 'draught_master_sha'):
+        value = provenance[key]
+        if (not isinstance(value, str) or len(value) != 40
+                or any(ch not in '0123456789abcdef' for ch in value)):
+            raise ValueError('Invalid provenance commit SHA: ' + key)
+    requested_ref = provenance['draught_master_requested_ref']
+    if not isinstance(requested_ref, str) or not requested_ref.strip():
+        raise ValueError('Invalid requested FMJD ref')
     return files, provenance, names
 
 
