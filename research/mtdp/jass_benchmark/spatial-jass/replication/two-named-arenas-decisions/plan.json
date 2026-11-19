@@ -1,0 +1,75 @@
+{
+  "build": {
+    "binaries": {
+      "catalogue": {
+        "archive_path": "research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-runtime/catalogue.gz",
+        "archive_sha256": "c016e78a35324ccf4f692f7219322bfcdf2507474989801a6119f125412fd4b2",
+        "bytes": 73472,
+        "sha256": "c4065367a315534284a3b9937b97fe51e2e2b011a26b2889ada435c0845aecfd"
+      },
+      "main": {
+        "archive_path": "research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-runtime/main.gz",
+        "archive_sha256": "cee627a6835e010269bb99b99e3684925510974c5dc5c9554b91e259b46cfcea",
+        "bytes": 275296,
+        "sha256": "d372a3347d452e6c6be23ad6858d0bcddf4626eb84ad21a9e7640ddd79527856"
+      },
+      "probe": {
+        "archive_path": "research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-runtime/probe.gz",
+        "archive_sha256": "5c9e2342542286e36a38bbd5070d611a572ce96e81b52e871b9fb09d1fed0d76",
+        "bytes": 265184,
+        "sha256": "7fce773dbc5f71d378d62350e014449abbd18fb5a0e695e930db04f17d01b2b6"
+      }
+    },
+    "receipt_sha256": "14cf0173cd53a4cd8b3b2840f04c0199aeffaccbf02a36891e0be43f896d9ee4"
+  },
+  "complete": false,
+  "execution_sha256": {
+    "pedagogy/game.py": "9eb34e51f0f739a68248f56ee94cdc98e749df869eca423ce4c7313383eb9c38",
+    "research/mtdp/best_move_audit.py": "0e1c94ce08d0e12f35f8e9c4261112f981c005dc9d959ed7d5da02865a0ab022",
+    "research/mtdp/draught_master_adapter.py": "e6540c66e140c9a20767b2219584e54302984f4da2dec54054e5856e866dad8a",
+    "research/mtdp/jass_benchmark/candidate_jass_catalogue.py": "f4f09d1150f1bbb96b92495a1d0977ef076bb2ab529b955a47b7f49c42ff2c29",
+    "research/mtdp/jass_benchmark/depth_sensitivity.py": "d42b0f8b435de44bc3f305ca21ea9ce299344e81575ce4950a8eda6f4db313c7",
+    "research/mtdp/jass_benchmark/geometry_ablation.py": "d219c5ab7cd803a3bca4fd85a5d1df23ae4adfb5c342952d35c7094579384c3e",
+    "research/mtdp/jass_benchmark/metered_control.py": "15e0280ff7a56c920b11156a2296e192370221a6b101eaa41db410e957863d89",
+    "research/mtdp/jass_benchmark/metered_engine_smoke.py": "0f3779b21549c8dcd12c98680e0de7c5b1bdb00ae50389a849ac577d0393a384",
+    "research/mtdp/jass_benchmark/metered_probe_adapter.py": "6b29cf19b15fee6d1fbe6025011e1d8b2bd09c5d1733217e09760036f2b08b3d",
+    "research/mtdp/jass_benchmark/named_arena_acquisition.py": "984fa080da22e4da027de001caa646ad767c70ce1d9e079d5f40e5c638154612",
+    "research/mtdp/jass_benchmark/named_arena_execution.py": "593652ce190492fcb37e44bc264eb5efcf5984dc273adcbc3b32e0d3cb33fe75",
+    "research/mtdp/jass_benchmark/named_arena_inputs.py": "de489dbb634a936ccd87d8f508be7e60980d8ce38477f06df6e467a60f727b3e",
+    "research/mtdp/jass_benchmark/named_arena_replay.py": "49bff94cf73f2437b1287106fc1a90e76cef29790d40c80df73b086f51e390b4",
+    "research/mtdp/jass_benchmark/named_campaign_quality.py": "3d4f552367f29544934645caf1d0ae9ebf537e4cec19e8083c92a693fc23aa24",
+    "research/mtdp/jass_benchmark/named_freeze_bundle.py": "9ff30acfbe12db1a8e25e507181ce8ccb24f82ec724e0b0a2b059c4a3e051411",
+    "research/mtdp/jass_benchmark/named_metered_campaign.py": "cc2778dd6c6fef605a771fc2a63fda61508d4f35c55cabb554b79c280d0e4b25",
+    "research/mtdp/jass_benchmark/offline_top3_control.py": "30e7561cb9774b2460c15aa293f9e912977f1fa3738d91bed9eba1dd1879f359",
+    "research/mtdp/jass_benchmark/prospective_candidate_replay.py": "20051f8be80caef1280809605411ddca605e501cf699fd98a898be3851ed7382",
+    "research/mtdp/jass_benchmark/prospective_tiebreak.py": "cdd6b7d9836c9dcf588cba1d6668ba59f0c1446e1a0aebde7bfa6881d32345f3",
+    "research/mtdp/jass_benchmark/runner.cpp": "7d6f80defbdfa999a22db465c370075fe1337016b2ca06db37ecd1a91ec9b0d0",
+    "research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-runner-builds.json": "14cf0173cd53a4cd8b3b2840f04c0199aeffaccbf02a36891e0be43f896d9ee4",
+    "research/mtdp/jass_benchmark/total_budget.py": "81f08f43de49e4b0eed5a43d68ee460cf27e3438585ce4980f2db7da3a73a9a2",
+    "research/mtdp/jass_benchmark/two_arena_acquisition.py": "7fc21e85ecb58224aae33d8d7964471a7dcf0325ba01acadf92ee66850a6642c",
+    "research/mtdp/jass_benchmark/two_arena_exclusions.py": "1a4f9d87fd097e44dcb8b77ee28df8a1d655931ae483202f049245a87e0be3c0",
+    "research/mtdp/jass_benchmark/two_arena_execution.py": "1007f4e4339b108091a5d07636e332f657d41cde755134ef7ec673bdbcc6bbb7",
+    "research/mtdp/jass_benchmark/two_arena_freeze.py": "911be306a880c063cc8b2cd07b79ba6a4c926f778c1d86b180c4228618c517e6",
+    "research/mtdp/jass_benchmark/two_arena_registration.py": "7f9cf137edeef13ace6a63ffec449431cfed8c1fb20306a408a4fb6c57470b5c",
+    "research/mtdp/jass_benchmark/two_arena_replay.py": "833217c6992ccd1e37694d45102995299c2ef2480666f1fe67df2bcf75d83a65",
+    "research/mtdp/jass_cohort.py": "7635a74e8401fefa37eb8017c070fd082d0ee9f75dc6a9894d594d1a8341453f",
+    "research/mtdp/jass_move_mapping.py": "c1fb85bbc17dfbdfbdd29915eab4e6f68bd0340bb9e348de627a90e82970a8e6",
+    "research/mtdp/jass_preflight/depth-one-winner.patch": "2d77879629982fea8cabb8f0a33722a05d5c10df19c20f8b471946830318d873",
+    "research/mtdp/jass_preflight/first-root-action.patch": "89629250480ced93e131221350fd4dad28c429a1c90075bb52d0c53c89a4957d",
+    "research/mtdp/jass_preflight/initial-only.patch": "2db2475b729b4deac6ad9beada89abbaa17617aaf2749b2da9e2193fd8d7d273",
+    "research/mtdp/jass_preflight/legal_catalogue.cpp": "cff961ffb64725c42928b6c747a4c7b6f0d32780654d8a5541a39f9767866bec",
+    "research/mtdp/jass_preflight/metered_probe.cpp": "949c76167bda7b97c2162db24d10b24919136ba9afd00421b9ba2999b8d69241",
+    "research/mtdp/jass_preflight/move_key.hpp": "efd35b851ee6e4654c804356429f2a2983db945c69237d7c743905835776008d",
+    "research/mtdp/jass_preflight/targets.cmake": "11cedf28e28eabca29d2514c20fca83943470999302552f40fe67b3bbb6a594a",
+    "research/mtdp/jass_scan_reference.py": "4a839da92e8bc237c406262cfabb9c24228d0f164616e703737b0446d299d9fe",
+    "research/mtdp/pdn.py": "88faa4a952d363183113dc339bb2d9dc0272db44cbb5a723b7adcd38a7005008",
+    "research/mtdp/signature_ablation.py": "39eb18a9cd6d2dc71bf40431a3e8c4bd787fc4c5adf0326594859ec01128fd6b",
+    "research/mtdp/successor_audit.py": "eebb4d2c14e586cca8901a938628e9b0057c4570eb8d21568aeb42fd21470bcc",
+    "research/mtdp/top_k_transfer.py": "cf3184d8c9ba3020ab491ed8bdba8b502ff66bb6f19eccb7d830fd70d684977b"
+  },
+  "freeze_commit": "3fa9a56a3fa60954d5391d7e1b302c07e04f1f04",
+  "manifest_sha256": "c079ca061d3645b42ce93235854e032de2be43a4cb08d8cea5ddbc1d92f1b5aa",
+  "schema": "mtdp-two-arena-decisions-v1",
+  "scope": "complete_decisions_before_target16_no_target_outcomes_read",
+  "source12_sha256": "662205204bc3d0ce4269d9fc3f3fa7ad7dceb365acb603225eba6f526b94e42d"
+}
