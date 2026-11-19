@@ -26,6 +26,8 @@ on:
       - 'research/mtdp/tests/test_two_arena_registration.py'
       - 'research/mtdp/jass_benchmark/two_arena_exclusions.py'
       - 'research/mtdp/tests/test_two_arena_exclusions.py'
+      - 'research/mtdp/jass_benchmark/two_arena_depth20.py'
+      - 'research/mtdp/tests/test_two_arena_depth20.py'
       - 'research/mtdp/jass_benchmark/two_arena_analysis.py'
       - 'research/mtdp/tests/test_two_arena_analysis.py'
       - 'research/mtdp/jass_benchmark/two_arena_execution.py'
@@ -200,7 +202,7 @@ jobs:
         run: |
           set -euo pipefail
           cd dilf
-          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py research/mtdp/tests/test_named_arena_inputs.py research/mtdp/tests/test_named_arena_replay.py research/mtdp/tests/test_named_arena_acquisition.py research/mtdp/tests/test_named_freeze_bundle.py research/mtdp/tests/test_named_arena_execution.py research/mtdp/tests/test_named_metered_campaign.py research/mtdp/tests/test_metered_engine_smoke.py research/mtdp/tests/test_named_campaign_quality.py research/mtdp/tests/test_named_source16_sensitivity.py research/mtdp/tests/test_named_signature_annotation.py research/mtdp/tests/test_two_arena_registration.py research/mtdp/tests/test_two_arena_exclusions.py research/mtdp/tests/test_two_arena_acquisition.py research/mtdp/tests/test_two_arena_replay.py research/mtdp/tests/test_two_arena_freeze.py research/mtdp/tests/test_two_arena_execution.py research/mtdp/tests/test_two_arena_analysis.py
+          python -m pytest -q research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py research/mtdp/tests/test_named_arena_inputs.py research/mtdp/tests/test_named_arena_replay.py research/mtdp/tests/test_named_arena_acquisition.py research/mtdp/tests/test_named_freeze_bundle.py research/mtdp/tests/test_named_arena_execution.py research/mtdp/tests/test_named_metered_campaign.py research/mtdp/tests/test_metered_engine_smoke.py research/mtdp/tests/test_named_campaign_quality.py research/mtdp/tests/test_named_source16_sensitivity.py research/mtdp/tests/test_named_signature_annotation.py research/mtdp/tests/test_two_arena_registration.py research/mtdp/tests/test_two_arena_exclusions.py research/mtdp/tests/test_two_arena_acquisition.py research/mtdp/tests/test_two_arena_replay.py research/mtdp/tests/test_two_arena_freeze.py research/mtdp/tests/test_two_arena_execution.py research/mtdp/tests/test_two_arena_analysis.py research/mtdp/tests/test_two_arena_depth20.py
           python -m research.mtdp.jass_benchmark.prospective_candidate_replay \
             --root . \
             --pdn /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
