@@ -71,6 +71,7 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
     if not isinstance(rows, list) or not rows:
         raise ValueError("nonempty JSONL rows required")
     game_split, game_event, event_split, tournament_split, last_ply, fen_owner, seen = {}, {}, {}, {}, {}, {}, set()
+    game_source = {}
     split_games = defaultdict(set)
     for i, row in enumerate(rows):
         if not isinstance(row, dict):
@@ -92,6 +93,13 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
             raise ValueError(f"row {i}: game crosses splits")
         if gid in game_event and game_event[gid] != (event, row["tournament_id"]):
             raise ValueError(f"row {i}: inconsistent game provenance")
+        source = row.get("source_pdn_sha256")
+        if source is None and isinstance(row.get("metadata"), dict):
+            source = row["metadata"].get("source", {}).get("pdn_sha256")
+        if gid in game_source and source is not None and game_source[gid] is not None and source != game_source[gid]:
+            raise ValueError(f"row {i}: conflicting source PDN SHA-256 within game")
+        if source is not None:
+            game_source[gid] = source
         game_split[gid] = split
         game_event[gid] = (event, row["tournament_id"])
         if event in event_split and event_split[event] != split:
