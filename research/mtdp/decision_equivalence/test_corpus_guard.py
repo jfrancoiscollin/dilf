@@ -199,3 +199,21 @@ def test_later_digest_cannot_disagree_with_first_known_digest():
     third["source_pdn_sha256"] = "b" * 64
     with pytest.raises(ValueError, match="within game"):
         audit([first, second, third])
+
+
+def test_same_pdn_bytes_cannot_cross_splits_under_renamed_provenance():
+    first = row(game="g1", event="archive-a", split="train")
+    second = row(game="g2", event="archive-b", split="test", fen="B:W31:B20")
+    digest = "a" * 64
+    first["source_pdn_sha256"] = digest
+    second["metadata"] = {"source": {"pdn_sha256": digest}}
+    with pytest.raises(ValueError, match="PDN source crosses splits"):
+        audit([first, second])
+
+
+def test_distinct_pdn_sources_across_splits_are_permitted():
+    first = row(game="g1", event="archive-a", split="train")
+    second = row(game="g2", event="archive-b", split="test", fen="B:W31:B20")
+    first["source_pdn_sha256"] = "a" * 64
+    second["source_pdn_sha256"] = "b" * 64
+    assert audit([first, second])["games_by_split"] == {"test": 1, "train": 1}
