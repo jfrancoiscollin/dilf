@@ -9,7 +9,7 @@ def row(game="g1", event="historical", split="train", fen="W:W31:B20", ply=1):
 
 
 def test_deterministic_and_chronology_sensitive():
-    a, b = row(), row(game="g2", split="test", fen="B:W31:B20")
+    a, b = row(), row(game="g2", event="other", split="test", fen="B:W31:B20")
     assert audit([a, b]) == audit([a, b])
     assert audit([a, b])["canonical_sha256"] != audit([b, a])["canonical_sha256"]
 
@@ -26,7 +26,7 @@ def test_game_split_leakage():
 
 def test_fen_split_leakage():
     with pytest.raises(ValueError, match="FEN crosses"):
-        audit([row(), row(game="g2", split="test")])
+        audit([row(), row(game="g2", event="other", split="test")])
 
 
 def test_duplicate_and_provenance():
