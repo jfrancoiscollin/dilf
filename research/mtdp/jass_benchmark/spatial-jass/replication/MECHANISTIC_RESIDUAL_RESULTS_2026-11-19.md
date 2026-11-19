@@ -48,7 +48,7 @@ Les sorties normalisées7/61 sont identiques, SHA-256 `30f6bdb8d18111536af118c9a
 - `mechanistic-residual-raw-seed7.tar.gz` :36599octets, SHA `8d8d278a9567ae7328be504c9ff25dc1175e0c36b02bf668aa22fc78eefd2b69`.
 - `mechanistic-residual-raw-seed61.tar.gz` :36629octets, SHA `9568b24bf6776e75b1048c509f8863fdafe645d4dfcf8814223231a371c09a97`.
 - `mechanistic-residual-results.json` et `mechanistic-residual-independent-verification.json` contiennent tous les résultats, paramètres et empreintes des270fichiers archivés.
-- **256tests H13 locaux passent**,15nouveaux (collecteur10, vérificateur5). Les8/8Actions du collecteur3b89ca8 réussissent ; le rejeu CI horsligne des nouvelles archives reste à confirmer après publication. Aucun moteur de cohorte ne sera relancé par ce contrôle CI.
+- **256tests H13 locaux passent**,15nouveaux (collecteur10, vérificateur5). Les8/8Actions du collecteur3b89ca8 réussissent ; les8/8Actions du snapshot résultats/correctif `c71c2dd5961de9d29e286abc416ac8c0e4c0b47f` réussissent aussi. [Job horsligne44488857824](https://github.com/jfrancoiscollin/dilf/actions/runs/44488857824),23tests,264raws revalidés sans moteur ; artefact14511966794 téléchargé et vérifié,45364octets,ZIP SHA `12dcbca6137ea817031013dbcf171eaf95e92fa866827535ae554757f5181f5f`,ses cinq fichiers sont identiques au dépôt. Preuve complète `mechanistic-residual-ci-verification-2026-11-19.json`. Aucun moteur de cohorte ne sera relancé par ce contrôle CI.
 
 ```bash
 python -m research.mtdp.jass_benchmark.mechanistic_trace_analysis --root . \
@@ -61,7 +61,7 @@ python -m research.mtdp.jass_benchmark.mechanistic_trace_analysis --root . \
 
 Les commits concurrents7c93005/fccf367/c592f46 ont été récupérés et conservés avant écriture. Les15tests réels agrégation/bootstrap ont détecté une `SyntaxError` dans le nouveau retour de `cluster_bootstrap.py` : deux caractères littéraux `\n` remplaçaient des retours à la ligne. Correction limitée à ces deux retours à la ligne ; diagnostics de concentration, dénominateurs et portes d'IC inchangés. **Les15tests passent après correction.**
 
-Le workflow D1 était vert mais sa liste explicite ne collectait ni `test_aggregate.py` ni `test_cluster_bootstrap.py`. Les deux fichiers sont désormais inclus, afin que les prochaines validations couvrent réellement ces modules. Aucune campagne D1 dupliquée ni résultat de concentration interprété sur nos cohortes réservées.
+Le workflow D1 était vert mais sa liste explicite ne collectait ni `test_aggregate.py` ni `test_cluster_bootstrap.py`. Les deux fichiers sont désormais inclus, afin que les prochaines validations couvrent réellement ces modules. Le [run D1 corrigé44488857953](https://github.com/jfrancoiscollin/dilf/actions/runs/44488857953) passe128tests, avec les deux chemins de tests confirmés dans le journal exécuté. Aucune campagne D1 dupliquée ni résultat de concentration interprété sur nos cohortes réservées.
 
 ## Prochain contrôle H13
 
