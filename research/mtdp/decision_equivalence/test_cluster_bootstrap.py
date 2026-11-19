@@ -42,3 +42,22 @@ def test_no_primary_is_explicit():
     assert result['delta_recall3'] is None
     assert result['delta_recall3_ci95'] is None
     assert result['delta_first_regret_raw'] == -1
+
+
+def test_primary_regret_excludes_small_branching_positions():
+    four = row('wide', 'game1', dict(zip('abcd', [4, 3, 2, 1])),
+               list('abcd'), list('dcba'))
+    two = row('narrow', 'game2', {'a': 100, 'b': 0}, ['b', 'a'], ['a', 'b'])
+    result = paired_game_bootstrap([four, two], repetitions=200, seed=17)
+    assert result['n_primary_ge4'] == 1
+    assert result['delta_first_regret_primary_ge4_raw'] == -3
+    assert result['delta_first_regret_raw'] == pytest.approx(48.5)
+    assert result['delta_first_regret_primary_ge4_ci95'] == [-3, -3]
+
+
+def test_no_primary_regret_explicitly_undefined():
+    two = row('narrow', 'game', {'a': 2, 'b': 1}, ['a', 'b'], ['b', 'a'])
+    result = paired_game_bootstrap([two], repetitions=100)
+    assert result['delta_first_regret_primary_ge4_raw'] is None
+    assert result['delta_first_regret_primary_ge4_ci95'] is None
+    assert result['delta_first_regret_raw'] == -1
