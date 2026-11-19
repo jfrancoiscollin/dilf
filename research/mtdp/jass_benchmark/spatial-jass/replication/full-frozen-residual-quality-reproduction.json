@@ -1,0 +1,12 @@
+{
+  "analysis_commit": "6c4746f738288180bf26851a7803551fa72e1e67",
+  "byte_identical": true,
+  "engine_calls": 0,
+  "original_points_and_intervals_exact": true,
+  "pythonhashseeds": [
+    7,
+    61
+  ],
+  "results_sha256": "b10de948f1349a714f32fa38b3cc373cfc305fc53a4d27be226d56801adc2f4f",
+  "schema": "mtdp-full-residual-quality-reproduction-v1"
+}

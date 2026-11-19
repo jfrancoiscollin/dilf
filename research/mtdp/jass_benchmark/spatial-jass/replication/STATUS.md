@@ -810,3 +810,8 @@ failure artifacts retained, no overwrite.154local tests pass, real-clock CLI
 refusal confirmed. No new actual game/FEN/score. D1 concurrent commits preserved.
 Next:joint population/proposal/freeze adapter with cross-arena game/FEN exclusions,
 all mappings and7/61 reproduction; synthetic validation before joint final data.
+
+
+### 2026-11-19 — Complete residual controls reconciled with fixed Scan16
+
+See FULL_RESIDUAL_SCAN16_RECONCILIATION_2026-11-19.md. All114contexts,38targets/31owners; original three-arm points and intervals exactly reproduced, 570cells/126bootstrap estimates independently verified. Zero engine calls. Primary50k control−LCB residual +0.289474 raw Scan [0,0.942857]; residual−full cost contrasts zero at all budgets. Existing geometry result and primary equal-total-node results immutable. Local313tests pass. Next: verify successor CI/artifact then await a qualified D1 candidate and a new pre-score prospective protocol before freezing any new cohort. No additional post-hoc engine campaign warranted; four entire reserved arenas remain excluded from D1 training/independent validation/tuning.
