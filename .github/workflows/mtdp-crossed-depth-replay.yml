@@ -18,6 +18,8 @@ on:
       - 'research/mtdp/tests/test_nonintervened_budget_witness.py'
       - 'research/mtdp/jass_benchmark/budget_witness_analysis.py'
       - 'research/mtdp/tests/test_budget_witness_analysis.py'
+      - 'research/mtdp/jass_benchmark/full_frozen_residual_replay.py'
+      - 'research/mtdp/tests/test_full_frozen_residual_replay.py'
       - 'research/mtdp/jass_benchmark/spatial-jass/replication/nonintervened-budget-*'
       - 'research/mtdp/jass_benchmark/spatial-jass/replication/mechanistic-residual-*'
       - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-telemetry-*.json'
@@ -47,7 +49,7 @@ jobs:
       - name: Audit all published node receipts without engine search
         run: |
           set -euo pipefail
-          python -m pytest -q research/mtdp/tests/test_two_arena_telemetry_audit.py research/mtdp/tests/test_mechanistic_residual_replay.py research/mtdp/tests/test_mechanistic_trace_analysis.py research/mtdp/tests/test_nonintervened_budget_witness.py research/mtdp/tests/test_budget_witness_analysis.py
+          python -m pytest -q research/mtdp/tests/test_two_arena_telemetry_audit.py research/mtdp/tests/test_mechanistic_residual_replay.py research/mtdp/tests/test_mechanistic_trace_analysis.py research/mtdp/tests/test_nonintervened_budget_witness.py research/mtdp/tests/test_budget_witness_analysis.py research/mtdp/tests/test_full_frozen_residual_replay.py
           mkdir /tmp/mtdp-telemetry
           for seed in 7 61; do
             PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.two_arena_telemetry_audit --root . --output /tmp/mtdp-telemetry/seed$seed.json
