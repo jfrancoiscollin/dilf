@@ -25,8 +25,8 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
         gid, event, split = row["game_id"], row["event_id"], row["split"]
         if split not in SPLITS:
             raise ValueError(f"row {i}: invalid split")
-        if event in reserved_events:
-            raise ValueError(f"row {i}: reserved event {event}")
+        if event in reserved_events or row["tournament_id"] in reserved_events:
+            raise ValueError(f"row {i}: reserved event/tournament identifier")
         ply = row.get("ply")
         if type(ply) is not int or ply < 0:
             raise ValueError(f"row {i}: invalid ply")
