@@ -1,0 +1,18 @@
+{
+  "actual_nodes_both_executions": 98718964,
+  "actual_nodes_per_execution": 49359482,
+  "collector_commit": "e30b0273e206436607f0c342cdda772710f342f9",
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "new_independent_cohort": false,
+  "normalized_byte_identical": true,
+  "normalized_sha256": "76b2990a2f6e38dd9ef453f0ef3694c55394d723b618f2f54e419ce19edf4be3",
+  "original_three_arm_summaries_reproduced_per_execution": 342,
+  "raw_receipts_both_executions": 3612,
+  "raw_receipts_per_execution": 1806,
+  "schema": "mtdp-full-residual-local-reproduction-v1",
+  "target_references_opened": 0,
+  "targeted_H13_D1_tests_passed": 302
+}
