@@ -59,3 +59,25 @@ def test_unlisted_extra_file_rejected():
     a, _ = inputs(); b = rewrite(a, ('extra.json', b'{}'))
     with pytest.raises(ValueError, match='archive member'):
         load(b, sha(b))
+
+
+def test_invalid_provenance_commit_sha_rejected_even_with_valid_manifest():
+    a, _ = inputs()
+    with zipfile.ZipFile(io.BytesIO(a)) as z:
+        provenance = json.loads(z.read('mtdp-fmjd-provenance.json'))
+    provenance['draught_master_sha'] = 'not-a-commit'
+    b = rewrite(a, ('mtdp-fmjd-provenance.json',
+                    json.dumps(provenance).encode()), update_manifest=True)
+    with pytest.raises(ValueError, match='Invalid provenance commit SHA'):
+        load(b, sha(b))
+
+
+def test_invalid_provenance_ref_rejected_even_with_valid_manifest():
+    a, _ = inputs()
+    with zipfile.ZipFile(io.BytesIO(a)) as z:
+        provenance = json.loads(z.read('mtdp-fmjd-provenance.json'))
+    provenance['draught_master_requested_ref'] = ''
+    b = rewrite(a, ('mtdp-fmjd-provenance.json',
+                    json.dumps(provenance).encode()), update_manifest=True)
+    with pytest.raises(ValueError, match='Invalid requested FMJD ref'):
+        load(b, sha(b))
