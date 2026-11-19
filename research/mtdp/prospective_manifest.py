@@ -34,13 +34,15 @@ def validate(manifest: object) -> dict[str, object]:
             raise ValueError(f"invalid SHA-256: {field}")
     if type(manifest["seed"]) is not int or not (0 <= manifest["seed"] < 2**32):
         raise ValueError("seed must be a uint32")
-    if manifest["budgets_nodes"] != list(_BUDGETS):
+    if (not isinstance(manifest["budgets_nodes"], list)
+            or any(type(n) is not int for n in manifest["budgets_nodes"])
+            or manifest["budgets_nodes"] != list(_BUDGETS)):
         raise ValueError("budgets_nodes must be frozen at 10k/50k/200k")
     events = manifest["events"]
     if not isinstance(events, list) or not events or any(
-        not isinstance(event, str) or not event.strip() for event in events
+        not isinstance(event, str) or not event or event != event.strip() for event in events
     ):
-        raise ValueError("nonempty event identifiers required")
+        raise ValueError("nonempty event identifiers without surrounding whitespace required")
     if len(events) != len(set(events)) or set(events) & _RESERVED:
         raise ValueError("duplicate or D1-reserved event identifiers")
     effect = manifest["minimum_effect"]

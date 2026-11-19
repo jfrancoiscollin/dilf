@@ -1,6 +1,6 @@
 # MTDP — protocole préenregistré pour une évaluation prospective indépendante de Jass (brouillon)
 
-**Statut :** proposition méthodologique, **non exécutée** ; aucune performance mesurée ou cohorte admise. Propriétaire : relais fondation H43. Ne modifie pas les expériences ni les seuils de MTDP-D1.
+**Statut :** proposition méthodologique, **non exécutée** ; aucune performance mesurée ou cohorte admise. Rédaction initiale : relais fondation H43 ; responsabilité du protocole prospectif Jass/Scan, des contrôles à budget égal et du gel des nouvelles cohortes : H13, selon `RELAY_COORDINATION.md`. Ne modifie pas les expériences ni les seuils de MTDP-D1.
 
 ## Question falsifiable
 À budget de calcul égal, une politique Jass utilisant les caractéristiques spatiales MTDP choisit-elle des coups de regret inférieur à une politique Jass témoin, sur des positions jamais utilisées pour définir ou ajuster la politique ? La stabilité top-1/top-3 et le coût de calcul sont des résultats secondaires, pas des substituts à la qualité de décision.
@@ -30,3 +30,18 @@
 
 ## Livrables attendus (non produits à ce stade)
 Manifeste de préenregistrement ; cohorte et rapport de légalité/déduplication ; sorties par position et seed ; rapport statistique groupé par partie ; empreintes SHA-256 ; note de décision distinguant hypothèses, mesures et conclusions. **Aucune expérience, dépense, fusion ni déploiement n'est autorisé par ce document.**
+
+
+## Portes d'exécution H13 et articulation avec D1 — 19 novembre 2026
+
+Ce texte et `prospective_manifest.validate` sont un **brouillon de conception et un contrôle de métadonnées**, pas un gel scientifique exécutable. Un SHA bien formé ne démontre ni existence, ni contenu, ni publication antérieure aux scores. Aucun manifeste réel ni nouvelle cohorte n'est admis ici. Le contrôle refuse les identifiants entourés d'espaces et exige des budgets de type entier ; ces contrôles ne prouvent pas l'indépendance du contenu.
+
+Avant une campagne, H13 doit publier une version d'exécution concrète après qualification indépendante du candidat D1. Elle doit fixer sans consulter de nouvelles cibles :
+
+- Le candidat et son code, les comparateurs, la référence et ses empreintes binaires/évaluation/configuration, les règles d'éligibilité et de sélection, les positions/parties/propriétaires/événements, l'effectif justifié et les exclusions de toutes données antérieurement scorées. D1 garde signatures, top-K, raffinement et dimension ; ses seuils et portes d'évaluation restent inchangés. Les champs cibles imbriqués et le schéma d'admission D1 restent à traiter par D1.
+- Un **budget total** par bras : recherche principale **plus** prérecherche, sondes et vérifications en nœuds. Mesurer séparément le coût des caractéristiques et les autres coûts en temps sans les assimiler à zéro nœud. Garder tous les coups légaux ; journaliser toutes tentatives, dépenses, arrêts, erreurs et plafonds. Toute comparaison supplémentaire à nœuds principaux égaux doit porter cette étiquette et rester distincte du critère à coût total égal.
+- Un budget primaire unique, les deux sensibilités, une taille d'effet minimale et la règle de décision correspondante, le dénominateur apparié, le traitement des échecs/plafonds et la règle d'arrêt. Le simple champ `minimum_effect` ne démontre pas que ces choix sont figés ou appliqués par une analyse.
+- Une référence identique et fixée pour **tous les coups légaux** de chaque cible, avec scores, égalités et catégories conservés : le regret est meilleur score de référence moins score du coup choisi. L'arbitrage limité aux deux coups proposés ne fournit pas ce regret global et doit être nommé contraste entre coups. Ne soustraire numériquement que des scores ordinaires ; présenter séparément les transitions catégorielles. Les unités Scan brutes ne sont pas une valeur matérielle de pion calibrée.
+- L'analyse et les tirages groupés avant ouverture des scores cibles : unités propriétaires complètes, regroupement/stratification par événement préspécifiés, dénominateurs et graines fixes, traitement explicite des tirages indéfinis (sans suppression ni nouveau tirage silencieux), tous cas et catégories conservés. Publier les décisions brutes avant réconciliation cible et vérifier l'ascendance distante des engagements.
+
+Les contrôles déjà achevés sur 114 contextes/38 cibles/31 propriétaires restent post-hoc pour toute réutilisation ; ils ne peuvent devenir le nouveau holdout. Les quatre événements entiers réservés et toutes leurs parties/FEN restent exclus. H13 réserve toute future cohorte dans le registre **avant acquisition/scoring**, après contrôle d'absence de campagne équivalente ; H43 ne crée pas de campagne concurrente. Aucun nouveau calcul moteur n'est requis pour cette clarification. La prochaine porte reste la validation FMJD et la qualification indépendante D1, puis le protocole d'exécution concret H13.

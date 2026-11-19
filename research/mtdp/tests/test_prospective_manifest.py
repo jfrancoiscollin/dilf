@@ -52,3 +52,24 @@ def test_reject_missing_key(valid):
     del valid["cohort_sha256"]
     with pytest.raises(ValueError):
         validate(valid)
+
+
+@pytest.mark.parametrize("event", ["fFgE7oED", "P1RUlfJc", "s7ahYqL4", "D9PF2OSW"])
+def test_reserved_event_cannot_be_hidden_with_surrounding_whitespace(valid, event):
+    valid["events"] = [" " + event + " "]
+    with pytest.raises(ValueError):
+        validate(valid)
+
+
+@pytest.mark.parametrize("event", [" independent", "independent "])
+def test_event_ids_must_already_have_canonical_outer_whitespace(valid, event):
+    valid["events"] = [event]
+    with pytest.raises(ValueError):
+        validate(valid)
+
+
+@pytest.mark.parametrize("budgets", [[10000.0, 50000, 200000], [10000.0, 50000.0, 200000.0]])
+def test_equal_numeric_values_do_not_make_float_node_budgets_valid(valid, budgets):
+    valid["budgets_nodes"] = budgets
+    with pytest.raises(ValueError):
+        validate(valid)
