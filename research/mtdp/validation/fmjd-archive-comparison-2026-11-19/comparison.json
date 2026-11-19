@@ -1,0 +1,113 @@
+{
+  "all_data_byte_identical": true,
+  "archive_byte_identical": false,
+  "changed_data_members": [],
+  "changed_members": [
+    "mtdp-artifact-manifest.json",
+    "mtdp-fmjd-provenance.json"
+  ],
+  "data_member_count": 9,
+  "engine_calls": 0,
+  "fmjd_revision_equal": true,
+  "internal_manifest_entries_verified_per_archive": 10,
+  "left_archive": {
+    "bytes": 81978,
+    "sha256": "3a67b1a2dc0b42590ab2073bc9e31b1b1bd9bea9bf4bd427092f11c0e49cae1b"
+  },
+  "members": {
+    "mtdp-artifact-manifest.json": {
+      "byte_identical": false,
+      "left_bytes": 1525,
+      "left_sha256": "98e494c54218f8320d2cf9a8bb697edba8618ad9291890fcf1226a430d15ee8b",
+      "right_bytes": 1525,
+      "right_sha256": "9b2196e970b8ff8448c6fecd4529ce568a896bfce5ed305c2525c47587f72339"
+    },
+    "mtdp-fmjd-provenance.json": {
+      "byte_identical": false,
+      "left_bytes": 319,
+      "left_sha256": "f6f5bcc709e649838cf6e79baeb0f5b7e672408a204495df3638942404dc7690",
+      "right_bytes": 319,
+      "right_sha256": "4a5e4da1589c0e1865ef1c4ac791eea6535749c1fa534a3b1605494a5e2041c4"
+    },
+    "mtdp-legal-collisions.json": {
+      "byte_identical": true,
+      "left_bytes": 4397,
+      "left_sha256": "1086998c6bcb205a8de50410a4776ba55b20af8aec4a82ebf011d5188570f576",
+      "right_bytes": 4397,
+      "right_sha256": "1086998c6bcb205a8de50410a4776ba55b20af8aec4a82ebf011d5188570f576"
+    },
+    "mtdp-local-neighborhood.json": {
+      "byte_identical": true,
+      "left_bytes": 941,
+      "left_sha256": "c757bba5bdce4b18c9d5bba908bb3937d74577f8f50d770a4818a9ddc0732c8e",
+      "right_bytes": 941,
+      "right_sha256": "c757bba5bdce4b18c9d5bba908bb3937d74577f8f50d770a4818a9ddc0732c8e"
+    },
+    "mtdp-quarantine.jsonl": {
+      "byte_identical": true,
+      "left_bytes": 0,
+      "left_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "right_bytes": 0,
+      "right_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "mtdp-signature-ablation.json": {
+      "byte_identical": true,
+      "left_bytes": 3140,
+      "left_sha256": "87e1aa1500d6852762927ccd75bfd48cf9caf91bd357ebcc469cac3889b803a7",
+      "right_bytes": 3140,
+      "right_sha256": "87e1aa1500d6852762927ccd75bfd48cf9caf91bd357ebcc469cac3889b803a7"
+    },
+    "mtdp-signature-collisions.json": {
+      "byte_identical": true,
+      "left_bytes": 3389,
+      "left_sha256": "01fac8762233f8ec8ad721976610d3c21d271bc3fcf3ac804d0f476224c9a44d",
+      "right_bytes": 3389,
+      "right_sha256": "01fac8762233f8ec8ad721976610d3c21d271bc3fcf3ac804d0f476224c9a44d"
+    },
+    "mtdp-spatial-dynamics.json": {
+      "byte_identical": true,
+      "left_bytes": 5618,
+      "left_sha256": "95d792665abe37798fd47f23fd9ef2f5d9ca22edc4f06595c5add76c91b81f54",
+      "right_bytes": 5618,
+      "right_sha256": "95d792665abe37798fd47f23fd9ef2f5d9ca22edc4f06595c5add76c91b81f54"
+    },
+    "mtdp-successors.json": {
+      "byte_identical": true,
+      "left_bytes": 4176,
+      "left_sha256": "65e0c3d5f3d1a52f938ae0e9606b0605db0d287f90a24b478e84e73878ff2ac4",
+      "right_bytes": 4176,
+      "right_sha256": "65e0c3d5f3d1a52f938ae0e9606b0605db0d287f90a24b478e84e73878ff2ac4"
+    },
+    "mtdp-trajectories.jsonl": {
+      "byte_identical": true,
+      "left_bytes": 1427716,
+      "left_sha256": "cb31167784fd8a5a9da1ed8e7c59caf4d2f9390ce2ffe4162260a4612faf9cb8",
+      "right_bytes": 1427716,
+      "right_sha256": "cb31167784fd8a5a9da1ed8e7c59caf4d2f9390ce2ffe4162260a4612faf9cb8"
+    },
+    "mtdp-turn-control.json": {
+      "byte_identical": true,
+      "left_bytes": 478,
+      "left_sha256": "7c1b602c3de8b46504602ba0f96335571eb4b09ee4a7b4df716c8ae9ef805d6e",
+      "right_bytes": 478,
+      "right_sha256": "7c1b602c3de8b46504602ba0f96335571eb4b09ee4a7b4df716c8ae9ef805d6e"
+    }
+  },
+  "provenance_changes": {
+    "dilf_sha": {
+      "left": "540a09eb05c696cb497e07dd891aa1b9300f1971",
+      "right": "3766b4cd9ca446577f892ad6e4e69f01c00ba8c2"
+    },
+    "dilf_source_sha": {
+      "left": "669244adec40f1a409a82b8618d8c8ce46f806a1",
+      "right": "1cd3983e57d963e6d12d34c5caa14ff62bcbc02d"
+    }
+  },
+  "right_archive": {
+    "bytes": 81980,
+    "sha256": "cd26035f71eb4d0c57d6324f562b5e9f529e6bf4cb32188a3928420f4494310e"
+  },
+  "schema": "mtdp-fmjd-archive-content-comparison-v1",
+  "scope": "historical_engineering_archive_audit_no_new_cohort_or_efficacy",
+  "zip_member_order_equal": false
+}
