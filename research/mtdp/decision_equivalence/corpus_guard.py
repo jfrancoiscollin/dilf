@@ -12,7 +12,7 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
     """Reject reserved events, game/FEN leakage, duplicate game/ply."""
     if not isinstance(rows, list) or not rows:
         raise ValueError("nonempty JSONL rows required")
-    game_split, game_event, event_split, last_ply, fen_owner, seen = {}, {}, {}, {}, {}, set()
+    game_split, game_event, event_split, tournament_split, last_ply, fen_owner, seen = {}, {}, {}, {}, {}, {}, set()
     split_games = defaultdict(set)
     for i, row in enumerate(rows):
         if not isinstance(row, dict):
@@ -37,6 +37,10 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
         if event in event_split and event_split[event] != split:
             raise ValueError(f"row {i}: event crosses splits")
         event_split[event] = split
+        tournament = row["tournament_id"]
+        if tournament in tournament_split and tournament_split[tournament] != split:
+            raise ValueError(f"row {i}: tournament crosses splits")
+        tournament_split[tournament] = split
         key = (gid, ply)
         if key in seen:
             raise ValueError(f"row {i}: duplicate game/ply")
