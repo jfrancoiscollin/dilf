@@ -10,6 +10,8 @@ on:
       - 'research/mtdp/jass_benchmark/two_arena_telemetry_audit.py'
       - 'research/mtdp/jass_benchmark/verify_two_arena_telemetry.py'
       - 'research/mtdp/tests/test_two_arena_telemetry_audit.py'
+      - 'research/mtdp/jass_benchmark/mechanistic_residual_replay.py'
+      - 'research/mtdp/tests/test_mechanistic_residual_replay.py'
       - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-telemetry-*.json'
       - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-crossed-depth-*.json'
       - '.github/workflows/mtdp-crossed-depth-replay.yml'
@@ -37,7 +39,7 @@ jobs:
       - name: Audit all published node receipts without engine search
         run: |
           set -euo pipefail
-          python -m pytest -q research/mtdp/tests/test_two_arena_telemetry_audit.py
+          python -m pytest -q research/mtdp/tests/test_two_arena_telemetry_audit.py research/mtdp/tests/test_mechanistic_residual_replay.py
           mkdir /tmp/mtdp-telemetry
           for seed in 7 61; do
             PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.two_arena_telemetry_audit --root . --output /tmp/mtdp-telemetry/seed$seed.json
