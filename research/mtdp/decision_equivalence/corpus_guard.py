@@ -44,6 +44,10 @@ def _check_schema(row, location):
         digest = row["source_pdn_sha256"]
         if not isinstance(digest, str) or len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
             raise ValueError(f"{location}: invalid source_pdn_sha256")
+    if "source_pdn_sha256" in row and "metadata" in row and isinstance(row["metadata"], dict):
+        nested = row["metadata"].get("source")
+        if isinstance(nested, dict) and "pdn_sha256" in nested and nested["pdn_sha256"] != row["source_pdn_sha256"]:
+            raise ValueError(f"{location}: conflicting source PDN SHA-256 provenance")
     if "metadata" not in row:
         return
     metadata = row["metadata"]
