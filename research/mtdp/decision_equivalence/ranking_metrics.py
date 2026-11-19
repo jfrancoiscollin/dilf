@@ -31,14 +31,19 @@ def evaluate_order(legal: Sequence[str], ordered: Sequence[str],
     n = len(legal)
     if not n:
         return {"n_legal": 0, "decision": False, "recall_at_1": None,
-                "recall_at_3": None, "discriminating_at_3": False, "informative_at_3": False,\n                "n_optimal": 0,
+                "recall_at_3": None, "discriminating_at_3": False, "informative_at_3": False,
+                "n_optimal": 0,
                 "first_optimum_rank": None, "first_action_regret_raw": None,
                 "top3_oracle_regret_raw": None}
     best = max(scores.values())
     optimal = {a for a in legal if scores[a] == best}
-    rank = next(i for i, a in enumerate(ordered, 1) if a in optimal)\n    # With k=3, recall is guaranteed if more than n-k actions tie for best.\n    # This is distinct from the purely legal-count gate (n >= 4).\n    informative_at_3 = n >= 4 and len(optimal) <= n - 3
+    rank = next(i for i, a in enumerate(ordered, 1) if a in optimal)
+    # With k=3, recall is guaranteed if more than n-k actions tie for best.
+    # This is distinct from the purely legal-count gate (n >= 4).
+    informative_at_3 = n >= 4 and len(optimal) <= n - 3
     return {"n_legal": n, "decision": True, "recall_at_1": int(rank == 1),
-            "recall_at_3": int(rank <= 3), "discriminating_at_3": n >= 4,\n            "informative_at_3": informative_at_3, "n_optimal": len(optimal),
+            "recall_at_3": int(rank <= 3), "discriminating_at_3": n >= 4,
+            "informative_at_3": informative_at_3, "n_optimal": len(optimal),
             "first_optimum_rank": rank,
             "first_action_regret_raw": best - scores[ordered[0]],
             "top3_oracle_regret_raw": best - max(scores[a] for a in ordered[:3])}
