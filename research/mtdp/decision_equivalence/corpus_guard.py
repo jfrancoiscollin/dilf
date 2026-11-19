@@ -4,6 +4,8 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
+from research.mtdp.decision_equivalence.fmjd_fen import canonical_fen
+
 RESERVED_EVENTS = frozenset({"fFgE7oED", "P1RUlfJc", "s7ahYqL4", "D9PF2OSW"})
 SPLITS = frozenset({"train", "test"})
 
@@ -48,7 +50,7 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
         if gid in last_ply and ply <= last_ply[gid]:
             raise ValueError(f"row {i}: nonchronological ply for game")
         last_ply[gid] = ply
-        fen_hash = hashlib.sha256(row["fen"].encode("utf-8")).hexdigest()
+        fen_hash = hashlib.sha256(canonical_fen(row["fen"]).encode("utf-8")).hexdigest()
         if fen_hash in fen_owner and fen_owner[fen_hash] != split:
             raise ValueError(f"row {i}: FEN crosses splits")
         fen_owner[fen_hash] = split
