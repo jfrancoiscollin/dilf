@@ -40,3 +40,17 @@ def test_invalid_input():
     for bad in ([], [row(ply=True)], [row(split="validation")], [row(fen="")]):
         with pytest.raises(ValueError):
             audit(bad)
+
+
+def test_event_level_split_leakage_across_distinct_games():
+    with pytest.raises(ValueError, match="event crosses splits"):
+        audit([row(game="g1", split="train"),
+               row(game="g2", split="test", fen="B:W31:B20")])
+
+
+def test_within_game_ply_must_increase_even_if_interleaved():
+    with pytest.raises(ValueError, match="nonchronological"):
+        audit([row(game="g1", ply=3), row(game="g2", ply=1, fen="B:W31:B20"),
+               row(game="g1", ply=2, fen="W:W32:B20")])
+    assert audit([row(game="g1", ply=1), row(game="g2", ply=1, fen="B:W31:B20"),
+                  row(game="g1", ply=3, fen="W:W32:B20")])["rows"] == 3
