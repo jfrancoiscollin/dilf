@@ -8,6 +8,11 @@ from research.mtdp.decision_equivalence.fmjd_fen import canonical_fen
 
 RESERVED_EVENTS = frozenset({"fFgE7oED", "P1RUlfJc", "s7ahYqL4", "D9PF2OSW"})
 SPLITS = frozenset({"train", "test"})
+# Reject target-engine outcomes before freezing any score-blind manifest.
+# Metadata may be extended, but score-derived fields must never enter this stage.
+TARGET_FIELDS = frozenset({"score", "scores", "eval", "evaluation", "cp", "centipawns",
+                           "regret", "top1", "top3", "wdl", "best_move", "bestmove",
+                           "pv", "principal_variation", "scan_score", "jass_score"})
 
 
 def audit(rows, *, reserved_events=RESERVED_EVENTS):
@@ -19,6 +24,9 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
     for i, row in enumerate(rows):
         if not isinstance(row, dict):
             raise ValueError(f"row {i}: object required")
+        forbidden = {str(k).lower().replace("-", "_") for k in row} & TARGET_FIELDS
+        if forbidden:
+            raise ValueError(f"row {i}: target-derived field in score-blind manifest: {sorted(forbidden)}")
         for field in ("game_id", "tournament_id", "event_id", "fen", "split"):
             if not isinstance(row.get(field), str) or not row[field].strip():
                 raise ValueError(f"row {i}: missing {field}")
