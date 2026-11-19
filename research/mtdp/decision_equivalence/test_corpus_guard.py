@@ -70,3 +70,24 @@ def test_distinct_tournaments_may_occupy_distinct_splits():
     second = row(game="g2", event="historical-b", split="test",
                  fen="B:W31:B20")
     assert audit([first, second])["games_by_split"] == {"test": 1, "train": 1}
+
+
+def test_fen_alias_across_splits_rejected():
+    first = row(game="g1", event="event-a", split="train", fen="W:W31,K32:B20")
+    second = row(game="g2", event="event-b", split="test", fen="w:wK32,31:b20")
+    with pytest.raises(ValueError, match="FEN crosses splits"):
+        audit([first, second])
+
+
+@pytest.mark.parametrize("fen", ["W:W31:B31", "W:W0:B20", "W:W31,31:B20",
+                                  "W:W51:B20", "W:W31-35:B20", "W:B20:W31"])
+def test_malformed_fen_rejected(fen):
+    with pytest.raises(ValueError):
+        audit([row(fen=fen)])
+
+
+def test_fen_canonicalizer_preserves_side_and_king_status():
+    from research.mtdp.decision_equivalence.fmjd_fen import canonical_fen
+    assert canonical_fen(" w:wK32,31:b20,k2 ") == "W:W31,K32:BK2,20"
+    assert canonical_fen("W:W31:B20") != canonical_fen("B:W31:B20")
+    assert canonical_fen("W:WK31:B20") != canonical_fen("W:W31:B20")
