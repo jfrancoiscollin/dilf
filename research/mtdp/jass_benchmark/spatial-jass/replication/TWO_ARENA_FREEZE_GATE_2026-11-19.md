@@ -123,3 +123,52 @@ all disagreement costs, including empty/failed cases. No D1 signature/top-K/
 refinement/threshold/dimension campaign. All s7ahYqL4/D9PF2OSW/P1RUlfJc/fFgE7oED
 remain outside D1 fitting and validation. Jeff's PC is not required for the
 accessible remote input, legal replay and publication work.
+
+
+## Remote engineering validation confirmed — 19 November 02:43 UTC
+
+Code `fc6178c691fe34658ac7ba2550a34be1a6e92b73` was published with an exact
+Git-tree comparison and expected-head lease. Concurrent D1 commits f7af669/619f576
+were fetched and preserved. Their score-dependent informative@3 clarification
+was read: it does not change the H13 geometry-only, pre-score full-signature
+mask. The first candidate run44444486000 was cancelled by that normal concurrent
+update; the equivalent successor was followed without a duplicate dispatch.
+
+Head `619f576ac27d1fa114e38488e6ddeafd89425721`: **7/7 workflows success**.
+Candidate [44444968455](https://github.com/jfrancoiscollin/dilf/actions/runs/44444968455),
+job135294847842: **191 tests passed**, including28 publication contracts, then
+both real-oracle synthetic rehearsals passed. Artifact14492824413 was actually
+downloaded and checked:10752105 bytes, ZIP SHA256
+`d481e8c309b7124c2007d7ee42c5975414f8ff87e4c169d0305304c25533a455`.
+Downloaded7/61 proposal/manifest/publication/acquisition-audit payloads are
+byte-identical. CI proposal SHA
+`0f1661ae3f82a42d097b4156a83f59067f8c9cea90b1771c3bcc6ed22addd821`,
+manifest SHA `0d19a1644afa744233fc6cab388aff21c71eb46e2eeca85e0832c7b9268e18a0`,
+publication SHA `8c9a9965666bf891d20ba83c704d938fb7773a3817037df24bbe36ea537c909c`.
+Every publication inventory and all21 raw acquisition source files were checked;
+raw CRLF, final pairs, Synthetic tags and production refusal remain intact.
+Historical registry, canonical index and433363-FEN cache retain their pinned
+hashes. Every recorded method byte matches the current research checkout.
+
+CI uses merge checkout652c343f, whereas the local reproduction used published
+code headfc6178c; their implementation metadata and hashes are explicitly
+separate, not expected to match across snapshots. Local7/61 proposal SHA
+`43fc5abaae9f86f94ad697ac511f9ca6bca3ba3b9d12156a3d94865ebafafbe2`,
+manifest SHA `8ed949b3b408a599157500e09e6b55cc3d29a9b6d2d3308542185fccf4e4d665`,
+publication SHA `ec2d338b5c74072368409f4941e2a63385385a79d1ccbf730b77e3a206304237`.
+Proof JSONs: `two-arena-full-bundle-local-validation-2026-11-19.json` and
+`two-arena-full-bundle-ci-validation-2026-11-19.json`.
+
+All of this is **engineering validation**, `scientific_freeze=false`; neither
+new arena's real export, position or Scan reference has been acquired. No live
+production freeze or new best-move/regret estimate is claimed. The real clock
+remains closed until19 November02:57UTC/03:57Paris and both actual finished,
+format-conforming metadata records. **Next unique H13 action:** acquire the
+four real final exports, prepare both populations under7/61, publish the exact
+joint bundle using a fresh-head lease, and verify it remotely before reference
+or Jass target search. Preserve empty/failed cases without replacing events.
+Then implement the explicit new-study execution adapter, bind it to this
+verifier, keep source12 separate from source16/target16, and record complete
+engine decisions before target-outcome analysis. All four whole-event D1
+reservations remain; Jeff's PC is not required. This last evidence-only commit
+changes no code/method; inspect its successor Actions at the next passage.
