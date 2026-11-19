@@ -1,0 +1,157 @@
+{
+  "analysis_identical": true,
+  "analysis_sha256": "6076aba12d4e3427b33c6bc9c6ee101c57df1a99109b3638339c1e3570709f90",
+  "depth_transitions": {
+    "new_disjoint": 3,
+    "resolved_disjoint": 5,
+    "stable_disjoint": 9,
+    "stable_intersection": 9
+  },
+  "disjoint20": 12,
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "independent_bootstrap_cis": {
+    "cost20": [
+      2.6785714285714284,
+      31.88888888888889
+    ],
+    "cost_delta20_minus16": [
+      -30.32,
+      1.08
+    ],
+    "disjoint20": [
+      0.28,
+      0.6521739130434783
+    ],
+    "disjoint_delta20_minus16": [
+      -0.2777777777777778,
+      0.13043478260869565
+    ]
+  },
+  "max16_case_at20": {
+    "Scan16": {
+      "best": 13,
+      "cost": 260,
+      "disjoint": true,
+      "pick_optimal": false,
+      "source_pick": [
+        [
+          17,
+          21
+        ],
+        [],
+        false
+      ],
+      "target_optima": [
+        [
+          [
+            20,
+            25
+          ],
+          [],
+          false
+        ]
+      ],
+      "transferred": -247
+    },
+    "Scan20": {
+      "best": 17,
+      "cost": 162,
+      "disjoint": true,
+      "pick_optimal": false,
+      "source_pick": [
+        [
+          5,
+          10
+        ],
+        [],
+        false
+      ],
+      "target_optima": [
+        [
+          [
+            20,
+            25
+          ],
+          [],
+          false
+        ]
+      ],
+      "transferred": -145
+    },
+    "event": "s7ahYqL4",
+    "fen": "B:W27,30,31,33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,18,19,20,23",
+    "owner": "mtdp-lidraughts-s7ahYqL4.pdn:145",
+    "source_fen": "B:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,18,19,20,23"
+  },
+  "max20_case": {
+    "Scan16": {
+      "best": 13,
+      "cost": 260,
+      "disjoint": true,
+      "pick_optimal": false,
+      "source_pick": [
+        [
+          17,
+          21
+        ],
+        [],
+        false
+      ],
+      "target_optima": [
+        [
+          [
+            20,
+            25
+          ],
+          [],
+          false
+        ]
+      ],
+      "transferred": -247
+    },
+    "Scan20": {
+      "best": 17,
+      "cost": 162,
+      "disjoint": true,
+      "pick_optimal": false,
+      "source_pick": [
+        [
+          5,
+          10
+        ],
+        [],
+        false
+      ],
+      "target_optima": [
+        [
+          [
+            20,
+            25
+          ],
+          [],
+          false
+        ]
+      ],
+      "transferred": -145
+    },
+    "event": "s7ahYqL4",
+    "fen": "B:W27,30,31,33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,18,19,20,23",
+    "owner": "mtdp-lidraughts-s7ahYqL4.pdn:145",
+    "source_fen": "B:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,18,19,20,23"
+  },
+  "max_cost20": 162,
+  "mean_cost20": 15.576923076923077,
+  "median_cost20": 1.5,
+  "optimal_picks20": 12,
+  "pairs": 26,
+  "plan_commit": "0a7b0e8cda8da5985298b500f7f9b2a276379fe5",
+  "primary16_sha256_unchanged": true,
+  "schema": "mtdp-two-arena-depth20-independent-check-v1",
+  "scope": "exploratory_same_cohort_not_new_independent_validation",
+  "source_action_scores": 263,
+  "sum_cost20": 405,
+  "target_action_scores": 263
+}

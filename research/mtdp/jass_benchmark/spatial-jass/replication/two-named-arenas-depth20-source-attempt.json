@@ -1,0 +1,13 @@
+{
+  "complete": true,
+  "depth": 20,
+  "expected_action_scores": 263,
+  "expected_positions": 26,
+  "finished_at_utc": "2026-11-19T03:44:47.719053+00:00",
+  "plan_commit": "0a7b0e8cda8da5985298b500f7f9b2a276379fe5",
+  "plan_sha256": "c5c0a23506956968046c4c54888f39b41665970cd69d9294b647b6d5d7b6f1ee",
+  "reference_sha256": "09e390da9f01df471d0392269f657b22669b1c830e2c2c441042dac1312aee29",
+  "role": "source",
+  "scope": "exploratory_after_known_Scan16_outcomes_no_new_holdout",
+  "started_at_utc": "2026-11-19T03:40:12.073446+00:00"
+}
