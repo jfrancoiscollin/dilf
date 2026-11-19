@@ -1,0 +1,51 @@
+name: mtdp-crossed-depth-replay
+
+# Known, archived outcomes only. No HTTP PDN acquisition or engine search.
+on:
+  pull_request:
+    paths:
+      - 'research/mtdp/jass_benchmark/two_arena_crossed_depth.py'
+      - 'research/mtdp/jass_benchmark/verify_two_arena_crossed_depth.py'
+      - 'research/mtdp/tests/test_two_arena_crossed_depth.py'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-crossed-depth-*.json'
+      - '.github/workflows/mtdp-crossed-depth-replay.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mtdp-crossed-depth-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline-archive-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install pytest
+      - name: Test synthetic decomposition and reproduce all archived cases
+        run: |
+          set -euo pipefail
+          python -m pytest -q research/mtdp/tests/test_two_arena_crossed_depth.py research/mtdp/tests/test_two_arena_depth20.py research/mtdp/tests/test_two_arena_analysis.py
+          mkdir /tmp/mtdp-crossed
+          for seed in 7 61; do
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.two_arena_crossed_depth --root . --output /tmp/mtdp-crossed/seed$seed.json
+          done
+          cmp /tmp/mtdp-crossed/seed7.json /tmp/mtdp-crossed/seed61.json
+          cmp /tmp/mtdp-crossed/seed7.json research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-crossed-depth-results.json
+          python -m research.mtdp.jass_benchmark.verify_two_arena_crossed_depth --root . --report /tmp/mtdp-crossed/seed7.json --output /tmp/mtdp-crossed/independent.json
+          cmp /tmp/mtdp-crossed/independent.json research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-crossed-depth-independent-verification.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mtdp-crossed-depth-offline-reproduction
+          path: /tmp/mtdp-crossed/
+          retention-days: 30
+          if-no-files-found: warn
