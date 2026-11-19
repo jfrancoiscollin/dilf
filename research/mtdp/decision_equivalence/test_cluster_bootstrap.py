@@ -52,7 +52,9 @@ def test_primary_regret_excludes_small_branching_positions():
     assert result['n_primary_ge4'] == 1
     assert result['delta_first_regret_primary_ge4_raw'] == -3
     assert result['delta_first_regret_raw'] == pytest.approx(48.5)
-    assert result['delta_first_regret_primary_ge4_ci95'] == [-3, -3]
+    assert result['delta_first_regret_primary_ge4_ci95'] is None
+    assert result['delta_first_regret_primary_ge4_ci95_exploratory'] == [-3, -3]
+    assert result['primary_ci_status'] == 'insufficient_cluster_coverage'
 
 
 def test_no_primary_regret_explicitly_undefined():
@@ -61,3 +63,38 @@ def test_no_primary_regret_explicitly_undefined():
     assert result['delta_first_regret_primary_ge4_raw'] is None
     assert result['delta_first_regret_primary_ge4_ci95'] is None
     assert result['delta_first_regret_raw'] == -1
+
+
+def test_sparse_primary_games_coverage_gate():
+    rows = [row(f'p{i}', f'g{i}', {'a': 4, 'b': 3, 'c': 2, 'd': 1}
+                if i == 0 else {'a': 2, 'b': 1},
+                list('abcd') if i == 0 else ['a', 'b'],
+                list('dcba') if i == 0 else ['b', 'a']) for i in range(10)]
+    result = paired_game_bootstrap(rows, repetitions=1000, seed=19)
+    assert result['n_primary_games'] == 1
+    assert result['primary_ci_status'] == 'insufficient_cluster_coverage'
+    assert result['delta_recall3_ci95'] is None
+    assert result['n_bootstrap_undefined_primary'] > 0
+    assert result['n_bootstrap_defined_primary'] + result['n_bootstrap_undefined_primary'] == 1000
+    assert result['bootstrap_primary_defined_ratio'] < .95
+
+
+def test_all_games_primary_full_coverage():
+    scores = dict(zip('abcd', [4, 3, 2, 1]))
+    rows = [row(f'p{i}', f'g{i}', scores, list('abcd'), list('dcba')) for i in range(5)]
+    result = paired_game_bootstrap(rows, repetitions=200, seed=4)
+    assert result['n_primary_games'] == 5
+    assert result['n_bootstrap_defined_primary'] == 200
+    assert result['n_bootstrap_undefined_primary'] == 0
+    assert result['bootstrap_primary_defined_ratio'] == 1
+    assert result['primary_ci_status'] == 'ok'
+    assert result['delta_recall3_ci95'] == [1, 1]
+
+
+def test_coverage_counts_reproducible():
+    rows = [row('p1', 'g1', dict(zip('abcd', [4, 3, 2, 1])), list('abcd'), list('dcba')),
+            row('p2', 'g2', {'a': 2, 'b': 1}, ['a', 'b'], ['b', 'a'])]
+    a = paired_game_bootstrap(rows, repetitions=200, seed=101)
+    b = paired_game_bootstrap(rows, repetitions=200, seed=101)
+    assert a == b
+    assert a['n_bootstrap_defined_primary'] + a['n_bootstrap_undefined_primary'] == 200
