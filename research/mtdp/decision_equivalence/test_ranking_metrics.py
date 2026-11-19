@@ -44,6 +44,9 @@ class RankingMetricTests(unittest.TestCase):
             (["a", "b"], ["a", "b"], {"a": 1}),
             (["a"], ["a"], {"a": True}),
             (["a"], ["a"], {"a": 1.0}),
+            (["a"], [None], {"a": 1}),
+            (["a"], [[]], {"a": 1}),
+            (["a"], [""], {"a": 1}),
         ]
         for args in cases:
             with self.subTest(args=args), self.assertRaises(ValueError):
