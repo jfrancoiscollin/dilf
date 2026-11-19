@@ -28,9 +28,6 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
         ply = row.get("ply")
         if type(ply) is not int or ply < 0:
             raise ValueError(f"row {i}: invalid ply")
-        if event in event_split and event_split[event] != split:
-            raise ValueError(f"row {i}: event crosses splits")
-        event_split[event] = split
         if gid in last_ply and ply <= last_ply[gid]:
             raise ValueError(f"row {i}: nonchronological ply for game")
         last_ply[gid] = ply
@@ -40,6 +37,9 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
             raise ValueError(f"row {i}: inconsistent game provenance")
         game_split[gid] = split
         game_event[gid] = (event, row["tournament_id"])
+        if event in event_split and event_split[event] != split:
+            raise ValueError(f"row {i}: event crosses splits")
+        event_split[event] = split
         key = (gid, ply)
         if key in seen:
             raise ValueError(f"row {i}: duplicate game/ply")
