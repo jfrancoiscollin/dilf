@@ -20,6 +20,8 @@ def evaluate_order(legal: Sequence[str], ordered: Sequence[str],
         raise ValueError("invalid action")
     if len(set(legal)) != len(legal):
         raise ValueError("duplicate legal action")
+    if any(not isinstance(a, str) or not a for a in ordered):
+        raise ValueError("invalid ordered action")
     if len(ordered) != len(legal) or set(ordered) != set(legal) or len(set(ordered)) != len(ordered):
         raise ValueError("ordered must be an exact permutation of legal")
     if not isinstance(scores, Mapping) or set(scores) != set(legal):
