@@ -118,3 +118,21 @@ def test_score_blind_manifest_accepts_source_metadata():
     record = row()
     record["source_pdn_sha256"] = "a" * 64
     assert audit([record])["score_blind"] is True
+
+
+@pytest.mark.parametrize("payload", [
+    {"metadata": {"scan_score": 1.0}},
+    {"provenance": [{"source": "pdn"}, {"Best-Move": "31-26"}]},
+    {"notes": {"analysis": {"WDL": [1, 0, 0]}}},
+])
+def test_nested_target_derived_fields_rejected(payload):
+    record = row()
+    record.update(payload)
+    with pytest.raises(ValueError, match="target-derived field"):
+        audit([record])
+
+
+def test_nested_score_blind_source_metadata_allowed():
+    record = row()
+    record["metadata"] = {"source": {"pdn_sha256": "a" * 64}, "tags": ["historical"]}
+    assert audit([record])["score_blind"] is True
