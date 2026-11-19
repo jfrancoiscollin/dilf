@@ -136,13 +136,17 @@ def test_exact_defined_probability_is_seed_independent():
     assert a['primary_ci_status'] == b['primary_ci_status'] == 'insufficient_cluster_coverage'
 
 
-def test_exact_coverage_gate_not_monte_carlo_seed():
+@pytest.mark.parametrize('eligible,probability,expected', [
+    (2, .8926258176, 'insufficient_cluster_coverage'),
+    (3, .9717524751, 'ok'),
+])
+def test_exact_coverage_gate_not_monte_carlo_seed(eligible, probability, expected):
     scores = dict(zip('abcd', [4, 3, 2, 1]))
-    rows = [row(f'p{i}', f'g{i}', scores if i < 2 else {'a': 2, 'b': 1},
-                list('abcd') if i < 2 else ['a', 'b'],
-                list('dcba') if i < 2 else ['b', 'a']) for i in range(10)]
+    rows = [row(f'p{i}', f'g{i}', scores if i < eligible else {'a': 2, 'b': 1},
+                list('abcd') if i < eligible else ['a', 'b'],
+                list('dcba') if i < eligible else ['b', 'a']) for i in range(10)]
     a = paired_game_bootstrap(rows, repetitions=100, seed=1)
     b = paired_game_bootstrap(rows, repetitions=100, seed=2)
-    assert a['bootstrap_primary_defined_probability_exact'] == pytest.approx(1 - .8 ** 10)
-    assert a['primary_ci_status'] == b['primary_ci_status'] == 'ok'
-    assert a['n_primary_games'] == 2
+    assert a['bootstrap_primary_defined_probability_exact'] == pytest.approx(probability)
+    assert a['primary_ci_status'] == b['primary_ci_status'] == expected
+    assert a['n_primary_games'] == eligible
