@@ -12,7 +12,7 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
     """Reject reserved events, game/FEN leakage, duplicate game/ply."""
     if not isinstance(rows, list) or not rows:
         raise ValueError("nonempty JSONL rows required")
-    game_split, game_event, fen_owner, seen = {}, {}, {}, set()
+    game_split, game_event, event_split, last_ply, fen_owner, seen = {}, {}, {}, {}, {}, set()
     split_games = defaultdict(set)
     for i, row in enumerate(rows):
         if not isinstance(row, dict):
@@ -28,6 +28,12 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
         ply = row.get("ply")
         if type(ply) is not int or ply < 0:
             raise ValueError(f"row {i}: invalid ply")
+        if event in event_split and event_split[event] != split:
+            raise ValueError(f"row {i}: event crosses splits")
+        event_split[event] = split
+        if gid in last_ply and ply <= last_ply[gid]:
+            raise ValueError(f"row {i}: nonchronological ply for game")
+        last_ply[gid] = ply
         if gid in game_split and game_split[gid] != split:
             raise ValueError(f"row {i}: game crosses splits")
         if gid in game_event and game_event[gid] != (event, row["tournament_id"]):
