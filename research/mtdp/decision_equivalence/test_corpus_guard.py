@@ -136,3 +136,24 @@ def test_nested_score_blind_source_metadata_allowed():
     record = row()
     record["metadata"] = {"source": {"pdn_sha256": "a" * 64}, "tags": ["historical"]}
     assert audit([record])["score_blind"] is True
+
+
+@pytest.mark.parametrize("extra", [
+    {"engine_rating": 0.7},
+    {"metadata": {"unknown": {"engine_rating": 0.7}}},
+    {"metadata": {"source": {"pdn_sha256": "a" * 64, "score_hint": 1}}},
+    {"metadata": {"tags": ["ok", 7]}},
+    {"source_pdn_sha256": "not-a-digest"},
+])
+def test_closed_manifest_schema_rejects_unreviewed_fields(extra):
+    record = row()
+    record.update(extra)
+    with pytest.raises(ValueError, match="unknown|invalid"):
+        audit([record])
+
+
+def test_closed_manifest_schema_accepts_reviewed_provenance():
+    record = row()
+    record["source_pdn_sha256"] = "a" * 64
+    record["metadata"] = {"source": {"pdn_sha256": "b" * 64}, "tags": ["historical"]}
+    assert audit([record])["rows"] == 1
