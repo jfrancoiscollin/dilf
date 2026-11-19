@@ -1,0 +1,18 @@
+{
+  "all_20_PDN_copies_hash_verified": true,
+  "artifact_id": 14508886210,
+  "commit": "3bdbe30853ce74938d2788fa9eb42cea171cf411",
+  "conclusion": "success",
+  "fresh_http_requests": 0,
+  "job_id": 135413776831,
+  "manifest_sha256": "0a2863ef980e45fbea9c483a7615988f89fc7952dc580505c6bf5252fd560673",
+  "proposal_sha256": "50e5c5abf9f6b94debe459116ff152ac581ab45ee118e50fb7f4975596c71c71",
+  "publication_sha256": "3e48cb33bc94bb1eae645cc3c183e5b1f0057dd0939abd01e0951c2baccc24a9",
+  "run_id": 44481263835,
+  "schema": "mtdp-historical-archive-ci-verification-v1",
+  "synthetic_bundles_seeds7_61_byte_identical": true,
+  "targeted_tests_passed": 228,
+  "two_arena_exclusions_sha256": "8dac5c60e1eaa10ff8e3e27f5c1fb0d0307edaeaec438e7c9bdc33b3e666dc32",
+  "zip_bytes": 10753702,
+  "zip_sha256": "8b17d9acbf06454d740e7f1972d43984f04227d0c18797ab78ef256d32e8f78e"
+}

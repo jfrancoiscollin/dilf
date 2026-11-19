@@ -13,3 +13,5 @@ Diagnostic : le [run44472477627](https://github.com/jfrancoiscollin/dilf/actions
 ```bash
 python -m research.mtdp.jass_benchmark.historical_replay_inputs --root . --output /tmp/historical-replay
 ```
+
+Validation du correctif : [run44481263835](https://github.com/jfrancoiscollin/dilf/actions/runs/44481263835), job135413776831, **228tests passent**, toutes étapes réussies. Artefact14508886210 téléchargé/vérifié, ZIP10753702octets, SHA `8b17d9acbf06454d740e7f1972d43984f04227d0c18797ab78ef256d32e8f78e` ; vingt PDN/restauration vérifiés et cache complet des exclusions identique SHA `8dac5c60e1eaa10ff8e3e27f5c1fb0d0307edaeaec438e7c9bdc33b3e666dc32`. Paquets synthétiques7/61 identiques, toujours sans gel scientifique. Preuve complète `historical-replay-ci-verification-2026-11-19.json` au répertoire parent.

@@ -34,7 +34,7 @@ Tous les estimands, par arène et ensemble, sont dans `two-named-arenas-crossed-
 - Deux processus PYTHONHASHSEED7/61 produisent les mêmes octets, SHA-256 `74a49c006161302384a062784bbebef0f7ebf9b2c7ce99557b39f09051110c9d` ; ajout du contrôle de dépendances sans changement des octets de résultats.
 - Le vérificateur indépendant, uniquement bibliothèque standard, relit les vecteurs bruts et recalcule **104 cellules**, choix/ties/catégories, les six effets et **66 IC** (22 estimands × trois périmètres) sans importer les helpers d'analyse. Tout concorde.
 - Les 13 tests D1 agrégation/bootstrap passent aussi avec les imports réels ; leurs nouveaux commits 3780c00/11e7f2e sont préservés.
-- Workflow `mtdp-crossed-depth-replay` ajouté : tests, deux seeds, comparaison au résultat archivé, recalcul indépendant et artefact 30 jours. Son exécution distante reste à confirmer après publication.
+- Workflow `mtdp-crossed-depth-replay` ajouté : tests, deux seeds, comparaison au résultat archivé, recalcul indépendant et artefact 30 jours. Validation distante réussie sur `3bdbe30853ce74938d2788fa9eb42cea171cf411` : [run44481264121](https://github.com/jfrancoiscollin/dilf/actions/runs/44481264121), 22 tests, artefact14508148442 téléchargé/vérifié, ZIP SHA `32e33bfb6869f48ba707a68369652380c46eab9dfb22f7c1f6cc2e184cdf5533`. Les trois fichiers produits concordent octet par octet avec les deux seeds et les résultats/preuves archivés. Les **8/8 workflows** de ce commit réussissent, dont CI générale et D1.
 
 ```bash
 python -m research.mtdp.jass_benchmark.two_arena_crossed_depth --root . --output /tmp/crossed.json
