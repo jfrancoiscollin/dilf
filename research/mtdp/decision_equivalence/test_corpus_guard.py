@@ -4,7 +4,7 @@ from research.mtdp.decision_equivalence.corpus_guard import audit
 
 
 def row(game="g1", event="historical", split="train", fen="W:W31:B20", ply=1):
-    return dict(game_id=game, tournament_id="t1", event_id=event,
+    return dict(game_id=game, tournament_id=event, event_id=event,
                 split=split, fen=fen, ply=ply)
 
 
@@ -54,3 +54,19 @@ def test_within_game_ply_must_increase_even_if_interleaved():
                row(game="g1", ply=2, fen="W:W32:B20")])
     assert audit([row(game="g1", ply=1), row(game="g2", ply=1, fen="B:W31:B20"),
                   row(game="g1", ply=3, fen="W:W32:B20")])["rows"] == 3
+
+
+def test_tournament_split_leakage_even_with_different_event_ids():
+    first = row(game="g1", event="historical-a", split="train")
+    second = row(game="g2", event="historical-b", split="test",
+                 fen="B:W31:B20")
+    second["tournament_id"] = first["tournament_id"]
+    with pytest.raises(ValueError, match="tournament crosses splits"):
+        audit([first, second])
+
+
+def test_distinct_tournaments_may_occupy_distinct_splits():
+    first = row(game="g1", event="historical-a", split="train")
+    second = row(game="g2", event="historical-b", split="test",
+                 fen="B:W31:B20")
+    assert audit([first, second])["games_by_split"] == {"test": 1, "train": 1}
