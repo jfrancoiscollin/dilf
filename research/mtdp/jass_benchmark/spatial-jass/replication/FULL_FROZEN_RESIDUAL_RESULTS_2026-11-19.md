@@ -38,7 +38,7 @@ Les sorties normalisées sont identiques SHA `76b2990a2f6e38dd9ef453f0ef3694c553
 - Archive7 :440748octets, SHA `0fd08ea0b53ddb15c5a11ad529672423a6e00497dae9996b875be27d4585dec8`.
 - Archive61 :440791octets, SHA `7b40a85914742132046086128edaafed999b4135e2b319bf31da6fdfd31d6269`.
 - Résultats SHA `58205e783e2caa712256c1275a5e1c6cfc5ca6b48365dd5205f45dbcd919f2ee` ; inventaires et preuves dans `full-frozen-residual-independent-verification.json`.
-- **302tests ciblés locaux passent**, dont12nouveaux H13 et24tests D1 réels. Les8/8Actions du collecteur e30b027 réussissent ; CI horsligne des nouvelles archives ajoutée, à confirmer après publication. Aucun moteur de cohorte n'y est relancé.
+- **302tests ciblés locaux passent**, dont12nouveaux H13 et24tests D1 réels. Les8/8Actions du collecteur e30b027 réussissent ; les8/8Actions du snapshot résultats `176340e4971b1dba6de626447f9e8e00fb27b023` réussissent aussi. [Rejeu horsligne44507285686](https://github.com/jfrancoiscollin/dilf/actions/runs/44507285686) :45tests,3612raws revalidés sans moteur ; artefact14520780188 téléchargé/vérifié,207994octets,ZIP SHA `2aaa77f50f702f1d8fbe2a7250521c13b4517426a3a566bc552ad5ebb921569f`,ses9fichiers sont identiques au dépôt. Preuve complète `full-frozen-residual-ci-verification-2026-11-19.json`.
 
 ```bash
 python -m research.mtdp.jass_benchmark.full_frozen_residual_analysis --root . \
@@ -49,7 +49,7 @@ python -m research.mtdp.jass_benchmark.full_frozen_residual_analysis --root . \
 
 ## Coordination D1 et prochaine action
 
-Les commits concurrents6a8471d/7d8ba5b/8112146 sont récupérés et préservés. Les six tests de leur garde d'admission sont passés avec les vrais imports et ajoutés à la liste CI D1, sans modifier leur méthode ni admettre un corpus réel. Aucune campagne D1 dupliquée.
+Les commits concurrents6a8471d/7d8ba5b/8112146 sont récupérés et préservés. Les six tests de leur garde d'admission sont passés avec les vrais imports et ajoutés à la liste CI D1, sans modifier leur méthode ni admettre un corpus réel. Le [run D1 actuel44507285734](https://github.com/jfrancoiscollin/dilf/actions/runs/44507285734) passe137tests ; la collecte effective de `test_corpus_guard.py` est confirmée dans les logs du job135502076778. Aucune campagne D1 dupliquée.
 
 La prochaine étape, `full-frozen-residual-quality-plan.json`, est **distincte de cette analyse de traces** : après publication/vérification des114décisions nouvelles et du code d'analyse, relire uniquement la référence Scan16 déjà figée pour réconcilier les coûts de choix, reproduire exactement tous les résultats/IC originaux des trois bras puis chiffrer les contrastes résiduels sur les mêmes38cibles/31propriétaires. Aucun nouveau calcul moteur, filtre ou masque ; budget primaire50k et sensibilités10k/200k inchangés. Bootstrap H13 figé, parties entières et deux arènes,10000tirages/seed20261113/rangs249–9749, mêmes tirages entre contrastes, cas catégoriels conservés et ICnull si tirages indéfinis. Analyse post-hoc, aucun nouveau test d'efficacité indépendant ni promotion Jass.
 
