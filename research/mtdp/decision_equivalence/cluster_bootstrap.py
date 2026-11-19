@@ -13,7 +13,11 @@ from .ranking_metrics import evaluate_order
 
 def paired_game_bootstrap(rows: Sequence[Mapping], *, repetitions: int = 2000,
                           seed: int = 20261119) -> dict:
-    """Percentile 95% CI on mean paired recall@3 and first-action regret.
+    """Percentile 95% CI on paired recall@3 and first-action regret.
+
+    The primary >=4-action regret and recall share a score-blind denominator.
+    Legacy delta_first_regret_raw covers all nonterminal decision positions;
+    it is a separate estimand and must not be compared to aggregate primary regret.
 
     Primary recall@3 population is determined by n_legal >= 4 only.
     Bootstrap resamples games with replacement, preserving all within-game
@@ -53,6 +57,8 @@ def paired_game_bootstrap(rows: Sequence[Mapping], *, repetitions: int = 2000,
         entries = [item for game in sample for item in groups[game]]
         recall = [delta for eligible, delta, _ in entries if eligible]
         return (mean(recall) if recall else None,
+                mean(regret for eligible, _, regret in entries if eligible)
+                if recall else None,
                 mean(regret for _, _, regret in entries) if entries else None)
 
     observed = estimate(games)
@@ -71,7 +77,9 @@ def paired_game_bootstrap(rows: Sequence[Mapping], *, repetitions: int = 2000,
             "n_primary_ge4": sum(eligible for values in groups.values()
                                  for eligible, _, _ in values),
             "delta_recall3": observed[0], "delta_recall3_ci95": interval(0),
-            "delta_first_regret_raw": observed[1],
-            "delta_first_regret_raw_ci95": interval(1),
+            "delta_first_regret_primary_ge4_raw": observed[1],
+            "delta_first_regret_primary_ge4_ci95": interval(1),
+            "delta_first_regret_raw": observed[2],
+            "delta_first_regret_raw_ci95": interval(2),
             "bootstrap_repetitions": repetitions, "bootstrap_seed": seed,
             "resampling_unit": "game", "estimand_weighting": "position"}
