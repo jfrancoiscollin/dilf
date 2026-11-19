@@ -91,3 +91,16 @@ def test_fen_canonicalizer_preserves_side_and_king_status():
     assert canonical_fen(" w:wK32,31:b20,k2 ") == "W:W31,K32:BK2,20"
     assert canonical_fen("W:W31:B20") != canonical_fen("B:W31:B20")
     assert canonical_fen("W:WK31:B20") != canonical_fen("W:W31:B20")
+
+
+def test_reserved_tournament_id_rejected_even_with_renamed_event():
+    record = row(event="historical-alias")
+    record["tournament_id"] = "fFgE7oED"
+    with pytest.raises(ValueError, match="reserved event/tournament"):
+        audit([record])
+
+
+def test_unreserved_distinct_tournament_id_allowed():
+    record = row(event="historical-alias")
+    record["tournament_id"] = "independent-historical-tournament"
+    assert audit([record])["rows"] == 1
