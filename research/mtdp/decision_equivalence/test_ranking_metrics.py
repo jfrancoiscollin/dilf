@@ -32,6 +32,27 @@ class RankingMetricTests(unittest.TestCase):
         self.assertEqual(r["first_action_regret_raw"], 30)
         self.assertEqual(r["top3_oracle_regret_raw"], 0)
 
+    def test_top3_ties_can_make_four_plus_moves_uninformative(self):
+        # Four legal actions, two optimal: every top-3 includes an optimum.
+        r = evaluate_order(["a", "b", "c", "d"], ["a", "b", "c", "d"],
+                           {"a": 0, "b": 0, "c": 8, "d": 8})
+        self.assertTrue(r["discriminating_at_3"])
+        self.assertFalse(r["informative_at_3"])
+        self.assertEqual(r["n_optimal"], 2)
+        self.assertEqual(r["recall_at_3"], 1)
+
+    def test_top3_ties_still_informative_with_enough_suboptimal_moves(self):
+        r = evaluate_order(["a", "b", "c", "d", "e"], ["a", "b", "c", "d", "e"],
+                           {"a": 0, "b": 0, "c": 0, "d": 8, "e": 8})
+        self.assertTrue(r["informative_at_3"])
+        self.assertEqual(r["recall_at_3"], 0)
+        self.assertEqual(r["n_optimal"], 2)
+
+    def test_terminal_top3_informativeness_false(self):
+        r = evaluate_order([], [], {})
+        self.assertFalse(r["informative_at_3"])
+        self.assertEqual(r["n_optimal"], 0)
+
     def test_terminal_no_decision(self):
         r = evaluate_order([], [], {})
         self.assertFalse(r["decision"])
