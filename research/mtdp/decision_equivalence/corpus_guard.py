@@ -15,6 +15,19 @@ TARGET_FIELDS = frozenset({"score", "scores", "eval", "evaluation", "cp", "centi
                            "pv", "principal_variation", "scan_score", "jass_score"})
 
 
+def _reject_target_fields(value, location="row"):
+    """Fail closed for target-derived keys at any nesting depth."""
+    if isinstance(value, dict):
+        for key, child in value.items():
+            normalized = str(key).lower().replace("-", "_")
+            if normalized in TARGET_FIELDS:
+                raise ValueError(f"{location}.{key}: target-derived field in score-blind manifest")
+            _reject_target_fields(child, f"{location}.{key}")
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            _reject_target_fields(child, f"{location}[{index}]")
+
+
 def audit(rows, *, reserved_events=RESERVED_EVENTS):
     """Reject reserved events, game/FEN leakage, duplicate game/ply."""
     if not isinstance(rows, list) or not rows:
@@ -24,9 +37,7 @@ def audit(rows, *, reserved_events=RESERVED_EVENTS):
     for i, row in enumerate(rows):
         if not isinstance(row, dict):
             raise ValueError(f"row {i}: object required")
-        forbidden = {str(k).lower().replace("-", "_") for k in row} & TARGET_FIELDS
-        if forbidden:
-            raise ValueError(f"row {i}: target-derived field in score-blind manifest: {sorted(forbidden)}")
+        _reject_target_fields(row, f"row {i}")
         for field in ("game_id", "tournament_id", "event_id", "fen", "split"):
             if not isinstance(row.get(field), str) or not row[field].strip():
                 raise ValueError(f"row {i}: missing {field}")
