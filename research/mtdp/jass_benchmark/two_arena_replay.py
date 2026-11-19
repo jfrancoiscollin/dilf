@@ -41,6 +41,7 @@ DEPENDENCIES = (
     'research/mtdp/jass_benchmark/candidate_jass_catalogue.py',
     'research/mtdp/jass_move_mapping.py', 'research/mtdp/draught_master_adapter.py',
     'research/mtdp/pdn.py', 'research/mtdp/successor_audit.py',
+    'research/mtdp/signature_ablation.py',
     'research/mtdp/best_move_audit.py', 'pedagogy/game.py',
     'research/mtdp/jass_preflight/legal_catalogue.cpp',
     'research/mtdp/jass_preflight/move_key.hpp', RUNTIME_RECEIPT,
