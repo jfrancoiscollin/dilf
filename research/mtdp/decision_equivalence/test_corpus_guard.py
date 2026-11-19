@@ -172,3 +172,30 @@ def test_matching_source_hashes_allowed():
     record["source_pdn_sha256"] = "a" * 64
     record["metadata"] = {"source": {"pdn_sha256": "a" * 64}}
     assert audit([record])["score_blind"] is True
+
+
+def test_conflicting_pdn_digest_across_plies_of_same_game_rejected():
+    first = row(ply=1)
+    first["source_pdn_sha256"] = "a" * 64
+    second = row(ply=2, fen="B:W31:B20")
+    second["metadata"] = {"source": {"pdn_sha256": "b" * 64}}
+    with pytest.raises(ValueError, match="within game"):
+        audit([first, second])
+
+
+def test_matching_pdn_digest_across_plies_of_same_game_allowed():
+    first = row(ply=1)
+    first["source_pdn_sha256"] = "a" * 64
+    second = row(ply=2, fen="B:W31:B20")
+    second["metadata"] = {"source": {"pdn_sha256": "a" * 64}}
+    assert audit([first, second])["rows"] == 2
+
+
+def test_later_digest_cannot_disagree_with_first_known_digest():
+    first = row(ply=1)
+    second = row(ply=2, fen="B:W31:B20")
+    second["source_pdn_sha256"] = "a" * 64
+    third = row(ply=3, fen="W:W32:B20")
+    third["source_pdn_sha256"] = "b" * 64
+    with pytest.raises(ValueError, match="within game"):
+        audit([first, second, third])
