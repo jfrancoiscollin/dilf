@@ -190,3 +190,39 @@ No real exports/FENs/scores of s7ahYqL4 or D9PF2OSW have been acquired here.
 Both events plus all P1RUlfJc/fFgE7oED remain outside D1 fitting, top-K,
 thresholds, signatures/refinement, dimension selection and validation. No D1
 campaign was duplicated. Jeff's PC is not required for this remote preparation.
+
+
+## Published code validated remotely — 19 November 01:43 UTC
+
+Joint replay code `f6501db` plus provenance completion `b243c85` are published.
+Concurrent D1 commits294e98e/bf82765/7e76302/b74cd61 were fetched and preserved;
+they add tied-optimum saturation metrics, with no change to this study's
+selectors, masks or registered analysis. The underlying full-quiet key helper
+is now included in proposal provenance and is byte-identical to its pre-start
+registration snapshot, as are all pinned method files. Combined local validation
+passes **176 tests and8 D1 subtests**, including163 foundation tests.
+
+Head `b243c85ad504f87b247aecee4df9feb5b837ff17` has **7/7 successful workflows**.
+Candidate [44437623861](https://github.com/jfrancoiscollin/dilf/actions/runs/44437623861),
+job135270361613:163 tests passed, all old replay/registry/index/cache and new
+joint synthetic reproductions passed. Artifact14490300544 was downloaded and
+checked:10690457 bytes, ZIP SHA256
+`a2642aae4636c91094f83159661128d58597a7146baab5f63ecd79d0403b18cf`.
+The downloaded7/61 proposals are byte-identical, SHA256
+`c7c2a9eb073e81de856d42103f9962d70cd8e8e1acedbc7a53a3222048c7e79d`;
+both have1 manufactured target/10 actions per event, a later whole-game alias
+excluded, raw CRLF intact and `scientific_freeze=false`. The historical cache
+retains its pinned SHA. CI runs the PR merge checkout67b46679, so its proposal
+commit/hash differs from the equally reproduced local head b243c85 (local SHA
+`928bc2a4ba49b8e37095ecf102da6eab3fdb0874fd4f6b8e9340992d95d56cec`);
+these are distinct, explicit implementation receipts, not a digest discrepancy.
+Proofs: `two-arena-replay-{local,ci}-validation-2026-11-19.json`.
+
+No real s7ahYqL4/D9PF2OSW export, position or score acquired. No technical
+failure requires a rerun. Old Actions replaced by concurrent pushes were not
+manually duplicated. The next unique action remains the explicit **joint bundle
+and remote published-freeze verifier**, including synthetic rejection, the live
+pre-start receipt and two-process reproduction; only after the joint final gate
+02:57UTC/03:57Paris may real final inputs/populations be acquired and frozen.
+All four whole-event D1 reservations remain in force. This proof-only update
+does not modify code or registration; check its successor Actions next pass.
