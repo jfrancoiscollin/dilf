@@ -61,10 +61,17 @@ def paired_game_bootstrap(rows: Sequence[Mapping], *, repetitions: int = 2000,
                 if recall else None,
                 mean(regret for _, _, regret in entries) if entries else None)
 
+    n_primary_games = sum(bool(groups[g] and any(e for e, _, _ in groups[g])) for g in games)
     observed = estimate(games)
     rng = Random(seed)
     draws = [estimate([games[rng.randrange(len(games))] for _ in games])
              for _ in range(repetitions)]
+
+    n_defined_primary = sum(draw[0] is not None for draw in draws)
+    n_undefined_primary = repetitions - n_defined_primary
+    primary_coverage = n_defined_primary / repetitions
+    primary_ci_status = ("ok" if n_primary_games >= 2 and primary_coverage >= .95
+                         else "insufficient_cluster_coverage")
 
     def interval(index):
         values = sorted(pair[index] for pair in draws if pair[index] is not None)
@@ -73,12 +80,18 @@ def paired_game_bootstrap(rows: Sequence[Mapping], *, repetitions: int = 2000,
         return [values[int(.025 * (len(values) - 1))],
                 values[int(.975 * (len(values) - 1))]]
 
-    return {"n_games": len(games), "n_decisions": sum(map(len, groups.values())),
+    return {"n_games": len(games), "n_primary_games": n_primary_games,
+            "n_bootstrap_defined_primary": n_defined_primary,
+            "n_bootstrap_undefined_primary": n_undefined_primary,
+            "bootstrap_primary_defined_ratio": primary_coverage,
+            "primary_ci_status": primary_ci_status, "n_decisions": sum(map(len, groups.values())),
             "n_primary_ge4": sum(eligible for values in groups.values()
                                  for eligible, _, _ in values),
-            "delta_recall3": observed[0], "delta_recall3_ci95": interval(0),
+            "delta_recall3": observed[0], "delta_recall3_ci95": interval(0) if primary_ci_status == "ok" else None,
+            "delta_recall3_ci95_exploratory": interval(0),
             "delta_first_regret_primary_ge4_raw": observed[1],
-            "delta_first_regret_primary_ge4_ci95": interval(1),
+            "delta_first_regret_primary_ge4_ci95": interval(1) if primary_ci_status == "ok" else None,
+            "delta_first_regret_primary_ge4_ci95_exploratory": interval(1),
             "delta_first_regret_raw": observed[2],
             "delta_first_regret_raw_ci95": interval(2),
             "bootstrap_repetitions": repetitions, "bootstrap_seed": seed,
