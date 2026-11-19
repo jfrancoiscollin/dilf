@@ -1,0 +1,136 @@
+{
+  "analysis_commit": "6c4746f738288180bf26851a7803551fa72e1e67",
+  "artifact_bytes": 238903,
+  "artifact_id": 14529900757,
+  "artifact_sha256": "55442ff2d1954730c51e09f3938924064b72a2eb9aa605648778c07b282c33b8",
+  "code_data_commit": "72051d790d1858497c66b8b1cba8e1296522db4e",
+  "concurrent_D1_artifact_metadata": {
+    "downloaded": false,
+    "id": 14529990838,
+    "sha256": "be1ca0adc18ed0c090b05a3b4c74de867c329373554d417c7a7c6d232eb0bd88"
+  },
+  "concurrent_D1_ci_subtests": 13,
+  "concurrent_D1_ci_tests": 141,
+  "concurrent_D1_local_corpus_guard_tests": 10,
+  "concurrent_D1_run_id": 44524032167,
+  "concurrent_head_all_eight_workflows_success": [
+    {
+      "conclusion": "success",
+      "id": 44524032108,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44524032178,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44524032167,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44524032130,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44524032116,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44524032092,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44524032099,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44524032172,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ],
+  "downloaded_and_every_member_compared": true,
+  "engine_calls_in_quality_reconciliation": 0,
+  "files": {
+    "full-proof.json": {
+      "bytes": 340847,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-independent-verification.json",
+      "sha256": "3172ac7b747cdda08b4d6a8b75de75cf8d87d292ceaacc1d5092a79548327b3a"
+    },
+    "full-results.json": {
+      "bytes": 336944,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-results.json",
+      "sha256": "58205e783e2caa712256c1275a5e1c6cfc5ca6b48365dd5205f45dbcd919f2ee"
+    },
+    "independent.json": {
+      "bytes": 459,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-telemetry-independent-verification.json",
+      "sha256": "7bf107a774ae8037456e0c03ea63f8f4e3e71e2b6e6112c091b6453aa11fa74a"
+    },
+    "mechanistic-proof.json": {
+      "bytes": 25832,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/mechanistic-residual-independent-verification.json",
+      "sha256": "c644dd934bd92ec5f8c3091539338ec9a9bed07e5ccef050dc62537fcc15afbe"
+    },
+    "mechanistic-results.json": {
+      "bytes": 34868,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/mechanistic-residual-results.json",
+      "sha256": "c607d64fe1c1ad8c28c34b25f1381cfc82bed75561831530de91fdbf2e079bbe"
+    },
+    "quality-independent.json": {
+      "bytes": 351,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-quality-independent.json",
+      "sha256": "99409be4b299ff51fe586e722962d62bdd9c90516f6df43186c2039ad320a4ba"
+    },
+    "quality61.json": {
+      "bytes": 361580,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-quality-results.json",
+      "sha256": "b10de948f1349a714f32fa38b3cc373cfc305fc53a4d27be226d56801adc2f4f"
+    },
+    "quality7.json": {
+      "bytes": 361580,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-quality-results.json",
+      "sha256": "b10de948f1349a714f32fa38b3cc373cfc305fc53a4d27be226d56801adc2f4f"
+    },
+    "seed61.json": {
+      "bytes": 193486,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-telemetry-audit.json",
+      "sha256": "95a5cade6055ceca051f8751b12f486c0fece6e633e6563b6b679c3dc477f63c"
+    },
+    "seed7.json": {
+      "bytes": 193486,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-telemetry-audit.json",
+      "sha256": "95a5cade6055ceca051f8751b12f486c0fece6e633e6563b6b679c3dc477f63c"
+    },
+    "witness-proof.json": {
+      "bytes": 9098,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/nonintervened-budget-independent-verification.json",
+      "sha256": "fc37113c5ae80d806b6533f4eb7fe387a8f1eada2f044b48d2629c4bcf350e24"
+    },
+    "witness-results.json": {
+      "bytes": 9099,
+      "repository_path": "research/mtdp/jass_benchmark/spatial-jass/replication/nonintervened-budget-results.json",
+      "sha256": "0c5555d5f30d7b278b173fb41b71b18244250f7c8d4690cf5a80ae02d5c69a0f"
+    }
+  },
+  "local_targeted_tests": 313,
+  "offline_job_id": 135558799370,
+  "offline_tests_passed": 54,
+  "preserved_concurrent_head": "8f36839c6c7cd4ec4ff3f2a7601af9afe6113ed4",
+  "run_id": 44523755684,
+  "schema": "mtdp-full-residual-quality-ci-verification-v1"
+}
