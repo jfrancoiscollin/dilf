@@ -1,0 +1,1451 @@
+{
+  "actual_nodes_per_execution": 3898062,
+  "comparisons": {
+    "LCB_budget_effect": {
+      "contexts": 9,
+      "different_Jass_score": 0,
+      "different_depth": 0,
+      "different_move_paths": [],
+      "same_final_move": 9
+    },
+    "control_vs_native_residual": {
+      "contexts": 9,
+      "different_Jass_score": 0,
+      "different_depth": 0,
+      "different_move_paths": [],
+      "same_final_move": 9
+    },
+    "force_at_equal_residual": {
+      "contexts": 9,
+      "different_Jass_score": 2,
+      "different_depth": 3,
+      "different_move_paths": [
+        "D9PF2OSW/50000/00001.json"
+      ],
+      "same_final_move": 8
+    },
+    "native_budget_effect": {
+      "contexts": 9,
+      "different_Jass_score": 0,
+      "different_depth": 0,
+      "different_move_paths": [],
+      "same_final_move": 9
+    }
+  },
+  "contexts": 9,
+  "fresh_depth1_intervention_and_depth2_propagation_verified": 9,
+  "limitations": [
+    "same_three_positions_post_hoc_no_independent_efficacy_claim",
+    "Jass_scores_at_different_depths_are_not_Scan_regrets",
+    "nonintervened_depth_loss_case_is_outside_this_mask"
+  ],
+  "rows": [
+    {
+      "case": {
+        "budget": 10000,
+        "event": "s7ahYqL4",
+        "fen": "B:W26,30,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21",
+        "owner": "mtdp-lidraughts-s7ahYqL4.pdn:132",
+        "path": "s7ahYqL4/10000/00005.json",
+        "reported_intervention": "8-12",
+        "verification_nodes": 158
+      },
+      "control_LCB_residual_convergence": {
+        "common_completed_depth": 8,
+        "first_stable_same_best_within_common_horizon": 6,
+        "shared_completed_best": [
+          [
+            1,
+            "8-12",
+            "18-22"
+          ],
+          [
+            2,
+            "8-12",
+            "18-22"
+          ],
+          [
+            3,
+            "19-24",
+            "19-24"
+          ],
+          [
+            4,
+            "7-12",
+            "8-12"
+          ],
+          [
+            5,
+            "7-12",
+            "8-12"
+          ],
+          [
+            6,
+            "20-24",
+            "20-24"
+          ],
+          [
+            7,
+            "20-24",
+            "20-24"
+          ],
+          [
+            8,
+            "20-24",
+            "20-24"
+          ]
+        ]
+      },
+      "depth1_best": {
+        "LCB_full": "18-22",
+        "LCB_residual": "18-22",
+        "control": "8-12",
+        "native_full": "8-12",
+        "native_residual": "8-12"
+      },
+      "depth2_first": {
+        "LCB_full": "18-22",
+        "LCB_residual": "18-22",
+        "control": "8-12",
+        "native_full": "8-12",
+        "native_residual": "8-12"
+      },
+      "final": {
+        "LCB_full": {
+          "best_move": "20-24",
+          "completed_depth": 8,
+          "depth_ceiling": false,
+          "nodes": 10000,
+          "score": 9,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "20-24",
+          "completed_depth": 8,
+          "depth_ceiling": false,
+          "nodes": 9842,
+          "score": 9,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "20-24",
+          "completed_depth": 8,
+          "depth_ceiling": false,
+          "nodes": 9842,
+          "score": 9,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "20-24",
+          "completed_depth": 8,
+          "depth_ceiling": false,
+          "nodes": 10000,
+          "score": 9,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "20-24",
+          "completed_depth": 8,
+          "depth_ceiling": false,
+          "nodes": 9842,
+          "score": 9,
+          "stop": "nodes"
+        }
+      },
+      "fresh_preliminary_LCB_winner": "18-22",
+      "fresh_selected_native_tie": "8-12",
+      "pairs": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        },
+        "control_vs_native_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "force_at_equal_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        }
+      }
+    },
+    {
+      "case": {
+        "budget": 10000,
+        "event": "s7ahYqL4",
+        "fen": "W:W28,29,31,32,33,34,35,36,37,38,39,40,42,43,44,45,47,48,49:B1,2,3,4,6,7,8,9,10,11,12,13,14,16,19,20,24,25,26",
+        "owner": "mtdp-lidraughts-s7ahYqL4.pdn:58",
+        "path": "s7ahYqL4/10000/00018.json",
+        "reported_intervention": "47-41",
+        "verification_nodes": 81
+      },
+      "control_LCB_residual_convergence": {
+        "common_completed_depth": 7,
+        "first_stable_same_best_within_common_horizon": 2,
+        "shared_completed_best": [
+          [
+            1,
+            "47-41",
+            "28-23"
+          ],
+          [
+            2,
+            "31-27",
+            "31-27"
+          ],
+          [
+            3,
+            "31-27",
+            "31-27"
+          ],
+          [
+            4,
+            "31-27",
+            "31-27"
+          ],
+          [
+            5,
+            "31-27",
+            "31-27"
+          ],
+          [
+            6,
+            "31-27",
+            "31-27"
+          ],
+          [
+            7,
+            "31-27",
+            "31-27"
+          ]
+        ]
+      },
+      "depth1_best": {
+        "LCB_full": "28-23",
+        "LCB_residual": "28-23",
+        "control": "47-41",
+        "native_full": "47-41",
+        "native_residual": "47-41"
+      },
+      "depth2_first": {
+        "LCB_full": "28-23",
+        "LCB_residual": "28-23",
+        "control": "47-41",
+        "native_full": "47-41",
+        "native_residual": "47-41"
+      },
+      "final": {
+        "LCB_full": {
+          "best_move": "31-27",
+          "completed_depth": 7,
+          "depth_ceiling": false,
+          "nodes": 10000,
+          "score": 13,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "31-27",
+          "completed_depth": 7,
+          "depth_ceiling": false,
+          "nodes": 9919,
+          "score": 13,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "31-27",
+          "completed_depth": 7,
+          "depth_ceiling": false,
+          "nodes": 9919,
+          "score": 13,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "31-27",
+          "completed_depth": 7,
+          "depth_ceiling": false,
+          "nodes": 10000,
+          "score": 13,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "31-27",
+          "completed_depth": 7,
+          "depth_ceiling": false,
+          "nodes": 9919,
+          "score": 13,
+          "stop": "nodes"
+        }
+      },
+      "fresh_preliminary_LCB_winner": "28-23",
+      "fresh_selected_native_tie": "47-41",
+      "pairs": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        },
+        "control_vs_native_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "force_at_equal_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        }
+      }
+    },
+    {
+      "case": {
+        "budget": 50000,
+        "event": "s7ahYqL4",
+        "fen": "B:W26,30,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21",
+        "owner": "mtdp-lidraughts-s7ahYqL4.pdn:132",
+        "path": "s7ahYqL4/50000/00005.json",
+        "reported_intervention": "8-12",
+        "verification_nodes": 158
+      },
+      "control_LCB_residual_convergence": {
+        "common_completed_depth": 11,
+        "first_stable_same_best_within_common_horizon": 6,
+        "shared_completed_best": [
+          [
+            1,
+            "8-12",
+            "18-22"
+          ],
+          [
+            2,
+            "8-12",
+            "18-22"
+          ],
+          [
+            3,
+            "19-24",
+            "19-24"
+          ],
+          [
+            4,
+            "7-12",
+            "8-12"
+          ],
+          [
+            5,
+            "7-12",
+            "8-12"
+          ],
+          [
+            6,
+            "20-24",
+            "20-24"
+          ],
+          [
+            7,
+            "20-24",
+            "20-24"
+          ],
+          [
+            8,
+            "20-24",
+            "20-24"
+          ],
+          [
+            9,
+            "20-24",
+            "20-24"
+          ],
+          [
+            10,
+            "20-24",
+            "20-24"
+          ],
+          [
+            11,
+            "20-24",
+            "20-24"
+          ]
+        ]
+      },
+      "depth1_best": {
+        "LCB_full": "18-22",
+        "LCB_residual": "18-22",
+        "control": "8-12",
+        "native_full": "8-12",
+        "native_residual": "8-12"
+      },
+      "depth2_first": {
+        "LCB_full": "18-22",
+        "LCB_residual": "18-22",
+        "control": "8-12",
+        "native_full": "8-12",
+        "native_residual": "8-12"
+      },
+      "final": {
+        "LCB_full": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 50000,
+          "score": 3,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 49842,
+          "score": 3,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 49842,
+          "score": 3,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 50000,
+          "score": 3,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 49842,
+          "score": 3,
+          "stop": "nodes"
+        }
+      },
+      "fresh_preliminary_LCB_winner": "18-22",
+      "fresh_selected_native_tie": "8-12",
+      "pairs": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        },
+        "control_vs_native_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "force_at_equal_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        }
+      }
+    },
+    {
+      "case": {
+        "budget": 50000,
+        "event": "s7ahYqL4",
+        "fen": "W:W28,29,31,32,33,34,35,36,37,38,39,40,42,43,44,45,47,48,49:B1,2,3,4,6,7,8,9,10,11,12,13,14,16,19,20,24,25,26",
+        "owner": "mtdp-lidraughts-s7ahYqL4.pdn:58",
+        "path": "s7ahYqL4/50000/00018.json",
+        "reported_intervention": "47-41",
+        "verification_nodes": 81
+      },
+      "control_LCB_residual_convergence": {
+        "common_completed_depth": 12,
+        "first_stable_same_best_within_common_horizon": 2,
+        "shared_completed_best": [
+          [
+            1,
+            "47-41",
+            "28-23"
+          ],
+          [
+            2,
+            "31-27",
+            "31-27"
+          ],
+          [
+            3,
+            "31-27",
+            "31-27"
+          ],
+          [
+            4,
+            "31-27",
+            "31-27"
+          ],
+          [
+            5,
+            "31-27",
+            "31-27"
+          ],
+          [
+            6,
+            "31-27",
+            "31-27"
+          ],
+          [
+            7,
+            "31-27",
+            "31-27"
+          ],
+          [
+            8,
+            "31-27",
+            "31-27"
+          ],
+          [
+            9,
+            "31-27",
+            "31-27"
+          ],
+          [
+            10,
+            "31-27",
+            "31-27"
+          ],
+          [
+            11,
+            "31-27",
+            "31-27"
+          ],
+          [
+            12,
+            "31-27",
+            "31-27"
+          ]
+        ]
+      },
+      "depth1_best": {
+        "LCB_full": "28-23",
+        "LCB_residual": "28-23",
+        "control": "47-41",
+        "native_full": "47-41",
+        "native_residual": "47-41"
+      },
+      "depth2_first": {
+        "LCB_full": "28-23",
+        "LCB_residual": "28-23",
+        "control": "47-41",
+        "native_full": "47-41",
+        "native_residual": "47-41"
+      },
+      "final": {
+        "LCB_full": {
+          "best_move": "31-27",
+          "completed_depth": 12,
+          "depth_ceiling": false,
+          "nodes": 50000,
+          "score": 13,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "31-27",
+          "completed_depth": 12,
+          "depth_ceiling": false,
+          "nodes": 49919,
+          "score": 13,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "31-27",
+          "completed_depth": 12,
+          "depth_ceiling": false,
+          "nodes": 49919,
+          "score": 13,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "31-27",
+          "completed_depth": 12,
+          "depth_ceiling": false,
+          "nodes": 50000,
+          "score": 13,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "31-27",
+          "completed_depth": 12,
+          "depth_ceiling": false,
+          "nodes": 49919,
+          "score": 13,
+          "stop": "nodes"
+        }
+      },
+      "fresh_preliminary_LCB_winner": "28-23",
+      "fresh_selected_native_tie": "47-41",
+      "pairs": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        },
+        "control_vs_native_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "force_at_equal_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        }
+      }
+    },
+    {
+      "case": {
+        "budget": 200000,
+        "event": "s7ahYqL4",
+        "fen": "B:W26,30,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21",
+        "owner": "mtdp-lidraughts-s7ahYqL4.pdn:132",
+        "path": "s7ahYqL4/200000/00005.json",
+        "reported_intervention": "8-12",
+        "verification_nodes": 158
+      },
+      "control_LCB_residual_convergence": {
+        "common_completed_depth": 15,
+        "first_stable_same_best_within_common_horizon": 6,
+        "shared_completed_best": [
+          [
+            1,
+            "8-12",
+            "18-22"
+          ],
+          [
+            2,
+            "8-12",
+            "18-22"
+          ],
+          [
+            3,
+            "19-24",
+            "19-24"
+          ],
+          [
+            4,
+            "7-12",
+            "8-12"
+          ],
+          [
+            5,
+            "7-12",
+            "8-12"
+          ],
+          [
+            6,
+            "20-24",
+            "20-24"
+          ],
+          [
+            7,
+            "20-24",
+            "20-24"
+          ],
+          [
+            8,
+            "20-24",
+            "20-24"
+          ],
+          [
+            9,
+            "20-24",
+            "20-24"
+          ],
+          [
+            10,
+            "20-24",
+            "20-24"
+          ],
+          [
+            11,
+            "20-24",
+            "20-24"
+          ],
+          [
+            12,
+            "20-24",
+            "20-24"
+          ],
+          [
+            13,
+            "20-24",
+            "20-24"
+          ],
+          [
+            14,
+            "20-24",
+            "20-24"
+          ],
+          [
+            15,
+            "20-24",
+            "20-24"
+          ]
+        ]
+      },
+      "depth1_best": {
+        "LCB_full": "18-22",
+        "LCB_residual": "18-22",
+        "control": "8-12",
+        "native_full": "8-12",
+        "native_residual": "8-12"
+      },
+      "depth2_first": {
+        "LCB_full": "18-22",
+        "LCB_residual": "18-22",
+        "control": "8-12",
+        "native_full": "8-12",
+        "native_residual": "8-12"
+      },
+      "final": {
+        "LCB_full": {
+          "best_move": "20-24",
+          "completed_depth": 15,
+          "depth_ceiling": false,
+          "nodes": 200000,
+          "score": 4,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "20-24",
+          "completed_depth": 15,
+          "depth_ceiling": false,
+          "nodes": 199842,
+          "score": 4,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "20-24",
+          "completed_depth": 15,
+          "depth_ceiling": false,
+          "nodes": 199842,
+          "score": 4,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "20-24",
+          "completed_depth": 15,
+          "depth_ceiling": false,
+          "nodes": 200000,
+          "score": 4,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "20-24",
+          "completed_depth": 15,
+          "depth_ceiling": false,
+          "nodes": 199842,
+          "score": 4,
+          "stop": "nodes"
+        }
+      },
+      "fresh_preliminary_LCB_winner": "18-22",
+      "fresh_selected_native_tie": "8-12",
+      "pairs": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        },
+        "control_vs_native_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "force_at_equal_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        }
+      }
+    },
+    {
+      "case": {
+        "budget": 200000,
+        "event": "s7ahYqL4",
+        "fen": "W:W28,29,31,32,33,34,35,36,37,38,39,40,42,43,44,45,47,48,49:B1,2,3,4,6,7,8,9,10,11,12,13,14,16,19,20,24,25,26",
+        "owner": "mtdp-lidraughts-s7ahYqL4.pdn:58",
+        "path": "s7ahYqL4/200000/00018.json",
+        "reported_intervention": "47-41",
+        "verification_nodes": 81
+      },
+      "control_LCB_residual_convergence": {
+        "common_completed_depth": 15,
+        "first_stable_same_best_within_common_horizon": 2,
+        "shared_completed_best": [
+          [
+            1,
+            "47-41",
+            "28-23"
+          ],
+          [
+            2,
+            "31-27",
+            "31-27"
+          ],
+          [
+            3,
+            "31-27",
+            "31-27"
+          ],
+          [
+            4,
+            "31-27",
+            "31-27"
+          ],
+          [
+            5,
+            "31-27",
+            "31-27"
+          ],
+          [
+            6,
+            "31-27",
+            "31-27"
+          ],
+          [
+            7,
+            "31-27",
+            "31-27"
+          ],
+          [
+            8,
+            "31-27",
+            "31-27"
+          ],
+          [
+            9,
+            "31-27",
+            "31-27"
+          ],
+          [
+            10,
+            "31-27",
+            "31-27"
+          ],
+          [
+            11,
+            "31-27",
+            "31-27"
+          ],
+          [
+            12,
+            "31-27",
+            "31-27"
+          ],
+          [
+            13,
+            "31-27",
+            "31-27"
+          ],
+          [
+            14,
+            "31-27",
+            "31-27"
+          ],
+          [
+            15,
+            "31-27",
+            "31-27"
+          ]
+        ]
+      },
+      "depth1_best": {
+        "LCB_full": "28-23",
+        "LCB_residual": "28-23",
+        "control": "47-41",
+        "native_full": "47-41",
+        "native_residual": "47-41"
+      },
+      "depth2_first": {
+        "LCB_full": "28-23",
+        "LCB_residual": "28-23",
+        "control": "47-41",
+        "native_full": "47-41",
+        "native_residual": "47-41"
+      },
+      "final": {
+        "LCB_full": {
+          "best_move": "31-27",
+          "completed_depth": 15,
+          "depth_ceiling": false,
+          "nodes": 200000,
+          "score": 12,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "31-27",
+          "completed_depth": 15,
+          "depth_ceiling": false,
+          "nodes": 199919,
+          "score": 12,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "31-27",
+          "completed_depth": 16,
+          "depth_ceiling": false,
+          "nodes": 199919,
+          "score": 15,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "31-27",
+          "completed_depth": 16,
+          "depth_ceiling": false,
+          "nodes": 200000,
+          "score": 15,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "31-27",
+          "completed_depth": 16,
+          "depth_ceiling": false,
+          "nodes": 199919,
+          "score": 15,
+          "stop": "nodes"
+        }
+      },
+      "fresh_preliminary_LCB_winner": "28-23",
+      "fresh_selected_native_tie": "47-41",
+      "pairs": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        },
+        "control_vs_native_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "force_at_equal_residual": {
+          "Jass_score_delta": 3,
+          "depth_delta": 1,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        }
+      }
+    },
+    {
+      "case": {
+        "budget": 10000,
+        "event": "D9PF2OSW",
+        "fen": "B:W25,27,31,32,35,36,37,38,39,40,41,42,43,45,46,48,49:B2,3,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23",
+        "owner": "mtdp-lidraughts-D9PF2OSW.pdn:53",
+        "path": "D9PF2OSW/10000/00001.json",
+        "reported_intervention": "17-21",
+        "verification_nodes": 84
+      },
+      "control_LCB_residual_convergence": {
+        "common_completed_depth": 7,
+        "first_stable_same_best_within_common_horizon": 2,
+        "shared_completed_best": [
+          [
+            1,
+            "17-21",
+            "17-22"
+          ],
+          [
+            2,
+            "20-24",
+            "20-24"
+          ],
+          [
+            3,
+            "20-24",
+            "20-24"
+          ],
+          [
+            4,
+            "20-24",
+            "20-24"
+          ],
+          [
+            5,
+            "20-24",
+            "20-24"
+          ],
+          [
+            6,
+            "20-24",
+            "20-24"
+          ],
+          [
+            7,
+            "20-24",
+            "20-24"
+          ]
+        ]
+      },
+      "depth1_best": {
+        "LCB_full": "17-22",
+        "LCB_residual": "17-22",
+        "control": "17-21",
+        "native_full": "17-21",
+        "native_residual": "17-21"
+      },
+      "depth2_first": {
+        "LCB_full": "17-22",
+        "LCB_residual": "17-22",
+        "control": "17-21",
+        "native_full": "17-21",
+        "native_residual": "17-21"
+      },
+      "final": {
+        "LCB_full": {
+          "best_move": "20-24",
+          "completed_depth": 7,
+          "depth_ceiling": false,
+          "nodes": 10000,
+          "score": 27,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "20-24",
+          "completed_depth": 7,
+          "depth_ceiling": false,
+          "nodes": 9916,
+          "score": 27,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "20-24",
+          "completed_depth": 7,
+          "depth_ceiling": false,
+          "nodes": 9916,
+          "score": 27,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "20-24",
+          "completed_depth": 7,
+          "depth_ceiling": false,
+          "nodes": 10000,
+          "score": 27,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "20-24",
+          "completed_depth": 7,
+          "depth_ceiling": false,
+          "nodes": 9916,
+          "score": 27,
+          "stop": "nodes"
+        }
+      },
+      "fresh_preliminary_LCB_winner": "17-22",
+      "fresh_selected_native_tie": "17-21",
+      "pairs": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        },
+        "control_vs_native_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "force_at_equal_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        }
+      }
+    },
+    {
+      "case": {
+        "budget": 50000,
+        "event": "D9PF2OSW",
+        "fen": "B:W25,27,31,32,35,36,37,38,39,40,41,42,43,45,46,48,49:B2,3,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23",
+        "owner": "mtdp-lidraughts-D9PF2OSW.pdn:53",
+        "path": "D9PF2OSW/50000/00001.json",
+        "reported_intervention": "17-21",
+        "verification_nodes": 84
+      },
+      "control_LCB_residual_convergence": {
+        "common_completed_depth": 10,
+        "first_stable_same_best_within_common_horizon": null,
+        "shared_completed_best": [
+          [
+            1,
+            "17-21",
+            "17-22"
+          ],
+          [
+            2,
+            "20-24",
+            "20-24"
+          ],
+          [
+            3,
+            "20-24",
+            "20-24"
+          ],
+          [
+            4,
+            "20-24",
+            "20-24"
+          ],
+          [
+            5,
+            "20-24",
+            "20-24"
+          ],
+          [
+            6,
+            "20-24",
+            "20-24"
+          ],
+          [
+            7,
+            "20-24",
+            "20-24"
+          ],
+          [
+            8,
+            "19-24",
+            "19-24"
+          ],
+          [
+            9,
+            "17-21",
+            "17-22"
+          ],
+          [
+            10,
+            "17-21",
+            "17-22"
+          ]
+        ]
+      },
+      "depth1_best": {
+        "LCB_full": "17-22",
+        "LCB_residual": "17-22",
+        "control": "17-21",
+        "native_full": "17-21",
+        "native_residual": "17-21"
+      },
+      "depth2_first": {
+        "LCB_full": "17-22",
+        "LCB_residual": "17-22",
+        "control": "17-21",
+        "native_full": "17-21",
+        "native_residual": "17-21"
+      },
+      "final": {
+        "LCB_full": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 50000,
+          "score": 21,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 49916,
+          "score": 21,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "17-21",
+          "completed_depth": 10,
+          "depth_ceiling": false,
+          "nodes": 49916,
+          "score": 38,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "17-21",
+          "completed_depth": 10,
+          "depth_ceiling": false,
+          "nodes": 50000,
+          "score": 38,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "17-21",
+          "completed_depth": 10,
+          "depth_ceiling": false,
+          "nodes": 49916,
+          "score": 38,
+          "stop": "nodes"
+        }
+      },
+      "fresh_preliminary_LCB_winner": "17-22",
+      "fresh_selected_native_tie": "17-21",
+      "pairs": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        },
+        "control_vs_native_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "force_at_equal_residual": {
+          "Jass_score_delta": 17,
+          "depth_delta": -1,
+          "same_final_move": false,
+          "same_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        }
+      }
+    },
+    {
+      "case": {
+        "budget": 200000,
+        "event": "D9PF2OSW",
+        "fen": "B:W25,27,31,32,35,36,37,38,39,40,41,42,43,45,46,48,49:B2,3,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23",
+        "owner": "mtdp-lidraughts-D9PF2OSW.pdn:53",
+        "path": "D9PF2OSW/200000/00001.json",
+        "reported_intervention": "17-21",
+        "verification_nodes": 84
+      },
+      "control_LCB_residual_convergence": {
+        "common_completed_depth": 14,
+        "first_stable_same_best_within_common_horizon": 13,
+        "shared_completed_best": [
+          [
+            1,
+            "17-21",
+            "17-22"
+          ],
+          [
+            2,
+            "20-24",
+            "20-24"
+          ],
+          [
+            3,
+            "20-24",
+            "20-24"
+          ],
+          [
+            4,
+            "20-24",
+            "20-24"
+          ],
+          [
+            5,
+            "20-24",
+            "20-24"
+          ],
+          [
+            6,
+            "20-24",
+            "20-24"
+          ],
+          [
+            7,
+            "20-24",
+            "20-24"
+          ],
+          [
+            8,
+            "19-24",
+            "19-24"
+          ],
+          [
+            9,
+            "17-21",
+            "17-22"
+          ],
+          [
+            10,
+            "17-21",
+            "17-22"
+          ],
+          [
+            11,
+            "17-21",
+            "20-24"
+          ],
+          [
+            12,
+            "17-21",
+            "20-24"
+          ],
+          [
+            13,
+            "17-21",
+            "17-21"
+          ],
+          [
+            14,
+            "17-21",
+            "17-21"
+          ]
+        ]
+      },
+      "depth1_best": {
+        "LCB_full": "17-22",
+        "LCB_residual": "17-22",
+        "control": "17-21",
+        "native_full": "17-21",
+        "native_residual": "17-21"
+      },
+      "depth2_first": {
+        "LCB_full": "17-22",
+        "LCB_residual": "17-22",
+        "control": "17-21",
+        "native_full": "17-21",
+        "native_residual": "17-21"
+      },
+      "final": {
+        "LCB_full": {
+          "best_move": "17-21",
+          "completed_depth": 14,
+          "depth_ceiling": false,
+          "nodes": 200000,
+          "score": 23,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "17-21",
+          "completed_depth": 14,
+          "depth_ceiling": false,
+          "nodes": 199916,
+          "score": 23,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "17-21",
+          "completed_depth": 15,
+          "depth_ceiling": false,
+          "nodes": 199916,
+          "score": 23,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "17-21",
+          "completed_depth": 15,
+          "depth_ceiling": false,
+          "nodes": 200000,
+          "score": 23,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "17-21",
+          "completed_depth": 15,
+          "depth_ceiling": false,
+          "nodes": 199916,
+          "score": 23,
+          "stop": "nodes"
+        }
+      },
+      "fresh_preliminary_LCB_winner": "17-22",
+      "fresh_selected_native_tie": "17-21",
+      "pairs": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        },
+        "control_vs_native_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "force_at_equal_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 1,
+          "same_final_move": true,
+          "same_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_nodes": false
+        }
+      }
+    }
+  ],
+  "schema": "mtdp-mechanistic-residual-analysis-v1",
+  "scope": "post_hoc_same_nine_intervention_receipts_three_positions_no_independent_efficacy_claim",
+  "unique_positions": 3
+}

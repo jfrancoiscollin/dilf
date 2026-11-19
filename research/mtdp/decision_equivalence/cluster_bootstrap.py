@@ -88,7 +88,9 @@ def paired_game_bootstrap(rows: Sequence[Mapping], *, repetitions: int = 2000,
         return [values[int(.025 * (len(values) - 1))],
                 values[int(.975 * (len(values) - 1))]]
 
-    return {"n_games": len(games), "n_primary_games": n_primary_games,\n            "primary_effective_games": primary_effective_games,\n            "primary_largest_game_share": primary_largest_game_share,
+    return {"n_games": len(games), "n_primary_games": n_primary_games,
+            "primary_effective_games": primary_effective_games,
+            "primary_largest_game_share": primary_largest_game_share,
             "n_bootstrap_defined_primary": n_defined_primary,
             "n_bootstrap_undefined_primary": n_undefined_primary,
             "bootstrap_primary_defined_ratio": primary_coverage,
