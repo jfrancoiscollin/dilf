@@ -16,7 +16,7 @@ Les nœuds de vérification, la raison et l'intervention sont identiques pour ch
 
 ## L'accord sur le coup final ne prouve pas une recherche identique
 
-Contrôle et natif donnent le même coup **114/114** ; score Jass et profondeur finale coïncident **113/114**. Le cas `D9PF2OSW/10000/00005.json`, propriétaire fixé dans le rapport détaillé, a :
+Contrôle et natif donnent le même coup **114/114** ; score Jass et profondeur finale coïncident **113/114**. Le cas `D9PF2OSW/10000/00005.json`, propriétaire `mtdp-lidraughts-D9PF2OSW.pdn:59`, a :
 
 - aucune intervention (`verified_unique_best`),293nœuds de vérification ;
 - contrôle :9707nœuds principaux, coup20-24, profondeur8, score Jass11 ;
@@ -32,7 +32,7 @@ Le patch épinglé `depth-one-winner.patch` vérifie à l'exécution que le coup
 
 ## Validation et suite concrète
 
-`two_arena_telemetry_audit.py` produit tous les cas et dénominateurs ;8tests synthétiques vérifient notamment la conservation des nœuds, les phases/sondes, l'unicité des positions malgré les trois budgets et les différences de profondeur malgré un même coup. Deux processus7/61 produisent les mêmes octets, SHA `95a5cade6055ceca051f8751b12f486c0fece6e633e6563b6b679c3dc477f63c`. Le vérificateur indépendant stdlib relit les114reçus et confirme les sommes, dénominateurs, deltas et masque. **241 tests H13 ciblés passent localement**, dont huit nouveaux. Une étape CI dédiée sans moteur est ajoutée au workflow existant ; exécution distante à confirmer après publication.
+`two_arena_telemetry_audit.py` produit tous les cas et dénominateurs ;8tests synthétiques vérifient notamment la conservation des nœuds, les phases/sondes, l'unicité des positions malgré les trois budgets et les différences de profondeur malgré un même coup. Deux processus7/61 produisent les mêmes octets, SHA `95a5cade6055ceca051f8751b12f486c0fece6e633e6563b6b679c3dc477f63c`. Le vérificateur indépendant stdlib relit les114reçus et confirme les sommes, dénominateurs, deltas et masque. **241 tests H13 ciblés passent localement**, dont huit nouveaux. Une étape CI dédiée sans moteur est ajoutée au workflow existant ; validation distante réussie sur `48b55a691e7129b17e61b7841d4deed793220ca0` : [run44483463706](https://github.com/jfrancoiscollin/dilf/actions/runs/44483463706), job135421062605, huit tests, deux seeds et recalcul indépendant conformes. Artefact14509013690 téléchargé et vérifié,35188octets, ZIP SHA `a3b68d773e4aafb897da744a326e51246595f9e9506a2405cf7054d7f3da7c8f` ; ses trois fichiers concordent exactement avec le dépôt. Les8/8workflows du commit réussissent. Preuve complète dans `telemetry-audit-ci-verification-2026-11-19.json`.
 
 ```bash
 python -m research.mtdp.jass_benchmark.two_arena_telemetry_audit --root . --output /tmp/telemetry.json
