@@ -78,7 +78,10 @@ def paired_game_bootstrap(rows: Sequence[Mapping], *, repetitions: int = 2000,
     n_defined_primary = sum(draw[0] is not None for draw in draws)
     n_undefined_primary = repetitions - n_defined_primary
     primary_coverage = n_defined_primary / repetitions
-    primary_ci_status = ("ok" if n_primary_games >= 2 and primary_coverage >= .95
+    # Exact probability that a game-level bootstrap contains an eligible game.
+    # Unlike the Monte Carlo fraction, this gate cannot flip with the RNG seed.
+    exact_primary_defined_probability = 1 - ((len(games) - n_primary_games) / len(games)) ** len(games)
+    primary_ci_status = ("ok" if n_primary_games >= 2 and exact_primary_defined_probability >= .95
                          else "insufficient_cluster_coverage")
 
     def interval(index):
@@ -94,6 +97,7 @@ def paired_game_bootstrap(rows: Sequence[Mapping], *, repetitions: int = 2000,
             "n_bootstrap_defined_primary": n_defined_primary,
             "n_bootstrap_undefined_primary": n_undefined_primary,
             "bootstrap_primary_defined_ratio": primary_coverage,
+            "bootstrap_primary_defined_probability_exact": exact_primary_defined_probability,
             "primary_ci_status": primary_ci_status, "n_decisions": sum(map(len, groups.values())),
             "n_primary_ge4": sum(eligible for values in groups.values()
                                  for eligible, _, _ in values),
