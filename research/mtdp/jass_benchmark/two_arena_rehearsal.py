@@ -9,6 +9,7 @@ from unittest.mock import patch
 from research.mtdp.jass_benchmark import two_arena_acquisition as acquisition
 from research.mtdp.jass_benchmark import two_arena_registration as study
 from research.mtdp.jass_benchmark.two_arena_replay import proposal
+from research.mtdp.jass_benchmark import two_arena_freeze as bundle
 from research.mtdp.jass_benchmark.named_arena_rehearsal import FIXTURE_FEN
 from research.mtdp.jass_benchmark.named_freeze_bundle import _bytes
 from research.mtdp.jass_benchmark.prospective_candidate_replay import digest
@@ -47,6 +48,17 @@ def rehearse(root, exclusions, adapter, executable, output):
     with patch.object(acquisition, '_fetch', fake_fetch), patch.object(study, '_now', lambda: fixed):
         acquisition.acquire(root, acquired)
         value = proposal(root, acquired, exclusions, adapter, executable)
+        proposals = [output/f'synthetic-proposal-{n}.json' for n in (1,2)]
+        for path in proposals:path.write_bytes(_bytes(value))
+        publication = bundle._compose(root,acquired,proposals,{'kind':'synthetic_in_process_repeat'},
+                                      output/'bundle',synthetic=True)
+        bundle_payloads = {n:(output/'bundle'/n).read_bytes() for n in bundle.FILES | {'publication.json'}}
+        bundle.validate_payloads(root,bundle_payloads,allow_synthetic=True)
+        try:
+            bundle.validate_payloads(root,bundle_payloads)
+        except ValueError as error:
+            if 'Synthetic' not in str(error):raise
+        else:raise ValueError('Synthetic bundle could enter the production scoring gate')
     if len(calls) != 6 or not all('/games' not in u for u in calls[:2]):
         raise ValueError('Both metadata requests must precede the four separate synthetic PDN requests')
     a, b = (value['events'][e] for e in study.EVENTS)
@@ -60,6 +72,9 @@ def rehearse(root, exclusions, adapter, executable, output):
     report = {'schema': 'mtdp-two-arena-synthetic-rehearsal-v1', 'scientific_freeze': False,
               'synthetic_rehearsal': True, 'hash_seed': os.environ.get('PYTHONHASHSEED', 'unset'),
               'proposal_sha256': digest(raw), 'http_transport': 'mocked_in_memory_no_network',
+              'manifest_sha256':publication['files']['manifest.json']['sha256'],
+              'publication_sha256':digest(bundle_payloads['publication.json']),
+              'production_validator_refused':True,
               'http_requests': 6, 'target_counts': [1,1], 'target_action_counts': [10,10],
               'later_whole_game_token_aliases_excluded': 1,
               'raw_crlf_preserved': all((acquired/e/'first.pdn').read_bytes() == payloads[e] for e in study.EVENTS),
