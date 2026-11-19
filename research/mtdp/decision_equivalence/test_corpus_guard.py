@@ -104,3 +104,17 @@ def test_unreserved_distinct_tournament_id_allowed():
     record = row(event="historical-alias")
     record["tournament_id"] = "independent-historical-tournament"
     assert audit([record])["rows"] == 1
+
+
+@pytest.mark.parametrize("field", ["score", "Scan-Score", "best_move", "regret", "WDL", "pv"])
+def test_target_derived_fields_forbidden_before_freeze(field):
+    record = row()
+    record[field] = 0
+    with pytest.raises(ValueError, match="target-derived field"):
+        audit([record])
+
+
+def test_score_blind_manifest_accepts_source_metadata():
+    record = row()
+    record["source_pdn_sha256"] = "a" * 64
+    assert audit([record])["score_blind"] is True
