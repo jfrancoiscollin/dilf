@@ -98,3 +98,27 @@ def test_coverage_counts_reproducible():
     b = paired_game_bootstrap(rows, repetitions=200, seed=101)
     assert a == b
     assert a['n_bootstrap_defined_primary'] + a['n_bootstrap_undefined_primary'] == 200
+
+
+def test_primary_game_concentration_is_score_blind():
+    scores = dict(zip('abcd', [4, 3, 2, 1]))
+    rows = [row(f'p{i}', 'large' if i < 9 else 'small', scores,
+                list('abcd'), list('dcba')) for i in range(10)]
+    result = paired_game_bootstrap(rows, repetitions=200, seed=7)
+    assert result['n_primary_games'] == 2
+    assert result['n_primary_ge4'] == 10
+    assert result['primary_effective_games'] == pytest.approx(100 / 82)
+    assert result['primary_largest_game_share'] == pytest.approx(.9)
+    tied = dict(zip('abcd', [1, 1, 1, 1]))
+    for r in rows:
+        r['scores'] = tied
+    tied_result = paired_game_bootstrap(rows, repetitions=200, seed=7)
+    assert tied_result['primary_effective_games'] == result['primary_effective_games']
+    assert tied_result['primary_largest_game_share'] == result['primary_largest_game_share']
+
+
+def test_primary_game_concentration_undefined_without_ge4():
+    rows = [row('p1', 'g1', {'a': 2, 'b': 1}, ['a', 'b'], ['b', 'a'])]
+    result = paired_game_bootstrap(rows, repetitions=100)
+    assert result['primary_effective_games'] is None
+    assert result['primary_largest_game_share'] is None
