@@ -62,6 +62,14 @@ def paired_game_bootstrap(rows: Sequence[Mapping], *, repetitions: int = 2000,
                 mean(regret for _, _, regret in entries) if entries else None)
 
     n_primary_games = sum(bool(groups[g] and any(e for e, _, _ in groups[g])) for g in games)
+    # Score-blind concentration diagnostic: game imbalance can make a
+    # position-weighted interval effectively depend on very few games.
+    primary_counts = [sum(bool(eligible) for eligible, _, _ in groups[g]) for g in games]
+    primary_total = sum(primary_counts)
+    primary_effective_games = ((primary_total ** 2 / sum(n * n for n in primary_counts))
+                               if primary_total else None)
+    primary_largest_game_share = (max(primary_counts) / primary_total
+                                  if primary_total else None)
     observed = estimate(games)
     rng = Random(seed)
     draws = [estimate([games[rng.randrange(len(games))] for _ in games])
@@ -80,7 +88,7 @@ def paired_game_bootstrap(rows: Sequence[Mapping], *, repetitions: int = 2000,
         return [values[int(.025 * (len(values) - 1))],
                 values[int(.975 * (len(values) - 1))]]
 
-    return {"n_games": len(games), "n_primary_games": n_primary_games,
+    return {"n_games": len(games), "n_primary_games": n_primary_games,\n            "primary_effective_games": primary_effective_games,\n            "primary_largest_game_share": primary_largest_game_share,
             "n_bootstrap_defined_primary": n_defined_primary,
             "n_bootstrap_undefined_primary": n_undefined_primary,
             "bootstrap_primary_defined_ratio": primary_coverage,
