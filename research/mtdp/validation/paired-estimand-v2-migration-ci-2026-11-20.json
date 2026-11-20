@@ -1,0 +1,103 @@
+{
+  "validated_code_commit": "2fc8c31da7761fc586bf39b69cda13e8316f2d52",
+  "checked_at_utc": "2026-11-20T10:24:36.951896+00:00",
+  "failed_head": "0d9ef05b5bfaf2ef8a70b76803e13ebb6a947085",
+  "failed_ci": {
+    "run_id": 44713874440,
+    "job_id": 136212160766,
+    "failed": 1,
+    "passed": 725,
+    "optional_skipped": 12
+  },
+  "diagnosis": "Two new D1 population metadata fields changed the full report structure. Historical numeric results remained unchanged.",
+  "old_evidence_preserved_byte_for_byte": {
+    "research/mtdp/validation/paired-estimand-audit-2026-11-20.json": "2ca60ffa736543d68dd93fbefb2798f3838d35a0e4dd452d55597ecbb2405f86",
+    "research/mtdp/validation/paired-estimand-audit-ci-2026-11-20.json": "9e6c5343456c49b831c48027e6d8b8e5c5ba7055817ce91b62d86ea1d3d03682"
+  },
+  "source_sha256": {
+    "research/mtdp/prospective_estimand_audit.py": "b58221217ea04dd472257b5ec7a5846cd9496cea801fca67cf63cdc7a22da964",
+    "research/mtdp/tests/test_prospective_estimand_audit.py": "51016b54ebfcd1e9203f304c3437d7063ddac0b53fcca5ef3fbfdb3729a50085",
+    "research/mtdp/validation/paired-estimand-audit-v2-2026-11-20.json": "7e9cab5397df4eb58811e1f3e678bccafd0e36794d291555658699e55ebb114b",
+    "research/mtdp/PROSPECTIVE_JASS_EVALUATION_PROTOCOL.md": "214959329e6699eacaf31955b23200b82ed37ae3b2c306ad897611e7835ba663"
+  },
+  "explicit_modes": [
+    "fixed_n_ge_4",
+    "conditional_informative"
+  ],
+  "d1_primary_matches_independent_control": true,
+  "historical_secondary_numeric_and_method_results_unchanged": true,
+  "historical_metadata_fields_separated_and_verified": [
+    "top3_population",
+    "top3_population_is_primary_fixed"
+  ],
+  "v2_reproduced_in_separate_process_byte_for_byte": true,
+  "local_full_tests_passed": 727,
+  "local_optional_skipped": 12,
+  "local_targeted_tests_passed": 20,
+  "local_targeted_subtests_passed": 3,
+  "ci": {
+    "run_id": 44718355054,
+    "job_id": 136227403212,
+    "core_passed": 643,
+    "mtdp_passed": 727,
+    "optional_skipped": 12,
+    "log_evidence": [
+      "2026-11-20T10:22:13.6770688Z 643 passed in 2.15s",
+      "2026-11-20T10:22:26.8256653Z 727 passed, 12 skipped, 1 warning in 12.77s"
+    ]
+  },
+  "workflow_runs": [
+    {
+      "id": 44718355168,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44718354938,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44718355234,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44718354946,
+      "name": "downstream-compat",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44718354855,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44718354887,
+      "name": "mtdp-metered-probe",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44718355054,
+      "name": "ci",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44718355257,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "d1_modules_modified": false,
+  "frozen_h13_studies_modified": false,
+  "new_reference_scores_or_independent_cohort": false,
+  "next_action": "D1/H43 integrate reserved-source screening and reconcile complete historical exclusions before independent admission; use explicit fixed_n_ge_4 for future fixed-population top-3 inference. Main Jass criterion remains paired regret at equal total search cost."
+}
