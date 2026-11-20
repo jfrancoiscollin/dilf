@@ -5,7 +5,7 @@ move legality, capture completeness, unique paths, or canonical identity.
 """
 import re
 
-_TOKEN = re.compile(r"([1-9][0-9]?)([-x])([1-9][0-9]?)(?:\\2([1-9][0-9]?))*\\Z", re.ASCII)
+_TOKEN = re.compile(r"([1-9][0-9]?)([-x])([1-9][0-9]?)(?:\2([1-9][0-9]?))*\Z", re.ASCII)
 
 
 def validate_move_token(token):
