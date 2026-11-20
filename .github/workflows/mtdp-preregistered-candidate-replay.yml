@@ -7,6 +7,11 @@ on:
   pull_request:
     paths:
       - 'research/mtdp/jass_benchmark/historical_replay_inputs.py'
+      - 'research/mtdp/closed_reserved_exclusions.py'
+      - 'research/mtdp/tests/test_closed_reserved_exclusions.py'
+      - 'research/mtdp/historical_exclusion_inventory_audit.py'
+      - 'research/mtdp/reserved_source_inventory.py'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-final/**'
       - 'research/mtdp/tests/test_historical_replay_inputs.py'
       - 'research/mtdp/jass_benchmark/spatial-jass/replication/historical-replay/**'
       - 'research/mtdp/jass_benchmark/prospective_candidate_replay.py'
@@ -263,6 +268,25 @@ jobs:
           cmp /tmp/mtdp-independent/two-arena-synthetic-seed7/bundle/manifest.json /tmp/mtdp-independent/two-arena-synthetic-seed61/bundle/manifest.json
           cmp /tmp/mtdp-independent/two-arena-synthetic-seed7/bundle/publication.json /tmp/mtdp-independent/two-arena-synthetic-seed61/bundle/publication.json
           echo 'No Scan scores or retrospective winners used; this report is NOT a scientific freeze.'
+      - name: Extend historical exclusions with closed reserved exports (no scores)
+        run: |
+          set -euo pipefail
+          cd dilf
+          python -m pytest -q research/mtdp/tests/test_closed_reserved_exclusions.py
+          for seed in 7 61; do
+            if [ "$seed" = 7 ]; then
+              output=/tmp/mtdp-independent/four-reserved-events-exclusions.json
+              summary=/tmp/mtdp-independent/four-reserved-events-exclusions-summary.json
+            else
+              output=/tmp/four-reserved-events-exclusions-repeat.json
+              summary=/tmp/four-reserved-events-exclusions-summary-repeat.json
+            fi
+            PYTHONHASHSEED=$seed python -m research.mtdp.closed_reserved_exclusions \
+              --root . --base-dir /tmp/mtdp-independent --adapter ../draught-master \
+              --output "$output" --summary "$summary"
+          done
+          cmp /tmp/mtdp-independent/four-reserved-events-exclusions.json /tmp/four-reserved-events-exclusions-repeat.json
+          cmp /tmp/mtdp-independent/four-reserved-events-exclusions-summary.json /tmp/four-reserved-events-exclusions-summary-repeat.json
       - name: Preserve all input provenance and prospective replay diagnostics
         if: always()
         uses: actions/upload-artifact@v4
