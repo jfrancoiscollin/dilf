@@ -63,3 +63,17 @@ def test_rejects_invalid_digest(tmp_path):
     path, _ = _source(tmp_path)
     with pytest.raises(ValueError, match="SHA-256"):
         prove_pdn_position(path, "x" * 64, 1, 2, _fen(), MockRules())
+
+
+def test_multigame_source_index_selects_exact_game(tmp_path):
+    """A digest authenticates the file, not an arbitrary game inside it."""
+    raw = (b'[Event "first"]\n1. 32-28 17-22 *\n\n'
+           b'[Event "second"]\n1. 33-29 18-23 *\n')
+    path, digest = _source(tmp_path, raw)
+    second = parse_games(raw.decode())[1]
+    expected = state_to_fen(validated_trajectory(second, MockRules())[2][2])
+    result = prove_pdn_position(path, digest, 2, 2, expected, MockRules())
+    assert result["source_game_index"] == 2
+    assert result["manifest_game_id_binding_verified"] is False
+    with pytest.raises(ValueError, match="FEN"):
+        prove_pdn_position(path, digest, 1, 2, expected, MockRules())
