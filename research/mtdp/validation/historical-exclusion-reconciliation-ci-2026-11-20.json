@@ -1,0 +1,145 @@
+{
+  "audit_code_commit": "3c096e809bde8d91bbfbd77c21ddd9a6ac0f50fd",
+  "validated_successor_commit": "d4a5f449edad3b945ab22a582c0ad8dbfe8262cb",
+  "checked_at_utc": "2026-11-20T12:32:56.464551+00:00",
+  "source_sha256": {
+    "research/mtdp/historical_exclusion_inventory_audit.py": "8db3c44af3948dc818979d112277441d3b3272d453961a8ca120106f53cef6da",
+    "research/mtdp/tests/test_historical_exclusion_inventory_audit.py": "93f309aeee9d39fa6683ca8c2fe1482abd3715637754e428cf8c03f79f5913ed",
+    "research/mtdp/validation/historical-exclusion-reconciliation-2026-11-20.json": "feb8e8912edeee8697be8161e0bc5508a759ab3310be3e59dde750fb6923298c"
+  },
+  "full_artifact_audited_locally": true,
+  "full_artifact_reproduced_in_separate_process_byte_for_byte": true,
+  "ci_performs_synthetic_accounting_checks_not_full_download": true,
+  "source_artifact": {
+    "run_id": 44730344598,
+    "artifact_id": 14625817620,
+    "downloaded": true,
+    "bytes": 10753699,
+    "sha256": "2768da137051e006a96b2fb0ac5b58ff5778e53fb0371d9fcd982a3948852165",
+    "pinned_historical_members_read": 3
+  },
+  "local_targeted_passed": 17,
+  "new_accounting_tests_passed": 7,
+  "ci": {
+    "run_id": 44736083161,
+    "job_id": 136287703202,
+    "core_passed": 643,
+    "mtdp_passed": 740,
+    "optional_skipped": 14,
+    "log_evidence": [
+      "2026-11-20T12:29:22.9062493Z 643 passed in 3.27s",
+      "2026-11-20T12:29:42.7118070Z 740 passed, 14 skipped, 1 warning in 19.37s"
+    ]
+  },
+  "workflow_runs": [
+    {
+      "id": 44736083212,
+      "name": "downstream-compat",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44736083462,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44736083149,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44736083088,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44736083060,
+      "name": "mtdp-metered-probe",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44736083103,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44736083161,
+      "name": "ci",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44736083147,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "superseded_audit_commit_runs": [
+    {
+      "id": 44735920891,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed",
+      "conclusion": "cancelled"
+    },
+    {
+      "id": 44735921241,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44735921218,
+      "name": "mtdp-metered-probe",
+      "status": "completed",
+      "conclusion": "cancelled"
+    },
+    {
+      "id": 44735920829,
+      "name": "downstream-compat",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44735921086,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44735921184,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44735920809,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44735920806,
+      "name": "ci",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "concurrent_d1_changes_preserved": true,
+  "cancelled_runs_replaced_by_successor_no_duplicate_rerun": true,
+  "new_engine_calls": 0,
+  "new_reference_scores_acquired": false,
+  "complete_historical_exclusion_registry": false,
+  "independent_cohort_qualified": false,
+  "remaining_known_reserved_sources_to_index": {
+    "s7ahYqL4": 147,
+    "D9PF2OSW": 61
+  },
+  "next_action": "Replay only the two existing closed reserved exports with pinned FMJD using existing index_games, preserve quarantines, and union their confirmed prefixes/complete fingerprints with base cache 8dac5c60e1eaa10ff8e3e27f5c1fb0d0307edaeaec438e7c9bdc33b3e666dc32. No new target scores or independent cohort. Then reconcile other manifests/aliases before qualification."
+}
