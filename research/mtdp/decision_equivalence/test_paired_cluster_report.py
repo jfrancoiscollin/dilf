@@ -54,3 +54,30 @@ def test_fails_closed_on_missing_clusters_or_bad_rank():
     with pytest.raises(ValueError):
         paired_cluster_report([obs("g1", {"a": 1, "b": 0}, ["a", "a"])],
                               metric="recall_at_1", repetitions=100)
+
+
+def test_primary_fixed_population_keeps_score_tied_positions():
+    rows = [
+        obs("g1", {"a": 4, "b": 3, "c": 2, "d": 1}),
+        obs("g2", {"a": 4, "b": 3, "c": 2, "d": 1}),
+        obs("g3", {"a": 5, "b": 5, "c": 5, "d": 5}),
+        obs("g4", {"a": 2, "b": 1, "c": 0}),
+    ]
+    primary = paired_cluster_report(rows, metric="recall_at_3", repetitions=100,
+                                    seed=7, top3_population="fixed_n_ge_4")
+    secondary = paired_cluster_report(rows, metric="recall_at_3", repetitions=100,
+                                      seed=7, top3_population="conditional_informative")
+    assert primary["n_observations"] == 3
+    assert primary["n_clusters"] == 3
+    assert primary["excluded"]["noninformative_top3"] == 1
+    assert primary["candidate_minus_baseline"] == pytest.approx(2 / 3)
+    assert primary["top3_population_is_primary_fixed"] is True
+    assert secondary["n_observations"] == 2
+    assert secondary["candidate_minus_baseline"] == 1
+    assert secondary["top3_population_is_primary_fixed"] is False
+
+
+def test_unknown_top3_population_fails_closed():
+    with pytest.raises(ValueError, match="population"):
+        paired_cluster_report([obs("g1", {"a": 1, "b": 0})],
+                              metric="recall_at_3", top3_population="auto")
