@@ -1,0 +1,87 @@
+{
+  "artifact_metadata_only": {
+    "bytes": 81982,
+    "downloaded": false,
+    "id": 14603412727,
+    "sha256": "042d011e3daa5434f32475cea2b735eabdb929c03a5624d4e1850a38b18c7635"
+  },
+  "dedicated_step_number": 12,
+  "downstream_run_id": 44679476128,
+  "files_sha256": {
+    "research/mtdp/pdn_membership_proof.py": "cf3416e441f2a2bdb00b3d8363d58f131b0518d7f7bc6640b8469a803da775d7",
+    "research/mtdp/tests/test_pdn_membership_real_fmjd.py": "af8511684f0d0a5044560ffcddf1422bdda4aee35bd696d92a1aa7477d3141e1"
+  },
+  "fmjd_revision_verified": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "independent_cohort_qualified": false,
+  "job_id": 136099157735,
+  "local_real_skipped_optional_dependency_absent": 4,
+  "local_unit_passed": 19,
+  "log_evidence": "##[group]Run python -m pytest -q -s dilf/research/mtdp/tests/test_pdn_membership_real_fmjd.py\n2026-11-20T05:13:27.8369483Z   MTDP_REQUIRE_REAL_FMJD: 1\n2026-11-20T05:13:28.1152297Z {\"real_fmjd_revision_verified\": \"0e5189fbb251bf5eaf2e613d0f878bb17c740311\", \"synthetic_membership_checks_only\": true}\n2026-11-20T05:13:28.1349622Z 4 passed in 0.05s",
+  "manifest_game_id_binding_verified": false,
+  "new_Scan_Jass_study": false,
+  "new_case": "two distinct legal openings in one authenticated source; index2 with independently specified FEN succeeds; index1 with same FEN rejected",
+  "new_cohort_admitted": false,
+  "next_action": "Bind manifest game IDs to authenticated source/index, verify exclusion inventory and independent admission before any new H13 cohort or scoring.",
+  "openings": [
+    "32-28 17-22",
+    "31-27 17-22"
+  ],
+  "prover_and_D1_modules_unchanged_from": "1f81cb3ae03e5ab7c922741aeef89c7e791572d0",
+  "real_tests_passed": 4,
+  "real_tests_skipped": 0,
+  "schema": "mtdp-pdn-distinct-game-real-fmjd-verification-v1",
+  "step_log_sha256": "0c0166ba391cfd1872f73137329317f906ca10b6c5f4558f693b120630107a4b",
+  "synthetic_fixtures_only": true,
+  "validated_commit": "6fa83c3b6d76be2a821d2157ab79cf63d3251b42",
+  "verified_at_utc": "2026-11-20T05:17:03.576954+00:00",
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "id": 44679476075,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44679476054,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44679476130,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44679476068,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44679476128,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44679476080,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44679476165,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44679476064,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ]
+}
