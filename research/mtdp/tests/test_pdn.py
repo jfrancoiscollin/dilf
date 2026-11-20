@@ -65,3 +65,16 @@ def test_ambiguous_endpoint_capture_is_rejected() -> None:
 def test_unsupported_notation_fails_closed() -> None:
     with pytest.raises(PdnReplayError, match="Unsupported"):
         parse_games('[Event "A"]\n1. 32-28 ?! *')
+
+
+@pytest.mark.parametrize("trailing", ["32-28", "garbage", "1-0", "2. 17-22"])
+def test_rejects_tokens_after_game_result(trailing):
+    # A trailing move must never be silently excluded from authenticated replay.
+    with pytest.raises(PdnReplayError, match="after result"):
+        parse_games(f'[Event "A"]\\n1. 32-28 * {trailing}')
+
+
+def test_comments_after_game_result_are_allowed():
+    games = parse_games('[Event "A"]\\n1. 32-28 * {end note} ; end of line')
+    assert len(games) == 1
+    assert games[0].moves == ("32-28",)
