@@ -113,6 +113,12 @@ jobs:
           assert len({r["source_id"] for r in rows}) == 26
           PY
 
+      - name: Test source-index PDN proof with pinned real FMJD engine
+        env:
+          PYTHONPATH: ${{ github.workspace }}/dilf:${{ github.workspace }}/draught-master
+          MTDP_REQUIRE_REAL_FMJD: "1"
+        run: python -m pytest -q -s dilf/research/mtdp/tests/test_pdn_membership_real_fmjd.py
+
       - name: MTDP spatial dynamics descriptive report
         env:
           PYTHONPATH: ${{ github.workspace }}/dilf:${{ github.workspace }}/draught-master
