@@ -22,3 +22,15 @@ def test_large_finite_values_without_overflow_still_work():
     result = clustered_difference(rows, repetitions=100, seed=11)
     assert result["candidate_minus_baseline"] == 0
     assert all(float("-inf") < x < float("inf") for x in result["ci95"])
+
+
+def test_bootstrap_draw_overflow_fails_closed_even_if_observed_is_finite():
+    # Observed 1e308 + 1e308 - 1e308 is finite; a resample with
+    # only positive clusters can overflow. Seed 3 produces such a draw.
+    rows = [
+        {"game_id": "g1", "candidate": 1e308, "baseline": 0},
+        {"game_id": "g2", "candidate": 1e308, "baseline": 0},
+        {"game_id": "g3", "candidate": -1e308, "baseline": 0},
+    ]
+    with pytest.raises(ValueError, match="bootstrap aggregate not representable"):
+        clustered_difference(rows, repetitions=100, seed=3)
