@@ -85,3 +85,44 @@ def test_real_fmjd_multigame_index_binds_distinct_replayed_positions(real_engine
     # Same authenticated bytes, but the other valid game must not satisfy this FEN.
     with pytest.raises(ValueError, match='FEN differs'):
         prove_pdn_position(path, digest, 1, 2, expected, real_engine)
+
+
+@pytest.mark.parametrize('case', ['valid-second-game', 'wrong-game-index',
+                                 'late-illegal-move', 'post-result-suffix'])
+def test_real_fmjd_d1_content_addressed_admission(real_engine, tmp_path, case):
+    """Exercise D1's actual route, not just the underlying membership helper."""
+    from research.mtdp.decision_equivalence.content_addressed_admission import (
+        audit_content_addressed_games,
+    )
+
+    raw = (b'[Event "synthetic-first"]\n1. 32-28 17-22 *\n\n'
+           b'[Event "synthetic-second"]\n1. 31-27 17-22 *\n')
+    index, ply = 2, 2
+    second = state_from_pieces(white_men=(set(range(31, 51)) - {31}) | {27},
+                               black_men=(set(range(1, 21)) - {17}) | {22}, turn='white')
+    fen = state_to_fen(second)
+    error = None
+    if case == 'wrong-game-index':
+        index, error = 1, 'FEN differs'
+    elif case == 'late-illegal-move':
+        raw = b'[Event "synthetic"]\n1. 32-28 17-22 2. 32-28 *\n'
+        index, ply, fen, error = 1, 0, state_to_fen(initial_state()), 'ply 3'
+    elif case == 'post-result-suffix':
+        raw = b'[Event "synthetic"]\n1. 32-28 17-22 * 31-27\n'
+        index, ply, fen, error = 1, 0, state_to_fen(initial_state()), 'after result'
+    path, digest = source(tmp_path, raw)
+    game_id = f'{digest}:{index}'
+    rows = [{'game_id': game_id, 'tournament_id': 'synthetic-tournament',
+             'event_id': 'synthetic-event', 'fen': fen, 'split': 'train',
+             'ply': ply, 'source_pdn_sha256': digest}]
+    if error is not None:
+        with pytest.raises(ValueError, match=error):
+            audit_content_addressed_games(rows, {game_id: path}, real_engine)
+        return
+    report = audit_content_addressed_games(rows, {game_id: path}, real_engine)
+    assert report['pdn_bytes_verified']
+    assert report['game_membership_verified']
+    assert report['fmjd_legality_verified']
+    assert report['manifest_game_id_binding_verified']
+    assert report['verified_games'] == 1
+    assert report['independent_cohort_qualified'] is False
