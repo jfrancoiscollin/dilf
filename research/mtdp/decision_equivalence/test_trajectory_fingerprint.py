@@ -26,3 +26,22 @@ def test_token_boundaries_not_ambiguous():
 def test_reject_untrusted_metadata(fen, moves):
     with pytest.raises(ValueError):
         fp(fen, moves)
+
+
+@pytest.mark.parametrize("fen,moves", [
+    (" W:W31:B20", ["31-26"]),
+    ("W:W31:B20 ", ["31-26"]),
+    ("W:W31:B20\n", ["31-26"]),
+    ("W:W31:B20", [" 31-26"]),
+    ("W:W31:B20", ["31-26 "]),
+    ("W:W31:B20", ["31-26\t"]),
+    ("W:W31:B20", ["31-26\x00"]),
+])
+def test_reject_noncanonical_boundary_and_control_characters(fen, moves):
+    with pytest.raises(ValueError, match="noncanonical"):
+        fp(fen, moves)
+
+
+def test_internal_ordinary_fen_spaces_are_not_silently_rewritten():
+    # A lexical fingerprint must never silently normalize distinct representations.
+    assert fp("W:W31:B20", ["31-26"]) != fp("W:W31: B20", ["31-26"])
