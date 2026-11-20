@@ -20,6 +20,26 @@ class ClusteredBootstrapContract(unittest.TestCase):
         self.assertEqual(x, clustered_difference(rows, repetitions=200, seed=3))
         self.assertEqual(x["candidate_minus_baseline"], 0.5)
 
+    def test_seed_independent_of_cluster_first_appearance(self):
+        rows = [
+            {"game_id": "z", "candidate": 1, "baseline": 0},
+            {"game_id": "a", "candidate": 0, "baseline": 1},
+            {"game_id": "m", "candidate": 1, "baseline": 1},
+            {"game_id": "z", "candidate": 1, "baseline": 0},
+        ]
+        forward = clustered_difference(rows, repetitions=200, seed=7)
+        reversed_clusters = [rows[1], rows[2], rows[0], rows[3]]
+        self.assertEqual(forward, clustered_difference(reversed_clusters, repetitions=200, seed=7))
+
+    def test_tournament_cluster_key(self):
+        rows = [
+            {"tournament_id": "t2", "candidate": 1, "baseline": 0},
+            {"tournament_id": "t1", "candidate": 0, "baseline": 1},
+        ]
+        result = clustered_difference(rows, cluster_key="tournament_id", repetitions=100)
+        self.assertEqual(result["n_clusters"], 2)
+        self.assertEqual(result["cluster_key"], "tournament_id")
+
     def test_reject_single_cluster(self):
         with self.assertRaises(ValueError):
             clustered_difference([{"game_id": "g", "candidate": 1, "baseline": 0}])
