@@ -28,7 +28,13 @@ def clustered_difference(rows, *, cluster_key="game_id", metric="recall_at_1",
         if not isinstance(row, dict) or not isinstance(row.get(cluster_key), str) or not row[cluster_key]:
             raise ValueError("missing cluster identifier")
         a, b = row.get("candidate"), row.get("baseline")
-        if any(isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x) for x in (a, b)):
+        if any(isinstance(x, bool) or not isinstance(x, (int, float)) for x in (a, b)):
+            raise ValueError("paired metrics must be finite numbers")
+        try:
+            finite_inputs = all(math.isfinite(x) for x in (a, b))
+        except OverflowError as exc:
+            raise ValueError('paired difference not representable as finite float') from exc
+        if not finite_inputs:
             raise ValueError("paired metrics must be finite numbers")
         # Finite inputs can still overflow during conversion or subtraction.
         try:
