@@ -43,7 +43,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/mtdp-d1
-          python -m pytest -q dilf/research/mtdp/decision_equivalence/test_pdn_provenance.py dilf/research/mtdp/decision_equivalence/test_corpus_guard.py dilf/research/mtdp/decision_equivalence/test_aggregate.py dilf/research/mtdp/decision_equivalence/test_cluster_bootstrap.py dilf/research/mtdp/tests/test_decision_equivalence_audit.py dilf/research/mtdp/tests/test_decision_equivalence_fmjd_export.py dilf/research/mtdp/decision_equivalence/tests/test_pair_overlap.py dilf/research/mtdp/decision_equivalence/tests/test_cohort_gate_ci_regression.py dilf/research/mtdp/decision_equivalence/test_registry_coverage.py dilf/research/mtdp/decision_equivalence/test_refinement_collision_risk.py dilf/research/mtdp/decision_equivalence/test_partition_guard.py dilf/research/mtdp/decision_equivalence/test_game_overlap_guard.py dilf/research/mtdp/decision_equivalence/test_ranking_metrics.py dilf/research/mtdp/tests/test_d1_fen_overlap_guard.py
+          python -m pytest -q dilf/research/mtdp/decision_equivalence dilf/research/mtdp/tests/test_decision_equivalence_audit.py dilf/research/mtdp/tests/test_decision_equivalence_fmjd_export.py dilf/research/mtdp/tests/test_d1_fen_overlap_guard.py
           python -m research.mtdp.decision_equivalence.fmjd_export \
             --pdn dilf/data/exports/pcblues/pcblues_games.pdn \
             --output /tmp/mtdp-d1/pcblues-score-blind.jsonl \
