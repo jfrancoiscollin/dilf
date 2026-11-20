@@ -44,3 +44,16 @@ Le CLI écrit le rapport puis sort avec le code **2** dès qu'une partie corresp
 Contrôle sur les octets historiques s7ahYqL4 : ajout d'une nouvelle ligne → 147/147 parties retrouvées ; export de la première partie seule → 1/1 ; remplacement de son Site par une nouvelle identité synthétique → 1/1 via la notation. Les empreintes des trois variantes sont distinctes de l'original. Résultats et limites dans `reserved-source-alias-screen-2026-11-20.json` ; les trois transformations sont reprises dans les tests. Les parties ambiguës restent exclues entières.
 
 La notation identique est une exclusion conservatrice, pas une preuve d'identité de trajectoire canonique : des parties courtes peuvent coïncider et deux notations de prises peuvent représenter la même trajectoire sans partager cette empreinte. Aucun moteur FMJD ni score Scan/Jass n'est consulté ; les FEN/trajectoires et l'authentification externe demeurent nécessaires avant gel.
+
+## Liaison publique URL→PDN confirmée le 20 novembre 2026
+
+`reserved-public-endpoint-binding-2026-11-20.json` rapporte quatre nouveaux GET HTTPS des points publics `https://lidraughts.org/api/tournament/{event}/games`. Les quatre réponses HTTP200 sont strictement identiques aux octets archivés : fFgE7oED169802octets/157parties, P1RUlfJc272395/241, s7ahYqL4164438/147, D9PF2OSW75628/61. Les dates UTC de requête/réception, URLs finales, tailles et SHA-256 sont conservés. Aucun nouvel export n'a remplacé l'archive et aucun score de recherche n'a été acquis.
+
+```bash
+python -m research.mtdp.reserved_endpoint_verification --root . --output /tmp/reserved-endpoint-check.json
+python -m pytest -q research/mtdp/tests/test_reserved_endpoint_verification.py
+```
+
+La première commande refait quatre requêtes publiques, à deux connexions simultanées maximum ; elle exige exactement les mêmes endpoints HTTPS, tailles et empreintes épinglées, refuse tout remplacement et n'écrase jamais un précédent rapport. La seconde est entièrement hors ligne. Toute différence ou indisponibilité empêche la production d'un rapport de succès.
+
+Cette preuve lie **les endpoints publics actuels** aux exports H13 connus. Les indicateurs false de l'ancien inventaire restent des observations historiques ; on ne les réécrit pas pour suggérer une qualification globale. Aucun compte de joueur, annotation, légalité FMJD, totalité des exclusions historiques ou indépendance statistique n'est certifié par un GET. Il reste à raccorder l'écran réservé à D1 et réconcilier les autres identités/FEN/trajectoires avant tout protocole et gel H13 d'une nouvelle cohorte.
