@@ -30,7 +30,14 @@ def clustered_difference(rows, *, cluster_key="game_id", metric="recall_at_1",
         a, b = row.get("candidate"), row.get("baseline")
         if any(isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x) for x in (a, b)):
             raise ValueError("paired metrics must be finite numbers")
-        clusters[row[cluster_key]].append(float(a) - float(b))
+        # Finite inputs can still overflow during conversion or subtraction.
+        try:
+            delta = float(a) - float(b)
+        except (OverflowError, ValueError) as exc:
+            raise ValueError('paired difference not representable as finite float') from exc
+        if not math.isfinite(delta):
+            raise ValueError('paired difference not representable as finite float')
+        clusters[row[cluster_key]].append(delta)
     if len(clusters) < 2:
         raise ValueError("at least two independent clusters required")
     # Stable RNG mapping across manifest/row order; do not depend on dict insertion order.
