@@ -15,7 +15,7 @@ def test_order_and_initial_position_matter():
 
 def test_token_boundaries_not_ambiguous():
     assert fp("fen", ["1", "23"]) != fp("fen", ["12", "3"])
-    assert fp("fen", []) != fp("fen", [""] if False else ["1"])
+    assert fp("fen", []) != fp("fen", ["1"])
 
 
 @pytest.mark.parametrize("fen,moves", [
