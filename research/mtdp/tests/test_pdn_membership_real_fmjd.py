@@ -69,3 +69,19 @@ def test_real_fmjd_rejects_quiet_move_when_capture_is_mandatory(real_engine, tmp
     path, digest = source(tmp_path, raw)
     with pytest.raises(PdnReplayError, match='ply 1'):
         prove_pdn_position(path, digest, 1, 0, fen, real_engine)
+
+
+def test_real_fmjd_multigame_index_binds_distinct_replayed_positions(real_engine, tmp_path):
+    raw = (b'[Event "synthetic-first"]\n1. 32-28 17-22 *\n\n'
+           b'[Event "synthetic-second"]\n1. 31-27 17-22 *\n')
+    path, digest = source(tmp_path, raw)
+    second = state_from_pieces(white_men=(set(range(31, 51)) - {31}) | {27},
+                               black_men=(set(range(1, 21)) - {17}) | {22}, turn='white')
+    expected = state_to_fen(second)
+    result = prove_pdn_position(path, digest, 2, 2, expected, real_engine)
+    assert result['source_game_index'] == 2
+    assert result['manifest_game_id_binding_verified'] is False
+    assert result['independent_cohort_qualified'] is False
+    # Same authenticated bytes, but the other valid game must not satisfy this FEN.
+    with pytest.raises(ValueError, match='FEN differs'):
+        prove_pdn_position(path, digest, 1, 2, expected, real_engine)
