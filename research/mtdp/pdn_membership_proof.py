@@ -10,7 +10,8 @@ from pathlib import Path
 
 from pedagogy.game import state_to_fen
 from pedagogy.protocols import EngineProtocol
-from research.mtdp.pdn import parse_games, validated_trajectory
+from research.mtdp.pdn import validated_trajectory
+from research.mtdp.pdn_strict import parse_games_strict
 from research.mtdp.decision_equivalence.fmjd_fen import canonical_fen
 
 
@@ -39,7 +40,7 @@ def prove_pdn_position(
     digest = hashlib.sha256(raw).hexdigest()
     if digest != expected_sha256:
         raise ValueError("PDN source bytes do not match digest")
-    games = parse_games(raw.decode("utf-8-sig"))
+    games = parse_games_strict(raw.decode("utf-8-sig"))
     if game_index > len(games):
         raise ValueError("game index absent from authenticated PDN")
     game = games[game_index - 1]
