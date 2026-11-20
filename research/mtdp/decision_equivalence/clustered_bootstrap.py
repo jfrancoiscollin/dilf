@@ -1,0 +1,50 @@
+"""D1 clustered uncertainty for *already admitted* decision observations.
+
+This module only aggregates precomputed, score-unit-agnostic ranking metrics.
+Never treat positions from one game as independent bootstrap samples.
+"""
+from collections import defaultdict
+import math
+import random
+
+
+def clustered_difference(rows, *, cluster_key="game_id", metric="recall_at_1",
+                         repetitions=2000, seed=0):
+    """Paired bootstrap of candidate minus baseline, resampling entire clusters.
+
+    Each row has cluster_key, candidate, baseline; all values must be finite
+    numbers (not bool). Equal weight per observation, not per cluster.
+    Return the observed difference and percentile 95% interval. The same
+    resampled clusters contribute to both arms, preserving pairing.
+    """
+    if not isinstance(repetitions, int) or isinstance(repetitions, bool) or repetitions < 100:
+        raise ValueError("repetitions must be integer >= 100")
+    if not isinstance(seed, int) or isinstance(seed, bool):
+        raise ValueError("seed must be integer")
+    if not isinstance(rows, (list, tuple)) or not rows:
+        raise ValueError("nonempty rows required")
+    clusters = defaultdict(list)
+    for row in rows:
+        if not isinstance(row, dict) or not isinstance(row.get(cluster_key), str) or not row[cluster_key]:
+            raise ValueError("missing cluster identifier")
+        a, b = row.get("candidate"), row.get("baseline")
+        if any(isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x) for x in (a, b)):
+            raise ValueError("paired metrics must be finite numbers")
+        clusters[row[cluster_key]].append(float(a) - float(b))
+    if len(clusters) < 2:
+        raise ValueError("at least two independent clusters required")
+    groups = list(clusters.values())
+    observed = sum(map(sum, groups)) / sum(map(len, groups))
+    rng = random.Random(seed)
+    samples = []
+    for _ in range(repetitions):
+        chosen = rng.choices(groups, k=len(groups))
+        samples.append(sum(sum(g) for g in chosen) / sum(len(g) for g in chosen))
+    samples.sort()
+    lo = samples[int(0.025 * (repetitions - 1))]
+    hi = samples[int(0.975 * (repetitions - 1))]
+    return {"metric": metric, "cluster_key": cluster_key,
+            "n_clusters": len(groups), "n_observations": len(rows),
+            "candidate_minus_baseline": observed, "ci95": [lo, hi],
+            "repetitions": repetitions, "seed": seed,
+            "unit": "raw input metric; no centipawn conversion"}
