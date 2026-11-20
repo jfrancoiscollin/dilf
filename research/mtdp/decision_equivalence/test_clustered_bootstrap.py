@@ -63,6 +63,18 @@ class ClusteredBootstrapContract(unittest.TestCase):
                 clustered_difference([{"game_id": "a", "candidate": value, "baseline": 0},
                                       {"game_id": "b", "candidate": 0, "baseline": 0}])
 
+    def test_reject_overflowing_finite_pairwise_difference(self):
+        rows = [{"game_id": "a", "candidate": 1e308, "baseline": -1e308},
+                {"game_id": "b", "candidate": 0, "baseline": 0}]
+        with self.assertRaisesRegex(ValueError, "paired difference not representable"):
+            clustered_difference(rows, repetitions=100)
+
+    def test_reject_unrepresentable_large_integer(self):
+        rows = [{"game_id": "a", "candidate": 10 ** 400, "baseline": 0},
+                {"game_id": "b", "candidate": 0, "baseline": 0}]
+        with self.assertRaisesRegex(ValueError, "paired difference not representable"):
+            clustered_difference(rows, repetitions=100)
+
     def test_reject_invalid_repetitions(self):
         with self.assertRaises(ValueError):
             clustered_difference([{"game_id": "a", "candidate": 1, "baseline": 0},
