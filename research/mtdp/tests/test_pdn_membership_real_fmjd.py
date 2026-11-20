@@ -126,3 +126,33 @@ def test_real_fmjd_d1_content_addressed_admission(real_engine, tmp_path, case):
     assert report['manifest_game_id_binding_verified']
     assert report['verified_games'] == 1
     assert report['independent_cohort_qualified'] is False
+
+
+@pytest.mark.parametrize('case', ['clean-synthetic', 'reserved-export'])
+def test_real_fmjd_h13_source_preflight_wires_reserved_screen_before_d1(real_engine, tmp_path, case):
+    from research.mtdp.prospective_source_preflight import preflight_sources
+    from research.mtdp.reserved_source_inventory import BASE
+
+    root = Path(__file__).resolve().parents[3]
+    if case == 'clean-synthetic':
+        raw = b'[Event "synthetic"]\n[FEN "W:W32:B1"]\n1. 32-28 *\n'
+        path, digest = source(tmp_path, raw)
+        ply, fen = 1, 'B:W28:B1'
+    else:
+        path = root / BASE / 'two-named-arenas-final/s7ahYqL4/first.pdn'
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        ply, fen = 0, state_to_fen(initial_state())
+    gid = f'{digest}:1'
+    rows = [{'game_id': gid, 'tournament_id': 'untrusted-label',
+             'event_id': 'untrusted-label', 'split': 'train', 'ply': ply,
+             'fen': fen, 'source_pdn_sha256': digest}]
+    if case == 'reserved-export':
+        with pytest.raises(ValueError, match='Reserved source overlap'):
+            preflight_sources(rows, {gid: path}, real_engine, root=root)
+        return
+    report = preflight_sources(rows, {gid: path}, real_engine, root=root)
+    assert report['known_reserved_sources_screened']
+    assert report['manifest_game_id_binding_verified']
+    assert report['fmjd_legality_verified']
+    assert report['independent_cohort_qualified'] is False
+    assert report['eligible_for_freeze'] is False

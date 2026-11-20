@@ -57,3 +57,13 @@ python -m pytest -q research/mtdp/tests/test_reserved_endpoint_verification.py
 La première commande refait quatre requêtes publiques, à deux connexions simultanées maximum ; elle exige exactement les mêmes endpoints HTTPS, tailles et empreintes épinglées, refuse tout remplacement et n'écrase jamais un précédent rapport. La seconde est entièrement hors ligne. Toute différence ou indisponibilité empêche la production d'un rapport de succès.
 
 Cette preuve lie **les endpoints publics actuels** aux exports H13 connus. Les indicateurs false de l'ancien inventaire restent des observations historiques ; on ne les réécrit pas pour suggérer une qualification globale. Aucun compte de joueur, annotation, légalité FMJD, totalité des exclusions historiques ou indépendance statistique n'est certifié par un GET. Il reste à raccorder l'écran réservé à D1 et réconcilier les autres identités/FEN/trajectoires avant tout protocole et gel H13 d'une nouvelle cohorte.
+
+## Raccord au parcours H13 de pré-gel
+
+`research.mtdp.prospective_source_preflight.preflight_sources` appelle d'abord le contrôle des octets/schéma D1, ensuite l'écran de chaque PDN complet, et enfin la preuve D1 de membership et légalité. Un seul export réservé interdit le lot avant tout rejeu, y compris lorsque le manifeste annonce un autre événement. La preuve D1 existante est réutilisée, sans modification de ses modules et sans certificat d'indépendance.
+
+```bash
+python -m pytest -q research/mtdp/tests/test_prospective_source_preflight.py
+```
+
+Six tests hors ligne couvrent le passage synthétique sans qualification, les faux labels d'une vraie source réservée, l'ordre des contrôles sur un lot mixte, l'altération des octets, les champs cibles et l'absence de registre réservé. Deux cas ajoutés à la suite FMJD réelle existante doivent confirmer le passage synthétique et le rejet de l'export réservé avec la révision épinglée. La validation locale seule peut sauter ces deux cas faute de dépendance ; la CI dédiée les exige. Ce raccord ne remplace pas le registre historique exhaustif ni l'admission indépendante future.
