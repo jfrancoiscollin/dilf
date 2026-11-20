@@ -1,0 +1,101 @@
+{
+  "validated_code_commit": "abbdf07e87a8f28ef7754de6dc55796b646713f7",
+  "checked_at_utc": "2026-11-20T09:18:20.150861+00:00",
+  "source_sha256": {
+    "research/mtdp/prospective_estimand_audit.py": "a60d15ca3008dc0e67e3067d61bd3bbf955b8f772970464b7099a8c25f28688c",
+    "research/mtdp/validation/paired-estimand-audit-2026-11-20.json": "2ca60ffa736543d68dd93fbefb2798f3838d35a0e4dd452d55597ecbb2405f86",
+    "research/mtdp/decision_equivalence/paired_cluster_report.py": "affc5a1b5cc829346cdb238ba069dc2f898f16997e38eb3a676fa7e3f25ef2c6",
+    "research/mtdp/decision_equivalence/aggregate.py": "a787ce12a17fa8d32d238b5c12dad56fcaef86d53613e73258f15cece9f18e44",
+    "research/mtdp/decision_equivalence/clustered_bootstrap.py": "ce08ff7fee690c70edeff4d2a5915fc9440e5a894456b6e9b9ff0890f76e0bc9"
+  },
+  "synthetic_only": true,
+  "local_tests_passed": 17,
+  "local_subtests_passed": 3,
+  "ci": {
+    "run_id": 44709070843,
+    "job_id": 136195855983,
+    "core_passed": 643,
+    "mtdp_passed": 726,
+    "optional_skipped": 12,
+    "log_evidence": [
+      "2026-11-20T09:15:28.3362881Z 643 passed in 1.58s",
+      "2026-11-20T09:15:38.6375477Z 726 passed, 12 skipped, 1 warning in 10.03s"
+    ]
+  },
+  "workflow_runs": [
+    {
+      "id": 44709070802,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44709070919,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44709070796,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44709070817,
+      "name": "downstream-compat",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44709070827,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44709070843,
+      "name": "ci",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44709070953,
+      "name": "mtdp-metered-probe",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44709070808,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "primary": {
+    "games": 4,
+    "observations": 4,
+    "mean": -0.5,
+    "ci95": [
+      -1,
+      0
+    ]
+  },
+  "secondary_conditional": {
+    "games": 2,
+    "observations": 2,
+    "mean": -1,
+    "ci95": [
+      -1,
+      -1
+    ]
+  },
+  "one_score_tie_changed": {
+    "primary_observations": 4,
+    "secondary_conditional_observations": 3
+  },
+  "d1_scientific_modules_modified": false,
+  "frozen_h13_studies_modified": false,
+  "new_independent_cohort_or_target_scores": false,
+  "next_action": "D1 explicitly label the conditional bridge and add primary uncertainty on the identical score-blind n>=4 population; H13 must not mix the primary aggregate point with the conditional interval. Continue reserved-source gate integration and historical exclusion reconciliation before a new freeze."
+}
