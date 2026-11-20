@@ -1,7 +1,7 @@
 """Regression: finite paired deltas can overflow during cluster aggregation."""
 import pytest
 
-from .clustered_bootstrap import clustered_difference
+from research.mtdp.decision_equivalence.clustered_bootstrap import clustered_difference
 
 
 def test_observed_cluster_sum_overflow_fails_closed():
