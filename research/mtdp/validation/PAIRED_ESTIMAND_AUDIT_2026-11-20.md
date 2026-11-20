@@ -17,7 +17,7 @@ Les 2 000 tirages utilisent la graine fixe 20261120 et les utilitaires D1 exista
 
 ```bash
 python -m research.mtdp.prospective_estimand_audit --output /tmp/paired-estimand-audit.json
-cmp /tmp/paired-estimand-audit.json research/mtdp/validation/paired-estimand-audit-2026-11-20.json
+cmp /tmp/paired-estimand-audit.json research/mtdp/validation/paired-estimand-audit-v2-2026-11-20.json
 python -m pytest -q research/mtdp/tests/test_prospective_estimand_audit.py
 ```
 
@@ -28,3 +28,11 @@ Avant une future évaluation, D1 doit étiqueter explicitement le nouveau résul
 Ce contrôle ne remplace ni l'intégration des exclusions H13 dans l'admission D1, ni la qualification indépendante, ni le gel d'une nouvelle cohorte. Les quatre événements réservés et leurs parties/FEN restent exclus. Aucun constat sur les performances réelles de Jass ou de la signature géométrique ne découle de ces nombres artificiels.
 
 Validation distante du code `abbdf07e87a8f28ef7754de6dc55796b646713f7` : **8/8 workflows réussis, 726 tests MTDP réussis**, 12 sauts optionnels. Preuve `paired-estimand-audit-ci-2026-11-20.json`. Si D1 ajoute un mode principal au pont, orienter explicitement le présent contre-exemple vers son mode secondaire et ajouter le contrôle du mode principal ; ne pas réimposer un filtre dépendant des scores à la population principale pour conserver un ancien résultat synthétique.
+
+## Révision v2 : modes D1 explicites et preuve v1 conservée
+
+D1 a ajouté `top3_population="fixed_n_ge_4"` et étiqueté le mode historique `conditional_informative`. La CI de `0d9ef05` échouait parce que la comparaison structurale avec le rapport v1 rencontrait deux nouveaux champs de population. Les effectifs, points et intervalles v1 n'avaient pas changé.
+
+Le producteur actuel appelle explicitement les deux modes et vérifie que les six champs numériques/méthodologiques du résultat principal D1 correspondent au calcul de contrôle à n≥4. Le nouveau rapport est `paired-estimand-audit-v2-2026-11-20.json`. **Le rapport v1 et sa preuve CI restent inchangés.** Un second test compare exactement les résultats numériques et les métadonnées antérieures ; seuls les deux nouveaux champs d'étiquetage, eux-mêmes vérifiés, sont séparés de cette comparaison historique.
+
+Le point principal reste −0,5 avec IC [−1 ; 0], le diagnostic conditionnel −1 avec IC [−1 ; −1]. Après modification d'une égalité, le mode principal D1 garde quatre observations et reproduit le contrôle ; le conditionnel passe à trois. Aucun filtre conditionné par les scores n'est réintroduit dans la population principale pour réparer la CI.

@@ -38,9 +38,19 @@ def compare(rows):
     primary = clustered_difference(primary_rows, metric='recall_at_3',
                                    repetitions=REPETITIONS, seed=SEED)
     conditional = paired_cluster_report(rows, metric='recall_at_3',
-                                        repetitions=REPETITIONS, seed=SEED)
+                                        repetitions=REPETITIONS, seed=SEED,
+                                        top3_population='conditional_informative')
+    d1_primary = paired_cluster_report(rows, metric='recall_at_3',
+                                       repetitions=REPETITIONS, seed=SEED,
+                                       top3_population='fixed_n_ge_4')
+    for field in ('n_clusters', 'n_observations', 'candidate_minus_baseline',
+                  'ci95', 'repetitions', 'seed'):
+        assert d1_primary[field] == primary[field]
+    assert d1_primary['top3_population_is_primary_fixed'] is True
+    assert conditional['top3_population_is_primary_fixed'] is False
     return {'aggregate': aggregate, 'primary_fixed_legal_count_bootstrap': primary,
-            'new_d1_bridge_conditional_bootstrap': conditional}
+            'new_d1_bridge_conditional_bootstrap': conditional,
+            'new_d1_bridge_primary_bootstrap': d1_primary}
 
 
 def audit():
@@ -61,14 +71,14 @@ def audit():
     assert after['primary_fixed_legal_count_bootstrap']['n_observations'] == 4
     assert after['new_d1_bridge_conditional_bootstrap']['n_observations'] == 3
     assert [r['legal'] for r in changed] == [r['legal'] for r in rows]
-    return {'schema': 'mtdp-h13-synthetic-estimand-compatibility-audit-v1',
+    return {'schema': 'mtdp-h13-synthetic-estimand-compatibility-audit-v2',
             'synthetic_only': True, 'independent_cohort_qualified': False,
             'new_reference_scores_acquired': False, 'observations': rows,
             'original': original, 'one_tie_changed_legal_population_unchanged': after,
             'primary_estimate_matches_conditional_estimate': False,
             'conditional_interval_is_primary_interval': False,
-            'interpretation': 'The D1 bridge explicitly conditions on informative_at_3; its interval cannot accompany the aggregate primary estimate.',
-            'next_action': 'D1 should label the bridge result as secondary conditional and supply uncertainty on the identical fixed score-blind n>=4 primary population before future freeze. H13 must not combine the primary aggregate point with the conditional interval.',
+            'interpretation': 'The conditional D1 branch uses informative_at_3; its interval cannot accompany the fixed-population primary estimate. The explicit fixed_n_ge_4 branch now reproduces that primary estimate and interval.',
+            'next_action': 'Use explicit fixed_n_ge_4 mode for fixed-population top-3 inference and conditional_informative only for the labelled secondary diagnostic. Keep exclusions and independent admission gates before any future freeze.',
             'scope': 'synthetic pre-freeze interpretation check; no change to D1 modules or frozen H13 studies'}
 
 
