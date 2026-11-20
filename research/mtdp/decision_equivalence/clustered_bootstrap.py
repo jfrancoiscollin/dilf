@@ -48,12 +48,18 @@ def clustered_difference(rows, *, cluster_key="game_id", metric="recall_at_1",
         raise ValueError("at least two independent clusters required")
     # Stable RNG mapping across manifest/row order; do not depend on dict insertion order.
     groups = [sorted(clusters[key]) for key in sorted(clusters)]
-    observed = math.fsum(math.fsum(g) for g in groups) / sum(map(len, groups))
+    try:
+        observed = math.fsum(math.fsum(g) for g in groups) / sum(map(len, groups))
+    except (OverflowError, ValueError) as exc:
+        raise ValueError("clustered aggregate not representable as finite float") from exc
     rng = random.Random(seed)
     samples = []
     for _ in range(repetitions):
         chosen = rng.choices(groups, k=len(groups))
-        samples.append(math.fsum(math.fsum(g) for g in chosen) / sum(map(len, chosen)))
+        try:
+            samples.append(math.fsum(math.fsum(g) for g in chosen) / sum(map(len, chosen)))
+        except (OverflowError, ValueError) as exc:
+            raise ValueError("bootstrap aggregate not representable as finite float") from exc
     samples.sort()
     lo = samples[int(0.025 * (repetitions - 1))]
     hi = samples[int(0.975 * (repetitions - 1))]
