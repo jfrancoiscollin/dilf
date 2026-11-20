@@ -74,9 +74,13 @@ def parse_games(pdn: str) -> list[PdnGame]:
         movetext = _TAG.sub("", chunk)
         movetext = _strip_comments_and_variations(movetext)
         moves: list[str] = []
+        terminated = False
         for raw in _TOKEN.findall(movetext):
+            if terminated:
+                raise PdnReplayError(f"Unexpected PDN token after result: {raw!r}")
             if raw in _RESULTS:
-                break
+                terminated = True
+                continue
             if _MOVE_NUM.fullmatch(raw) or raw.startswith("$"):
                 continue
             if re.fullmatch(r"\d+\.{1,3}", raw):
