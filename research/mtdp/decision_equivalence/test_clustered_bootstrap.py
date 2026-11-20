@@ -31,6 +31,19 @@ class ClusteredBootstrapContract(unittest.TestCase):
         reversed_clusters = [rows[1], rows[2], rows[0], rows[3]]
         self.assertEqual(forward, clustered_difference(reversed_clusters, repetitions=200, seed=7))
 
+    def test_within_game_order_and_cancellation(self):
+        # Extreme but finite values expose order-sensitive float summation.
+        rows = [
+            {"game_id": "a", "candidate": 1e16, "baseline": 0},
+            {"game_id": "a", "candidate": 1, "baseline": 0},
+            {"game_id": "a", "candidate": 0, "baseline": 1e16},
+            {"game_id": "b", "candidate": 2, "baseline": 0},
+        ]
+        forward = clustered_difference(rows, repetitions=200, seed=11)
+        reordered = [rows[2], rows[3], rows[0], rows[1]]
+        self.assertEqual(forward, clustered_difference(reordered, repetitions=200, seed=11))
+        self.assertEqual(forward["candidate_minus_baseline"], 0.75)
+
     def test_tournament_cluster_key(self):
         rows = [
             {"tournament_id": "t2", "candidate": 1, "baseline": 0},
