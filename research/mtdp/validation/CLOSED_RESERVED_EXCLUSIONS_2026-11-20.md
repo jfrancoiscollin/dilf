@@ -20,6 +20,29 @@ Validation locale préalable : 7 nouveaux tests d'union/quarantaines/doublons et
 
 ## Limites et relais
 
-Le total source attendu est 4 824 parties sur 25 sources ; les comptes de trajectoires, doublons, quarantaines et FEN supplémentaires restent à mesurer. La couverture des **quatre sources réservées connues** sera vérifiée explicitement, mais `complete_historical_exclusion_registry=false`, `independent_cohort_qualified=false` et `scientific_freeze=false` restent imposés. Les autres manifestes/alias et la qualification indépendante restent nécessaires avant tout nouveau gel H13.
+Le plan initial prévoyait 4 824 parties sur 25 sources ; les comptes effectivement observés sont présentés ci-dessous. La couverture des **quatre sources réservées connues** sera vérifiée explicitement, mais `complete_historical_exclusion_registry=false`, `independent_cohort_qualified=false` et `scientific_freeze=false` restent imposés. Les autres manifestes/alias et la qualification indépendante restent nécessaires avant tout nouveau gel H13.
 
 Ce travail traite des données historiques déjà exclues, sans acquisition de nouveau corpus, scores Scan/Jass, évaluation de signature ou campagne D1. Les quatre événements entiers et leurs parties/FEN demeurent exclus de fitting, validation indépendante, signatures, top-K, refinement, seuils et dimension.
+
+
+## Résultats observés et vérifiés
+
+Code `6d137756f1f5be5af1de2fbde0b303300211357e`, run [44743125397](https://github.com/jfrancoiscollin/dilf/actions/runs/44743125397), job 136311527395/étape 12 : succès ; les processus 7/61 et leurs comparaisons de cache/résumé réussissent. Les huit workflows sont réussis ; CI générale : **747 tests MTDP réussis**, 14 sauts optionnels.
+
+| Compte | Base conservée | Après extension |
+|---|---:|---:|
+| Sources | 23 | 25 |
+| Parties enregistrées | 4 616 | 4 824 |
+| Rejeux complets | 4 434 | 4 634 |
+| Trajectoires complètes distinctes | 4 276 | 4 468 |
+| Doublons de trajectoire complète | 158 | 166 |
+| Parties en quarantaine | 182 | 190 |
+| FEN de préfixes confirmés distinctes | 433 363 | 452 526 |
+
+Les 208 parties donnent **200 rejeux complets et8 quarantaines** : s7ahYqL4 a142 rejeux complets/5 quarantaines ; D9PF2OSW a58/3. Les huit erreurs sont des prises dont les seuls points de départ/arrivée correspondent à deux coups légaux : aucune branche n'a été choisie. L'extension contient193 trajectoires distinctes, dont une déjà dans la base ; elle ajoute donc192 trajectoires et19 163 FEN distinctes. Les 7 doublons internes à l'extension et le chevauchement avec la base expliquent les8 doublons complets supplémentaires.
+
+Artefact14631697430 téléchargé et vérifié : 14 754 558 octets, ZIP SHA-256 `fbdec268941ca5b6d99c5644a94679c7fa864dc20f5b6be8e8c069d2423ab120`. Le cache complet de 34 698 610 octets a pour SHA-256 **`5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7`**. Les trois membres historiques sont inchangés et les ensembles FEN/empreintes/IDs/notations de la base sont tous inclus.
+
+Le résumé extrait sans modification est `four-reserved-events-exclusions-summary-2026-11-20.json` ; les 208 audits de parties sont conservés dans `closed-reserved-events-game-audit-2026-11-20.json`. La preuve technique et les empreintes sont dans `closed-reserved-exclusions-ci-2026-11-20.json`. Le cache complet reste archivé par le workflow et reproductible à partir des entrées épinglées ; ce n'est ni un nouveau corpus ni une preuve d'indépendance.
+
+La lacune de couverture **des deux sources réservées** est fermée à ce niveau d'indexation (quarantaines comprises). La qualification historique globale reste refusée : D1/H43 doivent exploiter ce cache vérifié et réconcilier les autres alias/manifestes/FEN/trajectoires avant toute admission indépendante. Ne pas répéter ces208 parties comme un nouveau holdout.

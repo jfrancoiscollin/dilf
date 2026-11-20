@@ -39,3 +39,6 @@ python -m pytest -q research/mtdp/tests/test_historical_exclusion_inventory_audi
 Les artefacts Actions expirent ; le workflow existant peut reproduire ces trois membres à partir des entrées historiques archivées et du FMJD épinglé. Pour auditer un nouveau ZIP, fournir ensemble `--expected-archive-sha256`, `--source-run-id` et `--source-artifact-id` d'après ses métadonnées GitHub. Le conteneur/provenance changera alors, mais **les trois empreintes internes restent obligatoires**. Les tests CI sont synthétiques et hors moteur ; l'audit complet du ZIP téléchargé a été exécuté localement, pas présenté comme un nouveau résultat moteur.
 
 Prochaine action D1/H43/H13 : étendre la couverture historique aux deux exports clos réservés, conserver les quarantaines et doublons, puis vérifier les autres corpus/alias avant toute qualification indépendante et tout nouveau protocole/gel. Aucun besoin d'allumer le PC de Jeff pour cet audit.
+
+
+**Complément du même jour :** la lacune des208 parties a été traitée par le rejeu historique FMJD, sans nouveau scoring. Voir `CLOSED_RESERVED_EXCLUSIONS_2026-11-20.md` :200 rejeux complets,8 quarantaines ; cache étendu à25 sources/4 824 parties et452 526 FEN confirmées. Le présent audit de la base23 sources reste inchangé comme preuve de départ. La qualification indépendante globale reste refusée.
