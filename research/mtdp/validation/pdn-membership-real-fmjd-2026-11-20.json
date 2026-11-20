@@ -1,0 +1,89 @@
+{
+  "artifact_metadata_only": {
+    "bytes": 81981,
+    "downloaded": false,
+    "id": 14600833370,
+    "sha256": "be0008b388bd19a3692ec9a220b52350bff604ba4e3fdc727f5b4378d4abca7d"
+  },
+  "cases": [
+    "authenticated_quiet_sequence_with_independent_expected_occupancy",
+    "late_illegal_move_rejected_even_for_initial_observation",
+    "quiet_move_rejected_when_capture_mandatory"
+  ],
+  "dedicated_step": "Test source-index PDN proof with pinned real FMJD engine",
+  "downstream_run_id": 44673127249,
+  "files_sha256": {
+    ".github/workflows/downstream-compat.yml": "92a5d5bdfba002a7664e9273350960ddc9923bcec6cabd27fb41abadb0cc5b38",
+    "research/mtdp/pdn_membership_proof.py": "cf3416e441f2a2bdb00b3d8363d58f131b0518d7f7bc6640b8469a803da775d7",
+    "research/mtdp/tests/test_pdn_membership_real_fmjd.py": "39c9ae940dbc804c2688cc6f9f485f025584715be86763e47e01d8b564819734"
+  },
+  "fmjd_revision_verified": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "independent_cohort_qualified": false,
+  "job_id": 136078538102,
+  "local_real_skipped_optional_dependency_absent": 3,
+  "local_unit_passed": 17,
+  "log_evidence": "##[group]Run python -m pytest -q -s dilf/research/mtdp/tests/test_pdn_membership_real_fmjd.py\n2026-11-20T04:15:51.8015746Z   MTDP_REQUIRE_REAL_FMJD: 1\n2026-11-20T04:15:52.0886315Z {\"real_fmjd_revision_verified\": \"0e5189fbb251bf5eaf2e613d0f878bb17c740311\", \"synthetic_membership_checks_only\": true}\n2026-11-20T04:15:52.1058676Z 3 passed in 0.05s",
+  "manifest_game_id_binding_verified": false,
+  "new_Scan_Jass_study": false,
+  "new_cohort_admitted": false,
+  "next_action": "H43/D1 bind manifest game IDs to authenticated source/index and verify independent inventory before admission/qualification; H13 freezes the concrete prospective protocol before new scores.",
+  "prover_and_D1_modules_unchanged_from": "c92b0e46c653131eeb833d9446225a64f9bbb334",
+  "real_tests_passed": 3,
+  "real_tests_skipped": 0,
+  "required_engine_environment": "MTDP_REQUIRE_REAL_FMJD=1",
+  "schema": "mtdp-pdn-membership-real-fmjd-verification-v1",
+  "step_log_sha256": "0e15f6d24986200f7108aa7d1abc74498394916b418a444a5d3e3c3e1bfe7bc8",
+  "synthetic_fixtures_only": true,
+  "validated_commit": "7865b4654e655b00b9294411f20585dae9f3eb35",
+  "verified_at_utc": "2026-11-20T04:20:23.007449+00:00",
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "id": 44673129033,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44673127165,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44673127123,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44673127252,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44673127249,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44673127095,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44673127171,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44673127188,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ]
+}
