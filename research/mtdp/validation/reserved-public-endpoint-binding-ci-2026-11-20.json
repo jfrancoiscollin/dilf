@@ -1,0 +1,82 @@
+{
+  "validated_code_commit": "79f2e55d60e86c456dbe6ca6c9bce7dfca397578",
+  "checked_at_utc": "2026-11-20T08:22:10.929997+00:00",
+  "source_sha256": {
+    "research/mtdp/reserved_endpoint_verification.py": "f0e9f40dcce114f651999ef6bed6df7bdfc25bbd4337c7a1b8d497d27c334fbd",
+    "research/mtdp/tests/test_reserved_endpoint_verification.py": "932ad719ef5239373ca2fb0803eac3a40114faf4ba539e20e8f7cca546814883",
+    "research/mtdp/validation/reserved-public-endpoint-binding-2026-11-20.json": "1efe89d32fab86f85720295daa608acfad7457b1a7cce90476da7c52fd5402b6"
+  },
+  "local_selected_passed": 27,
+  "new_offline_transport_tests_passed": 7,
+  "current_public_endpoints_verified": 4,
+  "all_four_live_pdn_bodies_byte_equal_to_pinned_archive": true,
+  "reserved_export_game_entries": 606,
+  "http_checks_performed_locally_only": true,
+  "ci_tests_perform_http": false,
+  "ci": {
+    "run_id": 44701516745,
+    "job_id": 136170780874,
+    "core_passed": 643,
+    "mtdp_passed": 725,
+    "optional_skipped": 12,
+    "log_evidence": [
+      "2026-11-20T08:19:29.8973926Z 643 passed in 2.30s",
+      "2026-11-20T08:19:44.4902772Z 725 passed, 12 skipped, 1 warning in 14.21s"
+    ]
+  },
+  "workflow_runs": [
+    {
+      "id": 44701516674,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44701516680,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44701516701,
+      "name": "downstream-compat",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44701516745,
+      "name": "ci",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44701516844,
+      "name": "mtdp-metered-probe",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44701516700,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44701516670,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44701516675,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "new_independent_cohort_qualified": false,
+  "complete_historical_exclusion_registry": false,
+  "new_reference_scores_acquired": false,
+  "automatic_d1_gate_integration": false,
+  "next_action": "D1/H43 connect H13 reserved-source screening and reconcile all historical game/public-ID/FEN/trajectory exclusions before independent admission; only then prepare H13 prospective protocol and freeze. Current endpoint binding does not certify historical accounts, legality or independence."
+}
