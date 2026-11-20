@@ -1,0 +1,80 @@
+{
+  "validated_code_commit": "0d2b761518b87c0d20494367b17890d586e9565f",
+  "checked_at_utc": "2026-11-20T07:24:25.565238+00:00",
+  "source_sha256": {
+    "research/mtdp/reserved_source_gate.py": "00159bc47229237bc18967a9e9cee45c8ff4bb0bab2bfce0b1d65d68d1c0e942",
+    "research/mtdp/tests/test_reserved_source_gate.py": "de4e05832c8caf18abae848abaf4a8dba71c6cd73cd2ccb1d8f5e43f3db8fdf8",
+    "research/mtdp/validation/reserved-source-alias-screen-2026-11-20.json": "2bcb604df9b4eebb076fa0dcef99134ddabd9c5f692e12309f385bc70c17e239"
+  },
+  "local_selected_passed": 32,
+  "new_gate_tests_passed": 8,
+  "ci": {
+    "run_id": 44694340322,
+    "job_id": 136147385037,
+    "core_passed": 643,
+    "mtdp_passed": 713,
+    "optional_skipped": 12,
+    "log_evidence": [
+      "2026-11-20T07:21:55.6066437Z 643 passed in 2.29s",
+      "2026-11-20T07:22:07.8166576Z 713 passed, 12 skipped, 1 warning in 11.90s"
+    ]
+  },
+  "workflow_runs": [
+    {
+      "id": 44694340322,
+      "name": "ci",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44694340333,
+      "name": "downstream-compat",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44694340385,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44694340331,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44694340422,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44694340349,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44694340409,
+      "name": "mtdp-metered-probe",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44694340310,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "reserved_inventory_sha256": "e93bf635d9167b6b7780e341dcdfe88c0077a96bb02c954e617905230b01e672",
+  "reserved_export_game_entries": 606,
+  "new_engine_or_reference_scores": false,
+  "new_independent_cohort": false,
+  "automatic_d1_integration": false,
+  "cli_rejection_exit_code": 2,
+  "no_match_grants_qualification": false,
+  "next_action": "D1/H43 connect the H13 reserved-source screen before any candidate admission, reconcile all historical identity/FEN/trajectory exclusions, and authenticate external event provenance. H13 prospective protocol and new cohort freeze remain gated."
+}
