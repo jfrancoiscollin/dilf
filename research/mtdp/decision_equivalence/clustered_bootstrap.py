@@ -33,7 +33,8 @@ def clustered_difference(rows, *, cluster_key="game_id", metric="recall_at_1",
         clusters[row[cluster_key]].append(float(a) - float(b))
     if len(clusters) < 2:
         raise ValueError("at least two independent clusters required")
-    groups = list(clusters.values())
+    # Stable RNG mapping across manifest/row order; do not depend on dict insertion order.
+    groups = [clusters[key] for key in sorted(clusters)]
     observed = sum(map(sum, groups)) / sum(map(len, groups))
     rng = random.Random(seed)
     samples = []
