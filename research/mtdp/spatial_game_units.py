@@ -20,6 +20,8 @@ def summarize(report: dict) -> dict:
     ids = set()
     rates = []
     repeats = []
+    transition_total = 0
+    unchanged_total = 0
     for row in rows:
         if not isinstance(row, dict):
             raise ValueError("invalid game record")
@@ -35,6 +37,8 @@ def summarize(report: dict) -> dict:
             raise ValueError("inconsistent game counts")
         if t:
             rates.append(u / t)
+            transition_total += t
+            unchanged_total += u
         repeats.append(r)
     if report.get("games") != len(rows) or report.get("positions") != sum(
         row["positions"] for row in rows
@@ -50,11 +54,19 @@ def summarize(report: dict) -> dict:
         "games_with_transitions": len(rates),
         "mean_game_unchanged_transition_fraction": mean(rates) if rates else None,
         "median_game_unchanged_transition_fraction": median(rates) if rates else None,
+        "min_game_unchanged_transition_fraction": min(rates) if rates else None,
+        "max_game_unchanged_transition_fraction": max(rates) if rates else None,
+        "pooled_transition_unchanged_fraction_descriptive_only": (
+            unchanged_total / transition_total if transition_total else None
+        ),
         "games_with_revisited_positions": sum(r > 0 for r in repeats),
         "total_revisited_positions": sum(repeats),
         "independent_games_verified": False,
         "statistical_significance_claimed": False,
-        "interpretation": "Equal game weighting; descriptive only. No IID assumption or strategic claim.",
+        "interpretation": (
+            "Primary estimate weights games equally; pooled transition rate is a "
+            "diagnostic, not an independent-sample estimate. No IID or strategic claim."
+        ),
     }
 
 
