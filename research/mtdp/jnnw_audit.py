@@ -7,7 +7,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 from pathlib import Path
 import struct
 
@@ -18,7 +17,7 @@ BOARD_MASK = (1 << 50) - 1
 
 
 def inspect(path: str | Path, *, max_records: int = 1000) -> dict:
-    """Validate file framing, then sample at most max_records records from start."""
+    """Validate framing, then sample evenly across the file with bounded reads."""
     if max_records < 0:
         raise ValueError("max_records must be nonnegative")
     path = Path(path)
@@ -35,7 +34,11 @@ def inspect(path: str | Path, *, max_records: int = 1000) -> dict:
             raise ValueError("JNNW length/count mismatch")
         reasons: dict[str, int] = {}
         scanned = 0
-        for _ in range(min(count, max_records)):
+        limit = min(count, max_records)
+        for j in range(limit):
+            # Deterministic, unique, approximately evenly spaced indices.
+            index = (j * count) // limit
+            stream.seek(HEADER.size + index * RECORD.size)
             raw = stream.read(RECORD.size)
             if len(raw) != RECORD.size:
                 raise ValueError("truncated record")
@@ -57,6 +60,7 @@ def inspect(path: str | Path, *, max_records: int = 1000) -> dict:
         "source_format": "jass.jnnw.38b",
         "record_count": count,
         "file_size_bytes": size,
+        "sampling_method": "evenly_spaced_v1",
         "records_inspected": scanned,
         "records_not_inspected": count - scanned,
         "structural_flags": dict(sorted(reasons.items())),
