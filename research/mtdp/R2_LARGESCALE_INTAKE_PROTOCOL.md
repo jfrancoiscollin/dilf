@@ -35,3 +35,17 @@ Obtain a **read-only, bounded inventory and format sample** from an already auth
 The `ccx33-0832-l3-bucket-cumulative-v1` **result URI is a report location, not a verified raw-corpus prefix**. The published `artefacts` list contains `RESULTS.txt`, `bucket-visits-cumulative.json`, `c0-decision.json`, `logs.tar.gz`, and `verified-c0.json` through `verified-c4.json`. Its `scientific_summaries.c0-decision.json.corpus.files` lists ten `/var/lib/jass-runner/.../work/c[0-4]-g[12].jnnw` **local runner paths**. No R2 object key, persistence guarantee or object hash for those ten raw files has been verified. Do **not** assume they can be downloaded from the result URI or remain available on the runner.
 
 Before any download or reader execution, resolve the original dataset producer and exact immutable R2 source keys from its manifests/specs or a read-only R2 inventory. If the raw files are unavailable, report that gap rather than substitute a results summary. The report's 1.5M records and 12M bucket visits are aggregate counters, not unique-position counts.
+
+## Exact source objects recovered (2026-11-21)
+
+Pinned source: `jfrancoiscollin/jass@f1c1f89282286286bac0e0e6b1c04d8d2e174a38:jobs/templates/l3-bucket-visits-cumulative-v1.sh`. Its historical reader fetched two files per immutable source prefix via `jobs/tools/fetch_result_files.py`, checking `--expected-state completed` and publishing `verified-c0.json` through `verified-c4.json`. **These source keys are documented, but not yet read back by MTDP**:
+
+| Cell | Exact R2 run prefix |
+|---|---|
+| c0 | `r2:jass-data/runs/cpx62-0817-l3-c2x1-hhh-control-v1/20260718T221711Z-7a35084f` |
+| c1 | `r2:jass-data/runs/cpx62-0818-l3-c2x1-llh-v1/20260718T222242Z-7a35084f` |
+| c2 | `r2:jass-data/runs/cpx62-0819-l3-c2x1-hll-v1/20260718T222759Z-7a35084f` |
+| c3 | `r2:jass-data/runs/cpx62-0820-l3-c2x1-lhl-v1/20260718T223320Z-7a35084f` |
+| c4 | `r2:jass-data/runs/cpx62-0821-l3-c2x1-center-v1/20260718T223829Z-7a35084f` |
+
+For each prefix, source relative keys are `artefacts/g1-selfplay.jnnw.gz` and `artefacts/g2-selfplay.jnnw.gz` (10 compressed files total). This **supersedes the earlier ambiguity about the source keys**, but does not prove their present existence, content hash, retained access or cost. The archived script is evidence of provenance, **not** a permissible dispatch template under current launch-admission V2. Do not run it. A future authorized read-only inspection should use exact-key HEAD/list and bounded retrieval, verify source receipt and SHA-256, then decompress and audit a small bounded sample with explicit size/CPU ceilings. The five cells share seed `271828` and an experimental family: do not treat them as five independent validation cohorts.
