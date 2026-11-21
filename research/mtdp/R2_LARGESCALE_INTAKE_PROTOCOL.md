@@ -29,3 +29,9 @@ Status: **protocol only**. No R2 object was read, no Jass runner was dispatched,
 ## Single next action
 
 Obtain a **read-only, bounded inventory and format sample** from an already authorized R2 access path, with object hashes and a cost estimate; then implement a tested streaming parser only for the confirmed schema. Do not equate records, bucket visits, positions and independent games.
+
+## Source-object caveat established from control-plane status
+
+The `ccx33-0832-l3-bucket-cumulative-v1` **result URI is a report location, not a verified raw-corpus prefix**. The published `artefacts` list contains `RESULTS.txt`, `bucket-visits-cumulative.json`, `c0-decision.json`, `logs.tar.gz`, and `verified-c0.json` through `verified-c4.json`. Its `scientific_summaries.c0-decision.json.corpus.files` lists ten `/var/lib/jass-runner/.../work/c[0-4]-g[12].jnnw` **local runner paths**. No R2 object key, persistence guarantee or object hash for those ten raw files has been verified. Do **not** assume they can be downloaded from the result URI or remain available on the runner.
+
+Before any download or reader execution, resolve the original dataset producer and exact immutable R2 source keys from its manifests/specs or a read-only R2 inventory. If the raw files are unavailable, report that gap rather than substitute a results summary. The report's 1.5M records and 12M bucket visits are aggregate counters, not unique-position counts.
