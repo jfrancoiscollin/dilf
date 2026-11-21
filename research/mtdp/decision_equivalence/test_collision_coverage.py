@@ -25,6 +25,35 @@ class CoverageTests(unittest.TestCase):
         rows = [rec("a", "1", "S", ["1-2"]), rec("a", "2", "S", ["3-4"])]
         self.assertEqual(coverage(rows)["positions_in_cross_game_collision"], 0)
 
+    def test_cross_game_coverage_matches_exhaustive_reference(self):
+        # Fixed synthetic matrix: positions, games, signatures and legal sets.
+        # No Scan/Jass scores and no independence claim.
+        for n in range(1, 80):
+            rows = [
+                rec(str((i * 7 + n) % 5), str(i),
+                    str((i * 11 + n) % 7),
+                    [str((i * 13 + n) % 4)])
+                for i in range(n)
+            ]
+            expected_collided = expected_cross = expected_discordant = 0
+            for a in rows:
+                peers = [b for b in rows if b is not a
+                         and b["signature"] == a["signature"]]
+                expected_collided += bool(peers)
+                cross = [b for b in peers if b["game_id"] != a["game_id"]]
+                expected_cross += bool(cross)
+                expected_discordant += any(
+                    set(b["legal_actions"]) != set(a["legal_actions"])
+                    for b in cross
+                )
+            result = coverage(rows)
+            self.assertEqual(result["positions_in_signature_collision"],
+                             expected_collided, n)
+            self.assertEqual(result["positions_in_cross_game_collision"],
+                             expected_cross, n)
+            self.assertEqual(result["positions_in_cross_game_different_legal_collision"],
+                             expected_discordant, n)
+
     def test_empty_and_invalid(self):
         self.assertIsNone(coverage([])["cross_game_different_legal_coverage"])
         with self.assertRaises(ValueError):
