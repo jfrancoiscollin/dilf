@@ -24,3 +24,18 @@
 - Aucun changement à Jass production, aucun job payant, aucune écriture R2 dans ce préflight.
 
 **Prochaine action unique :** obtenir un inventaire R2 *lecture seule* des préfixes de données d'apprentissage et identifier le schéma d'un échantillon sans scores.
+
+## Exécution opérationnelle sans accès aux secrets dans Git
+
+Sur un hôte **déjà autorisé** disposant du remote `r2:` en lecture, et uniquement après validation du coût éventuel de l'inventaire :
+
+```bash
+set -euo pipefail
+umask 077
+rclone lsjson 'r2:jass-data' --recursive --files-only > r2-object-inventory.json
+python -m research.mtdp.decision_equivalence.r2_inventory \\
+  r2-object-inventory.json --output r2-object-summary.json
+sha256sum r2-object-inventory.json r2-object-summary.json
+```
+
+Conserver le listing brut et les credentials **hors Git** ; partager seulement le résumé et ses empreintes après contrôle des noms d'objets (qui peuvent contenir des données sensibles). La commande n'a pas été exécutée lors de cette rédaction. Un listing exhaustif peut générer des requêtes R2 facturables : **ne pas déclencher automatiquement** sans autorisation de coût. En cas de liste volumineuse, la version actuelle de l'analyseur charge le JSON entier en mémoire ; segmenter le listing ou améliorer l'analyseur avant une campagne à très grande échelle.
