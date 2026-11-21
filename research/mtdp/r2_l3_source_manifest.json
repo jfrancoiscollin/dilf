@@ -1,0 +1,80 @@
+{
+  "schema": "mtdp.r2_source_inventory.v1",
+  "bucket": "jass-data",
+  "source_repository": "jfrancoiscollin/jass",
+  "source_commit": "f1c1f89282286286bac0e0e6b1c04d8d2e174a38",
+  "source_path": "jobs/templates/l3-bucket-visits-cumulative-v1.sh",
+  "objects": [
+    {
+      "cell": "c0",
+      "generation": "g1",
+      "key": "runs/cpx62-0817-l3-c2x1-hhh-control-v1/20260718T221711Z-7a35084f/artefacts/g1-selfplay.jnnw.gz",
+      "verified_present": false,
+      "sha256": null
+    },
+    {
+      "cell": "c0",
+      "generation": "g2",
+      "key": "runs/cpx62-0817-l3-c2x1-hhh-control-v1/20260718T221711Z-7a35084f/artefacts/g2-selfplay.jnnw.gz",
+      "verified_present": false,
+      "sha256": null
+    },
+    {
+      "cell": "c1",
+      "generation": "g1",
+      "key": "runs/cpx62-0818-l3-c2x1-llh-v1/20260718T222242Z-7a35084f/artefacts/g1-selfplay.jnnw.gz",
+      "verified_present": false,
+      "sha256": null
+    },
+    {
+      "cell": "c1",
+      "generation": "g2",
+      "key": "runs/cpx62-0818-l3-c2x1-llh-v1/20260718T222242Z-7a35084f/artefacts/g2-selfplay.jnnw.gz",
+      "verified_present": false,
+      "sha256": null
+    },
+    {
+      "cell": "c2",
+      "generation": "g1",
+      "key": "runs/cpx62-0819-l3-c2x1-hll-v1/20260718T222759Z-7a35084f/artefacts/g1-selfplay.jnnw.gz",
+      "verified_present": false,
+      "sha256": null
+    },
+    {
+      "cell": "c2",
+      "generation": "g2",
+      "key": "runs/cpx62-0819-l3-c2x1-hll-v1/20260718T222759Z-7a35084f/artefacts/g2-selfplay.jnnw.gz",
+      "verified_present": false,
+      "sha256": null
+    },
+    {
+      "cell": "c3",
+      "generation": "g1",
+      "key": "runs/cpx62-0820-l3-c2x1-lhl-v1/20260718T223320Z-7a35084f/artefacts/g1-selfplay.jnnw.gz",
+      "verified_present": false,
+      "sha256": null
+    },
+    {
+      "cell": "c3",
+      "generation": "g2",
+      "key": "runs/cpx62-0820-l3-c2x1-lhl-v1/20260718T223320Z-7a35084f/artefacts/g2-selfplay.jnnw.gz",
+      "verified_present": false,
+      "sha256": null
+    },
+    {
+      "cell": "c4",
+      "generation": "g1",
+      "key": "runs/cpx62-0821-l3-c2x1-center-v1/20260718T223829Z-7a35084f/artefacts/g1-selfplay.jnnw.gz",
+      "verified_present": false,
+      "sha256": null
+    },
+    {
+      "cell": "c4",
+      "generation": "g2",
+      "key": "runs/cpx62-0821-l3-c2x1-center-v1/20260718T223829Z-7a35084f/artefacts/g2-selfplay.jnnw.gz",
+      "verified_present": false,
+      "sha256": null
+    }
+  ],
+  "notes": "Documentary inventory only; exact keys from pinned template. No R2 HEAD, GET or SHA256 verification performed. Source experiment cells share seed 271828; do not assume independent games."
+}
