@@ -42,3 +42,21 @@ def test_zero_limit_and_negative_limit(tmp_path):
     assert inspect(p, max_records=0)["records_inspected"] == 0
     with pytest.raises(ValueError, match="nonnegative"):
         inspect(p, max_records=-1)
+
+
+def test_even_sampling_detects_tail_anomaly(tmp_path):
+    rows = [(1, 0, 2, 0, 0, 0, 0)] * 9 + [(1 << 50, 0, 0, 0, 0, 0, 0)]
+    p = make_file(tmp_path, rows)
+    # For count=10, limit=2, sampled indices are 0 and 5 (not tail).
+    assert inspect(p, max_records=2)["structural_flags"] == {}
+    # With count=10, limit=5, indices 0,2,4,6,8; still not tail.
+    assert inspect(p, max_records=5)["records_inspected"] == 5
+    assert inspect(p, max_records=10)["structural_flags"]["outside_50_squares"] == 1
+
+
+def test_even_sampling_reaches_later_blocks(tmp_path):
+    rows = [(1, 0, 2, 0, 0, 0, 0)] * 10
+    rows[5] = (1 << 50, 0, 0, 0, 0, 0, 0)
+    report = inspect(make_file(tmp_path, rows), max_records=2)
+    assert report["sampling_method"] == "evenly_spaced_v1"
+    assert report["structural_flags"] == {"outside_50_squares": 1}
