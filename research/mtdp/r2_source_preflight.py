@@ -14,6 +14,15 @@ from research.mtdp.jnnw_audit import inspect
 EXPECTED_CELLS = tuple(f"c{i}" for i in range(5))
 EXPECTED_GENERATIONS = ("g1", "g2")
 
+# Immutable source prefixes verified against the pinned historical Jass template.
+EXPECTED_PREFIXES = {
+    "c0": "runs/cpx62-0817-l3-c2x1-hhh-control-v1/20260718T221711Z-7a35084f",
+    "c1": "runs/cpx62-0818-l3-c2x1-llh-v1/20260718T222242Z-7a35084f",
+    "c2": "runs/cpx62-0819-l3-c2x1-hll-v1/20260718T222759Z-7a35084f",
+    "c3": "runs/cpx62-0820-l3-c2x1-lhl-v1/20260718T223320Z-7a35084f",
+    "c4": "runs/cpx62-0821-l3-c2x1-center-v1/20260718T223829Z-7a35084f",
+}
+
 
 def validate_manifest(path: str | Path) -> dict:
     raw = json.loads(Path(path).read_text(encoding="utf-8"))
@@ -32,9 +41,9 @@ def validate_manifest(path: str | Path) -> dict:
         if (cell, generation) in seen:
             raise ValueError("duplicate cell/generation")
         seen.add((cell, generation))
-        if not isinstance(key, str) or not key.startswith("runs/") or (
-            not key.endswith(f"/artefacts/{generation}-selfplay.jnnw.gz")
-        ) or ".." in key.split("/") or key.startswith("/"):
+        if not isinstance(key, str) or key != (
+            f"{EXPECTED_PREFIXES[cell]}/artefacts/{generation}-selfplay.jnnw.gz"
+        ):
             raise ValueError("invalid R2 source key")
         if item.get("verified_present") is not False or item.get("sha256") is not None:
             raise ValueError("documentary manifest must not claim cloud verification")
