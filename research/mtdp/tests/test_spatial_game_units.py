@@ -80,3 +80,25 @@ def test_no_transitions_is_not_zero_fraction():
     result = summarize(data)
     assert result["mean_game_unchanged_transition_fraction"] is None
     assert result["pooled_transition_unchanged_fraction_descriptive_only"] is None
+
+
+def test_leave_one_game_out_sensitivity_is_descriptive():
+    result = summarize(report())
+    assert result["min_game_transitions"] == 2
+    assert result["max_game_transitions"] == 4
+    assert result["leave_one_game_out_mean_min"] == 0
+    assert result["leave_one_game_out_mean_max"] == 1
+
+
+def test_leave_one_game_out_requires_two_games_with_transitions():
+    data = report()
+    data["per_game"] = data["per_game"][:1]
+    data["games"] = 1
+    data["positions"] = 3
+    data["transitions"] = 2
+    data["unchanged_descriptors_transitions"] = 2
+    data["revisited_exact_positions_within_games"] = 1
+    result = summarize(data)
+    assert result["leave_one_game_out_mean_min"] is None
+    assert result["leave_one_game_out_mean_max"] is None
+    assert result["min_game_transitions"] == 2
