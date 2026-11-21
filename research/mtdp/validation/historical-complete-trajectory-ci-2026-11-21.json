@@ -1,0 +1,92 @@
+{
+  "artifact": {
+    "artifact_id": 14727059782,
+    "bytes": 14756988,
+    "fen_report_byte_identical": true,
+    "historical_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+    "trajectory_report_byte_identical": true,
+    "trajectory_report_sha256": "aa0305571cd475c3291c394ec98eed3fd1ad495c99d2509faacbe77224d0becf",
+    "zip_sha256": "200444ff6e5567c282284568a5c40b207e9502a635353f839e27537f1efeb559"
+  },
+  "complete_historical_exclusion_registry": false,
+  "complete_pcblues_games_replayed": 26,
+  "dedicated_tests": {
+    "passed": 15,
+    "skipped": 0
+  },
+  "h13_implementation_identical_on_validated_head": true,
+  "historical_complete_trajectories": 4468,
+  "historical_job_id": 137006942165,
+  "implementation_commit": "1ec5add6d233b5bfd6f96941a5105a0743f38847",
+  "independent_cohort_qualified": false,
+  "initial_historical_run": {
+    "conclusion": "cancelled",
+    "id": 44956569874,
+    "reason": "Concurrent D1 documentation successor triggered the equivalent workflow; no old run duplicated."
+  },
+  "known_historical_matches": 26,
+  "legacy_fen_bridge_tests": {
+    "passed": 8,
+    "skipped": 0
+  },
+  "local_tests": {
+    "final_trajectory_dedicated_passed": 15,
+    "initial_combined_passed": 28
+  },
+  "new_reference_scores_acquired": false,
+  "next_action": "Reconcile public game IDs and normalized notation fingerprints across all 25 pinned historical sources before any independent cohort qualification; preserve four reserved events and D1 ownership.",
+  "schema": "mtdp-h13-historical-complete-trajectory-ci-v1",
+  "scientific_freeze": false,
+  "validated_head": "786952c2851c6151648df233ef9a21cc8b01e7dd",
+  "validated_historical_run": 44956890927,
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "id": 44956890981,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44956890958,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44956890927,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44956890902,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44956890912,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44956890899,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44956890931,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44956890896,
+      "name": "ci",
+      "status": "completed"
+    }
+  ]
+}
