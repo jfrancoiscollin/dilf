@@ -24,6 +24,23 @@ class TransferGateTests(unittest.TestCase):
         self.assertEqual(eligible_cross_game_pairs([row("A",1,"x",["1-6"]),row("B",1,"y",["1-6"],"t")])["eligible_count"],0)
         self.assertEqual(eligible_cross_game_pairs([row("A",1,"x",["1-6","2-7"]),row("B",1,"y",["2-7","1-6"])])["eligible_count"],1)
 
+    def test_mixed_type_position_identity_collision(self):
+        # Output identifiers are strings; int 1 and str "1" must not
+        # silently produce indistinguishable provenance keys.
+        with self.assertRaises(ValueError):
+            eligible_cross_game_pairs([
+                row("A", 1, "fen1", ["1-6"]),
+                row("A", "1", "fen2", ["1-6"]),
+            ])
+
+    def test_mixed_type_distinct_games_remain_valid(self):
+        out = eligible_cross_game_pairs([
+            row("A", 1, "fen1", ["1-6"]),
+            row("B", "1", "fen2", ["1-6"]),
+        ])
+        self.assertEqual(out["eligible_count"], 1)
+        self.assertEqual(out["eligible_pairs"], [(("A", "1"), ("B", "1"))])
+
     def test_fail_closed(self):
         for rows in ([row("A",1,"x",["1-6"]),row("A",1,"y",["1-6"])],
                      [row("A",True,"x",["1-6"])],
