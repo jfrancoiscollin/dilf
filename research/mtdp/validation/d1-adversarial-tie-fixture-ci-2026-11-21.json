@@ -1,0 +1,122 @@
+{
+  "admissible_reference_top_two": [
+    [
+      "a",
+      "b"
+    ],
+    [
+      "a",
+      "c"
+    ],
+    [
+      "b",
+      "c"
+    ]
+  ],
+  "artifact": {
+    "audit_sha256": "addf65687195a79139be94887f02621765d8fda721d38264241dc15ff4a71d99",
+    "checkout_sha": "9a5e6699b5c546238f732ef1ea0653e96db5c643",
+    "distinct_fens": 1750,
+    "fmjd_sha": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+    "manifest_members_verified": 3,
+    "observations": 1864,
+    "provenance_sha256": "8f239e68fcd86ff7b7d93e6962b481b9057d7851686d8bf2c22cb4dc2d7934da",
+    "zip_bytes": 82553,
+    "zip_sha256": "af81918c1dd349ad297955a531978e32d4f0cb7a928465264670ee055bc410d0"
+  },
+  "artifact_id": 14725581494,
+  "checkout_parent_shas": [
+    "1bed9879887b22146cbe4d27e99133443a276ba7",
+    "1cb855b07d158bc43f4227737ee1b1e5fc43eb0d"
+  ],
+  "checkout_sha": "9a5e6699b5c546238f732ef1ea0653e96db5c643",
+  "d1_job": 136986952196,
+  "expected_recall_bounds": [
+    0,
+    0.5
+  ],
+  "failed_head": "f1433d0acc29facd485ad68ad1e22b7f05509968",
+  "failed_job": 136973963038,
+  "failed_run": 44946202022,
+  "independent_cohort_qualified": false,
+  "local_and_ci_tests": {
+    "command": "python -m pytest -q research/mtdp/decision_equivalence research/mtdp/tests/test_decision_equivalence_audit.py research/mtdp/tests/test_decision_equivalence_fmjd_export.py research/mtdp/tests/test_d1_fen_overlap_guard.py",
+    "passed": 433,
+    "subtests_passed": 36
+  },
+  "new_reference_scores_acquired": false,
+  "next_action": "H13 historical complete-trajectory identity gate using exact legacy serialization. D1 should execute its entire pytest workflow selection before publishing new synthetic fixtures.",
+  "previous_wrong_fixture_bounds": [
+    0.5,
+    1
+  ],
+  "proposed_top_two": [
+    "b",
+    "d"
+  ],
+  "reference_recalls": [
+    0.5,
+    0,
+    0.5
+  ],
+  "reference_scores": {
+    "a": 8,
+    "b": 8,
+    "c": 8,
+    "d": 0
+  },
+  "repair_commit": "1cb855b07d158bc43f4227737ee1b1e5fc43eb0d",
+  "repair_scope": "Fixture expectations only; formula unchanged.",
+  "schema": "mtdp-h13-d1-adversarial-tie-fixture-repair-v1",
+  "scientific_freeze": false,
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "id": 44950437756,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44950437806,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44950437760,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44950437863,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44950437814,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44950437800,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44950437753,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44950437802,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ]
+}
