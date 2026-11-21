@@ -49,3 +49,34 @@ def test_duplicate_game_and_bad_counts():
     data["per_game"][0]["unchanged_descriptors_transitions"] = 3
     with pytest.raises(ValueError, match="inconsistent"):
         summarize(data)
+
+
+def test_macro_micro_diverge_and_single_position_game():
+    data = report()
+    data["per_game"].append({
+        "game_id": "c", "positions": 1, "transitions": 0,
+        "unchanged_descriptors_transitions": 0, "revisited_exact_positions": 0,
+    })
+    data["games"] += 1
+    data["positions"] += 1
+    result = summarize(data)
+    assert result["games_with_transitions"] == 2
+    assert result["mean_game_unchanged_transition_fraction"] == 0.5
+    assert result["pooled_transition_unchanged_fraction_descriptive_only"] == 2 / 6
+    assert result["min_game_unchanged_transition_fraction"] == 0
+    assert result["max_game_unchanged_transition_fraction"] == 1
+
+
+def test_no_transitions_is_not_zero_fraction():
+    data = {
+        "schema_version": "mtdp-spatial-dynamics-v1",
+        "games": 1, "positions": 1, "transitions": 0,
+        "unchanged_descriptors_transitions": 0,
+        "revisited_exact_positions_within_games": 0,
+        "per_game": [{"game_id": "single", "positions": 1, "transitions": 0,
+                      "unchanged_descriptors_transitions": 0,
+                      "revisited_exact_positions": 0}],
+    }
+    result = summarize(data)
+    assert result["mean_game_unchanged_transition_fraction"] is None
+    assert result["pooled_transition_unchanged_fraction_descriptive_only"] is None
