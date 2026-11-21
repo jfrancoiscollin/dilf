@@ -9,12 +9,12 @@ import argparse
 import hashlib
 import json
 from collections import Counter
+from collections.abc import Iterable
 from pathlib import Path
 
 
-def summarize(objects: list[dict]) -> dict:
-    if not isinstance(objects, list):
-        raise ValueError("inventory must be a JSON array")
+def summarize(objects: Iterable[dict]) -> dict:
+    """Validate and summarize metadata only; input is never a position corpus."""
     paths: set[str] = set()
     prefix_counts: Counter[str] = Counter()
     suffix_counts: Counter[str] = Counter()
@@ -52,7 +52,10 @@ def main() -> None:
     p.add_argument("--output", type=Path, required=True)
     args = p.parse_args()
     raw = args.inventory.read_bytes()
-    report = summarize(json.loads(raw))
+    decoded = json.loads(raw)
+    if not isinstance(decoded, list):
+        raise ValueError("inventory must be a JSON array")
+    report = summarize(decoded)
     report["input_sha256"] = hashlib.sha256(raw).hexdigest()
     args.output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
