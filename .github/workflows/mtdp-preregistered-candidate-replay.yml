@@ -8,6 +8,8 @@ on:
     paths:
       - 'research/mtdp/jass_benchmark/historical_replay_inputs.py'
       - 'research/mtdp/closed_reserved_exclusions.py'
+      - 'research/mtdp/historical_trajectory_gate.py'
+      - 'research/mtdp/tests/test_historical_trajectory_gate.py'
       - 'research/mtdp/historical_fen_bridge.py'
       - 'research/mtdp/tests/test_historical_fen_bridge.py'
       - 'research/mtdp/prospective_source_preflight.py'
@@ -296,6 +298,17 @@ jobs:
           MTDP_HISTORICAL_FEN_CACHE=/tmp/mtdp-independent/four-reserved-events-exclusions.json \
             MTDP_REQUIRE_HISTORICAL_FEN_CACHE=1 \
             python -m pytest -q research/mtdp/tests/test_historical_fen_bridge.py
+          python -m research.mtdp.historical_trajectory_gate \
+            --cache /tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            --pdn data/exports/pcblues/pcblues_games.pdn \
+            --pdn-sha256 025ad0a1a9ddcf508e3284eef65eb1cf76ebf7763d1241a127432f99eac3d8be \
+            --adapter ../draught-master \
+            --output /tmp/mtdp-independent/historical-complete-trajectory-audit.json
+          cmp /tmp/mtdp-independent/historical-complete-trajectory-audit.json research/mtdp/validation/historical-complete-trajectory-audit-2026-11-21.json
+          MTDP_HISTORICAL_FEN_CACHE=/tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            MTDP_HISTORICAL_ADAPTER=../draught-master \
+            MTDP_REQUIRE_HISTORICAL_TRAJECTORIES=1 \
+            python -m pytest -q research/mtdp/tests/test_historical_trajectory_gate.py
       - name: Preserve all input provenance and prospective replay diagnostics
         if: always()
         uses: actions/upload-artifact@v4

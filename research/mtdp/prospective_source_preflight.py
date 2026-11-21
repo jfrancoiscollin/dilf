@@ -12,6 +12,9 @@ from research.mtdp.decision_equivalence.content_addressed_admission import (
     audit_content_addressed_games,
 )
 from research.mtdp.reserved_source_gate import screen
+from research.mtdp.historical_trajectory_gate import (
+    load_historical_trajectories, audit_source_trajectories, reject_historical_trajectories,
+)
 from research.mtdp.historical_fen_bridge import load_historical_fens, reject_historical_fen_overlap
 
 
@@ -47,7 +50,21 @@ def preflight_sources(rows: list[dict], sources: Mapping[str, str | Path],
         }
     # Only after every complete export clears the known-reserved screen.
     proof = audit_content_addressed_games(rows, sources, engine)
+    trajectory_checks = {}
+    if historical_cache is not None:
+        historical = load_historical_trajectories(historical_cache)
+        source_games = {}
+        for row in rows:
+            digest, index = row['game_id'].split(':')
+            group = source_games.setdefault(digest, {'path': sources[row['game_id']], 'indices': set()})
+            group['indices'].add(int(index))
+        for digest, group in sorted(source_games.items()):
+            report = audit_source_trajectories(group['path'], digest, group['indices'], engine, historical)
+            reject_historical_trajectories(report)
+            trajectory_checks[digest] = report
     return {**proof, 'known_reserved_sources_screened': True,
+            'historical_complete_trajectories_screened': historical_cache is not None,
+            'trajectory_checks': trajectory_checks,
             'historical_fen_cache_screened': historical_view is not None,
             'historical_fen_cache_sha256': historical_view['historical_cache_sha256'] if historical_view is not None else None,
             'source_checks': dict(sorted(checked.items())),

@@ -36,13 +36,18 @@ def canonical_view(fens):
             'examples': examples}
 
 
-def load_historical_fens(cache_path):
+def load_verified_cache(cache_path):
     raw = Path(cache_path).read_bytes()
     if hashlib.sha256(raw).hexdigest() != CACHE_SHA256:
         raise ValueError('Historical cache digest mismatch')
     cache = json.loads(raw)
     if cache['adapter_commit'] != '0e5189fbb251bf5eaf2e613d0f878bb17c740311':
         raise ValueError('Historical rules engine revision changed')
+    return cache
+
+
+def load_historical_fens(cache_path):
+    cache = load_verified_cache(cache_path)
     view = canonical_view(cache['confirmed_fens'])
     if view['raw_distinct_fens'] != cache['accounting']['confirmed_prefix_fens']:
         raise ValueError('Historical FEN denominator changed')
