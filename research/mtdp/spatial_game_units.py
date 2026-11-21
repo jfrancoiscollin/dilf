@@ -20,6 +20,7 @@ def summarize(report: dict) -> dict:
     ids = set()
     rates = []
     repeats = []
+    game_transition_counts = []
     transition_total = 0
     unchanged_total = 0
     for row in rows:
@@ -37,6 +38,7 @@ def summarize(report: dict) -> dict:
             raise ValueError("inconsistent game counts")
         if t:
             rates.append(u / t)
+            game_transition_counts.append(t)
             transition_total += t
             unchanged_total += u
         repeats.append(r)
@@ -48,10 +50,19 @@ def summarize(report: dict) -> dict:
         row["unchanged_descriptors_transitions"] for row in rows
     ) or report.get("revisited_exact_positions_within_games") != sum(repeats):
         raise ValueError("aggregate descriptor counts inconsistent with per_game")
+    # Leave-one-game-out is a descriptive sensitivity check, not a confidence interval.
+    loo_means = (
+        [(sum(rates) - rate) / (len(rates) - 1) for rate in rates]
+        if len(rates) >= 2 else []
+    )
     return {
         "schema": "mtdp.spatial_game_unit_summary.v1",
         "games": len(rows),
         "games_with_transitions": len(rates),
+        "min_game_transitions": min(game_transition_counts) if game_transition_counts else None,
+        "max_game_transitions": max(game_transition_counts) if game_transition_counts else None,
+        "leave_one_game_out_mean_min": min(loo_means) if loo_means else None,
+        "leave_one_game_out_mean_max": max(loo_means) if loo_means else None,
         "mean_game_unchanged_transition_fraction": mean(rates) if rates else None,
         "median_game_unchanged_transition_fraction": median(rates) if rates else None,
         "min_game_unchanged_transition_fraction": min(rates) if rates else None,
@@ -65,7 +76,8 @@ def summarize(report: dict) -> dict:
         "statistical_significance_claimed": False,
         "interpretation": (
             "Primary estimate weights games equally; pooled transition rate is a "
-            "diagnostic, not an independent-sample estimate. No IID or strategic claim."
+            "diagnostic, not an independent-sample estimate. Leave-one-game-out bounds "
+            "are descriptive sensitivity, not confidence intervals. No IID or strategic claim."
         ),
     }
 
