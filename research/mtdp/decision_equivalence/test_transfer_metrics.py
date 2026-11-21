@@ -18,7 +18,9 @@ class TransferMetricsTests(unittest.TestCase):
         self.assertTrue(result["top1_optimal_tie_accepted"])
         self.assertEqual(result["top1_regret_score_units"], 0)
         self.assertIsNone(result["topk_guaranteed_reference_recall"])
-        self.assertEqual(result["topk_possible_reference_recall"], 0.5)
+        # One of the three boundary-eligible actions is proposed in the top two.
+        # This metric covers the entire eligible pool, not a tie-broken top-2 set.
+        self.assertEqual(result["topk_possible_reference_recall"], 1 / 3)
         self.assertTrue(result["topk_boundary_tied"])
 
     def test_k_clamped_and_singleton(self):

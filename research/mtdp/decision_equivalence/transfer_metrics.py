@@ -32,6 +32,8 @@ def evaluate_transfer(reference: dict[str, float], proposed_order: list[str],
     k = min(top_k, len(proposed_order))
     # Strict top-k membership is ill-defined at score ties. Report
     # guaranteed and possible membership separately at the kth boundary.
+    # Recall denominators are the entire corresponding membership pools;
+    # possible recall is not the maximum recall of a tie-broken k-action set.
     scores = sorted(reference.values(), reverse=True)
     cutoff = scores[k - 1]
     guaranteed = {a for a, score in reference.items() if score > cutoff}
