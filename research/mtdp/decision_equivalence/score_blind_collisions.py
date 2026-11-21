@@ -12,7 +12,7 @@ def _pairs(n):
 
 
 def audit(records):
-    by_signature = defaultdict(lambda: {"total": 0, "legal": Counter(), "game": Counter()})
+    by_signature = defaultdict(lambda: {"total": 0, "legal": Counter(), "game": Counter(), "legal_game": Counter()})
     seen = set()
     for r in records:
         if not isinstance(r, dict):
@@ -32,11 +32,20 @@ def audit(records):
         g["total"] += 1
         g["legal"][frozenset(moves)] += 1
         g["game"][game] += 1
+        g["legal_game"][(frozenset(moves), game)] += 1
     pairs = sum(_pairs(g["total"]) for g in by_signature.values())
     same_legal = sum(_pairs(n) for g in by_signature.values()
                      for n in g["legal"].values())
     within_game = sum(_pairs(n) for g in by_signature.values()
                       for n in g["game"].values())
+    # A cross-game pair is not an independent observation; these counts are
+    # descriptive and must not be used as a bootstrap sample size.
+    cross_game = pairs - within_game
+    same_legal_within_game = sum(
+        _pairs(n) for g in by_signature.values()
+        for n in g["legal_game"].values()
+    )
+    same_legal_cross_game = same_legal - same_legal_within_game
     return {
         "schema": "mtdp-d1-score-blind-collisions-v1",
         "positions": len(seen),
@@ -46,6 +55,9 @@ def audit(records):
         "same_legal_action_pairs": same_legal,
         "different_legal_action_pairs": pairs - same_legal,
         "within_game_collision_pairs": within_game,
+        "cross_game_collision_pairs": cross_game,
+        "same_legal_cross_game_collision_pairs": same_legal_cross_game,
+        "different_legal_cross_game_collision_pairs": cross_game - same_legal_cross_game,
         "decision_equivalence_established": False,
         "minimax_equivalence_established": False,
     }
