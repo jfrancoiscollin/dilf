@@ -40,3 +40,27 @@ MTDP_HISTORICAL_FEN_CACHE=CACHE.json MTDP_REQUIRE_HISTORICAL_FEN_CACHE=1 python 
 Localement : 14 tests réussis, y compris le test sur le cache réel. La CI générale peut sauter ce dernier sans l'artefact ; la nouvelle commande du workflow historique fournit le cache et exige sa présence. Son rapport et ses tests seront archivés avec les sorties existantes.
 
 Le contrôle reste limité aux positions observées du cache connu. Les trajectoires complètes, alias et autres manifestes doivent encore être réconciliés. `independent_cohort_qualified=false`, `complete_historical_exclusion_registry=false` et `eligible_for_freeze=false` demeurent obligatoires. Aucun nouveau gel, seuil, signature ou résultat Jass n'est introduit.
+
+## Validation distante confirmée
+
+Commit de code [62f734f](https://github.com/jfrancoiscollin/dilf/commit/62f734faf45cb9d811f017dfadd7ea088a3a150a) : huit workflows réussis, dont [rejeu historique #44940585881](https://github.com/jfrancoiscollin/dilf/actions/runs/44940585881) et [CI #44940585873](https://github.com/jfrancoiscollin/dilf/actions/runs/44940585873). Les huit tests du pont passent sans saut dans le job historique. CI générale : 643 tests applicatifs réussis, 779 tests de recherche réussis et 15 sautés (dont le test du cache exigé séparément ci-dessus), mypy OK sur 68 fichiers.
+
+Artefact14721456974 téléchargé et recalculé : 14 755 280 octets, SHA-2569b82c8b6a72d4c6913d32ebb7bc668184419f4d1745416d44da006fcbecb9cb2. Son cache conserve exactement le SHA historique5cb4247… ; son rapport est identique octet pour octet au JSON versionné (SHA-2569d511a46bc0debadb3327eb5269d644bcfbd3b09f550f48c46f09ed4236e07a4). Détails dans historical-fen-bridge-ci-2026-11-21.json.
+
+Contrôle local supplémentaire avec le parseur historique : 47 104/47 104 FEN réordonnées préservent tout l’état de jeu. Reproduction sur le même cache authentifié :
+
+```python
+import json
+from pedagogy.game import parse_fen
+from research.mtdp.decision_equivalence.fmjd_fen import canonical_fen
+cache = json.load(open('CACHE.json'))
+changed = 0
+for raw in cache['confirmed_fens']:
+    normalized = canonical_fen(raw)
+    if raw != normalized:
+        assert parse_fen(raw) == parse_fen(normalized)
+        changed += 1
+assert changed == 47104
+```
+
+Prochaine action H13 : raccorder les trajectoires complètes légalement rejouées au hachage historique exact, puis les autres alias avant toute qualification. D1 conserve ses campagnes signatures/top-K ; les quatre événements entiers restent réservés.

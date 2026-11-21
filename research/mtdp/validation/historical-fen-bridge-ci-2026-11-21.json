@@ -1,0 +1,88 @@
+{
+  "artifact": {
+    "bytes": 14755280,
+    "downloaded_and_independently_hashed": true,
+    "id": 14721456974,
+    "zip_sha256": "9b82c8b6a72d4c6913d32ebb7bc668184419f4d1745416d44da006fcbecb9cb2"
+  },
+  "complete_historical_exclusion_registry": false,
+  "diagnostic_byte_identical_to_committed_report": true,
+  "diagnostic_sha256": "9d511a46bc0debadb3327eb5269d644bcfbd3b09f550f48c46f09ed4236e07a4",
+  "general_ci": {
+    "core_passed": 643,
+    "mypy_files": 68,
+    "research_passed": 779,
+    "research_skipped": 15
+  },
+  "historical_bridge_tests": {
+    "passed": 8,
+    "skipped": 0
+  },
+  "historical_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "historical_job_id": 136956666033,
+  "independent_cohort_qualified": false,
+  "local_combined_tests": {
+    "passed": 14,
+    "skipped": 0
+  },
+  "local_independent_state_parser": {
+    "exact_state_equality": 47104,
+    "parser": "pedagogy.game.parse_fen",
+    "reordered_fens": 47104
+  },
+  "new_reference_scores_acquired": false,
+  "next_action": "Wire complete legally replayed trajectories to historical trajectory_fingerprint using the exact pinned legacy serialization; reconcile remaining identity aliases before independent cohort qualification.",
+  "schema": "mtdp-h13-historical-fen-bridge-ci-v1",
+  "scientific_freeze": false,
+  "validated_code_commit": "62f734faf45cb9d811f017dfadd7ea088a3a150a",
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "id": 44940585816,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44940585853,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44940585842,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44940585852,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44940585840,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44940585958,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44940585873,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44940585881,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ]
+}
