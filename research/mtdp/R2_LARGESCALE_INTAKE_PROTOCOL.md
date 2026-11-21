@@ -1,0 +1,31 @@
+# MTDP-LargeScale — preregistered R2 corpus intake (proposal v0.1)
+
+Status: **protocol only**. No R2 object was read, no Jass runner was dispatched, and no new FMJD computation was performed. This is an H43 foundation task; D1 retains ownership of decision-equivalence experiments.
+
+## Verified provenance (GitHub control-plane metadata, not object readback)
+
+- Private control plane: `jfrancoiscollin/jass-control`; remote named `r2:jass-data` (Cloudflare R2). No credentials or dashboard account identifiers are stored here.
+- Completed job `ccx33-0832-l3-bucket-cumulative-v1`, source Jass code `f1c1f89282286286bac0e0e6b1c04d8d2e174a38`, status `completed`, exit 0, 2026-07-19; result URI `r2:jass-data/runs/ccx33-0832-l3-bucket-cumulative-v1/20260719T115948Z-f1c1f892`. Its **summary** reports ten `.jnnw` files, 1,500,000 records, 12,000,000 bucket visits, 191,533 visited buckets. These are *not* verified unique legal positions.
+- Completed job `cpx62-1845-l3-decision-math-c-sibling-dataset-v2-v1`, source Jass code `4ae3fca82f19338132911811978761b91bd39573`, status `completed`, exit 0, 2026-09-06; result URI `r2:jass-data/runs/cpx62-1845-l3-decision-math-c-sibling-dataset-v2-v1/20260906T191758Z-4ae3fca8`. Summary reports 4,000 parents, 38,053 actions, split 3,200/400/400 train/valid/test; JSONL artifact listed (46,551,074 bytes). Its sample may overlap training or existing MTDP cohorts; do not declare independence.
+- Sources: `jass-control/status/ccx33-0832-l3-bucket-cumulative-v1.json`, `jass-control/status/cpx62-1845-l3-decision-math-c-sibling-dataset-v2-v1.json`, `jass-control/specs/c-sibling-dataset-v2-v1.json`.
+
+## Intake gates (in order)
+
+1. **Read-only inventory first.** Retrieve R2 object listing, sizes, object version/ETag when available, manifest and per-object SHA-256. Record UTC capture, Jass code SHA, exact object keys and provenance. Do not trust ETag as a SHA-256 or assume `_SUCCESS` proves semantic validity. No credentials in Git.
+2. **Format audit before scale.** Inspect small bounded byte samples of `.jnnw` and JSONL, identify version/encoding/record schema and whether each record contains a complete 10×10 board, side to move, kings, legal move, game/session ID, ply, outcome, policy/value labels. An `8cf` bucket visit is not a board position.
+3. **FMJD admissibility.** Normalize only fully reconstructible states to a canonical 50-square representation with men/kings, side to move and rule variant; reject invalid records with reason counts. Where transitions exist, independently replay and check captures/promotions against pinned FMJD. Position-only records are **not** legal trajectory evidence.
+4. **Leakage quarantine.** Before any D1 scoring, exclude PC Blues, historical reserved corpora, duplicate canonical positions/trajectories and shared self-play game/session lineage across train/validation/test. Use source-level and game-level splits; identical FEN hashes alone are insufficient proof of independence.
+5. **Bounded pilot.** Deterministic seed and stable SHA-keyed stratified selection of at most 100,000 eligible records (phase, material, side to move, source and game); log attempted/accepted/rejected/unique positions and effective game count. Prefer streaming and resumable summaries, no bulk commit of corpus data.
+6. **Descriptive analysis only.** Compute preregistered MTDP spatial metrics, per-stratum coverage, signature collision rates and confidence intervals clustered by game. Keep all D1 decision-equivalence or best-move testing in the D1 workstream, only after its separate admission gates.
+7. **Scale decision.** Increase to 1M+ only after exact reproducibility (two independent runs same manifest and hashes), leakage audit, CPU/R2 operation-cost estimate and explicit authorization for any billable work.
+
+## Safety and execution
+
+- No production runner queue write, cloud instance launch, Cloudflare API calls or object downloads are authorized by this document. Jass-control `AGENTS.md` requires a separately sealed launch-admission v2 and target-host rehearsal; old `queue/done` scripts are archives, **not** launch templates.
+- An existing read-only runner may later perform inventory under an approved admission and known cost ceiling; this protocol does not grant that approval.
+- Keep D1 signatures, hypotheses, cohorts and thresholds unchanged.
+- Local PC **not required** for documentation or GitHub metadata audit.
+
+## Single next action
+
+Obtain a **read-only, bounded inventory and format sample** from an already authorized R2 access path, with object hashes and a cost estimate; then implement a tested streaming parser only for the confirmed schema. Do not equate records, bucket visits, positions and independent games.
