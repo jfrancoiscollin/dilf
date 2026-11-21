@@ -59,3 +59,9 @@ Le point d'entrée H13 `prospective_source_preflight.preflight_sources(rows, sou
 Le moteur de règles doit être le vrai FMJD épinglé pour une utilisation scientifique. Les mocks ne servent qu'à tester le raccord. La suite distante dédiée vérifie aussi ce parcours avec la révision réelle et n'autorise aucun saut de test.
 
 Un résultat positif du précontrôle signifie seulement que les identités réservées connues n'ont pas été retrouvées et que la preuve D1 a réussi. **`independent_cohort_qualified=false`, `eligible_for_freeze=false` et `complete_historical_exclusion_registry=false` restent obligatoires.** Les autres corpus historiques, alias, trajectoires/FEN et la qualification indépendante doivent encore être réconciliés. Les anciennes APIs D1 restent inchangées : ce raccord est le parcours H13 à utiliser avant tout nouveau gel, pas une certification rétroactive de leurs appels antérieurs. Aucun score Scan/Jass n'est lu et aucune campagne n'est créée par ce précontrôle.
+
+## Vue FEN du cache historique — 21 novembre 2026
+
+Avant de revendiquer l'exclusion des FEN historiques connues, fournir le cache épinglé au précontrôle : `preflight_sources(..., historical_cache=PATH)`. La vue H13 normalise les deux côtés avec le canonicaliseur D1 ; elle ne réécrit pas le cache historique. Le rapport `validation/historical-fen-bridge-2026-11-21.json` confirme 47 104 différences d'ordre d'écriture sur 452 526 positions, sans différence d'état. Une simple comparaison de chaînes brutes serait insuffisante.
+
+L'appel sans cache ne qualifie toujours aucune cohorte et marque le contrôle FEN historique absent. Ce raccord ne vérifie pas encore les empreintes de trajectoires complètes : leur définition historique et leur sérialiseur doivent être conservés lors de la comparaison. Le critère principal de regret à coût total égal, les seuils D1 et l'obligation de qualification indépendante avant gel restent inchangés.

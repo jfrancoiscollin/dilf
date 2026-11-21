@@ -8,6 +8,9 @@ on:
     paths:
       - 'research/mtdp/jass_benchmark/historical_replay_inputs.py'
       - 'research/mtdp/closed_reserved_exclusions.py'
+      - 'research/mtdp/historical_fen_bridge.py'
+      - 'research/mtdp/tests/test_historical_fen_bridge.py'
+      - 'research/mtdp/prospective_source_preflight.py'
       - 'research/mtdp/tests/test_closed_reserved_exclusions.py'
       - 'research/mtdp/historical_exclusion_inventory_audit.py'
       - 'research/mtdp/reserved_source_inventory.py'
@@ -287,6 +290,12 @@ jobs:
           done
           cmp /tmp/mtdp-independent/four-reserved-events-exclusions.json /tmp/four-reserved-events-exclusions-repeat.json
           cmp /tmp/mtdp-independent/four-reserved-events-exclusions-summary.json /tmp/four-reserved-events-exclusions-summary-repeat.json
+          python -m research.mtdp.historical_fen_bridge \
+            --cache /tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            --output /tmp/mtdp-independent/historical-fen-bridge-audit.json
+          MTDP_HISTORICAL_FEN_CACHE=/tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            MTDP_REQUIRE_HISTORICAL_FEN_CACHE=1 \
+            python -m pytest -q research/mtdp/tests/test_historical_fen_bridge.py
       - name: Preserve all input provenance and prospective replay diagnostics
         if: always()
         uses: actions/upload-artifact@v4
