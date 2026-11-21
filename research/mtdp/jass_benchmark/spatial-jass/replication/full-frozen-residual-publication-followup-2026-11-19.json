@@ -1,0 +1,21 @@
+{
+  "D1_artifact_metadata_only": {
+    "id": 14529961912,
+    "sha256": "c4cfbc3cb30c6fa145d1dca08e3f82fe4945c635854dfc928214133986361f68"
+  },
+  "all_eight_workflows_success": true,
+  "artifact_bytes": 238903,
+  "artifact_id": 14529692977,
+  "artifact_sha256": "1fedc5400e45f1f449d4d7af8efc5dd1190b7668b614b53524a4ad71a68f4c88",
+  "checked_head": "e1ce3bf44b3705d43f9de15c0bc499e5052aa59e",
+  "downloaded_members_byte_equal": 12,
+  "new_cohort_reserved": false,
+  "new_engine_calls": 0,
+  "next_action": "Monitor D1 admission and independent qualification; no additional scored-cohort replay justified. Prepare and publish fresh prospective protocol before any new target scoring.",
+  "offline_run_id": 44524902292,
+  "pr": 43,
+  "pr_open_draft": true,
+  "qualified_D1_candidate_available": false,
+  "schema": "mtdp-final-publication-followup-v1",
+  "verified_at_utc": "2026-11-19T13:13:53.297327+00:00"
+}

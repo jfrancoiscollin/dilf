@@ -1,0 +1,49 @@
+{
+  "event": "P1RUlfJc",
+  "files": {
+    "final-downloads.json": {
+      "bytes": 4233,
+      "sha256": "74089e011b9a9abf7cea26ed8415abc05bed8b20c288156e7c1942431b7c9027"
+    },
+    "final-metadata.json": {
+      "bytes": 254,
+      "sha256": "f5b881327114c434ec913e4e34fff3f5374437aa34a3074f2e050177a25ab595"
+    },
+    "final-repeat.pdn": {
+      "bytes": 272395,
+      "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439"
+    },
+    "manifest.json": {
+      "bytes": 171760,
+      "sha256": "ba613fc0615c482e069b26caa471d040338486732fda3c677362474de14d503a"
+    },
+    "mtdp-lidraughts-P1RUlfJc.pdn": {
+      "bytes": 272395,
+      "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439"
+    },
+    "proposal.json": {
+      "bytes": 303810,
+      "sha256": "a613fa63a9212116a32790c84dacde153394e5ebf9b7772cb1fd94cefeb36932"
+    },
+    "protocol.md": {
+      "bytes": 6106,
+      "sha256": "bb058030cc547c9ef2ff9bbe7bd773cc2214947f0aeac851ed84feec79abf169"
+    },
+    "provenance.json": {
+      "bytes": 3031,
+      "sha256": "79281cd353734f712202d8ca050292671422a4ef7841a38bd6d1f2768d2e714d"
+    },
+    "registration.json": {
+      "bytes": 1464,
+      "sha256": "cb607155e3a6c38bb557d6a6d109734c0b733d681f4a6571f45e908c34da9637"
+    },
+    "reproduction.json": {
+      "bytes": 369,
+      "sha256": "ff8edb082d20bdd7e8701dbcd44389866611a80e1abc8b2b70d9a41135aceea9"
+    }
+  },
+  "schema": "mtdp-named-freeze-publication-v1",
+  "scientific_freeze": false,
+  "state": "prepared_not_published",
+  "synthetic_rehearsal": false
+}

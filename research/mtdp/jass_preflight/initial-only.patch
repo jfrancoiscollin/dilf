@@ -1,0 +1,40 @@
+diff --git a/src/search.cpp b/src/search.cpp
+index 4793b7b8..06ab9a87 100644
+--- a/src/search.cpp
++++ b/src/search.cpp
+@@ -26,0 +27 @@
++#include <optional>
+@@ -1748,3 +1749,11 @@ SearchResult search(const Position& pos, const SearchLimits& limits,
+-        const RootOrderStatus order_status = apply_root_order(
+-            root_moves, limits.root_order_schedule, depth
+-        );
++        // Isolate the first permutation from the list that later depths
++        // adapt with their previous best. TT and history still carry forward.
++        std::optional<MoveList> initial_moves;
++        if (limits.root_order_initial_only && depth == 1
++            && !limits.root_order_schedule.empty()) {
++            initial_moves.emplace(root_moves);
++        }
++        MoveList& window_moves = initial_moves ? *initial_moves : root_moves;
++        const std::string_view schedule = limits.root_order_initial_only && depth > 1
++            ? std::string_view{} : std::string_view{limits.root_order_schedule};
++        const RootOrderStatus order_status = apply_root_order(window_moves, schedule, depth);
+@@ -1756 +1765 @@ SearchResult search(const Position& pos, const SearchLimits& limits,
+-        Move iter_best  = root_moves[0];
++        Move iter_best  = window_moves[0];
+@@ -1775 +1784 @@ SearchResult search(const Position& pos, const SearchLimits& limits,
+-            decision_attempt->actions.reserve(root_moves.size());
++            decision_attempt->actions.reserve(window_moves.size());
+@@ -1783 +1792 @@ SearchResult search(const Position& pos, const SearchLimits& limits,
+-                 << " moves=" << root_moves.size();
++                 << " moves=" << window_moves.size();
+@@ -1787 +1796 @@ SearchResult search(const Position& pos, const SearchLimits& limits,
+-        for (const auto& m : root_moves) {
++        for (const auto& m : window_moves) {
+diff --git a/src/search.hpp b/src/search.hpp
+index 4d4eedd3..97d42116 100644
+--- a/src/search.hpp
++++ b/src/search.hpp
+@@ -251,0 +252,2 @@ struct SearchLimits {
++    // Use the scheduled order at depth one without mutating the adaptive list.
++    bool root_order_initial_only = false;

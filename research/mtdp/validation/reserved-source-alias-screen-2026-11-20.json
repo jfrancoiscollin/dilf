@@ -1,0 +1,43 @@
+{
+  "archived_source_path": "research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-final/s7ahYqL4/first.pdn",
+  "archived_source_sha256": "e90a9926b1b1d740a1d8c0eb2b430f8f6a0293446e5e8c593f0a32ab745700c7",
+  "cases": {
+    "extra_newline": {
+      "candidate_games": 147,
+      "candidate_pdn_sha256": "1e7145955256013c5b05b2659a1cb377c72a7012f0292cb24cff789caaac17c1",
+      "matched_games": 147,
+      "reason_counts": {
+        "reserved_normalized_notation": 147,
+        "reserved_public_game_id": 147
+      },
+      "status": "blocked_reserved_overlap"
+    },
+    "first_game_only": {
+      "candidate_games": 1,
+      "candidate_pdn_sha256": "46938c36185283f4d82080b9db80b474c491df0a4d10e004483acd362a7d46f8",
+      "matched_games": 1,
+      "reason_counts": {
+        "reserved_normalized_notation": 1,
+        "reserved_public_game_id": 1
+      },
+      "status": "blocked_reserved_overlap"
+    },
+    "first_game_renamed_site": {
+      "candidate_games": 1,
+      "candidate_pdn_sha256": "f3d1122ab8e4ec1b4565dfba8c6754833ab81ce31fecb80ad4c5658af15eae7f",
+      "matched_games": 1,
+      "reason_counts": {
+        "reserved_normalized_notation": 1
+      },
+      "status": "blocked_reserved_overlap"
+    }
+  },
+  "independent_cohort_qualified": false,
+  "limitations": [
+    "Conservative known-notation screen only, not canonical trajectory equivalence.",
+    "Not yet integrated into D1 admission; H13 executable preflight rejects matches.",
+    "No known match never grants legality, event authenticity or independence."
+  ],
+  "no_engine_or_reference_scores": true,
+  "source_commit": "16be21c24db1f69e6d5eb0888dd44ffb34e6bd5c"
+}

@@ -1,0 +1,140 @@
+{
+  "LCB_prefix": [
+    "50-44",
+    "46-41",
+    "30-25"
+  ],
+  "budget": 10000,
+  "complete_budget": true,
+  "control_main": {
+    "best_move": "36-31",
+    "completed_depth": 6,
+    "depth_ceiling": false,
+    "nodes": 9810,
+    "score": 6,
+    "stop": "nodes"
+  },
+  "decision_reason": "verified_unique_best",
+  "event": "s7ahYqL4",
+  "fallback_reason": null,
+  "fen": "W:W30,32,33,35,36,37,38,40,42,43,45,46,47,48,49,50:B2,3,4,5,6,8,9,10,11,12,13,15,16,18,20,21",
+  "games": [
+    "mtdp-lidraughts-s7ahYqL4.pdn:143"
+  ],
+  "intervention": null,
+  "lcb_baseline": {
+    "best_move": "36-31",
+    "completed_depth": 6,
+    "depth_ceiling": false,
+    "nodes": 10000,
+    "score": 6,
+    "stop": "nodes"
+  },
+  "main_limit": 9810,
+  "main_nodes": 9810,
+  "native_baseline": {
+    "best_move": "36-31",
+    "completed_depth": 6,
+    "depth_ceiling": false,
+    "nodes": 10000,
+    "score": 6,
+    "stop": "nodes"
+  },
+  "native_legal_actions": 14,
+  "paired_comparable": true,
+  "preliminary_nodes": 47,
+  "scope": "technical_engineering_smoke_not_strength_evidence",
+  "total_nodes": 10000,
+  "verification_nodes": 190,
+  "verification_receipts": [
+    {
+      "issued_limit": 1000,
+      "nodes": 47,
+      "phase": "preliminary"
+    },
+    {
+      "issued_limit": 953,
+      "move": "30-24",
+      "nodes": 7,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 946,
+      "move": "32-27",
+      "nodes": 7,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 939,
+      "move": "33-28",
+      "nodes": 12,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 927,
+      "move": "37-31",
+      "nodes": 5,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 922,
+      "move": "40-34",
+      "nodes": 8,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 914,
+      "move": "47-41",
+      "nodes": 8,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 906,
+      "move": "50-44",
+      "nodes": 8,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 898,
+      "move": "30-25",
+      "nodes": 45,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 853,
+      "move": "32-28",
+      "nodes": 9,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 844,
+      "move": "33-29",
+      "nodes": 5,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 839,
+      "move": "36-31",
+      "nodes": 5,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 834,
+      "move": "43-39",
+      "nodes": 8,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 826,
+      "move": "46-41",
+      "nodes": 8,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 818,
+      "move": "49-44",
+      "nodes": 8,
+      "phase": "probe"
+    }
+  ]
+}

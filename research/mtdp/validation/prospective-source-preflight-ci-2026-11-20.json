@@ -1,0 +1,114 @@
+{
+  "validated_code_commit": "d5b8cbcaee9e06f4821e015179a91a52a2703d9e",
+  "checked_at_utc": "2026-11-20T11:19:46.138364+00:00",
+  "source_sha256": {
+    "research/mtdp/prospective_source_preflight.py": "5ef26f48860ce9cabd2e4b5c93b2ff78543b2516df0ac04a0134f9c874d91839",
+    "research/mtdp/tests/test_prospective_source_preflight.py": "906dd4a3ff52a447df11b89cba2acadfcb5ec3cd8023be7d1804bda2f0558954",
+    "research/mtdp/tests/test_pdn_membership_real_fmjd.py": "af9e299e3c3ffdba1c49c61b6e227da2a3cc48efce6a442f03290625a228b01f",
+    "research/mtdp/PROSPECTIVE_JASS_EVALUATION_PROTOCOL.md": "dd8860890e410ad71c7109125b2c0b54875646742fdd2bd44552d3a3f206de6c"
+  },
+  "d1_modules_modified": false,
+  "preflight_order": [
+    "closed_manifest_schema_and_authentication_of_all_pdn_bytes",
+    "known_reserved_source_screening_of_each_complete_export",
+    "existing_D1_content_addressed_full_game_and_FEN_proof"
+  ],
+  "reserved_match_rejects_whole_batch_before_any_legal_replay": true,
+  "forged_manifest_event_labels_do_not_bypass_known_reserved_screen": true,
+  "local_selected_passed": 25,
+  "local_real_tests_skipped_optional_dependency": 10,
+  "general_ci": {
+    "run_id": 44726097733,
+    "job_id": 136253766055,
+    "core_passed": 643,
+    "mtdp_passed": 733,
+    "optional_skipped": 14,
+    "log_evidence": [
+      "2026-11-20T11:16:59.6848122Z 643 passed in 2.09s",
+      "2026-11-20T11:17:15.4712499Z 733 passed, 14 skipped, 1 warning in 15.45s"
+    ]
+  },
+  "dedicated_real_fmjd_ci": {
+    "run_id": 44726097816,
+    "job_id": 136253766692,
+    "step": 12,
+    "passed": 10,
+    "skipped": 0,
+    "new_h13_cases": 2,
+    "engine_revision": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+    "require_env": "MTDP_REQUIRE_REAL_FMJD=1",
+    "log_excerpt_sha256": "b2c3445d5c3551155e00883881802d4999fc12de14951256bca6b86e64f991ef",
+    "log_evidence": [
+      "2026-11-20T11:16:07.1674868Z   MTDP_REQUIRE_REAL_FMJD: 1",
+      "2026-11-20T11:16:07.3849795Z {\"real_fmjd_revision_verified\": \"0e5189fbb251bf5eaf2e613d0f878bb17c740311\", \"synthetic_membership_checks_only\": true}",
+      "2026-11-20T11:16:08.2495133Z 10 passed in 0.89s"
+    ]
+  },
+  "workflow_runs": [
+    {
+      "id": 44726097816,
+      "name": "downstream-compat",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44726097613,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44726097668,
+      "name": "mtdp-metered-probe",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44726097594,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44726097738,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44726097770,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44726097733,
+      "name": "ci",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44726097859,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "positive_synthetic_result": {
+    "known_reserved_sources_screened": true,
+    "manifest_game_id_binding_verified": true,
+    "fmjd_legality_verified": true,
+    "independent_cohort_qualified": false,
+    "eligible_for_freeze": false,
+    "complete_historical_exclusion_registry": false
+  },
+  "existing_d1_apis_unchanged": true,
+  "no_independent_cohort_or_reference_search_scores_acquired": true,
+  "reserved_entire_events": [
+    "fFgE7oED",
+    "P1RUlfJc",
+    "s7ahYqL4",
+    "D9PF2OSW"
+  ],
+  "next_action": "Use H13 preflight before any future source proof or freeze; D1/H43 must still reconcile all other historical source/public-ID/FEN/trajectory aliases and independently qualify the cohort. Existing D1 APIs are unchanged and no new scientific admission is certified."
+}

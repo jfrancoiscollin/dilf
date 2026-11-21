@@ -25,5 +25,23 @@ jobs:
       - name: pytest
         run: pytest -q
 
+      - name: MTDP research tests
+        run: python -m pytest -q research/mtdp/tests
+
+      - name: MTDP archived FMJD content comparison (no engine)
+        run: |
+          python -m research.mtdp.fmjd_artifact_comparison --left research/mtdp/validation/fmjd-archive-comparison-2026-11-19/earlier.zip --right research/mtdp/validation/fmjd-archive-comparison-2026-11-19/later.zip --left-sha256 3a67b1a2dc0b42590ab2073bc9e31b1b1bd9bea9bf4bd427092f11c0e49cae1b --right-sha256 cd26035f71eb4d0c57d6324f562b5e9f529e6bf4cb32188a3928420f4494310e --output /tmp/mtdp-fmjd-comparison.json
+          cmp /tmp/mtdp-fmjd-comparison.json research/mtdp/validation/fmjd-archive-comparison-2026-11-19/comparison.json
+
+      - name: MTDP frozen prospective cost audit (473 positions per budget)
+        run: |
+          set -euo pipefail
+          archive=research/mtdp/jass_benchmark/spatial-jass/replication/prospective-tiebreak-results.json.gz
+          for budget in 10000 50000 200000; do
+            python -m research.mtdp.jass_benchmark.prospective_cost_audit \
+              --report "$archive" --budget "$budget" --expected-positions 473 \
+              $([ "$budget" = 200000 ] && echo --check-alignment || true)
+          done
+
       - name: mypy --strict pedagogy
         run: mypy --strict pedagogy

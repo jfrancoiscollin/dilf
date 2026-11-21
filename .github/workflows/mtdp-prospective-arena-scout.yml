@@ -1,0 +1,159 @@
+name: mtdp-prospective-arena-scout
+
+# Read-only acquisition diagnostic, NOT an arena freeze or position selection.
+# A historical candidate ID is inspected, but selecting the first eligible
+# independent event still requires full chronological listing and exclusions.
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/mtdp-prospective-arena-scout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  candidate-eligibility-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Only acquire when the scout protocol changes
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = workflow_dispatch ] ||
+             git diff --name-only HEAD^ HEAD | grep -Fxq '.github/workflows/mtdp-prospective-arena-scout.yml'; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Read-only candidate evidence already pinned; no new acquisition needed."
+          fi
+      - name: Snapshot current candidate metadata and listing
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/mtdp-scout
+          date -u +'%Y-%m-%dT%H:%M:%SZ' > /tmp/mtdp-scout/retrieved-at.txt
+          curl -fsSL --retry 2 --connect-timeout 10 --max-time 40 \
+            -H 'Cache-Control: no-cache' \
+            "https://lidraughts.org/api/tournament?nb=50&snapshot=20261115" \
+            -o /tmp/mtdp-scout/listing.json || true
+          curl -fsSL --retry 2 --connect-timeout 10 --max-time 40 \
+            -H 'Cache-Control: no-cache' \
+            "https://lidraughts.org/api/tournament/fFgE7oED" \
+            -o /tmp/mtdp-scout/candidate-detail.json || true
+
+      - name: Verify completion, 5+0 rules and independently fetched exports
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from hashlib import sha256
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+
+          root = Path("/tmp/mtdp-scout")
+          event = "fFgE7oED"  # previously documented *candidate*, not an approved frozen selection
+          cutoff = datetime.fromisoformat("2026-11-14T11:00:00+00:00")
+          observed = root.joinpath("retrieved-at.txt").read_text().strip()
+          report = {
+              "schema": "mtdp-prospective-candidate-observation-v1",
+              "scope": "read_only_candidate_check_no_freeze_no_scan_scoring",
+              "candidate": event,
+              "observed_utc": observed,
+              "cutoff_utc": cutoff.isoformat(),
+              "status": "unverified",
+              "reasons": [],
+          }
+          detail_file = root / "candidate-detail.json"
+          if not detail_file.is_file():
+              report["reasons"].append("Candidate detail endpoint unavailable")
+          else:
+              try:
+                  detail = json.loads(detail_file.read_bytes())
+              except ValueError:
+                  report["reasons"].append("Candidate detail response is not valid JSON")
+                  detail = {}
+              report["metadata_sha256"] = sha256(detail_file.read_bytes()).hexdigest()
+              match = detail.get("id") == event
+              completed = detail.get("isFinished") is True
+              standard = detail.get("system") == "arena" and detail.get("variant") == "standard"
+              five_minutes = detail.get("clock") == {"limit": 300, "increment": 0}
+              starts = detail.get("startsAt")
+              try:
+                  start_date = datetime.fromisoformat(starts.replace("Z", "+00:00"))
+                  after_cutoff = start_date >= cutoff
+              except (ValueError, AttributeError, TypeError):
+                  after_cutoff = False
+              report.update({
+                  "metadata_id_valid": match,
+                  "finished": completed,
+                  "standard_5_0": standard and five_minutes,
+                  "starts_at": starts,
+                  "starts_after_cutoff": after_cutoff,
+                  "metadata_only_admissible": bool(
+                      match and completed and standard and five_minutes and after_cutoff
+                  ),
+              })
+              if not report["metadata_only_admissible"]:
+                  report["reasons"].append("Missing or ineligible completed 5+0 metadata")
+              else:
+                  url = f"https://lidraughts.org/api/tournament/{event}/games"
+                  payloads = []
+                  for i in (1, 2):
+                      try:
+                          request = Request(
+                              url, headers={"Cache-Control": "no-cache",
+                                            "User-Agent": "MTDP-scientific-repro/1.0"},
+                          )
+                          with urlopen(request, timeout=60) as response:
+                              data = response.read()
+                          if not data:
+                              raise ValueError("Empty PDN export")
+                          (root / f"{event}-export-{i}.pdn").write_bytes(data)
+                          payloads.append(data)
+                      except Exception as error:
+                          report["reasons"].append(
+                              f"Independent PDN export {i} unavailable: {type(error).__name__}"
+                          )
+                  if len(payloads) == 2:
+                      report.update({
+                          "export_1_bytes": len(payloads[0]),
+                          "export_2_bytes": len(payloads[1]),
+                          "export_1_sha256": sha256(payloads[0]).hexdigest(),
+                          "export_2_sha256": sha256(payloads[1]).hexdigest(),
+                          "exports_identical": payloads[0] == payloads[1],
+                      })
+                      if payloads[0] != payloads[1]:
+                          report["reasons"].append("Two independent exports disagree")
+          if (root / "listing.json").is_file():
+              report["listing_sha256"] = sha256(
+                  (root / "listing.json").read_bytes()
+              ).hexdigest()
+          report["status"] = (
+              "candidate_metadata_and_exports_verified_but_not_chronologically_selected"
+              if report.get("metadata_only_admissible") and report.get("exports_identical")
+              else "unverified_or_ineligible"
+          )
+          report["next_gate"] = (
+              "Restore chronological snapshots and prior exclusions; select the first "
+              "eligible independent completed arena; replay FMJD and freeze manifest "
+              "before running Scan-16 target scoring"
+          )
+          (root / "status.json").write_text(
+              json.dumps(report, sort_keys=True, indent=2) + "\n"
+          )
+          print(json.dumps(report, sort_keys=True))
+          PY
+
+      - name: Preserve read-only input evidence
+        if: steps.gate.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-prospective-candidate-raw-evidence
+          path: /tmp/mtdp-scout/
+          retention-days: 30
+          if-no-files-found: error

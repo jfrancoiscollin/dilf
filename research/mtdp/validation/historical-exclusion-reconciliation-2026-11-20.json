@@ -1,0 +1,162 @@
+{
+  "complete_historical_exclusion_registry": false,
+  "complete_replay_game_records": 4434,
+  "confirmed_prefix_fens": 433363,
+  "duplicate_complete_trajectory_records": 158,
+  "engine_revision_of_existing_replay": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "independent_cohort_qualified": false,
+  "member_sha256": {
+    "P1RUlfJc-canonical-history.json": "eafd1e7b1c447b69f96d307b38a1c7c0fbd8fa9dd9b68f8afe555e3faa02d1b6",
+    "P1RUlfJc-exclusions.json": "25b3ca1a6f0a096c264c8f136135a37fd7d5bb23c04af76a39b4915a611d192e",
+    "two-arena-exclusions.json": "8dac5c60e1eaa10ff8e3e27f5c1fb0d0307edaeaec438e7c9bdc33b3e666dc32"
+  },
+  "missing_reserved_source_game_entries": 208,
+  "new_engine_calls": 0,
+  "new_reference_scores_acquired": false,
+  "next_action": "D1/H43 reconcile the two later reserved sources and all other historical manifests/aliases before declaring full coverage. Keep H13 whole-event/public-ID/notation screening active; do not admit a new cohort on these counts alone.",
+  "normalized_notation_fingerprints": 4458,
+  "older_archive_coverage": {
+    "archived_files": 247,
+    "excluded_fens": 188809
+  },
+  "public_game_ids": 4582,
+  "quarantined_game_records": 182,
+  "reserved_events_missing_as_sources": [
+    "s7ahYqL4",
+    "D9PF2OSW"
+  ],
+  "reserved_events_present_as_sources": [
+    "fFgE7oED",
+    "P1RUlfJc"
+  ],
+  "schema": "mtdp-h13-historical-exclusion-reconciliation-v1",
+  "scientific_freeze": false,
+  "source_artifact_id": 14625817620,
+  "source_artifact_zip_sha256": "2768da137051e006a96b2fb0ac5b58ff5778e53fb0371d9fcd982a3948852165",
+  "source_count": 23,
+  "source_game_records": 4616,
+  "source_run_id": 44730344598,
+  "sources": [
+    {
+      "file": "Bourges2-Seilh.pdn",
+      "games": 4,
+      "sha256": "27411973b10bb5f21346601958cb47f17afa6dbb2013f336a1d940053eaf9831"
+    },
+    {
+      "file": "Drancy-Mirepoix.pdn",
+      "games": 4,
+      "sha256": "c23bced8c52d0928bf9502c05f1f6ab91a9a523b70489aa938cc3de7ba4ea7b9"
+    },
+    {
+      "file": "mtdp-lidraughts-0gB7ETSW.pdn",
+      "games": 81,
+      "sha256": "cdf0ef2f69fddaec1994c54448479b2599bcaf3a343d5d500c43ae03b19f03f4"
+    },
+    {
+      "file": "mtdp-lidraughts-3onq5G6G.pdn",
+      "games": 244,
+      "sha256": "617c09fd64895705d19b6290b116439b3adf52fef2858442d0ee724ec051d1de"
+    },
+    {
+      "file": "mtdp-lidraughts-CARZrQpl.pdn",
+      "games": 1831,
+      "sha256": "a34147699ed795e6225a95a20d9fb18015d7ef3afa54602576c0073ca7824e1d"
+    },
+    {
+      "file": "mtdp-lidraughts-GYEtKzUg.pdn",
+      "games": 165,
+      "sha256": "a41595e71352397ac2fdda7c8a92fab455a6074969b764d4ee2caa3306da302b"
+    },
+    {
+      "file": "mtdp-lidraughts-KXaMpuNe.pdn",
+      "games": 162,
+      "sha256": "0d7dd28d9c0389185b4c9fc162093c10a1558c7909bf1be70d07bd95a32edb6c"
+    },
+    {
+      "file": "mtdp-lidraughts-L4F4P5R8.pdn",
+      "games": 44,
+      "sha256": "e8a5ae26d1f376a131077521a437500782fea38771c53cbdb0dbae4916d0bb34"
+    },
+    {
+      "file": "mtdp-lidraughts-LAYRsqON.pdn",
+      "games": 92,
+      "sha256": "3d355104e50209af40013c294065b54551d9b6796ee93a69fe45b27f67b01ce4"
+    },
+    {
+      "file": "mtdp-lidraughts-MIDBy9dl.pdn",
+      "games": 209,
+      "sha256": "c628f3e178669491138a01ed3a584616df08e98510cc878b3fa557653ddaf33e"
+    },
+    {
+      "file": "mtdp-lidraughts-MoXhmT9b.pdn",
+      "games": 155,
+      "sha256": "c1182cee70dfd7ac9627191f482bd00b0242ccc37bd1d96278efbcd6358aa1c2"
+    },
+    {
+      "file": "mtdp-lidraughts-MtDQWBNR.pdn",
+      "games": 151,
+      "sha256": "a2bb40dea7e5b395ca18d8bbd78f16aeb7a8714050732473f10e2056a9607c1b"
+    },
+    {
+      "file": "mtdp-lidraughts-Z3s40c6H.pdn",
+      "games": 66,
+      "sha256": "a8f2c913eb92f5a501deebc9e6ebda275db8184cb22e3456149b54afb1000bea"
+    },
+    {
+      "file": "mtdp-lidraughts-eo66EN9z.pdn",
+      "games": 263,
+      "sha256": "38d352e824420f11429f02c9fd4030d211355915a2626968fdc336bf487eadbf"
+    },
+    {
+      "file": "mtdp-lidraughts-fFgE7oED.pdn",
+      "games": 157,
+      "sha256": "916639e4daf7fae419bd4a9bb4a3530ce62f3eb40ea97f7582762e6cebf68de2"
+    },
+    {
+      "file": "mtdp-lidraughts-iPQl7g7q.pdn",
+      "games": 199,
+      "sha256": "e5e460c4e5be288f1b5e049ae28e91ab1b5661cbe893a7d3d1bcfbde2861772e"
+    },
+    {
+      "file": "mtdp-lidraughts-l45uk39x.pdn",
+      "games": 72,
+      "sha256": "6e5ff944f2be0b7d0c0d5ff7451f39bf4b97ec3202643b78205bb7b1441752b4"
+    },
+    {
+      "file": "mtdp-lidraughts-pRW2Ahpz.pdn",
+      "games": 99,
+      "sha256": "ca2e16eff5d95e8b940b9f322537e0d5b7af299f9b378c4b09f1dd6f1d0a760d"
+    },
+    {
+      "file": "mtdp-lidraughts-uG0fGZzB.pdn",
+      "games": 69,
+      "sha256": "60aea524ac2aa7e0acbf389eb398ec94bdf525a73857c118db2c214d6c1311c9"
+    },
+    {
+      "file": "mtdp-lidraughts-xAnBIxHN.pdn",
+      "games": 141,
+      "sha256": "da0b311c9c1b5d3fa73c229a754ef4a4294cfc46fb94dafc8e56ff258c03d834"
+    },
+    {
+      "file": "mtdp-lidraughts-xmzj1bLG.pdn",
+      "games": 141,
+      "sha256": "52e6cb89719d183a8f00454a1be9f944d3dc7cdc9f18b5cd66f99632e16b4653"
+    },
+    {
+      "file": "pcblues_games.pdn",
+      "games": 26,
+      "sha256": "025ad0a1a9ddcf508e3284eef65eb1cf76ebf7763d1241a127432f99eac3d8be"
+    },
+    {
+      "file": "mtdp-lidraughts-P1RUlfJc.pdn",
+      "games": 241,
+      "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439"
+    }
+  ],
+  "status_counts": {
+    "duplicate": 153,
+    "indexed": 4281,
+    "quarantined": 182
+  },
+  "unique_complete_trajectories": 4276
+}

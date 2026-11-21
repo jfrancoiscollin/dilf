@@ -1,0 +1,92 @@
+{
+  "LCB_prefix": [
+    "17-22",
+    "16-21",
+    "17-21"
+  ],
+  "budget": 200000,
+  "complete_budget": true,
+  "control_main": {
+    "best_move": "14-20",
+    "completed_depth": 15,
+    "depth_ceiling": false,
+    "nodes": 199936,
+    "score": -248,
+    "stop": "nodes"
+  },
+  "decision_reason": "verified_unique_best",
+  "event": "s7ahYqL4",
+  "fallback_reason": null,
+  "fen": "B:W24,27,29,31,36,38,43:B6,11,14,15,16,17",
+  "games": [
+    "mtdp-lidraughts-s7ahYqL4.pdn:89"
+  ],
+  "intervention": null,
+  "lcb_baseline": {
+    "best_move": "14-20",
+    "completed_depth": 15,
+    "depth_ceiling": false,
+    "nodes": 200000,
+    "score": -248,
+    "stop": "nodes"
+  },
+  "main_limit": 199936,
+  "main_nodes": 199936,
+  "native_baseline": {
+    "best_move": "14-20",
+    "completed_depth": 15,
+    "depth_ceiling": false,
+    "nodes": 200000,
+    "score": -248,
+    "stop": "nodes"
+  },
+  "native_legal_actions": 6,
+  "paired_comparable": true,
+  "preliminary_nodes": 32,
+  "scope": "technical_engineering_smoke_not_strength_evidence",
+  "total_nodes": 200000,
+  "verification_nodes": 64,
+  "verification_receipts": [
+    {
+      "issued_limit": 20000,
+      "nodes": 32,
+      "phase": "preliminary"
+    },
+    {
+      "issued_limit": 19968,
+      "move": "14-19",
+      "nodes": 3,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 19965,
+      "move": "15-20",
+      "nodes": 3,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 19962,
+      "move": "17-21",
+      "nodes": 18,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 19944,
+      "move": "14-20",
+      "nodes": 2,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 19942,
+      "move": "16-21",
+      "nodes": 3,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 19939,
+      "move": "17-22",
+      "nodes": 3,
+      "phase": "probe"
+    }
+  ]
+}

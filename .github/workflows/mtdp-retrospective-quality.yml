@@ -1,0 +1,58 @@
+name: mtdp-retrospective-quality
+
+# Mechanism-only, post-hoc quality diagnosis. Reuses the successful 473x3
+# engine receipt artifact; never spends new Jass search nodes or claims a
+# fresh independent scientific holdout.
+on:
+  pull_request:
+    paths:
+      - 'research/mtdp/jass_benchmark/metered_archive_quality.py'
+      - 'research/mtdp/tests/test_metered_archive_quality.py'
+      - '.github/workflows/mtdp-retrospective-quality.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  archived-scan16-diagnostic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out DILF PR
+        uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install scientific test dependencies
+        run: python -m pip install -e '.[dev]'
+      - name: Verify pinned successful equal-budget engine receipt run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          expected='a4f252d8061c3a93d436d14352b60ac9625a20ed'
+          observed="$(gh api "repos/$GH_REPO/actions/runs/43709965786" --jq '.head_sha')"
+          conclusion="$(gh api "repos/$GH_REPO/actions/runs/43709965786" --jq '.conclusion')"
+          test "$observed" = "$expected"
+          test "$conclusion" = success
+          gh run download 43709965786 -R "$GH_REPO" \
+            --name mtdp-metered-archive-technical-gate --dir /tmp/mtdp-archive-quality/receipts
+          test -f /tmp/mtdp-archive-quality/receipts/200000/CARZrQpl.json
+      - name: Retrospectively score pre-recorded decisions with frozen Scan16
+        run: |
+          set -euo pipefail
+          python -m pytest -q research/mtdp/tests/test_metered_archive_quality.py
+          python -m research.mtdp.jass_benchmark.metered_archive_quality \
+            --receipts /tmp/mtdp-archive-quality/receipts \
+            --replication research/mtdp/jass_benchmark/spatial-jass/replication \
+            --output /tmp/mtdp-archive-quality/retrospective-quality.json
+      - name: Save post-hoc diagnostic with hard limitation label
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-retrospective-scan16-quality
+          path: /tmp/mtdp-archive-quality/retrospective-quality.json
+          retention-days: 30
+          if-no-files-found: warn

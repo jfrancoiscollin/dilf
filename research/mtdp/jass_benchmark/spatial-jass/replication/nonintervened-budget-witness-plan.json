@@ -1,0 +1,59 @@
+{
+  "all_raw_receipts_required": true,
+  "arms": [
+    "control_reproduced_with_fresh_selector",
+    "native_full_original_budget",
+    "LCB_full_original_budget",
+    "LCB_unforced_residual_budget",
+    "native_residual_budget"
+  ],
+  "cases": [
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:59",
+      "path": "D9PF2OSW/10000/00005.json",
+      "reported_intervention": null,
+      "verification_nodes": 293
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:59",
+      "path": "D9PF2OSW/50000/00005.json",
+      "reported_intervention": null,
+      "verification_nodes": 293
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:59",
+      "path": "D9PF2OSW/200000/00005.json",
+      "reported_intervention": null,
+      "verification_nodes": 293
+    }
+  ],
+  "exclude_from_D1": [
+    "fFgE7oED",
+    "P1RUlfJc",
+    "s7ahYqL4",
+    "D9PF2OSW"
+  ],
+  "execution_gate": "separate_published_collector_wrapper_and_plan_verified_before_calls",
+  "expected_three_original_summaries_must_match": true,
+  "manifest_sha256": "c079ca061d3645b42ce93235854e032de2be43a4cb08d8cea5ddbc1d92f1b5aa",
+  "max_total_search_nodes_per_execution": 1300000,
+  "new_independent_cohort": false,
+  "original_nine_case_plan_may_be_expanded": false,
+  "parent_audit_sha256": "95a5cade6055ceca051f8751b12f486c0fece6e633e6563b6b679c3dc477f63c",
+  "parent_decisions_commit": "03b1a270b12244a03df715f265f597bd0f00cd50",
+  "parent_freeze_commit": "3fa9a56a3fa60954d5391d7e1b302c07e04f1f04",
+  "schema": "mtdp-nonintervened-budget-witness-plan-v1",
+  "scope": "post_hoc_one_known_depth_loss_position_all_three_budgets_not_independent_validation",
+  "selection_reason": "only_archived_control_native_depth_difference_position_then_all_three_original_budgets",
+  "source_ranking_depth": 12,
+  "target_reference_access_allowed": false
+}

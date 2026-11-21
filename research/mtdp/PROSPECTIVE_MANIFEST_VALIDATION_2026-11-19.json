@@ -1,0 +1,79 @@
+{
+  "CI_core_passed": 643,
+  "CI_general_job": 135701251883,
+  "CI_general_run": 44564170208,
+  "CI_research_passed": 663,
+  "CI_research_skipped": 4,
+  "D1_modules_changed": false,
+  "after_fix_rejected": true,
+  "before_fix_reproduced_accepted": [
+    "padded_reserved_event",
+    "numerically_equal_float_budgets"
+  ],
+  "files_sha256": {
+    "research/mtdp/PROSPECTIVE_JASS_EVALUATION_PROTOCOL.md": "959ff0b7ef56981639a20607dc603e543d0c12de6232cc75cc280f6bf9b9ab8d",
+    "research/mtdp/prospective_manifest.py": "2933401e6a2127f20c61b5ce145efcdd087709422904fa76ba51085c1b7c0fff",
+    "research/mtdp/tests/test_prospective_manifest.py": "cdca3fbe35067863d7b6ffd1828bd41d4b4fd1e6da35ebc033afe1d936e5d6a1"
+  },
+  "local_D1_guard_tests": 27,
+  "local_manifest_tests": 21,
+  "local_targeted_tests": 48,
+  "new_cohort_admitted": false,
+  "new_engine_calls": 0,
+  "next_action": "D1 real FMJD legality and independent candidate qualification, then H13 concrete execution protocol and joint reservation before acquisition/scoring",
+  "regressions_added": 8,
+  "schema": "mtdp-prospective-metadata-validation-v1",
+  "scope": "metadata_gate_and_execution_design_only_not_cohort_admission_or_scientific_freeze",
+  "validated_at_utc": "2026-11-19T16:19:20.705098+00:00",
+  "validated_commit": "b195b85f9a238219c21c310dcefc9a52739c8ade",
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "id": 44564170400,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44564170150,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44564170290,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44564170298,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44564170184,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44564170307,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44564170144,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44564170208,
+      "name": "ci",
+      "status": "completed"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 20261113,
+  "bootstrap_unit": "owning_public_game",
+  "event": {
+    "clock": {
+      "increment": 0,
+      "limit": 300
+    },
+    "createdBy": "lidraughts",
+    "fullName": "Hourly Blitz Arena",
+    "id": "P1RUlfJc",
+    "minutes": 57,
+    "schedule": {
+      "freq": "hourly",
+      "speed": "blitz"
+    },
+    "secondsToStart": 19990,
+    "startsAt": "2026-11-18T20:00:00.000Z",
+    "system": "arena",
+    "variant": "standard"
+  },
+  "fmjd_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "metadata_request": "https://lidraughts.org/api/tournament/P1RUlfJc",
+  "metadata_response_sha256": "e3875670e7ce066ba7a2fcab4aac0582b2457d071832cbf03ff76c7613463a63",
+  "method_commit": "8d62f76fae1ccd9578927792e140e61e5fa2a494",
+  "old_candidate_status": "fFgE7oED_still_reserved_and_chronology_unproven_not_retroactively_replaced",
+  "primary_total_node_budget": 50000,
+  "reference_target_scan_successor_depth": 16,
+  "registered_utc": "2026-11-18T14:29:12.507360+00:00",
+  "reserved_from_D1": true,
+  "schema": "mtdp-named-arena-preregistration-v1",
+  "selection_rule": "this_exact_named_event_no_switching_based_on_targets_or_scores",
+  "source_scan_successor_depth": 12,
+  "status": "selection_preregistered_before_start_not_a_position_freeze",
+  "total_node_budgets": [
+    10000,
+    50000,
+    200000
+  ],
+  "verification_fraction": 0.1
+}

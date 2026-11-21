@@ -1,0 +1,88 @@
+{
+  "validated_code_commit": "104e836b15ba565e94bfd1a1352123fd3d48f2d7",
+  "inventory_sha256": "e93bf635d9167b6b7780e341dcdfe88c0077a96bb02c954e617905230b01e672",
+  "reserved_export_game_entries": 606,
+  "counts": {
+    "fFgE7oED": 157,
+    "P1RUlfJc": 241,
+    "s7ahYqL4": 147,
+    "D9PF2OSW": 61
+  },
+  "local_tests_passed": 20,
+  "new_tests_passed": 7,
+  "separate_process_hash_seeds": [
+    7,
+    61
+  ],
+  "both_outputs_byte_equal_to_committed_inventory": true,
+  "ci": {
+    "job_id": 136130149149,
+    "core_passed": 643,
+    "mtdp_passed": 705,
+    "mtdp_optional_skipped": 12,
+    "log_evidence": [
+      "2026-11-20T06:37:59.9469344Z 643 passed in 2.01s",
+      "2026-11-20T06:38:09.5476942Z 705 passed, 12 skipped, 1 warning in 9.26s"
+    ]
+  },
+  "workflow_runs": [
+    {
+      "id": 44689034983,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44689034930,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44689034950,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44689034932,
+      "name": "downstream-compat",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44689034954,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44689034815,
+      "name": "ci",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44689034913,
+      "name": "mtdp-metered-probe",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44689034933,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "offline_artifact_metadata_only": {
+    "run_id": 44689034930,
+    "artifact_id": 14608115645,
+    "sha256": "32fee34540469bb0d9a9adc5b7e558d87b0e007413a6151e9d36a20ff2565516",
+    "downloaded": false
+  },
+  "independent_cohort_qualified": false,
+  "complete_historical_fen_trajectory_registry": false,
+  "new_reference_scores_acquired": false,
+  "next_action": "D1/H43 reconcile complete historical FEN/trajectory/public-ID exclusions and authenticate event provenance. Keep all four whole events excluded before any H13 prospective protocol or new cohort freeze."
+}

@@ -1,0 +1,69 @@
+{
+  "D1_job_id": 135470643711,
+  "D1_prior_failed_run_id": 44497397841,
+  "D1_test_expectation_fixed_without_production_threshold_change": true,
+  "D1_tests_passed": 131,
+  "D1_workflow_run_id": 44498180309,
+  "all_commit_workflows": [
+    {
+      "conclusion": "success",
+      "id": 44498180352,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44498180402,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44498180309,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44498180454,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44498180307,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44498180455,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44498180471,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44498180388,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ],
+  "all_seven_members_byte_identical_to_repository": true,
+  "artifact_id": 14515808075,
+  "cohort_engine_calls_in_this_CI_job": 0,
+  "commit": "2126486930d3b8f4c14f992e46d262c962aed334",
+  "conclusion": "success",
+  "job_id": 135470644717,
+  "offline_tests_passed": 33,
+  "run_id": 44498180402,
+  "schema": "mtdp-nonintervened-witness-ci-verification-v1",
+  "verified_witness_raw_receipts": 84,
+  "zip_bytes": 49542,
+  "zip_sha256": "355ade397be2387ef6a5bc320d12b81549e9349f8a26d5fd0a9f605bf7fd73a1"
+}

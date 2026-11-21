@@ -1,0 +1,14 @@
+{
+  "clock": {
+    "increment": 0,
+    "limit": 300
+  },
+  "createdBy": "lidraughts",
+  "id": "P1RUlfJc",
+  "isFinished": true,
+  "minutes": 57,
+  "nbPlayers": 148,
+  "startsAt": "2026-11-18T20:00:00.000Z",
+  "system": "arena",
+  "variant": "standard"
+}

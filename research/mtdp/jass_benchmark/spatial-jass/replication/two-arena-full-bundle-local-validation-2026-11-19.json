@@ -1,0 +1,34 @@
+{
+  "actual_clock_refusal_verified": true,
+  "all_four_payloads_identical": true,
+  "foundation_tests_passed": 191,
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "http_requests": 6,
+  "http_transport": "mocked_in_memory_no_network",
+  "implementation_commit": "fc6178c691fe34658ac7ba2550a34be1a6e92b73",
+  "independent_processes": true,
+  "later_whole_game_token_aliases_excluded": 1,
+  "manifest_sha256": "8ed949b3b408a599157500e09e6b55cc3d29a9b6d2d3308542185fccf4e4d665",
+  "new_publication_tests_passed": 28,
+  "production_validator_refused": true,
+  "proposal_sha256": "43fc5abaae9f86f94ad697ac511f9ca6bca3ba3b9d12156a3d94865ebafafbe2",
+  "publication_sha256": "ec2d338b5c74072368409f4941e2a63385385a79d1ccbf730b77e3a206304237",
+  "raw_crlf_preserved": true,
+  "raw_failed_attempt_retention_tested": true,
+  "schema": "mtdp-two-arena-local-full-bundle-validation-v1",
+  "scientific_freeze": false,
+  "scope": "engineering_only_no_freeze_publication_or_search_authorization",
+  "synthetic_rehearsal": true,
+  "target_action_counts": [
+    10,
+    10
+  ],
+  "target_counts": [
+    1,
+    1
+  ],
+  "temporary_Git_origin_positive_and_negative_paths_tested": true
+}

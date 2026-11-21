@@ -1,0 +1,1042 @@
+{
+  "mtdp-lidraughts-D9PF2OSW.pdn:1": {
+    "status": "indexed",
+    "trajectory_sha256": "fa8e03f81ae4711d66041069ffc784256d7c33af72baa62b7fad7efad5e32924",
+    "validated_plies": 116
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:10": {
+    "status": "indexed",
+    "trajectory_sha256": "64fbbba68091086b5055ab0465b53c194b55522c93d18f3a91cd60e0eb0c0884",
+    "validated_plies": 107
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:11": {
+    "status": "indexed",
+    "trajectory_sha256": "91f4ba0f56ffc327f14d18823ec00de427a55a050dc0c33919bcd71ed795a479",
+    "validated_plies": 150
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:12": {
+    "status": "indexed",
+    "trajectory_sha256": "65c0a10c34159ab19f1fbe6397503a377afef39f8b49ed2ea5451b04425228cb",
+    "validated_plies": 162
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:13": {
+    "status": "indexed",
+    "trajectory_sha256": "3362b7384d27123c5d9c662b72968f791adfa41f32f71e47444dd4cf5e329963",
+    "validated_plies": 124
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:14": {
+    "status": "indexed",
+    "trajectory_sha256": "10ba3b4801976c92c76dd7be4fa0b93c01ea1f7dd6ad433c433d17b0e587d0d7",
+    "validated_plies": 134
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:15": {
+    "status": "indexed",
+    "trajectory_sha256": "ca2e0ebff75cc5b2a0213f54fbc6a4f6b14a9c271f9007d9a817559fe1a8dc8a",
+    "validated_plies": 147
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:16": {
+    "status": "indexed",
+    "trajectory_sha256": "c8209ccc52ecf0e442a66d87ba859e6ce381aaa34fd855dd81617977d43d6b20",
+    "validated_plies": 95
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:17": {
+    "confirmed_prefix_positions": 127,
+    "error": "Game 17, ply 127, 4x36: '4x36': expected exactly one legal matching move, found 2",
+    "status": "quarantined"
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:18": {
+    "status": "indexed",
+    "trajectory_sha256": "d8b5c0f3dc8c493c04c267ae6cdb07dd970af84304c561c4ba8095326bfccdc4",
+    "validated_plies": 124
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:19": {
+    "status": "indexed",
+    "trajectory_sha256": "68843f1abfda3d0ba4e354db8eee61c2fa0f6828e4122efb7b786670883b3e0e",
+    "validated_plies": 114
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:2": {
+    "status": "indexed",
+    "trajectory_sha256": "b834b2f31f23e61ecbb3c6a604ba1e18aaf78096c75a5c2d51aac9d62423bbe2",
+    "validated_plies": 115
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:20": {
+    "confirmed_prefix_positions": 107,
+    "error": "Game 20, ply 107, 48x25: '48x25': expected exactly one legal matching move, found 2",
+    "status": "quarantined"
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:21": {
+    "status": "indexed",
+    "trajectory_sha256": "a44c4b3f78e98714a6d381922876f7f820e4516ce843752942aa9c40420f5800",
+    "validated_plies": 40
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:22": {
+    "status": "indexed",
+    "trajectory_sha256": "8bca7693b04c7bf02098016c846f501d267654f04170337db199bd53bac8e61a",
+    "validated_plies": 93
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:23": {
+    "status": "indexed",
+    "trajectory_sha256": "bf9d16ad99518f46e3a5d8905efce71435009d60d78faded6e57df7190dfc196",
+    "validated_plies": 127
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:24": {
+    "status": "indexed",
+    "trajectory_sha256": "0350c34ca42cd8ccf3fd0fe5a7476705093dc05a5977963faace4e952bda1b3e",
+    "validated_plies": 114
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:25": {
+    "status": "indexed",
+    "trajectory_sha256": "8effce882819795e6e77afb6200b05370ccc5b925212ef00410a4a4357bac242",
+    "validated_plies": 104
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:26": {
+    "status": "indexed",
+    "trajectory_sha256": "a3aa475ddc6860a488e3119961c1544eff00421214e99406f85b9e5286ff88e8",
+    "validated_plies": 92
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:27": {
+    "status": "indexed",
+    "trajectory_sha256": "d858c631a24b067504dec696d95c28f47aa99261b95b775449c70231ac5b2159",
+    "validated_plies": 45
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:28": {
+    "status": "indexed",
+    "trajectory_sha256": "d7c42a030bc6c59fc676d55f2b8908181834bc0dc3cfe2998ff843faadd7b6cf",
+    "validated_plies": 62
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:29": {
+    "status": "indexed",
+    "trajectory_sha256": "92d155b0e7628b7c3a685be254b67e39805df3dc9e4a7ca314b9f654827eeb7a",
+    "validated_plies": 111
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:3": {
+    "status": "indexed",
+    "trajectory_sha256": "b55ba051f930c9e10d1b21f4f90692d99601469393333e4a7b6ce5a21af08280",
+    "validated_plies": 108
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:30": {
+    "status": "indexed",
+    "trajectory_sha256": "9fbc3bd78940d7982f6f44f884966baea366861d5502dc1831547ad8bb23db3d",
+    "validated_plies": 126
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:31": {
+    "status": "indexed",
+    "trajectory_sha256": "72df86f2edf829f9e702b7ce28397aa3a7abff0858d9561cf0b43389d0195acd",
+    "validated_plies": 129
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:32": {
+    "status": "indexed",
+    "trajectory_sha256": "c01199dff4fb082e5318faae0dd33af031d29bb243fb2c68e361dface6e02493",
+    "validated_plies": 142
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:33": {
+    "status": "indexed",
+    "trajectory_sha256": "4a4649d1876e106e10b79a54e6325a6b5fff09f2b5ac4396389818f4e6c4bc22",
+    "validated_plies": 105
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:34": {
+    "status": "indexed",
+    "trajectory_sha256": "f48f8fb1c56aed355fce667729aef85081068dd9689e1497b337e8cc3b940e93",
+    "validated_plies": 107
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:35": {
+    "status": "indexed",
+    "trajectory_sha256": "92c7a6d01e3e7801a49f829049bbfd24be38bb9673cd936ab27957c7fc8acc84",
+    "validated_plies": 132
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:36": {
+    "status": "indexed",
+    "trajectory_sha256": "7f4bf13e256b76233f5a2196c9079e61b3d4293bc8c6a9d0f105251ae5833cc7",
+    "validated_plies": 111
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:37": {
+    "confirmed_prefix_positions": 91,
+    "error": "Game 37, ply 91, 50x9: '50x9': expected exactly one legal matching move, found 2",
+    "status": "quarantined"
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:38": {
+    "status": "indexed",
+    "trajectory_sha256": "566e3ab801d6e1ec9eeac3393127be7a47199935d02654ca4192098405d6bc0f",
+    "validated_plies": 111
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:39": {
+    "status": "indexed",
+    "trajectory_sha256": "9134713059ed0a4925bece4c4dadf30b9813b66a6379123a32746d85bef15e04",
+    "validated_plies": 120
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:4": {
+    "status": "indexed",
+    "trajectory_sha256": "2738668a6070911daa6d0a819250a8fceb051dcbd93c65340c54b9e2bb7c3fd9",
+    "validated_plies": 91
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:40": {
+    "status": "indexed",
+    "trajectory_sha256": "f80ae98a43b2530d1243c81f6f8ca56d7c329e2b71ce104a55510f9a796349ea",
+    "validated_plies": 113
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:41": {
+    "status": "indexed",
+    "trajectory_sha256": "524f8fb162e97d3d652106d12d8c1b2297e5d5565443d29bb5173e1a85760374",
+    "validated_plies": 152
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:42": {
+    "status": "indexed",
+    "trajectory_sha256": "0fbf3b335b7035ce52de24414befbcbd2359cea97c8187cb7953b841dd0c88ab",
+    "validated_plies": 108
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:43": {
+    "status": "indexed",
+    "trajectory_sha256": "503ef86d7d0d8374b03c5854afa717cd7a4f7edac29b07ebd8bd26ba3d7dfea8",
+    "validated_plies": 161
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:44": {
+    "status": "indexed",
+    "trajectory_sha256": "437852a5ff666baaef6423b25b1e2a592445c12c300f3029feb5d3ad2904b433",
+    "validated_plies": 145
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:45": {
+    "status": "indexed",
+    "trajectory_sha256": "d2b50263df3b483a74a90d533a92fabd9910fe58ad1924bf632bf906b472b033",
+    "validated_plies": 138
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:46": {
+    "status": "indexed",
+    "trajectory_sha256": "cf60cff661762c97ad5a1e6bb9253f8782106ec21ee54dd5136a968e757ed311",
+    "validated_plies": 59
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:47": {
+    "status": "indexed",
+    "trajectory_sha256": "98fa189978ca995b40eb5ae0a40bf807592d6f7d80e98004441458836391e88a",
+    "validated_plies": 89
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:48": {
+    "status": "duplicate",
+    "trajectory_sha256": "7e2ef09dce1dad724c39e9650f43b87d80ba59050e0195dcfab9e47ae1875ed1",
+    "validated_plies": 0
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:49": {
+    "status": "indexed",
+    "trajectory_sha256": "7400492be06e41b094924800e6fe9fa46517ce48227104b7ab760513f4003b7a",
+    "validated_plies": 75
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:5": {
+    "status": "indexed",
+    "trajectory_sha256": "f395a0f5ca7f69bada2784117bcf4ab640013e71168c3d4f47d3f2e9da70d161",
+    "validated_plies": 98
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:50": {
+    "status": "indexed",
+    "trajectory_sha256": "4801a1f7c36b5f58dd30fdba2a4690bc5fc08f0d9cde9346de517fd059a3a955",
+    "validated_plies": 94
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:51": {
+    "status": "indexed",
+    "trajectory_sha256": "1d270a1d31859f1557c4899385e2fbf6723d87f44cdea89ee11336d054fa5e7e",
+    "validated_plies": 128
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:52": {
+    "status": "indexed",
+    "trajectory_sha256": "385cbf43567adca3b627717ca04be3dea120a8877bd9cbce317f59e895598b4a",
+    "validated_plies": 131
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:53": {
+    "status": "indexed",
+    "trajectory_sha256": "c16c092d6b85026df6f8b25531f5a60cfb77604ba4217051ccd362a337fc9e15",
+    "validated_plies": 151
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:54": {
+    "status": "indexed",
+    "trajectory_sha256": "cb37b9a45f0550f0eefe6e676fa03513837b20836039bd652f3e9b47a51b8525",
+    "validated_plies": 79
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:55": {
+    "status": "indexed",
+    "trajectory_sha256": "e2006f84823e0a6a4aa2d9905f79a204ec809a54e20ba6940594e853fe9deaa1",
+    "validated_plies": 115
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:56": {
+    "status": "indexed",
+    "trajectory_sha256": "2aed9b9a6dae92fdf447e03c38e1fa5f6e3590082b090cd4c1343020b87912d5",
+    "validated_plies": 154
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:57": {
+    "status": "indexed",
+    "trajectory_sha256": "0e268015f8a36412b00aba1f945565149cb739c065e75d205bfd75126743b868",
+    "validated_plies": 109
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:58": {
+    "status": "indexed",
+    "trajectory_sha256": "00400b62b5cf3c663615eff8a01d79bc9cbad43fb8725e5c23ef76dcca37f243",
+    "validated_plies": 136
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:59": {
+    "status": "indexed",
+    "trajectory_sha256": "cb0d5fb7a652858b1cc713e463a4e6b542cb0523505f3b6be9b9352aa6dc3f6e",
+    "validated_plies": 124
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:6": {
+    "status": "indexed",
+    "trajectory_sha256": "e4e04fd50e6f7bdd484f02e97e2282a2fc612c68fa44ec2434999abc76b1a3f3",
+    "validated_plies": 98
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:60": {
+    "status": "indexed",
+    "trajectory_sha256": "982a240e624e0ac7ac080d7f9514f97792033b5697de89d6166c469f175a8d97",
+    "validated_plies": 108
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:61": {
+    "status": "indexed",
+    "trajectory_sha256": "65cba37464c62bb572859d4165053d5a9a949e108769a18de7a80e9f36030f80",
+    "validated_plies": 95
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:7": {
+    "status": "indexed",
+    "trajectory_sha256": "3965670937af3da6d48dc04e279898c7d61e1f45bc55a6042b73b2aa815fa07e",
+    "validated_plies": 174
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:8": {
+    "status": "indexed",
+    "trajectory_sha256": "294f2d9e1d84afddb5029433ef703f0421751d8b79189ae8200f36e83ece8e54",
+    "validated_plies": 163
+  },
+  "mtdp-lidraughts-D9PF2OSW.pdn:9": {
+    "status": "indexed",
+    "trajectory_sha256": "58bb15a66d761b4d04fc3a431213f16608203d5399e29b26859e2084f66364ec",
+    "validated_plies": 163
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:1": {
+    "status": "indexed",
+    "trajectory_sha256": "aba029845da188681f9591afb88eabe99278c0b3dc44768831ebef7ef5d777b9",
+    "validated_plies": 95
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:10": {
+    "status": "indexed",
+    "trajectory_sha256": "7e2ef09dce1dad724c39e9650f43b87d80ba59050e0195dcfab9e47ae1875ed1",
+    "validated_plies": 0
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:100": {
+    "status": "indexed",
+    "trajectory_sha256": "89f08ecc38f250085d19a024d5b97cdecddba255883be5e7c5d2e7cb5d114181",
+    "validated_plies": 121
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:101": {
+    "confirmed_prefix_positions": 108,
+    "error": "Game 101, ply 108, 50x48: '50x48': expected exactly one legal matching move, found 2",
+    "status": "quarantined"
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:102": {
+    "status": "indexed",
+    "trajectory_sha256": "ba9bdcbef6d3ec829f2c798a2d966d33615a657d26dfba4cb922fe42be4e9cc5",
+    "validated_plies": 137
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:103": {
+    "status": "indexed",
+    "trajectory_sha256": "707ab345a3db92f8f1b734a13e7bdd3f892ede0123c0c1fa0a37d62d4f28b11f",
+    "validated_plies": 109
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:104": {
+    "status": "indexed",
+    "trajectory_sha256": "469a6b0bd1d3876b29287cf18e200500139cad799f2ded21b429e17fb78269e1",
+    "validated_plies": 80
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:105": {
+    "status": "indexed",
+    "trajectory_sha256": "2ee1c7fbea6bb553fda64477a3b4943a5bf69f8fafc2bd948cb64a665bdfd4c2",
+    "validated_plies": 81
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:106": {
+    "status": "indexed",
+    "trajectory_sha256": "bddcdbae154e33bb2bffb8368ff64aa4af19bcf5a8214ac07d4bb173da46c418",
+    "validated_plies": 156
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:107": {
+    "status": "indexed",
+    "trajectory_sha256": "5e969df810ca35efb5ea3e4dd8421f0c969f3d8544b5dc75cb7ef345f0b2c53d",
+    "validated_plies": 110
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:108": {
+    "status": "indexed",
+    "trajectory_sha256": "ca73c01d6347ff9931209575a10ed4bb7ca5a559cba3ed8debc1b9ae09b267c8",
+    "validated_plies": 119
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:109": {
+    "confirmed_prefix_positions": 121,
+    "error": "Game 109, ply 121, 1x34: '1x34': expected exactly one legal matching move, found 2",
+    "status": "quarantined"
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:11": {
+    "status": "indexed",
+    "trajectory_sha256": "4436d59f4d725d133181cba4a6e0dabab7500bbecc2f56d9ae10659992ad5864",
+    "validated_plies": 97
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:110": {
+    "status": "indexed",
+    "trajectory_sha256": "43824df41d7f4c6d6d4c186a0b8ee34cf1730833be7086ca324f4506410275ca",
+    "validated_plies": 188
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:111": {
+    "status": "indexed",
+    "trajectory_sha256": "b3a8e56bbf4e59f931c50aad6414c50f00a40e7831b0d9907ca7303b3f29ac7f",
+    "validated_plies": 82
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:112": {
+    "status": "indexed",
+    "trajectory_sha256": "f44199f3de22022afdd377c756cf17876b6bf9940d1fe0037934735de5ef18c5",
+    "validated_plies": 118
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:113": {
+    "status": "indexed",
+    "trajectory_sha256": "4b1c6f6ac535c247c12e16dae30151139029309c28262dfecc10120aa7756096",
+    "validated_plies": 105
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:114": {
+    "status": "duplicate",
+    "trajectory_sha256": "7e2ef09dce1dad724c39e9650f43b87d80ba59050e0195dcfab9e47ae1875ed1",
+    "validated_plies": 0
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:115": {
+    "status": "indexed",
+    "trajectory_sha256": "6e76c40669a45f00182f4d799d7cfd513c0c3452b6f0ce58773be863ac85e9d6",
+    "validated_plies": 110
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:116": {
+    "status": "indexed",
+    "trajectory_sha256": "2da6390600e10c265c72ddd7d82147524384334fedc422a13ff314324270ed12",
+    "validated_plies": 111
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:117": {
+    "status": "indexed",
+    "trajectory_sha256": "b3251fdacbd648c251e47231b402c6b893ebda15d67aab61b54b03fc768f0785",
+    "validated_plies": 9
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:118": {
+    "status": "indexed",
+    "trajectory_sha256": "a34bac215d756e01889b2d86dde98994c489fe1efd967fb937ce1138342d963c",
+    "validated_plies": 117
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:119": {
+    "status": "indexed",
+    "trajectory_sha256": "a77d99ce93575ef8bc5463302562a57ea163adf9acdbdf4e78c6c3a638ff1126",
+    "validated_plies": 63
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:12": {
+    "status": "indexed",
+    "trajectory_sha256": "8aca78bbd9d0f628f57583209afb8f27f6f559905e90c3fd1aca874c07ca5faa",
+    "validated_plies": 85
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:120": {
+    "status": "indexed",
+    "trajectory_sha256": "7558ca67c362067f59f28f17a8e04158624f6a4bd27b3b00ea515e083743ab11",
+    "validated_plies": 155
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:121": {
+    "status": "indexed",
+    "trajectory_sha256": "f2d5e9a6ef19b6063e083aeddfd1461ad7296a7cea664a76930f772052f08663",
+    "validated_plies": 122
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:122": {
+    "status": "indexed",
+    "trajectory_sha256": "19dfd68c1fda6430a6355a5f9f6ddff022ecb9f92440b44e617c9aaf7c885210",
+    "validated_plies": 126
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:123": {
+    "status": "indexed",
+    "trajectory_sha256": "0b7ae59a7b4e5e8ab45e1dfa8017f65ac25e4ea6c07171af1218215c2b3365b8",
+    "validated_plies": 90
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:124": {
+    "status": "indexed",
+    "trajectory_sha256": "89cbe912bf3678fe963ddf7dbf382c067c31552097845bcb8114bd512fa1c556",
+    "validated_plies": 65
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:125": {
+    "status": "indexed",
+    "trajectory_sha256": "235230466924e5d234a7ff339dd31792e163bdf3e1e972255b64a00ea2d4deb0",
+    "validated_plies": 109
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:126": {
+    "status": "indexed",
+    "trajectory_sha256": "dca1debd4c408d98b09cabac6f63d2ed2ca4ae0a6764edfb2b6583328470feca",
+    "validated_plies": 101
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:127": {
+    "status": "indexed",
+    "trajectory_sha256": "74dd6c1cf04fb129e4ab5080bfa92ad5bf8a8b69c8b1ea87d14c2f6c119792c5",
+    "validated_plies": 46
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:128": {
+    "status": "indexed",
+    "trajectory_sha256": "01be94cdf143876dd56d29f5b6bb99d0b260cfe77deb94fda6e82458f5739ce2",
+    "validated_plies": 85
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:129": {
+    "status": "indexed",
+    "trajectory_sha256": "80f0ab68e9d3c4d621c44a8f37b1e7907c3e0bf93ffd3866ad51c271db283d77",
+    "validated_plies": 113
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:13": {
+    "status": "indexed",
+    "trajectory_sha256": "95b57145bd76a497633c1b681ef8311d86bafb841f07d78f31582621cacd8cb3",
+    "validated_plies": 125
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:130": {
+    "status": "duplicate",
+    "trajectory_sha256": "7e2ef09dce1dad724c39e9650f43b87d80ba59050e0195dcfab9e47ae1875ed1",
+    "validated_plies": 0
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:131": {
+    "confirmed_prefix_positions": 82,
+    "error": "Game 131, ply 82, 49x45: '49x45': expected exactly one legal matching move, found 2",
+    "status": "quarantined"
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:132": {
+    "status": "indexed",
+    "trajectory_sha256": "a67f746b5fb9e52b41d3441a3043185825eae898072e83f92b0bab2761265784",
+    "validated_plies": 61
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:133": {
+    "status": "indexed",
+    "trajectory_sha256": "7f325166e1a614c7b14020aeaa412f8a8b9fd4878e3913d4ccd42e481ed0b61f",
+    "validated_plies": 121
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:134": {
+    "status": "indexed",
+    "trajectory_sha256": "be36be27f7aa7e95fdfd2ed09c629918c6dcb5b4936d01d764bca72918604dba",
+    "validated_plies": 79
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:135": {
+    "status": "indexed",
+    "trajectory_sha256": "88edea0baf424d365517437fbedb283c6937b6a44d8b6a3b9fa5b3a78abb585b",
+    "validated_plies": 127
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:136": {
+    "status": "indexed",
+    "trajectory_sha256": "47f7554973653fc5fd3d70b466e982bc185aa95de4a537ff263b226bb85d30ef",
+    "validated_plies": 63
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:137": {
+    "status": "indexed",
+    "trajectory_sha256": "1e3d502cf9d288f4490b3a1e234cb97daff68aefe2ab83c532fccebb3066ec2b",
+    "validated_plies": 144
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:138": {
+    "status": "indexed",
+    "trajectory_sha256": "fe7ab78b8dc33f35e961fe62d6f406e3b4c0d756cb04c8723211680074e83e43",
+    "validated_plies": 114
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:139": {
+    "status": "indexed",
+    "trajectory_sha256": "b67167fa4d7cfd6319ab8b7fcbb21ab8355e93b77c8daaa16c6e536c047246b0",
+    "validated_plies": 91
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:14": {
+    "status": "indexed",
+    "trajectory_sha256": "b49e5cc76b6d005dca71bb89c0b63243ed7f5b1d6b5b9fd8b13fdd2c96ddb108",
+    "validated_plies": 48
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:140": {
+    "status": "indexed",
+    "trajectory_sha256": "f90d4858b86102a65275f31e3c3d9f54b80a1c1e0e8ee5cf680d856b56ebc8d5",
+    "validated_plies": 141
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:141": {
+    "status": "indexed",
+    "trajectory_sha256": "7a036ca5249d25f6932b7b43054ca3991209b83be9090b77071fbba8c83c861c",
+    "validated_plies": 94
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:142": {
+    "status": "indexed",
+    "trajectory_sha256": "9bdb597ada3a985bda7bc45f12e8719e42b7056949b6f18dd314d951bdefba6b",
+    "validated_plies": 31
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:143": {
+    "status": "indexed",
+    "trajectory_sha256": "fde237cbf5018f268cc3dbd435ed579d074b541fde90eda7c88ddc7b9aab8761",
+    "validated_plies": 118
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:144": {
+    "status": "indexed",
+    "trajectory_sha256": "7ac167ae709dcdd9ab2a44e5cca128f97c6f70dc533ee242ba596260eaf5ebcf",
+    "validated_plies": 100
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:145": {
+    "status": "indexed",
+    "trajectory_sha256": "b05889f82f73593bafdf539a1e526cf886e94d8c8f35be9a66d0805cb2f5f29d",
+    "validated_plies": 79
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:146": {
+    "status": "indexed",
+    "trajectory_sha256": "dda12a286c7755d63225b446eb0ca291eba841fcd4326bf8183bf32634c671eb",
+    "validated_plies": 73
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:147": {
+    "status": "indexed",
+    "trajectory_sha256": "7322c3fd274fa9e30d25c7a31da16fcbc5e3e274a0ab170a6cd2c9e3224dd7b2",
+    "validated_plies": 8
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:15": {
+    "status": "indexed",
+    "trajectory_sha256": "c310e9a3c0a9660fae696b49e36a2c5f7d6439b74f208c76f54f17d529f1f485",
+    "validated_plies": 176
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:16": {
+    "status": "indexed",
+    "trajectory_sha256": "56d25f52050ed27bc735798cc15b1d083a8c908657a4d839d2902c76199dfd71",
+    "validated_plies": 118
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:17": {
+    "status": "indexed",
+    "trajectory_sha256": "776ab18c93cf11f8903987af27d582062aa9e9db00f5b32abd02819d1c8ee917",
+    "validated_plies": 75
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:18": {
+    "status": "indexed",
+    "trajectory_sha256": "2d9841d4c59c1641d1b775a5f9f245ba38d28ca3299428eb296e3569fc540923",
+    "validated_plies": 111
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:19": {
+    "status": "duplicate",
+    "trajectory_sha256": "7e2ef09dce1dad724c39e9650f43b87d80ba59050e0195dcfab9e47ae1875ed1",
+    "validated_plies": 0
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:2": {
+    "status": "indexed",
+    "trajectory_sha256": "021e31e7f751eb72261c555d6abf099e0691e05dd239456299019ad933b6cb44",
+    "validated_plies": 61
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:20": {
+    "status": "indexed",
+    "trajectory_sha256": "e5ec6eff412eb6055a5bdb396ed0edcc2285b01e191474e487ff070be1a71d8c",
+    "validated_plies": 139
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:21": {
+    "status": "indexed",
+    "trajectory_sha256": "f27b12d6367d62a630e787c500c1c9d775cb3ef78ea791422d760a3e5f98faa2",
+    "validated_plies": 113
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:22": {
+    "status": "indexed",
+    "trajectory_sha256": "83132ad63d6ddd0cc804f396d94cdcdbd7bd91565162b9bed7a515e77a89ef4d",
+    "validated_plies": 134
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:23": {
+    "status": "indexed",
+    "trajectory_sha256": "de0a52eca65b71e2b052410781abfa1ead4d5e5386c5721c0b237f30462c1f72",
+    "validated_plies": 85
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:24": {
+    "status": "indexed",
+    "trajectory_sha256": "642d4e2249c53515b3fbab51611b993fdea04da7a202f1e7bd73fcd11b877643",
+    "validated_plies": 98
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:25": {
+    "status": "duplicate",
+    "trajectory_sha256": "7e2ef09dce1dad724c39e9650f43b87d80ba59050e0195dcfab9e47ae1875ed1",
+    "validated_plies": 0
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:26": {
+    "status": "indexed",
+    "trajectory_sha256": "b01e3b1a0eb5c4b46712e7961bb3cb827f6469698360f9a5c71fbd6e9c1934b9",
+    "validated_plies": 78
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:27": {
+    "status": "indexed",
+    "trajectory_sha256": "2697ade3c8ba31bd2ada63e46fd37961a268b15442831425544978fce1933b4a",
+    "validated_plies": 111
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:28": {
+    "status": "indexed",
+    "trajectory_sha256": "be4b71ad8c6b4ba3cdc63bf1c2b4a55d3675eaed16c1c84d625092a456d4dbfc",
+    "validated_plies": 155
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:29": {
+    "status": "indexed",
+    "trajectory_sha256": "cc07bd55a979b7b646ebdbd66ab9dca6d26caf2536d392e8cdc8571a9507e670",
+    "validated_plies": 100
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:3": {
+    "status": "indexed",
+    "trajectory_sha256": "ccb0495ff8c1614f124575f8bfa117790415980f73834ccf1a0b860593082a04",
+    "validated_plies": 46
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:30": {
+    "status": "indexed",
+    "trajectory_sha256": "7712990b9e96c43ac5eef51ff8a4d72dfa447dc86b66914ebd180531b4c9c3ee",
+    "validated_plies": 68
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:31": {
+    "status": "indexed",
+    "trajectory_sha256": "795e90c39a660981c46c794c70e8de5e9982bc512772d7d6487c1dcc4006f43d",
+    "validated_plies": 116
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:32": {
+    "status": "duplicate",
+    "trajectory_sha256": "7e2ef09dce1dad724c39e9650f43b87d80ba59050e0195dcfab9e47ae1875ed1",
+    "validated_plies": 0
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:33": {
+    "status": "indexed",
+    "trajectory_sha256": "c4ffc5a7522d60293a3601ac4c97f6c06d6d7b2658e127f07d31c8278b631aeb",
+    "validated_plies": 104
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:34": {
+    "status": "duplicate",
+    "trajectory_sha256": "7e2ef09dce1dad724c39e9650f43b87d80ba59050e0195dcfab9e47ae1875ed1",
+    "validated_plies": 0
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:35": {
+    "confirmed_prefix_positions": 127,
+    "error": "Game 35, ply 127, 1x45: '1x45': expected exactly one legal matching move, found 2",
+    "status": "quarantined"
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:36": {
+    "status": "indexed",
+    "trajectory_sha256": "0523db759ae99ff09f764ed162d122dc8430ae41593e46eb00ab1b0f2f5f3458",
+    "validated_plies": 83
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:37": {
+    "status": "indexed",
+    "trajectory_sha256": "2609aa0db514cc8b3a40f8c42386a63e0bd2d700fe30ba779783fc6169e97223",
+    "validated_plies": 118
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:38": {
+    "status": "indexed",
+    "trajectory_sha256": "2ea1367dfebff0fd2690cf0723b9e4fe84509d0dead22f8afbc39c7978e3807d",
+    "validated_plies": 114
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:39": {
+    "status": "indexed",
+    "trajectory_sha256": "d33acb5afdbe3cf29d60d62affd8000fcb8ce3685f7307ac10fc3eb8693ca407",
+    "validated_plies": 16
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:4": {
+    "status": "indexed",
+    "trajectory_sha256": "9101fe497653d530fe0972f8d03f13f599fd24552f88740968c8a69160854cf0",
+    "validated_plies": 102
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:40": {
+    "status": "indexed",
+    "trajectory_sha256": "b22ba0b7f980adf1227958d2afcd19da9577d68d2b4754dccfec3976e2fd2b91",
+    "validated_plies": 141
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:41": {
+    "status": "indexed",
+    "trajectory_sha256": "fc14fa12f35b7279d49d274f5975348dd7a1f1e3a2b06be857600c7260815726",
+    "validated_plies": 96
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:42": {
+    "status": "indexed",
+    "trajectory_sha256": "d7e77edeb156cb3eb2c9400671555335a91c02d40876e26fc9e7307b3a905367",
+    "validated_plies": 42
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:43": {
+    "status": "indexed",
+    "trajectory_sha256": "8aac40e3faeb0c356557655ac666edaa3ba906198a7da2f42269e15ed8d28987",
+    "validated_plies": 154
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:44": {
+    "status": "indexed",
+    "trajectory_sha256": "2da3d9e3ce0f554066519cb99625456d66fba21cf9993de86804c12ae272d507",
+    "validated_plies": 74
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:45": {
+    "status": "indexed",
+    "trajectory_sha256": "5a760bb646cb649a01dfc0115ab8b4b211c69a6085eb1868a2285f5f03268102",
+    "validated_plies": 34
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:46": {
+    "status": "indexed",
+    "trajectory_sha256": "5eabcfa707e65790686f65d9e3199a120540690658eac8900aa2c3a0949f59d2",
+    "validated_plies": 141
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:47": {
+    "status": "indexed",
+    "trajectory_sha256": "bbf08ecca1e01e1824b47125c9a883ebf13047b649ecbf66dcdcbc0ece0a5bc9",
+    "validated_plies": 90
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:48": {
+    "status": "indexed",
+    "trajectory_sha256": "a57eee6d0ef248827b3c0f14472bf1eff0b9d8a8ae4ed306c74cf429eeb6b235",
+    "validated_plies": 94
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:49": {
+    "status": "indexed",
+    "trajectory_sha256": "bf3f39f07ee52aa5eb561bf6c623ab9e250a5caf9fd948e1ff8df5c4286df53f",
+    "validated_plies": 158
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:5": {
+    "status": "indexed",
+    "trajectory_sha256": "3d6a3dfde48369626aba73b0b4eae99d09a40aa7553d3db94e95e82e6e844843",
+    "validated_plies": 69
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:50": {
+    "status": "indexed",
+    "trajectory_sha256": "a93db8b498392595f135223a7230b167e358e3ec603d176a7f1588bdb99b3ded",
+    "validated_plies": 105
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:51": {
+    "status": "indexed",
+    "trajectory_sha256": "6354c2f68b5a6ad495ee8484b65f5a1dc5b7d14a6849410dbf05502a41df1571",
+    "validated_plies": 144
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:52": {
+    "status": "indexed",
+    "trajectory_sha256": "1d9db9bca166940879e7c5bfcb02e4be252e38d14a782c4e15dc85c2b64122b6",
+    "validated_plies": 34
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:53": {
+    "status": "indexed",
+    "trajectory_sha256": "fb12d494983aee2d2e1276c69bf8d17d13c87ca9aae00c7d8c1113de03c2d23a",
+    "validated_plies": 158
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:54": {
+    "status": "indexed",
+    "trajectory_sha256": "f7ed45037089688380b197175aed611b6ba82e5c63116c40048bfef6afe535e0",
+    "validated_plies": 92
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:55": {
+    "status": "indexed",
+    "trajectory_sha256": "b36c45518c1f5509402d1aa34d45939fac1e772e32849246adefa81490eb2ba7",
+    "validated_plies": 130
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:56": {
+    "status": "indexed",
+    "trajectory_sha256": "6f3599398d94abc67bd2c08bf5b23d204d5e22786efc8a82ba649fca17d829ba",
+    "validated_plies": 132
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:57": {
+    "status": "indexed",
+    "trajectory_sha256": "52dd7e8a091242b5526d8fa94481a1af9bd078234371f01ad5dc94eb5c2511dd",
+    "validated_plies": 127
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:58": {
+    "status": "indexed",
+    "trajectory_sha256": "6fed9b7cc0a3ec856534ff99b4fe03f6f7dc40f2d530fa3b0117b680e4fd05a1",
+    "validated_plies": 109
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:59": {
+    "status": "indexed",
+    "trajectory_sha256": "895d55e8343eac89e2d78c5d4b2c68f17ed7a6286a608a44de163d331f5d0f0a",
+    "validated_plies": 97
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:6": {
+    "status": "indexed",
+    "trajectory_sha256": "b622577db6d235fecde1331fd460847c86706b8eddbe931d97e6c04ab6ec3851",
+    "validated_plies": 80
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:60": {
+    "confirmed_prefix_positions": 80,
+    "error": "Game 60, ply 80, 11x39: '11x39': expected exactly one legal matching move, found 2",
+    "status": "quarantined"
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:61": {
+    "status": "indexed",
+    "trajectory_sha256": "f9319831246de10b32210489208128b3abf241ff954823fd0a7db5a90d489510",
+    "validated_plies": 103
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:62": {
+    "status": "indexed",
+    "trajectory_sha256": "50ae0ba205542a5a2e2a4afbba11deb5c90818c8a2d5a3e5c3e41c42b43153de",
+    "validated_plies": 96
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:63": {
+    "status": "indexed",
+    "trajectory_sha256": "c683536b4d4f96c904e34a57c981e1a7df05a89b8ed165df9794b994da90b826",
+    "validated_plies": 105
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:64": {
+    "status": "indexed",
+    "trajectory_sha256": "c7d851a112e952e3fbb55bbeac6263c76bfaf189751ad5a7f551950d0d11da12",
+    "validated_plies": 83
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:65": {
+    "status": "indexed",
+    "trajectory_sha256": "f15fa34e23cadfaff22d288570958ce51b055e9f1a6e904160b92ed191bc3952",
+    "validated_plies": 93
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:66": {
+    "status": "indexed",
+    "trajectory_sha256": "46b41e5e04299b7a3b1663732d6639b7bd0d0477185c012a3c1063c00dca7810",
+    "validated_plies": 73
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:67": {
+    "status": "indexed",
+    "trajectory_sha256": "2359a2bba601c34dbf3ec5c1a286cf6398d1dd27232b579a47e74376d17a4551",
+    "validated_plies": 130
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:68": {
+    "status": "indexed",
+    "trajectory_sha256": "48bfc7427b1e59f025686f69abb08dfd228004f6236665aef53aca40e8a02ee2",
+    "validated_plies": 115
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:69": {
+    "status": "indexed",
+    "trajectory_sha256": "8ef9fe926f9dba22877357c5192e1a95db1fccfd6aa7a26cf7018ac6495d13f0",
+    "validated_plies": 115
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:7": {
+    "status": "indexed",
+    "trajectory_sha256": "185694285bdcd8fa4472bba98393b548e16a7b443ca42fee5538b4a52e353036",
+    "validated_plies": 117
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:70": {
+    "status": "indexed",
+    "trajectory_sha256": "19a5c45b764d14d6637837ef908b2eb47f1e009c7a2233b55be0db940953592f",
+    "validated_plies": 133
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:71": {
+    "status": "indexed",
+    "trajectory_sha256": "8de77a841da096a098e68dc74b355cedfde6215449e43f8c80156ff907210294",
+    "validated_plies": 126
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:72": {
+    "status": "indexed",
+    "trajectory_sha256": "be984effca94f4a0e182d223f5fe39510470731869f2c8f62b7bdf9ea8e5ce19",
+    "validated_plies": 108
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:73": {
+    "status": "indexed",
+    "trajectory_sha256": "f2f4117db967bbe4521483f9d41c449f78c67486e9dcd84e0b7993e867cfbc2b",
+    "validated_plies": 125
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:74": {
+    "status": "indexed",
+    "trajectory_sha256": "8babf7edc0fccb333258fc04675e2a520a4bd8e6ec8963dd2b0e55bd20fed324",
+    "validated_plies": 82
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:75": {
+    "status": "indexed",
+    "trajectory_sha256": "7ef9bfa3898ac0aa103556067e49ed7f2a97d42e2b5c877fe64c843c7e9ac619",
+    "validated_plies": 39
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:76": {
+    "status": "indexed",
+    "trajectory_sha256": "a6108903ad078236a3ef1d1d494228205f13e2f2a36c07cc4d9fbc3036e25cf9",
+    "validated_plies": 122
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:77": {
+    "status": "indexed",
+    "trajectory_sha256": "31327898c9d47b1f35fdf5bce1ca202ff3333122b50801d386eda00a4fe2b088",
+    "validated_plies": 117
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:78": {
+    "status": "indexed",
+    "trajectory_sha256": "8b1e1a1a4245f4bc870a31e96b3fcec74d57749395945e822496bf509bcdf460",
+    "validated_plies": 93
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:79": {
+    "status": "indexed",
+    "trajectory_sha256": "4d776ee28f65470d95f50d5d32d3c9a681bf1f9866bce796929c03d72d16d31a",
+    "validated_plies": 109
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:8": {
+    "status": "indexed",
+    "trajectory_sha256": "ed116da4a5470e05d8b655669989faa23bd447772d4295c0891318cf65f5e95e",
+    "validated_plies": 127
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:80": {
+    "status": "indexed",
+    "trajectory_sha256": "25621b80847e2619017072c2ec474126669b81652fdbb7b4a3c2116363afbf6c",
+    "validated_plies": 96
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:81": {
+    "status": "indexed",
+    "trajectory_sha256": "797e8aa2a4ab25678e16a6c0e1dc4db483935220362f4a0aada3d30fc05ba73f",
+    "validated_plies": 100
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:82": {
+    "status": "indexed",
+    "trajectory_sha256": "67493dabd064e3e5951ccabbcc2bfed65656d5c9fdf15f66719990a9e2948fcc",
+    "validated_plies": 119
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:83": {
+    "status": "indexed",
+    "trajectory_sha256": "44006e15349183909de730f124342b6deaf7ea7555a92cec7b37ae165bb15d9a",
+    "validated_plies": 138
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:84": {
+    "status": "indexed",
+    "trajectory_sha256": "0d232c48773c62e79085db48b81d8f45341f76037317e6f10c7898104797eb87",
+    "validated_plies": 111
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:85": {
+    "status": "indexed",
+    "trajectory_sha256": "3240314be493fdc4ee603fb6e63d28d8f472be80d73d3b0e52d027524c7db19e",
+    "validated_plies": 91
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:86": {
+    "status": "indexed",
+    "trajectory_sha256": "e7137b880c62418972aca641d7c67b7e55db4da327b962cdda34dc1af6cf90ba",
+    "validated_plies": 166
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:87": {
+    "status": "indexed",
+    "trajectory_sha256": "2812a7188b123f56b5fe26c42d56a2372a7b432b4578848468d0569aa059632f",
+    "validated_plies": 135
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:88": {
+    "status": "indexed",
+    "trajectory_sha256": "44e31e96158d7839fd23eabdb29972cb25e5549cee006305d8ae3364153ca6fd",
+    "validated_plies": 166
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:89": {
+    "status": "indexed",
+    "trajectory_sha256": "d873a197d19438ba5044d00acf1842b4064a35ba795013b2d424721b5d654608",
+    "validated_plies": 123
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:9": {
+    "status": "indexed",
+    "trajectory_sha256": "d75609cc4a6bf2fef060137e5fdd0577a5300ef8fb59707e8d5acd47b9782d73",
+    "validated_plies": 56
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:90": {
+    "status": "indexed",
+    "trajectory_sha256": "e6fe08cd4e937373e495a368ee70ead39e05acff27f5a106a4b22effca42130b",
+    "validated_plies": 94
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:91": {
+    "status": "indexed",
+    "trajectory_sha256": "ad75f274306618d529ace77151ec8072543f268026a3cfbc47b1296852b2d460",
+    "validated_plies": 102
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:92": {
+    "status": "indexed",
+    "trajectory_sha256": "d05c2888a95280b7e9d817bfcd13bbd341b210c281dd4352c8637cd0e1a4f296",
+    "validated_plies": 103
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:93": {
+    "status": "indexed",
+    "trajectory_sha256": "b0d97932c1d23ccd392affa8276d2ab627ab0512b2da45f077f778412189e2c3",
+    "validated_plies": 78
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:94": {
+    "status": "indexed",
+    "trajectory_sha256": "fb58d08a8c8c14be20a898524ce21e42814dbdb09ee3ad2810c3cc10a069eb4c",
+    "validated_plies": 111
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:95": {
+    "status": "indexed",
+    "trajectory_sha256": "de28c5a3f8ef29d374c8813f1a1cfc617b0b2693435aab3b390a0f74a4ae84ab",
+    "validated_plies": 151
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:96": {
+    "status": "indexed",
+    "trajectory_sha256": "3248c502fed1b459da13abc92c71ed6df74bc97cef11afb56a3e1dce2bef59a5",
+    "validated_plies": 100
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:97": {
+    "status": "indexed",
+    "trajectory_sha256": "55dd54e36386af77f018119d97d69a865a3cbc4e226c342d8a52ce5e0a63f456",
+    "validated_plies": 115
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:98": {
+    "status": "indexed",
+    "trajectory_sha256": "50533f37c216ccea601b6f5780712dfcf068bcfb053d0683888293d4a501e21f",
+    "validated_plies": 105
+  },
+  "mtdp-lidraughts-s7ahYqL4.pdn:99": {
+    "status": "indexed",
+    "trajectory_sha256": "351d3f6b7c2a74a6453674d0f4d90b4fb5946d8e502a169a88c43973757d9ea5",
+    "validated_plies": 105
+  }
+}

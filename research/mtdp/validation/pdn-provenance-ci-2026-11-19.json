@@ -1,0 +1,85 @@
+{
+  "D1_code_and_test_bytes_unchanged_from": "709b59da47b82927b4949cdb5e1ad87a0540945d",
+  "after": {
+    "file_registered_in_pytest_command": true,
+    "job_id": 135886357257,
+    "passed": 178,
+    "run_id": 44616460955,
+    "subtests_passed": 13
+  },
+  "before": {
+    "file_registered_in_pytest_command": false,
+    "job_id": 135867036534,
+    "passed": 173,
+    "run_id": 44610936694,
+    "subtests_passed": 13
+  },
+  "files_sha256": {
+    "research/mtdp/decision_equivalence/pdn_provenance.py": "526da30adc00c01ca494455597c0f846d024ae3c50272678f1712455e82052e3",
+    "research/mtdp/decision_equivalence/test_pdn_provenance.py": "f74c0196a81d46890e1b712fa5c4ad9cc382905c651dd37f8f4b3a17666ca55e"
+  },
+  "limits": "Byte identity authentication does not establish game membership, FMJD legality or independent efficacy; test registration does not connect admission producers.",
+  "local_exact_pdn_tests_passed": 5,
+  "local_targeted_tests_passed": 75,
+  "new_artifact_metadata_only": {
+    "downloaded": false,
+    "id": 14575970187,
+    "sha256": "62554a11175e8f20def7640c84ab04ef86406635ffefabecdc63ae44200e5ae9"
+  },
+  "new_engine_experiment": false,
+  "new_independent_cohort": false,
+  "schema": "mtdp-pdn-provenance-ci-registration-v1",
+  "validated_commit": "8f0c3a91bbdac0a3cbcc2a6e1d03b511b34a7788",
+  "verified_at_utc": "2026-11-19T21:17:13.377199+00:00",
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "id": 44616461066,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44616460864,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44616460863,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44616460915,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44616460955,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44616460845,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44616461088,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44616460948,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ],
+  "workflow_sha256": "1eac468e784fe957f4dbd6f30511f0d6669d5c9edb12909955f28cf747ca1397"
+}

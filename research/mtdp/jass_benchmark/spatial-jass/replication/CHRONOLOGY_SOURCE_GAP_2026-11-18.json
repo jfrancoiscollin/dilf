@@ -1,0 +1,24 @@
+{
+  "audit_completed_utc": "2026-11-18T14:23:12.817433+00:00",
+  "calendar_earliest_listed_start_utc": "2026-11-17T15:00:00+00:00",
+  "calendar_request": "https://lidraughts.org/tournament/calendar?year=2026&month=11",
+  "calendar_response_sha256": "3ffbdf6ca8cdf7bc498510e242a7cabb3d58095d610db984cbbd97f20c64bbb2",
+  "calendar_tournaments": 56,
+  "candidate": "fFgE7oED",
+  "finished_page_last_event": "yiQdWYp7",
+  "finished_page_last_event_start_utc": "2026-11-16T11:10:22.728Z",
+  "finished_page_request": "https://lidraughts.org/tournament?page=19",
+  "limitations": [
+    "Current calendar does not cover the cutoff.",
+    "Current observed finished-page boundary does not cover the cutoff.",
+    "Page 20 and page 30 XHR requests returned HTTP 400; this is not proof that no historical archive exists.",
+    "Upstream calendar implementation uses now minus one day and no year/month selector; deployed revision is not independently pinned.",
+    "The first start-time tie must be resolved by the previously specified start-time/event-ID ordering.",
+    "A rolling listing or absence from current pages must never be treated as absence of an earlier eligible arena."
+  ],
+  "required_cutoff_utc": "2026-11-14T11:00:00Z",
+  "schema": "mtdp-chronology-source-gap-v1",
+  "status": "chronology_not_proven_no_scientific_freeze",
+  "upstream_cached_scala_sha256": "c7403e567fe96325aeacf18f548bdaef1bb2d2de868aceb78c631609bb299c97",
+  "upstream_revision": "c7feaf1810c34f44f9b5f2b719a4aa795f9c7618"
+}

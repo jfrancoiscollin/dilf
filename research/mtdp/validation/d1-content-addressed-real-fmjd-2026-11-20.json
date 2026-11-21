@@ -1,0 +1,105 @@
+{
+  "validated_code_commit": "9329cf87f154d5be009bb2ab505b9ec41b4654f5",
+  "synthetic_only": true,
+  "new_independent_cohort_qualified": false,
+  "new_scan_jass_scores": false,
+  "engine_revision": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "source_sha256": {
+    "research/mtdp/tests/test_pdn_membership_real_fmjd.py": "780496b271d1947be01a7c120efba688efe940c187539d2931c798b5071ada75",
+    "research/mtdp/decision_equivalence/content_addressed_admission.py": "42a7847d86dc1e72b058fa768b70d6db8d9bbcaa6116620664d1bdbfe608e19b",
+    "research/mtdp/pdn_membership_proof.py": "dcb2a38487f36a936a49a8163c0073341c3e6e53af02cf4430a5a88fb4bb9c71",
+    "research/mtdp/pdn_strict.py": "3056239ce90648bad9ce841a229de20df8a4fdd2ae370dfdf394f8af6dcfdfce",
+    ".github/workflows/downstream-compat.yml": "92a5d5bdfba002a7664e9273350960ddc9923bcec6cabd27fb41abadb0cc5b38"
+  },
+  "cases": [
+    "valid digest/index2/FEN2 accepted with membership/legal/binding flags true and independent false",
+    "wrong index1/FEN2 rejected",
+    "late illegal move rejected even for ply0 observation",
+    "post-result suffix rejected despite correct source digest"
+  ],
+  "expected_fen_constructed_without_replay": true,
+  "local_tests": {
+    "passed": 17,
+    "optional_real_skipped": 8
+  },
+  "ci_command": "MTDP_REQUIRE_REAL_FMJD=1 python -m pytest -q -s dilf/research/mtdp/tests/test_pdn_membership_real_fmjd.py",
+  "reserved_entire_events": [
+    "fFgE7oED",
+    "P1RUlfJc",
+    "s7ahYqL4",
+    "D9PF2OSW"
+  ],
+  "next_action": "H43/D1 authenticate external event labels and reconcile complete exclusion inventory before independent qualification, then H13 prospective protocol and cohort freeze; no D1 signature/top-K campaign duplicated.",
+  "checked_at_utc": "2026-11-20T06:29:50.363589+00:00",
+  "downstream_ci": {
+    "run_id": 44687934903,
+    "job_id": 136126621235,
+    "status": "completed",
+    "conclusion": "success",
+    "dedicated_step": 12,
+    "real_tests_passed": 8,
+    "real_tests_skipped": 0,
+    "log_excerpt_sha256": "31f41503b9767b728b416274eac3292913bf85316f1af7d30ad44bdc2201d276",
+    "log_evidence": [
+      "2026-11-20T06:28:21.4804475Z   MTDP_REQUIRE_REAL_FMJD: 1",
+      "2026-11-20T06:28:21.7714240Z {\"real_fmjd_revision_verified\": \"0e5189fbb251bf5eaf2e613d0f878bb17c740311\", \"synthetic_membership_checks_only\": true}",
+      "2026-11-20T06:28:21.8040212Z 8 passed in 0.07s"
+    ]
+  },
+  "code_commit_workflows_observed": [
+    {
+      "id": 44687934909,
+      "name": "ci",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 44687934862,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44687934849,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44687934853,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed",
+      "conclusion": "cancelled"
+    },
+    {
+      "id": 44687934903,
+      "name": "downstream-compat",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 44687934859,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed",
+      "conclusion": "cancelled"
+    },
+    {
+      "id": 44687934850,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed",
+      "conclusion": "cancelled"
+    },
+    {
+      "id": 44687934961,
+      "name": "mtdp-metered-probe",
+      "status": "completed",
+      "conclusion": "cancelled"
+    }
+  ],
+  "concurrent_d1_commits_preserved": [
+    "d54e0c21373d1f2c4be209b4bde7f931394f3123",
+    "1ab4bb06f7f2597b9fd7b4c08e68e289eddb2384",
+    "7086c4ebbe863e636e1e5cf518e785043c2a14bb"
+  ],
+  "workflow_cancellation_note": "Some superseded code-commit runs were cancelled during concurrent D1 commits. Dedicated downstream run completed successfully; equivalent successor workflows were active, so no duplicate rerun launched."
+}

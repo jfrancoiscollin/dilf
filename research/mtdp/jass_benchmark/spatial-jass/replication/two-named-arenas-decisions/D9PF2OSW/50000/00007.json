@@ -1,0 +1,104 @@
+{
+  "LCB_prefix": [
+    "20-25",
+    "19-24",
+    "17-21"
+  ],
+  "budget": 50000,
+  "complete_budget": true,
+  "control_main": {
+    "best_move": "20-24",
+    "completed_depth": 12,
+    "depth_ceiling": false,
+    "nodes": 49820,
+    "score": 20,
+    "stop": "nodes"
+  },
+  "decision_reason": "verified_unique_best",
+  "event": "D9PF2OSW",
+  "fallback_reason": null,
+  "fen": "B:W29,30,31,32,33,34,35,36,37,39,40,41,42,43,45,46,47,48,49,50:B1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+  "games": [
+    "mtdp-lidraughts-D9PF2OSW.pdn:45"
+  ],
+  "intervention": null,
+  "lcb_baseline": {
+    "best_move": "20-24",
+    "completed_depth": 12,
+    "depth_ceiling": false,
+    "nodes": 50000,
+    "score": 20,
+    "stop": "nodes"
+  },
+  "main_limit": 49820,
+  "main_nodes": 49820,
+  "native_baseline": {
+    "best_move": "20-24",
+    "completed_depth": 12,
+    "depth_ceiling": false,
+    "nodes": 50000,
+    "score": 20,
+    "stop": "nodes"
+  },
+  "native_legal_actions": 8,
+  "paired_comparable": true,
+  "preliminary_nodes": 67,
+  "scope": "technical_engineering_smoke_not_strength_evidence",
+  "total_nodes": 50000,
+  "verification_nodes": 180,
+  "verification_receipts": [
+    {
+      "issued_limit": 5000,
+      "nodes": 67,
+      "phase": "preliminary"
+    },
+    {
+      "issued_limit": 4933,
+      "move": "17-21",
+      "nodes": 16,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 4917,
+      "move": "18-22",
+      "nodes": 11,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 4906,
+      "move": "20-24",
+      "nodes": 14,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 4892,
+      "move": "23-28",
+      "nodes": 19,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 4873,
+      "move": "16-21",
+      "nodes": 16,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 4857,
+      "move": "17-22",
+      "nodes": 18,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 4839,
+      "move": "19-24",
+      "nodes": 11,
+      "phase": "probe"
+    },
+    {
+      "issued_limit": 4828,
+      "move": "20-25",
+      "nodes": 8,
+      "phase": "probe"
+    }
+  ]
+}

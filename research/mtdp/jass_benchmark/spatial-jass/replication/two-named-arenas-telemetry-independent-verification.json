@@ -1,0 +1,14 @@
+{
+  "new_engine_searches": 0,
+  "no_unsupported_depth_one_causal_attribution": true,
+  "node_conservation_and_summary_deltas_checked": true,
+  "original_receipts_checked": 114,
+  "report_sha256": "95a5cade6055ceca051f8751b12f486c0fece6e633e6563b6b679c3dc477f63c",
+  "schema": "mtdp-telemetry-independent-verification-v1",
+  "unique_intervention_positions": 3,
+  "verification_nodes_by_budget": {
+    "10000": 6753,
+    "200000": 6753,
+    "50000": 6753
+  }
+}

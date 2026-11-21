@@ -1,0 +1,57 @@
+{
+  "event": {
+    "clock": {
+      "increment": 0,
+      "limit": 300
+    },
+    "createdBy": "lidraughts",
+    "fullName": "Hourly Blitz Arena",
+    "id": "P1RUlfJc",
+    "minutes": 57,
+    "schedule": {
+      "freq": "hourly",
+      "speed": "blitz"
+    },
+    "secondsToStart": 19990,
+    "startsAt": "2026-11-18T20:00:00.000Z",
+    "system": "arena",
+    "variant": "standard"
+  },
+  "game_status_counts": {
+    "accepted": 225,
+    "excluded_token_sequence": 7,
+    "quarantined": 9
+  },
+  "history_index_sha256": "eafd1e7b1c447b69f96d307b38a1c7c0fbd8fa9dd9b68f8afe555e3faa02d1b6",
+  "implementation_commit": "1db36bad16919dcc0158bc753c4285f3e908723b",
+  "implementation_sha256": {
+    "research/mtdp/draught_master_adapter.py": "e6540c66e140c9a20767b2219584e54302984f4da2dec54054e5856e866dad8a",
+    "research/mtdp/jass_benchmark/candidate_jass_catalogue.py": "f4f09d1150f1bbb96b92495a1d0977ef076bb2ab529b955a47b7f49c42ff2c29",
+    "research/mtdp/jass_benchmark/geometry_ablation.py": "d219c5ab7cd803a3bca4fd85a5d1df23ae4adfb5c342952d35c7094579384c3e",
+    "research/mtdp/jass_benchmark/named_arena_inputs.py": "de489dbb634a936ccd87d8f508be7e60980d8ce38477f06df6e467a60f727b3e",
+    "research/mtdp/jass_benchmark/named_arena_replay.py": "49bff94cf73f2437b1287106fc1a90e76cef29790d40c80df73b086f51e390b4",
+    "research/mtdp/jass_benchmark/prospective_candidate_replay.py": "20051f8be80caef1280809605411ddca605e501cf699fd98a898be3851ed7382",
+    "research/mtdp/jass_move_mapping.py": "c1fb85bbc17dfbdfbdd29915eab4e6f68bd0340bb9e348de627a90e82970a8e6",
+    "research/mtdp/jass_preflight/legal_catalogue.cpp": "cff961ffb64725c42928b6c747a4c7b6f0d32780654d8a5541a39f9767866bec",
+    "research/mtdp/jass_preflight/move_key.hpp": "efd35b851ee6e4654c804356429f2a2983db945c69237d7c743905835776008d",
+    "research/mtdp/pdn.py": "88faa4a952d363183113dc339bb2d9dc0272db44cbb5a723b7adcd38a7005008"
+  },
+  "input_check": {
+    "bytes": 272395,
+    "download_log_sha256": "74089e011b9a9abf7cea26ed8415abc05bed8b20c288156e7c1942431b7c9027",
+    "event": "P1RUlfJc",
+    "metadata_sha256": "f5b881327114c434ec913e4e34fff3f5374437aa34a3074f2e050177a25ab595",
+    "pdn_sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439",
+    "protocol_sha256": "bb058030cc547c9ef2ff9bbe7bd773cc2214947f0aeac851ed84feec79abf169",
+    "registration_sha256": "cb607155e3a6c38bb557d6a6d109734c0b733d681f4a6571f45e908c34da9637",
+    "schema": "mtdp-named-final-input-check-v1",
+    "scientific_freeze": false,
+    "scope": "input_receipts_consistent_population_and_Jass_checks_still_required"
+  },
+  "proposal_sha256": "a613fa63a9212116a32790c84dacde153394e5ebf9b7772cb1fd94cefeb36932",
+  "protocol_sha256": "bb058030cc547c9ef2ff9bbe7bd773cc2214947f0aeac851ed84feec79abf169",
+  "registration_sha256": "cb607155e3a6c38bb557d6a6d109734c0b733d681f4a6571f45e908c34da9637",
+  "registry_sha256": "25b3ca1a6f0a096c264c8f136135a37fd7d5bb23c04af76a39b4915a611d192e",
+  "schema": "mtdp-named-freeze-provenance-v1",
+  "synthetic_rehearsal": false
+}

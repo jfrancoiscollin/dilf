@@ -1,0 +1,138 @@
+{
+  "CI_after": {
+    "directory_selected": true,
+    "job_id": 136032787413,
+    "passed": 226,
+    "run_id": 44659155830,
+    "subtests_passed": 21
+  },
+  "CI_before": {
+    "directory_selected": false,
+    "job_id": 136021454695,
+    "passed": 183,
+    "run_id": 44655760052,
+    "subtests_passed": 13
+  },
+  "CI_verified": true,
+  "D1_artifact_metadata_only": {
+    "downloaded": false,
+    "id": 14595075856,
+    "sha256": "954378a41341afdedfc7b29ec12230a965f23868ce99b1ac1d9c6f6b39cd7241"
+  },
+  "base_commit": "844dc0f3a98c29a26f9eeaaa183c969ada534377",
+  "local_new_ranking_contract_passed": 4,
+  "local_passed": 226,
+  "local_subtests_passed": 21,
+  "new_collected_count": 226,
+  "new_engine_experiment": false,
+  "new_targets": [
+    "research/mtdp/decision_equivalence",
+    "research/mtdp/tests/test_decision_equivalence_audit.py",
+    "research/mtdp/tests/test_decision_equivalence_fmjd_export.py",
+    "research/mtdp/tests/test_d1_fen_overlap_guard.py"
+  ],
+  "new_test_ids": [
+    "research/mtdp/decision_equivalence/test_canonical_successors.py::CanonicalSuccessorsTests::test_different_actions",
+    "research/mtdp/decision_equivalence/test_canonical_successors.py::CanonicalSuccessorsTests::test_order_independent",
+    "research/mtdp/decision_equivalence/test_canonical_successors.py::CanonicalSuccessorsTests::test_reject_ambiguous_input",
+    "research/mtdp/decision_equivalence/test_canonical_successors.py::CanonicalSuccessorsTests::test_same_actions_different_successors",
+    "research/mtdp/decision_equivalence/test_cohort_exclusion_gate.py::ExclusionGateTests::test_accept_distinct",
+    "research/mtdp/decision_equivalence/test_cohort_exclusion_gate.py::ExclusionGateTests::test_chronology",
+    "research/mtdp/decision_equivalence/test_cohort_exclusion_gate.py::ExclusionGateTests::test_duplicate_fen",
+    "research/mtdp/decision_equivalence/test_cohort_exclusion_gate.py::ExclusionGateTests::test_duplicate_trajectory_other_game",
+    "research/mtdp/decision_equivalence/test_cohort_exclusion_gate.py::ExclusionGateTests::test_forbidden_fen",
+    "research/mtdp/decision_equivalence/test_cohort_exclusion_gate.py::ExclusionGateTests::test_forbidden_game",
+    "research/mtdp/decision_equivalence/test_cohort_exclusion_gate.py::ExclusionGateTests::test_forbidden_trajectory",
+    "research/mtdp/decision_equivalence/test_cohort_exclusion_gate.py::ExclusionGateTests::test_missing_registry",
+    "research/mtdp/decision_equivalence/test_cohort_exclusion_gate.py::ExclusionGateTests::test_score_leak",
+    "research/mtdp/decision_equivalence/test_collision_json_integrity.py::CollisionJsonIntegrityTests::test_duplicate_nested_signature_rejected",
+    "research/mtdp/decision_equivalence/test_collision_json_integrity.py::CollisionJsonIntegrityTests::test_duplicate_top_level_key_rejected",
+    "research/mtdp/decision_equivalence/test_collision_json_integrity.py::CollisionJsonIntegrityTests::test_unique_nested_keys_preserved",
+    "research/mtdp/decision_equivalence/test_collision_pair_scaling.py::test_large_collision_group_counts_without_pair_materialization",
+    "research/mtdp/decision_equivalence/test_collision_pair_scaling.py::test_pair_counts_against_exhaustive_reference",
+    "research/mtdp/decision_equivalence/test_ranking_metrics_contract.py::RankingMetricsContract::test_all_tied_is_not_discriminating",
+    "research/mtdp/decision_equivalence/test_ranking_metrics_contract.py::RankingMetricsContract::test_fail_closed_on_missing_scores_and_non_permutation",
+    "research/mtdp/decision_equivalence/test_ranking_metrics_contract.py::RankingMetricsContract::test_tied_best_is_not_arbitrary_single_label",
+    "research/mtdp/decision_equivalence/test_ranking_metrics_contract.py::RankingMetricsContract::test_top3_is_not_first_action_quality",
+    "research/mtdp/decision_equivalence/test_refinement.py::RefinementTests::test_duplicate_identity_rejected",
+    "research/mtdp/decision_equivalence/test_refinement.py::RefinementTests::test_merge_violation",
+    "research/mtdp/decision_equivalence/test_refinement.py::RefinementTests::test_missing_family_rejected",
+    "research/mtdp/decision_equivalence/test_refinement.py::RefinementTests::test_target_score_rejected",
+    "research/mtdp/decision_equivalence/test_refinement.py::RefinementTests::test_valid_split",
+    "research/mtdp/decision_equivalence/test_signature_collision_audit.py::CollisionAuditTests::test_collision_not_successor_equivalence",
+    "research/mtdp/decision_equivalence/test_signature_collision_audit.py::CollisionAuditTests::test_identical_successors_not_minimax",
+    "research/mtdp/decision_equivalence/test_signature_collision_audit.py::CollisionAuditTests::test_jsonl_cli_round_trip",
+    "research/mtdp/decision_equivalence/test_signature_collision_audit.py::CollisionAuditTests::test_reject_duplicate_identity",
+    "research/mtdp/decision_equivalence/test_signature_collision_audit.py::CollisionAuditTests::test_reject_empty",
+    "research/mtdp/decision_equivalence/test_signature_collision_audit.py::CollisionAuditTests::test_reject_inconsistent_families",
+    "research/mtdp/decision_equivalence/test_signature_collision_audit.py::CollisionAuditTests::test_reject_score_field",
+    "research/mtdp/decision_equivalence/test_signature_collision_pairs.py::test_pairwise_collision_counts_distinguish_game_and_successor",
+    "research/mtdp/decision_equivalence/test_signature_collision_pairs.py::test_pairwise_no_collision",
+    "research/mtdp/decision_equivalence/test_successor_collision_integration.py::FingerprintCollisionIntegrationTests::test_equal_legal_actions_do_not_imply_equal_transitions",
+    "research/mtdp/decision_equivalence/test_successor_collision_integration.py::FingerprintCollisionIntegrationTests::test_identical_transition_fingerprint_is_not_minimax_evidence",
+    "research/mtdp/decision_equivalence/test_verified_successors.py::VerifiedSuccessorTests::test_blank_successor_fails_closed",
+    "research/mtdp/decision_equivalence/test_verified_successors.py::VerifiedSuccessorTests::test_complete_order_independent",
+    "research/mtdp/decision_equivalence/test_verified_successors.py::VerifiedSuccessorTests::test_duplicate_oracle_action_fails_closed",
+    "research/mtdp/decision_equivalence/test_verified_successors.py::VerifiedSuccessorTests::test_extra_action_fails_closed",
+    "research/mtdp/decision_equivalence/test_verified_successors.py::VerifiedSuccessorTests::test_missing_action_fails_closed"
+  ],
+  "old_collected_count": 183,
+  "old_pytest_command": "python -m pytest -q dilf/research/mtdp/decision_equivalence/test_pdn_provenance.py dilf/research/mtdp/decision_equivalence/test_corpus_guard.py dilf/research/mtdp/decision_equivalence/test_aggregate.py dilf/research/mtdp/decision_equivalence/test_cluster_bootstrap.py dilf/research/mtdp/tests/test_decision_equivalence_audit.py dilf/research/mtdp/tests/test_decision_equivalence_fmjd_export.py dilf/research/mtdp/decision_equivalence/tests/test_pair_overlap.py dilf/research/mtdp/decision_equivalence/tests/test_cohort_gate_ci_regression.py dilf/research/mtdp/decision_equivalence/test_registry_coverage.py dilf/research/mtdp/decision_equivalence/test_refinement_collision_risk.py dilf/research/mtdp/decision_equivalence/test_partition_guard.py dilf/research/mtdp/decision_equivalence/test_game_overlap_guard.py dilf/research/mtdp/decision_equivalence/test_ranking_metrics.py dilf/research/mtdp/tests/test_d1_fen_overlap_guard.py",
+  "old_tests_omitted": [],
+  "schema": "mtdp-d1-ci-discovery-coverage-v1",
+  "scientific_modules_changed": false,
+  "scope": "synthetic_test_collection_only_no_new_cohort_or_scientific_estimates",
+  "validated_commit": "d4e212477726d99601a4b3b2a547afbbe14c94f4",
+  "verified_at_utc": "2026-11-20T02:17:26.255651+00:00",
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "id": 44659155821,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44659155827,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44659155830,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44659155818,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44659155819,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44659155829,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44659155905,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44659155982,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ],
+  "workflow_sha256": "baee120a745ef05c13a18e1301e40f6b64a1192ed062874b5072d66532a0ba20"
+}

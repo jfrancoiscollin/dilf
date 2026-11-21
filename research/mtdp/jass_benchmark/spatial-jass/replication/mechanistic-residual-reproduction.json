@@ -1,0 +1,20 @@
+{
+  "D1_aggregate_and_bootstrap_tests_passed": 15,
+  "actual_nodes_both_executions": 7796124,
+  "actual_nodes_per_execution": 3898062,
+  "all_raw_receipts_archived": 264,
+  "all_targeted_H13_D1_tests_passed": 271,
+  "collector_commit": "3b89ca824c173530e3b475ece9d3dbb3f1500dd6",
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "new_independent_cohort": false,
+  "normalized_byte_identical": true,
+  "normalized_sha256": "30f6bdb8d18111536af118c9a6706b041ac01125a8cec6cd786e96b3827970eb",
+  "original_three_arm_summaries_reproduced_per_execution": 27,
+  "raw_receipts_per_execution": 132,
+  "schema": "mtdp-mechanistic-local-reproduction-v1",
+  "target_references_opened": 0,
+  "targeted_tests_passed": 256
+}

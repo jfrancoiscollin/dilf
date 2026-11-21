@@ -1,0 +1,15 @@
+{
+  "kind": "subprocess_hash_seed_reproduction",
+  "runs": [
+    {
+      "exit_status": 0,
+      "hash_seed": 7,
+      "proposal_sha256": "a613fa63a9212116a32790c84dacde153394e5ebf9b7772cb1fd94cefeb36932"
+    },
+    {
+      "exit_status": 0,
+      "hash_seed": 61,
+      "proposal_sha256": "a613fa63a9212116a32790c84dacde153394e5ebf9b7772cb1fd94cefeb36932"
+    }
+  ]
+}

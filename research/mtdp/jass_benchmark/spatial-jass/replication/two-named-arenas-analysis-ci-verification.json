@@ -1,0 +1,16 @@
+{
+  "all_seven_workflows_success": true,
+  "artifact_id": 14496020136,
+  "downloaded_and_checked": true,
+  "head_commit": "03b1a270b12244a03df715f265f597bd0f00cd50",
+  "historical_cache_unchanged": true,
+  "inventory_hashes_verified": true,
+  "job_id": 135310927865,
+  "run_id": 44449877832,
+  "schema": "mtdp-two-arena-pretarget-analysis-CI-verification-v1",
+  "scope": "engineering_validation_separate_from_actual_Scan_Jass_results",
+  "synthetic_four_payload_reproduction": true,
+  "tests_passed": 211,
+  "zip_bytes": 10752121,
+  "zip_sha256": "efe5f1bf6adc025618ebb9d46e9d856e888b2242f3f3205f84c3bee6bc261904"
+}

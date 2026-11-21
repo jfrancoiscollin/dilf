@@ -1,0 +1,9 @@
+{
+  "event": "P1RUlfJc",
+  "manifest_sha256": "ba613fc0615c482e069b26caa471d040338486732fda3c677362474de14d503a",
+  "observed_branch_head": "5a050b1068154a527cc5f35a8f795919def2dcce",
+  "published_commit": "5a050b1068154a527cc5f35a8f795919def2dcce",
+  "schema": "mtdp-named-publication-verification-v1",
+  "scientific_freeze": true,
+  "verified_at_utc": "2026-11-18T21:21:28.424881+00:00"
+}

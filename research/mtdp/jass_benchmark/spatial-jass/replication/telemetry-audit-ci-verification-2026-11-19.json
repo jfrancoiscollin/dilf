@@ -1,0 +1,67 @@
+{
+  "all_commit_workflows": [
+    {
+      "conclusion": "success",
+      "id": 44483463694,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44483463698,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44483463765,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44483463706,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44483463855,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44483463713,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44483463712,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44483463795,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ],
+  "all_three_members_match_repository_bytes": true,
+  "artifact_id": 14509013690,
+  "commit": "48b55a691e7129b17e61b7841d4deed793220ca0",
+  "conclusion": "success",
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "job_id": 135421062605,
+  "new_engine_searches": 0,
+  "run_id": 44483463706,
+  "schema": "mtdp-telemetry-ci-verification-v1",
+  "tests_passed": 8,
+  "zip_bytes": 35188,
+  "zip_sha256": "a3b68d773e4aafb897da744a326e51246595f9e9506a2405cf7054d7f3da7c8f"
+}

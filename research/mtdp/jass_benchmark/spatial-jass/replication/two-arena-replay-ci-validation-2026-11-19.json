@@ -1,0 +1,34 @@
+{
+  "action_counts": [
+    10,
+    10
+  ],
+  "all_seven_workflows_success": true,
+  "artifact_downloaded_and_checked": true,
+  "artifact_id": 14490300544,
+  "both_proposals_identical": true,
+  "ci_implementation_commit": "67b46679fb85a1116a83be7732be621b0b2a29d6",
+  "foundation_tests_passed": 163,
+  "head_commit": "b243c85ad504f87b247aecee4df9feb5b837ff17",
+  "historical_cache_unchanged": true,
+  "job_id": 135270361613,
+  "later_whole_game_token_aliases_excluded": 1,
+  "next_action": "joint_publication_bundle_and_remote_freeze_verifier_before_real_scoring",
+  "raw_crlf_preserved": true,
+  "run_id": 44437623861,
+  "schema": "mtdp-two-arena-CI-replay-validation-v1",
+  "scientific_freeze": false,
+  "scope": "engineering_only_no_new_arena_exports_scores_or_search",
+  "seeds": [
+    7,
+    61
+  ],
+  "synthetic_rehearsal": true,
+  "target_counts": [
+    1,
+    1
+  ],
+  "verified_synthetic_proposal_sha256": "c7c2a9eb073e81de856d42103f9962d70cd8e8e1acedbc7a53a3222048c7e79d",
+  "zip_bytes": 10690457,
+  "zip_sha256": "a2642aae4636c91094f83159661128d58597a7146baab5f63ecd79d0403b18cf"
+}
