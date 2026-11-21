@@ -15,9 +15,10 @@ def eligible_cross_game_pairs(rows):
         signature, fen, moves = row["signature"], row["fen"], row["legal_moves"]
         if not isinstance(game, str) or not game or not isinstance(pos, (str, int)) or isinstance(pos, bool):
             raise ValueError("invalid identity")
-        if (game, pos) in seen:
-            raise ValueError("duplicate identity")
-        seen.add((game, pos))
+        normalized_pos = str(pos)
+        if (game, normalized_pos) in seen:
+            raise ValueError("duplicate identity after position-id normalization")
+        seen.add((game, normalized_pos))
         if not isinstance(signature, str) or not signature or not isinstance(fen, str) or not fen:
             raise ValueError("invalid signature/FEN")
         if not isinstance(moves, list) or not moves or any(not isinstance(m, str) or not m for m in moves) or len(set(moves)) != len(moves):
