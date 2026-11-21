@@ -16,7 +16,9 @@ class ScoreBlindCollisionTests(unittest.TestCase):
         self.assertEqual((r["collision_pairs"], r["same_legal_action_pairs"],
                           r["different_legal_action_pairs"], r["within_game_collision_pairs"]),
                          (3, 1, 2, 1))
-        self.assertEqual((r["cross_game_collision_pairs"], r["same_legal_cross_game_collision_pairs"],\n                          r["different_legal_cross_game_collision_pairs"]), (2, 1, 1))\n        self.assertFalse(r["decision_equivalence_established"])
+        self.assertEqual((r["cross_game_collision_pairs"], r["same_legal_cross_game_collision_pairs"],
+                          r["different_legal_cross_game_collision_pairs"]), (2, 1, 1))
+        self.assertFalse(r["decision_equivalence_established"])
 
     def test_cross_game_combinatorics_against_bruteforce(self):
         import itertools
