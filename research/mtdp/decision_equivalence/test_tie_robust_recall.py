@@ -11,8 +11,13 @@ class TieRobustRecallTests(unittest.TestCase):
         result = tie_robust_topk_recall(
             {"a": 8, "b": 8, "c": 8, "d": 0},
             ["b", "d", "a", "c"], top_k=2)
-        self.assertEqual(result["recall_lower_bound"], 0.5)
-        self.assertEqual(result["recall_upper_bound"], 1.0)
+        # Score-consistent reference top-2 sets: ab, ac, bc. Proposed bd
+        # intersects them in respectively 1, 0, 1 actions (denominator 2).
+        recalls = [len({"b", "d"} & choice) / 2
+                   for choice in ({"a", "b"}, {"a", "c"}, {"b", "c"})]
+        self.assertEqual(result["recall_lower_bound"], min(recalls))
+        self.assertEqual(result["recall_upper_bound"], max(recalls))
+        self.assertEqual((min(recalls), max(recalls)), (0.0, 0.5))
         self.assertTrue(result["boundary_tied"])
 
     def test_unique_cutoff_and_clamp(self):
