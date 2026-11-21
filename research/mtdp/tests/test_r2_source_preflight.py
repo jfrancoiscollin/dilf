@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from research.mtdp.r2_source_preflight import validate_manifest
+from research.mtdp.r2_source_preflight import EXPECTED_PREFIXES, validate_manifest
 
 
 def manifest():
@@ -12,7 +12,7 @@ def manifest():
         "bucket": "jass-data",
         "objects": [
             {"cell": f"c{i}", "generation": f"g{j}",
-             "key": f"runs/job{i}/attempt/artefacts/g{j}-selfplay.jnnw.gz",
+             "key": f"{EXPECTED_PREFIXES[f'c{i}']}/artefacts/g{j}-selfplay.jnnw.gz",
              "verified_present": False, "sha256": None}
             for i in range(5) for j in (1, 2)
         ],
@@ -32,7 +32,7 @@ def test_offline_preflight(tmp_path):
     assert result["r2_objects_verified"] == 0
 
 
-@pytest.mark.parametrize("mutation", ["duplicate", "traversal", "claimed_verified", "missing"])
+@pytest.mark.parametrize("mutation", ["duplicate", "traversal", "claimed_verified", "missing", "wrong_run"])
 def test_reject_unsafe_or_unsubstantiated_manifest(tmp_path, mutation):
     obj = manifest()
     if mutation == "duplicate":
@@ -40,6 +40,8 @@ def test_reject_unsafe_or_unsubstantiated_manifest(tmp_path, mutation):
         obj["objects"][1]["key"] = obj["objects"][0]["key"]
     elif mutation == "traversal":
         obj["objects"][0]["key"] = "runs/../artefacts/g1-selfplay.jnnw.gz"
+    elif mutation == "wrong_run":
+        obj["objects"][0]["key"] = "runs/other-run/artefacts/g1-selfplay.jnnw.gz"
     elif mutation == "claimed_verified":
         obj["objects"][0]["verified_present"] = True
     elif mutation == "missing":
