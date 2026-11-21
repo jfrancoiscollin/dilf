@@ -1,0 +1,90 @@
+{
+  "artifact": {
+    "all_three_manifest_members_verified": true,
+    "audit_sha256": "addf65687195a79139be94887f02621765d8fda721d38264241dc15ff4a71d99",
+    "bytes": 82553,
+    "checkout_parent_shas": [
+      "1bed9879887b22146cbe4d27e99133443a276ba7",
+      "0257259fe4a5353b73fec8f719526fad88b48fa8"
+    ],
+    "checkout_sha": "165a51b50a3a58ca83ba95d19c0b08d305ec2832",
+    "distinct_fens": 1750,
+    "downloaded_and_hashed": true,
+    "fmjd_sha": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+    "id": 14722894716,
+    "observations": 1864,
+    "provenance_sha256": "ff93d9dd07aa128c29141f09cf803f0a47a0cbf0bd61775a650972d609a678d6",
+    "zip_sha256": "9499b36daeb33e7e546298f503b7a2e32d1535ed563865a8de10b9130bc6d9de"
+  },
+  "ci_tests": {
+    "passed": 429,
+    "subtests_passed": 36
+  },
+  "d1_job": 136971375304,
+  "failed_head": "455f2be2bf2289cef128cc1ab3c21133be14a3d6",
+  "failed_job": 136958481116,
+  "failed_run": 44941162071,
+  "failure": "Expected 0.5, observed 1/3: one proposed action in the full three-action boundary-eligible pool.",
+  "independent_cohort_qualified": false,
+  "local_tests": {
+    "command": "python -m pytest -q research/mtdp/decision_equivalence",
+    "passed": 403,
+    "subtests_passed": 36
+  },
+  "new_reference_scores_acquired": false,
+  "next_action": "H13 complete trajectory identity gate using exact historical serialization; D1 retains metric/campaign ownership and should not interpret possible-pool coverage as maximum tie-broken top-k recall.",
+  "repair_commit": "0257259fe4a5353b73fec8f719526fad88b48fa8",
+  "repair_scope": "Test expectation and comments only; metric formulas unchanged.",
+  "schema": "mtdp-h13-d1-tied-recall-ci-repair-v1",
+  "scientific_freeze": false,
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "id": 44945365238,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44945365246,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44945365170,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44945365169,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44945365195,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44945365148,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44945365213,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44945365197,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ]
+}
