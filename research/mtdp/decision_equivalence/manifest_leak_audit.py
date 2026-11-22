@@ -34,6 +34,9 @@ def audit(rows):
         if any(any(unicodedata.category(ch).startswith("C") for ch in row[key]) for key in KEYS):
             errors.append(f"row_{index}:unicode_control_identifier")
             continue
+        if any(unicodedata.normalize("NFC", row[key]) != row[key] for key in KEYS):
+            errors.append(f"row_{index}:noncanonical_unicode_normalization")
+            continue
         counts[split] += 1
         for key in KEYS:
             seen[key][row[key]].add(split)
@@ -50,7 +53,7 @@ def audit(rows):
             "trajectory": collisions["trajectory_id"],
         },
         "errors": errors,
-        "limitations": "Exact identifiers only; surrounding whitespace and Unicode controls rejected, but source authenticity, other aliases, chronological order and FMJD FEN normalization unverified.",
+        "limitations": "Exact identifiers only; surrounding whitespace, Unicode controls and non-NFC forms rejected, but source authenticity, other aliases, chronological order and FMJD FEN normalization unverified.",
     }
 
 
