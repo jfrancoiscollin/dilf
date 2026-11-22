@@ -9,6 +9,11 @@ import unicodedata
 from collections import defaultdict
 from pathlib import Path
 
+try:
+    from .strict_manifest_jsonl import decode_line
+except ImportError:  # direct script execution
+    from strict_manifest_jsonl import decode_line
+
 SPLITS = {"train", "validation", "test"}
 KEYS = ("fen", "game_id", "trajectory_id")
 
@@ -63,7 +68,7 @@ def main():
     args = parser.parse_args()
     try:
         with args.manifest.open(encoding="utf-8") as stream:
-            result = audit(json.loads(line) for line in stream if line.strip())
+            result = audit(decode_line(line) for line in stream if line.strip())
     except (OSError, UnicodeError, ValueError) as exc:
         result = {"status": "STOP", "errors": [f"unreadable_manifest:{type(exc).__name__}"]}
     print(json.dumps(result, sort_keys=True))
