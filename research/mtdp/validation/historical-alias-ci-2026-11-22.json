@@ -1,0 +1,19 @@
+{
+  "alias_report_matches_versioned_bytes": true,
+  "alias_report_sha256_recomputed": "bbc2b6850b73b35c1843bc82c5df96a5acea611aceaf976b21031c851a2e9895",
+  "all_eight_head_workflows_success": true,
+  "all_zip_members_verified": false,
+  "artifact_id": 14731937777,
+  "artifact_zip_bytes": 14759181,
+  "artifact_zip_sha256": "f6c06d055620b222dbcd939564172ad5fe55b11e4aad2904e5cf8c05843fdf91",
+  "historical_cache_sha256_recomputed": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "historical_run_id": 44967060268,
+  "implementation_commit": "fcbce8b821ce6d8c7fffc1724463aa6d9b5d32e6",
+  "independent_cohort_qualified": false,
+  "new_reference_scores_acquired": false,
+  "schema": "mtdp-h13-historical-alias-ci-proof-v1",
+  "scientific_freeze": false,
+  "validated_head": "88fbe0c1917c50ada28dbd8bc9a91104232e7d05",
+  "zip_members": 161,
+  "zip_sha256_recomputed": true
+}

@@ -10,6 +10,8 @@ on:
       - 'research/mtdp/closed_reserved_exclusions.py'
       - 'research/mtdp/historical_trajectory_gate.py'
       - 'research/mtdp/historical_alias_gate.py'
+      - 'research/mtdp/authenticated_corpus_bridge.py'
+      - 'research/mtdp/tests/test_authenticated_corpus_bridge.py'
       - 'research/mtdp/tests/test_historical_alias_gate.py'
       - 'research/mtdp/tests/test_historical_trajectory_gate.py'
       - 'research/mtdp/historical_fen_bridge.py'
@@ -318,7 +320,7 @@ jobs:
           MTDP_HISTORICAL_FEN_CACHE=/tmp/mtdp-independent/four-reserved-events-exclusions.json \
             MTDP_HISTORICAL_ADAPTER=../draught-master \
             MTDP_REQUIRE_HISTORICAL_ALIASES=1 \
-            python -m pytest -q research/mtdp/tests/test_historical_alias_gate.py research/mtdp/tests/test_prospective_source_preflight.py
+            python -m pytest -q research/mtdp/tests/test_historical_alias_gate.py research/mtdp/tests/test_prospective_source_preflight.py research/mtdp/tests/test_authenticated_corpus_bridge.py
           python -m research.mtdp.historical_alias_gate \
             --root . --adapter ../draught-master \
             --cache /tmp/mtdp-independent/four-reserved-events-exclusions.json \
