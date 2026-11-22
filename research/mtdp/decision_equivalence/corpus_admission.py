@@ -60,7 +60,9 @@ def audit(rows: list[dict], forbidden: dict) -> dict:
             errors.add(f"row_{i}:missing_provenance")
             continue
         split, game, tournament = row["split"], row["game_id"], row["tournament_id"]
-        if split not in SPLITS or not isinstance(game, str) or not isinstance(tournament, str):
+        if (not isinstance(split, str) or split not in SPLITS or
+                not isinstance(game, str) or not game.strip() or
+                not isinstance(tournament, str) or not tournament.strip()):
             errors.add(f"row_{i}:invalid_partition")
             continue
         if not isinstance(row["fen"], str) or not row["fen"].strip() or\
