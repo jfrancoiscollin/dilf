@@ -93,3 +93,25 @@ def test_blank_game_and_tournament_rejected():
         result = audit([item], EX)
         assert "row_0:invalid_partition" in result["errors"]
         assert not result["admissible_structurally"]
+
+
+def test_same_game_inconsistent_provenance_rejected_within_one_split():
+    first = row(ply=1)
+    for field, changed in (
+        ("raw_sha256", H),
+        ("trajectory_sha256", J),
+        ("tournament_id", "different_tournament"),
+        ("event_id", "different_event"),
+    ):
+        second = row(ply=2, pos=J)
+        second[field] = changed
+        result = audit([first, second], EX)
+        assert "row_1:inconsistent_game_provenance" in result["errors"], field
+        assert not result["admissible_structurally"]
+
+
+def test_same_game_consistent_provenance_multiple_plies_allowed():
+    result = audit([row(ply=1), row(ply=2, pos=J)], EX)
+    assert result["admissible_structurally"]
+    assert result["games"] == 1
+    assert result["historical_exclusion_proven"] is False
