@@ -1,0 +1,19 @@
+{
+  "all_eight_workflows_success": true,
+  "artifact_bytes": 14759195,
+  "artifact_downloaded_this_verification": false,
+  "artifact_github_digest": "sha256:752975772ce9aa6776b618c6cbde6eefc11d3fd1d4013677d2c63db6f26ce85e",
+  "artifact_id": 14733766627,
+  "historical_cache_required": true,
+  "independent_cohort_qualified": false,
+  "job_id": 137051259749,
+  "local_bridge_and_d1_structural_tests_passed": 26,
+  "new_step_tests_passed": 34,
+  "new_step_tests_skipped": 0,
+  "next_action": "D1 authenticates external event ownership and qualifies its independent candidate using the H13 bridge; H13 waits for the independent D1 evaluation gate before a new prospective Jass/Scan protocol.",
+  "pinned_adapter_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "schema": "mtdp-h13-authenticated-d1-bridge-ci-proof-v1",
+  "scientific_freeze": false,
+  "validated_commit": "f155c1127b906d2a50b8e92d3696f6a5f10bb21a",
+  "workflow_run_id": 44971237926
+}
