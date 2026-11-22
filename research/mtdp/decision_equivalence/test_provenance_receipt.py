@@ -16,7 +16,7 @@ class ReceiptTests(unittest.TestCase):
             "historical_cohort_coverage": {"authenticated": True, "registry_ref": "verified-artifact:example"},
             "game_counts_by_split": {"train": 10, "validation": 3, "test": 3},
             "quarantine_counts_by_reason": {},
-            "cross_split_duplicate_counts": {"fen": 0, "game": 0},
+            "cross_split_duplicate_counts": {"fen": 0, "game": 0, "trajectory": 0},
             "audit_result": "PASS",
             "reviewer": "independent-reviewer",
             "decision": "PASS",
@@ -46,6 +46,15 @@ class ReceiptTests(unittest.TestCase):
             r = copy.deepcopy(self.valid)
             r[key] = value
             self.assertIn(error, check(r))
+
+    def test_all_leakage_dimensions_must_be_explicit(self):
+        for counts in ({"fen": 0}, {"game": 0, "trajectory": 0},
+                       {"fen": 0, "game": 0},
+                       {"fen": 0, "game": 0, "trajectory": 0, "other": 0},
+                       {"fen": 0, "game": 0, "trajectory": False}):
+            r = copy.deepcopy(self.valid)
+            r["cross_split_duplicate_counts"] = counts
+            self.assertIn("cross_split_duplicates_unresolved", check(r))
 
     def test_all_fields_required(self):
         for key in self.valid:
