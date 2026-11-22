@@ -1,0 +1,1713 @@
+{
+  "confidence_interval_or_pvalue": false,
+  "geometry": {
+    "contributing_owners": 22,
+    "delete_one_event": [
+      {
+        "deleted_event": "D9PF2OSW",
+        "means": {
+          "disjoint": {
+            "denominator": 17,
+            "numerator": 10,
+            "value": 0.5882352941176471
+          },
+          "ordinary_regret": {
+            "denominator": 17,
+            "numerator": 564,
+            "value": 33.1764705882353
+          },
+          "pick_optimal": {
+            "denominator": 17,
+            "numerator": 6,
+            "value": 0.35294117647058826
+          }
+        },
+        "positions": 17,
+        "totals": {
+          "disjoint": 10,
+          "ordinary_regret": 564,
+          "pick_optimal": 6
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "means": {
+          "disjoint": {
+            "denominator": 9,
+            "numerator": 4,
+            "value": 0.4444444444444444
+          },
+          "ordinary_regret": {
+            "denominator": 9,
+            "numerator": 179,
+            "value": 19.88888888888889
+          },
+          "pick_optimal": {
+            "denominator": 9,
+            "numerator": 5,
+            "value": 0.5555555555555556
+          }
+        },
+        "positions": 9,
+        "totals": {
+          "disjoint": 4,
+          "ordinary_regret": 179,
+          "pick_optimal": 5
+        }
+      }
+    ],
+    "delete_one_owner": [
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:12",
+        "deleted_positions": 0,
+        "means": {
+          "disjoint": {
+            "denominator": 13,
+            "numerator": 7,
+            "value": 0.5384615384615384
+          },
+          "ordinary_regret": {
+            "denominator": 26,
+            "numerator": 743,
+            "value": 28.576923076923077
+          },
+          "pick_optimal": {
+            "denominator": 26,
+            "numerator": 11,
+            "value": 0.4230769230769231
+          }
+        },
+        "positions": 26,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:13",
+        "deleted_positions": 2,
+        "means": {
+          "disjoint": {
+            "denominator": 24,
+            "numerator": 13,
+            "value": 0.5416666666666666
+          },
+          "ordinary_regret": {
+            "denominator": 8,
+            "numerator": 243,
+            "value": 30.375
+          },
+          "pick_optimal": {
+            "denominator": 12,
+            "numerator": 5,
+            "value": 0.4166666666666667
+          }
+        },
+        "positions": 24,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 729,
+          "pick_optimal": 10
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:27",
+        "deleted_positions": 0,
+        "means": {
+          "disjoint": {
+            "denominator": 13,
+            "numerator": 7,
+            "value": 0.5384615384615384
+          },
+          "ordinary_regret": {
+            "denominator": 26,
+            "numerator": 743,
+            "value": 28.576923076923077
+          },
+          "pick_optimal": {
+            "denominator": 26,
+            "numerator": 11,
+            "value": 0.4230769230769231
+          }
+        },
+        "positions": 26,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:34",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 14,
+            "value": 0.56
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 743,
+            "value": 29.72
+          },
+          "pick_optimal": {
+            "denominator": 5,
+            "numerator": 2,
+            "value": 0.4
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 10
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:41",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 14,
+            "value": 0.56
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 743,
+            "value": 29.72
+          },
+          "pick_optimal": {
+            "denominator": 5,
+            "numerator": 2,
+            "value": 0.4
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 10
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:45",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 13,
+            "value": 0.52
+          },
+          "ordinary_regret": {
+            "denominator": 1,
+            "numerator": 29,
+            "value": 29.0
+          },
+          "pick_optimal": {
+            "denominator": 25,
+            "numerator": 11,
+            "value": 0.44
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 725,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:5",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 13,
+            "value": 0.52
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 597,
+            "value": 23.88
+          },
+          "pick_optimal": {
+            "denominator": 25,
+            "numerator": 11,
+            "value": 0.44
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 597,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:52",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 13,
+            "value": 0.52
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 742,
+            "value": 29.68
+          },
+          "pick_optimal": {
+            "denominator": 25,
+            "numerator": 11,
+            "value": 0.44
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 742,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:53",
+        "deleted_positions": 0,
+        "means": {
+          "disjoint": {
+            "denominator": 13,
+            "numerator": 7,
+            "value": 0.5384615384615384
+          },
+          "ordinary_regret": {
+            "denominator": 26,
+            "numerator": 743,
+            "value": 28.576923076923077
+          },
+          "pick_optimal": {
+            "denominator": 26,
+            "numerator": 11,
+            "value": 0.4230769230769231
+          }
+        },
+        "positions": 26,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:59",
+        "deleted_positions": 0,
+        "means": {
+          "disjoint": {
+            "denominator": 13,
+            "numerator": 7,
+            "value": 0.5384615384615384
+          },
+          "ordinary_regret": {
+            "denominator": 26,
+            "numerator": 743,
+            "value": 28.576923076923077
+          },
+          "pick_optimal": {
+            "denominator": 26,
+            "numerator": 11,
+            "value": 0.4230769230769231
+          }
+        },
+        "positions": 26,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:61",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 14,
+            "value": 0.56
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 743,
+            "value": 29.72
+          },
+          "pick_optimal": {
+            "denominator": 5,
+            "numerator": 2,
+            "value": 0.4
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 10
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:9",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 14,
+            "value": 0.56
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 743,
+            "value": 29.72
+          },
+          "pick_optimal": {
+            "denominator": 5,
+            "numerator": 2,
+            "value": 0.4
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 10
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:122",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 13,
+            "value": 0.52
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 742,
+            "value": 29.68
+          },
+          "pick_optimal": {
+            "denominator": 25,
+            "numerator": 11,
+            "value": 0.44
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 742,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:127",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 14,
+            "value": 0.56
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 743,
+            "value": 29.72
+          },
+          "pick_optimal": {
+            "denominator": 5,
+            "numerator": 2,
+            "value": 0.4
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 10
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:13",
+        "deleted_positions": 0,
+        "means": {
+          "disjoint": {
+            "denominator": 13,
+            "numerator": 7,
+            "value": 0.5384615384615384
+          },
+          "ordinary_regret": {
+            "denominator": 26,
+            "numerator": 743,
+            "value": 28.576923076923077
+          },
+          "pick_optimal": {
+            "denominator": 26,
+            "numerator": 11,
+            "value": 0.4230769230769231
+          }
+        },
+        "positions": 26,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:132",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 14,
+            "value": 0.56
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 743,
+            "value": 29.72
+          },
+          "pick_optimal": {
+            "denominator": 5,
+            "numerator": 2,
+            "value": 0.4
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 10
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:133",
+        "deleted_positions": 0,
+        "means": {
+          "disjoint": {
+            "denominator": 13,
+            "numerator": 7,
+            "value": 0.5384615384615384
+          },
+          "ordinary_regret": {
+            "denominator": 26,
+            "numerator": 743,
+            "value": 28.576923076923077
+          },
+          "pick_optimal": {
+            "denominator": 26,
+            "numerator": 11,
+            "value": 0.4230769230769231
+          }
+        },
+        "positions": 26,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:141",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 13,
+            "value": 0.52
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 712,
+            "value": 28.48
+          },
+          "pick_optimal": {
+            "denominator": 25,
+            "numerator": 11,
+            "value": 0.44
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 712,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:143",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 13,
+            "value": 0.52
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 741,
+            "value": 29.64
+          },
+          "pick_optimal": {
+            "denominator": 25,
+            "numerator": 11,
+            "value": 0.44
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 741,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:145",
+        "deleted_positions": 2,
+        "means": {
+          "disjoint": {
+            "denominator": 24,
+            "numerator": 13,
+            "value": 0.5416666666666666
+          },
+          "ordinary_regret": {
+            "denominator": 8,
+            "numerator": 161,
+            "value": 20.125
+          },
+          "pick_optimal": {
+            "denominator": 12,
+            "numerator": 5,
+            "value": 0.4166666666666667
+          }
+        },
+        "positions": 24,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 483,
+          "pick_optimal": 10
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:146",
+        "deleted_positions": 0,
+        "means": {
+          "disjoint": {
+            "denominator": 13,
+            "numerator": 7,
+            "value": 0.5384615384615384
+          },
+          "ordinary_regret": {
+            "denominator": 26,
+            "numerator": 743,
+            "value": 28.576923076923077
+          },
+          "pick_optimal": {
+            "denominator": 26,
+            "numerator": 11,
+            "value": 0.4230769230769231
+          }
+        },
+        "positions": 26,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:55",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 14,
+            "value": 0.56
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 728,
+            "value": 29.12
+          },
+          "pick_optimal": {
+            "denominator": 25,
+            "numerator": 11,
+            "value": 0.44
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 728,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:58",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 13,
+            "value": 0.52
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 718,
+            "value": 28.72
+          },
+          "pick_optimal": {
+            "denominator": 25,
+            "numerator": 11,
+            "value": 0.44
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 718,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:71",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 14,
+            "value": 0.56
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 743,
+            "value": 29.72
+          },
+          "pick_optimal": {
+            "denominator": 5,
+            "numerator": 2,
+            "value": 0.4
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 10
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:79",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 13,
+            "value": 0.52
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 742,
+            "value": 29.68
+          },
+          "pick_optimal": {
+            "denominator": 25,
+            "numerator": 11,
+            "value": 0.44
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 742,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:80",
+        "deleted_positions": 2,
+        "means": {
+          "disjoint": {
+            "denominator": 2,
+            "numerator": 1,
+            "value": 0.5
+          },
+          "ordinary_regret": {
+            "denominator": 24,
+            "numerator": 521,
+            "value": 21.708333333333332
+          },
+          "pick_optimal": {
+            "denominator": 24,
+            "numerator": 11,
+            "value": 0.4583333333333333
+          }
+        },
+        "positions": 24,
+        "totals": {
+          "disjoint": 12,
+          "ordinary_regret": 521,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:82",
+        "deleted_positions": 0,
+        "means": {
+          "disjoint": {
+            "denominator": 13,
+            "numerator": 7,
+            "value": 0.5384615384615384
+          },
+          "ordinary_regret": {
+            "denominator": 26,
+            "numerator": 743,
+            "value": 28.576923076923077
+          },
+          "pick_optimal": {
+            "denominator": 26,
+            "numerator": 11,
+            "value": 0.4230769230769231
+          }
+        },
+        "positions": 26,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:88",
+        "deleted_positions": 0,
+        "means": {
+          "disjoint": {
+            "denominator": 13,
+            "numerator": 7,
+            "value": 0.5384615384615384
+          },
+          "ordinary_regret": {
+            "denominator": 26,
+            "numerator": 743,
+            "value": 28.576923076923077
+          },
+          "pick_optimal": {
+            "denominator": 26,
+            "numerator": 11,
+            "value": 0.4230769230769231
+          }
+        },
+        "positions": 26,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:89",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 14,
+            "value": 0.56
+          },
+          "ordinary_regret": {
+            "denominator": 25,
+            "numerator": 743,
+            "value": 29.72
+          },
+          "pick_optimal": {
+            "denominator": 5,
+            "numerator": 2,
+            "value": 0.4
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 14,
+          "ordinary_regret": 743,
+          "pick_optimal": 10
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:91",
+        "deleted_positions": 1,
+        "means": {
+          "disjoint": {
+            "denominator": 25,
+            "numerator": 13,
+            "value": 0.52
+          },
+          "ordinary_regret": {
+            "denominator": 5,
+            "numerator": 148,
+            "value": 29.6
+          },
+          "pick_optimal": {
+            "denominator": 25,
+            "numerator": 11,
+            "value": 0.44
+          }
+        },
+        "positions": 25,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 740,
+          "pick_optimal": 11
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:99",
+        "deleted_positions": 2,
+        "means": {
+          "disjoint": {
+            "denominator": 24,
+            "numerator": 13,
+            "value": 0.5416666666666666
+          },
+          "ordinary_regret": {
+            "denominator": 24,
+            "numerator": 739,
+            "value": 30.791666666666668
+          },
+          "pick_optimal": {
+            "denominator": 12,
+            "numerator": 5,
+            "value": 0.4166666666666667
+          }
+        },
+        "positions": 24,
+        "totals": {
+          "disjoint": 13,
+          "ordinary_regret": 739,
+          "pick_optimal": 10
+        }
+      }
+    ],
+    "full": {
+      "means": {
+        "disjoint": {
+          "denominator": 13,
+          "numerator": 7,
+          "value": 0.5384615384615384
+        },
+        "ordinary_regret": {
+          "denominator": 26,
+          "numerator": 743,
+          "value": 28.576923076923077
+        },
+        "pick_optimal": {
+          "denominator": 26,
+          "numerator": 11,
+          "value": 0.4230769230769231
+        }
+      },
+      "positions": 26,
+      "totals": {
+        "disjoint": 14,
+        "ordinary_regret": 743,
+        "pick_optimal": 11
+      }
+    },
+    "sampling_owners": 31
+  },
+  "input_sha256": "3fd8f480902e50ffcace15552f5ad71e29571e08d0bf340c167d8ad9e21d45e7",
+  "jass_50000": {
+    "contributing_owners": 31,
+    "delete_one_event": [
+      {
+        "deleted_event": "D9PF2OSW",
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 24,
+        "totals": {
+          "control_minus_lcb": 0,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 14,
+            "numerator": 11,
+            "value": 0.7857142857142857
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 14,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      }
+    ],
+    "delete_one_owner": [
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:12",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:13",
+        "deleted_positions": 2,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 36,
+            "numerator": 11,
+            "value": 0.3055555555555556
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 36,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:27",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:34",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:41",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:45",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:5",
+        "deleted_positions": 2,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 36,
+            "numerator": 11,
+            "value": 0.3055555555555556
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 36,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:52",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:53",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 0,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:59",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:61",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "D9PF2OSW",
+        "deleted_owner": "mtdp-lidraughts-D9PF2OSW.pdn:9",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:122",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:127",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:13",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:132",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:133",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:141",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:143",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:145",
+        "deleted_positions": 2,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 36,
+            "numerator": 11,
+            "value": 0.3055555555555556
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 36,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:146",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:55",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:58",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:71",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:79",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:80",
+        "deleted_positions": 2,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 36,
+            "numerator": 11,
+            "value": 0.3055555555555556
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 36,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:82",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:88",
+        "deleted_positions": 1,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 37,
+            "numerator": 11,
+            "value": 0.2972972972972973
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 37,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:89",
+        "deleted_positions": 2,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 36,
+            "numerator": 11,
+            "value": 0.3055555555555556
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 36,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:91",
+        "deleted_positions": 2,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 36,
+            "numerator": 11,
+            "value": 0.3055555555555556
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 36,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      },
+      {
+        "deleted_event": "s7ahYqL4",
+        "deleted_owner": "mtdp-lidraughts-s7ahYqL4.pdn:99",
+        "deleted_positions": 2,
+        "means": {
+          "control_minus_lcb": {
+            "denominator": 36,
+            "numerator": 11,
+            "value": 0.3055555555555556
+          },
+          "control_minus_native": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          }
+        },
+        "positions": 36,
+        "totals": {
+          "control_minus_lcb": 11,
+          "control_minus_native": 0
+        }
+      }
+    ],
+    "full": {
+      "means": {
+        "control_minus_lcb": {
+          "denominator": 38,
+          "numerator": 11,
+          "value": 0.2894736842105263
+        },
+        "control_minus_native": {
+          "denominator": 1,
+          "numerator": 0,
+          "value": 0.0
+        }
+      },
+      "positions": 38,
+      "totals": {
+        "control_minus_lcb": 11,
+        "control_minus_native": 0
+      }
+    },
+    "sampling_owners": 31
+  },
+  "new_cohort_qualified": false,
+  "new_engine_nodes": 0,
+  "new_scores_acquired": false,
+  "schema": "mtdp-frozen-owner-deletion-diagnostic-v1",
+  "scope": "post_hoc_sensitivity_of_existing_outcomes_not_independent_confirmation",
+  "score_unit": "integer Scan unit = 0.01 HUB, not fixed material pawn value",
+  "signature_or_selection_changed": false
+}

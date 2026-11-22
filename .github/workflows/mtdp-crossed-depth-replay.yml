@@ -5,6 +5,9 @@ on:
   pull_request:
     paths:
       - 'research/mtdp/jass_benchmark/two_arena_crossed_depth.py'
+      - 'research/mtdp/jass_benchmark/owner_deletion_audit.py'
+      - 'research/mtdp/tests/test_owner_deletion_audit.py'
+      - 'research/mtdp/validation/frozen-owner-deletion-2026-11-22.json'
       - 'research/mtdp/jass_benchmark/verify_two_arena_crossed_depth.py'
       - 'research/mtdp/tests/test_two_arena_crossed_depth.py'
       - 'research/mtdp/jass_benchmark/two_arena_telemetry_audit.py'
@@ -114,6 +117,15 @@ jobs:
           cmp /tmp/mtdp-crossed/seed7.json research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-crossed-depth-results.json
           python -m research.mtdp.jass_benchmark.verify_two_arena_crossed_depth --root . --report /tmp/mtdp-crossed/seed7.json --output /tmp/mtdp-crossed/independent.json
           cmp /tmp/mtdp-crossed/independent.json research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-crossed-depth-independent-verification.json
+      - name: Reproduce fixed-outcome whole-owner deletion diagnostic
+        run: |
+          set -euo pipefail
+          python -m pytest -q research/mtdp/tests/test_owner_deletion_audit.py
+          for seed in 7 61; do
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.owner_deletion_audit --root . --output /tmp/mtdp-crossed/owner-deletion-seed$seed.json
+          done
+          cmp /tmp/mtdp-crossed/owner-deletion-seed7.json /tmp/mtdp-crossed/owner-deletion-seed61.json
+          cmp /tmp/mtdp-crossed/owner-deletion-seed7.json research/mtdp/validation/frozen-owner-deletion-2026-11-22.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
