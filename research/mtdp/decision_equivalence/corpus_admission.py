@@ -79,7 +79,7 @@ def audit(rows: list[dict], forbidden: dict) -> dict:
                for key in ("raw_sha256", "trajectory_sha256", "canonical_sha256")):
             errors.add(f"row_{i}:invalid_hash")
             continue
-        if row["event_id"] in RESERVED or game in blocked["game_ids"] or any(
+        if (row["event_id"] in RESERVED or tournament in RESERVED or\n                game in blocked["game_ids"] or any(
             row[key] in blocked[key] for key in
             ("raw_sha256", "trajectory_sha256", "canonical_sha256")
         ):
