@@ -22,6 +22,16 @@ class LeakAuditTests(unittest.TestCase):
         result = audit([row("train", "g1", "f1", "t1"), row("train", "g1", "f1", "t1"), row("validation", "g2", "f2", "t2"), row("test", "g3", "f3", "t3")])
         self.assertEqual(result["cross_split_duplicate_counts"], {"fen": 0, "game": 0, "trajectory": 0})
 
+    def test_whitespace_alias_rejected(self):
+        rows = [row("train", "g1 ", "f1", "t1"), row("validation", "g2", "f2", "t2"), row("test", "g3", "f3", "t3")]
+        result = audit(rows)
+        self.assertEqual(result["status"], "STOP")
+        self.assertIn("row_1:noncanonical_identifier_whitespace", result["errors"])
+        for key in ("game_id", "fen", "trajectory_id"):
+            rows = [row("train", "g1", "f1", "t1"), row("validation", "g2", "f2", "t2"), row("test", "g3", "f3", "t3")]
+            rows[0][key] = " " + rows[0][key]
+            self.assertEqual(audit(rows)["status"], "STOP")
+
     def test_missing_split_and_bad_row_fail_closed(self):
         self.assertEqual(audit([row("train", "g1", "f1", "t1")])["status"], "STOP")
         self.assertEqual(audit([None])["status"], "STOP")
