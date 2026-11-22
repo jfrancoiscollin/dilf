@@ -115,3 +115,18 @@ def test_same_game_consistent_provenance_multiple_plies_allowed():
     assert result["admissible_structurally"]
     assert result["games"] == 1
     assert result["historical_exclusion_proven"] is False
+
+
+def test_reversed_game_plies_rejected():
+    result = audit([row(ply=9), row(ply=3, pos=J)], EX)
+    assert "row_1:non_chronological_game_ply" in result["errors"]
+    assert not result["admissible_structurally"]
+
+
+def test_interleaved_games_keep_independent_chronology():
+    a = row(game="g1", ply=2)
+    b = row(game="g2", ply=1, pos=J)
+    b["raw_sha256"] = H
+    b["trajectory_sha256"] = H
+    result = audit([a, b, row(game="g1", ply=4, pos=K)], EX)
+    assert result["admissible_structurally"]
