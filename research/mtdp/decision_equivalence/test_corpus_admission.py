@@ -130,3 +130,18 @@ def test_interleaved_games_keep_independent_chronology():
     b["trajectory_sha256"] = H
     result = audit([a, b, row(game="g1", ply=4, pos=K)], EX)
     assert result["admissible_structurally"]
+
+
+def test_reserved_event_in_tournament_identity_rejected():
+    # A caller must not bypass the reserved-event guard by moving the
+    # known event identifier from event_id into tournament_id.
+    for reserved in ("fFgE7oED", "P1RUlfJc", "s7ahYqL4", "D9PF2OSW"):
+        result = audit([row(event="other", tournament=reserved)], EX)
+        assert "row_0:reserved_or_historical_overlap" in result["errors"]
+        assert not result["admissible_structurally"]
+
+
+def test_nonreserved_tournament_identity_remains_admissible():
+    result = audit([row(event="other", tournament="unreserved")], EX)
+    assert result["admissible_structurally"]
+    assert result["historical_exclusion_proven"] is False
