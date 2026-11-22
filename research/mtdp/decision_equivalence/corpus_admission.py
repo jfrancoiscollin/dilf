@@ -32,8 +32,20 @@ def audit(rows: list[dict], forbidden: dict) -> dict:
     ):
         errors.add("missing_authenticated_exclusion_registry")
         forbidden = {}
-    blocked = {key: set(forbidden.get(key, [])) for key in
-               ("game_ids", "raw_sha256", "trajectory_sha256", "canonical_sha256")}
+    # Malformed registry entries must never silently bypass exclusion or crash.
+    for key in ("game_ids", "raw_sha256", "trajectory_sha256", "canonical_sha256"):
+        entries = forbidden.get(key, [])
+        if not isinstance(entries, list) or any(
+            not isinstance(value, str) or not value or
+            (key != "game_ids" and (len(value) != 64 or
+             any(ch not in "0123456789abcdef" for ch in value)))
+            for value in entries
+        ):
+            errors.add("invalid_exclusion_registry:" + key)
+    blocked = {key: set(value for value in forbidden.get(key, [])
+                        if isinstance(value, str))
+               if isinstance(forbidden.get(key, []), list) else set()
+               for key in ("game_ids", "raw_sha256", "trajectory_sha256", "canonical_sha256")}
     games: dict[str, set[str]] = {}
     tournaments: dict[str, set[str]] = {}
     positions: dict[str, set[str]] = {}
@@ -48,6 +60,10 @@ def audit(rows: list[dict], forbidden: dict) -> dict:
         split, game, tournament = row["split"], row["game_id"], row["tournament_id"]
         if split not in SPLITS or not isinstance(game, str) or not isinstance(tournament, str):
             errors.add(f"row_{i}:invalid_partition")
+            continue
+        if not isinstance(row["fen"], str) or not row["fen"].strip() or\
+           not isinstance(row["event_id"], str) or not row["event_id"].strip():
+            errors.add(f"row_{i}:invalid_provenance")
             continue
         if type(row["ply"]) is not int or row["ply"] < 0:
             errors.add(f"row_{i}:invalid_ply")
