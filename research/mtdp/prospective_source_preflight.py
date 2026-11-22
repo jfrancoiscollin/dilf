@@ -12,6 +12,9 @@ from research.mtdp.decision_equivalence.content_addressed_admission import (
     audit_content_addressed_games,
 )
 from research.mtdp.reserved_source_gate import screen
+from research.mtdp.historical_alias_gate import (
+    load_historical_aliases, screen_historical_source, reject_historical_source,
+)
 from research.mtdp.historical_trajectory_gate import (
     load_historical_trajectories, audit_source_trajectories, reject_historical_trajectories,
 )
@@ -24,14 +27,17 @@ def preflight_sources(rows: list[dict], sources: Mapping[str, str | Path],
 
     The engine must be pinned real FMJD for actual scientific use; mocks only
     test wiring. No outcome grants independence or authorizes a cohort freeze.
-    The optional pinned historical cache screens observed FENs canonically.
-    Full trajectory exclusions and independent qualification remain separate.
+    The optional pinned historical cache screens canonical FENs, complete
+    trajectories, raw-source digests, public IDs and normalized notations.
+    Independent qualification and registry completeness remain separate.
     """
     audit_with_pdn_bytes(rows, sources)
     historical_view = None
     if historical_cache is not None:
         historical_view = load_historical_fens(historical_cache)
         reject_historical_fen_overlap(rows, historical_view)
+    aliases = load_historical_aliases(historical_cache) if historical_cache is not None else None
+    alias_checks = {}
     checked = {}
     for row in rows:
         digest = row.get('source_pdn_sha256')
@@ -40,6 +46,10 @@ def preflight_sources(rows: list[dict], sources: Mapping[str, str | Path],
         if digest in checked:
             continue
         raw = Path(sources[row['game_id']]).read_bytes()
+        if aliases is not None:
+            alias_report = screen_historical_source(raw, digest, aliases)
+            reject_historical_source(alias_report)
+            alias_checks[digest] = alias_report
         report = screen(raw, digest, root)
         if report['findings']:
             raise ValueError('Reserved source overlap: reject the entire prospective batch')
@@ -63,6 +73,8 @@ def preflight_sources(rows: list[dict], sources: Mapping[str, str | Path],
             reject_historical_trajectories(report)
             trajectory_checks[digest] = report
     return {**proof, 'known_reserved_sources_screened': True,
+            'historical_source_aliases_screened': aliases is not None,
+            'historical_alias_checks': alias_checks,
             'historical_complete_trajectories_screened': historical_cache is not None,
             'trajectory_checks': trajectory_checks,
             'historical_fen_cache_screened': historical_view is not None,

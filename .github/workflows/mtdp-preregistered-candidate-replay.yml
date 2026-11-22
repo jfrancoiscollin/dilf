@@ -9,6 +9,8 @@ on:
       - 'research/mtdp/jass_benchmark/historical_replay_inputs.py'
       - 'research/mtdp/closed_reserved_exclusions.py'
       - 'research/mtdp/historical_trajectory_gate.py'
+      - 'research/mtdp/historical_alias_gate.py'
+      - 'research/mtdp/tests/test_historical_alias_gate.py'
       - 'research/mtdp/tests/test_historical_trajectory_gate.py'
       - 'research/mtdp/historical_fen_bridge.py'
       - 'research/mtdp/tests/test_historical_fen_bridge.py'
@@ -309,6 +311,19 @@ jobs:
             MTDP_HISTORICAL_ADAPTER=../draught-master \
             MTDP_REQUIRE_HISTORICAL_TRAJECTORIES=1 \
             python -m pytest -q research/mtdp/tests/test_historical_trajectory_gate.py
+      - name: Reconcile pinned historical public IDs and normalized notations (no scores)
+        run: |
+          set -euo pipefail
+          cd dilf
+          MTDP_HISTORICAL_FEN_CACHE=/tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            MTDP_HISTORICAL_ADAPTER=../draught-master \
+            MTDP_REQUIRE_HISTORICAL_ALIASES=1 \
+            python -m pytest -q research/mtdp/tests/test_historical_alias_gate.py research/mtdp/tests/test_prospective_source_preflight.py
+          python -m research.mtdp.historical_alias_gate \
+            --root . --adapter ../draught-master \
+            --cache /tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            --output /tmp/mtdp-independent/historical-source-alias-reconciliation.json
+          cmp /tmp/mtdp-independent/historical-source-alias-reconciliation.json research/mtdp/validation/historical-source-alias-reconciliation-2026-11-22.json
       - name: Preserve all input provenance and prospective replay diagnostics
         if: always()
         uses: actions/upload-artifact@v4

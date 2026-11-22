@@ -94,6 +94,8 @@ def test_preflight_rejects_whole_game_even_if_fen_screen_has_no_match(tmp_path, 
     # Real production views always require the exact pinned full cache bytes.
     import research.mtdp.prospective_source_preflight as module
     path, digest = source(tmp_path)
+    monkeypatch.setattr(module, 'load_historical_aliases', lambda p: {
+        'source_sha256': frozenset(), 'public_game_ids': frozenset(), 'notation_sha256': frozenset()})
     monkeypatch.setattr(module, 'load_historical_fens', lambda p: {
         'canonical_fens': frozenset(), 'historical_cache_sha256': 'synthetic-only'})
     monkeypatch.setattr(module, 'load_historical_trajectories', lambda p: known())
@@ -128,6 +130,8 @@ def test_real_cache_and_pinned_rules_recover_all_26_baseline_trajectories():
 def test_preflight_known_registry_clearance_still_cannot_qualify_a_cohort(tmp_path, monkeypatch):
     import research.mtdp.prospective_source_preflight as module
     path, digest = source(tmp_path)
+    monkeypatch.setattr(module, 'load_historical_aliases', lambda p: {
+        'source_sha256': frozenset(), 'public_game_ids': frozenset(), 'notation_sha256': frozenset()})
     monkeypatch.setattr(module, 'load_historical_fens', lambda p: {
         'canonical_fens': frozenset(), 'historical_cache_sha256': 'synthetic-only'})
     monkeypatch.setattr(module, 'load_historical_trajectories', lambda p: frozenset())
