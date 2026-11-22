@@ -24,6 +24,9 @@ def audit(rows: list[dict], forbidden: dict) -> dict:
     errors: set[str] = set()
     required = ("tournament_id", "game_id", "ply", "fen", "split",
                 "raw_sha256", "trajectory_sha256", "canonical_sha256", "event_id")
+    if not isinstance(rows, list):
+        errors.add("invalid_corpus_container")
+        rows = []
     if not rows:
         errors.add("empty_corpus")
     if not isinstance(forbidden, dict) or any(
