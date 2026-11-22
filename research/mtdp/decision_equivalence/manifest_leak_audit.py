@@ -27,6 +27,9 @@ def audit(rows):
         if any(not isinstance(row.get(key), str) or not row[key].strip() for key in KEYS):
             errors.append(f"row_{index}:missing_identifier")
             continue
+        if any(row[key] != row[key].strip() for key in KEYS):
+            errors.append(f"row_{index}:noncanonical_identifier_whitespace")
+            continue
         counts[split] += 1
         for key in KEYS:
             seen[key][row[key]].add(split)
@@ -43,7 +46,7 @@ def audit(rows):
             "trajectory": collisions["trajectory_id"],
         },
         "errors": errors,
-        "limitations": "Exact identifiers only; source authenticity, aliases, chronological order and FMJD FEN normalization unverified.",
+        "limitations": "Exact identifiers only; surrounding whitespace rejected, but source authenticity, other aliases, chronological order and FMJD FEN normalization unverified.",
     }
 
 
