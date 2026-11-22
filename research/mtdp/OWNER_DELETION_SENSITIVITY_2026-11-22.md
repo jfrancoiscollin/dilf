@@ -58,3 +58,13 @@ protocol. Do not enlarge/re-score the old cohort or choose a new signature from
 these deletions. All games/FENs of fFgE7oED, P1RUlfJc, s7ahYqL4 and D9PF2OSW
 remain reserved and excluded from D1 fitting/independent evaluation. This
 post-hoc H13 arithmetic does not qualify any D1 candidate.
+
+## Remote reproduction confirmed
+
+Validated code `fa4437b` on successor `fa6be97` with all eight workflows
+successful. Offline run44975950198/job137065808245 passed eight diagnostic tests
+and both seeded byte comparisons. Artifact14735262298 was downloaded and its
+ZIP SHA-256 checked; both owner-deletion reports equal the versioned report.
+Detailed evidence: `validation/frozen-owner-deletion-ci-2026-11-22.json`.
+The next gate remains a qualified independent D1 candidate; no additional
+reanalysis or engine search is justified by this verification alone.
