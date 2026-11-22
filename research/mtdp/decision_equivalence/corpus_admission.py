@@ -49,6 +49,8 @@ def audit(rows: list[dict], forbidden: dict) -> dict:
     games: dict[str, set[str]] = {}
     tournaments: dict[str, set[str]] = {}
     positions: dict[str, set[str]] = {}
+    raw_sources: dict[str, set[str]] = {}
+    trajectories: dict[str, set[str]] = {}
     seen_ply: set[tuple[str, int]] = set()
     counts: Counter[str] = Counter()
     for i, row in enumerate(rows):
@@ -84,11 +86,17 @@ def audit(rows: list[dict], forbidden: dict) -> dict:
         games.setdefault(game, set()).add(split)
         tournaments.setdefault(tournament, set()).add(split)
         positions.setdefault(row["canonical_sha256"], set()).add(split)
+        raw_sources.setdefault(row["raw_sha256"], set()).add(split)
+        trajectories.setdefault(row["trajectory_sha256"], set()).add(split)
         counts[split] += 1
     if any(len(s) > 1 for s in games.values()):
         errors.add("cross_split_game_leakage")
     if any(len(s) > 1 for s in positions.values()):
         errors.add("cross_split_position_leakage")
+    if any(len(s) > 1 for s in raw_sources.values()):
+        errors.add("cross_split_raw_source_leakage")
+    if any(len(s) > 1 for s in trajectories.values()):
+        errors.add("cross_split_trajectory_leakage")
     if any(len(s) > 1 for s in tournaments.values()):
         errors.add("cross_split_tournament_overlap")
     # This structural check cannot authenticate registry completeness.
