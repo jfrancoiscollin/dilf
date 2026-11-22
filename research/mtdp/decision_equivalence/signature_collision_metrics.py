@@ -40,6 +40,11 @@ def measure(rows):
     # estimand from the conditional fraction among colliding pairs.
     total_pairs = n * (n - 1) // 2
     same_game_pairs = collision_pairs - cross_game_pairs
+    # Eligible cross-game pairs are the denominator for a transfer between
+    # distinct games; using all pairs dilutes this rate when games are long.
+    game_sizes = Counter(positions.values())
+    eligible_same_game_pairs = sum(k * (k - 1) // 2 for k in game_sizes.values())
+    eligible_cross_game_pairs = total_pairs - eligible_same_game_pairs
     return {'positions': n, 'distinct_signatures': len(groups),
             'compression_ratio': n / len(groups), 'collision_position_fraction': colliding / n,
             'collision_groups': sum(v for k, v in sizes.items() if k > 1),
@@ -49,6 +54,14 @@ def measure(rows):
             'collision_pair_fraction': collision_pairs / total_pairs if total_pairs else None,
             'cross_game_pair_fraction_all_positions': cross_game_pairs / total_pairs if total_pairs else None,
             'cross_game_collision_pairs': cross_game_pairs,
+            'eligible_cross_game_pairs': eligible_cross_game_pairs,
+            'cross_game_collision_rate_eligible': (
+                cross_game_pairs / eligible_cross_game_pairs
+                if eligible_cross_game_pairs else None),
+            'eligible_same_game_pairs': eligible_same_game_pairs,
+            'same_game_collision_rate_eligible': (
+                same_game_pairs / eligible_same_game_pairs
+                if eligible_same_game_pairs else None),
             'cross_game_collision_pair_fraction': (cross_game_pairs / collision_pairs
                                                    if collision_pairs else None),
             'group_size_histogram': {str(k): v for k, v in sorted(sizes.items())},
