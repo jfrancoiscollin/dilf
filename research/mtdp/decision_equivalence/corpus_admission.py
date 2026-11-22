@@ -52,6 +52,7 @@ def audit(rows: list[dict], forbidden: dict) -> dict:
     raw_sources: dict[str, set[str]] = {}
     trajectories: dict[str, set[str]] = {}
     seen_ply: set[tuple[str, int]] = set()
+    game_provenance: dict[str, tuple[str, str, str, str]] = {}
     counts: Counter[str] = Counter()
     for i, row in enumerate(rows):
         if not isinstance(row, dict) or any(
@@ -85,6 +86,13 @@ def audit(rows: list[dict], forbidden: dict) -> dict:
         if (game, row["ply"]) in seen_ply:
             errors.add(f"row_{i}:duplicate_game_ply")
         seen_ply.add((game, row["ply"]))
+        # A game identity must name one immutable source and trajectory,
+        # even when every observation stays in the same partition.
+        provenance = (tournament, row["event_id"], row["raw_sha256"],
+                      row["trajectory_sha256"])
+        previous = game_provenance.setdefault(game, provenance)
+        if previous != provenance:
+            errors.add(f"row_{i}:inconsistent_game_provenance")
         games.setdefault(game, set()).add(split)
         tournaments.setdefault(tournament, set()).add(split)
         positions.setdefault(row["canonical_sha256"], set()).add(split)
