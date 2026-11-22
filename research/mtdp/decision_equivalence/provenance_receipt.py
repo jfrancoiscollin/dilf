@@ -33,7 +33,7 @@ def check(receipt):
     if not isinstance(quarantine, dict) or any(not isinstance(k, str) or not k or type(v) is not int or v < 0 for k, v in quarantine.items()):
         errors.append("invalid_quarantine_counts")
     duplicates = receipt.get("cross_split_duplicate_counts")
-    if not isinstance(duplicates, dict) or not duplicates or any(type(v) is not int or v != 0 for v in duplicates.values()):
+    if (not isinstance(duplicates, dict) or set(duplicates) != {"fen", "game", "trajectory"}\n            or any(type(v) is not int or v != 0 for v in duplicates.values())):
         errors.append("cross_split_duplicates_unresolved")
     if receipt.get("audit_result") != "PASS":
         errors.append("structural_audit_not_passed")
