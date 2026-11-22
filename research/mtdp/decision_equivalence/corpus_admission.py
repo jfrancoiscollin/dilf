@@ -83,7 +83,7 @@ def audit(rows: list[dict], forbidden: dict) -> dict:
                 game in blocked["game_ids"] or any(
             row[key] in blocked[key] for key in
             ("raw_sha256", "trajectory_sha256", "canonical_sha256")
-        ):
+        )):
             errors.add(f"row_{i}:reserved_or_historical_overlap")
         if (game, row["ply"]) in seen_ply:
             errors.add(f"row_{i}:duplicate_game_ply")
