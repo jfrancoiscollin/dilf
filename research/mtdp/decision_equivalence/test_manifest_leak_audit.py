@@ -1,0 +1,32 @@
+"""Deterministic adversarial tests for score-blind split leakage audit."""
+import unittest
+from research.mtdp.decision_equivalence.manifest_leak_audit import audit
+
+
+def row(split, game, fen, trajectory):
+    return {"split": split, "game_id": game, "fen": fen, "trajectory_id": trajectory}
+
+
+class LeakAuditTests(unittest.TestCase):
+    def test_disjoint(self):
+        result = audit([row("train", "g1", "f1", "t1"), row("validation", "g2", "f2", "t2"), row("test", "g3", "f3", "t3")])
+        self.assertEqual(result["status"], "PASS_STRUCTURAL_ONLY")
+        self.assertEqual(result["cross_split_duplicate_counts"], {"fen": 0, "game": 0, "trajectory": 0})
+
+    def test_each_leak_dimension(self):
+        result = audit([row("train", "g1", "f1", "t1"), row("validation", "g1", "f2", "t2"), row("test", "g3", "f1", "t1")])
+        self.assertEqual(result["status"], "STOP")
+        self.assertEqual(result["cross_split_duplicate_counts"], {"fen": 1, "game": 1, "trajectory": 1})
+
+    def test_same_split_repeats_not_cross_split(self):
+        result = audit([row("train", "g1", "f1", "t1"), row("train", "g1", "f1", "t1"), row("validation", "g2", "f2", "t2"), row("test", "g3", "f3", "t3")])
+        self.assertEqual(result["cross_split_duplicate_counts"], {"fen": 0, "game": 0, "trajectory": 0})
+
+    def test_missing_split_and_bad_row_fail_closed(self):
+        self.assertEqual(audit([row("train", "g1", "f1", "t1")])["status"], "STOP")
+        self.assertEqual(audit([None])["status"], "STOP")
+        self.assertEqual(audit([row("train", "g1", "f1", "t1"), {"split": "test", "game_id": True, "fen": "f", "trajectory_id": "t"}])["status"], "STOP")
+
+
+if __name__ == "__main__":
+    unittest.main()
