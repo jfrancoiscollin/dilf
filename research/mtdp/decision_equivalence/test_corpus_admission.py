@@ -77,3 +77,19 @@ def test_non_string_fen_and_event_fail_closed():
         result = audit([item], EX)
         assert "row_0:invalid_provenance" in result["errors"]
         assert not result["admissible_structurally"]
+
+
+def test_unhashable_split_rejected_without_crashing():
+    for split in ([], {"train": True}):
+        result = audit([row(split=split)], EX)
+        assert "row_0:invalid_partition" in result["errors"]
+        assert not result["admissible_structurally"]
+
+
+def test_blank_game_and_tournament_rejected():
+    for field in ("game_id", "tournament_id"):
+        item = row()
+        item[field] = "   "
+        result = audit([item], EX)
+        assert "row_0:invalid_partition" in result["errors"]
+        assert not result["admissible_structurally"]
