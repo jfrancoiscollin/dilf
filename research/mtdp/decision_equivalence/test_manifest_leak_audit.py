@@ -32,6 +32,25 @@ class LeakAuditTests(unittest.TestCase):
             rows[0][key] = " " + rows[0][key]
             self.assertEqual(audit(rows)["status"], "STOP")
 
+    def test_non_nfc_aliases_rejected_for_each_identifier(self):
+        # Canonically equivalent composed/decomposed strings must not evade
+        # cross-partition leakage checks; reject rather than silently normalize.
+        for key in ("game_id", "fen", "trajectory_id"):
+            with self.subTest(key=key):
+                rows = [row("train", "g1", "f1", "t1"),
+                        row("validation", "g2", "f2", "t2"),
+                        row("test", "g3", "f3", "t3")]
+                rows[0][key] = "e\u0301"
+                result = audit(rows)
+                self.assertEqual(result["status"], "STOP")
+                self.assertIn("row_1:noncanonical_unicode_normalization", result["errors"])
+
+    def test_nfc_identifier_is_not_rejected_by_normalization_gate(self):
+        rows = [row("train", "\u00e9", "f1", "t1"),
+                row("validation", "g2", "f2", "t2"),
+                row("test", "g3", "f3", "t3")]
+        self.assertEqual(audit(rows)["status"], "PASS_STRUCTURAL_ONLY")
+
     def test_missing_split_and_bad_row_fail_closed(self):
         self.assertEqual(audit([row("train", "g1", "f1", "t1")])["status"], "STOP")
         self.assertEqual(audit([None])["status"], "STOP")
