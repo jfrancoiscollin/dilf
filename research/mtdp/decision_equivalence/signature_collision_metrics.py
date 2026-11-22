@@ -36,11 +36,11 @@ def measure(rows):
         sum(k * (k - 1) // 2 for k in Counter(g).values())
         for g in groups.values()
     )
-    return {'positions': n, 'distinct_signatures': len(groups),
+    # Pair probability among all unordered distinct positions is a separate\n    # estimand from the conditional fraction among colliding pairs.\n    total_pairs = n * (n - 1) // 2\n    same_game_pairs = collision_pairs - cross_game_pairs\n    return {'positions': n, 'distinct_signatures': len(groups),
             'compression_ratio': n / len(groups), 'collision_position_fraction': colliding / n,
             'collision_groups': sum(v for k, v in sizes.items() if k > 1),
             'cross_game_collision_groups': cross_game,
-            'collision_pairs': collision_pairs,
+            'collision_pairs': collision_pairs,\n            'same_game_collision_pairs': same_game_pairs,\n            'collision_pair_fraction': collision_pairs / total_pairs if total_pairs else None,\n            'cross_game_pair_fraction_all_positions': cross_game_pairs / total_pairs if total_pairs else None,
             'cross_game_collision_pairs': cross_game_pairs,
             'cross_game_collision_pair_fraction': (cross_game_pairs / collision_pairs
                                                    if collision_pairs else None),
