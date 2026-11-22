@@ -52,3 +52,29 @@ def test_historical_hash_overlap():
     exclusions = {**EX, "trajectory_sha256": [K]}
     assert any("reserved_or_historical_overlap" in x
                for x in audit([row()], exclusions)["errors"])
+
+
+def test_registry_rejects_unhashable_entries_without_crashing():
+    result = audit([row()], {**EX, "game_ids": [{"unexpected": "object"}]})
+    assert "invalid_exclusion_registry:game_ids" in result["errors"]
+    assert not result["admissible_structurally"]
+
+
+def test_registry_rejects_invalid_digest_without_crashing():
+    result = audit([row()], {**EX, "canonical_sha256": ["NOT_A_SHA"]})
+    assert "invalid_exclusion_registry:canonical_sha256" in result["errors"]
+
+
+def test_registry_rejects_non_list_field():
+    result = audit([row()], {**EX, "game_ids": "g1"})
+    assert "missing_authenticated_exclusion_registry" in result["errors"]
+    assert "invalid_exclusion_registry:game_ids" in result["errors"]
+
+
+def test_non_string_fen_and_event_fail_closed():
+    for field in ("fen", "event_id"):
+        item = row()
+        item[field] = {"unexpected": "object"}
+        result = audit([item], EX)
+        assert "row_0:invalid_provenance" in result["errors"]
+        assert not result["admissible_structurally"]
