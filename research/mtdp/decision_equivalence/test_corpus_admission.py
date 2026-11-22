@@ -145,3 +145,10 @@ def test_nonreserved_tournament_identity_remains_admissible():
     result = audit([row(event="other", tournament="unreserved")], EX)
     assert result["admissible_structurally"]
     assert result["historical_exclusion_proven"] is False
+
+
+def test_non_list_corpus_container_fails_closed():
+    for malformed in (None, {}, {"rows": [row()]}, "not a corpus", 42):
+        result = audit(malformed, EX)
+        assert "invalid_corpus_container" in result["errors"]
+        assert not result["admissible_structurally"]
