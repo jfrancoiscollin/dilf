@@ -1,0 +1,33 @@
+{
+  "all_eight_code_workflows_success": true,
+  "cause": "unclosed outer parenthesis in reserved event/tournament predicate after earlier literal-newline repair",
+  "change": "one closing parenthesis; no logical or scientific change",
+  "d1_artifact_bytes": 82552,
+  "d1_artifact_id": 14742139815,
+  "d1_subtests_passed": 36,
+  "d1_tests_passed": 458,
+  "distinct_fens": 1750,
+  "failed_head": "ebefc3998ba6f912320afe93f62dc4d0eabf3040",
+  "failed_runs": [
+    44990568747,
+    44990568693,
+    44990568697
+  ],
+  "fixed_code_commit": "206d7ea155d9c25777126aa510f63bf4877786e9",
+  "fmjd_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "historical_bridge_tests_passed": 34,
+  "local_d1_same_selection_passed": true,
+  "local_historical_bridge_passed": 34,
+  "manifest_files_verified": 3,
+  "new_independent_cohort": false,
+  "new_target_scores_acquired": false,
+  "next_action": "D1 qualifies an independent candidate with authenticated provenance; H13 prepares no new prospective Jass/Scan campaign before that gate.",
+  "observations": 1864,
+  "schema": "mtdp-reserved-alias-syntax-repair-ci-v1",
+  "successful_runs": {
+    "ci": 44993001206,
+    "d1": 44993001216,
+    "historical_replay": 44993001231
+  },
+  "zip_sha256_recomputed": "8df359cd22a3d32120289074890a94f5a073eede3c8f04661de579bff6a3c1b6"
+}
