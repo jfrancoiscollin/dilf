@@ -11,6 +11,8 @@ class MetricsTest(unittest.TestCase):
         self.assertEqual(out['compression_ratio'], 1.5)
         self.assertEqual(out['collision_position_fraction'], 2 / 3)
         self.assertEqual(out['cross_game_collision_groups'], 1)
+        self.assertEqual(out['collision_pairs'], 1)
+        self.assertEqual(out['cross_game_collision_pairs'], 1)
         self.assertFalse(out['decision_equivalence_established'])
 
     def test_duplicate_identity_rejected(self):
@@ -27,6 +29,23 @@ class MetricsTest(unittest.TestCase):
         out = measure([dict(position_id=str(i), game_id='g', signature=str(i)) for i in range(4)])
         self.assertEqual(out['compression_ratio'], 1)
         self.assertEqual(out['collision_position_fraction'], 0)
+        self.assertEqual(out['collision_pairs'], 0)
+        self.assertIsNone(out['cross_game_collision_pair_fraction'])
+
+    def test_pair_weighting_and_within_game_pairs(self):
+        rows = [dict(position_id=str(i), game_id=g, signature='X')
+                for i, g in enumerate(['a', 'a', 'b', 'b'])]
+        out = measure(rows)
+        self.assertEqual(out['collision_pairs'], 6)
+        self.assertEqual(out['cross_game_collision_pairs'], 4)
+        self.assertAlmostEqual(out['cross_game_collision_pair_fraction'], 2 / 3)
+
+    def test_group_count_is_not_pair_count(self):
+        rows = [dict(position_id=str(i), game_id=str(i), signature='X') for i in range(5)]
+        out = measure(rows)
+        self.assertEqual(out['collision_groups'], 1)
+        self.assertEqual(out['collision_pairs'], 10)
+        self.assertEqual(out['cross_game_collision_pairs'], 10)
 
 
 if __name__ == '__main__':
