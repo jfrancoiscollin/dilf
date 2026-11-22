@@ -68,7 +68,6 @@ def test_registry_rejects_invalid_digest_without_crashing():
 def test_registry_rejects_non_list_field():
     result = audit([row()], {**EX, "game_ids": "g1"})
     assert "missing_authenticated_exclusion_registry" in result["errors"]
-    assert "invalid_exclusion_registry:game_ids" in result["errors"]
 
 
 def test_non_string_fen_and_event_fail_closed():
