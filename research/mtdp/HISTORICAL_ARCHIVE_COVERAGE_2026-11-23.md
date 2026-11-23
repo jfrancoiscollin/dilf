@@ -49,3 +49,11 @@ The workflow repeats the eight tests, authenticates all 247 files and compares
 its output bytes to the versioned report. No new corpus or engine evaluation is
 part of this diagnostic. H13 waits for an independently qualified D1 candidate
 before registering a new prospective Jass/Scan experiment.
+
+## Remote validation
+
+Code07f3706 passed all eight workflows. Run45154318351/job137623280590 passed
+the eight tests with the required rebuilt cache and reproduced the versioned
+report. ZIP artifact14807074068 was downloaded, its GitHub digest verified,
+and the report/cache members checked. Evidence:
+`validation/historical-archive-cache-coverage-ci-2026-11-23.json`.
