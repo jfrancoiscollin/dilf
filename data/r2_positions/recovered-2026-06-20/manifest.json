@@ -1,0 +1,190 @@
+{
+  "schema": "dilf.recovered_positions_snapshot.v1",
+  "historical_manifest_date": "2026-06-20",
+  "recovery_date": "2026-11-23",
+  "source_description": "Historical Jass corpus shards recovered read-only from a stopped local Ubuntu disk. Machine-specific Windows paths and disk identifiers are omitted.",
+  "source_manifest": "historical-source-manifest.txt",
+  "total_records": 16610792,
+  "total_stored_bytes": 159595365,
+  "limitations": "Position records are not deduplicated across shards or other datasets. No original independent SHA-256 was provided by the historical source manifest; checksums record the recovered bytes. Full gzip CRC, size and JNNW header checks pass. No engine legality evaluation or D1 experiment is performed.",
+  "objects": [
+    {
+      "path": "objects/ccx33-0384-corpus-d10--d10-corpus.jnnw.gz",
+      "format": "jnnw",
+      "stored_bytes": 28947822,
+      "stored_sha256": "b83de61f4ecced336fd282d507b3b2e7480870b0b19dedb5e22bd0bc4738efae",
+      "uncompressed_bytes": 114410104,
+      "uncompressed_sha256": "4bd955273b82b9b82b06c04a43469c93461d1c28974f43d937e0e20f4ca415be",
+      "record_count": 3010792,
+      "record_count_unit": "positions"
+    },
+    {
+      "path": "objects/ccx33-0385-corpus-d12--corpus-d12.jnnw.gz",
+      "format": "jnnw",
+      "stored_bytes": 3790787,
+      "stored_sha256": "93e0fc86dbc3b0cbb2490faf7c9516817d628ea9b2e3079e6b5787f76b477664",
+      "uncompressed_bytes": 15200008,
+      "uncompressed_sha256": "96c07852fe25b6c43a3359e87416004fc19926bdcc777a7c957a52963bd15ff0",
+      "record_count": 400000,
+      "record_count_unit": "positions"
+    },
+    {
+      "path": "objects/ccx33-0386-corpus-d10--corpus-d10.jnnw.gz",
+      "format": "jnnw",
+      "stored_bytes": 7695284,
+      "stored_sha256": "2d5e219deaa19ace3ebe81603d3b798c07f2066e4a1c23515954dbd35aa6c867",
+      "uncompressed_bytes": 30400008,
+      "uncompressed_sha256": "8c8455290e78f4e69d5be9476fa1d0e60b3e30e048c75ac8771857ea80dac290",
+      "record_count": 800000,
+      "record_count_unit": "positions"
+    },
+    {
+      "path": "objects/ccx33-0387-corpus-d12--corpus-d12.jnnw.gz",
+      "format": "jnnw",
+      "stored_bytes": 3788396,
+      "stored_sha256": "108622d260c2eb09ca3334519e0bb2fc4bc4117d0797ec14770d9497454e9700",
+      "uncompressed_bytes": 15200008,
+      "uncompressed_sha256": "bf3127790686d458461bc8639710b701f8e4101966083dc4b34e4cf372333a81",
+      "record_count": 400000,
+      "record_count_unit": "positions"
+    },
+    {
+      "path": "objects/ccx33-0388-corpus-d10--corpus-d10.jnnw.gz",
+      "format": "jnnw",
+      "stored_bytes": 7694158,
+      "stored_sha256": "96fdcb89ebc9ce61306e40205200e2c4f3b978893a448c4db1eb903334edc1c6",
+      "uncompressed_bytes": 30400008,
+      "uncompressed_sha256": "30a0316649a992d1b8699d5124042db5eb7645ff66d0ad5c1ceca584a50b6166",
+      "record_count": 800000,
+      "record_count_unit": "positions"
+    },
+    {
+      "path": "objects/cpx62-0391-corpus-d10--corpus-d10.jnnw.gz",
+      "format": "jnnw",
+      "stored_bytes": 13455117,
+      "stored_sha256": "4be46645e00bba5a85e5bb81e229d464f1cb34a2b4fc01fbf5d4b0eb370efcd6",
+      "uncompressed_bytes": 53200008,
+      "uncompressed_sha256": "e50f92a06b6ad7e851b1adc589cf7761a33dd421116c679234f58b8c611f7261",
+      "record_count": 1400000,
+      "record_count_unit": "positions"
+    },
+    {
+      "path": "objects/cpx62-0392-corpus-d10--corpus-d10.jnnw.gz",
+      "format": "jnnw",
+      "stored_bytes": 13460597,
+      "stored_sha256": "5ae9b3c6f04e58a7541fb0e0ef8414ec53d7c3f8ca0c5db2ef6a2f51f300064c",
+      "uncompressed_bytes": 53200008,
+      "uncompressed_sha256": "84f9cc83f5d38606a227a7c28163937cc0bea1be75ddf90b9c89e45d94a7752b",
+      "record_count": 1400000,
+      "record_count_unit": "positions"
+    },
+    {
+      "path": "objects/cpx62-0393-corpus-d10--corpus-d10.jnnw.gz",
+      "format": "jnnw",
+      "stored_bytes": 13465623,
+      "stored_sha256": "5595bf96bca7e1391f831663a36a7c789a6c693e831771806e8662f807f31d82",
+      "uncompressed_bytes": 53200008,
+      "uncompressed_sha256": "23babb101d8067bf6b37f3350c3795fda7c8ef03591a191f53398f3e19909065",
+      "record_count": 1400000,
+      "record_count_unit": "positions"
+    },
+    {
+      "path": "objects/cpx62-0394-corpus-d10--corpus-d10.jnnw.gz",
+      "format": "jnnw",
+      "stored_bytes": 13458015,
+      "stored_sha256": "18f6e76961724da5d4157aed3b8d9ebf823a40bcef8288bd73f02bc77c47dfb7",
+      "uncompressed_bytes": 53200008,
+      "uncompressed_sha256": "21788209286122410a2fe45a42ee1afa6d4f77a8f0517e2af03893ce7f60c22e",
+      "record_count": 1400000,
+      "record_count_unit": "positions"
+    },
+    {
+      "path": "objects/cpx62-0395-corpus-d10--corpus-d10.jnnw.gz",
+      "format": "jnnw",
+      "stored_bytes": 26919088,
+      "stored_sha256": "14c05af23ed95795da503f01e8e2c41b1cf9a9cc2c1469734151a858c05096f9",
+      "uncompressed_bytes": 106400008,
+      "uncompressed_sha256": "f1bb0366e59b5e9fc3bf9b98f5bd9c3af6b8ccf2d31ebf03106ed62983f8ddfa",
+      "record_count": 2800000,
+      "record_count_unit": "positions"
+    },
+    {
+      "path": "objects/cpx62-0396-corpus-d10--corpus-d10.jnnw.gz",
+      "format": "jnnw",
+      "stored_bytes": 26920478,
+      "stored_sha256": "28a40430a6b71560eb6ce5c9525382b28b7e05c419e1f76b4a5b9cf1c5366b99",
+      "uncompressed_bytes": 106400008,
+      "uncompressed_sha256": "efd6a7c2746a74ead19ed34b7d81f48af96bc77e6f7fb6a52c7dcccadb87ff35",
+      "record_count": 2800000,
+      "record_count_unit": "positions"
+    }
+  ],
+  "sources": [
+    {
+      "source_kind": "offline_ubuntu_recovery",
+      "historical_repository_path": "jobs/results/ccx33-0384-corpus-d10/artefacts/d10-corpus.jnnw.gz",
+      "object_path": "objects/ccx33-0384-corpus-d10--d10-corpus.jnnw.gz",
+      "uncompressed_sha256": "4bd955273b82b9b82b06c04a43469c93461d1c28974f43d937e0e20f4ca415be"
+    },
+    {
+      "source_kind": "offline_ubuntu_recovery",
+      "historical_repository_path": "jobs/results/ccx33-0385-corpus-d12/artefacts/corpus-d12.jnnw.gz",
+      "object_path": "objects/ccx33-0385-corpus-d12--corpus-d12.jnnw.gz",
+      "uncompressed_sha256": "96c07852fe25b6c43a3359e87416004fc19926bdcc777a7c957a52963bd15ff0"
+    },
+    {
+      "source_kind": "offline_ubuntu_recovery",
+      "historical_repository_path": "jobs/results/ccx33-0386-corpus-d10/artefacts/corpus-d10.jnnw.gz",
+      "object_path": "objects/ccx33-0386-corpus-d10--corpus-d10.jnnw.gz",
+      "uncompressed_sha256": "8c8455290e78f4e69d5be9476fa1d0e60b3e30e048c75ac8771857ea80dac290"
+    },
+    {
+      "source_kind": "offline_ubuntu_recovery",
+      "historical_repository_path": "jobs/results/ccx33-0387-corpus-d12/artefacts/corpus-d12.jnnw.gz",
+      "object_path": "objects/ccx33-0387-corpus-d12--corpus-d12.jnnw.gz",
+      "uncompressed_sha256": "bf3127790686d458461bc8639710b701f8e4101966083dc4b34e4cf372333a81"
+    },
+    {
+      "source_kind": "offline_ubuntu_recovery",
+      "historical_repository_path": "jobs/results/ccx33-0388-corpus-d10/artefacts/corpus-d10.jnnw.gz",
+      "object_path": "objects/ccx33-0388-corpus-d10--corpus-d10.jnnw.gz",
+      "uncompressed_sha256": "30a0316649a992d1b8699d5124042db5eb7645ff66d0ad5c1ceca584a50b6166"
+    },
+    {
+      "source_kind": "offline_ubuntu_recovery",
+      "historical_repository_path": "jobs/results/cpx62-0391-corpus-d10/artefacts/corpus-d10.jnnw.gz",
+      "object_path": "objects/cpx62-0391-corpus-d10--corpus-d10.jnnw.gz",
+      "uncompressed_sha256": "e50f92a06b6ad7e851b1adc589cf7761a33dd421116c679234f58b8c611f7261"
+    },
+    {
+      "source_kind": "offline_ubuntu_recovery",
+      "historical_repository_path": "jobs/results/cpx62-0392-corpus-d10/artefacts/corpus-d10.jnnw.gz",
+      "object_path": "objects/cpx62-0392-corpus-d10--corpus-d10.jnnw.gz",
+      "uncompressed_sha256": "84f9cc83f5d38606a227a7c28163937cc0bea1be75ddf90b9c89e45d94a7752b"
+    },
+    {
+      "source_kind": "offline_ubuntu_recovery",
+      "historical_repository_path": "jobs/results/cpx62-0393-corpus-d10/artefacts/corpus-d10.jnnw.gz",
+      "object_path": "objects/cpx62-0393-corpus-d10--corpus-d10.jnnw.gz",
+      "uncompressed_sha256": "23babb101d8067bf6b37f3350c3795fda7c8ef03591a191f53398f3e19909065"
+    },
+    {
+      "source_kind": "offline_ubuntu_recovery",
+      "historical_repository_path": "jobs/results/cpx62-0394-corpus-d10/artefacts/corpus-d10.jnnw.gz",
+      "object_path": "objects/cpx62-0394-corpus-d10--corpus-d10.jnnw.gz",
+      "uncompressed_sha256": "21788209286122410a2fe45a42ee1afa6d4f77a8f0517e2af03893ce7f60c22e"
+    },
+    {
+      "source_kind": "offline_ubuntu_recovery",
+      "historical_repository_path": "jobs/results/cpx62-0395-corpus-d10/artefacts/corpus-d10.jnnw.gz",
+      "object_path": "objects/cpx62-0395-corpus-d10--corpus-d10.jnnw.gz",
+      "uncompressed_sha256": "f1bb0366e59b5e9fc3bf9b98f5bd9c3af6b8ccf2d31ebf03106ed62983f8ddfa"
+    },
+    {
+      "source_kind": "offline_ubuntu_recovery",
+      "historical_repository_path": "jobs/results/cpx62-0396-corpus-d10/artefacts/corpus-d10.jnnw.gz",
+      "object_path": "objects/cpx62-0396-corpus-d10--corpus-d10.jnnw.gz",
+      "uncompressed_sha256": "efd6a7c2746a74ead19ed34b7d81f48af96bc77e6f7fb6a52c7dcccadb87ff35"
+    }
+  ]
+}
