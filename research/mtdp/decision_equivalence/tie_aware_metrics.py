@@ -24,6 +24,9 @@ def tie_aware_diagnostics(reference, proposed, *, top_k=3):
     optimum = reference[ranked_ref[0]]
     best_actions = {a for a in reference if reference[a] == optimum}
     selected = ranked_pred[0]
+    predicted_best_score = proposed[selected]
+    predicted_best_actions = {a for a in proposed if proposed[a] == predicted_best_score}
+    optimal_overlap = predicted_best_actions & best_actions
     comparable = 0
     concordant = 0
     for i, a in enumerate(ranked_ref):
@@ -37,6 +40,10 @@ def tie_aware_diagnostics(reference, proposed, *, top_k=3):
     return {
         **base,
         "top1_optimal_set_match": selected in best_actions,
+        "predicted_top1_set_size": len(predicted_best_actions),
+        "predicted_top1_any_reference_optimal": bool(optimal_overlap),
+        "predicted_top1_all_reference_optimal": predicted_best_actions <= best_actions,
+        "predicted_top1_worst_reference_regret": optimum - min(reference[a] for a in predicted_best_actions),
         "reference_optimal_set_size": len(best_actions),
         "reference_topk_boundary_set_size": len(acceptable),
         "topk_boundary_recall": len(acceptable.intersection(ranked_pred[:k])) / len(acceptable),
