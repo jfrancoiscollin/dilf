@@ -1,0 +1,20 @@
+{
+  "archive_canonical_fen_set_sha256": "ac3d8b4b0c38ecc7d6688d60daa53b2200193e3b72b65d01dbe5c18d60532a7c",
+  "archived_canonical_fens": 188809,
+  "archived_fens_missing_from_cache": 0,
+  "archived_files": 247,
+  "cache_canonical_fen_set_sha256": "edb4471702c3ec26ca0e9fdbe0a64384ebb65724e31c3b04badf8f49df899206",
+  "cache_canonical_fens": 452526,
+  "complete_historical_exclusion_registry": false,
+  "excluded_fens": 188809,
+  "external_event_identity_authenticated": false,
+  "historical_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "independent_cohort_qualified": false,
+  "known_archive_fens_contained": true,
+  "new_engine_nodes": 0,
+  "new_reference_scores_acquired": false,
+  "provenance_path": "research/mtdp/jass_benchmark/spatial-jass/replication/CARZrQpl/provenance.json",
+  "provenance_sha256": "e8029eff15b30352db9e33857ba58444d093902bfd539800d30cb237829d131f",
+  "schema": "mtdp-h13-known-archive-cache-coverage-v1",
+  "scientific_freeze": false
+}

@@ -10,6 +10,9 @@ on:
       - 'research/mtdp/closed_reserved_exclusions.py'
       - 'research/mtdp/historical_trajectory_gate.py'
       - 'research/mtdp/historical_alias_gate.py'
+      - 'research/mtdp/historical_archive_coverage.py'
+      - 'research/mtdp/tests/test_historical_archive_coverage.py'
+      - 'research/mtdp/validation/historical-archive-cache-coverage-2026-11-23.json'
       - 'research/mtdp/authenticated_corpus_bridge.py'
       - 'research/mtdp/tests/test_authenticated_corpus_bridge.py'
       - 'research/mtdp/tests/test_historical_alias_gate.py'
@@ -326,6 +329,17 @@ jobs:
             --cache /tmp/mtdp-independent/four-reserved-events-exclusions.json \
             --output /tmp/mtdp-independent/historical-source-alias-reconciliation.json
           cmp /tmp/mtdp-independent/historical-source-alias-reconciliation.json research/mtdp/validation/historical-source-alias-reconciliation-2026-11-22.json
+      - name: Verify old archived FENs are covered by the known historical cache
+        run: |
+          set -euo pipefail
+          cd dilf
+          MTDP_HISTORICAL_FEN_CACHE=/tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            MTDP_REQUIRE_HISTORICAL_ALIASES=1 \
+            python -m unittest -q research.mtdp.tests.test_historical_archive_coverage
+          python -m research.mtdp.historical_archive_coverage --root . \
+            --cache /tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            --output /tmp/mtdp-independent/historical-archive-cache-coverage.json
+          cmp /tmp/mtdp-independent/historical-archive-cache-coverage.json research/mtdp/validation/historical-archive-cache-coverage-2026-11-23.json
       - name: Preserve all input provenance and prospective replay diagnostics
         if: always()
         uses: actions/upload-artifact@v4
