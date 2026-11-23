@@ -81,6 +81,16 @@ if __name__ == "__main__":
             self.assertFalse(receipt_gate(rows, **self.kw)["integrity_pass"])
             self.assertFalse(receipt_gate([dict(self.rows[0], fen="X")], **self.kw)["integrity_pass"])
 
+        def test_chronological_reordering_breaks_frozen_receipt(self):
+            rows = self.rows + [dict(self.rows[0], fen="F2")]
+            digest = hashlib.sha256(canonical_bytes(rows)).hexdigest()
+            original = receipt_gate(rows, **dict(self.kw, expected_sha256=digest))
+            reordered = receipt_gate(list(reversed(rows)),
+                                     **dict(self.kw, expected_sha256=digest))
+            self.assertTrue(original["integrity_pass"])
+            self.assertFalse(reordered["integrity_pass"])
+            self.assertFalse(reordered["expected_sha256_match"])
+
         def test_unknown_identity_rejected(self):
             r = receipt_gate([dict(self.rows[0], event_id="other")],
                              **dict(self.kw, expected_sha256=hashlib.sha256(
