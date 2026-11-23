@@ -1,6 +1,6 @@
 """D1-C chronology guard regression tests, synthetic data only."""
 import unittest
-from .candidate_ply_order import audit_ply_order
+from research.mtdp.decision_equivalence.candidate_ply_order import audit_ply_order
 
 class PlyOrderTests(unittest.TestCase):
     def setUp(self):
