@@ -43,6 +43,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/mtdp-d1
+          python -m research.mtdp.decision_equivalence.corpus_admission_guard
           python -m pytest -q dilf/research/mtdp/decision_equivalence dilf/research/mtdp/tests/test_decision_equivalence_audit.py dilf/research/mtdp/tests/test_decision_equivalence_fmjd_export.py dilf/research/mtdp/tests/test_d1_fen_overlap_guard.py
           python -m research.mtdp.decision_equivalence.fmjd_export \
             --pdn dilf/data/exports/pcblues/pcblues_games.pdn \
