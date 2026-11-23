@@ -12,12 +12,12 @@ def audit_ply_order(records):
             problems.append({"index": i, "reason": "missing_identity"})
             continue
         key = (source, game)
-        if type(ply) is not int or ply < 0:
-            problems.append({"index": i, "reason": "missing_or_invalid_ply"})
-            continue
         if key in events and events[key] != event:
             problems.append({"index": i, "reason": "game_event_changed"})
         events[key] = event
+        if type(ply) is not int or ply < 0:
+            problems.append({"index": i, "reason": "missing_or_invalid_ply"})
+            continue
         if key in last and ply <= last[key]:
             problems.append({"index": i, "reason": "non_increasing_ply"})
         last[key] = ply
