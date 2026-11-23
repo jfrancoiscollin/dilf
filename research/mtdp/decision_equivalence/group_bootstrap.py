@@ -28,7 +28,10 @@ def paired_game_bootstrap(rows, *, replicates=2000, seed=0, confidence=0.95):
         if any(isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v)
                for v in (baseline, candidate)):
             raise ValueError("non-finite or non-numeric metric")
-        grouped[game].append(candidate - baseline)
+        delta = candidate - baseline
+        if not math.isfinite(delta):
+            raise ValueError("non-finite paired difference (numeric overflow)")
+        grouped[game].append(delta)
     if len(grouped) < 2:
         raise ValueError("at least two independent game clusters required")
     means = [sum(v) / len(v) for _, v in sorted(grouped.items())]
