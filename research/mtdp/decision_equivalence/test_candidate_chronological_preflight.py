@@ -4,6 +4,7 @@ import unittest
 
 from research.mtdp.decision_equivalence.candidate_chronological_preflight import chronological_preflight
 from research.mtdp.decision_equivalence.candidate_receipt_gate import canonical_bytes
+from research.mtdp.decision_equivalence.candidate_ply_order import audit_ply_order
 
 
 class ChronologicalPreflightTests(unittest.TestCase):
@@ -57,9 +58,13 @@ class ChronologicalPreflightTests(unittest.TestCase):
 
     def test_invalid_ply_does_not_hide_event_identity_change(self):
         rows = [self.rows[0], dict(self.rows[1], event_id="other", ply=None)]
-        result = self.check(rows)
-        self.assertFalse(result["internal_preflight_pass"])
-        reasons = {problem["reason"] for problem in result["chronology"]["problems"]}
+        # The baseline rejects ambiguous game/event identity by exception.
+        # Check that contract and the chronology diagnostics independently.
+        with self.assertRaisesRegex(ValueError, "game_id assigned to multiple events"):
+            self.check(rows)
+        chronology = audit_ply_order(rows)
+        self.assertFalse(chronology["chronological_metadata_pass"])
+        reasons = {problem["reason"] for problem in chronology["problems"]}
         self.assertIn("game_event_changed", reasons)
         self.assertIn("missing_or_invalid_ply", reasons)
 
