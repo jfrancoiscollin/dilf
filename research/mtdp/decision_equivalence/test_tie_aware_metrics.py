@@ -48,3 +48,28 @@ def test_no_boundary_tie_precision_equals_recall():
     out = tie_aware_diagnostics({"a": 3, "b": 2, "c": 1},
                                 {"a": 3, "b": 1, "c": 2}, top_k=2)
     assert out["topk_boundary_precision"] == out["topk_boundary_recall"] == 0.5
+
+
+def test_predicted_top1_tie_exposes_optimistic_vs_pessimistic_regret():
+    out = tie_aware_diagnostics({"a": 10, "b": 4, "c": 0},
+                                {"a": 2, "b": 2, "c": 1})
+    assert out["top1_optimal_set_match"] is True  # lexical tie break
+    assert out["predicted_top1_set_size"] == 2
+    assert out["predicted_top1_any_reference_optimal"] is True
+    assert out["predicted_top1_all_reference_optimal"] is False
+    assert out["predicted_top1_worst_reference_regret"] == 6
+    assert out["regret"] == 0  # deterministic selection only
+
+
+def test_predicted_top1_tie_all_optimal_has_zero_worst_regret():
+    out = tie_aware_diagnostics({"a": 10, "b": 10, "c": 0},
+                                {"a": 2, "b": 2, "c": 1})
+    assert out["predicted_top1_all_reference_optimal"] is True
+    assert out["predicted_top1_worst_reference_regret"] == 0
+
+
+def test_predicted_top1_tie_no_optimal_action():
+    out = tie_aware_diagnostics({"a": 10, "b": 4, "c": 1},
+                                {"a": 0, "b": 2, "c": 2})
+    assert out["predicted_top1_any_reference_optimal"] is False
+    assert out["predicted_top1_worst_reference_regret"] == 9
