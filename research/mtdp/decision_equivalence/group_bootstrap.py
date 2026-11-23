@@ -34,10 +34,11 @@ def paired_game_bootstrap(rows, *, replicates=2000, seed=0, confidence=0.95):
         grouped[game].append(delta)
     if len(grouped) < 2:
         raise ValueError("at least two independent game clusters required")
-    means = [math.fsum(delta / len(v) for delta in v)\n             for _, v in sorted(grouped.items())]
+    means = [math.fsum(delta / len(v) for delta in v)
+             for _, v in sorted(grouped.items())]
     n = len(means)
     rng = random.Random(seed)
-    draws = sorted(sum(means[rng.randrange(n)] for _ in range(n)) / n
+    draws = sorted(math.fsum(means[rng.randrange(n)] / n for _ in range(n))
                    for _ in range(replicates))
     alpha = (1 - confidence) / 2
     def quantile(p):
