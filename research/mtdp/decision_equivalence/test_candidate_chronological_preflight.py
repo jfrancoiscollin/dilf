@@ -43,5 +43,33 @@ class ChronologicalPreflightTests(unittest.TestCase):
         self.assertFalse(result["internal_preflight_pass"])
 
 
+    def test_interleaved_games_preserve_individual_ply_order(self):
+        rows = [
+            self.rows[0],
+            {"source_id": "s", "game_id": "g2", "event_id": "e2", "fen": "F3", "ply": 0},
+            self.rows[1],
+            {"source_id": "s", "game_id": "g2", "event_id": "e2", "fen": "F4", "ply": 1},
+        ]
+        self.kw["authenticated_game_events"][("s", "g2")] = "e2"
+        result = self.check(rows)
+        self.assertTrue(result["internal_preflight_pass"])
+        self.assertFalse(result["independent_cohort_admitted"])
+
+    def test_invalid_ply_does_not_hide_event_identity_change(self):
+        rows = [self.rows[0], dict(self.rows[1], event_id="other", ply=None)]
+        result = self.check(rows)
+        self.assertFalse(result["internal_preflight_pass"])
+        reasons = {problem["reason"] for problem in result["chronology"]["problems"]}
+        self.assertIn("game_event_changed", reasons)
+        self.assertIn("missing_or_invalid_ply", reasons)
+
+    def test_cross_source_game_id_collision_is_rejected(self):
+        rows = [self.rows[0], dict(self.rows[1], source_id="other", event_id="e2")]
+        self.kw["authenticated_sources"].add("other")
+        self.kw["authenticated_game_events"][("other", "g")] = "e2"
+        with self.assertRaisesRegex(ValueError, "reused across sources"):
+            self.check(rows)
+
+
 if __name__ == "__main__":
     unittest.main()
