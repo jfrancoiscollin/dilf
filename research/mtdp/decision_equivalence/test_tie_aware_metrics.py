@@ -16,7 +16,8 @@ def test_k_boundary_ties_are_included():
     out = tie_aware_diagnostics({"a": 10, "b": 8, "c": 8, "d": 0},
                                 {"a": 4, "b": 1, "c": 3, "d": 2}, top_k=2)
     assert out["reference_topk_boundary_set_size"] == 3
-    assert out["topk_boundary_recall"] == 1
+    assert out["topk_boundary_recall"] == pytest.approx(2 / 3)
+    assert out["topk_boundary_precision"] == 1
     assert out["topk_recall"] == 0.5
 
 
@@ -33,3 +34,17 @@ def test_all_ties_no_claim_of_rank_agreement():
     assert out["untied_pair_count"] == 0
     assert out["untied_pair_concordance"] is None
     assert out["untied_pair_coverage"] == 0
+
+
+def test_boundary_recall_and_precision_diverge_with_ties():
+    out = tie_aware_diagnostics({"a": 5, "b": 4, "c": 4, "d": 4, "e": 0},
+                                {"a": 10, "b": 9, "c": 8, "d": 7, "e": 6}, top_k=2)
+    assert out["reference_topk_boundary_set_size"] == 4
+    assert out["topk_boundary_precision"] == 1
+    assert out["topk_boundary_recall"] == pytest.approx(0.5)
+
+
+def test_no_boundary_tie_precision_equals_recall():
+    out = tie_aware_diagnostics({"a": 3, "b": 2, "c": 1},
+                                {"a": 3, "b": 1, "c": 2}, top_k=2)
+    assert out["topk_boundary_precision"] == out["topk_boundary_recall"] == 0.5
