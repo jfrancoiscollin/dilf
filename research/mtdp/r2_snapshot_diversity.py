@@ -102,7 +102,7 @@ def _quota(counts: list[int], max_sampled: int) -> list[int]:
     base = [(budget * n) // available for n in counts]
     missing = budget - sum(base)
     order = sorted(range(len(counts)),
-                   key=lambda i: (-(budget * counts[i]) % available, i))
+                   key=lambda i: (-((budget * counts[i]) % available), i))
     # Tie break is deterministic; never allocate above a file's row count.
     for i in order[:missing]:
         base[i] += 1
