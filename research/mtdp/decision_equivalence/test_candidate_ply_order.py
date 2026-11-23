@@ -22,3 +22,14 @@ class PlyOrderTests(unittest.TestCase):
         self.assertTrue(audit_ply_order([self.rows[0], other, self.rows[1]])["chronological_metadata_pass"])
     def test_changed_event_rejected(self):
         self.assertFalse(audit_ply_order([self.rows[0], dict(self.rows[1], event_id="other")])["chronological_metadata_pass"])
+
+    def test_event_change_not_hidden_by_invalid_ply(self):
+        rows = [self.rows[0], dict(self.rows[1], event_id="other", ply=None)]
+        reasons = [p["reason"] for p in audit_ply_order(rows)["problems"]]
+        self.assertIn("game_event_changed", reasons)
+        self.assertIn("missing_or_invalid_ply", reasons)
+
+    def test_invalid_ply_still_registers_game_event(self):
+        rows = [dict(self.rows[0], ply=None), dict(self.rows[1], event_id="other")]
+        reasons = [p["reason"] for p in audit_ply_order(rows)["problems"]]
+        self.assertIn("game_event_changed", reasons)
