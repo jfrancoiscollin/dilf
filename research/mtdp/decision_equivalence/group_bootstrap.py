@@ -34,7 +34,7 @@ def paired_game_bootstrap(rows, *, replicates=2000, seed=0, confidence=0.95):
         grouped[game].append(delta)
     if len(grouped) < 2:
         raise ValueError("at least two independent game clusters required")
-    means = [sum(v) / len(v) for _, v in sorted(grouped.items())]
+    means = [math.fsum(delta / len(v) for delta in v)\n             for _, v in sorted(grouped.items())]
     n = len(means)
     rng = random.Random(seed)
     draws = sorted(sum(means[rng.randrange(n)] for _ in range(n)) / n
@@ -45,7 +45,7 @@ def paired_game_bootstrap(rows, *, replicates=2000, seed=0, confidence=0.95):
         lo = math.floor(index)
         hi = math.ceil(index)
         return draws[lo] * (hi - index) + draws[hi] * (index - lo) if lo != hi else draws[lo]
-    return {"n_games": n, "n_positions": len(seen), "estimate": sum(means) / n,
+    return {"n_games": n, "n_positions": len(seen), "estimate": math.fsum(value / n for value in means),
             "ci_lower": quantile(alpha), "ci_upper": quantile(1 - alpha),
             "confidence": confidence, "replicates": replicates, "seed": seed,
             "estimand": "equal_game_weight_paired_difference"}
