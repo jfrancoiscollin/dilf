@@ -14,6 +14,14 @@
   - R2: `e41ad549a2d6d2259b1db03bb384eb98a565ae63c127b1b0b067c3a948df332c`.
   - Historical recovery: `e3ed9e2945dd3ff058868968d05343f85cf14ac6565f2180671cc44141768b19`.
 
+**Reproducibility gate closed:** a separate rerun of the same job
+(run attempt 2, job `138023831143`) published artifact
+https://github.com/jfrancoiscollin/dilf/actions/runs/45268838936/artifacts/14864382238 .
+Both extracted **3,509-byte JSON files are byte-identical**, with exact
+SHA-256 `95a3ac040ad246602b463b529b36ade20ae289ae88b68900f05c882611e244de`.
+The ZIP archives have different packaging hashes, not different JSON.
+No extra sample, model run or independent-game study was performed.
+
 The run fully rechecked stored/uncompressed file SHA-256, gzip CRC and JNNW
 record framing across **96 positional objects** before producing the result.
 The sampling method was the *same proportional deterministic evenly-spaced
