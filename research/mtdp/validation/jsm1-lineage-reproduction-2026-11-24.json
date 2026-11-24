@@ -1,0 +1,53 @@
+{
+  "all_output_payloads_reproduced": true,
+  "frontier_sha256": "16724d0cd8748f3f2980bb210524f246f4838bea871c34cfe0f64a7b9260ce44",
+  "generated_source_game_identity_authenticated": false,
+  "historical_exclusions_checked": false,
+  "independent_cohort_admitted": false,
+  "jass_code_commit": "336bb98451a205266d6646c4d801027af4b30294",
+  "new_engine_scores_computed": false,
+  "ply_or_complete_trajectories_authenticated": false,
+  "schema": "mtdp.jsm1_historical_transform_reproduction.v1",
+  "snapshot_manifest_sha256": "e41ad549a2d6d2259b1db03bb384eb98a565ae63c127b1b0b067c3a948df332c",
+  "steps": {
+    "f2m_reconstruction": {
+      "both_payloads_reproduced": true,
+      "data": {
+        "expected_sha256": "15261c89bd6520e17c03bcf2843b226600ff334130656aab7b1a1f2d1ca03248",
+        "matches": true,
+        "observed_sha256": "15261c89bd6520e17c03bcf2843b226600ff334130656aab7b1a1f2d1ca03248"
+      },
+      "metadata": {
+        "expected_sha256": "6b12a940128033652afe578c61e48c8570ba4db14cb4cde363d56d4bdcdf2d7f",
+        "matches": true,
+        "observed_sha256": "6b12a940128033652afe578c61e48c8570ba4db14cb4cde363d56d4bdcdf2d7f"
+      }
+    },
+    "opening_split": {
+      "both_payloads_reproduced": true,
+      "data": {
+        "expected_sha256": "6ac60a9b3d0ede59fe68c91bf896f551908912cc6c4192370757420ca084deaf",
+        "matches": true,
+        "observed_sha256": "6ac60a9b3d0ede59fe68c91bf896f551908912cc6c4192370757420ca084deaf"
+      },
+      "metadata": {
+        "expected_sha256": "756de534a71e5acebb69e92b5cd062b614d8a1634fd4217200c576c99b3c9218",
+        "matches": true,
+        "observed_sha256": "756de534a71e5acebb69e92b5cd062b614d8a1634fd4217200c576c99b3c9218"
+      }
+    },
+    "turnover_1_1": {
+      "both_payloads_reproduced": true,
+      "data": {
+        "expected_sha256": "9b7db67a87025baf9115c72512312ac13ace076cef700c54ff1862f4ab240a2d",
+        "matches": true,
+        "observed_sha256": "9b7db67a87025baf9115c72512312ac13ace076cef700c54ff1862f4ab240a2d"
+      },
+      "metadata": {
+        "expected_sha256": "acf3bbf4a28e7b44a1077df06bca9658cd4b189fc4cf11ee7f56720661626682",
+        "matches": true,
+        "observed_sha256": "acf3bbf4a28e7b44a1077df06bca9658cd4b189fc4cf11ee7f56720661626682"
+      }
+    }
+  }
+}
