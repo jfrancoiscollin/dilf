@@ -1,0 +1,55 @@
+name: mtdp-jsm1-lineage-reproduction
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-jsm1-lineage-reproduction.yml
+      - research/mtdp/jsm1_lineage_reproduction.py
+      - research/mtdp/tests/test_jsm1_lineage_reproduction.py
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mtdp-jsm1-lineage-reproduction
+  cancel-in-progress: false
+jobs:
+  reproduce-bytes-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check fail-closed extraction and paired hash comparisons
+        run: python -m unittest research.mtdp.tests.test_jsm1_lineage_reproduction research.mtdp.tests.test_jsm1_pair_audit
+      - name: Checkout exact published input commit
+        uses: actions/checkout@v4
+        with:
+          ref: 4ae90c3932f7cb0a10b5df27cfbd73cd220b6139
+          path: snapshot-data
+          sparse-checkout: data/r2_positions/2026-11-21
+          fetch-depth: 1
+      - name: Checkout original Jass byte-transform code (no engine execution)
+        uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/jass
+          ref: 336bb98451a205266d6646c4d801027af4b30294
+          path: historical-jass
+          sparse-checkout: tools
+          fetch-depth: 1
+      - name: Reconstruct F2M, TURNOVER and opening split with historical seeds
+        run: |
+          mkdir -p .cache/mtdp
+          python -m research.mtdp.jsm1_lineage_reproduction \
+            --root snapshot-data/data/r2_positions/2026-11-21 \
+            --frontier historical-jass/tools/selfplay_frontier.py \
+            --work .cache/mtdp/lineage-work \
+            --output .cache/mtdp/jsm1-lineage-reproduction.json
+          sha256sum .cache/mtdp/jsm1-lineage-reproduction.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-jsm1-lineage-reproduction
+          path: .cache/mtdp/jsm1-lineage-reproduction.json
+          if-no-files-found: error
+          retention-days: 30
