@@ -1,5 +1,9 @@
+from pathlib import Path
+import tempfile
+import zipfile
+import json
 import unittest
-from research.mtdp.fresh_membership_evidence import verify_page
+from research.mtdp.fresh_membership_evidence import verify_page, audit
 
 
 class MembershipTests(unittest.TestCase):
@@ -29,6 +33,26 @@ class MembershipTests(unittest.TestCase):
     def test_script_text_is_not_membership(self):
         with self.assertRaises(ValueError):
             verify_page(b'<script>' + self.page + b'</script>', 'abcd1234')
+
+    def test_evidence_tampering_rejected(self):
+        root = Path(__file__).resolve().parents[1]
+        source = root / 'fresh_intake/2026-11-25-uDIrrl1c-membership.zip'
+        for attack in ['page', 'receipt_order']:
+            with self.subTest(attack=attack), tempfile.TemporaryDirectory() as tmp:
+                target = Path(tmp) / 'changed.zip'
+                with zipfile.ZipFile(source) as original, zipfile.ZipFile(target, 'w') as changed:
+                    receipt = json.loads(original.read('receipt.json'))
+                    victim = receipt['responses'][0]['file']
+                    for name in original.namelist():
+                        raw = original.read(name)
+                        if attack == 'page' and name == victim:
+                            raw += b'X'
+                        if attack == 'receipt_order' and name == 'receipt.json':
+                            receipt['responses'].reverse()
+                            raw = json.dumps(receipt).encode()
+                        changed.writestr(name, raw)
+                with self.assertRaises(ValueError):
+                    audit(root / 'fresh_intake/2026-11-25-uDIrrl1c.zip', target)
 
 
 if __name__ == '__main__':

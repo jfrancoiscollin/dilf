@@ -42,3 +42,34 @@ Confirm complete remote membership artifact, inspect bytes/digests, preserve
 raw evidence and reproduce offline. Then reconcile licence evidence and known
 historical exclusion coverage before any admission. Prior four reserved events
 remain wholly excluded. No new H13 reservation; PC Jeff is not required.
+
+## Complete membership control verified
+
+[Run45712595139](https://github.com/jfrancoiscollin/dilf/actions/runs/45712595139),
+job139550523932 on40ba44e, completed successfully. **152/152** separate game
+pages have matching game identity and scoped uDIrrl1c event link, including
+all seven quarantined games. This corroborates event membership only; their
+strict-replay quarantine is unchanged.
+
+Downloaded artifact15068661365, outer ZIP SHA-256
+1036b1ffc48afe02e12c5bbda745a43350a07182896c3feb69c4862fd703a5e1,
+verified against GitHub. Inner raw evidence ZIP (152 HTML pages plus receipt)
+preserved at fresh_intake/2026-11-25-uDIrrl1c-membership.zip, SHA-256
+fc43222fb8ad1fb9451415a05d65eb0b1b2162626c416a323d8a96c215fdd67b.
+Receipt SHA-256 ef66c42e347932ff5fc4cf38ecbc9d495f9e7ad951cf3e97f59885b32ca3d034.
+Remote JSON preserved at validation/fresh-uDIrrl1c-membership-2026-11-25.json,
+SHA-256 4f47617c039039eec8d0262cc07009e98fe4ea4f5c290bbb937a84419cee70c1.
+Local offline audit reproduces those JSON bytes exactly. Seven local unittest
+cases pass, including two full-archive tampering subcases (page bytes changed,
+receipt responses reordered). The workflow now verifies preserved evidence
+and compares exact report bytes **offline**, avoiding future reacquisition.
+Its updated offline CI is pending at publication; acquisition/initial audit
+above is already successful.
+
+All152 observed page links are from the same publisher as the tournament
+export, not independent authority. No external labels are parsed. The licence,
+historical registry coverage and independent-cohort admission flags remain
+false. Next: find applicable source-published game-data grant or existing
+permission receipt, reconcile the known exclusion coverage, then D1/H13 may
+consider whole-event/game partitions and canonical target deduplication.
+No new score, split or scientific freeze is authorized by these observations.
