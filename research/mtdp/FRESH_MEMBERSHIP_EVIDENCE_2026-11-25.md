@@ -73,3 +73,13 @@ false. Next: find applicable source-published game-data grant or existing
 permission receipt, reconcile the known exclusion coverage, then D1/H13 may
 consider whole-event/game partitions and canonical target deduplication.
 No new score, split or scientific freeze is authorized by these observations.
+
+## Offline CI confirmed
+
+Updated workflow on02ce747 passed run45713372557/job139553167506: seven
+unittest cases and exact report comparison, with no source download step.
+Artifact15067319977 downloaded and verified, ZIP SHA-256
+05b874eb5eac37181332665e91860bae091102fd7f34bbe25b1cd9005c076a42.
+Its report is byte-identical to the preserved JSON4f47617c… . Thus both initial
+remote collection and subsequent offline remote reproduction are verified.
+Admission limitations and next action above are unchanged.
