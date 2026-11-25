@@ -1,0 +1,55 @@
+name: mtdp-fresh-candidate-integrity-replay
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-fresh-candidate-integrity-replay.yml
+      - research/mtdp/fresh_candidate_integrity_replay.py
+      - research/mtdp/tests/test_fresh_candidate_integrity_replay.py
+      - research/mtdp/fresh_intake/2026-11-25-uDIrrl1c.zip
+      - research/mtdp/validation/fresh-uDIrrl1c-integrity-replay-2026-11-25.json
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: mtdp-fresh-candidate-integrity-replay
+  cancel-in-progress: false
+jobs:
+  admission-evidence-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/fmjd
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: fmjd
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Restore existing historical evidence without new source acquisition
+        uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          run-id: 45690843939
+          github-token: ${{ github.token }}
+          path: historical-evidence
+      - name: Verify receipt corruption guards and full-game audit
+        run: |
+          python -m unittest research.mtdp.tests.test_fresh_candidate_integrity_replay
+          mkdir -p .cache/mtdp
+          python -m research.mtdp.fresh_candidate_integrity_replay \
+            --archive research/mtdp/fresh_intake/2026-11-25-uDIrrl1c.zip \
+            --cache historical-evidence/four-reserved-events-exclusions.json \
+            --adapter fmjd --output .cache/mtdp/fresh-uDIrrl1c-replay.json
+          cmp .cache/mtdp/fresh-uDIrrl1c-replay.json research/mtdp/validation/fresh-uDIrrl1c-integrity-replay-2026-11-25.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-fresh-uDIrrl1c-integrity-replay
+          path: .cache/mtdp/fresh-uDIrrl1c-replay.json
+          if-no-files-found: error
+          retention-days: 30
