@@ -58,3 +58,14 @@ and establish historical exclusion coverage. Freeze whole-game/event partitions
 and remove shared canonical target FENs across partitions before any new target
 scores. Membership/replay evidence alone is not independent admission; all
 admission/freezing flags remain false. PC Jeff is not required for this audit.
+
+## Remote reproduction verified
+
+Implementation b5daffc6e4b56a0ea704cf7859cc0bf24713e052 passed targeted
+run45693331728/job139484188337: three unittest cases, restoration of the
+pinned historical cache, complete source replay and exact report comparison.
+Artifact15059138609 was downloaded; ZIP SHA-256
+2f3da16fec9e0d42881572c1654e64400f53611ef3e5ac8cd0879b3b66fa3ddc
+matches GitHub. Its JSON is byte-identical to the versioned local report
+(SHA-256 a69de36bd4618e0c5948c54b05f17d9f9e500a11c85ad24783f831bb085eb13a).
+This confirms reproducibility only; all admission gates above remain open.
