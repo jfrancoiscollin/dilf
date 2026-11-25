@@ -1,0 +1,322 @@
+{
+  "adapter_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "divergent_successor_games": 0,
+  "event": "uDIrrl1c",
+  "games": [
+    {
+      "actions": [
+        {
+          "captures": [
+            20,
+            38
+          ],
+          "path": [
+            47,
+            24,
+            15
+          ],
+          "promotion": false,
+          "successor_fen": "W:WK16,43:B4,12,K15,17,21,22"
+        },
+        {
+          "captures": [
+            20,
+            38
+          ],
+          "path": [
+            47,
+            29,
+            15
+          ],
+          "promotion": false,
+          "successor_fen": "W:WK16,43:B4,12,K15,17,21,22"
+        },
+        {
+          "captures": [
+            20,
+            38
+          ],
+          "path": [
+            47,
+            33,
+            15
+          ],
+          "promotion": false,
+          "successor_fen": "W:WK16,43:B4,12,K15,17,21,22"
+        }
+      ],
+      "distinct_successors": 1,
+      "first_unresolved_ply": 112,
+      "matching_actions": 3,
+      "original_token": "47x15",
+      "prefix_fen": "B:WK16,20,38,43:B4,12,17,21,22,K47",
+      "public_game_id": "rS6eZc5P",
+      "remains_quarantined": true,
+      "same_successor": true,
+      "source_game_index": 9,
+      "suffix_replayed": false
+    },
+    {
+      "actions": [
+        {
+          "captures": [
+            13,
+            27
+          ],
+          "path": [
+            4,
+            18,
+            31
+          ],
+          "promotion": false,
+          "successor_fen": "B:W28,K31,34,36,38,39,40,42,43,49:B2,8,14,16,25,26"
+        },
+        {
+          "captures": [
+            13,
+            27
+          ],
+          "path": [
+            4,
+            22,
+            31
+          ],
+          "promotion": false,
+          "successor_fen": "B:W28,K31,34,36,38,39,40,42,43,49:B2,8,14,16,25,26"
+        }
+      ],
+      "distinct_successors": 1,
+      "first_unresolved_ply": 75,
+      "matching_actions": 2,
+      "original_token": "4x31",
+      "prefix_fen": "W:WK4,28,34,36,38,39,40,42,43,49:B2,8,13,14,16,25,26,27",
+      "public_game_id": "klyOM1sE",
+      "remains_quarantined": true,
+      "same_successor": true,
+      "source_game_index": 22,
+      "suffix_replayed": false
+    },
+    {
+      "actions": [
+        {
+          "captures": [
+            13,
+            14,
+            23,
+            24
+          ],
+          "path": [
+            20,
+            9,
+            18,
+            29,
+            20
+          ],
+          "promotion": false,
+          "successor_fen": "B:W20,26,28,32,33,38,39,43:B8,11,16,17,19,36"
+        },
+        {
+          "captures": [
+            13,
+            14,
+            23,
+            24
+          ],
+          "path": [
+            20,
+            29,
+            18,
+            9,
+            20
+          ],
+          "promotion": false,
+          "successor_fen": "B:W20,26,28,32,33,38,39,43:B8,11,16,17,19,36"
+        }
+      ],
+      "distinct_successors": 1,
+      "first_unresolved_ply": 89,
+      "matching_actions": 2,
+      "original_token": "20x20",
+      "prefix_fen": "W:W20,26,28,32,33,38,39,43:B8,11,13,14,16,17,19,23,24,36",
+      "public_game_id": "E3BaGCly",
+      "remains_quarantined": true,
+      "same_successor": true,
+      "source_game_index": 24,
+      "suffix_replayed": false
+    },
+    {
+      "actions": [
+        {
+          "captures": [
+            10,
+            23
+          ],
+          "path": [
+            41,
+            14,
+            5
+          ],
+          "promotion": false,
+          "successor_fen": "W:W25:BK5,9,15,17,22"
+        },
+        {
+          "captures": [
+            10,
+            23
+          ],
+          "path": [
+            41,
+            19,
+            5
+          ],
+          "promotion": false,
+          "successor_fen": "W:W25:BK5,9,15,17,22"
+        }
+      ],
+      "distinct_successors": 1,
+      "first_unresolved_ply": 112,
+      "matching_actions": 2,
+      "original_token": "41x5",
+      "prefix_fen": "B:W10,23,25:B9,15,17,22,K41",
+      "public_game_id": "nd5vh8p2",
+      "remains_quarantined": true,
+      "same_successor": true,
+      "source_game_index": 75,
+      "suffix_replayed": false
+    },
+    {
+      "actions": [
+        {
+          "captures": [
+            21,
+            38
+          ],
+          "path": [
+            49,
+            27,
+            16
+          ],
+          "promotion": false,
+          "successor_fen": "W:W28,35,36,37,39,40,41,45:B2,3,4,8,9,12,13,15,K16,26"
+        },
+        {
+          "captures": [
+            21,
+            38
+          ],
+          "path": [
+            49,
+            32,
+            16
+          ],
+          "promotion": false,
+          "successor_fen": "W:W28,35,36,37,39,40,41,45:B2,3,4,8,9,12,13,15,K16,26"
+        }
+      ],
+      "distinct_successors": 1,
+      "first_unresolved_ply": 62,
+      "matching_actions": 2,
+      "original_token": "49x16",
+      "prefix_fen": "B:W21,28,35,36,37,38,39,40,41,45:B2,3,4,8,9,12,13,15,26,K49",
+      "public_game_id": "tnP7QRLD",
+      "remains_quarantined": true,
+      "same_successor": true,
+      "source_game_index": 135,
+      "suffix_replayed": false
+    },
+    {
+      "actions": [
+        {
+          "captures": [
+            12,
+            29
+          ],
+          "path": [
+            45,
+            18,
+            1
+          ],
+          "promotion": false,
+          "successor_fen": "W:W17:BK1,16"
+        },
+        {
+          "captures": [
+            12,
+            29
+          ],
+          "path": [
+            45,
+            23,
+            1
+          ],
+          "promotion": false,
+          "successor_fen": "W:W17:BK1,16"
+        }
+      ],
+      "distinct_successors": 1,
+      "first_unresolved_ply": 120,
+      "matching_actions": 2,
+      "original_token": "45x1",
+      "prefix_fen": "B:W12,17,29:B16,K45",
+      "public_game_id": "9CbNNsoQ",
+      "remains_quarantined": true,
+      "same_successor": true,
+      "source_game_index": 146,
+      "suffix_replayed": false
+    },
+    {
+      "actions": [
+        {
+          "captures": [
+            13,
+            27,
+            37
+          ],
+          "path": [
+            4,
+            18,
+            31,
+            42
+          ],
+          "promotion": false,
+          "successor_fen": "B:W25,36,38,K42,43,46,48:B6,11,15,16,20,21,45"
+        },
+        {
+          "captures": [
+            13,
+            27,
+            37
+          ],
+          "path": [
+            4,
+            22,
+            31,
+            42
+          ],
+          "promotion": false,
+          "successor_fen": "B:W25,36,38,K42,43,46,48:B6,11,15,16,20,21,45"
+        }
+      ],
+      "distinct_successors": 1,
+      "first_unresolved_ply": 87,
+      "matching_actions": 2,
+      "original_token": "4x42",
+      "prefix_fen": "W:WK4,25,36,38,43,46,48:B6,11,13,15,16,20,21,27,37,45",
+      "public_game_id": "FTU3CE2h",
+      "remains_quarantined": true,
+      "same_successor": true,
+      "source_game_index": 151,
+      "suffix_replayed": false
+    }
+  ],
+  "independent_cohort_admitted": false,
+  "intake_zip_sha256": "efe9f4c133edb5adfaa236a30dabe1a39e931ed0e09b287ae5bb860f0ac2b28c",
+  "new_engine_scores_computed": false,
+  "quarantined_games": 7,
+  "resolution_rule_changed": false,
+  "same_successor_games": 7,
+  "schema": "mtdp-fresh-first-capture-ambiguity-v1",
+  "scientific_freeze": false,
+  "strict_replay_sha256": "a69de36bd4618e0c5948c54b05f17d9f9e500a11c85ad24783f831bb085eb13a",
+  "target_positions_selected": false
+}

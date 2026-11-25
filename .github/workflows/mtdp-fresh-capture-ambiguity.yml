@@ -1,0 +1,48 @@
+name: mtdp-fresh-capture-ambiguity
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-fresh-capture-ambiguity.yml
+      - research/mtdp/fresh_capture_ambiguity_audit.py
+      - research/mtdp/tests/test_fresh_capture_ambiguity_audit.py
+      - research/mtdp/fresh_intake/2026-11-25-uDIrrl1c.zip
+      - research/mtdp/validation/fresh-uDIrrl1c-integrity-replay-2026-11-25.json
+      - research/mtdp/validation/fresh-uDIrrl1c-capture-ambiguity-2026-11-25.json
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mtdp-fresh-capture-ambiguity
+  cancel-in-progress: false
+jobs:
+  diagnostic-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/fmjd
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: fmjd
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test diagnostic guards and reproduce first-ambiguity evidence
+        run: |
+          python -m unittest research.mtdp.tests.test_fresh_capture_ambiguity_audit research.mtdp.tests.test_fresh_candidate_integrity_replay
+          mkdir -p .cache/mtdp
+          python -m research.mtdp.fresh_capture_ambiguity_audit \
+            --archive research/mtdp/fresh_intake/2026-11-25-uDIrrl1c.zip \
+            --baseline research/mtdp/validation/fresh-uDIrrl1c-integrity-replay-2026-11-25.json \
+            --adapter fmjd --output .cache/mtdp/fresh-capture-ambiguity.json
+          cmp .cache/mtdp/fresh-capture-ambiguity.json research/mtdp/validation/fresh-uDIrrl1c-capture-ambiguity-2026-11-25.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-fresh-uDIrrl1c-capture-ambiguity
+          path: .cache/mtdp/fresh-capture-ambiguity.json
+          if-no-files-found: error
+          retention-days: 30
