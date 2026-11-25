@@ -79,3 +79,13 @@ licence evidence and historical exclusion coverage; only then assess whether
 additional independently sourced events and a frozen partition rule are
 available. Do not split the shared-FEN owner groups by assuming public game
 IDs alone establish independence. PC Jeff is not required.
+
+## Remote reproduction verified
+
+Implementationfa50355 passed [run45720526966](https://github.com/jfrancoiscollin/dilf/actions/runs/45720526966),
+job139577418423: four tests, pinned FMJD/cache, complete replay and exact
+summary comparison successful. Artifact15071572777 downloaded; ZIP SHA-256
+7400ab94c07c8347d7b2e2cfc27c317ff8782df84d5cb9e0d5c8a418a528285c
+matches GitHub. Both summary JSON and full2,938,746-byte inventory are
+byte-identical to local outputs, including inventory62a71b82… . This verifies
+the descriptive footprint only. No admission or partition rule is changed.
