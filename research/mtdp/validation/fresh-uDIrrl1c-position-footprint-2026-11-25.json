@@ -1,0 +1,520 @@
+{
+  "adapter_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "complete_games": 145,
+  "complete_historical_registry_proven": false,
+  "components_with_multiple_games": 3,
+  "distinct_complete_trajectory_hashes": 144,
+  "distinct_fens": 12795,
+  "duplicate_complete_trajectory_groups": [
+    {
+      "game_ids": [
+        "FV2lghfI",
+        "HaZPyLPe"
+      ],
+      "trajectory_sha256": "560dfc4acd4a0887f890d3d77c83ea3e819444fe7450c750f2a4581b2dc30e36"
+    }
+  ],
+  "event": "uDIrrl1c",
+  "exact_fen_component_count": 141,
+  "games_with_nonhistorical_fens": 139,
+  "games_without_nonhistorical_fens": [
+    "9xEP5wv0",
+    "FV2lghfI",
+    "HaZPyLPe",
+    "i7JD5HgS",
+    "m2GjwDyB",
+    "nsXmupvH"
+  ],
+  "historical_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "historical_distinct_fens": 885,
+  "historical_occurrences": 1681,
+  "independent_cohort_admitted": false,
+  "intake_zip_sha256": "efe9f4c133edb5adfaa236a30dabe1a39e931ed0e09b287ae5bb860f0ac2b28c",
+  "inventory_jsonl_bytes": 2938746,
+  "inventory_jsonl_sha256": "62a71b82e09794ddd2bdc68d8c44749bf7741dddaee28a0722295a54abaac36e",
+  "largest_component_games": 3,
+  "new_engine_scores_computed": false,
+  "nonhistorical_cross_game_shared_fens": 5,
+  "nonhistorical_distinct_fens": 11910,
+  "nonhistorical_exact_fen_game_components": [
+    [
+      "06zQ2Ha0"
+    ],
+    [
+      "0aBCB2tI"
+    ],
+    [
+      "0dHhmKZ1"
+    ],
+    [
+      "100N4RXo"
+    ],
+    [
+      "1O0uinmZ"
+    ],
+    [
+      "1ZRwifrO"
+    ],
+    [
+      "1a0M2nr4"
+    ],
+    [
+      "2NUmXpRk"
+    ],
+    [
+      "2PAidLTX",
+      "7Dc7oBD7"
+    ],
+    [
+      "2nNJeXDj"
+    ],
+    [
+      "2pJpcRLD"
+    ],
+    [
+      "33pSEw9b"
+    ],
+    [
+      "3AeSwQ1E"
+    ],
+    [
+      "3S9NsiLF"
+    ],
+    [
+      "3SL447tc"
+    ],
+    [
+      "41GjaffS"
+    ],
+    [
+      "4XeTwscB"
+    ],
+    [
+      "4ozYRFcV"
+    ],
+    [
+      "5DQP6bMc"
+    ],
+    [
+      "5bgBYX46"
+    ],
+    [
+      "5eWolkBs"
+    ],
+    [
+      "5izfbPs5"
+    ],
+    [
+      "6PCMZCg5"
+    ],
+    [
+      "6o5V8bYe"
+    ],
+    [
+      "7BaDXZef"
+    ],
+    [
+      "7abk8h3q"
+    ],
+    [
+      "7hAgwog0"
+    ],
+    [
+      "81H12qyK"
+    ],
+    [
+      "8EK5RzcT"
+    ],
+    [
+      "8FqsyxEc"
+    ],
+    [
+      "8e5JlkF5",
+      "k61O9gaD"
+    ],
+    [
+      "8jTIx7Qo"
+    ],
+    [
+      "9gwGixh6"
+    ],
+    [
+      "9x061eDY"
+    ],
+    [
+      "9xEP5wv0"
+    ],
+    [
+      "BZZ0yME2",
+      "f4X6kRHx",
+      "s3QQ1FLc"
+    ],
+    [
+      "BbBpO4pR"
+    ],
+    [
+      "BdalxteF"
+    ],
+    [
+      "C9pfpukn"
+    ],
+    [
+      "CGB8e6uf"
+    ],
+    [
+      "CljRMcdi"
+    ],
+    [
+      "DRBe0Y8z"
+    ],
+    [
+      "DngxXHSv"
+    ],
+    [
+      "Er9LnZRn"
+    ],
+    [
+      "FV2lghfI"
+    ],
+    [
+      "GNRtITdj"
+    ],
+    [
+      "H96hZLb0"
+    ],
+    [
+      "HBJHjrqk"
+    ],
+    [
+      "HaZPyLPe"
+    ],
+    [
+      "IFWBJ2Pf"
+    ],
+    [
+      "J7WvGB6E"
+    ],
+    [
+      "J9wZ7DqX"
+    ],
+    [
+      "JEVqM3S2"
+    ],
+    [
+      "JwldngUn"
+    ],
+    [
+      "K3eMzlZZ"
+    ],
+    [
+      "KEPY2UdW"
+    ],
+    [
+      "KGjQ6MLj"
+    ],
+    [
+      "M6BNaOTL"
+    ],
+    [
+      "MZIPs2tb"
+    ],
+    [
+      "N2k9AKtX"
+    ],
+    [
+      "N9qoswW5"
+    ],
+    [
+      "OMlda4z3"
+    ],
+    [
+      "OPZ4udcl"
+    ],
+    [
+      "P4ZHy9oF"
+    ],
+    [
+      "P8A8oUPT"
+    ],
+    [
+      "PBSc8qnN"
+    ],
+    [
+      "PKQHyl90"
+    ],
+    [
+      "Pk1HK0cF"
+    ],
+    [
+      "Pm9Ms3yo"
+    ],
+    [
+      "QPMHUjMc"
+    ],
+    [
+      "QT5RdHfQ"
+    ],
+    [
+      "QYr9yMI2"
+    ],
+    [
+      "Qkyoh31q"
+    ],
+    [
+      "QnogcUwR"
+    ],
+    [
+      "R4DzAzuG"
+    ],
+    [
+      "RPIZf4FS"
+    ],
+    [
+      "RY5G6d2w"
+    ],
+    [
+      "S2id3siC"
+    ],
+    [
+      "STELBEVZ"
+    ],
+    [
+      "SXtn5NR4"
+    ],
+    [
+      "T9kUvE1v"
+    ],
+    [
+      "TFygT95r"
+    ],
+    [
+      "U7YWpt9N"
+    ],
+    [
+      "Um6Zvj6A"
+    ],
+    [
+      "VV9qdStQ"
+    ],
+    [
+      "WsjhPg12"
+    ],
+    [
+      "XrnSvE9x"
+    ],
+    [
+      "XzelQLt0"
+    ],
+    [
+      "YWwUXtak"
+    ],
+    [
+      "ZFiJswAC"
+    ],
+    [
+      "ZkAVKDr4"
+    ],
+    [
+      "aB5se923"
+    ],
+    [
+      "aFlmDi21"
+    ],
+    [
+      "aoDaDN1f"
+    ],
+    [
+      "b3f55wOV"
+    ],
+    [
+      "bf2MVfZo"
+    ],
+    [
+      "dPPgPxqx"
+    ],
+    [
+      "eQMMDqX4"
+    ],
+    [
+      "eTLTcIm3"
+    ],
+    [
+      "gtbbhIGl"
+    ],
+    [
+      "gtzsDHHK"
+    ],
+    [
+      "hcupsUgG"
+    ],
+    [
+      "i7JD5HgS"
+    ],
+    [
+      "iTb7Qnun"
+    ],
+    [
+      "jIOpWA5o"
+    ],
+    [
+      "jgwHzR6x"
+    ],
+    [
+      "jy266ePy"
+    ],
+    [
+      "k8xZnFT7"
+    ],
+    [
+      "kxYXNSHK"
+    ],
+    [
+      "m2GjwDyB"
+    ],
+    [
+      "mVeD7nrH"
+    ],
+    [
+      "mZhENhYd"
+    ],
+    [
+      "nFhykZal"
+    ],
+    [
+      "nXnNe6DD"
+    ],
+    [
+      "nsXmupvH"
+    ],
+    [
+      "oN4Trkjo"
+    ],
+    [
+      "ontZT3n5"
+    ],
+    [
+      "onuZbx3n"
+    ],
+    [
+      "ozF4QoMP"
+    ],
+    [
+      "pfWjzltO"
+    ],
+    [
+      "qaIQOjnO"
+    ],
+    [
+      "rZuZ6Ize"
+    ],
+    [
+      "rxyrkwCB"
+    ],
+    [
+      "s4rOhKS6"
+    ],
+    [
+      "s8Uphsm2"
+    ],
+    [
+      "sUVRfIfT"
+    ],
+    [
+      "tGEFJi5f"
+    ],
+    [
+      "tReJQIYB"
+    ],
+    [
+      "uSb99VOT"
+    ],
+    [
+      "vOICmszQ"
+    ],
+    [
+      "vVxp1ftQ"
+    ],
+    [
+      "vl16EWAi"
+    ],
+    [
+      "wQtnJH4S"
+    ],
+    [
+      "wqeDcQWI"
+    ],
+    [
+      "wrAbKX4c"
+    ],
+    [
+      "x2SElO0E"
+    ],
+    [
+      "xHJg3PKQ"
+    ],
+    [
+      "xxwHovRR"
+    ],
+    [
+      "yuv0wHaC"
+    ],
+    [
+      "zOjNDcGd"
+    ],
+    [
+      "zPwPgVeG"
+    ]
+  ],
+  "nonhistorical_occurrences": 11930,
+  "novel_fen_components_with_observations": 135,
+  "partitions_selected": false,
+  "position_occurrences": 13611,
+  "repeated_within_game_occurrences": 26,
+  "schema": "mtdp-fresh-exact-position-footprint-v1",
+  "scientific_freeze": false,
+  "scope": "all original 145 complete games; seven quarantines excluded; no game representative selected",
+  "shared_nonhistorical_fens": [
+    {
+      "fen_sha256": "64eb2ac2084ae9958c2e0e2f8e75822e63944a1264971a452bbd2345d4302c2d",
+      "game_ids": [
+        "BZZ0yME2",
+        "f4X6kRHx"
+      ],
+      "occurrences": 2
+    },
+    {
+      "fen_sha256": "b6546b58240db4a34121102537126e29efd496ce6b4b2e7951315e99f489f29b",
+      "game_ids": [
+        "2PAidLTX",
+        "7Dc7oBD7"
+      ],
+      "occurrences": 2
+    },
+    {
+      "fen_sha256": "92f6935389c85bab23007d64d7d4bd3016e2f8454639472c676b2a1fa17c57cf",
+      "game_ids": [
+        "BZZ0yME2",
+        "s3QQ1FLc"
+      ],
+      "occurrences": 2
+    },
+    {
+      "fen_sha256": "1a026cc88f2e89401235db630bd9ba9538e2de36887f7560ee98e699b620181d",
+      "game_ids": [
+        "8e5JlkF5",
+        "k61O9gaD"
+      ],
+      "occurrences": 2
+    },
+    {
+      "fen_sha256": "70574062e8c09bb330356c67f347f69695eea1867ef8d79b6006a8d18a572814",
+      "game_ids": [
+        "BZZ0yME2",
+        "s3QQ1FLc"
+      ],
+      "occurrences": 2
+    }
+  ],
+  "strict_replay_sha256": "a69de36bd4618e0c5948c54b05f17d9f9e500a11c85ad24783f831bb085eb13a",
+  "target_positions_selected": false
+}
