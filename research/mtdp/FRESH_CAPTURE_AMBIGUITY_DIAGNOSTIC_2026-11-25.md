@@ -59,3 +59,13 @@ Next actionable admission work remains external event/game membership and
 source licence evidence, then historical exclusion coverage and whole-event/
 game partitions with shared target FENs removed before scores. PC Jeff is not
 required for this bounded remote-reproducible control.
+
+## Remote verification
+
+Implementation419b88429e9c9be54899bac29f7a576c74bd37f9 passed
+[run45703493826](https://github.com/jfrancoiscollin/dilf/actions/runs/45703493826),
+job139519373451:8 unittest cases, pinned FMJD replay and exact JSON comparison
+successful. Downloaded artifact15064003397 ZIP SHA-256
+aef2a514941c50bbc07702277df98fe3ed164594fae416173afc087f31252d00
+matches GitHub; report bytes match the versioned JSON SHA-256 above.
+All quarantine/admission limits and next actions remain unchanged.
