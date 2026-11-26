@@ -1,0 +1,2619 @@
+{
+  "adapter_base_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+  "boards": 20,
+  "cases": [
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "CARZrQpl:1285",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 2,
+      "multiple_python_paths_same_root": [
+        {
+          "distinct_successors": 1,
+          "paths": 2,
+          "root": [
+            "48x48x20x22x39x42",
+            false
+          ]
+        }
+      ],
+      "parent_fen": "B:W15,20,22,39,K42,45:B5,K48",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            20,
+            22,
+            39,
+            42
+          ],
+          "path": [
+            48,
+            25,
+            9,
+            31,
+            48
+          ],
+          "root": [
+            "48x48x20x22x39x42",
+            false
+          ],
+          "successor_fen": "W:W15,45:B5,K48"
+        },
+        {
+          "captures": [
+            20,
+            22,
+            39,
+            42
+          ],
+          "path": [
+            48,
+            31,
+            9,
+            25,
+            43
+          ],
+          "root": [
+            "48x43x20x22x39x42",
+            false
+          ],
+          "successor_fen": "W:W15,45:B5,K43"
+        },
+        {
+          "captures": [
+            20,
+            22,
+            39,
+            42
+          ],
+          "path": [
+            48,
+            31,
+            9,
+            25,
+            48
+          ],
+          "root": [
+            "48x48x20x22x39x42",
+            false
+          ],
+          "successor_fen": "W:W15,45:B5,K48"
+        }
+      ],
+      "python_paths": 3,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 2,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "W:W15,45:B5,K43"
+          ],
+          "python_successors": [
+            "W:W15,45:B5,K43"
+          ],
+          "root": [
+            "48x43x20x22x39x42",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W15,45:B5,K48"
+          ],
+          "python_successors": [
+            "W:W15,45:B5,K48"
+          ],
+          "root": [
+            "48x48x20x22x39x42",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "CARZrQpl:382",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 3,
+      "multiple_python_paths_same_root": [
+        {
+          "distinct_successors": 1,
+          "paths": 2,
+          "root": [
+            "3x3x9x17x27x28",
+            false
+          ]
+        }
+      ],
+      "parent_fen": "W:WK3,24,25,35,36,37,38:B9,15,17,20,22,27,28",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            9,
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            14,
+            32,
+            21,
+            3
+          ],
+          "root": [
+            "3x3x9x17x27x28",
+            false
+          ],
+          "successor_fen": "B:WK3,24,25,35,36,37,38:B15,20,22"
+        },
+        {
+          "captures": [
+            9,
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            14,
+            32,
+            21,
+            8
+          ],
+          "root": [
+            "3x8x9x17x27x28",
+            false
+          ],
+          "successor_fen": "B:WK8,24,25,35,36,37,38:B15,20,22"
+        },
+        {
+          "captures": [
+            9,
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            14,
+            32,
+            21,
+            12
+          ],
+          "root": [
+            "3x12x9x17x27x28",
+            false
+          ],
+          "successor_fen": "B:WK12,24,25,35,36,37,38:B15,20,22"
+        },
+        {
+          "captures": [
+            9,
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            21,
+            32,
+            14,
+            3
+          ],
+          "root": [
+            "3x3x9x17x27x28",
+            false
+          ],
+          "successor_fen": "B:WK3,24,25,35,36,37,38:B15,20,22"
+        }
+      ],
+      "python_paths": 4,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 3,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:WK12,24,25,35,36,37,38:B15,20,22"
+          ],
+          "python_successors": [
+            "B:WK12,24,25,35,36,37,38:B15,20,22"
+          ],
+          "root": [
+            "3x12x9x17x27x28",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK3,24,25,35,36,37,38:B15,20,22"
+          ],
+          "python_successors": [
+            "B:WK3,24,25,35,36,37,38:B15,20,22"
+          ],
+          "root": [
+            "3x3x9x17x27x28",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK8,24,25,35,36,37,38:B15,20,22"
+          ],
+          "python_successors": [
+            "B:WK8,24,25,35,36,37,38:B15,20,22"
+          ],
+          "root": [
+            "3x8x9x17x27x28",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "CARZrQpl:1285-rotated",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 2,
+      "multiple_python_paths_same_root": [
+        {
+          "distinct_successors": 1,
+          "paths": 2,
+          "root": [
+            "3x3x9x12x29x31",
+            false
+          ]
+        }
+      ],
+      "parent_fen": "W:WK3,46:B6,K9,12,29,31,36",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            9,
+            12,
+            29,
+            31
+          ],
+          "path": [
+            3,
+            20,
+            42,
+            26,
+            3
+          ],
+          "root": [
+            "3x3x9x12x29x31",
+            false
+          ],
+          "successor_fen": "B:WK3,46:B6,36"
+        },
+        {
+          "captures": [
+            9,
+            12,
+            29,
+            31
+          ],
+          "path": [
+            3,
+            20,
+            42,
+            26,
+            8
+          ],
+          "root": [
+            "3x8x9x12x29x31",
+            false
+          ],
+          "successor_fen": "B:WK8,46:B6,36"
+        },
+        {
+          "captures": [
+            9,
+            12,
+            29,
+            31
+          ],
+          "path": [
+            3,
+            26,
+            42,
+            20,
+            3
+          ],
+          "root": [
+            "3x3x9x12x29x31",
+            false
+          ],
+          "successor_fen": "B:WK3,46:B6,36"
+        }
+      ],
+      "python_paths": 3,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 2,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:WK3,46:B6,36"
+          ],
+          "python_successors": [
+            "B:WK3,46:B6,36"
+          ],
+          "root": [
+            "3x3x9x12x29x31",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK8,46:B6,36"
+          ],
+          "python_successors": [
+            "B:WK8,46:B6,36"
+          ],
+          "root": [
+            "3x8x9x12x29x31",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "CARZrQpl:382-rotated",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 3,
+      "multiple_python_paths_same_root": [
+        {
+          "distinct_successors": 1,
+          "paths": 2,
+          "root": [
+            "48x48x23x24x34x42",
+            false
+          ]
+        }
+      ],
+      "parent_fen": "B:W23,24,29,31,34,36,42:B13,14,15,16,26,27,K48",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            23,
+            24,
+            34,
+            42
+          ],
+          "path": [
+            48,
+            30,
+            19,
+            37,
+            48
+          ],
+          "root": [
+            "48x48x23x24x34x42",
+            false
+          ],
+          "successor_fen": "W:W29,31,36:B13,14,15,16,26,27,K48"
+        },
+        {
+          "captures": [
+            23,
+            24,
+            34,
+            42
+          ],
+          "path": [
+            48,
+            37,
+            19,
+            30,
+            39
+          ],
+          "root": [
+            "48x39x23x24x34x42",
+            false
+          ],
+          "successor_fen": "W:W29,31,36:B13,14,15,16,26,27,K39"
+        },
+        {
+          "captures": [
+            23,
+            24,
+            34,
+            42
+          ],
+          "path": [
+            48,
+            37,
+            19,
+            30,
+            43
+          ],
+          "root": [
+            "48x43x23x24x34x42",
+            false
+          ],
+          "successor_fen": "W:W29,31,36:B13,14,15,16,26,27,K43"
+        },
+        {
+          "captures": [
+            23,
+            24,
+            34,
+            42
+          ],
+          "path": [
+            48,
+            37,
+            19,
+            30,
+            48
+          ],
+          "root": [
+            "48x48x23x24x34x42",
+            false
+          ],
+          "successor_fen": "W:W29,31,36:B13,14,15,16,26,27,K48"
+        }
+      ],
+      "python_paths": 4,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 3,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "W:W29,31,36:B13,14,15,16,26,27,K39"
+          ],
+          "python_successors": [
+            "W:W29,31,36:B13,14,15,16,26,27,K39"
+          ],
+          "root": [
+            "48x39x23x24x34x42",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W29,31,36:B13,14,15,16,26,27,K43"
+          ],
+          "python_successors": [
+            "W:W29,31,36:B13,14,15,16,26,27,K43"
+          ],
+          "root": [
+            "48x43x23x24x34x42",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W29,31,36:B13,14,15,16,26,27,K48"
+          ],
+          "python_successors": [
+            "W:W29,31,36:B13,14,15,16,26,27,K48"
+          ],
+          "root": [
+            "48x48x23x24x34x42",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "initial-control",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 9,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [],
+          "path": [
+            31,
+            26
+          ],
+          "root": [
+            "31-26",
+            false
+          ],
+          "successor_fen": "B:W26,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+        },
+        {
+          "captures": [],
+          "path": [
+            31,
+            27
+          ],
+          "root": [
+            "31-27",
+            false
+          ],
+          "successor_fen": "B:W27,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+        },
+        {
+          "captures": [],
+          "path": [
+            32,
+            27
+          ],
+          "root": [
+            "32-27",
+            false
+          ],
+          "successor_fen": "B:W27,31,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+        },
+        {
+          "captures": [],
+          "path": [
+            32,
+            28
+          ],
+          "root": [
+            "32-28",
+            false
+          ],
+          "successor_fen": "B:W28,31,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+        },
+        {
+          "captures": [],
+          "path": [
+            33,
+            28
+          ],
+          "root": [
+            "33-28",
+            false
+          ],
+          "successor_fen": "B:W28,31,32,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+        },
+        {
+          "captures": [],
+          "path": [
+            33,
+            29
+          ],
+          "root": [
+            "33-29",
+            false
+          ],
+          "successor_fen": "B:W29,31,32,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+        },
+        {
+          "captures": [],
+          "path": [
+            34,
+            29
+          ],
+          "root": [
+            "34-29",
+            false
+          ],
+          "successor_fen": "B:W29,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+        },
+        {
+          "captures": [],
+          "path": [
+            34,
+            30
+          ],
+          "root": [
+            "34-30",
+            false
+          ],
+          "successor_fen": "B:W30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+        },
+        {
+          "captures": [],
+          "path": [
+            35,
+            30
+          ],
+          "root": [
+            "35-30",
+            false
+          ],
+          "successor_fen": "B:W30,31,32,33,34,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+        }
+      ],
+      "python_paths": 9,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 9,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:W26,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "python_successors": [
+            "B:W26,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "root": [
+            "31-26",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:W27,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "python_successors": [
+            "B:W27,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "root": [
+            "31-27",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:W27,31,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "python_successors": [
+            "B:W27,31,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "root": [
+            "32-27",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:W28,31,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "python_successors": [
+            "B:W28,31,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "root": [
+            "32-28",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:W28,31,32,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "python_successors": [
+            "B:W28,31,32,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "root": [
+            "33-28",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:W29,31,32,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "python_successors": [
+            "B:W29,31,32,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "root": [
+            "33-29",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:W29,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "python_successors": [
+            "B:W29,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "root": [
+            "34-29",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:W30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "python_successors": [
+            "B:W30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "root": [
+            "34-30",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:W30,31,32,33,34,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "python_successors": [
+            "B:W30,31,32,33,34,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+          ],
+          "root": [
+            "35-30",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "man-loop",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 1,
+      "multiple_python_paths_same_root": [
+        {
+          "distinct_successors": 1,
+          "paths": 2,
+          "root": [
+            "20x20x13x14x23x24",
+            false
+          ]
+        }
+      ],
+      "parent_fen": "W:W20,26,28,32,33,38,39,43:B8,11,13,14,16,17,19,23,24,36",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            13,
+            14,
+            23,
+            24
+          ],
+          "path": [
+            20,
+            9,
+            18,
+            29,
+            20
+          ],
+          "root": [
+            "20x20x13x14x23x24",
+            false
+          ],
+          "successor_fen": "B:W20,26,28,32,33,38,39,43:B8,11,16,17,19,36"
+        },
+        {
+          "captures": [
+            13,
+            14,
+            23,
+            24
+          ],
+          "path": [
+            20,
+            29,
+            18,
+            9,
+            20
+          ],
+          "root": [
+            "20x20x13x14x23x24",
+            false
+          ],
+          "successor_fen": "B:W20,26,28,32,33,38,39,43:B8,11,16,17,19,36"
+        }
+      ],
+      "python_paths": 2,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 1,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:W20,26,28,32,33,38,39,43:B8,11,16,17,19,36"
+          ],
+          "python_successors": [
+            "B:W20,26,28,32,33,38,39,43:B8,11,16,17,19,36"
+          ],
+          "root": [
+            "20x20x13x14x23x24",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "quiet-king",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 17,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "W:WK28:B1",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [],
+          "path": [
+            28,
+            5
+          ],
+          "root": [
+            "28-5",
+            false
+          ],
+          "successor_fen": "B:WK5:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            6
+          ],
+          "root": [
+            "28-6",
+            false
+          ],
+          "successor_fen": "B:WK6:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            10
+          ],
+          "root": [
+            "28-10",
+            false
+          ],
+          "successor_fen": "B:WK10:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            11
+          ],
+          "root": [
+            "28-11",
+            false
+          ],
+          "successor_fen": "B:WK11:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            14
+          ],
+          "root": [
+            "28-14",
+            false
+          ],
+          "successor_fen": "B:WK14:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            17
+          ],
+          "root": [
+            "28-17",
+            false
+          ],
+          "successor_fen": "B:WK17:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            19
+          ],
+          "root": [
+            "28-19",
+            false
+          ],
+          "successor_fen": "B:WK19:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            22
+          ],
+          "root": [
+            "28-22",
+            false
+          ],
+          "successor_fen": "B:WK22:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            23
+          ],
+          "root": [
+            "28-23",
+            false
+          ],
+          "successor_fen": "B:WK23:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            32
+          ],
+          "root": [
+            "28-32",
+            false
+          ],
+          "successor_fen": "B:WK32:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            33
+          ],
+          "root": [
+            "28-33",
+            false
+          ],
+          "successor_fen": "B:WK33:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            37
+          ],
+          "root": [
+            "28-37",
+            false
+          ],
+          "successor_fen": "B:WK37:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            39
+          ],
+          "root": [
+            "28-39",
+            false
+          ],
+          "successor_fen": "B:WK39:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            41
+          ],
+          "root": [
+            "28-41",
+            false
+          ],
+          "successor_fen": "B:WK41:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            44
+          ],
+          "root": [
+            "28-44",
+            false
+          ],
+          "successor_fen": "B:WK44:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            46
+          ],
+          "root": [
+            "28-46",
+            false
+          ],
+          "successor_fen": "B:WK46:B1"
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            50
+          ],
+          "root": [
+            "28-50",
+            false
+          ],
+          "successor_fen": "B:WK50:B1"
+        }
+      ],
+      "python_paths": 17,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 17,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:WK10:B1"
+          ],
+          "python_successors": [
+            "B:WK10:B1"
+          ],
+          "root": [
+            "28-10",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK11:B1"
+          ],
+          "python_successors": [
+            "B:WK11:B1"
+          ],
+          "root": [
+            "28-11",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK14:B1"
+          ],
+          "python_successors": [
+            "B:WK14:B1"
+          ],
+          "root": [
+            "28-14",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK17:B1"
+          ],
+          "python_successors": [
+            "B:WK17:B1"
+          ],
+          "root": [
+            "28-17",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK19:B1"
+          ],
+          "python_successors": [
+            "B:WK19:B1"
+          ],
+          "root": [
+            "28-19",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK22:B1"
+          ],
+          "python_successors": [
+            "B:WK22:B1"
+          ],
+          "root": [
+            "28-22",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK23:B1"
+          ],
+          "python_successors": [
+            "B:WK23:B1"
+          ],
+          "root": [
+            "28-23",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK32:B1"
+          ],
+          "python_successors": [
+            "B:WK32:B1"
+          ],
+          "root": [
+            "28-32",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK33:B1"
+          ],
+          "python_successors": [
+            "B:WK33:B1"
+          ],
+          "root": [
+            "28-33",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK37:B1"
+          ],
+          "python_successors": [
+            "B:WK37:B1"
+          ],
+          "root": [
+            "28-37",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK39:B1"
+          ],
+          "python_successors": [
+            "B:WK39:B1"
+          ],
+          "root": [
+            "28-39",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK41:B1"
+          ],
+          "python_successors": [
+            "B:WK41:B1"
+          ],
+          "root": [
+            "28-41",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK44:B1"
+          ],
+          "python_successors": [
+            "B:WK44:B1"
+          ],
+          "root": [
+            "28-44",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK46:B1"
+          ],
+          "python_successors": [
+            "B:WK46:B1"
+          ],
+          "root": [
+            "28-46",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK5:B1"
+          ],
+          "python_successors": [
+            "B:WK5:B1"
+          ],
+          "root": [
+            "28-5",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK50:B1"
+          ],
+          "python_successors": [
+            "B:WK50:B1"
+          ],
+          "root": [
+            "28-50",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK6:B1"
+          ],
+          "python_successors": [
+            "B:WK6:B1"
+          ],
+          "root": [
+            "28-6",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "other-friendly-blocker",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 2,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "W:WK3,14:B9,17,27,28",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            21,
+            32,
+            19
+          ],
+          "root": [
+            "3x19x17x27x28",
+            false
+          ],
+          "successor_fen": "B:W14,K19:B9"
+        },
+        {
+          "captures": [
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            21,
+            32,
+            23
+          ],
+          "root": [
+            "3x23x17x27x28",
+            false
+          ],
+          "successor_fen": "B:W14,K23:B9"
+        }
+      ],
+      "python_paths": 2,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 2,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:W14,K19:B9"
+          ],
+          "python_successors": [
+            "B:W14,K19:B9"
+          ],
+          "root": [
+            "3x19x17x27x28",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:W14,K23:B9"
+          ],
+          "python_successors": [
+            "B:W14,K23:B9"
+          ],
+          "root": [
+            "3x23x17x27x28",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "quiet-man-promotion",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 1,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "W:W6:B45",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [],
+          "path": [
+            6,
+            1
+          ],
+          "root": [
+            "6-1",
+            true
+          ],
+          "successor_fen": "B:WK1:B45"
+        }
+      ],
+      "python_paths": 1,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 1,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:WK1:B45"
+          ],
+          "python_successors": [
+            "B:WK1:B45"
+          ],
+          "root": [
+            "6-1",
+            true
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "quiet-man-promotion-rotated",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 1,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "B:W6:B45",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [],
+          "path": [
+            45,
+            50
+          ],
+          "root": [
+            "45-50",
+            true
+          ],
+          "successor_fen": "W:W6:BK50"
+        }
+      ],
+      "python_paths": 1,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 1,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "W:W6:BK50"
+          ],
+          "python_successors": [
+            "W:W6:BK50"
+          ],
+          "root": [
+            "45-50",
+            true
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "capture-man-promotion",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 1,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "W:W12:B8,40",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            8
+          ],
+          "path": [
+            12,
+            3
+          ],
+          "root": [
+            "12x3x8",
+            true
+          ],
+          "successor_fen": "B:WK3:B40"
+        }
+      ],
+      "python_paths": 1,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 1,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:WK3:B40"
+          ],
+          "python_successors": [
+            "B:WK3:B40"
+          ],
+          "root": [
+            "12x3x8",
+            true
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "capture-man-promotion-rotated",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 1,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "B:W11,43:B39",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            43
+          ],
+          "path": [
+            39,
+            48
+          ],
+          "root": [
+            "39x48x43",
+            true
+          ],
+          "successor_fen": "W:W11:BK48"
+        }
+      ],
+      "python_paths": 1,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 1,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "W:W11:BK48"
+          ],
+          "python_successors": [
+            "W:W11:BK48"
+          ],
+          "root": [
+            "39x48x43",
+            true
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "promotion-row-transit",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 1,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "W:W12:B8,9,40",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            8,
+            9
+          ],
+          "path": [
+            12,
+            3,
+            14
+          ],
+          "root": [
+            "12x14x8x9",
+            false
+          ],
+          "successor_fen": "B:W14:B40"
+        }
+      ],
+      "python_paths": 1,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 1,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:W14:B40"
+          ],
+          "python_successors": [
+            "B:W14:B40"
+          ],
+          "root": [
+            "12x14x8x9",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "promotion-row-transit-rotated",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 1,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "B:W11,42,43:B39",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            42,
+            43
+          ],
+          "path": [
+            39,
+            48,
+            37
+          ],
+          "root": [
+            "39x37x42x43",
+            false
+          ],
+          "successor_fen": "W:W11:B37"
+        }
+      ],
+      "python_paths": 1,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 1,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "W:W11:B37"
+          ],
+          "python_successors": [
+            "W:W11:B37"
+          ],
+          "root": [
+            "39x37x42x43",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "man-double-capture",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 1,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "W:W32:B17,27",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            17,
+            27
+          ],
+          "path": [
+            32,
+            21,
+            12
+          ],
+          "root": [
+            "32x12x17x27",
+            false
+          ],
+          "successor_fen": "B:W12:B"
+        }
+      ],
+      "python_paths": 1,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 1,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:W12:B"
+          ],
+          "python_successors": [
+            "B:W12:B"
+          ],
+          "root": [
+            "32x12x17x27",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "man-double-capture-rotated",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 1,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "B:W24,34:B19",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            24,
+            34
+          ],
+          "path": [
+            19,
+            30,
+            39
+          ],
+          "root": [
+            "19x39x24x34",
+            false
+          ],
+          "successor_fen": "W:W:B39"
+        }
+      ],
+      "python_paths": 1,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 1,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "W:W:B39"
+          ],
+          "python_successors": [
+            "W:W:B39"
+          ],
+          "root": [
+            "19x39x24x34",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "king-back-rank-quiet",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 9,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "W:WK6:B45",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [],
+          "path": [
+            6,
+            1
+          ],
+          "root": [
+            "6-1",
+            false
+          ],
+          "successor_fen": "B:WK1:B45"
+        },
+        {
+          "captures": [],
+          "path": [
+            6,
+            11
+          ],
+          "root": [
+            "6-11",
+            false
+          ],
+          "successor_fen": "B:WK11:B45"
+        },
+        {
+          "captures": [],
+          "path": [
+            6,
+            17
+          ],
+          "root": [
+            "6-17",
+            false
+          ],
+          "successor_fen": "B:WK17:B45"
+        },
+        {
+          "captures": [],
+          "path": [
+            6,
+            22
+          ],
+          "root": [
+            "6-22",
+            false
+          ],
+          "successor_fen": "B:WK22:B45"
+        },
+        {
+          "captures": [],
+          "path": [
+            6,
+            28
+          ],
+          "root": [
+            "6-28",
+            false
+          ],
+          "successor_fen": "B:WK28:B45"
+        },
+        {
+          "captures": [],
+          "path": [
+            6,
+            33
+          ],
+          "root": [
+            "6-33",
+            false
+          ],
+          "successor_fen": "B:WK33:B45"
+        },
+        {
+          "captures": [],
+          "path": [
+            6,
+            39
+          ],
+          "root": [
+            "6-39",
+            false
+          ],
+          "successor_fen": "B:WK39:B45"
+        },
+        {
+          "captures": [],
+          "path": [
+            6,
+            44
+          ],
+          "root": [
+            "6-44",
+            false
+          ],
+          "successor_fen": "B:WK44:B45"
+        },
+        {
+          "captures": [],
+          "path": [
+            6,
+            50
+          ],
+          "root": [
+            "6-50",
+            false
+          ],
+          "successor_fen": "B:WK50:B45"
+        }
+      ],
+      "python_paths": 9,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 9,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:WK1:B45"
+          ],
+          "python_successors": [
+            "B:WK1:B45"
+          ],
+          "root": [
+            "6-1",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK11:B45"
+          ],
+          "python_successors": [
+            "B:WK11:B45"
+          ],
+          "root": [
+            "6-11",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK17:B45"
+          ],
+          "python_successors": [
+            "B:WK17:B45"
+          ],
+          "root": [
+            "6-17",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK22:B45"
+          ],
+          "python_successors": [
+            "B:WK22:B45"
+          ],
+          "root": [
+            "6-22",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK28:B45"
+          ],
+          "python_successors": [
+            "B:WK28:B45"
+          ],
+          "root": [
+            "6-28",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK33:B45"
+          ],
+          "python_successors": [
+            "B:WK33:B45"
+          ],
+          "root": [
+            "6-33",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK39:B45"
+          ],
+          "python_successors": [
+            "B:WK39:B45"
+          ],
+          "root": [
+            "6-39",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK44:B45"
+          ],
+          "python_successors": [
+            "B:WK44:B45"
+          ],
+          "root": [
+            "6-44",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK50:B45"
+          ],
+          "python_successors": [
+            "B:WK50:B45"
+          ],
+          "root": [
+            "6-50",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "king-back-rank-quiet-rotated",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 9,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "B:W6:BK45",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [],
+          "path": [
+            45,
+            1
+          ],
+          "root": [
+            "45-1",
+            false
+          ],
+          "successor_fen": "W:W6:BK1"
+        },
+        {
+          "captures": [],
+          "path": [
+            45,
+            7
+          ],
+          "root": [
+            "45-7",
+            false
+          ],
+          "successor_fen": "W:W6:BK7"
+        },
+        {
+          "captures": [],
+          "path": [
+            45,
+            12
+          ],
+          "root": [
+            "45-12",
+            false
+          ],
+          "successor_fen": "W:W6:BK12"
+        },
+        {
+          "captures": [],
+          "path": [
+            45,
+            18
+          ],
+          "root": [
+            "45-18",
+            false
+          ],
+          "successor_fen": "W:W6:BK18"
+        },
+        {
+          "captures": [],
+          "path": [
+            45,
+            23
+          ],
+          "root": [
+            "45-23",
+            false
+          ],
+          "successor_fen": "W:W6:BK23"
+        },
+        {
+          "captures": [],
+          "path": [
+            45,
+            29
+          ],
+          "root": [
+            "45-29",
+            false
+          ],
+          "successor_fen": "W:W6:BK29"
+        },
+        {
+          "captures": [],
+          "path": [
+            45,
+            34
+          ],
+          "root": [
+            "45-34",
+            false
+          ],
+          "successor_fen": "W:W6:BK34"
+        },
+        {
+          "captures": [],
+          "path": [
+            45,
+            40
+          ],
+          "root": [
+            "45-40",
+            false
+          ],
+          "successor_fen": "W:W6:BK40"
+        },
+        {
+          "captures": [],
+          "path": [
+            45,
+            50
+          ],
+          "root": [
+            "45-50",
+            false
+          ],
+          "successor_fen": "W:W6:BK50"
+        }
+      ],
+      "python_paths": 9,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 9,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "W:W6:BK1"
+          ],
+          "python_successors": [
+            "W:W6:BK1"
+          ],
+          "root": [
+            "45-1",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W6:BK12"
+          ],
+          "python_successors": [
+            "W:W6:BK12"
+          ],
+          "root": [
+            "45-12",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W6:BK18"
+          ],
+          "python_successors": [
+            "W:W6:BK18"
+          ],
+          "root": [
+            "45-18",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W6:BK23"
+          ],
+          "python_successors": [
+            "W:W6:BK23"
+          ],
+          "root": [
+            "45-23",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W6:BK29"
+          ],
+          "python_successors": [
+            "W:W6:BK29"
+          ],
+          "root": [
+            "45-29",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W6:BK34"
+          ],
+          "python_successors": [
+            "W:W6:BK34"
+          ],
+          "root": [
+            "45-34",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W6:BK40"
+          ],
+          "python_successors": [
+            "W:W6:BK40"
+          ],
+          "root": [
+            "45-40",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W6:BK50"
+          ],
+          "python_successors": [
+            "W:W6:BK50"
+          ],
+          "root": [
+            "45-50",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W6:BK7"
+          ],
+          "python_successors": [
+            "W:W6:BK7"
+          ],
+          "root": [
+            "45-7",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "king-back-rank-capture",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 2,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "W:WK12:B8,40",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            8
+          ],
+          "path": [
+            12,
+            3
+          ],
+          "root": [
+            "12x3x8",
+            false
+          ],
+          "successor_fen": "B:WK3:B40"
+        },
+        {
+          "captures": [
+            40
+          ],
+          "path": [
+            12,
+            45
+          ],
+          "root": [
+            "12x45x40",
+            false
+          ],
+          "successor_fen": "B:WK45:B8"
+        }
+      ],
+      "python_paths": 2,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 2,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "B:WK3:B40"
+          ],
+          "python_successors": [
+            "B:WK3:B40"
+          ],
+          "root": [
+            "12x3x8",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "B:WK45:B8"
+          ],
+          "python_successors": [
+            "B:WK45:B8"
+          ],
+          "root": [
+            "12x45x40",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    },
+    {
+      "all_roots_and_successors_equal": true,
+      "case": "king-back-rank-capture-rotated",
+      "jass_duplicate_root_keys": 0,
+      "jass_only_roots": [],
+      "jass_roots_with_multiple_successors": [],
+      "jass_unique_roots": 2,
+      "multiple_python_paths_same_root": [],
+      "parent_fen": "B:W11,43:BK39",
+      "python_only_roots": [],
+      "python_path_successors": [
+        {
+          "captures": [
+            11
+          ],
+          "path": [
+            39,
+            6
+          ],
+          "root": [
+            "39x6x11",
+            false
+          ],
+          "successor_fen": "W:W43:BK6"
+        },
+        {
+          "captures": [
+            43
+          ],
+          "path": [
+            39,
+            48
+          ],
+          "root": [
+            "39x48x43",
+            false
+          ],
+          "successor_fen": "W:W11:BK48"
+        }
+      ],
+      "python_paths": 2,
+      "python_roots_with_multiple_successors": [],
+      "python_unique_roots": 2,
+      "root_successors": [
+        {
+          "jass_successors": [
+            "W:W11:BK48"
+          ],
+          "python_successors": [
+            "W:W11:BK48"
+          ],
+          "root": [
+            "39x48x43",
+            false
+          ]
+        },
+        {
+          "jass_successors": [
+            "W:W43:BK6"
+          ],
+          "python_successors": [
+            "W:W43:BK6"
+          ],
+          "root": [
+            "39x6x11",
+            false
+          ]
+        }
+      ],
+      "shared_root_successor_mismatches": []
+    }
+  ],
+  "cases_with_root_or_successor_disagreement": [],
+  "clock_or_repetition_state_certified": false,
+  "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+  "default_rules_changed": false,
+  "default_source_bytes_unchanged": true,
+  "fixtures_sha256": "f0f6eef86932850612d2aff16c925e53d508422a2bbd690f0d63906bd9e47571",
+  "global_successor_coverage": false,
+  "independent_cohort_qualified": false,
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "jass_duplicate_root_keys": 0,
+  "legacy_legal_catalogue_projection_byte_equal": true,
+  "legacy_legal_root_counts": [
+    2,
+    3,
+    2,
+    3,
+    9,
+    1,
+    17,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    9,
+    9,
+    2,
+    2
+  ],
+  "manual_transitions": [
+    {
+      "case": "CARZrQpl:1285",
+      "observed": [
+        {
+          "jass_successors": [
+            "W:W15,45:B5,K48"
+          ],
+          "python_successors": [
+            "W:W15,45:B5,K48"
+          ],
+          "root": [
+            "48x48x20x22x39x42",
+            false
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": false,
+      "root_key": "48x48x20x22x39x42",
+      "successor_fen": "W:W15,45:B5,K48"
+    },
+    {
+      "case": "CARZrQpl:382",
+      "observed": [
+        {
+          "jass_successors": [
+            "B:WK3,24,25,35,36,37,38:B15,20,22"
+          ],
+          "python_successors": [
+            "B:WK3,24,25,35,36,37,38:B15,20,22"
+          ],
+          "root": [
+            "3x3x9x17x27x28",
+            false
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": false,
+      "root_key": "3x3x9x17x27x28",
+      "successor_fen": "B:WK3,24,25,35,36,37,38:B15,20,22"
+    },
+    {
+      "case": "quiet-man-promotion",
+      "observed": [
+        {
+          "jass_successors": [
+            "B:WK1:B45"
+          ],
+          "python_successors": [
+            "B:WK1:B45"
+          ],
+          "root": [
+            "6-1",
+            true
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": true,
+      "root_key": "6-1",
+      "successor_fen": "B:WK1:B45"
+    },
+    {
+      "case": "quiet-man-promotion-rotated",
+      "observed": [
+        {
+          "jass_successors": [
+            "W:W6:BK50"
+          ],
+          "python_successors": [
+            "W:W6:BK50"
+          ],
+          "root": [
+            "45-50",
+            true
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": true,
+      "root_key": "45-50",
+      "successor_fen": "W:W6:BK50"
+    },
+    {
+      "case": "capture-man-promotion",
+      "observed": [
+        {
+          "jass_successors": [
+            "B:WK3:B40"
+          ],
+          "python_successors": [
+            "B:WK3:B40"
+          ],
+          "root": [
+            "12x3x8",
+            true
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": true,
+      "root_key": "12x3x8",
+      "successor_fen": "B:WK3:B40"
+    },
+    {
+      "case": "capture-man-promotion-rotated",
+      "observed": [
+        {
+          "jass_successors": [
+            "W:W11:BK48"
+          ],
+          "python_successors": [
+            "W:W11:BK48"
+          ],
+          "root": [
+            "39x48x43",
+            true
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": true,
+      "root_key": "39x48x43",
+      "successor_fen": "W:W11:BK48"
+    },
+    {
+      "case": "promotion-row-transit",
+      "observed": [
+        {
+          "jass_successors": [
+            "B:W14:B40"
+          ],
+          "python_successors": [
+            "B:W14:B40"
+          ],
+          "root": [
+            "12x14x8x9",
+            false
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": false,
+      "root_key": "12x14x8x9",
+      "successor_fen": "B:W14:B40"
+    },
+    {
+      "case": "promotion-row-transit-rotated",
+      "observed": [
+        {
+          "jass_successors": [
+            "W:W11:B37"
+          ],
+          "python_successors": [
+            "W:W11:B37"
+          ],
+          "root": [
+            "39x37x42x43",
+            false
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": false,
+      "root_key": "39x37x42x43",
+      "successor_fen": "W:W11:B37"
+    },
+    {
+      "case": "man-double-capture",
+      "observed": [
+        {
+          "jass_successors": [
+            "B:W12:B"
+          ],
+          "python_successors": [
+            "B:W12:B"
+          ],
+          "root": [
+            "32x12x17x27",
+            false
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": false,
+      "root_key": "32x12x17x27",
+      "successor_fen": "B:W12:B"
+    },
+    {
+      "case": "man-double-capture-rotated",
+      "observed": [
+        {
+          "jass_successors": [
+            "W:W:B39"
+          ],
+          "python_successors": [
+            "W:W:B39"
+          ],
+          "root": [
+            "19x39x24x34",
+            false
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": false,
+      "root_key": "19x39x24x34",
+      "successor_fen": "W:W:B39"
+    },
+    {
+      "case": "king-back-rank-quiet",
+      "observed": [
+        {
+          "jass_successors": [
+            "B:WK1:B45"
+          ],
+          "python_successors": [
+            "B:WK1:B45"
+          ],
+          "root": [
+            "6-1",
+            false
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": false,
+      "root_key": "6-1",
+      "successor_fen": "B:WK1:B45"
+    },
+    {
+      "case": "king-back-rank-capture",
+      "observed": [
+        {
+          "jass_successors": [
+            "B:WK3:B40"
+          ],
+          "python_successors": [
+            "B:WK3:B40"
+          ],
+          "root": [
+            "12x3x8",
+            false
+          ]
+        }
+      ],
+      "passed": true,
+      "promotion": false,
+      "root_key": "12x3x8",
+      "successor_fen": "B:WK3:B40"
+    }
+  ],
+  "manual_transitions_passed": 12,
+  "new_cohorts_reserved": false,
+  "patch_id": "king-origin-v1",
+  "played_capture_path_identity_certified": false,
+  "protocol_commit": "3e7bd8960df1969a7418c8c55f4bf409ad2c6682",
+  "raw_legal_bytes": 1202,
+  "raw_legal_sha256": "e7c6d6861f40dd061dcf764fcaba52a7b8df28211b4ad573e5da3fd45a584f86",
+  "raw_successors_bytes": 3050,
+  "raw_successors_sha256": "f659d49b319c531ddf4c5cd0292b4190eee1d5584e50e91726d2bfbe76232285",
+  "schema": "mtdp-h13-fixed-typed-successor-audit-v1",
+  "scientific_freeze": false,
+  "scores_or_signatures_computed": false,
+  "shared_root_successor_mismatches": 0,
+  "total_python_paths": 74,
+  "total_unique_roots": 69,
+  "typed_occupancy_and_turn_only": true
+}
