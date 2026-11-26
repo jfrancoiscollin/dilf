@@ -1,0 +1,39 @@
+{
+  "artifact_id": 15099585795,
+  "artifact_zip_bytes": 259523,
+  "artifact_zip_sha256": "55ff5143ac40d37f943b0891bf627bf6287aac004114bf006dbcc2d3b46eae6c",
+  "global_historical_registry_complete": false,
+  "implementation_commit": "48ecfa16ff4d2f62e2629cd801322ed61130316a",
+  "independent_cohort_qualified": false,
+  "job_conclusion": "success",
+  "job_id": 139782425101,
+  "local_hashseeds": [
+    "default",
+    "731"
+  ],
+  "members": {
+    "new-historical-possible-fens.jsonl": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "strict-history-replay.json": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 3479102,
+      "sha256": "718273685d16b7b9f99a56ac1f8d6602ef60609983c7e20909a478ddc2c74afb"
+    },
+    "strict-history-summary.json": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 6609,
+      "sha256": "6a4262d763603f09ac760cbdbe586f0b24507f97f9e99c975d2bdef49f627f48"
+    }
+  },
+  "remote_hashseeds": [
+    "default",
+    "731"
+  ],
+  "run_id": 45782900246,
+  "schema": "mtdp-king-origin-strict-history-ci-proof-v1",
+  "scientific_freeze": false,
+  "unittest_passed": 24
+}
