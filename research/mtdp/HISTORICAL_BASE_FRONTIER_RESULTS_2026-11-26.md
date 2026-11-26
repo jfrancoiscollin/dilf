@@ -15,8 +15,8 @@ plausible filename. No fresh publisher download or source repair occurred.
 
 Reused unchanged bounded frontier logic and FMJD0e5189f; caps128 boards and
 100000 matching applications per game stayed fixed. The previous eight-game
-inventory was authenticated and reused without replay. No score/result fields,
-signatures, rankings or target choices were read. Legacy cache and all strict
+inventory was authenticated and reused without replay. Result tags were not used as outcomes; no engine scores, signatures, rankings
+or target selections were computed. Legacy cache and all strict
 quarantines remain unchanged.
 
 | Quantity | Count |
@@ -92,3 +92,17 @@ raw unadmitted candidate, with its original145/7 strict split unchanged; no H13
 reservation or score campaign. Global-history, source-licence and independent-
 event/partition gates remain unresolved. No paid work or deployment; PC Jeff
 is not required for this control or the next two-state legal oracle check.
+
+## Remote reproduction verified
+
+Implementation118b036 passed [run45741874083](https://github.com/jfrancoiscollin/dilf/actions/runs/45741874083),
+job139648584968: nine tests, restoration of existing inputs, all182 bounded
+traversals and exact summary comparison. The two zero-frontier outcomes are
+expected scientific results, not technical job failures. Artifact15081313123
+downloaded; ZIP SHA-256
+ea0dcc4e9f5226fb75fbc03eeb91765f73e144d01bee136a458a2e7ec2e18ed9
+matches GitHub. Summaryd4e28965… and combined3918956-byte inventorydf9b357d…
+are byte-identical to both local runs. All records in that combined inventory
+are historical exclusion evidence: its historical=false field means absent
+from the ORIGINAL cache, never a licence to use them as fresh D1 targets.
+No strict quarantine, cache, admission or earlier efficacy result changes.
