@@ -1,0 +1,75 @@
+{
+  "adapter_base_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+  "by_role": {
+    "fresh_candidate": {
+      "corrected_jass_mismatch": 0,
+      "jass_duplicate_root_keys": 0,
+      "legacy_jass_mismatch": 0,
+      "newly_introduced_jass_mismatch": 0,
+      "path_sets_changed": 0,
+      "positions": 12795,
+      "root_sets_changed": 0
+    },
+    "historical_quarantines": {
+      "corrected_jass_mismatch": 0,
+      "jass_duplicate_root_keys": 0,
+      "legacy_jass_mismatch": 2,
+      "newly_introduced_jass_mismatch": 0,
+      "path_sets_changed": 2,
+      "positions": 21645,
+      "root_sets_changed": 2
+    }
+  },
+  "changed_position_owners": {
+    "fresh_candidate": [],
+    "historical_quarantines": [
+      "mtdp-lidraughts-CARZrQpl.pdn:1285",
+      "mtdp-lidraughts-CARZrQpl.pdn:382"
+    ]
+  },
+  "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+  "corrected_whole_game_replay_performed": false,
+  "default_rules_changed": false,
+  "default_rules_or_cache_changed": false,
+  "engine_scores_computed": false,
+  "global_historical_impact_audited": false,
+  "independent_cohort_admitted": false,
+  "inputs": {
+    "fresh_candidate": {
+      "distinct_fens": 12795,
+      "sha256": "62a71b82e09794ddd2bdc68d8c44749bf7741dddaee28a0722295a54abaac36e"
+    },
+    "historical_quarantines": {
+      "distinct_fens": 21645,
+      "sha256": "df9b357d08b9d6005d8b1726cb2e049d7dd1971dbf25b6210c54d7d86f66b8a1"
+    }
+  },
+  "jass_batch_size": 1000,
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "no_active_king_changes": 0,
+  "patch_id": "king-origin-v1",
+  "position_ledger_bytes": 33437247,
+  "position_ledger_sha256": "40339620a6243439b121a228328a1f46c6a4c5f4b991722bdbee909d00e3bf8b",
+  "protocol_commit": "42821e3182b5496c5010fdc2570757be9eee84a3",
+  "raw_catalogue_bytes": 4536390,
+  "raw_catalogue_sha256": "6fa6118a3e2a8f2ff80d8cdf15d5dff6ae5cc30dc1640305077d48d143173da5",
+  "schema": "mtdp-king-origin-v1-two-inventory-impact-v1",
+  "scientific_freeze": false,
+  "signatures_computed": false,
+  "summary": {
+    "added_roots": 2,
+    "corrected_jass_mismatch": 0,
+    "jass_duplicate_root_keys": 0,
+    "legacy_jass_mismatch": 2,
+    "newly_introduced_jass_mismatch": 0,
+    "path_only_changes": 0,
+    "path_sets_changed": 2,
+    "positions": 34172,
+    "positions_with_active_king": 4497,
+    "removed_roots": 0,
+    "root_sets_changed": 2
+  },
+  "witnesses_bytes": 2551,
+  "witnesses_sha256": "fe1a249902136b007592536eb8c6ebea3c09e068bfc07a6be06ea268ed372cd7"
+}
