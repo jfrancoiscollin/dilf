@@ -6,7 +6,7 @@ on:
       - .github/workflows/mtdp-fixed-successor-audit.yml
       - research/mtdp/fixed_successor_audit.py
       - research/mtdp/jass_preflight/successor_catalogue.cpp
-      - research/mtdp/jass_preflight/targets.cmake
+      - research/mtdp/jass_preflight/successor-targets.cmake
       - research/mtdp/tests/test_fixed_successor_audit.py
       - research/mtdp/validation/fixed-successor-audit-2026-11-26.json
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
         run: |
           cmake -S jass -B /tmp/mtdp-successor-build -DCMAKE_BUILD_TYPE=Release \
             -DJASS_ENABLE_SIMD=OFF -DJASS_NATIVE=OFF \
-            -DCMAKE_PROJECT_jass_INCLUDE="$GITHUB_WORKSPACE/research/mtdp/jass_preflight/targets.cmake"
+            -DCMAKE_PROJECT_jass_INCLUDE="$GITHUB_WORKSPACE/research/mtdp/jass_preflight/successor-targets.cmake"
           cmake --build /tmp/mtdp-successor-build --target mtdp_jass_successor_catalogue mtdp_jass_legal_catalogue -j 2
       - uses: actions/setup-python@v5
         with:

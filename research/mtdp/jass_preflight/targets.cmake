@@ -30,8 +30,3 @@ add_executable(mtdp_jass_metered_probe
     $<TARGET_OBJECTS:jass_t3_f6_runtime>)
 target_compile_features(mtdp_jass_metered_probe PRIVATE cxx_std_20)
 target_link_libraries(mtdp_jass_metered_probe PRIVATE jass_lib jass_warnings)
-
-# Isolated typed-board successor oracle; no evaluation/search or production changes.
-add_executable(mtdp_jass_successor_catalogue "${CMAKE_CURRENT_LIST_DIR}/successor_catalogue.cpp")
-target_compile_features(mtdp_jass_successor_catalogue PRIVATE cxx_std_20)
-target_link_libraries(mtdp_jass_successor_catalogue PRIVATE jass_lib jass_warnings)

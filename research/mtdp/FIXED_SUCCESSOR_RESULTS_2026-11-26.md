@@ -16,12 +16,12 @@ Le nouvel exporteur mtdp_jass_successor_catalogue appelle Position::after(move).
 
 17 unittest passent : dix nouveaux tests de transport et témoins scientifiques (chemins divergents sous une même racine, doublons, racine absente, mauvais trait, promotion/attente modifiée) plus sept régressions parseur/correction. Un successeur de trait ou type erroné mais syntaxiquement valide est conservé comme différence scientifique, jamais assimilé à une corruption de transport à corriger silencieusement.
 
-Deux exécutions locales, hashseeds défaut/731, identiques à l’octet pour les trois sorties sémantiques. Le catalogue légal existant est inchangé : projection du nouveau format exactement égale au catalogue légal normal, et sortie également identique à celle de l’ancien binaire légal déjà construit, sur les mêmes 20 parents. Source et binaire légaux locaux inchangés (source cff961ffb64725c42928b6c747a4c7b6f0d32780654d8a5541a39f9767866bec ; binaire c4065367a315534284a3b9937b97fe51e2e2b011a26b2889ada435c0845aecfd). Seule une cible CMake de recherche supplémentaire est ajoutée, sans changement de production. CI ciblée à confirmer.
+Deux exécutions locales, hashseeds défaut/731, identiques à l’octet pour les trois sorties sémantiques. Le catalogue légal existant est inchangé : projection du nouveau format exactement égale au catalogue légal normal, et sortie également identique à celle de l’ancien binaire légal déjà construit, sur les mêmes 20 parents. Source et binaire légaux locaux inchangés (source cff961ffb64725c42928b6c747a4c7b6f0d32780654d8a5541a39f9767866bec ; binaire c4065367a315534284a3b9937b97fe51e2e2b011a26b2889ada435c0845aecfd). Une cible CMake de recherche supplémentaire est définie dans successor-targets.cmake, qui inclut la recette historique sans modifier ses octets. CI de cette isolation à confirmer.
 
 ```sh
 cmake -S jass -B /tmp/mtdp-successor-build -DCMAKE_BUILD_TYPE=Release \
   -DJASS_ENABLE_SIMD=OFF -DJASS_NATIVE=OFF \
-  -DCMAKE_PROJECT_jass_INCLUDE="$PWD/research/mtdp/jass_preflight/targets.cmake"
+  -DCMAKE_PROJECT_jass_INCLUDE="$PWD/research/mtdp/jass_preflight/successor-targets.cmake"
 cmake --build /tmp/mtdp-successor-build --target mtdp_jass_successor_catalogue mtdp_jass_legal_catalogue -j 2
 python -m research.mtdp.fixed_successor_audit \
   --root . --adapter fmjd --jass jass \
@@ -33,6 +33,12 @@ python -m unittest research.mtdp.tests.test_fixed_successor_audit \
 ```
 
 Rapport complet versionné validation/fixed-successor-audit-2026-11-26.json : 58 376 octets, SHA-256 1dbcf3b40f3f353a831243fa4d67e73c2ae491024b5663635eeb8de918b59f1d. Catalogue successeurs brut : 3 050 octets, SHA-256 f659d49b319c531ddf4c5cd0292b4190eee1d5584e50e91726d2bfbe76232285 ; catalogue légal brut : 1 202 octets, SHA-256 e7c6d6861f40dd061dcf764fcaba52a7b8df28211b4ad573e5da3fd45a584f86. Provenances binaire/source/compilateur séparées des sorties sémantiques.
+
+## Réparation de l’intégration CMake
+
+La première implémentation 3614f5a8 ajoutait la cible au fichier targets.cmake gelé par les anciens audits. Les deux jobs du run 45809795384 ont correctement refusé cette différence (`Published analysis dependency changed` / `Joint execution method changed after freeze`). Les tests unitaires avaient passé ; l’arrêt concernait l’empreinte de méthode, pas les résultats scientifiques.
+
+Correction sans assouplir les contrôles : targets.cmake restauré exactement à sa version historique SHA-256 11cedf28e28eabca29d2514c20fca83943470999302552f40fe67b3bbb6a594a, nouvelle cible déplacée dans successor-targets.cmake qui inclut ce fichier. Aucun reçu/hash historique ni population modifiés. Reconfiguration locale et nouvel audit des 20 témoins : les trois sorties sémantiques restent identiques. Les 76 tests d’archives passent ; deux analyses réelles crossed-depth/telemetry reproduisent exactement leurs JSON figés (aucune recherche moteur). Relance distante de l’intégration isolée à confirmer.
 
 ## Limites et suite
 
