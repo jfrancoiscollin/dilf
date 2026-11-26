@@ -78,3 +78,19 @@ origin-square correction with direct regression witnesses and independent
 catalogue checks; audit its impact before any replay/exclusion extension or
 new scientific freeze. No production engine change or score campaign here.
 Source-licence/independent-event gates remain open. PC Jeff is not required.
+
+## Remote reproduction verified
+
+Implementation282dd800 passed [run45748599304](https://github.com/jfrancoiscollin/dilf/actions/runs/45748599304),
+job139670612035: pinned C++ build, three parser tests and exact semantic report
+comparison. Artifact15084526485 downloaded, ZIP SHA-256
+7437f3d0446c9653747123c3c4eaf9d90af1f8e951ca91a48395d1318c6e29ef
+matches GitHub. Semantic report8e5d2e4a… and raw Jass catalogue
+9726bd67ade22b61130f4b4c39c2ec082193439a4a5baebb4285b265a00e80d7
+are byte-identical to both local calls. Remote GNU15.2 versus local GNU14.2
+did not change the semantic outputs. Remote exporter binary SHA-256
+1afb1730d148d16e04b7bcedb05ae9330ad23a67e7584d7ac16f3877ae96b82d;
+structured proof in validation/return-capture-oracle-ci-proof-2026-11-26.json.
+The two omissions are reproduced remotely; no corrected rules or historical
+reclassification is part of this result. Next correction/impact control remains
+separate and must preserve old evidence.

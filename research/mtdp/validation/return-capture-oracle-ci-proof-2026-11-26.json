@@ -1,0 +1,17 @@
+{
+  "adapter_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "artifact_id": 15084526485,
+  "artifact_zip_sha256": "7437f3d0446c9653747123c3c4eaf9d90af1f8e951ca91a48395d1318c6e29ef",
+  "catalogue_binary_sha256": "1afb1730d148d16e04b7bcedb05ae9330ad23a67e7584d7ac16f3877ae96b82d",
+  "compiler": "c++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "implementation_commit": "282dd800987e69de24fd0e23319cccd2ae30066c",
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "job_id": 139670612035,
+  "protocol_commit": "ad904dcaa4353515948a8d9f8b4001fedefe6fa3",
+  "raw_catalogue_byte_identical_to_local": true,
+  "raw_stdout_sha256": "9726bd67ade22b61130f4b4c39c2ec082193439a4a5baebb4285b265a00e80d7",
+  "run_id": 45748599304,
+  "schema": "mtdp-return-capture-oracle-ci-proof-v1",
+  "semantic_report_byte_identical_to_local": true,
+  "semantic_report_sha256": "8e5d2e4ab0ec64906ccc5ba37b31bfcd188da731284b44c2d8a2ddac24cafca2"
+}
