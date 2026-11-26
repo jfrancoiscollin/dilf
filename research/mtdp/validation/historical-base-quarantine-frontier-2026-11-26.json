@@ -1,0 +1,4369 @@
+{
+  "adapter_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "all_selected_base_frontiers_complete": false,
+  "application_limit": 100000,
+  "base_member_sha256": {
+    "P1RUlfJc-canonical-history.json": "eafd1e7b1c447b69f96d307b38a1c7c0fbd8fa9dd9b68f8afe555e3faa02d1b6",
+    "P1RUlfJc-exclusions.json": "25b3ca1a6f0a096c264c8f136135a37fd7d5bb23c04af76a39b4915a611d192e",
+    "two-arena-exclusions.json": "8dac5c60e1eaa10ff8e3e27f5c1fb0d0307edaeaec438e7c9bdc33b3e666dc32"
+  },
+  "base_possible_fens": 20685,
+  "base_possible_fens_missing_from_cache": 2893,
+  "combined_inventory_bytes": 3918956,
+  "combined_inventory_sha256": "df9b357d08b9d6005d8b1726cb2e049d7dd1971dbf25b6210c54d7d86f66b8a1",
+  "combined_possible_fens_missing_from_cache": 3044,
+  "combined_possible_historical_fens": 21645,
+  "fresh_inventory_sha256": "62a71b82e09794ddd2bdc68d8c44749bf7741dddaee28a0722295a54abaac36e",
+  "frontier_limit": 128,
+  "games": [
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 71,
+          "token": "25x48"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 71,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-0gB7ETSW.pdn:45",
+      "matching_action_applications": 72,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 72,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "ayP8cBFz",
+      "source_plies": 71,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 125,
+          "token": "1x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 135,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-0gB7ETSW.pdn:49",
+      "matching_action_applications": 136,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 136,
+      "possible_fens_missing_from_cache": 9,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "j5WctGwd",
+      "source_plies": 135,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 109,
+          "token": "6x44"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 123,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-0gB7ETSW.pdn:51",
+      "matching_action_applications": 124,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 124,
+      "possible_fens_missing_from_cache": 14,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "OznlFxrA",
+      "source_plies": 123,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 114,
+          "token": "46x5"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 114,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-3onq5G6G.pdn:113",
+      "matching_action_applications": 115,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 115,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "wYa1vzSp",
+      "source_plies": 114,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 136,
+          "token": "42x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 137,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-3onq5G6G.pdn:154",
+      "matching_action_applications": 138,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 138,
+      "possible_fens_missing_from_cache": 2,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "WhIBk2KV",
+      "source_plies": 137,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 92,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 92,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-3onq5G6G.pdn:167",
+      "matching_action_applications": 93,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 93,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "95ZEvqsi",
+      "source_plies": 92,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 86,
+          "token": "5x46"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 90,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-3onq5G6G.pdn:2",
+      "matching_action_applications": 91,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 91,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "1Uxgi9tT",
+      "source_plies": 90,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 98,
+          "token": "45x12"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 98,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-3onq5G6G.pdn:203",
+      "matching_action_applications": 99,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 99,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "ITGnFajz",
+      "source_plies": 98,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 110,
+          "token": "46x19"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 114,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-3onq5G6G.pdn:53",
+      "matching_action_applications": 115,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 115,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "8rpcEM6C",
+      "source_plies": 114,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 104,
+          "token": "46x10"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 138,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-3onq5G6G.pdn:54",
+      "matching_action_applications": 140,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 139,
+      "possible_fens_missing_from_cache": 35,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "4Vkgd7ER",
+      "source_plies": 138,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 113,
+          "token": "50x6"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 115,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-3onq5G6G.pdn:70",
+      "matching_action_applications": 116,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 116,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "6VraWwaI",
+      "source_plies": 115,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 108,
+          "token": "45x21"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 110,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-3onq5G6G.pdn:72",
+      "matching_action_applications": 111,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 111,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "6WCyRXY2",
+      "source_plies": 110,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 108,
+          "token": "11x50"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 113,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-3onq5G6G.pdn:81",
+      "matching_action_applications": 114,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 114,
+      "possible_fens_missing_from_cache": 6,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "XNLhv4YT",
+      "source_plies": 113,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 125,
+          "token": "6x50"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 144,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-3onq5G6G.pdn:86",
+      "matching_action_applications": 145,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 145,
+      "possible_fens_missing_from_cache": 14,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "w16TvNVW",
+      "source_plies": 144,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 114,
+          "token": "49x16"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 119,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1047",
+      "matching_action_applications": 120,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 120,
+      "possible_fens_missing_from_cache": 6,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "LCHKF86d",
+      "source_plies": 119,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 71,
+          "token": "2x30"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 101,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1073",
+      "matching_action_applications": 102,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 102,
+      "possible_fens_missing_from_cache": 31,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "6CKfw69B",
+      "source_plies": 101,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 97,
+          "token": "1x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 121,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1097",
+      "matching_action_applications": 123,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 116,
+      "possible_fens_missing_from_cache": 19,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "rj57R8wa",
+      "source_plies": 121,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 75,
+          "token": "4x31"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 97,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1129",
+      "matching_action_applications": 98,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 98,
+      "possible_fens_missing_from_cache": 23,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "NkXlb93m",
+      "source_plies": 97,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 112,
+          "token": "37x5"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 114,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1133",
+      "matching_action_applications": 115,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 115,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "cYqwenrY",
+      "source_plies": 114,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 114,
+          "token": "6x5"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 144,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1138",
+      "matching_action_applications": 145,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 145,
+      "possible_fens_missing_from_cache": 31,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "evnesika",
+      "source_plies": 144,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 119,
+          "token": "49x16"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 123,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1143",
+      "matching_action_applications": 124,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 124,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "F0ORqEYc",
+      "source_plies": 123,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 103,
+          "token": "4x31"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 111,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1208",
+      "matching_action_applications": 112,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 112,
+      "possible_fens_missing_from_cache": 9,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "SnrQMob3",
+      "source_plies": 111,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 146,
+          "token": "41x5"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 167,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1259",
+      "matching_action_applications": 169,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 168,
+      "possible_fens_missing_from_cache": 14,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "3iXSs8so",
+      "source_plies": 167,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 74,
+          "token": "18x29"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 80,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1263",
+      "matching_action_applications": 81,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 81,
+      "possible_fens_missing_from_cache": 7,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "uXIR5MFy",
+      "source_plies": 80,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 118,
+          "token": "45x1"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 134,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1265",
+      "matching_action_applications": 136,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 135,
+      "possible_fens_missing_from_cache": 15,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "mGd5AZgl",
+      "source_plies": 134,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [],
+      "complete_board_frontier_replay": false,
+      "completed_plies": 117,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1285",
+      "matching_action_applications": 117,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 118,
+      "possible_fens_missing_from_cache": 0,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "5H06ZiW9",
+      "source_plies": 118,
+      "status": "zero_frontier",
+      "strict_action_quarantine_retained": true,
+      "unresolved_ply": 118,
+      "unresolved_token": "48x48"
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 107,
+          "token": "1x34"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 128,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1325",
+      "matching_action_applications": 129,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 129,
+      "possible_fens_missing_from_cache": 22,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "e7iA767f",
+      "source_plies": 128,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 124,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 139,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1338",
+      "matching_action_applications": 140,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 140,
+      "possible_fens_missing_from_cache": 15,
+      "potential_fresh_overlap_fens": 2,
+      "public_game_id": "9KXtYm7q",
+      "source_plies": 139,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 103,
+          "token": "14x46"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 115,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1342",
+      "matching_action_applications": 116,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 116,
+      "possible_fens_missing_from_cache": 13,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "GEvgzDlK",
+      "source_plies": 115,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 117,
+          "token": "1x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 125,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1352",
+      "matching_action_applications": 126,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 126,
+      "possible_fens_missing_from_cache": 9,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "sfw3E4h4",
+      "source_plies": 125,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 116,
+          "token": "34x1"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 116,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1358",
+      "matching_action_applications": 117,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 117,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "FU3GgbUi",
+      "source_plies": 116,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 115,
+          "token": "50x6"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 117,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1368",
+      "matching_action_applications": 118,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 118,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "rwLYz4mL",
+      "source_plies": 117,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 102,
+          "token": "30x30"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 125,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1383",
+      "matching_action_applications": 126,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 126,
+      "possible_fens_missing_from_cache": 24,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "lJZPKgH6",
+      "source_plies": 125,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 107,
+          "token": "4x36"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 133,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:143",
+      "matching_action_applications": 134,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 134,
+      "possible_fens_missing_from_cache": 27,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "caQYdXID",
+      "source_plies": 133,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 74,
+          "token": "44x11"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 78,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1431",
+      "matching_action_applications": 80,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 79,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "kqAUJTzi",
+      "source_plies": 78,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 71,
+          "token": "3x40"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 113,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1466",
+      "matching_action_applications": 114,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 114,
+      "possible_fens_missing_from_cache": 40,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "BwCy7x3n",
+      "source_plies": 113,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 133,
+          "token": "3x42"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 175,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1473",
+      "matching_action_applications": 176,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 176,
+      "possible_fens_missing_from_cache": 43,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "i7MRw54I",
+      "source_plies": 175,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 102,
+          "token": "42x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 104,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1497",
+      "matching_action_applications": 105,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 105,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "RuHJb460",
+      "source_plies": 104,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 117,
+          "token": "2x35"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 125,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1517",
+      "matching_action_applications": 126,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 126,
+      "possible_fens_missing_from_cache": 9,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "HlOdeUsc",
+      "source_plies": 125,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 137,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 141,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:153",
+      "matching_action_applications": 143,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 142,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "Cf6xnspD",
+      "source_plies": 141,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 98,
+          "token": "49x16"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 98,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1534",
+      "matching_action_applications": 99,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 99,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "tTkCpjwB",
+      "source_plies": 98,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 77,
+          "token": "33x22"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 95,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1535",
+      "matching_action_applications": 96,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 96,
+      "possible_fens_missing_from_cache": 19,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "tWkpUXCl",
+      "source_plies": 95,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 4,
+          "ply": 124,
+          "token": "50x6"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 126,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:157",
+      "matching_action_applications": 129,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 127,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "35GM6pQz",
+      "source_plies": 126,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 42,
+          "token": "13x22"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 44,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1591",
+      "matching_action_applications": 45,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 45,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "hJQVpGNx",
+      "source_plies": 44,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 99,
+          "token": "36x4"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 121,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1635",
+      "matching_action_applications": 122,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 122,
+      "possible_fens_missing_from_cache": 23,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "9RHVAVsE",
+      "source_plies": 121,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 111,
+          "token": "2x35"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 162,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1644",
+      "matching_action_applications": 163,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 163,
+      "possible_fens_missing_from_cache": 47,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "0rLuE3We",
+      "source_plies": 162,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 94,
+          "token": "10x21"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 94,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1711",
+      "matching_action_applications": 95,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 95,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "TlP6TlUy",
+      "source_plies": 94,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 4,
+          "ply": 92,
+          "token": "36x4"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 110,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1752",
+      "matching_action_applications": 113,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 111,
+      "possible_fens_missing_from_cache": 19,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "6zSGiXfS",
+      "source_plies": 110,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 80,
+          "token": "47x20"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 84,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1757",
+      "matching_action_applications": 85,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 85,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "yHk4A7JO",
+      "source_plies": 84,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 115,
+          "token": "10x21"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 115,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:182",
+      "matching_action_applications": 116,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 116,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "MEambODe",
+      "source_plies": 115,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 86,
+          "token": "49x16"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 92,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1823",
+      "matching_action_applications": 93,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 93,
+      "possible_fens_missing_from_cache": 7,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "GixJPlMU",
+      "source_plies": 92,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 98,
+          "token": "6x39"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 98,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:203",
+      "matching_action_applications": 99,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 99,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "8x3C8xP1",
+      "source_plies": 98,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 4,
+          "ply": 85,
+          "token": "1x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 93,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:212",
+      "matching_action_applications": 96,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 94,
+      "possible_fens_missing_from_cache": 9,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "r78ZMw1c",
+      "source_plies": 93,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 94,
+          "token": "49x25"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 96,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:223",
+      "matching_action_applications": 97,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 97,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "c4IrZjDq",
+      "source_plies": 96,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 93,
+          "token": "5x41"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 156,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:230",
+      "matching_action_applications": 157,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 157,
+      "possible_fens_missing_from_cache": 64,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "ukeuKbRw",
+      "source_plies": 156,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 124,
+          "token": "26x3"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 124,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:235",
+      "matching_action_applications": 125,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 125,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "rucn18Z2",
+      "source_plies": 124,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 113,
+          "token": "3x26"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 120,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:251",
+      "matching_action_applications": 121,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 121,
+      "possible_fens_missing_from_cache": 8,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "HOwmPEtu",
+      "source_plies": 120,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 72,
+          "token": "49x21"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 102,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:264",
+      "matching_action_applications": 103,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 103,
+      "possible_fens_missing_from_cache": 31,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "hP9dzg7k",
+      "source_plies": 102,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 116,
+          "token": "50x11"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 121,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:27",
+      "matching_action_applications": 122,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 122,
+      "possible_fens_missing_from_cache": 6,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "K7wR7MHi",
+      "source_plies": 121,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 97,
+          "token": "1x38"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 97,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:303",
+      "matching_action_applications": 98,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 98,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "dQPk5Trd",
+      "source_plies": 97,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 83,
+          "token": "4x36"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 135,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:306",
+      "matching_action_applications": 136,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 136,
+      "possible_fens_missing_from_cache": 53,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "jzVlLbsq",
+      "source_plies": 135,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 113,
+          "token": "5x46"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 117,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:329",
+      "matching_action_applications": 118,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 118,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "UKDILSPq",
+      "source_plies": 117,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 86,
+          "token": "17x28"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 87,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:373",
+      "matching_action_applications": 88,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 88,
+      "possible_fens_missing_from_cache": 2,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "Xr9LzR7s",
+      "source_plies": 87,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 78,
+          "token": "17x28"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 120,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:38",
+      "matching_action_applications": 121,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 121,
+      "possible_fens_missing_from_cache": 43,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "Quf8viuM",
+      "source_plies": 120,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [],
+      "complete_board_frontier_replay": false,
+      "completed_plies": 108,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:382",
+      "matching_action_applications": 108,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 109,
+      "possible_fens_missing_from_cache": 0,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "w53Tg68E",
+      "source_plies": 119,
+      "status": "zero_frontier",
+      "strict_action_quarantine_retained": true,
+      "unresolved_ply": 109,
+      "unresolved_token": "3x3"
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 103,
+          "token": "2x35"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 103,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:40",
+      "matching_action_applications": 104,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 104,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "aOOS4JDU",
+      "source_plies": 103,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 117,
+          "token": "1x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 117,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:42",
+      "matching_action_applications": 118,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 118,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "S70o9G9W",
+      "source_plies": 117,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 85,
+          "token": "3x49"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 85,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:44",
+      "matching_action_applications": 86,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 86,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "SswfWh6q",
+      "source_plies": 85,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 68,
+          "token": "25x34"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 114,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:477",
+      "matching_action_applications": 115,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 115,
+      "possible_fens_missing_from_cache": 47,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "VoU4zJPC",
+      "source_plies": 114,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 117,
+          "token": "31x4"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 150,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:543",
+      "matching_action_applications": 151,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 147,
+      "possible_fens_missing_from_cache": 30,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "mo3u3en8",
+      "source_plies": 150,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 105,
+          "token": "36x18"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 117,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:559",
+      "matching_action_applications": 118,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 118,
+      "possible_fens_missing_from_cache": 13,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "IqMMxaEA",
+      "source_plies": 117,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 123,
+          "token": "4x36"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 140,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:612",
+      "matching_action_applications": 141,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 141,
+      "possible_fens_missing_from_cache": 12,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "wd7trHDr",
+      "source_plies": 140,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 115,
+          "token": "3x42"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 115,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:616",
+      "matching_action_applications": 116,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 116,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "RJMiPumi",
+      "source_plies": 115,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 123,
+          "token": "39x6"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 180,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:655",
+      "matching_action_applications": 181,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 178,
+      "possible_fens_missing_from_cache": 55,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "FOY9qdm6",
+      "source_plies": 180,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 109,
+          "token": "7x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 158,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:658",
+      "matching_action_applications": 159,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 150,
+      "possible_fens_missing_from_cache": 40,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "TWrlfH23",
+      "source_plies": 158,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 99,
+          "token": "5x46"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 99,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:664",
+      "matching_action_applications": 100,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 100,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "z98FUxn3",
+      "source_plies": 99,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 120,
+          "token": "47x20"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 133,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:684",
+      "matching_action_applications": 134,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 134,
+      "possible_fens_missing_from_cache": 14,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "16mfgYrE",
+      "source_plies": 133,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 123,
+          "token": "48x4"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 123,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:716",
+      "matching_action_applications": 125,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 124,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "vxdnnlCJ",
+      "source_plies": 123,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 79,
+          "token": "5x41"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 134,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:720",
+      "matching_action_applications": 135,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 130,
+      "possible_fens_missing_from_cache": 50,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "vLqOIsQg",
+      "source_plies": 134,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 119,
+          "token": "10x41"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 121,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:742",
+      "matching_action_applications": 123,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 122,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "9ApgTKeN",
+      "source_plies": 121,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 114,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 125,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:766",
+      "matching_action_applications": 126,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 126,
+      "possible_fens_missing_from_cache": 8,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "GqqXbG58",
+      "source_plies": 125,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 95,
+          "token": "11x44"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 99,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:789",
+      "matching_action_applications": 100,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 100,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "VXYgnjgf",
+      "source_plies": 99,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 115,
+          "token": "49x16"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 142,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:812",
+      "matching_action_applications": 143,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 143,
+      "possible_fens_missing_from_cache": 23,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "g93VHrNr",
+      "source_plies": 142,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 108,
+          "token": "21x5"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 108,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:82",
+      "matching_action_applications": 109,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 109,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "hBH97aWo",
+      "source_plies": 108,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 138,
+          "token": "50x6"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 140,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:826",
+      "matching_action_applications": 141,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 141,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "cHmXRyJC",
+      "source_plies": 140,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 107,
+          "token": "15x38"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 113,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:827",
+      "matching_action_applications": 114,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 114,
+      "possible_fens_missing_from_cache": 7,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "FvaBstEb",
+      "source_plies": 113,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 101,
+          "token": "35x2"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 134,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:867",
+      "matching_action_applications": 135,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 132,
+      "possible_fens_missing_from_cache": 23,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "vHY6zcfG",
+      "source_plies": 134,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 116,
+          "token": "36x4"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 135,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:899",
+      "matching_action_applications": 136,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 136,
+      "possible_fens_missing_from_cache": 20,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "YXegUBJs",
+      "source_plies": 135,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 82,
+          "token": "50x11"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 90,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-GYEtKzUg.pdn:11",
+      "matching_action_applications": 91,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 91,
+      "possible_fens_missing_from_cache": 9,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "ZDDTU4kJ",
+      "source_plies": 90,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 129,
+          "token": "5x46"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 133,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-GYEtKzUg.pdn:159",
+      "matching_action_applications": 134,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 134,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "q2lJtYOT",
+      "source_plies": 133,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 69,
+          "token": "37x5"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 89,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-GYEtKzUg.pdn:16",
+      "matching_action_applications": 90,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 90,
+      "possible_fens_missing_from_cache": 21,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "EEgRkyy1",
+      "source_plies": 89,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 117,
+          "token": "17x50"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 117,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-GYEtKzUg.pdn:32",
+      "matching_action_applications": 118,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 118,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "4uSP0NfH",
+      "source_plies": 117,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 124,
+          "token": "47x1"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 124,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-GYEtKzUg.pdn:65",
+      "matching_action_applications": 125,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 125,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "QMyYLnHG",
+      "source_plies": 124,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 107,
+          "token": "24x24"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 108,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-GYEtKzUg.pdn:90",
+      "matching_action_applications": 109,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 109,
+      "possible_fens_missing_from_cache": 2,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "Q0Fi02sR",
+      "source_plies": 108,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 120,
+          "token": "50x6"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 120,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-KXaMpuNe.pdn:149",
+      "matching_action_applications": 121,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 121,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "0BBmgIfR",
+      "source_plies": 120,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 70,
+          "token": "24x33"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 70,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-KXaMpuNe.pdn:161",
+      "matching_action_applications": 71,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 71,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "hCYfp1KS",
+      "source_plies": 70,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 92,
+          "token": "1x34"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 115,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-KXaMpuNe.pdn:3",
+      "matching_action_applications": 116,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 116,
+      "possible_fens_missing_from_cache": 24,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "g2DsMav8",
+      "source_plies": 115,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 115,
+          "token": "1x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 115,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-KXaMpuNe.pdn:4",
+      "matching_action_applications": 116,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 116,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "Bw44JwRi",
+      "source_plies": 115,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 4,
+          "ply": 131,
+          "token": "6x50"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 131,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-KXaMpuNe.pdn:46",
+      "matching_action_applications": 134,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 132,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "fxO1ge9l",
+      "source_plies": 131,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 123,
+          "token": "1x34"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 125,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-KXaMpuNe.pdn:76",
+      "matching_action_applications": 126,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 126,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "T1Q1Vlv9",
+      "source_plies": 125,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 83,
+          "token": "15x47"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 97,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-KXaMpuNe.pdn:95",
+      "matching_action_applications": 98,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 98,
+      "possible_fens_missing_from_cache": 15,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "I6c5Yg7s",
+      "source_plies": 97,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 63,
+          "token": "16x6"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 63,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-L4F4P5R8.pdn:18",
+      "matching_action_applications": 64,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 64,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "Esa30lNm",
+      "source_plies": 63,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 123,
+          "token": "1x34"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 133,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-L4F4P5R8.pdn:21",
+      "matching_action_applications": 134,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 134,
+      "possible_fens_missing_from_cache": 11,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "Iyv3RIUO",
+      "source_plies": 133,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 122,
+          "token": "50x36"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 132,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-L4F4P5R8.pdn:5",
+      "matching_action_applications": 133,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 133,
+      "possible_fens_missing_from_cache": 8,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "Qj5Omcgi",
+      "source_plies": 132,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 124,
+          "token": "46x14"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 141,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-LAYRsqON.pdn:11",
+      "matching_action_applications": 142,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 142,
+      "possible_fens_missing_from_cache": 18,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "di3V9FoM",
+      "source_plies": 141,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 53,
+          "token": "30x10"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 93,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-LAYRsqON.pdn:16",
+      "matching_action_applications": 94,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 94,
+      "possible_fens_missing_from_cache": 41,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "ziXw8YTp",
+      "source_plies": 93,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 98,
+          "token": "47x20"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 138,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-LAYRsqON.pdn:23",
+      "matching_action_applications": 139,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 128,
+      "possible_fens_missing_from_cache": 30,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "yQntIcw2",
+      "source_plies": 138,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 110,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 151,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-LAYRsqON.pdn:58",
+      "matching_action_applications": 152,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 152,
+      "possible_fens_missing_from_cache": 42,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "uvgGKMFI",
+      "source_plies": 151,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 107,
+          "token": "4x36"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 146,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MIDBy9dl.pdn:109",
+      "matching_action_applications": 147,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 145,
+      "possible_fens_missing_from_cache": 32,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "MFYWNqOq",
+      "source_plies": 146,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 87,
+          "token": "4x31"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 110,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MIDBy9dl.pdn:131",
+      "matching_action_applications": 111,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 111,
+      "possible_fens_missing_from_cache": 24,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "wGSc1Bxs",
+      "source_plies": 110,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 121,
+          "token": "7x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 131,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MIDBy9dl.pdn:171",
+      "matching_action_applications": 132,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 132,
+      "possible_fens_missing_from_cache": 10,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "8G2GO3sj",
+      "source_plies": 131,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 4,
+          "ply": 105,
+          "token": "6x44"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 129,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MIDBy9dl.pdn:176",
+      "matching_action_applications": 132,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 130,
+      "possible_fens_missing_from_cache": 25,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "UyPwLwpo",
+      "source_plies": 129,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 99,
+          "token": "25x36"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 103,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MIDBy9dl.pdn:199",
+      "matching_action_applications": 104,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 104,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "3sWKEVnc",
+      "source_plies": 103,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 105,
+          "token": "16x49"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 154,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MIDBy9dl.pdn:21",
+      "matching_action_applications": 155,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 155,
+      "possible_fens_missing_from_cache": 36,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "xfgbknxD",
+      "source_plies": 154,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 105,
+          "token": "5x37"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 117,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MIDBy9dl.pdn:43",
+      "matching_action_applications": 118,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 118,
+      "possible_fens_missing_from_cache": 13,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "0gYWn7VA",
+      "source_plies": 117,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 124,
+          "token": "36x13"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 161,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MIDBy9dl.pdn:51",
+      "matching_action_applications": 162,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 162,
+      "possible_fens_missing_from_cache": 34,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "AZ1J6rdH",
+      "source_plies": 161,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 72,
+          "token": "20x36"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 86,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MIDBy9dl.pdn:52",
+      "matching_action_applications": 87,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 87,
+      "possible_fens_missing_from_cache": 15,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "rVR4sT25",
+      "source_plies": 86,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 110,
+          "token": "44x11"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 112,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MIDBy9dl.pdn:75",
+      "matching_action_applications": 113,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 113,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "b9ukgiqJ",
+      "source_plies": 112,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 116,
+          "token": "5x28"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 116,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MIDBy9dl.pdn:96",
+      "matching_action_applications": 117,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 117,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "yvOfIBjn",
+      "source_plies": 116,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 114,
+          "token": "47x20"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 142,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MoXhmT9b.pdn:124",
+      "matching_action_applications": 143,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 143,
+      "possible_fens_missing_from_cache": 29,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "chFqA4zI",
+      "source_plies": 142,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 113,
+          "token": "1x34"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 120,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MoXhmT9b.pdn:46",
+      "matching_action_applications": 121,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 121,
+      "possible_fens_missing_from_cache": 8,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "ZOhK6yyO",
+      "source_plies": 120,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 106,
+          "token": "49x16"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 153,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MoXhmT9b.pdn:58",
+      "matching_action_applications": 154,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 154,
+      "possible_fens_missing_from_cache": 46,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "8P3YylCp",
+      "source_plies": 153,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 96,
+          "token": "36x4"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 112,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MoXhmT9b.pdn:66",
+      "matching_action_applications": 113,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 113,
+      "possible_fens_missing_from_cache": 17,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "t2XkORCd",
+      "source_plies": 112,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 132,
+          "token": "5x46"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 134,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MtDQWBNR.pdn:104",
+      "matching_action_applications": 135,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 135,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "RaRFzOOG",
+      "source_plies": 134,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 113,
+          "token": "6x39"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 129,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MtDQWBNR.pdn:111",
+      "matching_action_applications": 130,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 130,
+      "possible_fens_missing_from_cache": 17,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "YnnweKQi",
+      "source_plies": 129,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 79,
+          "token": "50x3"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 93,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MtDQWBNR.pdn:25",
+      "matching_action_applications": 94,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 94,
+      "possible_fens_missing_from_cache": 15,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "6NYpXA64",
+      "source_plies": 93,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 108,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 129,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MtDQWBNR.pdn:41",
+      "matching_action_applications": 130,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 130,
+      "possible_fens_missing_from_cache": 22,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "ti1kpe5l",
+      "source_plies": 129,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 109,
+          "token": "11x44"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 165,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MtDQWBNR.pdn:83",
+      "matching_action_applications": 166,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 161,
+      "possible_fens_missing_from_cache": 52,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "AJklufvT",
+      "source_plies": 165,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 103,
+          "token": "20x20"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 119,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-MtDQWBNR.pdn:9",
+      "matching_action_applications": 120,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 120,
+      "possible_fens_missing_from_cache": 17,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "560DuK68",
+      "source_plies": 119,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 90,
+          "token": "49x16"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 100,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-P1RUlfJc.pdn:100",
+      "matching_action_applications": 101,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 101,
+      "possible_fens_missing_from_cache": 11,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "dTld14Hw",
+      "source_plies": 100,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 63,
+          "token": "40x29"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 91,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-P1RUlfJc.pdn:115",
+      "matching_action_applications": 92,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 92,
+      "possible_fens_missing_from_cache": 29,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "JgwdEh7c",
+      "source_plies": 91,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 48,
+          "token": "18x29"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 100,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-P1RUlfJc.pdn:128",
+      "matching_action_applications": 101,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 101,
+      "possible_fens_missing_from_cache": 53,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "c2jicBtx",
+      "source_plies": 100,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 148,
+          "token": "50x6"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 151,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-P1RUlfJc.pdn:175",
+      "matching_action_applications": 152,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 152,
+      "possible_fens_missing_from_cache": 2,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "JoqNuS4M",
+      "source_plies": 151,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 113,
+          "token": "4x36"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 130,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-P1RUlfJc.pdn:186",
+      "matching_action_applications": 132,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 129,
+      "possible_fens_missing_from_cache": 16,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "KVa0a0yY",
+      "source_plies": 130,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 116,
+          "token": "6x50"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 124,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-P1RUlfJc.pdn:212",
+      "matching_action_applications": 125,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 125,
+      "possible_fens_missing_from_cache": 9,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "24gGvyoA",
+      "source_plies": 124,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 103,
+          "token": "1x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 147,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-P1RUlfJc.pdn:226",
+      "matching_action_applications": 148,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 148,
+      "possible_fens_missing_from_cache": 44,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "9BWUNfDC",
+      "source_plies": 147,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 124,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 148,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-P1RUlfJc.pdn:49",
+      "matching_action_applications": 149,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 149,
+      "possible_fens_missing_from_cache": 25,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "rMkPUoAm",
+      "source_plies": 148,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 108,
+          "token": "49x12"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 134,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-P1RUlfJc.pdn:85",
+      "matching_action_applications": 135,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 135,
+      "possible_fens_missing_from_cache": 27,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "wSvgreZR",
+      "source_plies": 134,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 58,
+          "token": "11x22"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 58,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:148",
+      "matching_action_applications": 59,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 59,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "6kG1bbXl",
+      "source_plies": 58,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 109,
+          "token": "5x41"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 144,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:186",
+      "matching_action_applications": 145,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 138,
+      "possible_fens_missing_from_cache": 27,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "isdqkIl9",
+      "source_plies": 144,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 81,
+          "token": "4x31"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 136,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:228",
+      "matching_action_applications": 137,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 132,
+      "possible_fens_missing_from_cache": 46,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "ninjfhmh",
+      "source_plies": 136,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 90,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 104,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:231",
+      "matching_action_applications": 106,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 105,
+      "possible_fens_missing_from_cache": 15,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "AMhZY8NS",
+      "source_plies": 104,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 115,
+          "token": "48x25"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 129,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:48",
+      "matching_action_applications": 130,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 130,
+      "possible_fens_missing_from_cache": 15,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "CniS8fMS",
+      "source_plies": 129,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 82,
+          "token": "35x21"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 165,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:55",
+      "matching_action_applications": 166,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 162,
+      "possible_fens_missing_from_cache": 73,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "ETLuwTcQ",
+      "source_plies": 165,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 64,
+          "token": "17x28"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 78,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:59",
+      "matching_action_applications": 79,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 79,
+      "possible_fens_missing_from_cache": 15,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "6qrc4ElB",
+      "source_plies": 78,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 98,
+          "token": "31x9"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 105,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:66",
+      "matching_action_applications": 106,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 106,
+      "possible_fens_missing_from_cache": 8,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "Hsf6tCtu",
+      "source_plies": 105,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 120,
+          "token": "50x17"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 131,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:69",
+      "matching_action_applications": 133,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 132,
+      "possible_fens_missing_from_cache": 9,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "NGBWeZGY",
+      "source_plies": 131,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 71,
+          "token": "41x32"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 164,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:76",
+      "matching_action_applications": 165,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 165,
+      "possible_fens_missing_from_cache": 94,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "KQii2yco",
+      "source_plies": 164,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 111,
+          "token": "7x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 126,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:90",
+      "matching_action_applications": 127,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 127,
+      "possible_fens_missing_from_cache": 16,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "W4KYAZn7",
+      "source_plies": 126,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 122,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 141,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-eo66EN9z.pdn:96",
+      "matching_action_applications": 142,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 142,
+      "possible_fens_missing_from_cache": 20,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "RiZt9W8s",
+      "source_plies": 141,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 98,
+          "token": "37x5"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 98,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-fFgE7oED.pdn:150",
+      "matching_action_applications": 99,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 99,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "YWmvLaTS",
+      "source_plies": 98,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 122,
+          "token": "44x11"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 133,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-fFgE7oED.pdn:155",
+      "matching_action_applications": 134,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 134,
+      "possible_fens_missing_from_cache": 11,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "DKUZmuuK",
+      "source_plies": 133,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 89,
+          "token": "1x40"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 117,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-fFgE7oED.pdn:46",
+      "matching_action_applications": 118,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 118,
+      "possible_fens_missing_from_cache": 29,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "eW5kLtz2",
+      "source_plies": 117,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 103,
+          "token": "1x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 113,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-fFgE7oED.pdn:58",
+      "matching_action_applications": 114,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 114,
+      "possible_fens_missing_from_cache": 11,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "ARKlsC4V",
+      "source_plies": 113,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 120,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 120,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-fFgE7oED.pdn:94",
+      "matching_action_applications": 121,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 121,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "rpZnh3lt",
+      "source_plies": 120,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 97,
+          "token": "30x19"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 97,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-iPQl7g7q.pdn:101",
+      "matching_action_applications": 98,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 98,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "P66XCvtL",
+      "source_plies": 97,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 78,
+          "token": "10x46"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 142,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-iPQl7g7q.pdn:146",
+      "matching_action_applications": 143,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 143,
+      "possible_fens_missing_from_cache": 65,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "sSD7H2AW",
+      "source_plies": 142,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 125,
+          "token": "5x46"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 129,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-iPQl7g7q.pdn:17",
+      "matching_action_applications": 130,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 130,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "B362ZO8s",
+      "source_plies": 129,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 113,
+          "token": "1x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 148,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-iPQl7g7q.pdn:188",
+      "matching_action_applications": 149,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 149,
+      "possible_fens_missing_from_cache": 35,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "H3rddRaV",
+      "source_plies": 148,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 57,
+          "token": "32x23"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 135,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-iPQl7g7q.pdn:46",
+      "matching_action_applications": 136,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 136,
+      "possible_fens_missing_from_cache": 79,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "saGnUIM5",
+      "source_plies": 135,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 4,
+          "ply": 119,
+          "token": "4x36"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 131,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-iPQl7g7q.pdn:51",
+      "matching_action_applications": 134,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 132,
+      "possible_fens_missing_from_cache": 13,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "g0F7BIqx",
+      "source_plies": 131,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 102,
+          "token": "35x2"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 104,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-iPQl7g7q.pdn:62",
+      "matching_action_applications": 105,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 105,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "kVfDwJmk",
+      "source_plies": 104,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 124,
+          "token": "47x20"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 128,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-iPQl7g7q.pdn:84",
+      "matching_action_applications": 129,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 129,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "mpMLK4yt",
+      "source_plies": 128,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 74,
+          "token": "4x16"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 74,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-iPQl7g7q.pdn:9",
+      "matching_action_applications": 75,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 75,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "bF8ZXxrb",
+      "source_plies": 74,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 121,
+          "token": "5x46"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 161,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-l45uk39x.pdn:47",
+      "matching_action_applications": 162,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 162,
+      "possible_fens_missing_from_cache": 41,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "3RKBkTGC",
+      "source_plies": 161,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 110,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 118,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-pRW2Ahpz.pdn:39",
+      "matching_action_applications": 119,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 119,
+      "possible_fens_missing_from_cache": 9,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "cEm3IjE6",
+      "source_plies": 118,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 74,
+          "token": "50x17"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 98,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-pRW2Ahpz.pdn:6",
+      "matching_action_applications": 99,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 99,
+      "possible_fens_missing_from_cache": 25,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "0tiWT247",
+      "source_plies": 98,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 96,
+          "token": "4x48"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 96,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-uG0fGZzB.pdn:33",
+      "matching_action_applications": 97,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 97,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "wxbfM1v0",
+      "source_plies": 96,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 61,
+          "token": "7x43"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 65,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-uG0fGZzB.pdn:34",
+      "matching_action_applications": 66,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 66,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "KJsj2Gpz",
+      "source_plies": 65,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 102,
+          "token": "50x6"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 102,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xAnBIxHN.pdn:113",
+      "matching_action_applications": 103,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 103,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "MzfAb8JO",
+      "source_plies": 102,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 5,
+          "ply": 66,
+          "token": "10x46"
+        },
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 90,
+          "token": "6x50"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 92,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xAnBIxHN.pdn:122",
+      "matching_action_applications": 97,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 93,
+      "possible_fens_missing_from_cache": 27,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "YwAzlxUt",
+      "source_plies": 92,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 62,
+          "token": "18x29"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 80,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xAnBIxHN.pdn:134",
+      "matching_action_applications": 81,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 81,
+      "possible_fens_missing_from_cache": 19,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "NmyNdfeo",
+      "source_plies": 80,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 82,
+          "token": "5x41"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 116,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xAnBIxHN.pdn:138",
+      "matching_action_applications": 118,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 117,
+      "possible_fens_missing_from_cache": 35,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "somkd5hM",
+      "source_plies": 116,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 119,
+          "token": "4x36"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 123,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xAnBIxHN.pdn:49",
+      "matching_action_applications": 124,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 124,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "62CXyuSl",
+      "source_plies": 123,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 111,
+          "token": "4x27"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 133,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xAnBIxHN.pdn:67",
+      "matching_action_applications": 134,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 134,
+      "possible_fens_missing_from_cache": 23,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "oUFXf6JB",
+      "source_plies": 133,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 4,
+          "ply": 96,
+          "token": "47x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 100,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xAnBIxHN.pdn:86",
+      "matching_action_applications": 103,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 101,
+      "possible_fens_missing_from_cache": 5,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "6lzb7cso",
+      "source_plies": 100,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 96,
+          "token": "45x1"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 96,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xAnBIxHN.pdn:9",
+      "matching_action_applications": 97,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 97,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "V2ajdMYe",
+      "source_plies": 96,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 121,
+          "token": "11x50"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 123,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xmzj1bLG.pdn:107",
+      "matching_action_applications": 124,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 124,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "nXLSNt0P",
+      "source_plies": 123,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 70,
+          "token": "40x42"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 72,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xmzj1bLG.pdn:110",
+      "matching_action_applications": 73,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 73,
+      "possible_fens_missing_from_cache": 3,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "pjDDFAVw",
+      "source_plies": 72,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 111,
+          "token": "37x10"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 121,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xmzj1bLG.pdn:123",
+      "matching_action_applications": 123,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 122,
+      "possible_fens_missing_from_cache": 11,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "P6n1Vk2A",
+      "source_plies": 121,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 86,
+          "token": "12x15"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 86,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xmzj1bLG.pdn:38",
+      "matching_action_applications": 88,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 87,
+      "possible_fens_missing_from_cache": 1,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "F7ASVnOY",
+      "source_plies": 86,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 3,
+          "ply": 81,
+          "token": "4x31"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 89,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-xmzj1bLG.pdn:57",
+      "matching_action_applications": 91,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 90,
+      "possible_fens_missing_from_cache": 9,
+      "potential_fresh_overlap_fens": 0,
+      "public_game_id": "JUj0JOmT",
+      "source_plies": 89,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    }
+  ],
+  "global_historical_registry_complete": false,
+  "historical_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "incomplete_base_game_keys": [
+    "mtdp-lidraughts-CARZrQpl.pdn:1285",
+    "mtdp-lidraughts-CARZrQpl.pdn:382"
+  ],
+  "independent_cohort_admitted": false,
+  "legacy_cache_changed": false,
+  "new_engine_scores_computed": false,
+  "overlap_fen_sha256": [
+    "fe5a2561841f20a29c280311a54599d7590416dbba946fc53eba3a355270cd9a",
+    "86e3a720053ed3b9c223f7f88e3b9d5bc4be6c6a093885506ec17167a3e2a55c"
+  ],
+  "overlap_witnesses": [
+    {
+      "fen": "B:WK48:BK32",
+      "fen_sha256": "fe5a2561841f20a29c280311a54599d7590416dbba946fc53eba3a355270cd9a",
+      "fresh_owners": [
+        {
+          "game_id": "BZZ0yME2",
+          "plies": [
+            149
+          ]
+        }
+      ],
+      "historical_owners": [
+        {
+          "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1338",
+          "plies": [
+            133
+          ]
+        }
+      ]
+    },
+    {
+      "fen": "W:WK48:BK41",
+      "fen_sha256": "86e3a720053ed3b9c223f7f88e3b9d5bc4be6c6a093885506ec17167a3e2a55c",
+      "fresh_owners": [
+        {
+          "game_id": "BZZ0yME2",
+          "plies": [
+            146
+          ]
+        }
+      ],
+      "historical_owners": [
+        {
+          "historical_game_key": "mtdp-lidraughts-CARZrQpl.pdn:1338",
+          "plies": [
+            134
+          ]
+        }
+      ]
+    }
+  ],
+  "played_action_paths_certified": false,
+  "potential_fresh_overlap_fens": 2,
+  "previous_eight_game_inventory_sha256": "6548bacd74f6cc46262cb6c2d1ad8e16501c5d771199f3a73b07958ee4efec6d",
+  "previous_possible_fens": 993,
+  "previous_quarantines_reused": 8,
+  "protocol_commit": "111593215b6eca6774709b93568468c63efc51df",
+  "raw_sources": [
+    {
+      "file": "mtdp-lidraughts-0gB7ETSW.pdn",
+      "games": 81,
+      "sha256": "cdf0ef2f69fddaec1994c54448479b2599bcaf3a343d5d500c43ae03b19f03f4"
+    },
+    {
+      "file": "mtdp-lidraughts-3onq5G6G.pdn",
+      "games": 244,
+      "sha256": "617c09fd64895705d19b6290b116439b3adf52fef2858442d0ee724ec051d1de"
+    },
+    {
+      "file": "mtdp-lidraughts-CARZrQpl.pdn",
+      "games": 1831,
+      "sha256": "a34147699ed795e6225a95a20d9fb18015d7ef3afa54602576c0073ca7824e1d"
+    },
+    {
+      "file": "mtdp-lidraughts-GYEtKzUg.pdn",
+      "games": 165,
+      "sha256": "a41595e71352397ac2fdda7c8a92fab455a6074969b764d4ee2caa3306da302b"
+    },
+    {
+      "file": "mtdp-lidraughts-KXaMpuNe.pdn",
+      "games": 162,
+      "sha256": "0d7dd28d9c0389185b4c9fc162093c10a1558c7909bf1be70d07bd95a32edb6c"
+    },
+    {
+      "file": "mtdp-lidraughts-L4F4P5R8.pdn",
+      "games": 44,
+      "sha256": "e8a5ae26d1f376a131077521a437500782fea38771c53cbdb0dbae4916d0bb34"
+    },
+    {
+      "file": "mtdp-lidraughts-LAYRsqON.pdn",
+      "games": 92,
+      "sha256": "3d355104e50209af40013c294065b54551d9b6796ee93a69fe45b27f67b01ce4"
+    },
+    {
+      "file": "mtdp-lidraughts-MIDBy9dl.pdn",
+      "games": 209,
+      "sha256": "c628f3e178669491138a01ed3a584616df08e98510cc878b3fa557653ddaf33e"
+    },
+    {
+      "file": "mtdp-lidraughts-MoXhmT9b.pdn",
+      "games": 155,
+      "sha256": "c1182cee70dfd7ac9627191f482bd00b0242ccc37bd1d96278efbcd6358aa1c2"
+    },
+    {
+      "file": "mtdp-lidraughts-MtDQWBNR.pdn",
+      "games": 151,
+      "sha256": "a2bb40dea7e5b395ca18d8bbd78f16aeb7a8714050732473f10e2056a9607c1b"
+    },
+    {
+      "file": "mtdp-lidraughts-eo66EN9z.pdn",
+      "games": 263,
+      "sha256": "38d352e824420f11429f02c9fd4030d211355915a2626968fdc336bf487eadbf"
+    },
+    {
+      "file": "mtdp-lidraughts-fFgE7oED.pdn",
+      "games": 157,
+      "sha256": "916639e4daf7fae419bd4a9bb4a3530ce62f3eb40ea97f7582762e6cebf68de2"
+    },
+    {
+      "file": "mtdp-lidraughts-iPQl7g7q.pdn",
+      "games": 199,
+      "sha256": "e5e460c4e5be288f1b5e049ae28e91ab1b5661cbe893a7d3d1bcfbde2861772e"
+    },
+    {
+      "file": "mtdp-lidraughts-l45uk39x.pdn",
+      "games": 72,
+      "sha256": "6e5ff944f2be0b7d0c0d5ff7451f39bf4b97ec3202643b78205bb7b1441752b4"
+    },
+    {
+      "file": "mtdp-lidraughts-pRW2Ahpz.pdn",
+      "games": 99,
+      "sha256": "ca2e16eff5d95e8b940b9f322537e0d5b7af299f9b378c4b09f1dd6f1d0a760d"
+    },
+    {
+      "file": "mtdp-lidraughts-uG0fGZzB.pdn",
+      "games": 69,
+      "sha256": "60aea524ac2aa7e0acbf389eb398ec94bdf525a73857c118db2c214d6c1311c9"
+    },
+    {
+      "file": "mtdp-lidraughts-xAnBIxHN.pdn",
+      "games": 141,
+      "sha256": "da0b311c9c1b5d3fa73c229a754ef4a4294cfc46fb94dafc8e56ff258c03d834"
+    },
+    {
+      "file": "mtdp-lidraughts-xmzj1bLG.pdn",
+      "games": 141,
+      "sha256": "52e6cb89719d183a8f00454a1be9f944d3dc7cdc9f18b5cd66f99632e16b4653"
+    },
+    {
+      "file": "mtdp-lidraughts-P1RUlfJc.pdn",
+      "games": 241,
+      "sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439"
+    }
+  ],
+  "schema": "mtdp-historical-base-quarantine-frontier-v1",
+  "scientific_freeze": false,
+  "selected_base_quarantines": 182,
+  "status_counts": {
+    "complete_board_frontier": 180,
+    "zero_frontier": 2
+  },
+  "strict_quarantines_retained": true,
+  "total_known_historical_quarantines_examined": 190
+}
