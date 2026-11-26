@@ -1,0 +1,99 @@
+{
+  "schema": "mtdp-h13-complement-successor-ci-proof-v1",
+  "verified_at_utc": "2026-11-26T13:45:44Z",
+  "protocol_commit": "2d8429a0ce65740848f0f6888da2d9ce774e4f12",
+  "implementation_commit": "d423aa4efd4f8a116ba6cdcb3f1197cf84a13ffb",
+  "workflow_run": 45830653273,
+  "workflow_job": 139946217678,
+  "workflow_conclusion": "success",
+  "unit_tests": 33,
+  "artifact": {
+    "id": 15122354253,
+    "name": "mtdp-complement-successor-audit",
+    "bytes": 75256126,
+    "digest": "sha256:366582b4405ce265147e5f604f71482d6002598a0f3cc80b0523a0067d28fbc3"
+  },
+  "github_zip_digest_verified": true,
+  "remote_compiler": "c++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "remote_provenance": {
+    "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+    "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+    "default_rules_changed": false,
+    "historical_build_recipe_sha256": "11cedf28e28eabca29d2514c20fca83943470999302552f40fe67b3bbb6a594a",
+    "patch_id": "king-origin-v1",
+    "successor_binary_sha256": "c5c5700cb5116a112aada6e2859955273c8959e196c2e78d8eeb5a203a8fd9b4",
+    "successor_build_recipe_sha256": "38b7a3856defc1332aa4964861368ce9da22137be66418c9ee69ddeaddc8db0d",
+    "successor_exporter_source_sha256": "3f1f1b87b4b3bd3b6f619ee7b957a01033fcb1aa438b4b96d2f5abd196bb6c91"
+  },
+  "semantic_members": {
+    "complement-fens.txt": {
+      "bytes": 29517395,
+      "identical_to_both_local_runs": true,
+      "sha256": "ae6d5b47af468cb778f47f29e22fbfc7c6329579865cbc247132c2e0f45b7e80"
+    },
+    "complement-manifest.jsonl": {
+      "bytes": 108610881,
+      "identical_to_both_local_runs": true,
+      "sha256": "5123971a002f9e2a07f41649ed155cc5068000f573c81d1afab714b0c574941e"
+    },
+    "complement-scope.json": {
+      "bytes": 2746,
+      "identical_to_both_local_runs": true,
+      "sha256": "2f12d7dfd9c330edab6bd3a2e17f72744a8f0d53cfab3748a041428da183971e"
+    },
+    "complement-successor-audit.json": {
+      "bytes": 3052,
+      "identical_to_both_local_runs": true,
+      "sha256": "1f1253191c6478fac4662b29fa1c67c5cf73d610903ffc58f489cb4463bcdad0"
+    },
+    "disagreement-witnesses.jsonl": {
+      "bytes": 0,
+      "identical_to_both_local_runs": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "jass-successors.txt": {
+      "bytes": 302128071,
+      "identical_to_both_local_runs": true,
+      "sha256": "acff8b3471d73450f01fc4fa8a9da7570c60bc8bde502beb4a5b7a5092d18281"
+    },
+    "successor-ledger.jsonl": {
+      "bytes": 221581268,
+      "identical_to_both_local_runs": true,
+      "sha256": "74f7eaf79f62e1812b93c08d4a88e7192e4720410c889fc5dfeb92c8d16b6d2b"
+    }
+  },
+  "seven_semantic_members_match_both_local_runs": true,
+  "zip_bytes": 75256126,
+  "zip_sha256": "366582b4405ce265147e5f604f71482d6002598a0f3cc80b0523a0067d28fbc3",
+  "local_provenance": {
+    "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+    "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+    "default_rules_changed": false,
+    "historical_build_recipe_sha256": "11cedf28e28eabca29d2514c20fca83943470999302552f40fe67b3bbb6a594a",
+    "patch_id": "king-origin-v1",
+    "successor_binary_sha256": "6858596ffdb47d7db9c10dfabab992355a3375811841ffec0b71b60c8470dbc7",
+    "successor_build_recipe_sha256": "38b7a3856defc1332aa4964861368ce9da22137be66418c9ee69ddeaddc8db0d",
+    "successor_exporter_source_sha256": "3f1f1b87b4b3bd3b6f619ee7b957a01033fcb1aa438b4b96d2f5abd196bb6c91"
+  },
+  "local_compiler_family": "GNU 14.2",
+  "local_hashseeds": [
+    "default",
+    "731"
+  ],
+  "remote_hashseed": "731",
+  "scope": {
+    "known_historical_fens": 455582,
+    "prior_verified_historical_successor_fens": 24561,
+    "complement_parents": 431021,
+    "complement_python_paths": 3576681,
+    "complement_unique_parent_roots": 3576681,
+    "disagreements": 0,
+    "typed_occupancy_and_turn_only": true,
+    "global_historical_registry_complete": false,
+    "clock_or_repetition_certified": false,
+    "minimax_or_best_move_claim": false,
+    "independent_cohort_qualified": false,
+    "new_cohorts_reserved": false
+  },
+  "next_action": "Preregister an explicit corrected prospective preflight entry using king-origin-v1 and the conservative exclusion ledger; preserve legacy APIs/receipts and D1 provenance/licence/independence STOP."
+}
