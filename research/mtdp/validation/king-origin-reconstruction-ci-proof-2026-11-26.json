@@ -1,0 +1,39 @@
+{
+  "artifact_id": 15092289416,
+  "artifact_zip_sha256": "940cadefec9b2cd7d8b9196b083eb05a761964b8cbb5b12fca68b34bd2e2e361",
+  "binary_provenance": {
+    "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+    "catalogue_binary_sha256": "1afb1730d148d16e04b7bcedb05ae9330ad23a67e7584d7ac16f3877ae96b82d",
+    "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+    "default_rules_changed": false,
+    "patch_id": "king-origin-v1"
+  },
+  "compiler": "c++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "implementation_commit": "40a05659c535a04c99773d17af40db9a80f4ddda",
+  "job_id": 139734534043,
+  "members": {
+    "corrected-reconstruction.json": {
+      "byte_identical_to_local": true,
+      "bytes": 218574,
+      "sha256": "c774e71d1bd29aec50e63a285fb1755dcd558393f8eaa7ef89af5be7802584bc"
+    },
+    "new-state-jass-catalogues.txt": {
+      "byte_identical_to_local": true,
+      "bytes": 103266,
+      "sha256": "cb4bc809ac14c934d610b1c7c515c609c9dc7e7e3d0b3897c8508abb3f02b0cc"
+    },
+    "new-state-oracle-ledger.jsonl": {
+      "byte_identical_to_local": true,
+      "bytes": 311755,
+      "sha256": "b5cb22f8608fbe4c8b4f7f57304c016276ec7e2a342a75635310888f12f4dd63"
+    },
+    "possible-board-inventory.jsonl": {
+      "byte_identical_to_local": true,
+      "bytes": 7070571,
+      "sha256": "9331319ea0a243a486969871803b22a48524a024227c4ac727dff0a1e223a93a"
+    }
+  },
+  "protocol_commit": "f6d893315aa269493a8b86eb88c3e4247f815d17",
+  "run_id": 45768311500,
+  "schema": "mtdp-king-origin-reconstruction-ci-proof"
+}

@@ -81,3 +81,16 @@ Four whole historical reserved events remain excluded from D1 fitting/evaluation
 uDIrrl1c stays an unadmitted whole raw candidate, no H13 scoring reservation.
 Source-licence and independent-event/partition gates remain open. PC Jeff not
 required for this control.
+
+## Remote reconstruction verified
+
+Implementation40a05659 passed [run45768311500](https://github.com/jfrancoiscollin/dilf/actions/runs/45768311500),
+job139734534043:22 tests, original input restoration, pinned exporter build,
+all342 corrected board-frontier traversals and exact summary comparison.
+Artifact15092289416 downloaded, ZIP SHA-256
+940cadefec9b2cd7d8b9196b083eb05a761964b8cbb5b12fca68b34bd2e2e361
+matches GitHub. All FOUR full outputs in the table are byte-identical to both
+local passes. Structured per-member proof/compiler/binary provenance stored
+at validation/king-origin-reconstruction-ci-proof-2026-11-26.json.
+The corrected190/152 board reconstructions and783 new-state reference checks
+are verified; original action-path quarantines and admission gates stay intact.
