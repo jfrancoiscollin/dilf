@@ -1,0 +1,68 @@
+{
+  "artifact_id": 15108485078,
+  "artifact_zip_bytes": 55373709,
+  "artifact_zip_sha256": "184db9fed4a4248f6b073859f11b9792261a81890c7320e8c8c68030a65e66d5",
+  "global_historical_registry_complete": false,
+  "implementation_commit": "105152d03ceec97e1baede598ae7c841ff2061b4",
+  "independent_cohort_qualified": false,
+  "job_conclusion": "success",
+  "job_id": 139845096176,
+  "local_hashseeds": [
+    "default",
+    "731"
+  ],
+  "local_provenance": {
+    "adapter_base_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+    "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+    "catalogue_binary_sha256": "c4065367a315534284a3b9937b97fe51e2e2b011a26b2889ada435c0845aecfd",
+    "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+    "default_rules_changed": false,
+    "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+    "patch_id": "king-origin-v1"
+  },
+  "remote_compiler": "c++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "remote_hashseeds": [
+    "731"
+  ],
+  "remote_provenance": {
+    "adapter_base_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+    "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+    "catalogue_binary_sha256": "1afb1730d148d16e04b7bcedb05ae9330ad23a67e7584d7ac16f3877ae96b82d",
+    "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+    "default_rules_changed": false,
+    "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+    "patch_id": "king-origin-v1"
+  },
+  "remote_reproductions": 1,
+  "run_id": 45801358408,
+  "schema": "mtdp-h13-nonking-oracle-ci-proof-v1",
+  "scientific_freeze": false,
+  "semantic_members": {
+    "change-witnesses.jsonl": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "jass-catalogues.txt": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 51374124,
+      "sha256": "fbaceb63c30c69fa50d68d4b1e4599018abfe5e5aaf54a21cb362f59d774a524"
+    },
+    "nonking-oracle.json": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 2192,
+      "sha256": "f4a0bc13d397fcc78b2605217ae02b6d66fe602286eba9fc02f7fa92f329acad"
+    },
+    "position-ledger.jsonl": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 353042474,
+      "sha256": "6253a177ced3c3b9961d8e253faf8eeaa25eacda63ac41001a22ab3f5ca21763"
+    },
+    "remaining-nonking-fens.txt": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 27912229,
+      "sha256": "4e3be05f836fa86d947937a55902dcd52f53651176dded2241e46f41bccb3b2d"
+    }
+  },
+  "unittest_passed": 23
+}
