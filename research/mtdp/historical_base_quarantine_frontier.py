@@ -19,9 +19,10 @@ PROTOCOL_COMMIT = '111593215b6eca6774709b93568468c63efc51df'
 PREVIOUS_INVENTORY_SHA = '6548bacd74f6cc46262cb6c2d1ad8e16501c5d771199f3a73b07958ee4efec6d'
 
 
-def bind_sources(directory, required, repository=None):
+def bind_sources(directory, required, repository=None, *, extra_roots=()):
     by_hash = defaultdict(list)
     roots = [Path(directory)] + ([Path(repository)] if repository is not None else [])
+    roots.extend(Path(p) for p in extra_roots)
     for root in roots:
         for p in sorted(root.rglob('*.pdn')):
             by_hash[digest(p.read_bytes())].append(p)
