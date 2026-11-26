@@ -57,3 +57,13 @@ quarantines under a separately fixed control if needed; reconcile source data
 licence and independent-event/partition evidence before any new freeze. No
 scores, signature/top-K/dimension campaign, paid work or deployment. PC Jeff
 is not required for this bounded control.
+
+## Remote verification
+
+Implementation98de8fd passed [run45734664412](https://github.com/jfrancoiscollin/dilf/actions/runs/45734664412),
+job139624872823: five tests, existing pinned cache/fresh inventory, complete
+bounded replay and exact summary comparison. Artifact15078322358 downloaded;
+ZIP SHA-256040679671cab0be3323a30440dcb861a7b8340f045be996fcc78703f41617dd2
+matches GitHub. Its summary and full174265-byte possible-board inventory are
+byte-identical to both local runs. This closes the eight-game bounded check;
+no strict quarantine, cache, candidate population or admission gate changed.
