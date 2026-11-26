@@ -1,0 +1,9 @@
+# H13 — Registre conservateur d’exclusion, 26 novembre 2026
+
+Préenregistrement avant dérivation. Référence : tête 899d9f9, reconstruction corrigée déjà vérifiée run 45768311500. Aucun score ni signature ne sera calculé.
+
+Le registre reste un supplément explicite au cache historique immuable SHA-256 5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7. L’inventaire corrigé SHA-256 9331319ea0a243a486969871803b22a48524a024227c4ac727dff0a1e223a93a doit être authentifié avant extraction. Seuls les propriétaires de rôle historical_quarantines peuvent fournir une exclusion supplémentaire. Les propriétaires fresh_candidate seront retirés du supplément ; une position exclusivement fraîche ne pourra pas s’auto-exclure. Les deux positions partagées avec une provenance historique restent exclues.
+
+Sorties déterministes : supplément JSONL canonique avec FEN, hash et propriétaires/plies historiques ; manifeste versionné avec hashes, identités distinctes de règles anciennes/corrigées, comptes et hash de l’union canonique. Le chargeur doit recalculer les sorties depuis les entrées épinglées et refuser toute différence. Raccordement explicite au bridge authentifié D1, avec tests de rejet des collisions anciennes et supplémentaires, corruption et contamination par le rôle frais. Aucun hash de trajectoire jouée ne sera inventé depuis une reconstruction de plateaux.
+
+Contrôles : tests adversariaux, deux exécutions avec hashseeds distinctes, reproduction Actions et comparaison des octets. Aucune levée des 190 quarantaines ou des 7 ambiguïtés fraîches ; aucun changement de cache ou de parseur par défaut. Pas de complétude globale : les 4634 anciens dossiers stricts n’ont pas été rejoués avec le correctif. Aucun candidat admis, split, gel ou réservation H13 nouvelle. Licence et indépendance restent à établir par D1. PC de Jeff non requis.
