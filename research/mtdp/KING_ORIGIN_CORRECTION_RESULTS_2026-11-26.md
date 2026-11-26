@@ -65,3 +65,17 @@ quarantined continuations and possible-history exclusions only under that new
 engine identity. Do not rerun reference scoring or treat corrected replays as
 new independent data. Source-licence and independent-event/partition gates
 remain open. PC Jeff is not required.
+
+## Remote correction regression verified
+
+Implementationdd410afb passed [run45754316033](https://github.com/jfrancoiscollin/dilf/actions/runs/45754316033),
+job139689227213: pinned exporter build, seven unit tests and all eight-board
+root-set comparisons with exact semantic report comparison. Artifact15087485438
+downloaded, ZIP SHA-256
+fc6511803edba9a8bbe3b16f68629b701394eb7a62f8d2972ce8313d1beba0de
+matches GitHub. Reportccf99e57… and raw catalogueab295144… are byte-identical
+to both local runs; corrected-source SHA-2564714fef6… unchanged. Remote
+binary1afb1730d148d16e04b7bcedb05ae9330ad23a67e7584d7ac16f3877ae96b82d;
+structured proof in validation/king-origin-v1-ci-proof-2026-11-26.json.
+This confirms the explicit isolated correction on the fixed regressions only;
+corpus-impact, exclusion-update and scientific admission gates remain open.
