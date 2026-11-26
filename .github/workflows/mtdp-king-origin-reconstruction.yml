@@ -1,0 +1,80 @@
+name: mtdp-king-origin-reconstruction
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-king-origin-reconstruction.yml
+      - research/mtdp/king_origin_reconstruction.py
+      - research/mtdp/king_origin_correction.py
+      - research/mtdp/tests/test_king_origin_reconstruction.py
+      - research/mtdp/validation/king-origin-reconstruction-2026-11-26.json
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: mtdp-king-origin-reconstruction
+  cancel-in-progress: false
+jobs:
+  corrected-board-frontiers-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/fmjd
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: fmjd
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/jass
+          ref: cfe07fce6385b980553a898e9651d53419589ebc
+          path: jass
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          run-id: 45761861263
+          github-token: ${{ github.token }}
+          path: historical-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-historical-base-frontier
+          run-id: 45741874083
+          github-token: ${{ github.token }}
+          path: old-historical
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fresh-uDIrrl1c-position-footprint
+          run-id: 45720526966
+          github-token: ${{ github.token }}
+          path: old-fresh
+      - name: Build pinned legal-only exporter
+        run: |
+          cmake -S jass -B /tmp/mtdp-reconstruction-build -DCMAKE_BUILD_TYPE=Release \
+            -DJASS_ENABLE_SIMD=OFF -DJASS_NATIVE=OFF \
+            -DCMAKE_PROJECT_jass_INCLUDE="$GITHUB_WORKSPACE/research/mtdp/jass_preflight/targets.cmake"
+          cmake --build /tmp/mtdp-reconstruction-build --target mtdp_jass_legal_catalogue -j 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Reconstruct all fixed records without scores or default changes
+        run: |
+          python -m unittest research.mtdp.tests.test_king_origin_reconstruction research.mtdp.tests.test_historical_quarantine_frontier research.mtdp.tests.test_historical_base_quarantine_frontier research.mtdp.tests.test_king_origin_correction research.mtdp.tests.test_return_capture_oracle research.mtdp.tests.test_king_origin_inventory_impact
+          mkdir -p .cache/mtdp
+          timeout 600s python -m research.mtdp.king_origin_reconstruction \
+            --root . --base-dir historical-input --adapter fmjd --jass jass \
+            --executable /tmp/mtdp-reconstruction-build/mtdp_jass_legal_catalogue \
+            --historical-inventory old-historical/combined-190-possible-board-inventory.jsonl \
+            --fresh-inventory old-fresh/fresh-position-inventory.jsonl \
+            --output-dir .cache/mtdp/reconstruction
+          cmp .cache/mtdp/reconstruction/corrected-reconstruction.json research/mtdp/validation/king-origin-reconstruction-2026-11-26.json
+          c++ --version > .cache/mtdp/reconstruction/compiler.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-king-origin-reconstruction
+          path: .cache/mtdp/reconstruction/
+          if-no-files-found: error
+          retention-days: 30
