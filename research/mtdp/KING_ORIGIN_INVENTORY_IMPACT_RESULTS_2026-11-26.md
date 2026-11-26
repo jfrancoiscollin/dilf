@@ -70,3 +70,17 @@ The two BZZ0yME2 overlap witnesses remain exclusions. Four historical whole
 events stay excluded from D1 fitting/evaluation; fresh uDIrrl1c remains an
 unadmitted whole raw candidate, no new H13 reservation or freeze. Source-
 licence and independent-event/partition gates remain open. PC Jeff not required.
+
+## Remote impact audit verified
+
+Implementation991ca47d passed [run45761500008](https://github.com/jfrancoiscollin/dilf/actions/runs/45761500008),
+job139712316929: eleven tests, pinned exporter build, complete fixed union audit
+and exact semantic comparison. Artifact15089837619 downloaded, ZIP SHA-256
+ac65a089814f36ee1653975d885778000d704384b88e3f1ef8387dac09a0c39f
+matches GitHub. All FOUR outputs in the table (including the complete33MB
+ledger) are byte-identical to both local passes. Structured member-by-member
+proof and compiler/binary provenance preserved in
+validation/king-origin-inventory-impact-ci-proof-2026-11-26.json.
+This closes the declared two-inventory impact check only; wider historical
+impact, corrected whole-game reconstruction and scientific-admission gates
+remain as stated above.
