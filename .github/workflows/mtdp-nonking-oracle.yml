@@ -1,0 +1,76 @@
+name: mtdp-nonking-oracle
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-nonking-oracle.yml
+      - research/mtdp/nonking_oracle_scope.py
+      - research/mtdp/nonking_oracle.py
+      - research/mtdp/tests/test_nonking_oracle_scope.py
+      - research/mtdp/tests/test_nonking_oracle.py
+      - research/mtdp/validation/nonking-oracle-2026-11-26.json
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: mtdp-nonking-oracle
+  cancel-in-progress: false
+jobs:
+  fixed-historical-nonking-roots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/fmjd
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: fmjd
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/jass
+          ref: cfe07fce6385b980553a898e9651d53419589ebc
+          path: jass
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          run-id: 45791384527
+          github-token: ${{ github.token }}
+          path: historical-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-king-origin-reconstruction
+          run-id: 45768311500
+          github-token: ${{ github.token }}
+          path: corrected-input
+      - name: Build pinned legal-only exporter
+        run: |
+          cmake -S jass -B /tmp/mtdp-nonking-build -DCMAKE_BUILD_TYPE=Release \
+            -DJASS_ENABLE_SIMD=OFF -DJASS_NATIVE=OFF \
+            -DCMAKE_PROJECT_jass_INCLUDE="$GITHUB_WORKSPACE/research/mtdp/jass_preflight/targets.cmake"
+          cmake --build /tmp/mtdp-nonking-build --target mtdp_jass_legal_catalogue -j 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Frozen scope, streaming integrity, metrics and parser regressions
+        run: |
+          python -m unittest research.mtdp.tests.test_nonking_oracle_scope research.mtdp.tests.test_nonking_oracle research.mtdp.tests.test_king_origin_inventory_impact research.mtdp.tests.test_return_capture_oracle research.mtdp.tests.test_king_origin_correction
+      - name: One remote reproduction of the frozen nonking scope, no scores
+        run: |
+          mkdir -p .cache/mtdp
+          PYTHONHASHSEED=731 timeout 1200s python -m research.mtdp.nonking_oracle \
+            --root . --cache historical-input/four-reserved-events-exclusions.json \
+            --corrected-inventory corrected-input/possible-board-inventory.jsonl \
+            --adapter fmjd --jass jass --executable /tmp/mtdp-nonking-build/mtdp_jass_legal_catalogue \
+            --output-dir .cache/mtdp/nonking-oracle
+          cmp .cache/mtdp/nonking-oracle/nonking-oracle.json research/mtdp/validation/nonking-oracle-2026-11-26.json
+          c++ --version > .cache/mtdp/nonking-oracle/compiler.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-nonking-oracle
+          path: .cache/mtdp/nonking-oracle/
+          if-no-files-found: error
+          retention-days: 30
