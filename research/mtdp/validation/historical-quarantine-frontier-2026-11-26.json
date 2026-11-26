@@ -1,0 +1,203 @@
+{
+  "adapter_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "application_limit": 100000,
+  "complete_board_frontier_games": 8,
+  "complete_historical_registry_proven": false,
+  "fresh_inventory_sha256": "62a71b82e09794ddd2bdc68d8c44749bf7741dddaee28a0722295a54abaac36e",
+  "frontier_limit": 128,
+  "full_played_action_trajectories_certified": false,
+  "games": [
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 127,
+          "token": "4x36"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 133,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-D9PF2OSW.pdn:17",
+      "matching_action_applications": 134,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 134,
+      "possible_fens_missing_from_cache": 7,
+      "potential_fresh_overlap_fens": 0,
+      "source_plies": 133,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 107,
+          "token": "48x25"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 119,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-D9PF2OSW.pdn:20",
+      "matching_action_applications": 120,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 120,
+      "possible_fens_missing_from_cache": 13,
+      "potential_fresh_overlap_fens": 0,
+      "source_plies": 119,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 91,
+          "token": "50x9"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 109,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-D9PF2OSW.pdn:37",
+      "matching_action_applications": 110,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 110,
+      "possible_fens_missing_from_cache": 19,
+      "potential_fresh_overlap_fens": 0,
+      "source_plies": 109,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 108,
+          "token": "50x48"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 111,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-s7ahYqL4.pdn:101",
+      "matching_action_applications": 112,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 112,
+      "possible_fens_missing_from_cache": 4,
+      "potential_fresh_overlap_fens": 0,
+      "source_plies": 111,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 121,
+          "token": "1x34"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 131,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-s7ahYqL4.pdn:109",
+      "matching_action_applications": 132,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 132,
+      "possible_fens_missing_from_cache": 9,
+      "potential_fresh_overlap_fens": 0,
+      "source_plies": 131,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 82,
+          "token": "49x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 143,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-s7ahYqL4.pdn:131",
+      "matching_action_applications": 144,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 144,
+      "possible_fens_missing_from_cache": 62,
+      "potential_fresh_overlap_fens": 0,
+      "source_plies": 143,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 127,
+          "token": "1x45"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 146,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-s7ahYqL4.pdn:35",
+      "matching_action_applications": 147,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 146,
+      "possible_fens_missing_from_cache": 13,
+      "potential_fresh_overlap_fens": 0,
+      "source_plies": 146,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    },
+    {
+      "ambiguities": [
+        {
+          "enumerated_successor_boards": 1,
+          "matching_actions": 2,
+          "ply": 80,
+          "token": "11x39"
+        }
+      ],
+      "complete_board_frontier_replay": true,
+      "completed_plies": 105,
+      "every_completed_ply_single_board": true,
+      "historical_game_key": "mtdp-lidraughts-s7ahYqL4.pdn:60",
+      "matching_action_applications": 106,
+      "maximum_frontier": 1,
+      "possible_distinct_fens": 106,
+      "possible_fens_missing_from_cache": 26,
+      "potential_fresh_overlap_fens": 0,
+      "source_plies": 105,
+      "status": "complete_board_frontier",
+      "strict_action_quarantine_retained": true
+    }
+  ],
+  "historical_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "independent_cohort_admitted": false,
+  "legacy_cache_changed": false,
+  "new_engine_scores_computed": false,
+  "other_historical_quarantines_out_of_scope": 182,
+  "overlap_fen_sha256": [],
+  "possible_fens_missing_from_cache": 153,
+  "possible_historical_fens": 993,
+  "possible_inventory_bytes": 174265,
+  "possible_inventory_sha256": "6548bacd74f6cc46262cb6c2d1ad8e16501c5d771199f3a73b07958ee4efec6d",
+  "potential_fresh_overlap_fens": 0,
+  "protocol_commit": "a5c1a8853d242688e66e2afad4c6549b2fcdff6b",
+  "schema": "mtdp-historical-quarantine-board-frontier-v1",
+  "scientific_freeze": false,
+  "selected_historical_quarantines": 8,
+  "strict_action_quarantines_retained": true
+}
