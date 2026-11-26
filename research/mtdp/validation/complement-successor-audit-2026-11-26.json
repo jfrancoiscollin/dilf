@@ -1,0 +1,82 @@
+{
+  "adapter_base_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "all_paths_computed_before_digest": true,
+  "all_selected_roots_and_successors_equal": true,
+  "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+  "by_catalogue": {
+    "active_king": {
+      "cases_with_disagreement": 0,
+      "parents": 44527
+    },
+    "impact": {
+      "cases_with_disagreement": 0,
+      "parents": 20908
+    },
+    "nonking": {
+      "cases_with_disagreement": 0,
+      "parents": 365545
+    },
+    "reconstruction": {
+      "cases_with_disagreement": 0,
+      "parents": 41
+    }
+  },
+  "cached_legal_reference_reused": true,
+  "clock_or_repetition_state_certified": false,
+  "compact_ledger_list_hash_contract": "sha256 canonical sorted-key JSON plus LF, full lists before hashing",
+  "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+  "default_rules_changed": false,
+  "global_historical_registry_complete": false,
+  "independent_cohort_qualified": false,
+  "input_fens": {
+    "bytes": 29517395,
+    "sha256": "ae6d5b47af468cb778f47f29e22fbfc7c6329579865cbc247132c2e0f45b7e80"
+  },
+  "input_manifest": {
+    "bytes": 108610881,
+    "sha256": "5123971a002f9e2a07f41649ed155cc5068000f573c81d1afab714b0c574941e"
+  },
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "known_historical_fens": 455582,
+  "known_registry_successor_coverage_complete": true,
+  "new_cohorts_reserved": false,
+  "output_files": {
+    "ledger": {
+      "bytes": 221581268,
+      "sha256": "74f7eaf79f62e1812b93c08d4a88e7192e4720410c889fc5dfeb92c8d16b6d2b"
+    },
+    "raw_successors": {
+      "bytes": 302128071,
+      "sha256": "acff8b3471d73450f01fc4fa8a9da7570c60bc8bde502beb4a5b7a5092d18281"
+    },
+    "witnesses": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "patch_id": "king-origin-v1",
+  "played_capture_path_identity_certified": false,
+  "prior_fixed_audit_sha256": "1dbcf3b40f3f353a831243fa4d67e73c2ae491024b5663635eeb8de918b59f1d",
+  "prior_risk_audit_sha256": "150305baaa5874b270cd0788d2f686344851d5d7cb9a394b710c5bbe72688902",
+  "prior_successor_parents_replayed": false,
+  "prior_verified_historical_successor_fens": 24561,
+  "protocol_commit": "2d8429a0ce65740848f0f6888da2d9ce774e4f12",
+  "schema": "mtdp-h13-historical-successor-complement-audit-v1",
+  "scientific_freeze": false,
+  "scope_report_sha256": "2f12d7dfd9c330edab6bd3a2e17f72744a8f0d53cfab3748a041428da183971e",
+  "scores_or_signatures_computed": false,
+  "summary": {
+    "cached_root_disagreement_cases": 0,
+    "cases_with_disagreement": 0,
+    "jass_duplicate_root_keys": 0,
+    "jass_roots_with_multiple_successors": 0,
+    "multiple_python_path_roots": 0,
+    "parents": 431021,
+    "python_paths": 3576681,
+    "python_roots_with_multiple_successors": 0,
+    "shared_root_successor_mismatches": 0,
+    "unique_roots": 3576681
+  },
+  "typed_occupancy_and_turn_only": true,
+  "universal_successor_correctness_proven": false
+}
