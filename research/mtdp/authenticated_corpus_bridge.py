@@ -18,15 +18,21 @@ def canonical_position_sha256(fen):
     return hashlib.sha256(canonical_fen(fen).encode('utf-8')).hexdigest()
 
 
-def export_known_exclusions(cache_path):
-    """Derive every exclusion from exact byte-pinned cache, never supplied SHA lists."""
+def export_known_exclusions(cache_path, *, exclusion_ledger=None):
+    """Derive exclusions from pinned cache and optional authenticated sidecar bytes."""
     cache = load_verified_cache(cache_path)
+    fens = cache['confirmed_fens']
+    if exclusion_ledger is not None:
+        from research.mtdp.conservative_exclusion_ledger import load_verified_ledger
+        if not isinstance(exclusion_ledger, dict) or set(exclusion_ledger) != {'inventory', 'manifest', 'supplement'}:
+            raise ValueError('Complete authenticated exclusion sidecar paths required')
+        fens = load_verified_ledger(cache_path, **exclusion_ledger)['canonical_fens']
     return {
         'game_ids': sorted(set(cache['public_game_ids'])),
         'raw_sha256': sorted({s['sha256'] for s in cache['sources']}),
         'trajectory_sha256': sorted(set(cache['fingerprints'])),
         'canonical_sha256': sorted({canonical_position_sha256(fen)
-                                    for fen in cache['confirmed_fens']}),
+                                    for fen in fens}),
     }
 
 
@@ -54,13 +60,15 @@ def verify_derived_rows(rows, proof):
     return derived
 
 
-def audit_authenticated_corpus(rows, sources, *, root, adapter, historical_cache):
+def audit_authenticated_corpus(rows, sources, *, root, adapter, historical_cache,
+                               exclusion_ledger=None):
     """Compose existing H13 source/alias/FEN/whole-game proof and unchanged D1 audit.
 
     No caller proof object, supplied exclusion registry, engine override, source
     scores, target scores or signature definition is accepted here.
     """
-    forbidden = export_known_exclusions(historical_cache)
+    forbidden = (export_known_exclusions(historical_cache) if exclusion_ledger is None else
+                 export_known_exclusions(historical_cache, exclusion_ledger=exclusion_ledger))
     engine = checked_engine(Path(adapter).resolve())
     # Remove exactly the three new D1 hash claims for the older closed schema.
     # Preserve every other key so unknown/target-derived fields still fail closed.
@@ -76,6 +84,10 @@ def audit_authenticated_corpus(rows, sources, *, root, adapter, historical_cache
                          ', '.join(result['errors']))
     return {'schema': 'mtdp-h13-authenticated-d1-preflight-v1',
             'historical_cache_sha256': CACHE_SHA256,
+            'conservative_exclusion_sidecar_authenticated': exclusion_ledger is not None,
+            'conservative_exclusion_manifest_sha256': (hashlib.sha256(
+                Path(exclusion_ledger['manifest']).read_bytes()).hexdigest()
+                if exclusion_ledger is not None else None),
             'canonical_hash_contract': 'sha256_utf8_canonical_fen_no_newline',
             'declared_hashes_recomputed_and_verified': True,
             'known_historical_registry_authenticated': True,
