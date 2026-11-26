@@ -1,0 +1,107 @@
+name: mtdp-risk-successor-audit
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-risk-successor-audit.yml
+      - research/mtdp/risk_successor_scope.py
+      - research/mtdp/risk_successor_audit.py
+      - research/mtdp/tests/test_risk_successor_scope.py
+      - research/mtdp/tests/test_risk_successor_audit.py
+      - research/mtdp/validation/risk-successor-audit-2026-11-26.json
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: mtdp-risk-successor-audit
+  cancel-in-progress: false
+jobs:
+  fixed-historical-risk-successors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/fmjd
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: fmjd
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/jass
+          ref: cfe07fce6385b980553a898e9651d53419589ebc
+          path: jass
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          run-id: 45810902904
+          github-token: ${{ github.token }}
+          path: historical-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-king-origin-inventory-impact
+          run-id: 45761500008
+          github-token: ${{ github.token }}
+          path: impact-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-king-origin-reconstruction
+          run-id: 45768311500
+          github-token: ${{ github.token }}
+          path: reconstruction-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-king-origin-remaining-oracle
+          run-id: 45790633522
+          github-token: ${{ github.token }}
+          path: king-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-nonking-oracle
+          run-id: 45801358408
+          github-token: ${{ github.token }}
+          path: nonking-input
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Scope, cached roots, all paths and parser regressions
+        run: |
+          python -m unittest research.mtdp.tests.test_risk_successor_scope research.mtdp.tests.test_risk_successor_audit research.mtdp.tests.test_fixed_successor_audit research.mtdp.tests.test_return_capture_oracle research.mtdp.tests.test_king_origin_correction
+      - name: Regenerate frozen selection from existing catalogues, no legal queries
+        run: |
+          mkdir -p .cache/mtdp
+          PYTHONHASHSEED=731 python -m research.mtdp.risk_successor_scope \
+            --root . --cache historical-input/four-reserved-events-exclusions.json \
+            --corrected-inventory reconstruction-input/possible-board-inventory.jsonl \
+            --impact-catalogue impact-input/jass-catalogues.txt \
+            --new-state-catalogue reconstruction-input/new-state-jass-catalogues.txt \
+            --king-catalogue king-input/jass-catalogues.txt \
+            --nonking-catalogue nonking-input/jass-catalogues.txt \
+            --output-dir .cache/mtdp/risk-scope
+          cmp .cache/mtdp/risk-scope/risk-successor-scope.json research/mtdp/validation/risk-successor-scope-2026-11-26.json
+      - name: Build isolated successor exporter, keep frozen historical recipe intact
+        run: |
+          cmake -S jass -B /tmp/mtdp-risk-successor-build -DCMAKE_BUILD_TYPE=Release \
+            -DJASS_ENABLE_SIMD=OFF -DJASS_NATIVE=OFF \
+            -DCMAKE_PROJECT_jass_INCLUDE="$GITHUB_WORKSPACE/research/mtdp/jass_preflight/successor-targets.cmake"
+          cmake --build /tmp/mtdp-risk-successor-build --target mtdp_jass_successor_catalogue -j 2
+      - name: One remote successor reproduction, no scores or search
+        run: |
+          PYTHONHASHSEED=731 timeout 600s python -m research.mtdp.risk_successor_audit \
+            --root . --manifest .cache/mtdp/risk-scope/risk-successor-manifest.jsonl \
+            --fens .cache/mtdp/risk-scope/risk-successor-fens.txt \
+            --adapter fmjd --jass jass --executable /tmp/mtdp-risk-successor-build/mtdp_jass_successor_catalogue \
+            --output-dir .cache/mtdp/risk-successors
+          cmp .cache/mtdp/risk-successors/risk-successor-audit.json research/mtdp/validation/risk-successor-audit-2026-11-26.json
+          cp .cache/mtdp/risk-scope/risk-successor-scope.json .cache/mtdp/risk-successors/
+          c++ --version > .cache/mtdp/risk-successors/compiler.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mtdp-risk-successor-audit
+          path: .cache/mtdp/risk-successors/
+          if-no-files-found: warn
+          retention-days: 30
