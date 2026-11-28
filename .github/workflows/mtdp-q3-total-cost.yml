@@ -1,0 +1,46 @@
+name: mtdp-q3-total-cost
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-q3-total-cost.yml
+      - research/mtdp/jass_benchmark/q3_cost_receipt.py
+      - research/mtdp/jass_benchmark/q3_archive_cost_coverage.py
+      - research/mtdp/tests/test_q3_cost_receipt.py
+      - research/mtdp/validation/q3-archive-cost-coverage-2026-11-28.json
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mtdp-q3-total-cost
+  cancel-in-progress: false
+jobs:
+  offline-cost-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pytest==9.2.0
+      - name: Cost recorder and existing node/telemetry regressions, no search
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/q3-evidence
+          python -m pytest -q research/mtdp/tests/test_q3_cost_receipt.py research/mtdp/tests/test_total_budget.py research/mtdp/tests/test_two_arena_telemetry_audit.py | tee /tmp/q3-evidence/tests.log
+      - name: Reproduce frozen archive coverage without new scores
+        run: |
+          set -euo pipefail
+          PYTHONHASHSEED=731 python -m research.mtdp.jass_benchmark.q3_archive_cost_coverage --root . --output /tmp/q3-evidence/coverage.json
+          cmp /tmp/q3-evidence/coverage.json research/mtdp/validation/q3-archive-cost-coverage-2026-11-28.json
+          python --version > /tmp/q3-evidence/runtime.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mtdp-q3-total-cost
+          path: /tmp/q3-evidence/
+          if-no-files-found: warn
+          retention-days: 30
