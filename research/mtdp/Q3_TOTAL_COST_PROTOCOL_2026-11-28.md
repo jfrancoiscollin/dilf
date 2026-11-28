@@ -35,3 +35,7 @@ Ces seuils sont des choix prospectifs proposés, pas une conclusion dérivée de
 ## Prochaine décision
 
 Q3 : valider l’intégration du compteur à un appel natif jetable et son effet observateur par témoins techniques bornés, sans rejouer une campagne ; préparer ensuite le reçu de setup d’un lot chaud. Tant que Q1/Q2 reste sans candidat indépendant, aucune campagne de force/qualité/temps, aucun nouveau gel ou réservation. D1 conserve Q2 et qualification fraîche ; H:43 Q1. uDIrrl1c reste non admis et les quarantaines restent inchangées. Le PC de Jeff n’est pas requis pour ces contrôles techniques et hors ligne.
+
+## Validation de cette préparation
+
+Implémentation `de0eda16`, Actions [46144350745](https://github.com/jfrancoiscollin/dilf/actions/runs/46144350745), job 140976993101 : **87 tests réussis**, dont 13 nouveaux, puis reproduction de la couverture à l’octet. Artefact 15263355576 téléchargé, ZIP 1137 octets SHA-256 65ff0f476421d12ba3c593832e62e043a56ecac8a5e876774cd7b3e04e6817e0 conforme GitHub ; coverage.json : 1361 octets SHA-256 c5eb2876532131f3851293a29d3f42ead2a94dfaf2e27c0b1a39996feb633f5c identique aux deux dérivations locales défaut/731. Reçu structuré `validation/q3-total-cost-ci-proof-2026-11-28.json`. Le job n’appelle aucun moteur ni nouvelle référence cible ; cela valide le contrat de coût et le diagnostic d’archive, pas une réduction de calcul Jass.

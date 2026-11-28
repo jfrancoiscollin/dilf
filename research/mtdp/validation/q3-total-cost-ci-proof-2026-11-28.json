@@ -1,0 +1,47 @@
+{
+  "artifact_id": 15263355576,
+  "baseline_technical_artifact": {
+    "all_paired_comparable": true,
+    "artifact_id": 15255554874,
+    "diagnostic_cases": 5,
+    "run": 46126509080,
+    "zip_bytes": 6029,
+    "zip_sha256": "08cd2685b45ebe2bb54de7914ec3e0d9fbdbf4dd5fd68590d50a1998d191c4f0",
+    "zip_verified": true
+  },
+  "cold_cache_only": true,
+  "conclusion": "success",
+  "coverage_bytes": 1361,
+  "coverage_identical_to_both_local_runs": true,
+  "coverage_sha256": "c5eb2876532131f3851293a29d3f42ead2a94dfaf2e27c0b1a39996feb633f5c",
+  "engine_integration_validated": false,
+  "github_zip_digest_verified": true,
+  "implementation_commit": "de0eda16f9db93da0dd24e1d66f2f93ad37ced05",
+  "independent_candidate_available": false,
+  "local_hashseeds": [
+    "default",
+    "731"
+  ],
+  "new_cohorts_reserved": false,
+  "new_engine_searches": 0,
+  "new_quality_scores_opened": 0,
+  "new_signature_campaigns": 0,
+  "new_unit_tests": 13,
+  "next_decision": "Validate recorder binding and observer overhead on a bounded disposable native technical call, then warm-batch setup receipts. No scientific Q3 campaign before independent Q1/Q2 gates.",
+  "performance_gain_established": false,
+  "proposed_quality_and_cost_thresholds_not_yet_frozen": true,
+  "question": "Q3",
+  "remote_hashseed": "731",
+  "remote_runtime": "Python 3.12.16",
+  "schema": "mtdp-q3-total-cost-ci-proof-v1",
+  "source_sha256": {
+    "research/mtdp/jass_benchmark/q3_archive_cost_coverage.py": "81799ee99c207a5d2145f0c06f0350119a17a94389a293fc8b7670642f8f5efd",
+    "research/mtdp/jass_benchmark/q3_cost_receipt.py": "1a18618b62d441ce51c43ff5be950b3eddaf050746413105dcf794e8f523c844",
+    "research/mtdp/tests/test_q3_cost_receipt.py": "d8e885cde392faec367596f6b80d2fcadc07b951d2a4e0de4db78ea9936912e7"
+  },
+  "unit_tests": 87,
+  "workflow_job": 140976993101,
+  "workflow_run": 46144350745,
+  "zip_bytes": 1137,
+  "zip_sha256": "65ff0f476421d12ba3c593832e62e043a56ecac8a5e876774cd7b3e04e6817e0"
+}
