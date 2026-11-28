@@ -1,0 +1,57 @@
+{
+  "acceptance": [
+    "ten successful complete 10000-node receipts",
+    "identical semantic search outputs across arms",
+    "nine unique initial legal actions, native root order retained",
+    "internal engine microseconds <= enclosing search/outer wall duration",
+    "recorder stage sum plus orchestration reconciles to recorder envelope",
+    "outer envelope includes recorder and finalize cost; missing failed nodes never zero"
+  ],
+  "algorithm_cache_mode": "cold",
+  "arguments": [],
+  "engine_calls_per_execution": 10,
+  "fen": "W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+  "fresh_process_and_tt_per_call": true,
+  "independent_candidate_available": false,
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "local_executions": 1,
+  "max_requested_nodes_per_execution": 100000,
+  "native_prefix": [],
+  "new_cohorts_reserved": false,
+  "new_scan_scores": false,
+  "node_budget": 10000,
+  "orders": [
+    [
+      "plain",
+      "instrumented"
+    ],
+    [
+      "instrumented",
+      "plain"
+    ],
+    [
+      "plain",
+      "instrumented"
+    ],
+    [
+      "instrumented",
+      "plain"
+    ],
+    [
+      "plain",
+      "instrumented"
+    ]
+  ],
+  "os_cache_controlled": false,
+  "paired_repetitions": 5,
+  "patches": [],
+  "primary_elapsed": "outer monotonic wall envelope including recorder constructor/finalize/audit",
+  "question": "Q3",
+  "remote_executions": 1,
+  "runtime_gain_claim": false,
+  "schema": "mtdp-q3-native-binding-plan-v1",
+  "seed_selection": "none; one fixed standard opening, not a cohort",
+  "subprocess_timeout_seconds": 15,
+  "summary": "all paired deltas, ratios and medians; no significance or overhead correction",
+  "warmup_calls": 0
+}
