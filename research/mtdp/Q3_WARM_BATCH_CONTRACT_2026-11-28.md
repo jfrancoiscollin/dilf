@@ -37,7 +37,7 @@ python -m pytest -q research/mtdp/tests/test_q3_warm_batch.py research/mtdp/test
 python -m research.mtdp.jass_benchmark.q3_warm_batch_smoke --output-dir /tmp/q3-warm-example
 ```
 
-Résumé sémantique versionné `validation/q3-warm-batch-contract-2026-11-28.json` ; traces locales complètes et résumé dans `validation/q3-warm-batch-local-2026-11-28.zip`. La CI dédiée doit reproduire le résumé logique, pas les horloges variables entre machines. **Validation distante à confirmer.** Les API froides, sources/patches/recettes Jass et anciens résultats restent inchangés.
+Résumé sémantique versionné `validation/q3-warm-batch-contract-2026-11-28.json` ; traces locales complètes et résumé dans `validation/q3-warm-batch-local-2026-11-28.zip`. La CI dédiée doit reproduire le résumé logique, pas les horloges variables entre machines. **Validation distante confirmée** : implémentation `196ab4e`, [Actions 46159400520](https://github.com/jfrancoiscollin/dilf/actions/runs/46159400520), job 141023097475 success : 126 tests et reproduction du résumé à l’octet. Artefact 15268659194 téléchargé, ZIP 2442 octets SHA-256 39e41d53c9183b16e7aa115bb0a973d0cf9c7f3d03fdb5bdf433b21cb24e4445 conforme GitHub. Résumé 2127 octets SHA-256 c4403d6597135eb48378e0661d9c277b3337d70f112353dd193ec48997442d9e identique au local ; toutes les enveloppes et audits bruts locaux/distants revérifiés hors ligne. ZIP distant complet et reçu structuré `validation/q3-warm-batch-ci-proof-2026-11-28.json` versionnés. Les horloges locales et distantes restent des mesures distinctes, sans comparaison de vitesse. Les API froides, sources/patches/recettes Jass et anciens résultats restent inchangés.
 
 ## Décision suivante
 

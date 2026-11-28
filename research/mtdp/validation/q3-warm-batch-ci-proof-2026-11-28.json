@@ -1,0 +1,53 @@
+{
+  "actual_jass_warm_cache_validated": false,
+  "all_local_and_remote_raw_costs_reverified": true,
+  "artifact_id": 15268659194,
+  "attempted_queries_per_host": 5,
+  "conclusion": "success",
+  "contract_bytes": 2127,
+  "contract_identical_local_remote_and_versioned": true,
+  "contract_sha256": "c4403d6597135eb48378e0661d9c277b3337d70f112353dd193ec48997442d9e",
+  "engine_calls": 0,
+  "external_primary_envelopes_include_recorder_cost": true,
+  "failures_deliberately_simulated": true,
+  "github_zip_digest_verified": true,
+  "implementation_commit": "196ab4e46f074632344deb08d50f33240ddf899e",
+  "new_batch_tests": 16,
+  "new_cohorts_reserved": false,
+  "new_scan_scores": 0,
+  "new_signature_campaigns": 0,
+  "next_decision": "Require independent Q1/Q2 candidate/cache/action-map/admission packet before real warm-cache integration or efficacy campaign; do not replace it with more toy profiles.",
+  "planned_slots_per_host": 6,
+  "quality_or_compute_gain_established": false,
+  "question": "Q3",
+  "remote_files": {
+    "run/contract.json": {
+      "bytes": 2127,
+      "sha256": "c4403d6597135eb48378e0661d9c277b3337d70f112353dd193ec48997442d9e"
+    },
+    "run/traces.json": {
+      "bytes": 7703,
+      "sha256": "68b1110e08f0d8f91369968572e513a2c01665415dbbd1dd0755144a92eaccbd"
+    },
+    "runtime.txt": {
+      "bytes": 15,
+      "sha256": "9d0ae83e540febd225949f3df4aba97c7a9f79fcf745d6c835780f52a57b50cf"
+    },
+    "tests.log": {
+      "bytes": 180,
+      "sha256": "e8d0ab789e9da2e9e51b5393e0dd9d31cde2f23c81a354f9f076dcc074b2a91e"
+    }
+  },
+  "remote_runtime": "Python 3.12.16",
+  "schema": "mtdp-q3-warm-batch-ci-proof-v1",
+  "source_sha256": {
+    "q3_warm_batch.py": "f97459d3cab98f284a0b94512aab6e5742deeccb9b81b8021875ecf5e4a6cddd",
+    "q3_warm_batch_smoke.py": "e9e7b292889fc352d44611ad06801005d3da49f11bb8d11d8143f3d1a4c12b96"
+  },
+  "synthetic_only": true,
+  "unit_tests": 126,
+  "workflow_job": 141023097475,
+  "workflow_run": 46159400520,
+  "zip_bytes": 2442,
+  "zip_sha256": "39e41d53c9183b16e7aa115bb0a973d0cf9c7f3d03fdb5bdf433b21cb24e4445"
+}
