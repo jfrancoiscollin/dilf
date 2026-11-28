@@ -1,0 +1,73 @@
+{
+  "actual_jass_warm_cache_validated": false,
+  "attempted_queries": 5,
+  "engine_calls": 0,
+  "failures_are_deliberately_simulated": true,
+  "new_cohorts_reserved": false,
+  "new_scan_scores": 0,
+  "new_signatures": 0,
+  "next_decision": "Require a separately validated Q1/Q2 candidate and its cache definition/admission packet before real warm-cache integration or a quality/cost campaign.",
+  "planned_slots": 6,
+  "quality_or_compute_gain_established": false,
+  "question": "Q3",
+  "scenarios": [
+    {
+      "all_cost_envelopes_reconcile": true,
+      "all_planned_succeeded": false,
+      "attempted_queries": 3,
+      "cache_counts": {
+        "bypass": 1,
+        "hit": 1,
+        "miss": 1,
+        "not_run": 0
+      },
+      "eligible_for_quality_comparison": false,
+      "outer_includes_recorder_finalization": true,
+      "payload_bytes": 1,
+      "payload_is_peak_memory": false,
+      "planned_queries": 3,
+      "primary_amortization_uses_outer_envelope": true,
+      "scenario": 0,
+      "setup_amortization_denominator": 3,
+      "status_counts": {
+        "completed": 1,
+        "error": 1,
+        "fallback": 1,
+        "not_run": 0,
+        "timeout": 0
+      },
+      "total_amortization_denominator": 3,
+      "total_measured_nodes": 0
+    },
+    {
+      "all_cost_envelopes_reconcile": true,
+      "all_planned_succeeded": false,
+      "attempted_queries": 2,
+      "cache_counts": {
+        "bypass": 1,
+        "hit": 1,
+        "miss": 0,
+        "not_run": 1
+      },
+      "eligible_for_quality_comparison": false,
+      "outer_includes_recorder_finalization": true,
+      "payload_bytes": 1,
+      "payload_is_peak_memory": false,
+      "planned_queries": 3,
+      "primary_amortization_uses_outer_envelope": true,
+      "scenario": 1,
+      "setup_amortization_denominator": 3,
+      "status_counts": {
+        "completed": 1,
+        "error": 0,
+        "fallback": 0,
+        "not_run": 1,
+        "timeout": 1
+      },
+      "total_amortization_denominator": 3,
+      "total_measured_nodes": 0
+    }
+  ],
+  "schema": "mtdp-q3-warm-batch-synthetic-contract-v1",
+  "synthetic_only": true
+}

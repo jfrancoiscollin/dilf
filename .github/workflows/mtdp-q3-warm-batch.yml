@@ -1,0 +1,44 @@
+name: mtdp-q3-warm-batch
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-q3-warm-batch.yml
+      - research/mtdp/jass_benchmark/q3_warm_batch.py
+      - research/mtdp/jass_benchmark/q3_warm_batch_smoke.py
+      - research/mtdp/tests/test_q3_warm_batch.py
+      - research/mtdp/validation/q3-warm-batch-contract-2026-11-28.json
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mtdp-q3-warm-batch
+  cancel-in-progress: false
+jobs:
+  synthetic-batch-accounting:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pytest==9.2.0
+      - name: Batch and unchanged cold/native/budget regressions
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/q3-warm-evidence
+          python -m pytest -q research/mtdp/tests/test_q3_warm_batch.py research/mtdp/tests/test_q3_cost_receipt.py research/mtdp/tests/test_q3_native_binding.py research/mtdp/tests/test_q3_native_binding_evidence.py research/mtdp/tests/test_metered_engine_smoke.py research/mtdp/tests/test_total_budget.py | tee /tmp/q3-warm-evidence/tests.log
+      - name: Two CPU-only synthetic scenarios, zero engine calls
+        run: |
+          set -euo pipefail
+          python -m research.mtdp.jass_benchmark.q3_warm_batch_smoke --output-dir /tmp/q3-warm-evidence/run
+          cmp /tmp/q3-warm-evidence/run/contract.json research/mtdp/validation/q3-warm-batch-contract-2026-11-28.json
+          python --version > /tmp/q3-warm-evidence/runtime.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mtdp-q3-warm-batch
+          path: /tmp/q3-warm-evidence/
+          if-no-files-found: warn
+          retention-days: 30
