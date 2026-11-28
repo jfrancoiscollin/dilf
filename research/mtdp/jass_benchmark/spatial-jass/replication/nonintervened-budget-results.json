@@ -1,0 +1,315 @@
+{
+  "actual_nodes_per_execution": 1298242,
+  "contexts": 3,
+  "limitations": [
+    "post_hoc_known_depth_loss_witness_not_independent_validation",
+    "Jass_scores_at_different_depths_are_not_Scan_regrets",
+    "original_nine_intervention_mask_unchanged"
+  ],
+  "rows": [
+    {
+      "case": {
+        "budget": 10000,
+        "event": "D9PF2OSW",
+        "fen": "B:W26,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+        "owner": "mtdp-lidraughts-D9PF2OSW.pdn:59",
+        "path": "D9PF2OSW/10000/00005.json",
+        "reported_intervention": null,
+        "verification_nodes": 293
+      },
+      "comparisons": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 8,
+          "depth_delta": -1,
+          "same_final_move": true,
+          "same_main_nodes": false
+        },
+        "control_vs_LCB_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 8,
+          "depth_delta": -1,
+          "same_final_move": true,
+          "same_main_nodes": false
+        },
+        "order_at_full_budget": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": true
+        },
+        "order_at_residual_budget": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": true
+        }
+      },
+      "control_LCB_residual_entire_trace_identical": true,
+      "depth_interaction_LCB_minus_native": 0,
+      "final": {
+        "LCB_full": {
+          "best_move": "20-24",
+          "completed_depth": 9,
+          "depth_ceiling": false,
+          "nodes": 10000,
+          "score": 3,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "20-24",
+          "completed_depth": 8,
+          "depth_ceiling": false,
+          "nodes": 9707,
+          "score": 11,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "20-24",
+          "completed_depth": 8,
+          "depth_ceiling": false,
+          "nodes": 9707,
+          "score": 11,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "20-24",
+          "completed_depth": 9,
+          "depth_ceiling": false,
+          "nodes": 10000,
+          "score": 3,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "20-24",
+          "completed_depth": 8,
+          "depth_ceiling": false,
+          "nodes": 9707,
+          "score": 11,
+          "stop": "nodes"
+        }
+      },
+      "fresh_unique_best": "16-21",
+      "full_budget_depth_completion_nodes": {
+        "LCB_full": {
+          "completion_nodes_after": 9980,
+          "full_completed_depth": 9,
+          "residual_limit": 9707
+        },
+        "native_full": {
+          "completion_nodes_after": 9932,
+          "full_completed_depth": 9,
+          "residual_limit": 9707
+        }
+      }
+    },
+    {
+      "case": {
+        "budget": 50000,
+        "event": "D9PF2OSW",
+        "fen": "B:W26,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+        "owner": "mtdp-lidraughts-D9PF2OSW.pdn:59",
+        "path": "D9PF2OSW/50000/00005.json",
+        "reported_intervention": null,
+        "verification_nodes": 293
+      },
+      "comparisons": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": false
+        },
+        "control_vs_LCB_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": false
+        },
+        "order_at_full_budget": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": true
+        },
+        "order_at_residual_budget": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": true
+        }
+      },
+      "control_LCB_residual_entire_trace_identical": true,
+      "depth_interaction_LCB_minus_native": 0,
+      "final": {
+        "LCB_full": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 50000,
+          "score": 0,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 49707,
+          "score": 0,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 49707,
+          "score": 0,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 50000,
+          "score": 0,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "20-24",
+          "completed_depth": 11,
+          "depth_ceiling": false,
+          "nodes": 49707,
+          "score": 0,
+          "stop": "nodes"
+        }
+      },
+      "fresh_unique_best": "16-21",
+      "full_budget_depth_completion_nodes": {
+        "LCB_full": {
+          "completion_nodes_after": 29669,
+          "full_completed_depth": 11,
+          "residual_limit": 49707
+        },
+        "native_full": {
+          "completion_nodes_after": 29621,
+          "full_completed_depth": 11,
+          "residual_limit": 49707
+        }
+      }
+    },
+    {
+      "case": {
+        "budget": 200000,
+        "event": "D9PF2OSW",
+        "fen": "B:W26,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+        "owner": "mtdp-lidraughts-D9PF2OSW.pdn:59",
+        "path": "D9PF2OSW/200000/00005.json",
+        "reported_intervention": null,
+        "verification_nodes": 293
+      },
+      "comparisons": {
+        "LCB_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": false
+        },
+        "control_vs_LCB_residual": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": true
+        },
+        "native_budget_effect": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": false
+        },
+        "order_at_full_budget": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": true
+        },
+        "order_at_residual_budget": {
+          "Jass_score_delta": 0,
+          "depth_delta": 0,
+          "same_final_move": true,
+          "same_main_nodes": true
+        }
+      },
+      "control_LCB_residual_entire_trace_identical": true,
+      "depth_interaction_LCB_minus_native": 0,
+      "final": {
+        "LCB_full": {
+          "best_move": "18-22",
+          "completed_depth": 14,
+          "depth_ceiling": false,
+          "nodes": 200000,
+          "score": 0,
+          "stop": "nodes"
+        },
+        "LCB_residual": {
+          "best_move": "18-22",
+          "completed_depth": 14,
+          "depth_ceiling": false,
+          "nodes": 199707,
+          "score": 0,
+          "stop": "nodes"
+        },
+        "control": {
+          "best_move": "18-22",
+          "completed_depth": 14,
+          "depth_ceiling": false,
+          "nodes": 199707,
+          "score": 0,
+          "stop": "nodes"
+        },
+        "native_full": {
+          "best_move": "18-22",
+          "completed_depth": 14,
+          "depth_ceiling": false,
+          "nodes": 200000,
+          "score": 0,
+          "stop": "nodes"
+        },
+        "native_residual": {
+          "best_move": "18-22",
+          "completed_depth": 14,
+          "depth_ceiling": false,
+          "nodes": 199707,
+          "score": 0,
+          "stop": "nodes"
+        }
+      },
+      "fresh_unique_best": "16-21",
+      "full_budget_depth_completion_nodes": {
+        "LCB_full": {
+          "completion_nodes_after": 170920,
+          "full_completed_depth": 14,
+          "residual_limit": 199707
+        },
+        "native_full": {
+          "completion_nodes_after": 170872,
+          "full_completed_depth": 14,
+          "residual_limit": 199707
+        }
+      }
+    }
+  ],
+  "schema": "mtdp-nonintervened-witness-analysis-v1",
+  "scope": "post_hoc_one_known_depth_loss_position_all_three_budgets_not_independent_validation",
+  "target_references_opened": 0,
+  "unique_positions": 1
+}

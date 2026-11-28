@@ -1,0 +1,350 @@
+name: mtdp-preregistered-candidate-replay
+
+# Runs only on the new candidate replay module/protocol edits or explicit manual dispatch.
+# Historical PDNs are restored from verified pinned bytes; never a new acquisition.
+# No Scan-16 outcome or real new holdout is produced by this rehearsal.
+on:
+  pull_request:
+    paths:
+      - 'research/mtdp/jass_benchmark/historical_replay_inputs.py'
+      - 'research/mtdp/closed_reserved_exclusions.py'
+      - 'research/mtdp/historical_trajectory_gate.py'
+      - 'research/mtdp/historical_alias_gate.py'
+      - 'research/mtdp/historical_archive_coverage.py'
+      - 'research/mtdp/tests/test_historical_archive_coverage.py'
+      - 'research/mtdp/validation/historical-archive-cache-coverage-2026-11-23.json'
+      - 'research/mtdp/authenticated_corpus_bridge.py'
+      - 'research/mtdp/tests/test_authenticated_corpus_bridge.py'
+      - 'research/mtdp/tests/test_historical_alias_gate.py'
+      - 'research/mtdp/tests/test_historical_trajectory_gate.py'
+      - 'research/mtdp/historical_fen_bridge.py'
+      - 'research/mtdp/tests/test_historical_fen_bridge.py'
+      - 'research/mtdp/prospective_source_preflight.py'
+      - 'research/mtdp/tests/test_closed_reserved_exclusions.py'
+      - 'research/mtdp/historical_exclusion_inventory_audit.py'
+      - 'research/mtdp/reserved_source_inventory.py'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-final/**'
+      - 'research/mtdp/tests/test_historical_replay_inputs.py'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/historical-replay/**'
+      - 'research/mtdp/jass_benchmark/prospective_candidate_replay.py'
+      - 'research/mtdp/jass_benchmark/candidate_ambiguities.py'
+      - 'research/mtdp/jass_benchmark/candidate_jass_catalogue.py'
+      - 'research/mtdp/jass_benchmark/named_arena_inputs.py'
+      - 'research/mtdp/jass_benchmark/named_arena_replay.py'
+      - 'research/mtdp/jass_benchmark/named_arena_acquisition.py'
+      - 'research/mtdp/jass_benchmark/named_freeze_bundle.py'
+      - 'research/mtdp/jass_benchmark/named_arena_rehearsal.py'
+      - 'research/mtdp/jass_benchmark/named_arena_execution.py'
+      - 'research/mtdp/jass_benchmark/named_metered_campaign.py'
+      - 'research/mtdp/tests/test_named_metered_campaign.py'
+      - 'research/mtdp/jass_benchmark/named_campaign_quality.py'
+      - 'research/mtdp/tests/test_named_campaign_quality.py'
+      - 'research/mtdp/jass_benchmark/named_source16_sensitivity.py'
+      - 'research/mtdp/tests/test_named_source16_sensitivity.py'
+      - 'research/mtdp/jass_benchmark/named_signature_annotation.py'
+      - 'research/mtdp/tests/test_named_signature_annotation.py'
+      - 'research/mtdp/jass_benchmark/two_arena_registration.py'
+      - 'research/mtdp/tests/test_two_arena_registration.py'
+      - 'research/mtdp/jass_benchmark/two_arena_exclusions.py'
+      - 'research/mtdp/tests/test_two_arena_exclusions.py'
+      - 'research/mtdp/jass_benchmark/two_arena_depth20.py'
+      - 'research/mtdp/tests/test_two_arena_depth20.py'
+      - 'research/mtdp/jass_benchmark/two_arena_analysis.py'
+      - 'research/mtdp/tests/test_two_arena_analysis.py'
+      - 'research/mtdp/jass_benchmark/two_arena_execution.py'
+      - 'research/mtdp/tests/test_two_arena_execution.py'
+      - 'research/mtdp/jass_benchmark/two_arena_freeze.py'
+      - 'research/mtdp/tests/test_two_arena_freeze.py'
+      - 'research/mtdp/jass_benchmark/two_arena_replay.py'
+      - 'research/mtdp/jass_benchmark/two_arena_rehearsal.py'
+      - 'research/mtdp/tests/test_two_arena_replay.py'
+      - 'research/mtdp/jass_benchmark/two_arena_acquisition.py'
+      - 'research/mtdp/tests/test_two_arena_acquisition.py'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-20261118-exclusions-summary.json'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-20261118-registration.json'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/TWO_NAMED_ARENAS_PREREGISTRATION_2026-11-18.md'
+      - 'research/mtdp/tests/test_named_arena_execution.py'
+      - 'research/mtdp/tests/test_named_arena_acquisition.py'
+      - 'research/mtdp/tests/test_named_freeze_bundle.py'
+      - 'research/mtdp/tests/test_named_arena_replay.py'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-trajectory-index-summary.json'
+      - 'research/mtdp/tests/test_named_arena_inputs.py'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-exclusion-inputs-summary.json'
+      - 'research/mtdp/tests/test_candidate_jass_catalogue.py'
+      - 'research/mtdp/tests/test_candidate_ambiguities.py'
+      - 'research/mtdp/tests/test_prospective_candidate_replay.py'
+      - '.github/workflows/mtdp-preregistered-candidate-replay.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mtdp-independent-candidate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  fmjd-replay-and-exclusions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PYTHONPATH: ${{ github.workspace }}/dilf:${{ github.workspace }}/draught-master
+    steps:
+      - name: Check out DILF research only
+        uses: actions/checkout@v4
+        with:
+          path: dilf
+      - name: Check out pinned FMJD engine adapter
+        uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: draught-master
+      - name: Check out pinned Jass for legal catalogues only
+        uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/jass
+          ref: cfe07fce6385b980553a898e9651d53419589ebc
+          path: jass
+      - name: Check out exact Scan binary for initial-position engineering smoke only
+        uses: actions/checkout@v4
+        with:
+          repository: rhalbersma/scan
+          ref: 7aae17e7b7bfc47744601afb1ee7655e18983ce5
+          path: scan
+      - name: Build legal catalogue without search or scoring
+        run: |
+          set -euo pipefail
+          cmake -S jass -B /tmp/mtdp-catalogue-build -DCMAKE_BUILD_TYPE=Release \
+            -DJASS_ENABLE_SIMD=OFF -DJASS_NATIVE=OFF \
+            -DCMAKE_PROJECT_jass_INCLUDE="$GITHUB_WORKSPACE/dilf/research/mtdp/jass_preflight/targets.cmake"
+          cmake --build /tmp/mtdp-catalogue-build --target mtdp_jass_legal_catalogue -j 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned research dependencies
+        run: |
+          set -euo pipefail
+          pip install -e './dilf[dev,extract,explanations]'
+          sed '/dilf/d' draught-master/backend/requirements.txt > /tmp/mtdp-backend-requirements.txt
+          pip install -r /tmp/mtdp-backend-requirements.txt
+          pip install -r draught-master/requirements-dev.txt
+      - name: Verify Scan pins and execute initial-position depth 12 and 16 smoke
+        run: |
+          set -euo pipefail
+          cd dilf
+          python - <<'PY'
+          import json
+          import time
+          from pathlib import Path
+          from pedagogy.game import parse_fen
+          from research.mtdp.best_move_audit import Scan
+          from research.mtdp.jass_benchmark.named_arena_execution import scan_fingerprints
+          from research.mtdp.jass_cohort import SCAN_SHA256
+          binary = Path('../scan/scan_linux')
+          fingerprints = scan_fingerprints(binary, {'scan_binary_sha256': SCAN_SHA256})
+          state = parse_fen('W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')
+          observed = []
+          for depth in (12, 16):
+              started = time.monotonic()
+              with Scan(binary, depth=depth) as scan:
+                  score = scan.score(state)
+              observed.append({'depth': depth, 'score': score, 'wall_seconds': round(time.monotonic() - started, 3)})
+          report = {'schema': 'mtdp-scan-engineering-smoke-v1', 'scientific_freeze': False,
+                    'scope': 'standard_initial_position_engine_startup_only_no_cohort_result',
+                    'fingerprints': fingerprints, 'observed': observed}
+          output = Path('/tmp/mtdp-independent/scan-engineering-smoke.json')
+          output.parent.mkdir(parents=True, exist_ok=True)
+          output.write_text(json.dumps(report, sort_keys=True, indent=2) + '\n')
+          print(json.dumps(report, sort_keys=True))
+          PY
+      - name: Restore exact historical PDNs for archival replay only
+        run: |
+          set -euo pipefail
+          cd dilf
+          python -m research.mtdp.jass_benchmark.historical_replay_inputs --root . --output /tmp/mtdp-independent
+      - name: Run FMJD legal replay, archive FEN and whole-game independence gate
+        run: |
+          set -euo pipefail
+          cd dilf
+          python -m pytest -q research/mtdp/tests/test_historical_replay_inputs.py research/mtdp/tests/test_prospective_candidate_replay.py research/mtdp/tests/test_candidate_ambiguities.py research/mtdp/tests/test_candidate_jass_catalogue.py research/mtdp/tests/test_named_arena_inputs.py research/mtdp/tests/test_named_arena_replay.py research/mtdp/tests/test_named_arena_acquisition.py research/mtdp/tests/test_named_freeze_bundle.py research/mtdp/tests/test_named_arena_execution.py research/mtdp/tests/test_named_metered_campaign.py research/mtdp/tests/test_metered_engine_smoke.py research/mtdp/tests/test_named_campaign_quality.py research/mtdp/tests/test_named_source16_sensitivity.py research/mtdp/tests/test_named_signature_annotation.py research/mtdp/tests/test_two_arena_registration.py research/mtdp/tests/test_two_arena_exclusions.py research/mtdp/tests/test_two_arena_acquisition.py research/mtdp/tests/test_two_arena_replay.py research/mtdp/tests/test_two_arena_freeze.py research/mtdp/tests/test_two_arena_execution.py research/mtdp/tests/test_two_arena_analysis.py research/mtdp/tests/test_two_arena_depth20.py
+          python -m research.mtdp.jass_benchmark.prospective_candidate_replay \
+            --root . \
+            --pdn /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
+            --history /tmp/mtdp-independent/previous-pdn \
+            --output /tmp/mtdp-independent/candidate-replay.json
+          python -m research.mtdp.jass_benchmark.candidate_ambiguities \
+            --pdn /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
+            --adapter ../draught-master \
+            --output /tmp/mtdp-independent/candidate-ambiguities.json
+          cmp /tmp/mtdp-independent/candidate-ambiguities.json \
+            research/mtdp/jass_benchmark/spatial-jass/replication/fFgE7oED-ambiguities.json
+          python -m research.mtdp.jass_benchmark.candidate_jass_catalogue \
+            --replay /tmp/mtdp-independent/candidate-replay.json \
+            --executable /tmp/mtdp-catalogue-build/mtdp_jass_legal_catalogue \
+            --jass ../jass --adapter ../draught-master \
+            --output /tmp/mtdp-independent/candidate-jass-catalogue.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected = json.loads(Path('research/mtdp/jass_benchmark/spatial-jass/replication/fFgE7oED-jass-catalogue.json').read_bytes())
+          actual = json.loads(Path('/tmp/mtdp-independent/candidate-jass-catalogue.json').read_bytes())
+          # Compiler/platform may change the executable bytes; all action mappings must match.
+          expected.pop('executable_sha256')
+          actual.pop('executable_sha256')
+          assert actual == expected, 'Candidate action mappings or provenance changed'
+          PY
+          python -m research.mtdp.jass_benchmark.named_arena_inputs registry \
+            --root . --history /tmp/mtdp-independent/previous-pdn \
+            --reserved /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
+            --adapter ../draught-master \
+            --output /tmp/mtdp-independent/P1RUlfJc-exclusions.json
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          expected = json.loads(Path('research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-exclusion-inputs-summary.json').read_bytes())
+          actual = Path('/tmp/mtdp-independent/P1RUlfJc-exclusions.json').read_bytes()
+          assert hashlib.sha256(actual).hexdigest() == expected['registry_sha256']
+          PY
+          python -m research.mtdp.jass_benchmark.named_arena_replay history \
+            --root . --registry /tmp/mtdp-independent/P1RUlfJc-exclusions.json \
+            --history /tmp/mtdp-independent/previous-pdn \
+            --reserved /tmp/mtdp-independent/mtdp-lidraughts-fFgE7oED.pdn \
+            --adapter ../draught-master \
+            --output /tmp/mtdp-independent/P1RUlfJc-canonical-history.json
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          expected = json.loads(Path('research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-trajectory-index-summary.json').read_bytes())
+          actual = Path('/tmp/mtdp-independent/P1RUlfJc-canonical-history.json').read_bytes()
+          assert hashlib.sha256(actual).hexdigest() == expected['index_sha256']
+          PY
+          python -m research.mtdp.jass_benchmark.two_arena_registration check --root .
+          for seed in 7 61; do
+            if [ "$seed" = 7 ]; then output=/tmp/mtdp-independent/two-arena-exclusions.json; else output=/tmp/two-arena-exclusions-repeat.json; fi
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.two_arena_exclusions \
+              --root . --base-registry /tmp/mtdp-independent/P1RUlfJc-exclusions.json \
+              --base-index /tmp/mtdp-independent/P1RUlfJc-canonical-history.json \
+              --adapter ../draught-master --output "$output"
+          done
+          cmp /tmp/mtdp-independent/two-arena-exclusions.json /tmp/two-arena-exclusions-repeat.json
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          expected = json.loads(Path('research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-20261118-exclusions-summary.json').read_bytes())
+          raw = Path('/tmp/mtdp-independent/two-arena-exclusions.json').read_bytes()
+          observed = hashlib.sha256(raw).hexdigest()
+          assert observed == expected['exclusions_sha256']
+          Path('/tmp/mtdp-independent/two-arena-exclusions-reproduction.json').write_text(json.dumps({'hash_seeds': [7, 61], 'identical': True, 'sha256': observed, 'scientific_freeze': False}, sort_keys=True, indent=2) + '\n')
+          PY
+          for seed in 7 61; do
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.named_arena_rehearsal \
+              --root . --registry /tmp/mtdp-independent/P1RUlfJc-exclusions.json \
+              --index /tmp/mtdp-independent/P1RUlfJc-canonical-history.json \
+              --adapter ../draught-master --jass ../jass \
+              --executable /tmp/mtdp-catalogue-build/mtdp_jass_legal_catalogue \
+              --output /tmp/mtdp-independent/synthetic-rehearsal-seed$seed
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          reports = [json.loads(Path(f'/tmp/mtdp-independent/synthetic-rehearsal-seed{seed}/rehearsal-report.json').read_bytes()) for seed in (7, 61)]
+          for key in ('proposal_sha256', 'manifest_sha256', 'publication_sha256'):
+              assert reports[0][key] == reports[1][key], f'Synthetic reproduction differs: {key}'
+          assert all(r['synthetic_rehearsal'] and not r['scientific_freeze'] and r['production_validator_refused'] for r in reports)
+          PY
+          python - <<'PY'
+          import gzip
+          import hashlib
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path('research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-runner-builds.json').read_bytes())['binaries']['catalogue']
+          archive = Path(receipt['archive_path']).read_bytes()
+          assert hashlib.sha256(archive).hexdigest() == receipt['archive_sha256']
+          raw = gzip.decompress(archive)
+          assert hashlib.sha256(raw).hexdigest() == receipt['sha256']
+          destination = Path('/tmp/mtdp-two-arena-archived-catalogue')
+          destination.write_bytes(raw)
+          destination.chmod(0o755)
+          PY
+          for seed in 7 61; do
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.two_arena_rehearsal \
+              --root . --exclusions /tmp/mtdp-independent/two-arena-exclusions.json \
+              --adapter ../draught-master --executable /tmp/mtdp-two-arena-archived-catalogue \
+              --output /tmp/mtdp-independent/two-arena-synthetic-seed$seed
+          done
+          cmp /tmp/mtdp-independent/two-arena-synthetic-seed7/synthetic-proposal.json /tmp/mtdp-independent/two-arena-synthetic-seed61/synthetic-proposal.json
+          cmp /tmp/mtdp-independent/two-arena-synthetic-seed7/bundle/manifest.json /tmp/mtdp-independent/two-arena-synthetic-seed61/bundle/manifest.json
+          cmp /tmp/mtdp-independent/two-arena-synthetic-seed7/bundle/publication.json /tmp/mtdp-independent/two-arena-synthetic-seed61/bundle/publication.json
+          echo 'No Scan scores or retrospective winners used; this report is NOT a scientific freeze.'
+      - name: Extend historical exclusions with closed reserved exports (no scores)
+        run: |
+          set -euo pipefail
+          cd dilf
+          python -m pytest -q research/mtdp/tests/test_closed_reserved_exclusions.py
+          for seed in 7 61; do
+            if [ "$seed" = 7 ]; then
+              output=/tmp/mtdp-independent/four-reserved-events-exclusions.json
+              summary=/tmp/mtdp-independent/four-reserved-events-exclusions-summary.json
+            else
+              output=/tmp/four-reserved-events-exclusions-repeat.json
+              summary=/tmp/four-reserved-events-exclusions-summary-repeat.json
+            fi
+            PYTHONHASHSEED=$seed python -m research.mtdp.closed_reserved_exclusions \
+              --root . --base-dir /tmp/mtdp-independent --adapter ../draught-master \
+              --output "$output" --summary "$summary"
+          done
+          cmp /tmp/mtdp-independent/four-reserved-events-exclusions.json /tmp/four-reserved-events-exclusions-repeat.json
+          cmp /tmp/mtdp-independent/four-reserved-events-exclusions-summary.json /tmp/four-reserved-events-exclusions-summary-repeat.json
+          python -m research.mtdp.historical_fen_bridge \
+            --cache /tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            --output /tmp/mtdp-independent/historical-fen-bridge-audit.json
+          MTDP_HISTORICAL_FEN_CACHE=/tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            MTDP_REQUIRE_HISTORICAL_FEN_CACHE=1 \
+            python -m pytest -q research/mtdp/tests/test_historical_fen_bridge.py
+          python -m research.mtdp.historical_trajectory_gate \
+            --cache /tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            --pdn data/exports/pcblues/pcblues_games.pdn \
+            --pdn-sha256 025ad0a1a9ddcf508e3284eef65eb1cf76ebf7763d1241a127432f99eac3d8be \
+            --adapter ../draught-master \
+            --output /tmp/mtdp-independent/historical-complete-trajectory-audit.json
+          cmp /tmp/mtdp-independent/historical-complete-trajectory-audit.json research/mtdp/validation/historical-complete-trajectory-audit-2026-11-21.json
+          MTDP_HISTORICAL_FEN_CACHE=/tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            MTDP_HISTORICAL_ADAPTER=../draught-master \
+            MTDP_REQUIRE_HISTORICAL_TRAJECTORIES=1 \
+            python -m pytest -q research/mtdp/tests/test_historical_trajectory_gate.py
+      - name: Reconcile pinned historical public IDs and normalized notations (no scores)
+        run: |
+          set -euo pipefail
+          cd dilf
+          MTDP_HISTORICAL_FEN_CACHE=/tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            MTDP_HISTORICAL_ADAPTER=../draught-master \
+            MTDP_REQUIRE_HISTORICAL_ALIASES=1 \
+            python -m pytest -q research/mtdp/tests/test_historical_alias_gate.py research/mtdp/tests/test_prospective_source_preflight.py research/mtdp/tests/test_authenticated_corpus_bridge.py
+          python -m research.mtdp.historical_alias_gate \
+            --root . --adapter ../draught-master \
+            --cache /tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            --output /tmp/mtdp-independent/historical-source-alias-reconciliation.json
+          cmp /tmp/mtdp-independent/historical-source-alias-reconciliation.json research/mtdp/validation/historical-source-alias-reconciliation-2026-11-22.json
+      - name: Verify old archived FENs are covered by the known historical cache
+        run: |
+          set -euo pipefail
+          cd dilf
+          MTDP_HISTORICAL_FEN_CACHE=/tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            MTDP_REQUIRE_HISTORICAL_ALIASES=1 \
+            python -m unittest -q research.mtdp.tests.test_historical_archive_coverage
+          python -m research.mtdp.historical_archive_coverage --root . \
+            --cache /tmp/mtdp-independent/four-reserved-events-exclusions.json \
+            --output /tmp/mtdp-independent/historical-archive-cache-coverage.json
+          cmp /tmp/mtdp-independent/historical-archive-cache-coverage.json research/mtdp/validation/historical-archive-cache-coverage-2026-11-23.json
+      - name: Preserve all input provenance and prospective replay diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          path: /tmp/mtdp-independent/
+          retention-days: 30
+          if-no-files-found: warn

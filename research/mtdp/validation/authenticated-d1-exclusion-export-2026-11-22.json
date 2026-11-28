@@ -1,0 +1,17 @@
+{
+  "canonical_hash_contract": "sha256_utf8_canonical_fen_no_newline",
+  "complete_historical_exclusion_registry": false,
+  "derived_registry_sha256": "ccc7ee399ed496c104c4ee2f870d91b042b1adcaf1ad32c5369cf6a5ecb15ddd",
+  "exclusion_counts": {
+    "canonical_sha256": 452526,
+    "game_ids": 4790,
+    "raw_sha256": 25,
+    "trajectory_sha256": 4468
+  },
+  "external_event_identity_authenticated": false,
+  "historical_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "independent_cohort_qualified": false,
+  "registry_serialization": "json_sorted_keys_compact_utf8_with_terminal_newline",
+  "schema": "mtdp-authenticated-d1-exclusion-export-v1",
+  "scientific_freeze": false
+}

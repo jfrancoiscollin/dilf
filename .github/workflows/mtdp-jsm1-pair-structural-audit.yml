@@ -1,0 +1,46 @@
+name: mtdp-jsm1-pair-structural-audit
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-jsm1-pair-structural-audit.yml
+      - research/mtdp/jsm1_pair_audit.py
+      - research/mtdp/tests/test_jsm1_pair_audit.py
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mtdp-jsm1-pair-structural-audit
+  cancel-in-progress: false
+jobs:
+  structural-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run synthetic corruption and non-admission tests
+        run: python -m unittest research.mtdp.tests.test_jsm1_pair_audit
+      - name: Checkout pinned published inputs without R2 access
+        uses: actions/checkout@v4
+        with:
+          ref: 4ae90c3932f7cb0a10b5df27cfbd73cd220b6139
+          path: snapshot-data
+          sparse-checkout: data/r2_positions/2026-11-21
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+      - name: Verify six structural pairs without semantic admission
+        run: |
+          mkdir -p .cache/mtdp
+          python -m research.mtdp.jsm1_pair_audit \
+            --root snapshot-data/data/r2_positions/2026-11-21 \
+            --output .cache/mtdp/jsm1-pair-structural-audit.json
+          sha256sum .cache/mtdp/jsm1-pair-structural-audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-jsm1-pair-structural-audit
+          path: .cache/mtdp/jsm1-pair-structural-audit.json
+          if-no-files-found: error
+          retention-days: 30

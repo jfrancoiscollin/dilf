@@ -1,0 +1,14 @@
+{
+  "D1_aggregate_and_cluster_bootstrap_tests_passed": 13,
+  "byte_identical": true,
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "independent_raw_cells_checked": 104,
+  "new_engine_searches": 0,
+  "new_independent_cohort": false,
+  "results_sha256": "74a49c006161302384a062784bbebef0f7ebf9b2c7ce99557b39f09051110c9d",
+  "schema": "mtdp-crossed-depth-local-reproduction-v1",
+  "targeted_tests_passed": 233
+}

@@ -1,0 +1,36 @@
+{
+  "archived_control_total_nodes": 9880000,
+  "archived_verification_nodes": 20259,
+  "arm_elapsed_ns_fields": {
+    "control_main": 0,
+    "lcb_baseline": 0,
+    "native_baseline": 0
+  },
+  "budgets": [
+    10000,
+    50000,
+    200000
+  ],
+  "cache_setup_mode_fields": 0,
+  "complete_phase_timing_fields": 0,
+  "complete_sha256": "f1d898d71288484ef270168a574d9213a58389272a12f1a2c74cf3992eb53868",
+  "decisions_commit": "03b1a270b12244a03df715f265f597bd0f00cd50",
+  "engine_searches": 0,
+  "fixed_quality_cost_reduction_established": false,
+  "historical_negative_quality_conclusions_unchanged": true,
+  "independent_cohort_qualified": false,
+  "new_cohorts_reserved": false,
+  "new_signatures_computed": 0,
+  "new_target_scores_opened": 0,
+  "next_decision": "Retain old equal-node result; use explicit total-cost receipts only after Q1/Q2 gate, never reconstruct missing times from nodes.",
+  "node_accounting_reproduced": true,
+  "outer_elapsed_ns_fields": 0,
+  "position_budget_receipts": 114,
+  "question": "Q3",
+  "reproduced_node_audit_sha256": "95a5cade6055ceca051f8751b12f486c0fece6e633e6563b6b679c3dc477f63c",
+  "schema": "mtdp-q3-archived-cost-coverage-v1",
+  "scope": "existing frozen two-arena node receipts only; no new efficacy population",
+  "time_missing_is_not_zero": true,
+  "unique_positions": 38,
+  "wall_time_gain_established": false
+}

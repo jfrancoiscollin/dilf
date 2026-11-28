@@ -1,0 +1,171 @@
+{
+  "all_final_inputs_gate_utc": "2026-11-19T02:57:00+00:00",
+  "analysis": {
+    "bootstrap_owner": "lexicographically_smallest_frozen_game_owner",
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 20261113,
+    "bootstrap_unit": "whole_game_stratified_by_registered_arena",
+    "geometry_source_scan_successor_depth": 16,
+    "percentile_indices": [
+      249,
+      9749
+    ],
+    "primary_total_node_budget": 50000,
+    "source_ranking_scan_successor_depth": 12,
+    "target_scan_successor_depth": 16,
+    "total_node_budgets": [
+      10000,
+      50000,
+      200000
+    ],
+    "verification_fraction": 0.1
+  },
+  "cohort_count": 2,
+  "cross_arena_policy": "registered_event_order; whole_game_aliases_rejected_later; all_confirmed_earlier_FENs_excluded_later; never_replace_a_source_or_event",
+  "engines": {
+    "adapter_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+    "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+    "scan_commit": "7aae17e7b7bfc47744601afb1ee7655e18983ce5",
+    "scan_sha256": "a634cbb44c9528eab277cdf6cdf8d29d506318ce5fba3f9bc69c2025b5941864"
+  },
+  "events": [
+    {
+      "event": {
+        "clock": {
+          "increment": 0,
+          "limit": 300
+        },
+        "createdBy": "lidraughts",
+        "id": "s7ahYqL4",
+        "minutes": 57,
+        "startsAt": "2026-11-18T23:00:00.000Z",
+        "system": "arena",
+        "variant": "standard"
+      },
+      "prestart_facts": {
+        "clock": {
+          "increment": 0,
+          "limit": 300
+        },
+        "createdBy": "lidraughts",
+        "id": "s7ahYqL4",
+        "minutes": 57,
+        "secondsToStart": 2707,
+        "startsAt": "2026-11-18T23:00:00.000Z",
+        "system": "arena",
+        "variant": "standard"
+      },
+      "receipt": {
+        "attempts": [
+          {
+            "bytes": 703,
+            "http_status": 200,
+            "request_id": "4b3406d5c9d8488db62dcb10967fd398",
+            "requested_at_utc": "2026-11-18T22:14:47.044256+00:00",
+            "retrieved_at_utc": "2026-11-18T22:14:53.193303+00:00",
+            "sha256": "dcdc6567740bf07ee6bb66d6d07bacd1e0d003a80b3d105c4df80a73d34fc496"
+          }
+        ],
+        "bytes": 703,
+        "http_status": 200,
+        "request_id": "4b3406d5c9d8488db62dcb10967fd398",
+        "requested_at_utc": "2026-11-18T22:14:47.044256+00:00",
+        "retrieved_at_utc": "2026-11-18T22:14:53.193303+00:00",
+        "sha256": "dcdc6567740bf07ee6bb66d6d07bacd1e0d003a80b3d105c4df80a73d34fc496",
+        "url": "https://lidraughts.org/api/tournament/s7ahYqL4"
+      }
+    },
+    {
+      "event": {
+        "clock": {
+          "increment": 0,
+          "limit": 300
+        },
+        "createdBy": "lidraughts",
+        "id": "D9PF2OSW",
+        "minutes": 57,
+        "startsAt": "2026-11-19T02:00:00.000Z",
+        "system": "arena",
+        "variant": "standard"
+      },
+      "prestart_facts": {
+        "clock": {
+          "increment": 0,
+          "limit": 300
+        },
+        "createdBy": "lidraughts",
+        "id": "D9PF2OSW",
+        "minutes": 57,
+        "secondsToStart": 13502,
+        "startsAt": "2026-11-19T02:00:00.000Z",
+        "system": "arena",
+        "variant": "standard"
+      },
+      "receipt": {
+        "attempts": [
+          {
+            "bytes": 589,
+            "http_status": 200,
+            "request_id": "b7117f745e734a81828eb7a7db11c7d9",
+            "requested_at_utc": "2026-11-18T22:14:53.194897+00:00",
+            "retrieved_at_utc": "2026-11-18T22:14:58.547141+00:00",
+            "sha256": "cd5d0740e775174dfc36db0de93076654108cd653a351628a7b5abeeec565c7a"
+          }
+        ],
+        "bytes": 589,
+        "http_status": 200,
+        "request_id": "b7117f745e734a81828eb7a7db11c7d9",
+        "requested_at_utc": "2026-11-18T22:14:53.194897+00:00",
+        "retrieved_at_utc": "2026-11-18T22:14:58.547141+00:00",
+        "sha256": "cd5d0740e775174dfc36db0de93076654108cd653a351628a7b5abeeec565c7a",
+        "url": "https://lidraughts.org/api/tournament/D9PF2OSW"
+      }
+    }
+  ],
+  "exclude_additional_event": {
+    "all_games_and_confirmed_prefixes": true,
+    "freeze_commit": "5a050b1068154a527cc5f35a8f795919def2dcce",
+    "games": 241,
+    "id": "P1RUlfJc",
+    "pdn_sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439"
+  },
+  "exclusions_base": {
+    "canonical_history_sha256": "eafd1e7b1c447b69f96d307b38a1c7c0fbd8fa9dd9b68f8afe555e3faa02d1b6",
+    "registry_sha256": "25b3ca1a6f0a096c264c8f136135a37fd7d5bb23c04af76a39b4915a611d192e",
+    "whole_fFgE7oED_reserved": true
+  },
+  "geometry_estimates": [
+    "disjoint_full_optimum_sets",
+    "deterministic_source_argmax_pick_target_optimal",
+    "ordinary_first_pick_regret_all_pairs_and_positive_only",
+    "all_ties_and_category_cases"
+  ],
+  "inference": "paired game-bootstrap per-arena and pooled stratified; no p-value go/no-go or Elo; two arenas do not establish broad tournament generality; no pooling P1RUlfJc as new holdout",
+  "jass_primary_estimate": "mean_ordinary_regret_control_minus_native_at_50000_total_nodes; report_all_three_arms_and_all_budgets",
+  "listing_observation": {
+    "bytes": 38178,
+    "retrieved_at_utc": "2026-11-18T22:11:13.465325+00:00",
+    "sha256": "fcda881f040118ebccad2a357955716bab623c03418cbe031b91af39c3fdc234",
+    "url": "https://lidraughts.org/api/tournament?nb=100&snapshot=54b984f72c3f4c11a4017efb6b5e2916"
+  },
+  "method_base_commit": "0bcabd4c516ed67c0f7d30cf33babd65d1bea2e3",
+  "method_files_sha256": {
+    "research/mtdp/jass_benchmark/geometry_ablation.py": "d219c5ab7cd803a3bca4fd85a5d1df23ae4adfb5c342952d35c7094579384c3e",
+    "research/mtdp/jass_benchmark/metered_control.py": "15e0280ff7a56c920b11156a2296e192370221a6b101eaa41db410e957863d89",
+    "research/mtdp/jass_benchmark/metered_engine_smoke.py": "0f3779b21549c8dcd12c98680e0de7c5b1bdb00ae50389a849ac577d0393a384",
+    "research/mtdp/jass_benchmark/metered_probe_adapter.py": "6b29cf19b15fee6d1fbe6025011e1d8b2bd09c5d1733217e09760036f2b08b3d",
+    "research/mtdp/jass_benchmark/offline_top3_control.py": "30e7561cb9774b2460c15aa293f9e912977f1fa3738d91bed9eba1dd1879f359",
+    "research/mtdp/jass_benchmark/prospective_candidate_replay.py": "20051f8be80caef1280809605411ddca605e501cf699fd98a898be3851ed7382",
+    "research/mtdp/jass_benchmark/prospective_tiebreak.py": "cdd6b7d9836c9dcf588cba1d6668ba59f0c1446e1a0aebde7bfa6881d32345f3",
+    "research/mtdp/jass_benchmark/total_budget.py": "81f08f43de49e4b0eed5a43d68ee460cf27e3438585ce4980f2db7da3a73a9a2",
+    "research/mtdp/successor_audit.py": "eebb4d2c14e586cca8901a938628e9b0057c4570eb8d21568aeb42fd21470bcc"
+  },
+  "no_future_games_or_scores_accessed": true,
+  "primary_geometry_population": "existing_preselected_LCB_source_and_target_have_equal_defined_full_quiet_signature; mask_frozen_before_scores; report_complement_and_all_L_LCB_targets",
+  "registered_at_utc": "2026-11-18T22:17:13.168566+00:00",
+  "reserve_entire_events_from_D1": true,
+  "schema": "mtdp-two-named-arenas-preregistration-v1",
+  "selection": "these_exact_two_named_official_future_standard_5plus0_arenas_no_replacement",
+  "status": "selection_and_analysis_registered_not_position_freeze",
+  "study_id": "two-named-arenas-20261118"
+}

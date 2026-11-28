@@ -1,0 +1,52 @@
+{
+  "all_seven_workflows_success": true,
+  "artifact": {
+    "bundle_inventory_hashes_verified_after_download": true,
+    "bytes": 6823874,
+    "downloaded_zip_hash_verified": true,
+    "id": 14462853825,
+    "sha256": "5b2130472bd92b9eabecde81c7a384d85a4cdbafd3a7997561fa654f81c54c8e"
+  },
+  "hash_seed_reports": [
+    {
+      "hash_seed": "7",
+      "http_calls": 3,
+      "http_transport": "in_memory_fixture_no_network",
+      "manifest_sha256": "cf5afc998605f8d743f59c040a61fadc143e4341ee33e69929087d64feaff9a6",
+      "production_validator_refused": true,
+      "proposal_sha256": "13b62ca816f3fb155b6e69fdb2f68ef51366035135bf521c4779318a642eb33f",
+      "publication_sha256": "28549e9afb734ae528dacc5c13c0007ed2309b4b59b6a788620a353caa8e39a4",
+      "raw_crlf_preserved": true,
+      "schema": "mtdp-synthetic-freeze-rehearsal-v1",
+      "scientific_freeze": false,
+      "synthetic_rehearsal": true,
+      "target_actions": 10,
+      "targets": 1
+    },
+    {
+      "hash_seed": "61",
+      "http_calls": 3,
+      "http_transport": "in_memory_fixture_no_network",
+      "manifest_sha256": "cf5afc998605f8d743f59c040a61fadc143e4341ee33e69929087d64feaff9a6",
+      "production_validator_refused": true,
+      "proposal_sha256": "13b62ca816f3fb155b6e69fdb2f68ef51366035135bf521c4779318a642eb33f",
+      "publication_sha256": "28549e9afb734ae528dacc5c13c0007ed2309b4b59b6a788620a353caa8e39a4",
+      "raw_crlf_preserved": true,
+      "schema": "mtdp-synthetic-freeze-rehearsal-v1",
+      "scientific_freeze": false,
+      "synthetic_rehearsal": true,
+      "target_actions": 10,
+      "targets": 1
+    }
+  ],
+  "implementation_commit": "b7fb22ac88791573943d7b478512419ab0cbf85f",
+  "job_id": 135074404038,
+  "next_gate": "publication-bound execution adapter; final acquisition only after 2026-11-18T20:57:00Z",
+  "real_target_export_acquired": false,
+  "run_id": 44381395324,
+  "schema": "mtdp-named-synthetic-rehearsal-ci-evidence-v1",
+  "scientific_freeze": false,
+  "synthetic_rehearsal": true,
+  "targeted_pytest_passed": 59,
+  "verified_head": "069d5c278bfa419efe7a614f404f6a8754e37404"
+}

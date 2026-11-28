@@ -1,0 +1,68 @@
+{
+  "D1_job_id": 135502076778,
+  "D1_tests_passed": 137,
+  "D1_workflow_run_id": 44507285734,
+  "all_commit_workflows": [
+    {
+      "conclusion": "success",
+      "id": 44507285686,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44507285734,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44507285668,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44507286475,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44507285658,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44507285646,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44507285691,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44507286427,
+      "name": "ci",
+      "status": "completed"
+    }
+  ],
+  "all_nine_members_byte_identical_to_repository": true,
+  "artifact_id": 14520780188,
+  "cohort_engine_calls_in_this_CI_job": 0,
+  "commit": "176340e4971b1dba6de626447f9e8e00fb27b023",
+  "conclusion": "success",
+  "corpus_guard_test_command_confirmed": true,
+  "job_id": 135502077135,
+  "offline_tests_passed": 45,
+  "run_id": 44507285686,
+  "schema": "mtdp-full-residual-ci-verification-v1",
+  "verified_full_frame_raw_receipts": 3612,
+  "zip_bytes": 207994,
+  "zip_sha256": "2aaa77f50f702f1d8fbe2a7250521c13b4517426a3a566bc552ad5ebb921569f"
+}

@@ -1,0 +1,18 @@
+{
+  "all_frozen_LCB_equal_pairs": 26,
+  "byte_identical": true,
+  "bytes": 99749,
+  "direct_raw_scores_and_bootstrap_independently_verified": true,
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "independent_processes": true,
+  "plan_commit": "0a7b0e8cda8da5985298b500f7f9b2a276379fe5",
+  "primary16_analysis_sha256_unchanged": "3fd8f480902e50ffcace15552f5ad71e29571e08d0bf340c167d8ad9e21d45e7",
+  "schema": "mtdp-two-arena-depth20-reproduction-v1",
+  "scope": "exploratory_same_cohort_not_new_holdout",
+  "sha256": "6076aba12d4e3427b33c6bc9c6ee101c57df1a99109b3638339c1e3570709f90",
+  "source_action_scores": 263,
+  "target_action_scores": 263
+}

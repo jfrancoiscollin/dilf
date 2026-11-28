@@ -1,0 +1,23 @@
+{
+  "cohort_sha256": "57d3e60fc3c52211a56ccc8548062afd567d9d8cae4723cad9ec90ff2ed74f99",
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "root_order_mode": "initial-only",
+  "runner_sha256": "cf6b992de7dee3fa859522357dbc31fdbdd184d5432f8d1ef454671abc37535c",
+  "scan_reference_sha256": "0b2a6306721c367f148108f149dc3c37e7c1d48c69c00752f1d5d79e46f724d9",
+  "settings": {
+    "draught_master_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+    "jass_catalogue_sha256": "c4065367a315534284a3b9937b97fe51e2e2b011a26b2889ada435c0845aecfd",
+    "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+    "jass_evaluation": "handcrafted",
+    "jass_fresh_tt_mib": 1,
+    "jass_node_budgets": [
+      10000,
+      50000,
+      200000
+    ],
+    "jass_threads": 1,
+    "scan_binary_sha256": "a634cbb44c9528eab277cdf6cdf8d29d506318ce5fba3f9bc69c2025b5941864",
+    "scan_commit": "7aae17e7b7bfc47744601afb1ee7655e18983ce5",
+    "scan_successor_depth": 12
+  }
+}

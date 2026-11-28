@@ -1,0 +1,199 @@
+{
+  "adapter_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "candidate": "fFgE7oED",
+  "games": 157,
+  "pdn_sha256": "916639e4daf7fae419bd4a9bb4a3530ce62f3eb40ea97f7582762e6cebf68de2",
+  "quarantined_cases": [
+    {
+      "disposition": "whole_game_remains_quarantined",
+      "distinct_successors": 1,
+      "error": "'1x40': expected exactly one legal matching move, found 2",
+      "fen_before": "W:WK1,24,25,33,35,36,38,45,46:B3,10,14,15,16,18,21,34,42",
+      "game_index": 46,
+      "legal_candidates": [
+        {
+          "captures": [
+            18,
+            34
+          ],
+          "path": [
+            1,
+            23,
+            40
+          ],
+          "promotion": false,
+          "successor_fen": "B:WK40,24,25,33,35,36,38,45,46:B3,10,14,15,16,21,42"
+        },
+        {
+          "captures": [
+            18,
+            34
+          ],
+          "path": [
+            1,
+            29,
+            40
+          ],
+          "promotion": false,
+          "successor_fen": "B:WK40,24,25,33,35,36,38,45,46:B3,10,14,15,16,21,42"
+        }
+      ],
+      "ply": 89,
+      "site": "https://lidraughts.org/eW5kLtz2",
+      "token": "1x40"
+    },
+    {
+      "disposition": "whole_game_remains_quarantined",
+      "distinct_successors": 1,
+      "error": "'1x45': expected exactly one legal matching move, found 2",
+      "fen_before": "W:WK1,32,48:B19,23,25,40",
+      "game_index": 58,
+      "legal_candidates": [
+        {
+          "captures": [
+            23,
+            40
+          ],
+          "path": [
+            1,
+            29,
+            45
+          ],
+          "promotion": false,
+          "successor_fen": "B:WK45,32,48:B19,25"
+        },
+        {
+          "captures": [
+            23,
+            40
+          ],
+          "path": [
+            1,
+            34,
+            45
+          ],
+          "promotion": false,
+          "successor_fen": "B:WK45,32,48:B19,25"
+        }
+      ],
+      "ply": 103,
+      "site": "https://lidraughts.org/ARKlsC4V",
+      "token": "1x45"
+    },
+    {
+      "disposition": "whole_game_remains_quarantined",
+      "distinct_successors": 1,
+      "error": "'47x15': expected exactly one legal matching move, found 2",
+      "fen_before": "B:WK4,24,35,38:BK47",
+      "game_index": 94,
+      "legal_candidates": [
+        {
+          "captures": [
+            24,
+            38
+          ],
+          "path": [
+            47,
+            29,
+            15
+          ],
+          "promotion": false,
+          "successor_fen": "W:WK4,35:BK15"
+        },
+        {
+          "captures": [
+            24,
+            38
+          ],
+          "path": [
+            47,
+            33,
+            15
+          ],
+          "promotion": false,
+          "successor_fen": "W:WK4,35:BK15"
+        }
+      ],
+      "ply": 120,
+      "site": "https://lidraughts.org/rpZnh3lt",
+      "token": "47x15"
+    },
+    {
+      "disposition": "whole_game_remains_quarantined",
+      "distinct_successors": 1,
+      "error": "'37x5': expected exactly one legal matching move, found 2",
+      "fen_before": "B:W10,23,29,40:BK37,8,15,22",
+      "game_index": 150,
+      "legal_candidates": [
+        {
+          "captures": [
+            10,
+            23
+          ],
+          "path": [
+            37,
+            14,
+            5
+          ],
+          "promotion": false,
+          "successor_fen": "W:W29,40:BK5,8,15,22"
+        },
+        {
+          "captures": [
+            10,
+            23
+          ],
+          "path": [
+            37,
+            19,
+            5
+          ],
+          "promotion": false,
+          "successor_fen": "W:W29,40:BK5,8,15,22"
+        }
+      ],
+      "ply": 98,
+      "site": "https://lidraughts.org/YWmvLaTS",
+      "token": "37x5"
+    },
+    {
+      "disposition": "whole_game_remains_quarantined",
+      "distinct_successors": 1,
+      "error": "'44x11': expected exactly one legal matching move, found 2",
+      "fen_before": "B:W8,17,33:BK44,25",
+      "game_index": 155,
+      "legal_candidates": [
+        {
+          "captures": [
+            17,
+            33
+          ],
+          "path": [
+            44,
+            22,
+            11
+          ],
+          "promotion": false,
+          "successor_fen": "W:W8:BK11,25"
+        },
+        {
+          "captures": [
+            17,
+            33
+          ],
+          "path": [
+            44,
+            28,
+            11
+          ],
+          "promotion": false,
+          "successor_fen": "W:W8:BK11,25"
+        }
+      ],
+      "ply": 122,
+      "site": "https://lidraughts.org/DKUZmuuK",
+      "token": "44x11"
+    }
+  ],
+  "scope": "diagnostic_only_no_scoring_no_chronological_freeze"
+}

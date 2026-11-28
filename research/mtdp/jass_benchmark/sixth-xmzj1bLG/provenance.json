@@ -1,0 +1,780 @@
+{
+  "counts": {
+    "L": 138,
+    "LG": 39,
+    "eligible": 8633,
+    "eligible_source_fens": 1260,
+    "forced": 12,
+    "held_fens": 13800,
+    "non_quiet": 4568,
+    "overlap_pcblues": 75,
+    "overlap_prior_manifest": 23,
+    "overlap_prior_only": 489,
+    "terminal": 23
+  },
+  "depths": {
+    "source": 12,
+    "target": 16
+  },
+  "eligible_sha256": "0da6b584dfd6abf5bbf2cb443e3a1cd6de0d688d25679099b224961e00ecad11",
+  "eligible_shards": [
+    {
+      "content_sha256": "7e258226f4487b45d70e31c91a43febb6891d4ed337274de9880f5bcb52755b9",
+      "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/eligible-00.json.gz",
+      "stored_sha256": "59ba042ff9799083093a44c482afa826bde2755412d84fb98914bdbb4604bd74"
+    },
+    {
+      "content_sha256": "98d2183118c2d88913fc597a0248489b6070b471dea332ff4949bcc29e599647",
+      "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/eligible-01.json.gz",
+      "stored_sha256": "1b60e31ba4dcc6afaf24339820118d60bd89445137585360e218fce9c6eea779"
+    },
+    {
+      "content_sha256": "90034914b9c1b2c67a7e8ff88184d4af652878a626f1d910c30e44a48b96df93",
+      "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/eligible-02.json.gz",
+      "stored_sha256": "9b4eb1a51162b6ce0de0c259a7a24ce0b51a0002e20e34b52b2de0ea0b4a2484"
+    },
+    {
+      "content_sha256": "4ad8686d7460b447253a83ffd17304eac2e90cac8c048632e36d39e4a45ee4b0",
+      "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/eligible-03.json.gz",
+      "stored_sha256": "feb32de0d4abe0f50dac47248215ee39fcf2757a749220df0d8e3e140686ddb1"
+    },
+    {
+      "content_sha256": "593d2955e083c79a6e9e5feb28db7f33cd7a6990d378556d77334778681ea127",
+      "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/eligible-04.json.gz",
+      "stored_sha256": "5e96b3ccc38622dfed19f4d0100b248967cb9813152fa78c00b20f4038840380"
+    },
+    {
+      "content_sha256": "780b81e6ebf2e2d4b761e7ffc6c670bdef321172187508d653d0e9abca1cd6ee",
+      "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/eligible-05.json.gz",
+      "stored_sha256": "8c3c75aa9e34a0dbccc6fcf0d001a91bfc1ac504668e98da2ab7fdbd1b441bb0"
+    },
+    {
+      "content_sha256": "8570b8b04d3d1c371ab165c06275d53de6fbd4d3be9822d3b328effea940e306",
+      "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/eligible-06.json.gz",
+      "stored_sha256": "709346428ef455d0f535329e38ba10427161976eb2b8be092c47e18c56c13b74"
+    },
+    {
+      "content_sha256": "ecbf0f209b4aa36729c8a2f5065bac820f7661da81ebc73adad926cb85c0a005",
+      "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/eligible-07.json.gz",
+      "stored_sha256": "f1db2f2d3146f415fcbdbb532a03ac7b5f322dd75ef92d12ac33f2932adb669a"
+    },
+    {
+      "content_sha256": "83ee38dbfbfa504211fad70155900d72ff8f46f5463d8ae0bfda171f2d4f5e06",
+      "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/eligible-08.json.gz",
+      "stored_sha256": "dce5a71054e7fdf2dceaedf2999fe8137f5034aea7ca5f66c244b02cbd1449e1"
+    },
+    {
+      "content_sha256": "fdc635b02eb8e01bb8bd3e2f9b182dbe1ae1250855fb3d63abf2acbb774eb0e3",
+      "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/eligible-09.json.gz",
+      "stored_sha256": "f6bf605e20a5fcad35bfe53af2f407c5c1f6508a5e508d9cdbaa5c9b329207dd"
+    },
+    {
+      "content_sha256": "206d1a4534ce8b4d3a1dfddf05b4ffb65f9b0151fdda03e19e76bfafcabd6a21",
+      "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/eligible-10.json.gz",
+      "stored_sha256": "5f28a45c2b9cd8d83690ba466a33dbb514157f96474fead33a34134a768f0cd2"
+    }
+  ],
+  "event": {
+    "clock": {
+      "increment": 0,
+      "limit": 300
+    },
+    "download_started_utc": "2026-11-12T08:13:33Z",
+    "export_bytes": 164729,
+    "export_url": "https://lidraughts.org/api/tournament/xmzj1bLG/games",
+    "fullName": "Hourly Blitz Arena",
+    "id": "xmzj1bLG",
+    "isFinished": true,
+    "metadata_url": "https://lidraughts.org/api/tournament/xmzj1bLG",
+    "minutes": 57,
+    "rights": {
+      "api": "https://lidraughts.org/developers",
+      "terms": "https://lidraughts.org/terms-of-service",
+      "use": "Public API analysis, publishing derived positions and replay outcomes."
+    },
+    "startsAt": "2026-11-11T23:00:00.000Z",
+    "url": "https://lidraughts.org/tournament/xmzj1bLG",
+    "variant": "standard"
+  },
+  "game_audit": {
+    "content_sha256": "cf17255b4643d68fe5f793c7316e90eb6b84a9367a6a3a1b19ffce352279ed9c",
+    "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/game-audit.json.gz",
+    "stored_sha256": "25291e0a919eff90a9f0e72d63fb33836f97b96df8fc7cd381bb25af8ebf34ba"
+  },
+  "inputs": {
+    "baseline": [
+      {
+        "accepted": 26,
+        "duplicates": 0,
+        "file": "pcblues_games.pdn",
+        "games": 26,
+        "rejected": [],
+        "sha256": "025ad0a1a9ddcf508e3284eef65eb1cf76ebf7763d1241a127432f99eac3d8be"
+      }
+    ],
+    "event": [
+      {
+        "accepted": 132,
+        "duplicates": 4,
+        "file": "mtdp-lidraughts-xmzj1bLG.pdn",
+        "games": 141,
+        "rejected": [
+          {
+            "error": "Game 38, ply 86, 12x15: '12x15': expected exactly one legal matching move, found 3",
+            "game": 38
+          },
+          {
+            "error": "Game 57, ply 81, 4x31: '4x31': expected exactly one legal matching move, found 3",
+            "game": 57
+          },
+          {
+            "error": "Game 107, ply 121, 11x50: '11x50': expected exactly one legal matching move, found 2",
+            "game": 107
+          },
+          {
+            "error": "Game 110, ply 70, 40x42: '40x42': expected exactly one legal matching move, found 2",
+            "game": 110
+          },
+          {
+            "error": "Game 123, ply 111, 37x10: '37x10': expected exactly one legal matching move, found 3",
+            "game": 123
+          }
+        ],
+        "sha256": "52e6cb89719d183a8f00454a1be9f944d3dc7cdc9f18b5cd66f99632e16b4653"
+      }
+    ],
+    "exclusions": [
+      {
+        "accepted": 4,
+        "duplicates": 0,
+        "file": "Bourges2-Seilh.pdn",
+        "games": 4,
+        "rejected": [],
+        "sha256": "27411973b10bb5f21346601958cb47f17afa6dbb2013f336a1d940053eaf9831"
+      },
+      {
+        "accepted": 4,
+        "duplicates": 0,
+        "file": "Drancy-Mirepoix.pdn",
+        "games": 4,
+        "rejected": [],
+        "sha256": "c23bced8c52d0928bf9502c05f1f6ab91a9a523b70489aa938cc3de7ba4ea7b9"
+      },
+      {
+        "accepted": 40,
+        "duplicates": 1,
+        "file": "mtdp-lidraughts-L4F4P5R8.pdn",
+        "games": 44,
+        "rejected": [
+          {
+            "error": "Game 5, ply 122, 50x36: '50x36': expected exactly one legal matching move, found 2",
+            "game": 5
+          },
+          {
+            "error": "Game 18, ply 63, 16x6: '16x6': expected exactly one legal matching move, found 2",
+            "game": 18
+          },
+          {
+            "error": "Game 21, ply 123, 1x34: '1x34': expected exactly one legal matching move, found 2",
+            "game": 21
+          }
+        ],
+        "sha256": "e8a5ae26d1f376a131077521a437500782fea38771c53cbdb0dbae4916d0bb34"
+      },
+      {
+        "accepted": 241,
+        "duplicates": 10,
+        "file": "mtdp-lidraughts-eo66EN9z.pdn",
+        "games": 263,
+        "rejected": [
+          {
+            "error": "Game 48, ply 115, 48x25: '48x25': expected exactly one legal matching move, found 2",
+            "game": 48
+          },
+          {
+            "error": "Game 55, ply 82, 35x21: '35x21': expected exactly one legal matching move, found 2",
+            "game": 55
+          },
+          {
+            "error": "Game 59, ply 64, 17x28: '17x28': expected exactly one legal matching move, found 2",
+            "game": 59
+          },
+          {
+            "error": "Game 66, ply 98, 31x9: '31x9': expected exactly one legal matching move, found 2",
+            "game": 66
+          },
+          {
+            "error": "Game 69, ply 120, 50x17: '50x17': expected exactly one legal matching move, found 3",
+            "game": 69
+          },
+          {
+            "error": "Game 76, ply 71, 41x32: '41x32': expected exactly one legal matching move, found 2",
+            "game": 76
+          },
+          {
+            "error": "Game 90, ply 111, 7x45: '7x45': expected exactly one legal matching move, found 2",
+            "game": 90
+          },
+          {
+            "error": "Game 96, ply 122, 47x15: '47x15': expected exactly one legal matching move, found 2",
+            "game": 96
+          },
+          {
+            "error": "Game 148, ply 58, 11x22: '11x22': expected exactly one legal matching move, found 2",
+            "game": 148
+          },
+          {
+            "error": "Game 186, ply 109, 5x41: '5x41': expected exactly one legal matching move, found 2",
+            "game": 186
+          },
+          {
+            "error": "Game 228, ply 81, 4x31: '4x31': expected exactly one legal matching move, found 2",
+            "game": 228
+          },
+          {
+            "error": "Game 231, ply 90, 47x15: '47x15': expected exactly one legal matching move, found 3",
+            "game": 231
+          }
+        ],
+        "sha256": "38d352e824420f11429f02c9fd4030d211355915a2626968fdc336bf487eadbf"
+      },
+      {
+        "accepted": 62,
+        "duplicates": 4,
+        "file": "mtdp-lidraughts-Z3s40c6H.pdn",
+        "games": 66,
+        "rejected": [],
+        "sha256": "a8f2c913eb92f5a501deebc9e6ebda275db8184cb22e3456149b54afb1000bea"
+      },
+      {
+        "accepted": 182,
+        "duplicates": 8,
+        "file": "mtdp-lidraughts-iPQl7g7q.pdn",
+        "games": 199,
+        "rejected": [
+          {
+            "error": "Game 9, ply 74, 4x16: '4x16': expected exactly one legal matching move, found 2",
+            "game": 9
+          },
+          {
+            "error": "Game 17, ply 125, 5x46: '5x46': expected exactly one legal matching move, found 2",
+            "game": 17
+          },
+          {
+            "error": "Game 46, ply 57, 32x23: '32x23': expected exactly one legal matching move, found 2",
+            "game": 46
+          },
+          {
+            "error": "Game 51, ply 119, 4x36: '4x36': expected exactly one legal matching move, found 4",
+            "game": 51
+          },
+          {
+            "error": "Game 62, ply 102, 35x2: '35x2': expected exactly one legal matching move, found 2",
+            "game": 62
+          },
+          {
+            "error": "Game 84, ply 124, 47x20: '47x20': expected exactly one legal matching move, found 2",
+            "game": 84
+          },
+          {
+            "error": "Game 101, ply 97, 30x19: '30x19': expected exactly one legal matching move, found 2",
+            "game": 101
+          },
+          {
+            "error": "Game 146, ply 78, 10x46: '10x46': expected exactly one legal matching move, found 2",
+            "game": 146
+          },
+          {
+            "error": "Game 188, ply 113, 1x45: '1x45': expected exactly one legal matching move, found 2",
+            "game": 188
+          }
+        ],
+        "sha256": "e5e460c4e5be288f1b5e049ae28e91ab1b5661cbe893a7d3d1bcfbde2861772e"
+      },
+      {
+        "accepted": 72,
+        "duplicates": 6,
+        "file": "mtdp-lidraughts-0gB7ETSW.pdn",
+        "games": 81,
+        "rejected": [
+          {
+            "error": "Game 45, ply 71, 25x48: '25x48': expected exactly one legal matching move, found 2",
+            "game": 45
+          },
+          {
+            "error": "Game 49, ply 125, 1x15: '1x15': expected exactly one legal matching move, found 2",
+            "game": 49
+          },
+          {
+            "error": "Game 51, ply 109, 6x44: '6x44': expected exactly one legal matching move, found 2",
+            "game": 51
+          }
+        ],
+        "sha256": "cdf0ef2f69fddaec1994c54448479b2599bcaf3a343d5d500c43ae03b19f03f4"
+      },
+      {
+        "accepted": 232,
+        "duplicates": 1,
+        "file": "mtdp-lidraughts-3onq5G6G.pdn",
+        "games": 244,
+        "rejected": [
+          {
+            "error": "Game 2, ply 86, 5x46: '5x46': expected exactly one legal matching move, found 2",
+            "game": 2
+          },
+          {
+            "error": "Game 53, ply 110, 46x19: '46x19': expected exactly one legal matching move, found 2",
+            "game": 53
+          },
+          {
+            "error": "Game 54, ply 104, 46x10: '46x10': expected exactly one legal matching move, found 3",
+            "game": 54
+          },
+          {
+            "error": "Game 70, ply 113, 50x6: '50x6': expected exactly one legal matching move, found 2",
+            "game": 70
+          },
+          {
+            "error": "Game 72, ply 108, 45x21: '45x21': expected exactly one legal matching move, found 2",
+            "game": 72
+          },
+          {
+            "error": "Game 81, ply 108, 11x50: '11x50': expected exactly one legal matching move, found 2",
+            "game": 81
+          },
+          {
+            "error": "Game 86, ply 125, 6x50: '6x50': expected exactly one legal matching move, found 2",
+            "game": 86
+          },
+          {
+            "error": "Game 113, ply 114, 46x5: '46x5': expected exactly one legal matching move, found 2",
+            "game": 113
+          },
+          {
+            "error": "Game 154, ply 136, 42x15: '42x15': expected exactly one legal matching move, found 2",
+            "game": 154
+          },
+          {
+            "error": "Game 167, ply 92, 47x15: '47x15': expected exactly one legal matching move, found 2",
+            "game": 167
+          },
+          {
+            "error": "Game 203, ply 98, 45x12: '45x12': expected exactly one legal matching move, found 2",
+            "game": 203
+          }
+        ],
+        "sha256": "617c09fd64895705d19b6290b116439b3adf52fef2858442d0ee724ec051d1de"
+      },
+      {
+        "accepted": 86,
+        "duplicates": 2,
+        "file": "mtdp-lidraughts-LAYRsqON.pdn",
+        "games": 92,
+        "rejected": [
+          {
+            "error": "Game 11, ply 124, 46x14: '46x14': expected exactly one legal matching move, found 2",
+            "game": 11
+          },
+          {
+            "error": "Game 16, ply 53, 30x10: '30x10': expected exactly one legal matching move, found 2",
+            "game": 16
+          },
+          {
+            "error": "Game 23, ply 98, 47x20: '47x20': expected exactly one legal matching move, found 2",
+            "game": 23
+          },
+          {
+            "error": "Game 58, ply 110, 47x15: '47x15': expected exactly one legal matching move, found 2",
+            "game": 58
+          }
+        ],
+        "sha256": "3d355104e50209af40013c294065b54551d9b6796ee93a69fe45b27f67b01ce4"
+      }
+    ]
+  },
+  "prior_manifests": {
+    "research/mtdp/jass_benchmark/cohort-manifest.json": "3c763000c9c07e4f1cc59b94bcc832971c48a60348ea9d6ea6e0aa8d5f7fd8f1",
+    "research/mtdp/jass_benchmark/fifth-LAYRsqON/cohort-manifest.json.gz": "cea13cfc385a88d7129800d06c6659906ead486769fe8c05d70f9179f407e216",
+    "research/mtdp/jass_benchmark/fourth-3onq5G6G/cohort-manifest.json.gz": "913055f3a37020470011ef7da939d95d97d76e75becaae23d2ceccd85446734e",
+    "research/mtdp/jass_benchmark/initial-only-0gB7ETSW/cohort-manifest.json.gz": "cf7dc2cefc121d1c46b6d8ae13e1816b4f69e3b3700d75f0805fadf46ff972d2",
+    "research/mtdp/jass_benchmark/replication-iPQl7g7q/cohort-manifest.json": "1c7b1543ac5b38500c9f4d61588c3e0778b40e5487de0d3500a1c09868668231"
+  },
+  "scan_sha256": {
+    "data/eval": "0e7161c38af605f5e367f3f8fe17525d1c40db722714c68921971b386e58abba",
+    "scan.ini": "dc201a7debaf98bb869fb3d6b641adb219df71b0ea22004b2d9b6f51cdb69538",
+    "scan_linux": "a634cbb44c9528eab277cdf6cdf8d29d506318ce5fba3f9bc69c2025b5941864"
+  },
+  "scan_version": "3.1",
+  "schema": "mtdp-geometry-ablation-freeze-v1",
+  "score_plan": {
+    "content_sha256": "c28ae236babaaea6d404ac3d0b41aa58551bdd6d6c86f07a65b977eabe66417f",
+    "path": "research/mtdp/jass_benchmark/sixth-xmzj1bLG/score-plan.json.gz",
+    "stored_sha256": "f88ca3aabd9fd0b787870d4439777ad075a41bc2bcfa0b803fd11a46de6a900e"
+  },
+  "score_policy": {
+    "categorical": "win >8000, loss <-8000, ordinary otherwise",
+    "terminal_win": 10000,
+    "units": "centimen, parent side-to-move"
+  },
+  "selection": {
+    "finished_prefix": [
+      {
+        "clock": {
+          "increment": 2,
+          "limit": 180
+        },
+        "id": "v8intX1C",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 30
+        },
+        "id": "xJFFzfaw",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "russian",
+          "name": "Russian",
+          "short": "Russian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 180
+        },
+        "id": "3y3SVW1Y",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "brazilian",
+          "name": "Brazilian",
+          "short": "Brazilian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 60
+        },
+        "id": "pj29MioC",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "russian",
+          "name": "Russian",
+          "short": "Russian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 180
+        },
+        "id": "USaG3hOa",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 60
+        },
+        "id": "4gN0O2aX",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "russian",
+          "name": "Russian",
+          "short": "Russian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 2,
+          "limit": 180
+        },
+        "id": "VEQgWPnC",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 300
+        },
+        "id": "vnHIIV8r",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "brazilian",
+          "name": "Brazilian",
+          "short": "Brazilian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 180
+        },
+        "id": "5gPXSUm6",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        }
+      },
+      {
+        "clock": {
+          "increment": 1,
+          "limit": 60
+        },
+        "id": "tRMDtfpb",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "russian",
+          "name": "Russian",
+          "short": "Russian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 120
+        },
+        "id": "D7cFSXV1",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "russian",
+          "name": "Russian",
+          "short": "Russian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 1,
+          "limit": 180
+        },
+        "id": "jYBIklhA",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        }
+      },
+      {
+        "clock": {
+          "increment": 1,
+          "limit": 60
+        },
+        "id": "4DQHKTW4",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "brazilian",
+          "name": "Brazilian",
+          "short": "Brazilian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 2,
+          "limit": 180
+        },
+        "id": "LSseAn5I",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "antidraughts",
+          "name": "Antidraughts",
+          "short": "Anti"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 300
+        },
+        "id": "LAYRsqON",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        }
+      },
+      {
+        "clock": {
+          "increment": 3,
+          "limit": 0
+        },
+        "id": "T3omFiWa",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "brazilian",
+          "name": "Brazilian",
+          "short": "Brazilian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 60
+        },
+        "id": "nPsIabbM",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        }
+      },
+      {
+        "clock": {
+          "increment": 2,
+          "limit": 180
+        },
+        "id": "qSaFopLB",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        }
+      },
+      {
+        "clock": {
+          "increment": 2,
+          "limit": 60
+        },
+        "id": "XpCQLfX5",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "brazilian",
+          "name": "Brazilian",
+          "short": "Brazilian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 180
+        },
+        "id": "MR52I2kJ",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        }
+      },
+      {
+        "clock": {
+          "increment": 2,
+          "limit": 180
+        },
+        "id": "GAGtsPUu",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "brazilian",
+          "name": "Brazilian",
+          "short": "Brazilian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 2,
+          "limit": 180
+        },
+        "id": "sELVkn7i",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "russian",
+          "name": "Russian",
+          "short": "Russian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 1,
+          "limit": 90
+        },
+        "id": "oRCBeceA",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "brazilian",
+          "name": "Brazilian",
+          "short": "Brazilian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 4,
+          "limit": 45
+        },
+        "id": "gfU7lWUT",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "brazilian",
+          "name": "Brazilian",
+          "short": "Brazilian"
+        }
+      },
+      {
+        "clock": {
+          "increment": 0,
+          "limit": 300
+        },
+        "id": "xmzj1bLG",
+        "status": 30,
+        "system": "arena",
+        "variant": {
+          "key": "standard",
+          "name": "Standard",
+          "short": "Std"
+        }
+      }
+    ],
+    "index_zero_based": 24,
+    "list_sha256": "536de9b0f5e2029e73cc825705d91eaa8c11f97b7d84912ecdd1e2ede1489c6b",
+    "list_started_utc": "2026-11-12T08:13:23Z",
+    "list_url": "https://lidraughts.org/api/tournament",
+    "ownership": "first target game ID",
+    "protocol_commit": "80323bc29587cc88494e1c9fcfbe771d169c982f",
+    "source": "minimum (game ID, ply, FEN)"
+  }
+}

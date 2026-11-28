@@ -1,0 +1,779 @@
+{
+  "complete_historical_registry_proven": false,
+  "engine_scores_parsed": false,
+  "event": "uDIrrl1c",
+  "evidence_scope": "separate_public_game_pages_same_publisher_not_independent_authority",
+  "evidence_zip_sha256": "fc43222fb8ad1fb9451415a05d65eb0b1b2162626c416a323d8a96c215fdd67b",
+  "external_game_page_membership_observed": true,
+  "game_page_memberships_verified": 152,
+  "games": [
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/wrAbKX4c",
+      "public_game_id": "wrAbKX4c"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/Pm9Ms3yo",
+      "public_game_id": "Pm9Ms3yo"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/100N4RXo",
+      "public_game_id": "100N4RXo"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/J9wZ7DqX",
+      "public_game_id": "J9wZ7DqX"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/i7JD5HgS",
+      "public_game_id": "i7JD5HgS"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/8FqsyxEc",
+      "public_game_id": "8FqsyxEc"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/5eWolkBs",
+      "public_game_id": "5eWolkBs"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/BbBpO4pR",
+      "public_game_id": "BbBpO4pR"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/rS6eZc5P",
+      "public_game_id": "rS6eZc5P"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/5izfbPs5",
+      "public_game_id": "5izfbPs5"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/Um6Zvj6A",
+      "public_game_id": "Um6Zvj6A"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/KGjQ6MLj",
+      "public_game_id": "KGjQ6MLj"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/QT5RdHfQ",
+      "public_game_id": "QT5RdHfQ"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/eTLTcIm3",
+      "public_game_id": "eTLTcIm3"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/s8Uphsm2",
+      "public_game_id": "s8Uphsm2"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/J7WvGB6E",
+      "public_game_id": "J7WvGB6E"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/xxwHovRR",
+      "public_game_id": "xxwHovRR"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/5DQP6bMc",
+      "public_game_id": "5DQP6bMc"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/mVeD7nrH",
+      "public_game_id": "mVeD7nrH"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/hcupsUgG",
+      "public_game_id": "hcupsUgG"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/8jTIx7Qo",
+      "public_game_id": "8jTIx7Qo"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/klyOM1sE",
+      "public_game_id": "klyOM1sE"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/9x061eDY",
+      "public_game_id": "9x061eDY"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/E3BaGCly",
+      "public_game_id": "E3BaGCly"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/HaZPyLPe",
+      "public_game_id": "HaZPyLPe"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/vVxp1ftQ",
+      "public_game_id": "vVxp1ftQ"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/ontZT3n5",
+      "public_game_id": "ontZT3n5"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/mZhENhYd",
+      "public_game_id": "mZhENhYd"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/k61O9gaD",
+      "public_game_id": "k61O9gaD"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/GNRtITdj",
+      "public_game_id": "GNRtITdj"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/b3f55wOV",
+      "public_game_id": "b3f55wOV"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/T9kUvE1v",
+      "public_game_id": "T9kUvE1v"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/OPZ4udcl",
+      "public_game_id": "OPZ4udcl"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/zOjNDcGd",
+      "public_game_id": "zOjNDcGd"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/x2SElO0E",
+      "public_game_id": "x2SElO0E"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/jgwHzR6x",
+      "public_game_id": "jgwHzR6x"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/4XeTwscB",
+      "public_game_id": "4XeTwscB"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/wQtnJH4S",
+      "public_game_id": "wQtnJH4S"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/7abk8h3q",
+      "public_game_id": "7abk8h3q"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/jIOpWA5o",
+      "public_game_id": "jIOpWA5o"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/33pSEw9b",
+      "public_game_id": "33pSEw9b"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/H96hZLb0",
+      "public_game_id": "H96hZLb0"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/XzelQLt0",
+      "public_game_id": "XzelQLt0"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/sUVRfIfT",
+      "public_game_id": "sUVRfIfT"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/IFWBJ2Pf",
+      "public_game_id": "IFWBJ2Pf"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/wqeDcQWI",
+      "public_game_id": "wqeDcQWI"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/PKQHyl90",
+      "public_game_id": "PKQHyl90"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/TFygT95r",
+      "public_game_id": "TFygT95r"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/RY5G6d2w",
+      "public_game_id": "RY5G6d2w"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/M6BNaOTL",
+      "public_game_id": "M6BNaOTL"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/9xEP5wv0",
+      "public_game_id": "9xEP5wv0"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/eQMMDqX4",
+      "public_game_id": "eQMMDqX4"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/7hAgwog0",
+      "public_game_id": "7hAgwog0"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/41GjaffS",
+      "public_game_id": "41GjaffS"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/8e5JlkF5",
+      "public_game_id": "8e5JlkF5"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/FV2lghfI",
+      "public_game_id": "FV2lghfI"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/STELBEVZ",
+      "public_game_id": "STELBEVZ"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/f4X6kRHx",
+      "public_game_id": "f4X6kRHx"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/QPMHUjMc",
+      "public_game_id": "QPMHUjMc"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/rxyrkwCB",
+      "public_game_id": "rxyrkwCB"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/aFlmDi21",
+      "public_game_id": "aFlmDi21"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/CGB8e6uf",
+      "public_game_id": "CGB8e6uf"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/7BaDXZef",
+      "public_game_id": "7BaDXZef"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/0dHhmKZ1",
+      "public_game_id": "0dHhmKZ1"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/SXtn5NR4",
+      "public_game_id": "SXtn5NR4"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/ZFiJswAC",
+      "public_game_id": "ZFiJswAC"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/iTb7Qnun",
+      "public_game_id": "iTb7Qnun"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/nsXmupvH",
+      "public_game_id": "nsXmupvH"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/nFhykZal",
+      "public_game_id": "nFhykZal"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/1O0uinmZ",
+      "public_game_id": "1O0uinmZ"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/VV9qdStQ",
+      "public_game_id": "VV9qdStQ"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/DRBe0Y8z",
+      "public_game_id": "DRBe0Y8z"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/6o5V8bYe",
+      "public_game_id": "6o5V8bYe"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/Qkyoh31q",
+      "public_game_id": "Qkyoh31q"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/nd5vh8p2",
+      "public_game_id": "nd5vh8p2"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/yuv0wHaC",
+      "public_game_id": "yuv0wHaC"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/xHJg3PKQ",
+      "public_game_id": "xHJg3PKQ"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/YWwUXtak",
+      "public_game_id": "YWwUXtak"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/WsjhPg12",
+      "public_game_id": "WsjhPg12"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/oN4Trkjo",
+      "public_game_id": "oN4Trkjo"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/ZkAVKDr4",
+      "public_game_id": "ZkAVKDr4"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/tReJQIYB",
+      "public_game_id": "tReJQIYB"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/3SL447tc",
+      "public_game_id": "3SL447tc"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/81H12qyK",
+      "public_game_id": "81H12qyK"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/6PCMZCg5",
+      "public_game_id": "6PCMZCg5"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/06zQ2Ha0",
+      "public_game_id": "06zQ2Ha0"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/k8xZnFT7",
+      "public_game_id": "k8xZnFT7"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/bf2MVfZo",
+      "public_game_id": "bf2MVfZo"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/BZZ0yME2",
+      "public_game_id": "BZZ0yME2"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/S2id3siC",
+      "public_game_id": "S2id3siC"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/KEPY2UdW",
+      "public_game_id": "KEPY2UdW"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/uSb99VOT",
+      "public_game_id": "uSb99VOT"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/Er9LnZRn",
+      "public_game_id": "Er9LnZRn"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/onuZbx3n",
+      "public_game_id": "onuZbx3n"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/7Dc7oBD7",
+      "public_game_id": "7Dc7oBD7"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/vl16EWAi",
+      "public_game_id": "vl16EWAi"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/QnogcUwR",
+      "public_game_id": "QnogcUwR"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/rZuZ6Ize",
+      "public_game_id": "rZuZ6Ize"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/gtzsDHHK",
+      "public_game_id": "gtzsDHHK"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/2nNJeXDj",
+      "public_game_id": "2nNJeXDj"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/s3QQ1FLc",
+      "public_game_id": "s3QQ1FLc"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/nXnNe6DD",
+      "public_game_id": "nXnNe6DD"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/aoDaDN1f",
+      "public_game_id": "aoDaDN1f"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/P4ZHy9oF",
+      "public_game_id": "P4ZHy9oF"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/OMlda4z3",
+      "public_game_id": "OMlda4z3"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/CljRMcdi",
+      "public_game_id": "CljRMcdi"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/zPwPgVeG",
+      "public_game_id": "zPwPgVeG"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/2PAidLTX",
+      "public_game_id": "2PAidLTX"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/1ZRwifrO",
+      "public_game_id": "1ZRwifrO"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/R4DzAzuG",
+      "public_game_id": "R4DzAzuG"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/DngxXHSv",
+      "public_game_id": "DngxXHSv"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/1a0M2nr4",
+      "public_game_id": "1a0M2nr4"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/jy266ePy",
+      "public_game_id": "jy266ePy"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/4ozYRFcV",
+      "public_game_id": "4ozYRFcV"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/gtbbhIGl",
+      "public_game_id": "gtbbhIGl"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/JwldngUn",
+      "public_game_id": "JwldngUn"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/P8A8oUPT",
+      "public_game_id": "P8A8oUPT"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/tGEFJi5f",
+      "public_game_id": "tGEFJi5f"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/3AeSwQ1E",
+      "public_game_id": "3AeSwQ1E"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/RPIZf4FS",
+      "public_game_id": "RPIZf4FS"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/dPPgPxqx",
+      "public_game_id": "dPPgPxqx"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/2pJpcRLD",
+      "public_game_id": "2pJpcRLD"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/BdalxteF",
+      "public_game_id": "BdalxteF"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/qaIQOjnO",
+      "public_game_id": "qaIQOjnO"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/0aBCB2tI",
+      "public_game_id": "0aBCB2tI"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/pfWjzltO",
+      "public_game_id": "pfWjzltO"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/C9pfpukn",
+      "public_game_id": "C9pfpukn"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/9gwGixh6",
+      "public_game_id": "9gwGixh6"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/N2k9AKtX",
+      "public_game_id": "N2k9AKtX"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/XrnSvE9x",
+      "public_game_id": "XrnSvE9x"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/3S9NsiLF",
+      "public_game_id": "3S9NsiLF"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/N9qoswW5",
+      "public_game_id": "N9qoswW5"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/MZIPs2tb",
+      "public_game_id": "MZIPs2tb"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/m2GjwDyB",
+      "public_game_id": "m2GjwDyB"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/tnP7QRLD",
+      "public_game_id": "tnP7QRLD"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/Pk1HK0cF",
+      "public_game_id": "Pk1HK0cF"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/JEVqM3S2",
+      "public_game_id": "JEVqM3S2"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/kxYXNSHK",
+      "public_game_id": "kxYXNSHK"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/ozF4QoMP",
+      "public_game_id": "ozF4QoMP"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/vOICmszQ",
+      "public_game_id": "vOICmszQ"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/K3eMzlZZ",
+      "public_game_id": "K3eMzlZZ"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/8EK5RzcT",
+      "public_game_id": "8EK5RzcT"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/PBSc8qnN",
+      "public_game_id": "PBSc8qnN"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/QYr9yMI2",
+      "public_game_id": "QYr9yMI2"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/HBJHjrqk",
+      "public_game_id": "HBJHjrqk"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/9CbNNsoQ",
+      "public_game_id": "9CbNNsoQ"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/U7YWpt9N",
+      "public_game_id": "U7YWpt9N"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/aB5se923",
+      "public_game_id": "aB5se923"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/2NUmXpRk",
+      "public_game_id": "2NUmXpRk"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/s4rOhKS6",
+      "public_game_id": "s4rOhKS6"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/FTU3CE2h",
+      "public_game_id": "FTU3CE2h"
+    },
+    {
+      "event_id": "uDIrrl1c",
+      "page_url": "https://lidraughts.org/5bgBYX46",
+      "public_game_id": "5bgBYX46"
+    }
+  ],
+  "independent_cohort_admitted": false,
+  "intake_zip_sha256": "efe9f4c133edb5adfaa236a30dabe1a39e931ed0e09b287ae5bb860f0ac2b28c",
+  "receipt_sha256": "ef66c42e347932ff5fc4cf38ecbc9d495f9e7ad951cf3e97f59885b32ca3d034",
+  "schema": "mtdp-fresh-game-membership-evidence-v1",
+  "scientific_freeze": false,
+  "source_data_licence_established": false,
+  "source_games": 152,
+  "target_positions_selected": false
+}

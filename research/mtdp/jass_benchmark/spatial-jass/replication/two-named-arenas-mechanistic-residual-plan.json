@@ -1,0 +1,119 @@
+{
+  "all_intermediate_raw_receipts_required": true,
+  "arms": [
+    "control_reproduced_with_fresh_selector",
+    "native_full_original_budget",
+    "LCB_full_original_budget",
+    "LCB_unforced_residual_budget",
+    "native_residual_budget"
+  ],
+  "build_receipt_path": "research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-runner-builds.json",
+  "build_receipt_sha256": "14cf0173cd53a4cd8b3b2840f04c0199aeffaccbf02a36891e0be43f896d9ee4",
+  "cases": [
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,30,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:132",
+      "path": "s7ahYqL4/10000/00005.json",
+      "reported_intervention": "8-12",
+      "verification_nodes": 158
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,29,31,32,33,34,35,36,37,38,39,40,42,43,44,45,47,48,49:B1,2,3,4,6,7,8,9,10,11,12,13,14,16,19,20,24,25,26",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:58",
+      "path": "s7ahYqL4/10000/00018.json",
+      "reported_intervention": "47-41",
+      "verification_nodes": 81
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,30,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:132",
+      "path": "s7ahYqL4/50000/00005.json",
+      "reported_intervention": "8-12",
+      "verification_nodes": 158
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,29,31,32,33,34,35,36,37,38,39,40,42,43,44,45,47,48,49:B1,2,3,4,6,7,8,9,10,11,12,13,14,16,19,20,24,25,26",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:58",
+      "path": "s7ahYqL4/50000/00018.json",
+      "reported_intervention": "47-41",
+      "verification_nodes": 81
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,30,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:132",
+      "path": "s7ahYqL4/200000/00005.json",
+      "reported_intervention": "8-12",
+      "verification_nodes": 158
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,29,31,32,33,34,35,36,37,38,39,40,42,43,44,45,47,48,49:B1,2,3,4,6,7,8,9,10,11,12,13,14,16,19,20,24,25,26",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:58",
+      "path": "s7ahYqL4/200000/00018.json",
+      "reported_intervention": "47-41",
+      "verification_nodes": 81
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W25,27,31,32,35,36,37,38,39,40,41,42,43,45,46,48,49:B2,3,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:53",
+      "path": "D9PF2OSW/10000/00001.json",
+      "reported_intervention": "17-21",
+      "verification_nodes": 84
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W25,27,31,32,35,36,37,38,39,40,41,42,43,45,46,48,49:B2,3,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:53",
+      "path": "D9PF2OSW/50000/00001.json",
+      "reported_intervention": "17-21",
+      "verification_nodes": 84
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W25,27,31,32,35,36,37,38,39,40,41,42,43,45,46,48,49:B2,3,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:53",
+      "path": "D9PF2OSW/200000/00001.json",
+      "reported_intervention": "17-21",
+      "verification_nodes": 84
+    }
+  ],
+  "exclude_from_D1": [
+    "fFgE7oED",
+    "P1RUlfJc",
+    "s7ahYqL4",
+    "D9PF2OSW"
+  ],
+  "execution_gate": "publish_plan_and_instrumented_collector_then_verify_remote_before_engine_calls",
+  "expected_original_summaries_must_match": true,
+  "manifest_sha256": "c079ca061d3645b42ce93235854e032de2be43a4cb08d8cea5ddbc1d92f1b5aa",
+  "mask_selection": "all_previously_reported_nonnull_interventions_no_target_score_filter",
+  "max_total_search_nodes": 3900000,
+  "new_independent_cohort": false,
+  "new_probe_or_search_method_allowed": false,
+  "normalization": "retain_raw_stdout_and_stderr_separately_ignore_elapsed_only_for_deterministic_comparison",
+  "parent_audit_sha256": "95a5cade6055ceca051f8751b12f486c0fece6e633e6563b6b679c3dc477f63c",
+  "parent_decisions_commit": "03b1a270b12244a03df715f265f597bd0f00cd50",
+  "parent_freeze_commit": "3fa9a56a3fa60954d5391d7e1b302c07e04f1f04",
+  "primary_results_may_be_rewritten": false,
+  "schema": "mtdp-jass-mechanistic-residual-replay-plan-v1",
+  "scope": "post_hoc_same_nine_intervention_receipts_three_positions_no_independent_efficacy_claim",
+  "source_ranking_depth": 12,
+  "supplementary_main_node_budget": "original_total_budget_minus_reproduced_verification_nodes",
+  "target_reference_access_allowed": false,
+  "verification_counts_must_reproduce": true
+}

@@ -1,0 +1,71 @@
+{
+  "all_four_public_endpoints_byte_equal": true,
+  "checked_at_utc": "2026-11-20T08:17:15.038108+00:00",
+  "complete_historical_exclusion_registry": false,
+  "events": [
+    {
+      "archived_games": 157,
+      "byte_equal_to_pinned_archive": true,
+      "bytes": 169802,
+      "event_id": "fFgE7oED",
+      "final_url": "https://lidraughts.org/api/tournament/fFgE7oED/games",
+      "http_status": 200,
+      "pdn_sha256": "916639e4daf7fae419bd4a9bb4a3530ce62f3eb40ea97f7582762e6cebf68de2",
+      "requested_at_utc": "2026-11-20T08:16:41.804313+00:00",
+      "response_content_type": "application/x-draughts-pdn",
+      "retrieved_at_utc": "2026-11-20T08:16:56.548971+00:00",
+      "url": "https://lidraughts.org/api/tournament/fFgE7oED/games"
+    },
+    {
+      "archived_games": 241,
+      "byte_equal_to_pinned_archive": true,
+      "bytes": 272395,
+      "event_id": "P1RUlfJc",
+      "final_url": "https://lidraughts.org/api/tournament/P1RUlfJc/games",
+      "http_status": 200,
+      "pdn_sha256": "c1c23993b39da11442e2f4bc8cb5cbf8f9fb2713463be5b981d95a190cd68439",
+      "requested_at_utc": "2026-11-20T08:16:41.805710+00:00",
+      "response_content_type": "application/x-draughts-pdn",
+      "retrieved_at_utc": "2026-11-20T08:17:01.466041+00:00",
+      "url": "https://lidraughts.org/api/tournament/P1RUlfJc/games"
+    },
+    {
+      "archived_games": 147,
+      "byte_equal_to_pinned_archive": true,
+      "bytes": 164438,
+      "event_id": "s7ahYqL4",
+      "final_url": "https://lidraughts.org/api/tournament/s7ahYqL4/games",
+      "http_status": 200,
+      "pdn_sha256": "e90a9926b1b1d740a1d8c0eb2b430f8f6a0293446e5e8c593f0a32ab745700c7",
+      "requested_at_utc": "2026-11-20T08:16:56.550630+00:00",
+      "response_content_type": "application/x-draughts-pdn",
+      "retrieved_at_utc": "2026-11-20T08:17:15.033200+00:00",
+      "url": "https://lidraughts.org/api/tournament/s7ahYqL4/games"
+    },
+    {
+      "archived_games": 61,
+      "byte_equal_to_pinned_archive": true,
+      "bytes": 75628,
+      "event_id": "D9PF2OSW",
+      "final_url": "https://lidraughts.org/api/tournament/D9PF2OSW/games",
+      "http_status": 200,
+      "pdn_sha256": "f22cde28cbc0ffffebc632cb6e0f7b9945d6639e46030ab00f20ac71af6bca6b",
+      "requested_at_utc": "2026-11-20T08:17:01.466510+00:00",
+      "response_content_type": "application/x-draughts-pdn",
+      "retrieved_at_utc": "2026-11-20T08:17:11.036726+00:00",
+      "url": "https://lidraughts.org/api/tournament/D9PF2OSW/games"
+    }
+  ],
+  "fmjd_legality_verified": false,
+  "inventory_sha256": "e93bf635d9167b6b7780e341dcdfe88c0077a96bb02c954e617905230b01e672",
+  "limitations": [
+    "Authenticates current endpoint bytes under normal HTTPS verification, not a signed historical attestation.",
+    "Does not certify historical account ownership, annotations, legality or statistical independence.",
+    "All four entire events remain reserved; these HTTP checks do not authorize a new cohort freeze."
+  ],
+  "new_independent_cohort_qualified": false,
+  "new_reference_scores_acquired": false,
+  "reserved_export_game_entries": 606,
+  "schema": "mtdp-h13-reserved-public-endpoint-binding-v1",
+  "scope": "current_public_tournament_url_to_existing_reserved_pdn_digest"
+}

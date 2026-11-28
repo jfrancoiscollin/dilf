@@ -1,0 +1,33 @@
+{
+  "all_four_payloads_identical": true,
+  "all_seven_workflows_success": true,
+  "artifact_downloaded_and_checked": true,
+  "artifact_id": 14492824413,
+  "ci_implementation_commit": "652c343f7fb12ca701db77f1ce4c93bda4669a86",
+  "code_commit": "fc6178c691fe34658ac7ba2550a34be1a6e92b73",
+  "foundation_tests_passed": 191,
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "head_commit": "619f576ac27d1fa114e38488e6ddeafd89425721",
+  "historical_registry_index_and_extended_cache_unchanged": true,
+  "job_id": 135294847842,
+  "manifest_sha256": "0d19a1644afa744233fc6cab388aff21c71eb46e2eeca85e0832c7b9268e18a0",
+  "method_bytes_match_research_branch": true,
+  "new_joint_publication_tests_passed": 28,
+  "next_action": "after_2026-11-19T02:57Z_and_both_actual_finished_metadata_acquire_prepare_publish_and_verify_joint_real_freeze_then_new_study_campaign_adapter",
+  "production_validator_refused": true,
+  "proposal_sha256": "0f1661ae3f82a42d097b4156a83f59067f8c9cea90b1771c3bcc6ed22addd821",
+  "publication_sha256": "8c9a9965666bf891d20ba83c704d938fb7773a3817037df24bbe36ea537c909c",
+  "raw_crlf_preserved": true,
+  "retained_acquisition_source_files": 21,
+  "run_id": 44444968455,
+  "schema": "mtdp-two-arena-full-bundle-CI-validation-v1",
+  "scientific_freeze": false,
+  "scope": "engineering_only_no_new_arena_exports_scores_or_search",
+  "synthetic_rehearsal": true,
+  "verified_at_utc": "2026-11-19T02:41:49.485729+00:00",
+  "zip_bytes": 10752105,
+  "zip_sha256": "d481e8c309b7124c2007d7ee42c5975414f8ff87e4c169d0305304c25533a455"
+}

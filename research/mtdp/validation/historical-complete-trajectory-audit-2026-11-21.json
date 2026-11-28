@@ -1,0 +1,171 @@
+{
+  "complete_historical_exclusion_registry": false,
+  "complete_legal_games_verified": 26,
+  "games": [
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 1,
+      "trajectory_sha256": "44029139da8ea0f4cb9d8cc12da07525f8cd22b47ee21304d8af8e45169355b4",
+      "validated_plies": 14
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 2,
+      "trajectory_sha256": "9aab9047bffe1a677570054dd5e5873b7815335bcec8e9166ee6e704bc1617ec",
+      "validated_plies": 26
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 3,
+      "trajectory_sha256": "bc817342f20937f33a11878b7907cd25ea48e745d8838f77b18a5211e75b66dc",
+      "validated_plies": 69
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 4,
+      "trajectory_sha256": "7bb93e824b6924c4e1ecd304719f39d31d0f3d096d0f6b4f837efa16171cd2a3",
+      "validated_plies": 35
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 5,
+      "trajectory_sha256": "59bcbb4397fcb38633310dcd770c10c91d0446dd08dc1fe870e3b67fcb25ba33",
+      "validated_plies": 75
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 6,
+      "trajectory_sha256": "206a8f7ad8ece5fc1db963ce1db52e611ea2352d23e29daf85e487ffd42911f5",
+      "validated_plies": 94
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 7,
+      "trajectory_sha256": "4c35516aa33ae926d9a33f46cb46c30d25c18f0b6a508c4b7046f9115898c343",
+      "validated_plies": 35
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 8,
+      "trajectory_sha256": "84daff4e6d7318108b8f51864081c18afab9e0d9f545c160aae532dfdf4f0446",
+      "validated_plies": 23
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 9,
+      "trajectory_sha256": "0dfe1ea27d35e20b7fbc12b327e1ef8bf32bdabba94f318de31ffde01de5e950",
+      "validated_plies": 122
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 10,
+      "trajectory_sha256": "205eeae51f62d4af9220336ff229b544b585eaff19701f69faa7f210a4cff283",
+      "validated_plies": 143
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 11,
+      "trajectory_sha256": "de788a085dbc8595545380dcb2a5e64ea56ef0cf84c77f7ec42eac2169f2c270",
+      "validated_plies": 101
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 12,
+      "trajectory_sha256": "858b062848d411bf05817249cdd4d1332c12a566c1e54b19d3dc7582f4923d4e",
+      "validated_plies": 86
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 13,
+      "trajectory_sha256": "f3b6cb3c162c537f44dec1c698a357e2bebbcefcb3f233c7c74dc77f94d93890",
+      "validated_plies": 114
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 14,
+      "trajectory_sha256": "fe4c4c3c49e02ec1f6826ca1eccd32d9946d9b81bd5877334fdae51433eb0c08",
+      "validated_plies": 58
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 15,
+      "trajectory_sha256": "2fc9136a201017ff6b0172e939a21362df57887d6744b7393444204949a558ab",
+      "validated_plies": 96
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 16,
+      "trajectory_sha256": "32054c7724c92d3fbe73166cd6b85cb14bf7b24991c9146b74c09b89cd208696",
+      "validated_plies": 80
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 17,
+      "trajectory_sha256": "c6c2f4e384a273f26d91e74c3953c69ac1e4f308ad2c47499517f7c10ed16f2e",
+      "validated_plies": 35
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 18,
+      "trajectory_sha256": "7b7e4c3fe3845b42899f1f8c70e38fa163916497d82b9d051ff52cdc26dc0813",
+      "validated_plies": 72
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 19,
+      "trajectory_sha256": "83464966a3a9225ded3308383ceed18ec858e5596533462e578add2c12f4c831",
+      "validated_plies": 26
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 20,
+      "trajectory_sha256": "e113043e98383899e85926ed4a451c9f58352c68794177f3c9a2ba1c3c17a7ea",
+      "validated_plies": 53
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 21,
+      "trajectory_sha256": "b21615c726e63c5be1d6a289b6819b558babe77326fda51513d35198c99b4006",
+      "validated_plies": 115
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 22,
+      "trajectory_sha256": "74b98443325fe623995cd2cb9cbf5f4618bda1e2cc5967352bec9017aa118132",
+      "validated_plies": 82
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 23,
+      "trajectory_sha256": "027a82cd112c2acbd89775e3b270f324ef1cf3605c4e98077f81197cf638f0e0",
+      "validated_plies": 106
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 24,
+      "trajectory_sha256": "c3ebdf9a764f781a289781fc688773c2b2e9c02bb0323e6c34d1649972772e57",
+      "validated_plies": 43
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 25,
+      "trajectory_sha256": "c4b26abffd33b45efe8b46664672ea081558c5d1267f419681f73daf6935d9ad",
+      "validated_plies": 112
+    },
+    {
+      "historical_trajectory_match": true,
+      "source_game_index": 26,
+      "trajectory_sha256": "f7467fa730808d762fed8161e11a44c2758f10221e2f77c63317033ef17e87a4",
+      "validated_plies": 23
+    }
+  ],
+  "historical_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "historical_complete_trajectories": 4468,
+  "independent_cohort_qualified": false,
+  "known_historical_trajectory_matches": 26,
+  "new_reference_scores_acquired": false,
+  "schema": "mtdp-h13-historical-complete-trajectory-audit-v1",
+  "scientific_freeze": false,
+  "source_pdn_sha256": "025ad0a1a9ddcf508e3284eef65eb1cf76ebf7763d1241a127432f99eac3d8be",
+  "trajectory_hashes_redefined": false
+}

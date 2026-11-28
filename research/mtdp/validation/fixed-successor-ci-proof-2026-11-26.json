@@ -1,0 +1,81 @@
+{
+  "artifact_id": 15111571078,
+  "artifact_zip_bytes": 6570,
+  "artifact_zip_sha256": "6b31a4165d3b131bd1ca240e081962404d6903221a7127a55374736b25ade982",
+  "global_successor_coverage": false,
+  "historical_build_recipe_sha256": "11cedf28e28eabca29d2514c20fca83943470999302552f40fe67b3bbb6a594a",
+  "historical_receipts_modified": false,
+  "independent_cohort_qualified": false,
+  "initial_implementation_commit": "3614f5a8726d3e1152b8f9b467f9ce8d817182e3",
+  "isolated_build_commit": "6e93f732fc17f33cac05a2cf0d7ef1cef17c96e3",
+  "job_conclusion": "success",
+  "job_id": 139876196476,
+  "local_archive_tests_passed": 76,
+  "local_hashseeds": [
+    "default",
+    "731"
+  ],
+  "local_provenance": {
+    "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+    "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+    "default_rules_changed": false,
+    "legal_binary_sha256": "c4065367a315534284a3b9937b97fe51e2e2b011a26b2889ada435c0845aecfd",
+    "legal_exporter_source_sha256": "cff961ffb64725c42928b6c747a4c7b6f0d32780654d8a5541a39f9767866bec",
+    "patch_id": "king-origin-v1",
+    "position_source_sha256": "e662da2bb79061dff6d1e552d11f11a2842efd3fa363fa97e7a17f590802a259",
+    "successor_binary_sha256": "6858596ffdb47d7db9c10dfabab992355a3375811841ffec0b71b60c8470dbc7",
+    "successor_exporter_source_sha256": "3f1f1b87b4b3bd3b6f619ee7b957a01033fcb1aa438b4b96d2f5abd196bb6c91"
+  },
+  "prior_failed_crossed_depth_run": 45809795384,
+  "remote_compiler": "c++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "remote_hashseeds": [
+    "731"
+  ],
+  "remote_provenance": {
+    "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+    "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+    "default_rules_changed": false,
+    "legal_binary_sha256": "1afb1730d148d16e04b7bcedb05ae9330ad23a67e7584d7ac16f3877ae96b82d",
+    "legal_exporter_source_sha256": "cff961ffb64725c42928b6c747a4c7b6f0d32780654d8a5541a39f9767866bec",
+    "patch_id": "king-origin-v1",
+    "position_source_sha256": "e662da2bb79061dff6d1e552d11f11a2842efd3fa363fa97e7a17f590802a259",
+    "successor_binary_sha256": "c5c5700cb5116a112aada6e2859955273c8959e196c2e78d8eeb5a203a8fd9b4",
+    "successor_exporter_source_sha256": "3f1f1b87b4b3bd3b6f619ee7b957a01033fcb1aa438b4b96d2f5abd196bb6c91"
+  },
+  "repaired_archive_jobs": [
+    {
+      "conclusion": "success",
+      "id": 139876221946,
+      "name": "offline-archive-replay",
+      "tests_passed": 30
+    },
+    {
+      "conclusion": "success",
+      "id": 139876222368,
+      "name": "offline-telemetry-audit",
+      "tests_passed": 54
+    }
+  ],
+  "repaired_crossed_depth_run": 45810343880,
+  "run_id": 45810336308,
+  "schema": "mtdp-h13-fixed-successor-ci-proof-v1",
+  "scientific_freeze": false,
+  "semantic_members": {
+    "fixed-successor-audit.json": {
+      "byte_equal_both_local_seeds_and_isolated_build": true,
+      "bytes": 58376,
+      "sha256": "1dbcf3b40f3f353a831243fa4d67e73c2ae491024b5663635eeb8de918b59f1d"
+    },
+    "jass-legal-catalogues.txt": {
+      "byte_equal_both_local_seeds_and_isolated_build": true,
+      "bytes": 1202,
+      "sha256": "e7c6d6861f40dd061dcf764fcaba52a7b8df28211b4ad573e5da3fd45a584f86"
+    },
+    "jass-successors.txt": {
+      "byte_equal_both_local_seeds_and_isolated_build": true,
+      "bytes": 3050,
+      "sha256": "f659d49b319c531ddf4c5cd0292b4190eee1d5584e50e91726d2bfbe76232285"
+    }
+  },
+  "unittest_passed": 17
+}

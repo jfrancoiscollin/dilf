@@ -1,0 +1,58 @@
+name: mtdp-fresh-position-footprint
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-fresh-position-footprint.yml
+      - research/mtdp/fresh_position_footprint.py
+      - research/mtdp/tests/test_fresh_position_footprint.py
+      - research/mtdp/validation/fresh-uDIrrl1c-position-footprint-2026-11-25.json
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: mtdp-fresh-position-footprint
+  cancel-in-progress: false
+jobs:
+  exact-footprint-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/fmjd
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: fmjd
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          run-id: 45713550844
+          github-token: ${{ github.token }}
+          path: historical-evidence
+      - name: Reproduce exact FEN footprint without scores or new source acquisition
+        run: |
+          python -m unittest research.mtdp.tests.test_fresh_position_footprint
+          mkdir -p .cache/mtdp
+          python -m research.mtdp.fresh_position_footprint \
+            --archive research/mtdp/fresh_intake/2026-11-25-uDIrrl1c.zip \
+            --baseline research/mtdp/validation/fresh-uDIrrl1c-integrity-replay-2026-11-25.json \
+            --cache historical-evidence/four-reserved-events-exclusions.json \
+            --adapter fmjd --output .cache/mtdp/fresh-position-footprint.json \
+            --inventory .cache/mtdp/fresh-position-inventory.jsonl
+          cmp .cache/mtdp/fresh-position-footprint.json research/mtdp/validation/fresh-uDIrrl1c-position-footprint-2026-11-25.json
+          sha256sum .cache/mtdp/fresh-position-inventory.jsonl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-fresh-uDIrrl1c-position-footprint
+          path: |
+            .cache/mtdp/fresh-position-footprint.json
+            .cache/mtdp/fresh-position-inventory.jsonl
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,89 @@
+name: mtdp-king-origin-remaining-oracle
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-king-origin-remaining-oracle.yml
+      - research/mtdp/king_origin_remaining_scope.py
+      - research/mtdp/king_origin_remaining_oracle.py
+      - research/mtdp/tests/test_king_origin_remaining_scope.py
+      - research/mtdp/tests/test_king_origin_remaining_oracle.py
+      - research/mtdp/validation/king-origin-remaining-active-king-oracle-2026-11-26.json
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: mtdp-king-origin-remaining-oracle
+  cancel-in-progress: false
+jobs:
+  fixed-historical-king-root-sets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/fmjd
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: fmjd
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/jass
+          ref: cfe07fce6385b980553a898e9651d53419589ebc
+          path: jass
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          run-id: 45783492727
+          github-token: ${{ github.token }}
+          path: historical-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-king-origin-reconstruction
+          run-id: 45768311500
+          github-token: ${{ github.token }}
+          path: corrected-input
+      - name: Build pinned legal-only catalogue exporter
+        run: |
+          cmake -S jass -B /tmp/mtdp-remaining-king-build -DCMAKE_BUILD_TYPE=Release \
+            -DJASS_ENABLE_SIMD=OFF -DJASS_NATIVE=OFF \
+            -DCMAKE_PROJECT_jass_INCLUDE="$GITHUB_WORKSPACE/research/mtdp/jass_preflight/targets.cmake"
+          cmake --build /tmp/mtdp-remaining-king-build --target mtdp_jass_legal_catalogue -j 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Frozen scope, metrics and oracle parser regressions
+        run: |
+          python -m unittest research.mtdp.tests.test_king_origin_remaining_scope research.mtdp.tests.test_king_origin_remaining_oracle research.mtdp.tests.test_king_origin_inventory_impact research.mtdp.tests.test_return_capture_oracle research.mtdp.tests.test_king_origin_correction
+      - name: Compare fixed remaining roots without search or scores
+        run: |
+          mkdir -p .cache/mtdp
+          python -m research.mtdp.king_origin_remaining_scope \
+            --root . --cache historical-input/four-reserved-events-exclusions.json \
+            --corrected-inventory corrected-input/possible-board-inventory.jsonl \
+            --output-dir .cache/mtdp/remaining-scope
+          cmp .cache/mtdp/remaining-scope/remaining-active-king-scope.json research/mtdp/validation/king-origin-remaining-active-king-scope-2026-11-26.json
+          timeout 600s python -m research.mtdp.king_origin_remaining_oracle \
+            --root . --cache historical-input/four-reserved-events-exclusions.json \
+            --corrected-inventory corrected-input/possible-board-inventory.jsonl \
+            --adapter fmjd --jass jass --executable /tmp/mtdp-remaining-king-build/mtdp_jass_legal_catalogue \
+            --output-dir .cache/mtdp/remaining-oracle
+          PYTHONHASHSEED=731 timeout 600s python -m research.mtdp.king_origin_remaining_oracle \
+            --root . --cache historical-input/four-reserved-events-exclusions.json \
+            --corrected-inventory corrected-input/possible-board-inventory.jsonl \
+            --adapter fmjd --jass jass --executable /tmp/mtdp-remaining-king-build/mtdp_jass_legal_catalogue \
+            --output-dir .cache/mtdp/remaining-oracle-repeat
+          cmp .cache/mtdp/remaining-oracle/remaining-active-king-oracle.json research/mtdp/validation/king-origin-remaining-active-king-oracle-2026-11-26.json
+          for file in remaining-active-king-oracle.json remaining-active-king-fens.txt position-ledger.jsonl change-witnesses.jsonl jass-catalogues.txt; do
+            cmp ".cache/mtdp/remaining-oracle/$file" ".cache/mtdp/remaining-oracle-repeat/$file"
+          done
+          c++ --version > .cache/mtdp/remaining-oracle/compiler.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-king-origin-remaining-oracle
+          path: .cache/mtdp/remaining-oracle/
+          if-no-files-found: error
+          retention-days: 30

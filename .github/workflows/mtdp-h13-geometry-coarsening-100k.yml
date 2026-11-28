@@ -1,0 +1,68 @@
+name: mtdp-h13-geometry-coarsening-100k
+
+on:
+  push:
+    branches:
+      - research/mtdp-foundation
+    paths:
+      - .github/workflows/mtdp-h13-geometry-coarsening-100k.yml
+      - research/mtdp/r2_geometry_ablation.py
+      - research/mtdp/tests/test_r2_geometry_ablation.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mtdp-h13-geometry-coarsening-100k
+  cancel-in-progress: false
+
+jobs:
+  descriptive-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout MTDP research code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Checkout published immutable-input snapshots
+        uses: actions/checkout@v4
+        with:
+          ref: data/r2-positions-2026-11-23
+          path: snapshot-data
+          sparse-checkout: |
+            data/r2_positions/2026-11-21
+            data/r2_positions/recovered-2026-06-20
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install isolated test dependency
+        run: python -m pip install pytest==8.3.4
+
+      - name: Run synthetic gates before data
+        run: python -m pytest -q research/mtdp/tests/test_r2_geometry_ablation.py
+
+      - name: Run pinned 100k geometry collision audit (no engine or R2)
+        shell: bash
+        run: |
+          mkdir -p .cache/mtdp
+          python -m research.mtdp.r2_geometry_ablation \
+            --r2 snapshot-data/data/r2_positions/2026-11-21 \
+            --historical snapshot-data/data/r2_positions/recovered-2026-06-20 \
+            --output .cache/mtdp/h13-geometry-coarsening-100k.json
+          sha256sum .cache/mtdp/h13-geometry-coarsening-100k.json
+
+      - name: Upload descriptive JSON audit receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-h13-geometry-coarsening-100k
+          path: .cache/mtdp/h13-geometry-coarsening-100k.json
+          if-no-files-found: error
+          retention-days: 30

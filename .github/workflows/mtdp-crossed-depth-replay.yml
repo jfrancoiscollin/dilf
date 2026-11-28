@@ -1,0 +1,135 @@
+name: mtdp-crossed-depth-replay
+
+# Known, archived outcomes only. No HTTP PDN acquisition or engine search.
+on:
+  pull_request:
+    paths:
+      - 'research/mtdp/jass_benchmark/two_arena_crossed_depth.py'
+      - 'research/mtdp/jass_benchmark/owner_deletion_audit.py'
+      - 'research/mtdp/tests/test_owner_deletion_audit.py'
+      - 'research/mtdp/validation/frozen-owner-deletion-2026-11-22.json'
+      - 'research/mtdp/jass_benchmark/verify_two_arena_crossed_depth.py'
+      - 'research/mtdp/tests/test_two_arena_crossed_depth.py'
+      - 'research/mtdp/jass_benchmark/two_arena_telemetry_audit.py'
+      - 'research/mtdp/jass_benchmark/verify_two_arena_telemetry.py'
+      - 'research/mtdp/tests/test_two_arena_telemetry_audit.py'
+      - 'research/mtdp/jass_benchmark/mechanistic_residual_replay.py'
+      - 'research/mtdp/tests/test_mechanistic_residual_replay.py'
+      - 'research/mtdp/jass_benchmark/mechanistic_trace_analysis.py'
+      - 'research/mtdp/tests/test_mechanistic_trace_analysis.py'
+      - 'research/mtdp/jass_benchmark/nonintervened_budget_witness.py'
+      - 'research/mtdp/tests/test_nonintervened_budget_witness.py'
+      - 'research/mtdp/jass_benchmark/budget_witness_analysis.py'
+      - 'research/mtdp/tests/test_budget_witness_analysis.py'
+      - 'research/mtdp/jass_benchmark/full_frozen_residual_replay.py'
+      - 'research/mtdp/tests/test_full_frozen_residual_replay.py'
+      - 'research/mtdp/jass_benchmark/verify_full_residual_quality.py'
+      - 'research/mtdp/tests/test_verify_full_residual_quality.py'
+      - 'research/mtdp/jass_benchmark/full_residual_quality.py'
+      - 'research/mtdp/tests/test_full_residual_quality.py'
+      - 'research/mtdp/jass_benchmark/full_frozen_residual_analysis.py'
+      - 'research/mtdp/tests/test_full_frozen_residual_analysis.py'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-*'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/nonintervened-budget-*'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/mechanistic-residual-*'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-telemetry-*.json'
+      - 'research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-crossed-depth-*.json'
+      - '.github/workflows/mtdp-crossed-depth-replay.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mtdp-crossed-depth-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline-telemetry-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install pytest
+      - name: Audit all published node receipts without engine search
+        run: |
+          set -euo pipefail
+          python -m pytest -q research/mtdp/tests/test_two_arena_telemetry_audit.py research/mtdp/tests/test_mechanistic_residual_replay.py research/mtdp/tests/test_mechanistic_trace_analysis.py research/mtdp/tests/test_nonintervened_budget_witness.py research/mtdp/tests/test_budget_witness_analysis.py research/mtdp/tests/test_full_frozen_residual_replay.py research/mtdp/tests/test_full_frozen_residual_analysis.py research/mtdp/tests/test_full_residual_quality.py research/mtdp/tests/test_verify_full_residual_quality.py
+          mkdir /tmp/mtdp-telemetry
+          for seed in 7 61; do
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.two_arena_telemetry_audit --root . --output /tmp/mtdp-telemetry/seed$seed.json
+          done
+          cmp /tmp/mtdp-telemetry/seed7.json /tmp/mtdp-telemetry/seed61.json
+          cmp /tmp/mtdp-telemetry/seed7.json research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-telemetry-audit.json
+          python -m research.mtdp.jass_benchmark.verify_two_arena_telemetry --root . --report /tmp/mtdp-telemetry/seed7.json --output /tmp/mtdp-telemetry/independent.json
+          cmp /tmp/mtdp-telemetry/independent.json research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-telemetry-independent-verification.json
+          python -m research.mtdp.jass_benchmark.mechanistic_trace_analysis --root . --archive7 research/mtdp/jass_benchmark/spatial-jass/replication/mechanistic-residual-raw-seed7.tar.gz --archive61 research/mtdp/jass_benchmark/spatial-jass/replication/mechanistic-residual-raw-seed61.tar.gz --output /tmp/mtdp-telemetry/mechanistic-results.json --proof /tmp/mtdp-telemetry/mechanistic-proof.json
+          cmp /tmp/mtdp-telemetry/mechanistic-results.json research/mtdp/jass_benchmark/spatial-jass/replication/mechanistic-residual-results.json
+          cmp /tmp/mtdp-telemetry/mechanistic-proof.json research/mtdp/jass_benchmark/spatial-jass/replication/mechanistic-residual-independent-verification.json
+          python -m research.mtdp.jass_benchmark.budget_witness_analysis --root . --archive7 research/mtdp/jass_benchmark/spatial-jass/replication/nonintervened-budget-raw-seed7.tar.gz --archive61 research/mtdp/jass_benchmark/spatial-jass/replication/nonintervened-budget-raw-seed61.tar.gz --output /tmp/mtdp-telemetry/witness-results.json --proof /tmp/mtdp-telemetry/witness-proof.json
+          cmp /tmp/mtdp-telemetry/witness-results.json research/mtdp/jass_benchmark/spatial-jass/replication/nonintervened-budget-results.json
+          cmp /tmp/mtdp-telemetry/witness-proof.json research/mtdp/jass_benchmark/spatial-jass/replication/nonintervened-budget-independent-verification.json
+          python -m research.mtdp.jass_benchmark.full_frozen_residual_analysis --root . --archive7 research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-raw-seed7.tar.gz --archive61 research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-raw-seed61.tar.gz --output /tmp/mtdp-telemetry/full-results.json --proof /tmp/mtdp-telemetry/full-proof.json
+          cmp /tmp/mtdp-telemetry/full-results.json research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-results.json
+          cmp /tmp/mtdp-telemetry/full-proof.json research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-independent-verification.json
+      - name: Reconcile complete residual controls with frozen Scan16 (no engines)
+        run: |
+          set -euo pipefail
+          for seed in 7 61; do
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.full_residual_quality --root . --analysis-commit 6c4746f738288180bf26851a7803551fa72e1e67 --output /tmp/mtdp-telemetry/quality$seed.json
+          done
+          cmp /tmp/mtdp-telemetry/quality7.json /tmp/mtdp-telemetry/quality61.json
+          cmp /tmp/mtdp-telemetry/quality7.json research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-quality-results.json
+          python -m research.mtdp.jass_benchmark.verify_full_residual_quality --root . --report /tmp/mtdp-telemetry/quality7.json --output /tmp/mtdp-telemetry/quality-independent.json
+          cmp /tmp/mtdp-telemetry/quality-independent.json research/mtdp/jass_benchmark/spatial-jass/replication/full-frozen-residual-quality-independent.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mtdp-telemetry-offline-audit
+          path: /tmp/mtdp-telemetry/
+          retention-days: 30
+          if-no-files-found: warn
+  offline-archive-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install pytest
+      - name: Test synthetic decomposition and reproduce all archived cases
+        run: |
+          set -euo pipefail
+          python -m pytest -q research/mtdp/tests/test_two_arena_crossed_depth.py research/mtdp/tests/test_two_arena_depth20.py research/mtdp/tests/test_two_arena_analysis.py
+          mkdir /tmp/mtdp-crossed
+          for seed in 7 61; do
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.two_arena_crossed_depth --root . --output /tmp/mtdp-crossed/seed$seed.json
+          done
+          cmp /tmp/mtdp-crossed/seed7.json /tmp/mtdp-crossed/seed61.json
+          cmp /tmp/mtdp-crossed/seed7.json research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-crossed-depth-results.json
+          python -m research.mtdp.jass_benchmark.verify_two_arena_crossed_depth --root . --report /tmp/mtdp-crossed/seed7.json --output /tmp/mtdp-crossed/independent.json
+          cmp /tmp/mtdp-crossed/independent.json research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-crossed-depth-independent-verification.json
+      - name: Reproduce fixed-outcome whole-owner deletion diagnostic
+        run: |
+          set -euo pipefail
+          python -m pytest -q research/mtdp/tests/test_owner_deletion_audit.py
+          for seed in 7 61; do
+            PYTHONHASHSEED=$seed python -m research.mtdp.jass_benchmark.owner_deletion_audit --root . --output /tmp/mtdp-crossed/owner-deletion-seed$seed.json
+          done
+          cmp /tmp/mtdp-crossed/owner-deletion-seed7.json /tmp/mtdp-crossed/owner-deletion-seed61.json
+          cmp /tmp/mtdp-crossed/owner-deletion-seed7.json research/mtdp/validation/frozen-owner-deletion-2026-11-22.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mtdp-crossed-depth-offline-reproduction
+          path: /tmp/mtdp-crossed/
+          retention-days: 30
+          if-no-files-found: warn

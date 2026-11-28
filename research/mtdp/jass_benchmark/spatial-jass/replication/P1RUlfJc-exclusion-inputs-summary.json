@@ -1,0 +1,45 @@
+{
+  "confirmed_fens": 205098,
+  "event": "P1RUlfJc",
+  "games": 4375,
+  "limitations": [
+    "Token-sequence equality is not canonical board-trajectory equality.",
+    "No state beyond the first ambiguous ply is inferred.",
+    "Future population, complete trajectory guard and Jass mappings remain required."
+  ],
+  "normalized_token_sequences": 4224,
+  "other_confirmed_prefix_quarantines": [],
+  "public_game_ids": 4341,
+  "registry_sha256": "25b3ca1a6f0a096c264c8f136135a37fd7d5bb23c04af76a39b4915a611d192e",
+  "reserved_confirmed_prefix_fens": 14170,
+  "reserved_whole_game_quarantines": [
+    {
+      "error": "'1x40': expected exactly one legal matching move, found 2",
+      "game": 46,
+      "ply": 89
+    },
+    {
+      "error": "'1x45': expected exactly one legal matching move, found 2",
+      "game": 58,
+      "ply": 103
+    },
+    {
+      "error": "'47x15': expected exactly one legal matching move, found 2",
+      "game": 94,
+      "ply": 120
+    },
+    {
+      "error": "'37x5': expected exactly one legal matching move, found 2",
+      "game": 150,
+      "ply": 98
+    },
+    {
+      "error": "'44x11': expected exactly one legal matching move, found 2",
+      "game": 155,
+      "ply": 122
+    }
+  ],
+  "schema": "mtdp-named-exclusion-inputs-summary-v1",
+  "scientific_freeze": false,
+  "sources": 22
+}

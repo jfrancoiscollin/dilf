@@ -1,0 +1,22 @@
+{
+  "adapter_base_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "artifact_id": 15087485438,
+  "artifact_zip_sha256": "fc6511803edba9a8bbe3b16f68629b701394eb7a62f8d2972ce8313d1beba0de",
+  "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+  "catalogue_binary_sha256": "1afb1730d148d16e04b7bcedb05ae9330ad23a67e7584d7ac16f3877ae96b82d",
+  "compiler": "c++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "corpus_impact_audited": false,
+  "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+  "default_rules_changed": false,
+  "implementation_commit": "dd410afba7db76ac8e3cc300cbadbd61584934ef",
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "job_id": 139689227213,
+  "patch_id": "king-origin-v1",
+  "protocol_commit": "9dabb118dce1ce144bd94c2833ef6fd438eeaa62",
+  "raw_catalogue_byte_identical_to_local": true,
+  "raw_catalogue_sha256": "ab2951440149f668dfc27761797c18ffb630b9d963681286d9767e16f4198d52",
+  "report_sha256": "ccf99e5797b43c8aef81455af6dd64843f26395f57249438d0473d72aa99bea7",
+  "run_id": 45754316033,
+  "schema": "mtdp-king-origin-v1-ci-proof",
+  "semantic_report_byte_identical_to_local": true
+}

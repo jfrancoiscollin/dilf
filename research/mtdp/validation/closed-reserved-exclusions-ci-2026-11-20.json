@@ -1,0 +1,126 @@
+{
+  "accounting": {
+    "complete_replay_game_records": 4634,
+    "confirmed_prefix_fens": 452526,
+    "duplicate_complete_trajectory_records": 166,
+    "extension_game_records": 208,
+    "quarantined_game_records": 190,
+    "source_count": 25,
+    "source_game_records": 4824,
+    "unique_complete_trajectories": 4468
+  },
+  "artifact_bytes": 14754558,
+  "artifact_id": 14631697430,
+  "artifact_sha256": "fbdec268941ca5b6d99c5644a94679c7fa864dc20f5b6be8e8c069d2423ab120",
+  "base_sets_all_preserved": true,
+  "base_three_members_unchanged": true,
+  "cache_and_summary_byte_equal_across_separate_processes": true,
+  "checked_at_utc": "2026-11-20T13:25:37.198153+00:00",
+  "complete_historical_exclusion_registry": false,
+  "engine_pin_and_import_path_verified_by": "existing checked_engine/pinned_checkout checks",
+  "engine_revision": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "extension_complete_trajectories_already_base": 1,
+  "extension_log_excerpt_sha256": "8236d528f93e92d621422f86fb02ebc80adb3a2ef7cc213a6b98835516be1225",
+  "extension_status_counts": {
+    "duplicate": 7,
+    "indexed": 193,
+    "quarantined": 8
+  },
+  "extension_step": 12,
+  "extension_step_conclusion": "success",
+  "full_cache_bytes": 34698610,
+  "full_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "game_audit_sha256": "4b1b17c89371a277935b022ad441d32adb991cce483ef555af73c005ff334b77",
+  "general_ci": {
+    "core_passed": 643,
+    "job_id": 136311526979,
+    "log_evidence": [
+      "2026-11-20T13:19:01.9805090Z 643 passed in 2.65s",
+      "2026-11-20T13:19:21.3325344Z 747 passed, 14 skipped, 1 warning in 18.97s"
+    ],
+    "mtdp_passed": 747,
+    "optional_skipped": 14,
+    "run_id": 44743125312
+  },
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "independent_cohort_qualified": false,
+  "local_targeted_tests_passed": 14,
+  "new_distinct_fens": 19163,
+  "new_distinct_trajectories": 192,
+  "new_reference_scores_acquired": false,
+  "next_action": "D1/H43 consume the pinned expanded exclusion cache and reconcile remaining historical aliases/manifests/FEN/trajectory identity before independent qualification. Do not rerun these 208 reserved games as a new holdout or infer ambiguous capture continuations.",
+  "per_closed_event_status_counts": {
+    "D9PF2OSW": {
+      "duplicate": 1,
+      "indexed": 57,
+      "quarantined": 3
+    },
+    "s7ahYqL4": {
+      "duplicate": 6,
+      "indexed": 136,
+      "quarantined": 5
+    }
+  },
+  "run_id": 44743125397,
+  "scientific_freeze": false,
+  "source_sha256": {
+    ".github/workflows/mtdp-preregistered-candidate-replay.yml": "863f84bd1f387bc3d1af1384f71da0f3bdfe1eea1578c3bddda3df7fb95cfea1",
+    "research/mtdp/closed_reserved_exclusions.py": "945be23ce780a7478f147c5a1bfd39d0c77fb09c36238cf3b62e062303db6d3e"
+  },
+  "summary_sha256": "2a813309d01900328b89bfaaeaec5bf0f4e84b30f3ac8cbf131ca097d296944b",
+  "validated_code_commit": "6d137756f1f5be5af1de2fbde0b303300211357e",
+  "workflow_job_id": 136311527395,
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "id": 44743125446,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44743125338,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44743125369,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44743125418,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44743125747,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44743125470,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44743125312,
+      "name": "ci",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44743125397,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "arms": [
+    "native_full",
+    "control",
+    "LCB_full"
+  ],
+  "bootstrap_estimates": 0,
+  "budgets": [
+    10000,
+    50000,
+    200000
+  ],
+  "candidate_promotion_allowed": false,
+  "category_policy": "never subtract nonordinary categories; suppress ordinary comparison if present",
+  "empirical_mean_regret_tolerance": 0,
+  "empirical_point_cost_reduction_requires": "strictly fewer total nodes AND mean regret not above native50k; descriptive only",
+  "engine_calls": 0,
+  "events": [
+    "D9PF2OSW",
+    "s7ahYqL4"
+  ],
+  "expected_owners": 31,
+  "expected_positions": 38,
+  "individual_safety_diagnostic": "all paired regrets not above reference, separate from mean",
+  "input_snapshot": "41783f7fcd4144d36b0b29732979b2477ee27dcd",
+  "inputs": {
+    "full-frozen-residual-quality-ci-verification-2026-11-19.json": "dc871e94c43c082f3eabecdc893a3d837ad1ba031c5fa8f66d5f94a0111e6fdd",
+    "full-frozen-residual-quality-results.json": "b10de948f1349a714f32fa38b3cc373cfc305fc53a4d27be226d56801adc2f4f",
+    "two-named-arenas-telemetry-audit.json": "95a5cade6055ceca051f8751b12f486c0fece6e633e6563b6b679c3dc477f63c"
+  },
+  "metrics": [
+    "all nine points, exact regret sums and paired differences from reference",
+    "better/equal/worse counts, worst increase/decrease and optimum hits",
+    "node-budget ratio to reference, per-arena summaries, all pairs retained"
+  ],
+  "new_cohorts_reserved": false,
+  "new_reference_scores_acquired": 0,
+  "post_hoc_budget_selection": false,
+  "question": "Q3",
+  "reference": {
+    "arm": "native_full",
+    "budget": 50000
+  },
+  "schema": "mtdp-q3-archived-budget-quality-plan-v1",
+  "scope": "post-hoc audit of already scored historical points; no new independent test",
+  "wall_time_available": false,
+  "wdl_exact_oracle_claim": false
+}

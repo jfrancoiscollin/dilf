@@ -1,0 +1,13 @@
+# Q3 — Grille historique nœuds/qualité, 28 novembre 2026
+
+Plan d’audit post-hoc publié avant calcul des nouvelles différences entre budgets. Les scores et résultats agrégés de ces arènes sont déjà connus ; ce document **ne constitue pas un préenregistrement indépendant avant scores**. Aucun nouveau score, moteur, donnée, candidat, cohorte, seuil scientifique ou gel. Conserver les résultats négatifs et les méthodes historiques.
+
+Question Q3 bornée : parmi les neuf points déjà produits (natif, contrôle, LCB aux10k/50k/200k nœuds), observe-t-on un point à moins de nœuds et regret moyen non supérieur au natif50k, sur exactement les38 positions/31 parties propriétaires des deux arènes ? Rapporter tous les points, pas choisir un meilleur budget sur le test. La tolérance descriptive est fixée à0 unité Scan ; elle ne remplace ni intervalle de non-infériorité ni validation Q1/Q2.
+
+Réutiliser uniquement les trois bras originaux à budget total égal, vérification déjà facturée pour le contrôle. Les bras résiduels supplémentaires ne sont pas promus comme bras à coût total égal. Sources JSON et preuve CI fermées, SHA et snapshot41783f7 fixés dans le plan JSON ; ne pas rejouer les analyses bootstrap/archives ni ouvrir une nouvelle référence.
+
+Joindre les mêmes clés événement/FEN et propriétaire à chaque budget ; refuser doublons, identité manquante, budget/plafond incohérent, score de coup/racine ou coût non raccordé. Calculer les sommes et différences exactes de regret, optimum hits, nombres de positions améliorées/égales/dégradées, extrema, coûts et ratios nœuds, avec rapports par arène et toutes les lignes appariées. Séparer absence de hausse moyenne et absence de hausse individuelle. Toute catégorie non ordinaire doit être conservée et bloquer les différences ordinaires correspondantes, jamais être convertie en score numérique.
+
+Scan16 est une référence empirique (unités entières0,01HUB), pas minimax ni WDL exact. Aucun temps complet archivé utilisable ; ne pas convertir les nœuds en secondes, ni revendiquer vitesse/force. Pas de nouvel intervalle/bootstrap ou réglage de marge après résultat. Les points réutilisés restent descriptifs et réservés, jamais une population indépendante ou un candidat admis.
+
+Prochaine décision : si aucun point moins coûteux ne satisfait même le critère moyen descriptif, fermer la prétention de réduction sur cette grille et attendre le paquet Q1/Q2 indépendant ; s’il en existe, le documenter comme hypothèse historique nécessitant un nouveau protocole/corpus admis, sans promotion automatique. Ne pas lancer une répétition de Jass/Scan sur les arènes closes. Q2 H:28 et Q1 H:43 restent inchangés, H13 Q3. PC Jeff non requis pour cette arithmétique hors ligne.

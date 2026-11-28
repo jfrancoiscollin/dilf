@@ -1,0 +1,1051 @@
+{
+  "accepted_sampled": 100000,
+  "distinct_exact_sampled_positions": 98306,
+  "distinct_positions_sampled_from_both_snapshots": 11,
+  "distinct_positions_sampled_from_multiple_objects": 1244,
+  "distinct_positions_with_divergent_raw_wdl": 671,
+  "expected_position_records": 30160183,
+  "independent_game_cohort_qualified": false,
+  "manifest_record_counts_including_metadata": {
+    "historical/jnnw": 16610792,
+    "r2/fen": 120683,
+    "r2/jnnw": 13428708,
+    "r2/jsm1": 10000000,
+    "r2/tsv": 792528
+  },
+  "manifest_sha256": {
+    "historical": "e3ed9e2945dd3ff058868968d05343f85cf14ac6565f2180671cc44141768b19",
+    "r2": "e41ad549a2d6d2259b1db03bb384eb98a565ae63c127b1b0b067c3a948df332c"
+  },
+  "method": "proportional_evenly_spaced_indices_per_file_v1",
+  "position_object_count": 96,
+  "r2_api_called": false,
+  "raw_replay_legal_proof": false,
+  "rejected_sampled": 0,
+  "repeated_sample_observations": 1694,
+  "safe_decision_pruning_claim": false,
+  "sampled_by_format": {
+    "fen": 400,
+    "jnnw": 99600
+  },
+  "sampled_by_material_count": {
+    "10": 2980,
+    "11": 2929,
+    "12": 3007,
+    "13": 2850,
+    "14": 3014,
+    "15": 2750,
+    "16": 3098,
+    "17": 2516,
+    "18": 2924,
+    "19": 2469,
+    "2": 97,
+    "20": 2885,
+    "21": 2427,
+    "22": 2939,
+    "23": 2260,
+    "24": 3077,
+    "25": 2206,
+    "26": 3142,
+    "27": 2236,
+    "28": 3282,
+    "29": 2355,
+    "3": 772,
+    "30": 3407,
+    "31": 2249,
+    "32": 3667,
+    "33": 2327,
+    "34": 3798,
+    "35": 2116,
+    "36": 3550,
+    "37": 1472,
+    "38": 2834,
+    "39": 718,
+    "4": 3578,
+    "40": 952,
+    "5": 3040,
+    "6": 2295,
+    "7": 2071,
+    "8": 2844,
+    "9": 2867
+  },
+  "sampled_by_raw_wdl": {
+    "-1": 30854,
+    "0": 37783,
+    "1": 30963
+  },
+  "sampled_by_snapshot": {
+    "historical": 55075,
+    "r2": 44925
+  },
+  "sampled_records": 100000,
+  "sampled_reject_reasons": {},
+  "sampling_bias": "Deterministic nonrandom convenience sample; no game-level independence or population inference.",
+  "schema": "mtdp.r2_published_snapshots_pilot.v1",
+  "source_mapping_counts": {
+    "historical": 11,
+    "r2": 264
+  },
+  "source_objects_verified": [
+    {
+      "accepted": 6631,
+      "declared_records": 2000000,
+      "format": "jnnw",
+      "object": "objects/0af3cac9fccda7e1-seeds.jnnw.gz",
+      "rejected": 0,
+      "sampled": 6631,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36833,
+      "format": "jnnw",
+      "object": "objects/0d921a8014d5f86d-shard-14-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/0e6c0642acef3abf-tb-policy-p1.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 6631,
+      "declared_records": 2000000,
+      "format": "jnnw",
+      "object": "objects/15261c89bd6520e1-f2m.raw.jnnw.gz",
+      "rejected": 0,
+      "sampled": 6631,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/1da965ef386f4061-d-champion-p1.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/23c1faf42ea76aeb-context3-1419-p1.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 5,
+      "declared_records": 1500,
+      "format": "fen",
+      "object": "objects/26dc611ee7b1afe7-reverse-seed.fen",
+      "rejected": 0,
+      "sampled": 5,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36895,
+      "format": "jnnw",
+      "object": "objects/2922400ade2532d9-shard-01-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 61,
+      "declared_records": 18400,
+      "format": "jnnw",
+      "object": "objects/2b40ab1f288b2a35-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 61,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1150,
+      "format": "jnnw",
+      "object": "objects/2b414e4a2c2eadab-shard-11-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/2dd11a9ded108b1c-d-champion-p2.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/30bbefc0e0a530a1-shard-13-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/32dd078604a4f3da-big-b.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1113,
+      "format": "jnnw",
+      "object": "objects/3452371bfc96a8cd-shard-10-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/34e1a4480eff8d44-shard-14-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/355b61fe0771d36a-context2-p2.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 123,
+      "declared_records": 37012,
+      "format": "jnnw",
+      "object": "objects/432649aa48a9805c-shard-00-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 123,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36840,
+      "format": "jnnw",
+      "object": "objects/474681071babf16f-shard-08-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/4a4d905b2dc704c1-replay-promotion-p2.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/52748d05703d228d-shard-02-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/5315cb04d6577f08-context3-1419-p2.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1140,
+      "format": "jnnw",
+      "object": "objects/5d67dcb4ceb8cc90-shard-05-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 5,
+      "declared_records": 1500,
+      "format": "fen",
+      "object": "objects/5f24cd5a9807f2fa-replay-doe-p2.fen",
+      "rejected": 0,
+      "sampled": 5,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36813,
+      "format": "jnnw",
+      "object": "objects/603529476434ee2e-shard-12-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36839,
+      "format": "jnnw",
+      "object": "objects/616612a81572917c-shard-02-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36764,
+      "format": "jnnw",
+      "object": "objects/66b5020969730d4b-shard-07-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36818,
+      "format": "jnnw",
+      "object": "objects/66d59a8fa2cc23c2-shard-06-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/68ea481894e44b57-shard-12-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/69be363195426d55-context30-p2.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/69f235f182a9b5c5-shard-03-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 6631,
+      "declared_records": 2000000,
+      "format": "jnnw",
+      "object": "objects/6ac60a9b3d0ede59-m2.fit.jnnw.gz",
+      "rejected": 0,
+      "sampled": 6631,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 175,
+      "declared_records": 52682,
+      "format": "fen",
+      "object": "objects/6b46d307af2af941-g1_pool.fen",
+      "rejected": 0,
+      "sampled": 175,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1143,
+      "format": "jnnw",
+      "object": "objects/6c174f34f854849d-shard-08-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36801,
+      "format": "jnnw",
+      "object": "objects/7026a2b993e3e7a4-shard-10-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1166,
+      "format": "jnnw",
+      "object": "objects/759c702966114361-shard-00-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1116,
+      "format": "jnnw",
+      "object": "objects/760c8fac87595e95-shard-03-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/79d586c9338fbae9-context3-1428-p1.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4973,
+      "declared_records": 1500000,
+      "format": "jnnw",
+      "object": "objects/79e605f3139e510f-f2m-extra.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4973,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36972,
+      "format": "jnnw",
+      "object": "objects/7a67fbd9dbd4c9fd-shard-04-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/8046c9294d6a8146-shard-00-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1215,
+      "format": "jnnw",
+      "object": "objects/8dc414f66243ff74-shard-15-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/926a6aa5f887822a-shard-05-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/937afba1242e43e6-shard-07-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 5,
+      "declared_records": 1500,
+      "format": "fen",
+      "object": "objects/94cb6a15e278deeb-volume8m.fen",
+      "rejected": 0,
+      "sampled": 5,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/9556339633e55027-context2-p1.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36947,
+      "format": "jnnw",
+      "object": "objects/97edc993b497044d-shard-03-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/9877bee0665205bf-shard-11-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 6631,
+      "declared_records": 2000000,
+      "format": "jnnw",
+      "object": "objects/9b7db67a87025baf-turnover1to1.jnnw.gz",
+      "rejected": 0,
+      "sampled": 6631,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36891,
+      "format": "jnnw",
+      "object": "objects/a2ba987b89f03b68-shard-05-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/a39ad42fc4c15e79-shard-15-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/a6888fc5ae553e6f-shard-06-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1197,
+      "format": "jnnw",
+      "object": "objects/af1062002a433922-shard-13-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/b1441c191b8fcdc1-context3-1428-p2.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/bca05a9aab1bc5bd-shard-10-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 6,
+      "declared_records": 2000,
+      "format": "jnnw",
+      "object": "objects/bdf72d60eb701234-parents.jnnw.gz",
+      "rejected": 0,
+      "sampled": 6,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1179,
+      "format": "jnnw",
+      "object": "objects/bf98f3200e3110fc-shard-01-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36927,
+      "format": "jnnw",
+      "object": "objects/bf9bbbc27bdf93ce-shard-13-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1144,
+      "format": "jnnw",
+      "object": "objects/c0eb337dba3c6c8f-shard-02-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/c50cfb1540eee511-big-a.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 13,
+      "declared_records": 4096,
+      "format": "fen",
+      "object": "objects/c5f47a0a5e66e5c8-runtime-precutoff-00.fen",
+      "rejected": 0,
+      "sampled": 13,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1173,
+      "format": "jnnw",
+      "object": "objects/c76465740caf873f-shard-07-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1196,
+      "format": "jnnw",
+      "object": "objects/ca91d29f7bbd66ab-shard-04-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/cc9c53a056e7da78-rgsc-p1.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1117,
+      "format": "jnnw",
+      "object": "objects/ccf9a2a17f34435f-shard-06-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/d1f3044ddd4ffc25-shard-09-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/d25e7d1afed6c6fb-replay-promotion-p1.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 5,
+      "declared_records": 1500,
+      "format": "fen",
+      "object": "objects/d2e251a116dd5e52-replay-doe-p1.fen",
+      "rejected": 0,
+      "sampled": 5,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 121,
+      "declared_records": 36690,
+      "format": "jnnw",
+      "object": "objects/d72b86c8cf014f82-shard-11-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 121,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/dd045c1ef0fe5bf0-tb-policy-p2.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/e20a7798418f549b-shard-08-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 3,
+      "declared_records": 1091,
+      "format": "jnnw",
+      "object": "objects/e26ddb4207a83fca-shard-09-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 3,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 5,
+      "declared_records": 1600,
+      "format": "fen",
+      "object": "objects/e5e20043a1c32916-gauge.fen",
+      "rejected": 0,
+      "sampled": 5,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 1,
+      "declared_records": 500,
+      "format": "fen",
+      "object": "objects/e7b89a5e3feade89-turnover.fen",
+      "rejected": 0,
+      "sampled": 1,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 123,
+      "declared_records": 37026,
+      "format": "jnnw",
+      "object": "objects/e8efad602556356e-shard-09-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 123,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 5,
+      "declared_records": 1500,
+      "format": "fen",
+      "object": "objects/eb129db1dd304ff3-succession.fen",
+      "rejected": 0,
+      "sampled": 5,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/ec52ec3d90cfbe56-shard-04-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 6631,
+      "declared_records": 2000000,
+      "format": "jnnw",
+      "object": "objects/ee8d685cea331940-m2-d8.jnnw.gz",
+      "rejected": 0,
+      "sampled": 6631,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 1,
+      "declared_records": 305,
+      "format": "fen",
+      "object": "objects/f0f1ff5e60d0b44d-dilf_combinations.fen",
+      "rejected": 0,
+      "sampled": 1,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 1658,
+      "declared_records": 500000,
+      "format": "jnnw",
+      "object": "objects/f1522b2afbd9feab-f2m-common.jnnw.gz",
+      "rejected": 0,
+      "sampled": 1658,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/f5e4e307c79a23cd-context30-p1.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 166,
+      "declared_records": 50000,
+      "format": "jnnw",
+      "object": "objects/fa0c25866690a4ff-shard-01-source.jnnw.gz",
+      "rejected": 0,
+      "sampled": 166,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 122,
+      "declared_records": 36840,
+      "format": "jnnw",
+      "object": "objects/fa46722a665ce49a-shard-15-filtered.jnnw.gz",
+      "rejected": 0,
+      "sampled": 122,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 10,
+      "declared_records": 3000,
+      "format": "fen",
+      "object": "objects/fae224726af800e9-dssd-policy-p1.fen",
+      "rejected": 0,
+      "sampled": 10,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1116,
+      "format": "jnnw",
+      "object": "objects/fb0b5145d38d3696-shard-14-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4,
+      "declared_records": 1144,
+      "format": "jnnw",
+      "object": "objects/fe66033babcc22d1-shard-12-children.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4,
+      "snapshot": "r2",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 9983,
+      "declared_records": 3010792,
+      "format": "jnnw",
+      "object": "objects/ccx33-0384-corpus-d10--d10-corpus.jnnw.gz",
+      "rejected": 0,
+      "sampled": 9983,
+      "snapshot": "historical",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 1326,
+      "declared_records": 400000,
+      "format": "jnnw",
+      "object": "objects/ccx33-0385-corpus-d12--corpus-d12.jnnw.gz",
+      "rejected": 0,
+      "sampled": 1326,
+      "snapshot": "historical",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 2652,
+      "declared_records": 800000,
+      "format": "jnnw",
+      "object": "objects/ccx33-0386-corpus-d10--corpus-d10.jnnw.gz",
+      "rejected": 0,
+      "sampled": 2652,
+      "snapshot": "historical",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 1326,
+      "declared_records": 400000,
+      "format": "jnnw",
+      "object": "objects/ccx33-0387-corpus-d12--corpus-d12.jnnw.gz",
+      "rejected": 0,
+      "sampled": 1326,
+      "snapshot": "historical",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 2652,
+      "declared_records": 800000,
+      "format": "jnnw",
+      "object": "objects/ccx33-0388-corpus-d10--corpus-d10.jnnw.gz",
+      "rejected": 0,
+      "sampled": 2652,
+      "snapshot": "historical",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4642,
+      "declared_records": 1400000,
+      "format": "jnnw",
+      "object": "objects/cpx62-0391-corpus-d10--corpus-d10.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4642,
+      "snapshot": "historical",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4642,
+      "declared_records": 1400000,
+      "format": "jnnw",
+      "object": "objects/cpx62-0392-corpus-d10--corpus-d10.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4642,
+      "snapshot": "historical",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4642,
+      "declared_records": 1400000,
+      "format": "jnnw",
+      "object": "objects/cpx62-0393-corpus-d10--corpus-d10.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4642,
+      "snapshot": "historical",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 4642,
+      "declared_records": 1400000,
+      "format": "jnnw",
+      "object": "objects/cpx62-0394-corpus-d10--corpus-d10.jnnw.gz",
+      "rejected": 0,
+      "sampled": 4642,
+      "snapshot": "historical",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 9284,
+      "declared_records": 2800000,
+      "format": "jnnw",
+      "object": "objects/cpx62-0395-corpus-d10--corpus-d10.jnnw.gz",
+      "rejected": 0,
+      "sampled": 9284,
+      "snapshot": "historical",
+      "verified_file_sha256": true
+    },
+    {
+      "accepted": 9284,
+      "declared_records": 2800000,
+      "format": "jnnw",
+      "object": "objects/cpx62-0396-corpus-d10--corpus-d10.jnnw.gz",
+      "rejected": 0,
+      "sampled": 9284,
+      "snapshot": "historical",
+      "verified_file_sha256": true
+    }
+  ]
+}

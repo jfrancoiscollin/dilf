@@ -1,0 +1,41 @@
+{
+  "artifact_id": 15089837619,
+  "artifact_zip_sha256": "ac65a089814f36ee1653975d885778000d704384b88e3f1ef8387dac09a0c39f",
+  "binary_provenance": {
+    "adapter_base_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+    "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+    "catalogue_binary_sha256": "1afb1730d148d16e04b7bcedb05ae9330ad23a67e7584d7ac16f3877ae96b82d",
+    "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+    "default_rules_changed": false,
+    "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+    "patch_id": "king-origin-v1"
+  },
+  "compiler": "c++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "implementation_commit": "991ca47df3105b79986070d2cbe9831c3bca0404",
+  "job_id": 139712316929,
+  "members": {
+    "change-witnesses.jsonl": {
+      "byte_identical_to_local": true,
+      "bytes": 2551,
+      "sha256": "fe1a249902136b007592536eb8c6ebea3c09e068bfc07a6be06ea268ed372cd7"
+    },
+    "jass-catalogues.txt": {
+      "byte_identical_to_local": true,
+      "bytes": 4536390,
+      "sha256": "6fa6118a3e2a8f2ff80d8cdf15d5dff6ae5cc30dc1640305077d48d143173da5"
+    },
+    "king-origin-impact.json": {
+      "byte_identical_to_local": true,
+      "bytes": 2633,
+      "sha256": "13061b5c12e387f5f3f359d421c73d5a9c921eada7e02b6187efd10a62aea943"
+    },
+    "position-ledger.jsonl": {
+      "byte_identical_to_local": true,
+      "bytes": 33437247,
+      "sha256": "40339620a6243439b121a228328a1f46c6a4c5f4b991722bdbee909d00e3bf8b"
+    }
+  },
+  "protocol_commit": "42821e3182b5496c5010fdc2570757be9eee84a3",
+  "run_id": 45761500008,
+  "schema": "mtdp-king-origin-inventory-impact-ci-proof"
+}

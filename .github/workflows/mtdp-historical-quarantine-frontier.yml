@@ -1,0 +1,63 @@
+name: mtdp-historical-quarantine-frontier
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-historical-quarantine-frontier.yml
+      - research/mtdp/historical_quarantine_frontier.py
+      - research/mtdp/tests/test_historical_quarantine_frontier.py
+      - research/mtdp/validation/historical-quarantine-frontier-2026-11-26.json
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: mtdp-historical-quarantine-frontier
+  cancel-in-progress: false
+jobs:
+  exclusion-diagnostic-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/fmjd
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: fmjd
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          run-id: 45720736618
+          github-token: ${{ github.token }}
+          path: historical-evidence
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fresh-uDIrrl1c-position-footprint
+          run-id: 45720526966
+          github-token: ${{ github.token }}
+          path: fresh-footprint
+      - name: Explore every matching action within fixed bounds, without scores
+        run: |
+          python -m unittest research.mtdp.tests.test_historical_quarantine_frontier
+          mkdir -p .cache/mtdp
+          python -m research.mtdp.historical_quarantine_frontier \
+            --root . --cache historical-evidence/four-reserved-events-exclusions.json \
+            --adapter fmjd --fresh-inventory fresh-footprint/fresh-position-inventory.jsonl \
+            --output .cache/mtdp/historical-quarantine-frontier.json \
+            --inventory .cache/mtdp/possible-historical-board-inventory.jsonl
+          cmp .cache/mtdp/historical-quarantine-frontier.json research/mtdp/validation/historical-quarantine-frontier-2026-11-26.json
+          sha256sum .cache/mtdp/possible-historical-board-inventory.jsonl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-historical-quarantine-frontier
+          path: |
+            .cache/mtdp/historical-quarantine-frontier.json
+            .cache/mtdp/possible-historical-board-inventory.jsonl
+          if-no-files-found: error
+          retention-days: 30

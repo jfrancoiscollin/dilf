@@ -1,0 +1,42 @@
+{
+  "attempt": 1,
+  "first": {
+    "attempts": [
+      {
+        "bytes": 164438,
+        "http_status": 200,
+        "request_id": "0edd2a6267414011aa698683693513c4",
+        "requested_at_utc": "2026-11-19T02:57:35.858512+00:00",
+        "retrieved_at_utc": "2026-11-19T02:57:48.828056+00:00",
+        "sha256": "e90a9926b1b1d740a1d8c0eb2b430f8f6a0293446e5e8c593f0a32ab745700c7"
+      }
+    ],
+    "bytes": 164438,
+    "http_status": 200,
+    "request_id": "0edd2a6267414011aa698683693513c4",
+    "requested_at_utc": "2026-11-19T02:57:35.858512+00:00",
+    "retrieved_at_utc": "2026-11-19T02:57:48.828056+00:00",
+    "sha256": "e90a9926b1b1d740a1d8c0eb2b430f8f6a0293446e5e8c593f0a32ab745700c7",
+    "url": "https://lidraughts.org/api/tournament/s7ahYqL4/games"
+  },
+  "independent_repeat": {
+    "attempts": [
+      {
+        "bytes": 164438,
+        "http_status": 200,
+        "request_id": "b9eb18b74e854d6586cb7867b9e5adc3",
+        "requested_at_utc": "2026-11-19T02:57:48.828944+00:00",
+        "retrieved_at_utc": "2026-11-19T02:58:01.350563+00:00",
+        "sha256": "e90a9926b1b1d740a1d8c0eb2b430f8f6a0293446e5e8c593f0a32ab745700c7"
+      }
+    ],
+    "bytes": 164438,
+    "http_status": 200,
+    "request_id": "b9eb18b74e854d6586cb7867b9e5adc3",
+    "requested_at_utc": "2026-11-19T02:57:48.828944+00:00",
+    "retrieved_at_utc": "2026-11-19T02:58:01.350563+00:00",
+    "sha256": "e90a9926b1b1d740a1d8c0eb2b430f8f6a0293446e5e8c593f0a32ab745700c7",
+    "url": "https://lidraughts.org/api/tournament/s7ahYqL4/games"
+  },
+  "matching": true
+}

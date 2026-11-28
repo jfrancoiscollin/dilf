@@ -1,0 +1,1065 @@
+{
+  "all_original_summaries_and_verification_must_match": true,
+  "all_raw_receipts_required": true,
+  "analysis_scope": "choice_depth_score_and_search_trace_only_no_new_Scan_regret_or_efficacy_test",
+  "arms": [
+    "control_reproduced_with_fresh_selector",
+    "native_full_original_budget",
+    "LCB_full_original_budget",
+    "LCB_unforced_residual_budget",
+    "native_residual_budget"
+  ],
+  "cases": [
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W24,27,29,31,36,38,43:B6,11,14,15,16,17",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:89",
+      "path": "s7ahYqL4/10000/00000.json",
+      "reported_intervention": null,
+      "verification_nodes": 64
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W25,27,28,31,32,33,35,36,38,39,40,41,42,43,45,46,48,49,50:B1,2,3,4,5,6,8,9,10,11,13,14,15,16,17,18,19,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:99",
+      "path": "s7ahYqL4/10000/00001.json",
+      "reported_intervention": null,
+      "verification_nodes": 146
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W25,27,28,31,32,33,35,36,38,39,40,41,43,45,46,47,48,49,50:B1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,18,19,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:99",
+      "path": "s7ahYqL4/10000/00002.json",
+      "reported_intervention": null,
+      "verification_nodes": 218
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,28,31,32,33,34,35,36,37,38,39,40,42,43,44,45,46,48,49,50:B2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:82",
+      "path": "s7ahYqL4/10000/00003.json",
+      "reported_intervention": null,
+      "verification_nodes": 185
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,29,31,33,34,35,36,38,39,40,41,42,43,44,46,47,48,49,50:B2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,20,22,23",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:79",
+      "path": "s7ahYqL4/10000/00004.json",
+      "reported_intervention": null,
+      "verification_nodes": 217
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,30,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:132",
+      "path": "s7ahYqL4/10000/00005.json",
+      "reported_intervention": "8-12",
+      "verification_nodes": 158
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W27,30,31,33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:145",
+      "path": "s7ahYqL4/10000/00006.json",
+      "reported_intervention": null,
+      "verification_nodes": 346
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W27,31,33,34,35,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,20,23",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:145",
+      "path": "s7ahYqL4/10000/00007.json",
+      "reported_intervention": null,
+      "verification_nodes": 177
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W28,29,31,33,34,35,36,37,38,39,40,42,44,46,47,48,49,50:B2,3,4,5,6,7,8,9,11,12,13,14,15,17,18,20,21,22",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:122",
+      "path": "s7ahYqL4/10000/00008.json",
+      "reported_intervention": null,
+      "verification_nodes": 256
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W28,29,31,33,35,36,37,38,39,40,41,42,43,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:71",
+      "path": "s7ahYqL4/10000/00009.json",
+      "reported_intervention": null,
+      "verification_nodes": 169
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W28,31,33,34,35,36,38,39,40,41,42,43,44,45,47,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:91",
+      "path": "s7ahYqL4/10000/00010.json",
+      "reported_intervention": null,
+      "verification_nodes": 124
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "B:W30,31,32,33,35,36,38,39,40,41,42,43,44,45,46,47,48,49:B1,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:88",
+      "path": "s7ahYqL4/10000/00011.json",
+      "reported_intervention": null,
+      "verification_nodes": 133
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W26,29,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49:B1,2,3,4,5,6,8,9,10,11,12,13,14,15,17,18,19,21,22,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:80",
+      "path": "s7ahYqL4/10000/00012.json",
+      "reported_intervention": null,
+      "verification_nodes": 230
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W26,29,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49:B1,2,3,4,5,6,8,9,10,11,12,13,15,17,18,21,22,23,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:80",
+      "path": "s7ahYqL4/10000/00013.json",
+      "reported_intervention": null,
+      "verification_nodes": 148
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,28,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,47,48,49:B2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:13",
+      "path": "s7ahYqL4/10000/00014.json",
+      "reported_intervention": null,
+      "verification_nodes": 223
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49:B1,2,3,4,5,6,7,8,9,11,13,14,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:146",
+      "path": "s7ahYqL4/10000/00015.json",
+      "reported_intervention": null,
+      "verification_nodes": 171
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,28,32,33,34,35,36,37,38,39,40,42,43,44,45,48,49:B2,3,4,6,7,8,9,10,11,13,14,15,16,18,19,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:133",
+      "path": "s7ahYqL4/10000/00016.json",
+      "reported_intervention": null,
+      "verification_nodes": 175
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,32,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,18,19,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:55",
+      "path": "s7ahYqL4/10000/00017.json",
+      "reported_intervention": null,
+      "verification_nodes": 60
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,29,31,32,33,34,35,36,37,38,39,40,42,43,44,45,47,48,49:B1,2,3,4,6,7,8,9,10,11,12,13,14,16,19,20,24,25,26",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:58",
+      "path": "s7ahYqL4/10000/00018.json",
+      "reported_intervention": "47-41",
+      "verification_nodes": 81
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,31,32,33,34,35,36,37,38,39,40,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,21,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:141",
+      "path": "s7ahYqL4/10000/00019.json",
+      "reported_intervention": null,
+      "verification_nodes": 205
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,22,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:89",
+      "path": "s7ahYqL4/10000/00020.json",
+      "reported_intervention": null,
+      "verification_nodes": 183
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,31,33,34,35,36,38,39,40,41,42,43,44,45,47,48,49,50:B1,2,3,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:91",
+      "path": "s7ahYqL4/10000/00021.json",
+      "reported_intervention": null,
+      "verification_nodes": 184
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W29,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49:B2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,21,23,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:127",
+      "path": "s7ahYqL4/10000/00022.json",
+      "reported_intervention": null,
+      "verification_nodes": 149
+    },
+    {
+      "budget": 10000,
+      "event": "s7ahYqL4",
+      "fen": "W:W30,32,33,35,36,37,38,40,42,43,45,46,47,48,49,50:B2,3,4,5,6,8,9,10,11,12,13,15,16,18,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:143",
+      "path": "s7ahYqL4/10000/00023.json",
+      "reported_intervention": null,
+      "verification_nodes": 190
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W24,27,29,31,36,38,43:B6,11,14,15,16,17",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:89",
+      "path": "s7ahYqL4/50000/00000.json",
+      "reported_intervention": null,
+      "verification_nodes": 64
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W25,27,28,31,32,33,35,36,38,39,40,41,42,43,45,46,48,49,50:B1,2,3,4,5,6,8,9,10,11,13,14,15,16,17,18,19,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:99",
+      "path": "s7ahYqL4/50000/00001.json",
+      "reported_intervention": null,
+      "verification_nodes": 146
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W25,27,28,31,32,33,35,36,38,39,40,41,43,45,46,47,48,49,50:B1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,18,19,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:99",
+      "path": "s7ahYqL4/50000/00002.json",
+      "reported_intervention": null,
+      "verification_nodes": 218
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,28,31,32,33,34,35,36,37,38,39,40,42,43,44,45,46,48,49,50:B2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:82",
+      "path": "s7ahYqL4/50000/00003.json",
+      "reported_intervention": null,
+      "verification_nodes": 185
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,29,31,33,34,35,36,38,39,40,41,42,43,44,46,47,48,49,50:B2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,20,22,23",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:79",
+      "path": "s7ahYqL4/50000/00004.json",
+      "reported_intervention": null,
+      "verification_nodes": 217
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,30,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:132",
+      "path": "s7ahYqL4/50000/00005.json",
+      "reported_intervention": "8-12",
+      "verification_nodes": 158
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W27,30,31,33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:145",
+      "path": "s7ahYqL4/50000/00006.json",
+      "reported_intervention": null,
+      "verification_nodes": 346
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W27,31,33,34,35,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,20,23",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:145",
+      "path": "s7ahYqL4/50000/00007.json",
+      "reported_intervention": null,
+      "verification_nodes": 177
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W28,29,31,33,34,35,36,37,38,39,40,42,44,46,47,48,49,50:B2,3,4,5,6,7,8,9,11,12,13,14,15,17,18,20,21,22",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:122",
+      "path": "s7ahYqL4/50000/00008.json",
+      "reported_intervention": null,
+      "verification_nodes": 256
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W28,29,31,33,35,36,37,38,39,40,41,42,43,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:71",
+      "path": "s7ahYqL4/50000/00009.json",
+      "reported_intervention": null,
+      "verification_nodes": 169
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W28,31,33,34,35,36,38,39,40,41,42,43,44,45,47,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:91",
+      "path": "s7ahYqL4/50000/00010.json",
+      "reported_intervention": null,
+      "verification_nodes": 124
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "B:W30,31,32,33,35,36,38,39,40,41,42,43,44,45,46,47,48,49:B1,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:88",
+      "path": "s7ahYqL4/50000/00011.json",
+      "reported_intervention": null,
+      "verification_nodes": 133
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W26,29,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49:B1,2,3,4,5,6,8,9,10,11,12,13,14,15,17,18,19,21,22,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:80",
+      "path": "s7ahYqL4/50000/00012.json",
+      "reported_intervention": null,
+      "verification_nodes": 230
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W26,29,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49:B1,2,3,4,5,6,8,9,10,11,12,13,15,17,18,21,22,23,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:80",
+      "path": "s7ahYqL4/50000/00013.json",
+      "reported_intervention": null,
+      "verification_nodes": 148
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,28,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,47,48,49:B2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:13",
+      "path": "s7ahYqL4/50000/00014.json",
+      "reported_intervention": null,
+      "verification_nodes": 223
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49:B1,2,3,4,5,6,7,8,9,11,13,14,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:146",
+      "path": "s7ahYqL4/50000/00015.json",
+      "reported_intervention": null,
+      "verification_nodes": 171
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,28,32,33,34,35,36,37,38,39,40,42,43,44,45,48,49:B2,3,4,6,7,8,9,10,11,13,14,15,16,18,19,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:133",
+      "path": "s7ahYqL4/50000/00016.json",
+      "reported_intervention": null,
+      "verification_nodes": 175
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,32,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,18,19,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:55",
+      "path": "s7ahYqL4/50000/00017.json",
+      "reported_intervention": null,
+      "verification_nodes": 60
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,29,31,32,33,34,35,36,37,38,39,40,42,43,44,45,47,48,49:B1,2,3,4,6,7,8,9,10,11,12,13,14,16,19,20,24,25,26",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:58",
+      "path": "s7ahYqL4/50000/00018.json",
+      "reported_intervention": "47-41",
+      "verification_nodes": 81
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,31,32,33,34,35,36,37,38,39,40,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,21,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:141",
+      "path": "s7ahYqL4/50000/00019.json",
+      "reported_intervention": null,
+      "verification_nodes": 205
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,22,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:89",
+      "path": "s7ahYqL4/50000/00020.json",
+      "reported_intervention": null,
+      "verification_nodes": 183
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,31,33,34,35,36,38,39,40,41,42,43,44,45,47,48,49,50:B1,2,3,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:91",
+      "path": "s7ahYqL4/50000/00021.json",
+      "reported_intervention": null,
+      "verification_nodes": 184
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W29,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49:B2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,21,23,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:127",
+      "path": "s7ahYqL4/50000/00022.json",
+      "reported_intervention": null,
+      "verification_nodes": 149
+    },
+    {
+      "budget": 50000,
+      "event": "s7ahYqL4",
+      "fen": "W:W30,32,33,35,36,37,38,40,42,43,45,46,47,48,49,50:B2,3,4,5,6,8,9,10,11,12,13,15,16,18,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:143",
+      "path": "s7ahYqL4/50000/00023.json",
+      "reported_intervention": null,
+      "verification_nodes": 190
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W24,27,29,31,36,38,43:B6,11,14,15,16,17",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:89",
+      "path": "s7ahYqL4/200000/00000.json",
+      "reported_intervention": null,
+      "verification_nodes": 64
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W25,27,28,31,32,33,35,36,38,39,40,41,42,43,45,46,48,49,50:B1,2,3,4,5,6,8,9,10,11,13,14,15,16,17,18,19,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:99",
+      "path": "s7ahYqL4/200000/00001.json",
+      "reported_intervention": null,
+      "verification_nodes": 146
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W25,27,28,31,32,33,35,36,38,39,40,41,43,45,46,47,48,49,50:B1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,18,19,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:99",
+      "path": "s7ahYqL4/200000/00002.json",
+      "reported_intervention": null,
+      "verification_nodes": 218
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,28,31,32,33,34,35,36,37,38,39,40,42,43,44,45,46,48,49,50:B2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:82",
+      "path": "s7ahYqL4/200000/00003.json",
+      "reported_intervention": null,
+      "verification_nodes": 185
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,29,31,33,34,35,36,38,39,40,41,42,43,44,46,47,48,49,50:B2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,20,22,23",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:79",
+      "path": "s7ahYqL4/200000/00004.json",
+      "reported_intervention": null,
+      "verification_nodes": 217
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W26,30,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:132",
+      "path": "s7ahYqL4/200000/00005.json",
+      "reported_intervention": "8-12",
+      "verification_nodes": 158
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W27,30,31,33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:145",
+      "path": "s7ahYqL4/200000/00006.json",
+      "reported_intervention": null,
+      "verification_nodes": 346
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W27,31,33,34,35,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,20,23",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:145",
+      "path": "s7ahYqL4/200000/00007.json",
+      "reported_intervention": null,
+      "verification_nodes": 177
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W28,29,31,33,34,35,36,37,38,39,40,42,44,46,47,48,49,50:B2,3,4,5,6,7,8,9,11,12,13,14,15,17,18,20,21,22",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:122",
+      "path": "s7ahYqL4/200000/00008.json",
+      "reported_intervention": null,
+      "verification_nodes": 256
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W28,29,31,33,35,36,37,38,39,40,41,42,43,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:71",
+      "path": "s7ahYqL4/200000/00009.json",
+      "reported_intervention": null,
+      "verification_nodes": 169
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W28,31,33,34,35,36,38,39,40,41,42,43,44,45,47,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:91",
+      "path": "s7ahYqL4/200000/00010.json",
+      "reported_intervention": null,
+      "verification_nodes": 124
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "B:W30,31,32,33,35,36,38,39,40,41,42,43,44,45,46,47,48,49:B1,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:88",
+      "path": "s7ahYqL4/200000/00011.json",
+      "reported_intervention": null,
+      "verification_nodes": 133
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W26,29,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49:B1,2,3,4,5,6,8,9,10,11,12,13,14,15,17,18,19,21,22,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:80",
+      "path": "s7ahYqL4/200000/00012.json",
+      "reported_intervention": null,
+      "verification_nodes": 230
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W26,29,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49:B1,2,3,4,5,6,8,9,10,11,12,13,15,17,18,21,22,23,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:80",
+      "path": "s7ahYqL4/200000/00013.json",
+      "reported_intervention": null,
+      "verification_nodes": 148
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,28,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,47,48,49:B2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:13",
+      "path": "s7ahYqL4/200000/00014.json",
+      "reported_intervention": null,
+      "verification_nodes": 223
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49:B1,2,3,4,5,6,7,8,9,11,13,14,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:146",
+      "path": "s7ahYqL4/200000/00015.json",
+      "reported_intervention": null,
+      "verification_nodes": 171
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,28,32,33,34,35,36,37,38,39,40,42,43,44,45,48,49:B2,3,4,6,7,8,9,10,11,13,14,15,16,18,19,23,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:133",
+      "path": "s7ahYqL4/200000/00016.json",
+      "reported_intervention": null,
+      "verification_nodes": 175
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W27,32,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,18,19,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:55",
+      "path": "s7ahYqL4/200000/00017.json",
+      "reported_intervention": null,
+      "verification_nodes": 60
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,29,31,32,33,34,35,36,37,38,39,40,42,43,44,45,47,48,49:B1,2,3,4,6,7,8,9,10,11,12,13,14,16,19,20,24,25,26",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:58",
+      "path": "s7ahYqL4/200000/00018.json",
+      "reported_intervention": "47-41",
+      "verification_nodes": 81
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,31,32,33,34,35,36,37,38,39,40,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,21,24",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:141",
+      "path": "s7ahYqL4/200000/00019.json",
+      "reported_intervention": null,
+      "verification_nodes": 205
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,22,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:89",
+      "path": "s7ahYqL4/200000/00020.json",
+      "reported_intervention": null,
+      "verification_nodes": 183
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W28,31,33,34,35,36,38,39,40,41,42,43,44,45,47,48,49,50:B1,2,3,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:91",
+      "path": "s7ahYqL4/200000/00021.json",
+      "reported_intervention": null,
+      "verification_nodes": 184
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W29,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49:B2,3,4,5,6,7,8,9,10,11,12,13,15,16,17,18,21,23,25",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:127",
+      "path": "s7ahYqL4/200000/00022.json",
+      "reported_intervention": null,
+      "verification_nodes": 149
+    },
+    {
+      "budget": 200000,
+      "event": "s7ahYqL4",
+      "fen": "W:W30,32,33,35,36,37,38,40,42,43,45,46,47,48,49,50:B2,3,4,5,6,8,9,10,11,12,13,15,16,18,20,21",
+      "owner": "mtdp-lidraughts-s7ahYqL4.pdn:143",
+      "path": "s7ahYqL4/200000/00023.json",
+      "reported_intervention": null,
+      "verification_nodes": 190
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W25,27,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,48,49:B2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,23,24",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:27",
+      "path": "D9PF2OSW/10000/00000.json",
+      "reported_intervention": null,
+      "verification_nodes": 144
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W25,27,31,32,35,36,37,38,39,40,41,42,43,45,46,48,49:B2,3,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:53",
+      "path": "D9PF2OSW/10000/00001.json",
+      "reported_intervention": "17-21",
+      "verification_nodes": 84
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,27,30,31,32,33,35,36,37,38,39,42,43,45,46,48,50:B2,3,4,6,7,8,9,11,12,13,14,16,17,18,19,23,24",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:9",
+      "path": "D9PF2OSW/10000/00002.json",
+      "reported_intervention": null,
+      "verification_nodes": 206
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,50:B2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:5",
+      "path": "D9PF2OSW/10000/00003.json",
+      "reported_intervention": null,
+      "verification_nodes": 286
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,31,32,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:5",
+      "path": "D9PF2OSW/10000/00004.json",
+      "reported_intervention": null,
+      "verification_nodes": 171
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:59",
+      "path": "D9PF2OSW/10000/00005.json",
+      "reported_intervention": null,
+      "verification_nodes": 293
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W28,31,32,33,34,35,36,38,40,41,42,44,45,46,47,48,49,50:B1,2,3,4,6,7,8,9,10,11,12,13,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:61",
+      "path": "D9PF2OSW/10000/00006.json",
+      "reported_intervention": null,
+      "verification_nodes": 84
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W29,30,31,32,33,34,35,36,37,39,40,41,42,43,45,46,47,48,49,50:B1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:45",
+      "path": "D9PF2OSW/10000/00007.json",
+      "reported_intervention": null,
+      "verification_nodes": 180
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W30,31,32,33,34,35,36,37,38,39,40,41,42,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,26",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:41",
+      "path": "D9PF2OSW/10000/00008.json",
+      "reported_intervention": null,
+      "verification_nodes": 63
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "B:W30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,18,20,23,26",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:52",
+      "path": "D9PF2OSW/10000/00009.json",
+      "reported_intervention": null,
+      "verification_nodes": 231
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "W:W27,28,31,32,35,36,37,38,39,40,42,43,44,45,46,47,48,49:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,19,26,29",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:12",
+      "path": "D9PF2OSW/10000/00010.json",
+      "reported_intervention": null,
+      "verification_nodes": 263
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "W:W29,30,31,32,34,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:34",
+      "path": "D9PF2OSW/10000/00011.json",
+      "reported_intervention": null,
+      "verification_nodes": 156
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "W:W29,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49:B2,3,4,6,7,8,9,10,11,12,13,14,15,16,18,19,22,23,25",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:13",
+      "path": "D9PF2OSW/10000/00012.json",
+      "reported_intervention": null,
+      "verification_nodes": 174
+    },
+    {
+      "budget": 10000,
+      "event": "D9PF2OSW",
+      "fen": "W:W29,31,32,33,34,35,36,37,38,39,40,41,43,44,45,46,47,48,49:B2,3,4,5,6,7,8,9,11,12,13,14,15,16,18,19,22,23,25",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:13",
+      "path": "D9PF2OSW/10000/00013.json",
+      "reported_intervention": null,
+      "verification_nodes": 226
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W25,27,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,48,49:B2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,23,24",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:27",
+      "path": "D9PF2OSW/50000/00000.json",
+      "reported_intervention": null,
+      "verification_nodes": 144
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W25,27,31,32,35,36,37,38,39,40,41,42,43,45,46,48,49:B2,3,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:53",
+      "path": "D9PF2OSW/50000/00001.json",
+      "reported_intervention": "17-21",
+      "verification_nodes": 84
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,27,30,31,32,33,35,36,37,38,39,42,43,45,46,48,50:B2,3,4,6,7,8,9,11,12,13,14,16,17,18,19,23,24",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:9",
+      "path": "D9PF2OSW/50000/00002.json",
+      "reported_intervention": null,
+      "verification_nodes": 206
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,50:B2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:5",
+      "path": "D9PF2OSW/50000/00003.json",
+      "reported_intervention": null,
+      "verification_nodes": 286
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,31,32,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:5",
+      "path": "D9PF2OSW/50000/00004.json",
+      "reported_intervention": null,
+      "verification_nodes": 171
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:59",
+      "path": "D9PF2OSW/50000/00005.json",
+      "reported_intervention": null,
+      "verification_nodes": 293
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W28,31,32,33,34,35,36,38,40,41,42,44,45,46,47,48,49,50:B1,2,3,4,6,7,8,9,10,11,12,13,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:61",
+      "path": "D9PF2OSW/50000/00006.json",
+      "reported_intervention": null,
+      "verification_nodes": 84
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W29,30,31,32,33,34,35,36,37,39,40,41,42,43,45,46,47,48,49,50:B1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:45",
+      "path": "D9PF2OSW/50000/00007.json",
+      "reported_intervention": null,
+      "verification_nodes": 180
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W30,31,32,33,34,35,36,37,38,39,40,41,42,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,26",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:41",
+      "path": "D9PF2OSW/50000/00008.json",
+      "reported_intervention": null,
+      "verification_nodes": 63
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "B:W30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,18,20,23,26",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:52",
+      "path": "D9PF2OSW/50000/00009.json",
+      "reported_intervention": null,
+      "verification_nodes": 231
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "W:W27,28,31,32,35,36,37,38,39,40,42,43,44,45,46,47,48,49:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,19,26,29",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:12",
+      "path": "D9PF2OSW/50000/00010.json",
+      "reported_intervention": null,
+      "verification_nodes": 263
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "W:W29,30,31,32,34,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:34",
+      "path": "D9PF2OSW/50000/00011.json",
+      "reported_intervention": null,
+      "verification_nodes": 156
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "W:W29,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49:B2,3,4,6,7,8,9,10,11,12,13,14,15,16,18,19,22,23,25",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:13",
+      "path": "D9PF2OSW/50000/00012.json",
+      "reported_intervention": null,
+      "verification_nodes": 174
+    },
+    {
+      "budget": 50000,
+      "event": "D9PF2OSW",
+      "fen": "W:W29,31,32,33,34,35,36,37,38,39,40,41,43,44,45,46,47,48,49:B2,3,4,5,6,7,8,9,11,12,13,14,15,16,18,19,22,23,25",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:13",
+      "path": "D9PF2OSW/50000/00013.json",
+      "reported_intervention": null,
+      "verification_nodes": 226
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W25,27,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,48,49:B2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,23,24",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:27",
+      "path": "D9PF2OSW/200000/00000.json",
+      "reported_intervention": null,
+      "verification_nodes": 144
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W25,27,31,32,35,36,37,38,39,40,41,42,43,45,46,48,49:B2,3,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:53",
+      "path": "D9PF2OSW/200000/00001.json",
+      "reported_intervention": "17-21",
+      "verification_nodes": 84
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,27,30,31,32,33,35,36,37,38,39,42,43,45,46,48,50:B2,3,4,6,7,8,9,11,12,13,14,16,17,18,19,23,24",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:9",
+      "path": "D9PF2OSW/200000/00002.json",
+      "reported_intervention": null,
+      "verification_nodes": 206
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,50:B2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23,24",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:5",
+      "path": "D9PF2OSW/200000/00003.json",
+      "reported_intervention": null,
+      "verification_nodes": 286
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,31,32,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:5",
+      "path": "D9PF2OSW/200000/00004.json",
+      "reported_intervention": null,
+      "verification_nodes": 171
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W26,28,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:59",
+      "path": "D9PF2OSW/200000/00005.json",
+      "reported_intervention": null,
+      "verification_nodes": 293
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W28,31,32,33,34,35,36,38,40,41,42,44,45,46,47,48,49,50:B1,2,3,4,6,7,8,9,10,11,12,13,15,16,17,18,19,20",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:61",
+      "path": "D9PF2OSW/200000/00006.json",
+      "reported_intervention": null,
+      "verification_nodes": 84
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W29,30,31,32,33,34,35,36,37,39,40,41,42,43,45,46,47,48,49,50:B1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:45",
+      "path": "D9PF2OSW/200000/00007.json",
+      "reported_intervention": null,
+      "verification_nodes": 180
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W30,31,32,33,34,35,36,37,38,39,40,41,42,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,26",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:41",
+      "path": "D9PF2OSW/200000/00008.json",
+      "reported_intervention": null,
+      "verification_nodes": 63
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "B:W30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,48,49,50:B1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,18,20,23,26",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:52",
+      "path": "D9PF2OSW/200000/00009.json",
+      "reported_intervention": null,
+      "verification_nodes": 231
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "W:W27,28,31,32,35,36,37,38,39,40,42,43,44,45,46,47,48,49:B1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,19,26,29",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:12",
+      "path": "D9PF2OSW/200000/00010.json",
+      "reported_intervention": null,
+      "verification_nodes": 263
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "W:W29,30,31,32,34,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,23",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:34",
+      "path": "D9PF2OSW/200000/00011.json",
+      "reported_intervention": null,
+      "verification_nodes": 156
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "W:W29,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49:B2,3,4,6,7,8,9,10,11,12,13,14,15,16,18,19,22,23,25",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:13",
+      "path": "D9PF2OSW/200000/00012.json",
+      "reported_intervention": null,
+      "verification_nodes": 174
+    },
+    {
+      "budget": 200000,
+      "event": "D9PF2OSW",
+      "fen": "W:W29,31,32,33,34,35,36,37,38,39,40,41,43,44,45,46,47,48,49:B2,3,4,5,6,7,8,9,11,12,13,14,15,16,18,19,22,23,25",
+      "owner": "mtdp-lidraughts-D9PF2OSW.pdn:13",
+      "path": "D9PF2OSW/200000/00013.json",
+      "reported_intervention": null,
+      "verification_nodes": 226
+    }
+  ],
+  "exclude_from_D1": [
+    "fFgE7oED",
+    "P1RUlfJc",
+    "s7ahYqL4",
+    "D9PF2OSW"
+  ],
+  "execution_gate": "separate_published_collector_and_plan_verified_before_engine_calls",
+  "manifest_sha256": "c079ca061d3645b42ce93235854e032de2be43a4cb08d8cea5ddbc1d92f1b5aa",
+  "max_total_search_nodes_both_executions": 98800000,
+  "max_total_search_nodes_per_execution": 49400000,
+  "new_independent_cohort": false,
+  "parent_audit_sha256": "95a5cade6055ceca051f8751b12f486c0fece6e633e6563b6b679c3dc477f63c",
+  "parent_decisions_commit": "03b1a270b12244a03df715f265f597bd0f00cd50",
+  "parent_freeze_commit": "3fa9a56a3fa60954d5391d7e1b302c07e04f1f04",
+  "planned_reproduction_hash_seeds": [
+    7,
+    61
+  ],
+  "primary_methods_results_and_prior_masks_may_be_modified": false,
+  "schema": "mtdp-full-frozen-residual-control-plan-v1",
+  "scientific_purpose": "remove_selection_on_reported_intervention_or_known_depth_difference_for_descriptive_budget_and_order_effects",
+  "scope": "post_hoc_exhaustive_original_38_targets_31_owner_games_three_budgets_not_new_independent_validation",
+  "selection": "all_114_original_paired_receipts_without_intervention_depth_score_or_outcome_filter",
+  "source_ranking_depth": 12,
+  "target_reference_access_allowed": false
+}

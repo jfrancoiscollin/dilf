@@ -1,0 +1,96 @@
+{
+  "bundle_implementation": {
+    "commit": "2225760c0033d834091afc4bd93dfa1bc510f88e",
+    "files_sha256": {
+      "pedagogy/game.py": "9eb34e51f0f739a68248f56ee94cdc98e749df869eca423ce4c7313383eb9c38",
+      "research/mtdp/best_move_audit.py": "0e1c94ce08d0e12f35f8e9c4261112f981c005dc9d959ed7d5da02865a0ab022",
+      "research/mtdp/draught_master_adapter.py": "e6540c66e140c9a20767b2219584e54302984f4da2dec54054e5856e866dad8a",
+      "research/mtdp/jass_benchmark/candidate_jass_catalogue.py": "f4f09d1150f1bbb96b92495a1d0977ef076bb2ab529b955a47b7f49c42ff2c29",
+      "research/mtdp/jass_benchmark/geometry_ablation.py": "d219c5ab7cd803a3bca4fd85a5d1df23ae4adfb5c342952d35c7094579384c3e",
+      "research/mtdp/jass_benchmark/named_arena_acquisition.py": "984fa080da22e4da027de001caa646ad767c70ce1d9e079d5f40e5c638154612",
+      "research/mtdp/jass_benchmark/named_arena_inputs.py": "de489dbb634a936ccd87d8f508be7e60980d8ce38477f06df6e467a60f727b3e",
+      "research/mtdp/jass_benchmark/named_arena_replay.py": "49bff94cf73f2437b1287106fc1a90e76cef29790d40c80df73b086f51e390b4",
+      "research/mtdp/jass_benchmark/named_freeze_bundle.py": "9ff30acfbe12db1a8e25e507181ce8ccb24f82ec724e0b0a2b059c4a3e051411",
+      "research/mtdp/jass_benchmark/prospective_candidate_replay.py": "20051f8be80caef1280809605411ddca605e501cf699fd98a898be3851ed7382",
+      "research/mtdp/jass_benchmark/spatial-jass/replication/P1RUlfJc-runner-builds.json": "14cf0173cd53a4cd8b3b2840f04c0199aeffaccbf02a36891e0be43f896d9ee4",
+      "research/mtdp/jass_benchmark/two_arena_acquisition.py": "7fc21e85ecb58224aae33d8d7964471a7dcf0325ba01acadf92ee66850a6642c",
+      "research/mtdp/jass_benchmark/two_arena_exclusions.py": "1a4f9d87fd097e44dcb8b77ee28df8a1d655931ae483202f049245a87e0be3c0",
+      "research/mtdp/jass_benchmark/two_arena_freeze.py": "911be306a880c063cc8b2cd07b79ba6a4c926f778c1d86b180c4228618c517e6",
+      "research/mtdp/jass_benchmark/two_arena_registration.py": "7f9cf137edeef13ace6a63ffec449431cfed8c1fb20306a408a4fb6c57470b5c",
+      "research/mtdp/jass_benchmark/two_arena_replay.py": "833217c6992ccd1e37694d45102995299c2ef2480666f1fe67df2bcf75d83a65",
+      "research/mtdp/jass_cohort.py": "7635a74e8401fefa37eb8017c070fd082d0ee9f75dc6a9894d594d1a8341453f",
+      "research/mtdp/jass_move_mapping.py": "c1fb85bbc17dfbdfbdd29915eab4e6f68bd0340bb9e348de627a90e82970a8e6",
+      "research/mtdp/jass_preflight/legal_catalogue.cpp": "cff961ffb64725c42928b6c747a4c7b6f0d32780654d8a5541a39f9767866bec",
+      "research/mtdp/jass_preflight/move_key.hpp": "efd35b851ee6e4654c804356429f2a2983db945c69237d7c743905835776008d",
+      "research/mtdp/pdn.py": "88faa4a952d363183113dc339bb2d9dc0272db44cbb5a723b7adcd38a7005008",
+      "research/mtdp/signature_ablation.py": "39eb18a9cd6d2dc71bf40431a3e8c4bd787fc4c5adf0326594859ec01128fd6b",
+      "research/mtdp/successor_audit.py": "eebb4d2c14e586cca8901a938628e9b0057c4570eb8d21568aeb42fd21470bcc"
+    }
+  },
+  "files": {
+    "D9PF2OSW/downloads.json": {
+      "bytes": 1548,
+      "sha256": "d1a3d6ca7d99a07a0b4dafce2c6db8a54c8dc718fbb98f8748aa6d22577e764f"
+    },
+    "D9PF2OSW/first.pdn": {
+      "bytes": 75628,
+      "sha256": "f22cde28cbc0ffffebc632cb6e0f7b9945d6639e46030ab00f20ac71af6bca6b"
+    },
+    "D9PF2OSW/metadata.json": {
+      "bytes": 253,
+      "sha256": "98a5bb02c4e745516fa9c88084d4b21ab6d4bd687de67ea812bd8c1ebc44bc1a"
+    },
+    "D9PF2OSW/repeat.pdn": {
+      "bytes": 75628,
+      "sha256": "f22cde28cbc0ffffebc632cb6e0f7b9945d6639e46030ab00f20ac71af6bca6b"
+    },
+    "acquisition-audit.json": {
+      "bytes": 1300120,
+      "sha256": "c26be32f41543c888bb120c8ee71b16a8349448d1f699599859fd5dde5e9a614"
+    },
+    "manifest.json": {
+      "bytes": 138160,
+      "sha256": "c079ca061d3645b42ce93235854e032de2be43a4cb08d8cea5ddbc1d92f1b5aa"
+    },
+    "prestart-publication.json": {
+      "bytes": 563,
+      "sha256": "29cdfb7f9a684b363e874377bd294568fcc7722fa76c758718dcc871c2bb9ae8"
+    },
+    "proposal.json": {
+      "bytes": 2044203,
+      "sha256": "bcb686c72100954bea83a0b83cf4b6b357d90d906a7fb725088e89cf3a9096a5"
+    },
+    "protocol.md": {
+      "bytes": 7018,
+      "sha256": "c2f46a4e37b2ca33d233a4913d5ab9dd601531475d1c1dcfbe70dee3a7e5b961"
+    },
+    "registration.json": {
+      "bytes": 7221,
+      "sha256": "072f0326c09e79c9f8245b741b02786b67408b38bcb9c6b0cbb08bc1218bdb27"
+    },
+    "reproduction.json": {
+      "bytes": 369,
+      "sha256": "1bb7ec26791ff11e21ef92fee507cb30d130caa375ee4eca6d2d3aafe3310751"
+    },
+    "s7ahYqL4/downloads.json": {
+      "bytes": 1552,
+      "sha256": "0e3bdafcc71fea6f751cb1e257ad6445c6cc6424383371ac858bc45782a77d0f"
+    },
+    "s7ahYqL4/first.pdn": {
+      "bytes": 164438,
+      "sha256": "e90a9926b1b1d740a1d8c0eb2b430f8f6a0293446e5e8c593f0a32ab745700c7"
+    },
+    "s7ahYqL4/metadata.json": {
+      "bytes": 253,
+      "sha256": "310d4c51263f94199ed6e582c7cc407d988222dd6339df600b2868bdeddbe2e8"
+    },
+    "s7ahYqL4/repeat.pdn": {
+      "bytes": 164438,
+      "sha256": "e90a9926b1b1d740a1d8c0eb2b430f8f6a0293446e5e8c593f0a32ab745700c7"
+    }
+  },
+  "schema": "mtdp-two-arena-publication-v1",
+  "scientific_freeze": false,
+  "state": "prepared_not_published",
+  "synthetic_rehearsal": false
+}

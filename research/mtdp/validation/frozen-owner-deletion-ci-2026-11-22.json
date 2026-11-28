@@ -1,0 +1,24 @@
+{
+  "all_eight_workflows_success": true,
+  "all_zip_members_verified": false,
+  "artifact_id": 14735262298,
+  "both_seeded_reports_equal_versioned_bytes": true,
+  "diagnostic_tests_passed": 8,
+  "implementation_commit": "fa4437b5e8ebcb2c4ad0e1b1a1a6afec1d3e15ed",
+  "job_id": 137065808245,
+  "new_engine_nodes": 0,
+  "new_independent_confirmation": false,
+  "new_scores_acquired": false,
+  "next_action": "Wait for a concrete D1 candidate to pass independent evaluation and provenance gates before registering a new prospective Jass/Scan campaign; preserve all four reserved events.",
+  "run_id": 44975950198,
+  "schema": "mtdp-owner-deletion-ci-proof-v1",
+  "validated_head": "fa6be97d0e64396bf62e01287b03851946ea952a",
+  "verified_members": [
+    "owner-deletion-seed7.json",
+    "owner-deletion-seed61.json"
+  ],
+  "verified_report_sha256": "e2d70723a36c32f287cca9df9752ce05bc766cdbc5e73592186df9324d1e6628",
+  "zip_bytes": 23990,
+  "zip_members": 5,
+  "zip_sha256_recomputed": "1af5e8ab7ac583414140a98b3e2e6ad6597961fb4478707ba418863aee36dde9"
+}

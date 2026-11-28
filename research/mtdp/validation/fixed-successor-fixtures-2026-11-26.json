@@ -1,0 +1,202 @@
+{
+  "cases": [
+    {
+      "case": "CARZrQpl:1285",
+      "fen": "B:W15,20,22,39,K42,45:B5,K48",
+      "origin": "prior-eight-board-regression",
+      "return_token": "48x48"
+    },
+    {
+      "case": "CARZrQpl:382",
+      "fen": "W:WK3,24,25,35,36,37,38:B9,15,17,20,22,27,28",
+      "origin": "prior-eight-board-regression",
+      "return_token": "3x3"
+    },
+    {
+      "case": "CARZrQpl:1285-rotated",
+      "fen": "W:WK3,46:B6,K9,12,29,31,36",
+      "origin": "prior-eight-board-regression",
+      "return_token": "3x3"
+    },
+    {
+      "case": "CARZrQpl:382-rotated",
+      "fen": "B:W23,24,29,31,34,36,42:B13,14,15,16,26,27,K48",
+      "origin": "prior-eight-board-regression",
+      "return_token": "48x48"
+    },
+    {
+      "case": "initial-control",
+      "fen": "W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+      "origin": "prior-eight-board-regression",
+      "return_token": null
+    },
+    {
+      "case": "man-loop",
+      "fen": "W:W20,26,28,32,33,38,39,43:B8,11,13,14,16,17,19,23,24,36",
+      "origin": "prior-eight-board-regression",
+      "return_token": "20x20"
+    },
+    {
+      "case": "quiet-king",
+      "fen": "W:WK28:B1",
+      "origin": "prior-eight-board-regression",
+      "return_token": null
+    },
+    {
+      "case": "other-friendly-blocker",
+      "fen": "W:WK3,14:B9,17,27,28",
+      "origin": "prior-eight-board-regression",
+      "return_token": null
+    },
+    {
+      "case": "quiet-man-promotion",
+      "fen": "W:W6:B45",
+      "origin": "synthetic-structural-control",
+      "return_token": null
+    },
+    {
+      "case": "quiet-man-promotion-rotated",
+      "fen": "B:W6:B45",
+      "origin": "rotate-180-and-swap-colors",
+      "return_token": null
+    },
+    {
+      "case": "capture-man-promotion",
+      "fen": "W:W12:B8,40",
+      "origin": "synthetic-structural-control",
+      "return_token": null
+    },
+    {
+      "case": "capture-man-promotion-rotated",
+      "fen": "B:W11,43:B39",
+      "origin": "rotate-180-and-swap-colors",
+      "return_token": null
+    },
+    {
+      "case": "promotion-row-transit",
+      "fen": "W:W12:B8,9,40",
+      "origin": "synthetic-structural-control",
+      "return_token": null
+    },
+    {
+      "case": "promotion-row-transit-rotated",
+      "fen": "B:W11,42,43:B39",
+      "origin": "rotate-180-and-swap-colors",
+      "return_token": null
+    },
+    {
+      "case": "man-double-capture",
+      "fen": "W:W32:B17,27",
+      "origin": "synthetic-structural-control",
+      "return_token": null
+    },
+    {
+      "case": "man-double-capture-rotated",
+      "fen": "B:W24,34:B19",
+      "origin": "rotate-180-and-swap-colors",
+      "return_token": null
+    },
+    {
+      "case": "king-back-rank-quiet",
+      "fen": "W:WK6:B45",
+      "origin": "synthetic-structural-control",
+      "return_token": null
+    },
+    {
+      "case": "king-back-rank-quiet-rotated",
+      "fen": "B:W6:BK45",
+      "origin": "rotate-180-and-swap-colors",
+      "return_token": null
+    },
+    {
+      "case": "king-back-rank-capture",
+      "fen": "W:WK12:B8,40",
+      "origin": "synthetic-structural-control",
+      "return_token": null
+    },
+    {
+      "case": "king-back-rank-capture-rotated",
+      "fen": "B:W11,43:BK39",
+      "origin": "rotate-180-and-swap-colors",
+      "return_token": null
+    }
+  ],
+  "identity_scope": "typed occupancy plus turn only; no clocks/repetition",
+  "independent_cohort_qualified": false,
+  "manual_transition_checks": [
+    {
+      "case": "CARZrQpl:1285",
+      "promotion": false,
+      "root_key": "48x48x20x22x39x42",
+      "successor_fen": "W:W15,45:B5,K48"
+    },
+    {
+      "case": "CARZrQpl:382",
+      "promotion": false,
+      "root_key": "3x3x9x17x27x28",
+      "successor_fen": "B:WK3,24,25,35,36,37,38:B15,20,22"
+    },
+    {
+      "case": "quiet-man-promotion",
+      "promotion": true,
+      "root_key": "6-1",
+      "successor_fen": "B:WK1:B45"
+    },
+    {
+      "case": "quiet-man-promotion-rotated",
+      "promotion": true,
+      "root_key": "45-50",
+      "successor_fen": "W:W6:BK50"
+    },
+    {
+      "case": "capture-man-promotion",
+      "promotion": true,
+      "root_key": "12x3x8",
+      "successor_fen": "B:WK3:B40"
+    },
+    {
+      "case": "capture-man-promotion-rotated",
+      "promotion": true,
+      "root_key": "39x48x43",
+      "successor_fen": "W:W11:BK48"
+    },
+    {
+      "case": "promotion-row-transit",
+      "promotion": false,
+      "root_key": "12x14x8x9",
+      "successor_fen": "B:W14:B40"
+    },
+    {
+      "case": "promotion-row-transit-rotated",
+      "promotion": false,
+      "root_key": "39x37x42x43",
+      "successor_fen": "W:W11:B37"
+    },
+    {
+      "case": "man-double-capture",
+      "promotion": false,
+      "root_key": "32x12x17x27",
+      "successor_fen": "B:W12:B"
+    },
+    {
+      "case": "man-double-capture-rotated",
+      "promotion": false,
+      "root_key": "19x39x24x34",
+      "successor_fen": "W:W:B39"
+    },
+    {
+      "case": "king-back-rank-quiet",
+      "promotion": false,
+      "root_key": "6-1",
+      "successor_fen": "B:WK1:B45"
+    },
+    {
+      "case": "king-back-rank-capture",
+      "promotion": false,
+      "root_key": "12x3x8",
+      "successor_fen": "B:WK3:B40"
+    }
+  ],
+  "schema": "mtdp-h13-fixed-successor-fixtures-v1",
+  "scores_or_signatures_computed": false
+}

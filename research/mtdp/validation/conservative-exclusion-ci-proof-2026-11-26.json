@@ -1,0 +1,28 @@
+{
+  "artifact_id": 15095567551,
+  "artifact_zip_bytes": 160099,
+  "artifact_zip_sha256": "728d34e0852c95a119dd7239072147bb09602faa3af77293a58515cc5f46c5a7",
+  "complete_historical_exclusion_registry": false,
+  "existing_pytest_passed": 35,
+  "implementation_commit": "cc11f546c623ca7cec469fd6f34f2af5669ef5f4",
+  "independent_cohort_qualified": false,
+  "job_conclusion": "success",
+  "job_id": 139758286179,
+  "members": {
+    "conservative-exclusion-manifest.json": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 1292,
+      "sha256": "8a2991c3efbece3fdd4bf5e4db15c12e7b2bc176855250a0d57ae51dcca88c32"
+    },
+    "historical-supplement.jsonl": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 725290,
+      "sha256": "3d3a5dd6326b6815541b402b451c6273917252dc9955a9cefe88b8341b7ce1f8"
+    }
+  },
+  "run_id": 45775569477,
+  "schema": "mtdp-h13-conservative-exclusion-ci-proof-v1",
+  "scientific_freeze": false,
+  "skipped_tests": 0,
+  "unittest_passed": 11
+}

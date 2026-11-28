@@ -1,0 +1,69 @@
+{
+  "all_commit_workflows": [
+    {
+      "conclusion": "success",
+      "id": 44481263930,
+      "name": "mtdp-retrospective-quality",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44481264121,
+      "name": "mtdp-crossed-depth-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44481264004,
+      "name": "mtdp-prospective-arena-scout",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44481263864,
+      "name": "mtdp-d1-score-blind-pcblues",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44481263845,
+      "name": "mtdp-metered-probe",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44481263924,
+      "name": "downstream-compat",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44481263835,
+      "name": "mtdp-preregistered-candidate-replay",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 44481263828,
+      "name": "ci",
+      "status": "completed"
+    }
+  ],
+  "artifact_id": 14508148442,
+  "artifact_members_verified": [
+    "independent.json",
+    "seed61.json",
+    "seed7.json"
+  ],
+  "commit": "3bdbe30853ce74938d2788fa9eb42cea171cf411",
+  "conclusion": "success",
+  "independent_verification_identical": true,
+  "job_id": 135413777874,
+  "new_engine_searches": 0,
+  "run_id": 44481264121,
+  "schema": "mtdp-crossed-depth-ci-verification-v1",
+  "seed7_seed61_and_repository_bytes_identical": true,
+  "synthetic_tests_passed": 22,
+  "zip_bytes": 19866,
+  "zip_sha256": "32e33bfb6869f48ba707a68369652380c46eab9dfb22f7c1f6cc2e184cdf5533"
+}

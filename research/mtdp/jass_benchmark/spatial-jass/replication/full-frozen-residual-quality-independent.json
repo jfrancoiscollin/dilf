@@ -1,0 +1,9 @@
+{
+  "all_equal": true,
+  "arm_cells_recomputed": 570,
+  "bootstrap_estimates_recomputed": 126,
+  "engine_calls": 0,
+  "reference_sha256": "8755f7d32ca849708116dd1bf8b0f27b0d7368cd70557f9f416656095f02afd8",
+  "report_sha256": "b10de948f1349a714f32fa38b3cc373cfc305fc53a4d27be226d56801adc2f4f",
+  "schema": "mtdp-full-residual-quality-independent-v1"
+}

@@ -1,0 +1,289 @@
+{
+  "conditional_interval_is_primary_interval": false,
+  "independent_cohort_qualified": false,
+  "interpretation": "The conditional D1 branch uses informative_at_3; its interval cannot accompany the fixed-population primary estimate. The explicit fixed_n_ge_4 branch now reproduces that primary estimate and interval.",
+  "new_reference_scores_acquired": false,
+  "next_action": "Use explicit fixed_n_ge_4 mode for fixed-population top-3 inference and conditional_informative only for the labelled secondary diagnostic. Keep exclusions and independent admission gates before any future freeze.",
+  "observations": [
+    {
+      "baseline": [
+        "d",
+        "a",
+        "b",
+        "c"
+      ],
+      "candidate": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "game_id": "synthetic-g0",
+      "id": "p0",
+      "legal": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "scores": {
+        "a": 0,
+        "b": 0,
+        "c": 0,
+        "d": 9
+      }
+    },
+    {
+      "baseline": [
+        "d",
+        "a",
+        "b",
+        "c"
+      ],
+      "candidate": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "game_id": "synthetic-g1",
+      "id": "p1",
+      "legal": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "scores": {
+        "a": 0,
+        "b": 0,
+        "c": 0,
+        "d": 9
+      }
+    },
+    {
+      "baseline": [
+        "d",
+        "a",
+        "b",
+        "c"
+      ],
+      "candidate": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "game_id": "synthetic-g2",
+      "id": "p2",
+      "legal": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "scores": {
+        "a": 0,
+        "b": 0,
+        "c": 9,
+        "d": 9
+      }
+    },
+    {
+      "baseline": [
+        "d",
+        "a",
+        "b",
+        "c"
+      ],
+      "candidate": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "game_id": "synthetic-g3",
+      "id": "p3",
+      "legal": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "scores": {
+        "a": 0,
+        "b": 0,
+        "c": 9,
+        "d": 9
+      }
+    }
+  ],
+  "one_tie_changed_legal_population_unchanged": {
+    "aggregate": {
+      "n_all": 4,
+      "n_terminal": 0,
+      "primary_score_blind_n_ge_4": {
+        "delta_first_regret_raw": 9,
+        "delta_recall3": -0.75,
+        "n": 4,
+        "recall3_baseline": 1,
+        "recall3_proposed": 0.25
+      },
+      "secondary_score_dependent_informative_at_3": {
+        "delta_first_regret_raw": 9,
+        "delta_recall3": -1,
+        "n": 3,
+        "recall3_baseline": 1,
+        "recall3_proposed": 0
+      }
+    },
+    "new_d1_bridge_conditional_bootstrap": {
+      "admission_verified_here": false,
+      "candidate_minus_baseline": -1.0,
+      "ci95": [
+        -1.0,
+        -1.0
+      ],
+      "cluster_key": "game_id",
+      "excluded": {
+        "all_score_ties": 0,
+        "noninformative_top3": 1,
+        "terminal": 0
+      },
+      "metric": "recall_at_3",
+      "n_clusters": 3,
+      "n_input_observations": 4,
+      "n_observations": 3,
+      "repetitions": 2000,
+      "score_unit": "raw; no centipawn conversion",
+      "seed": 20261120,
+      "top3_population": "conditional_informative",
+      "top3_population_is_primary_fixed": false,
+      "unit": "raw input metric; no centipawn conversion"
+    },
+    "new_d1_bridge_primary_bootstrap": {
+      "admission_verified_here": false,
+      "candidate_minus_baseline": -0.75,
+      "ci95": [
+        -1.0,
+        -0.25
+      ],
+      "cluster_key": "game_id",
+      "excluded": {
+        "all_score_ties": 0,
+        "noninformative_top3": 0,
+        "terminal": 0
+      },
+      "metric": "recall_at_3",
+      "n_clusters": 4,
+      "n_input_observations": 4,
+      "n_observations": 4,
+      "repetitions": 2000,
+      "score_unit": "raw; no centipawn conversion",
+      "seed": 20261120,
+      "top3_population": "fixed_n_ge_4",
+      "top3_population_is_primary_fixed": true,
+      "unit": "raw input metric; no centipawn conversion"
+    },
+    "primary_fixed_legal_count_bootstrap": {
+      "candidate_minus_baseline": -0.75,
+      "ci95": [
+        -1.0,
+        -0.25
+      ],
+      "cluster_key": "game_id",
+      "metric": "recall_at_3",
+      "n_clusters": 4,
+      "n_observations": 4,
+      "repetitions": 2000,
+      "seed": 20261120,
+      "unit": "raw input metric; no centipawn conversion"
+    }
+  },
+  "original": {
+    "aggregate": {
+      "n_all": 4,
+      "n_terminal": 0,
+      "primary_score_blind_n_ge_4": {
+        "delta_first_regret_raw": 9,
+        "delta_recall3": -0.5,
+        "n": 4,
+        "recall3_baseline": 1,
+        "recall3_proposed": 0.5
+      },
+      "secondary_score_dependent_informative_at_3": {
+        "delta_first_regret_raw": 9,
+        "delta_recall3": -1,
+        "n": 2,
+        "recall3_baseline": 1,
+        "recall3_proposed": 0
+      }
+    },
+    "new_d1_bridge_conditional_bootstrap": {
+      "admission_verified_here": false,
+      "candidate_minus_baseline": -1.0,
+      "ci95": [
+        -1.0,
+        -1.0
+      ],
+      "cluster_key": "game_id",
+      "excluded": {
+        "all_score_ties": 0,
+        "noninformative_top3": 2,
+        "terminal": 0
+      },
+      "metric": "recall_at_3",
+      "n_clusters": 2,
+      "n_input_observations": 4,
+      "n_observations": 2,
+      "repetitions": 2000,
+      "score_unit": "raw; no centipawn conversion",
+      "seed": 20261120,
+      "top3_population": "conditional_informative",
+      "top3_population_is_primary_fixed": false,
+      "unit": "raw input metric; no centipawn conversion"
+    },
+    "new_d1_bridge_primary_bootstrap": {
+      "admission_verified_here": false,
+      "candidate_minus_baseline": -0.5,
+      "ci95": [
+        -1.0,
+        0.0
+      ],
+      "cluster_key": "game_id",
+      "excluded": {
+        "all_score_ties": 0,
+        "noninformative_top3": 0,
+        "terminal": 0
+      },
+      "metric": "recall_at_3",
+      "n_clusters": 4,
+      "n_input_observations": 4,
+      "n_observations": 4,
+      "repetitions": 2000,
+      "score_unit": "raw; no centipawn conversion",
+      "seed": 20261120,
+      "top3_population": "fixed_n_ge_4",
+      "top3_population_is_primary_fixed": true,
+      "unit": "raw input metric; no centipawn conversion"
+    },
+    "primary_fixed_legal_count_bootstrap": {
+      "candidate_minus_baseline": -0.5,
+      "ci95": [
+        -1.0,
+        0.0
+      ],
+      "cluster_key": "game_id",
+      "metric": "recall_at_3",
+      "n_clusters": 4,
+      "n_observations": 4,
+      "repetitions": 2000,
+      "seed": 20261120,
+      "unit": "raw input metric; no centipawn conversion"
+    }
+  },
+  "primary_estimate_matches_conditional_estimate": false,
+  "schema": "mtdp-h13-synthetic-estimand-compatibility-audit-v2",
+  "scope": "synthetic pre-freeze interpretation check; no change to D1 modules or frozen H13 studies",
+  "synthetic_only": true
+}

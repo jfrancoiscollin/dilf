@@ -1,0 +1,17 @@
+[
+  {
+    "url": "https://lidraughts.org/api/tournament/vHeQVFho",
+    "queried_at": "2026-11-12T13:13:26+00:00",
+    "http_status": 404
+  },
+  {
+    "url": "https://lidraughts.org/tournament/vHeQVFho",
+    "queried_at": "2026-11-12T13:13:26+00:00",
+    "http_status": 404
+  },
+  {
+    "url": "https://lidraughts.org/api/tournament/vHeQVFho/games",
+    "queried_at": "2026-11-12T13:13:26+00:00",
+    "http_status": 404
+  }
+]

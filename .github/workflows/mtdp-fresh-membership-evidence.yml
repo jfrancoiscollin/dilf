@@ -1,0 +1,39 @@
+name: mtdp-fresh-membership-evidence
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-fresh-membership-evidence.yml
+      - research/mtdp/fresh_membership_evidence.py
+      - research/mtdp/tests/test_fresh_membership_evidence.py
+      - research/mtdp/fresh_intake/2026-11-25-uDIrrl1c-membership.zip
+      - research/mtdp/validation/fresh-uDIrrl1c-membership-2026-11-25.json
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mtdp-fresh-membership-evidence
+  cancel-in-progress: false
+jobs:
+  source-links-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify preserved membership without any new source download
+        run: |
+          python -m unittest research.mtdp.tests.test_fresh_membership_evidence
+          python -m research.mtdp.fresh_membership_evidence audit \
+            --archive research/mtdp/fresh_intake/2026-11-25-uDIrrl1c.zip \
+            --evidence research/mtdp/fresh_intake/2026-11-25-uDIrrl1c-membership.zip \
+            --output membership-report.json
+          cmp membership-report.json research/mtdp/validation/fresh-uDIrrl1c-membership-2026-11-25.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-fresh-uDIrrl1c-membership-evidence
+          path: membership-report.json
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,146 @@
+name: mtdp-d1-fresh-source-intake
+
+# New source acquisition only; never an admission, score or training run.
+# Protocol fixed before retrieval: completed standard 5+0 arenas starting
+# after 2026-11-24T02:00Z, outside the preceding journaled corpus work.
+# The API listing is bounded, not proof of chronological completeness.
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/mtdp-d1-fresh-source-intake.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Gate against repeated downloads
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = workflow_dispatch ] || git diff --name-only HEAD^ HEAD | grep -Fxq '.github/workflows/mtdp-d1-fresh-source-intake.yml'; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Retrieve bounded score-blind candidate evidence
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          from datetime import datetime, timezone
+          from hashlib import sha256
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+
+          root = Path("fresh-intake")
+          root.mkdir()
+          cutoff = datetime.fromisoformat("2026-11-24T02:00:00+00:00")
+          reserved = {"fFgE7oED", "P1RUlfJc", "s7ahYqL4", "D9PF2OSW"}
+          base = "https://lidraughts.org/api/tournament"
+          report = {
+              "schema": "mtdp-d1-fresh-source-intake-v1",
+              "observed_utc": datetime.now(timezone.utc).isoformat(),
+              "cutoff_utc": cutoff.isoformat(),
+              "selection": "first three eligible in observed bounded finished listing sorted by start and ID; no replacement after export failure",
+              "reserved_events": sorted(reserved),
+              "listing_complete": False,
+              "independent_cohort_admitted": False,
+              "engine_scores_computed": False,
+              "candidates": [], "diagnostics": [],
+              "status": "pending",
+          }
+          def date(value):
+              if isinstance(value, (int, float)) and not isinstance(value, bool):
+                  return datetime.fromtimestamp(value / 1000, timezone.utc)
+              if isinstance(value, str):
+                  result = datetime.fromisoformat(value.replace("Z", "+00:00"))
+                  if result.tzinfo is not None:
+                      return result.astimezone(timezone.utc)
+              raise ValueError("invalid timestamp")
+          def get(url, name, cap):
+              request = Request(url, headers={"Cache-Control": "no-cache",
+                  "User-Agent": "MTDP-scientific-repro/1.0"})
+              with urlopen(request, timeout=30) as response:
+                  data = response.read(cap + 1)
+              if not data or len(data) > cap:
+                  raise ValueError("empty or over byte cap")
+              (root / name).write_bytes(data)
+              return data, sha256(data).hexdigest()
+          try:
+              raw, digest = get(base + "?nb=50", "listing.json", 2_000_000)
+              report["listing_sha256"] = digest
+              listing = json.loads(raw)
+              finished = listing["finished"]
+              if not isinstance(finished, list):
+                  raise ValueError("finished not a list")
+              entries = {}
+              for item in finished:
+                  try:
+                      event = item["id"]
+                      if not re.fullmatch(r"[A-Za-z0-9]{8}", event) or event in reserved:
+                          continue
+                      start = date(item["startsAt"])
+                      if cutoff <= start <= datetime.now(timezone.utc):
+                          if event in entries and entries[event] != start:
+                              raise RuntimeError("contradictory listing timestamps")
+                          entries[event] = start
+                  except (ValueError, KeyError, TypeError, OverflowError) as error:
+                      report["diagnostics"].append({"stage": "listing_item", "error": type(error).__name__})
+              report["post_cutoff_listing_count"] = len(entries)
+              ordered = sorted(entries, key=lambda event: (entries[event], event))
+              for event in ordered[:12]:
+                  try:
+                      raw, digest = get(base + "/" + event, event + "-detail.json", 2_000_000)
+                      detail = json.loads(raw)
+                      match = (detail.get("id") == event
+                          and detail.get("isFinished") is True
+                          and detail.get("system") == "arena"
+                          and detail.get("variant") == "standard"
+                          and detail.get("clock") == {"limit": 300, "increment": 0}
+                          and date(detail["startsAt"]) == entries[event])
+                      report["diagnostics"].append({"event": event, "metadata_sha256": digest, "eligible_metadata": match})
+                      if not match:
+                          continue
+                      report["candidates"].append({"event": event, "starts_at": entries[event].isoformat(),
+                          "metadata_sha256": digest, "exports_identical": False})
+                      if len(report["candidates"]) == 3:
+                          break
+                  except Exception as error:
+                      report["diagnostics"].append({"event": event, "stage": "detail", "error": type(error).__name__})
+              for candidate in report["candidates"]:
+                  event = candidate["event"]
+                  try:
+                      url = base + "/" + event + "/games"
+                      candidate["source_url"] = url
+                      a, h1 = get(url, event + "-export-1.pdn", 16_000_000)
+                      b, h2 = get(url, event + "-export-2.pdn", 16_000_000)
+                      candidate.update(export_1_sha256=h1, export_2_sha256=h2,
+                          export_1_bytes=len(a), export_2_bytes=len(b), exports_identical=a == b)
+                  except Exception as error:
+                      candidate["error"] = type(error).__name__
+              report["status"] = ("raw_candidate_evidence_available_not_admitted"
+                  if any(c["exports_identical"] for c in report["candidates"])
+                  else "blocked_no_verified_export")
+          except Exception as error:
+              report["status"] = "blocked_listing"
+              report["diagnostics"].append({"stage": "listing", "error": type(error).__name__})
+          (root / "receipt.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+          print(json.dumps(report, sort_keys=True))
+          PY
+      - name: Preserve raw evidence even when acquisition is blocked
+        if: steps.gate.outputs.run == 'true' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-d1-fresh-source-intake
+          path: fresh-intake/
+          if-no-files-found: error
+          retention-days: 30

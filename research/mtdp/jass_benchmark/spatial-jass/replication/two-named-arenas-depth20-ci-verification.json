@@ -1,0 +1,15 @@
+{
+  "all_seven_workflows_success": true,
+  "artifact_id": 14496378916,
+  "cache_unchanged": true,
+  "downloaded_and_checked": true,
+  "head_commit": "0a7b0e8cda8da5985298b500f7f9b2a276379fe5",
+  "job_id": 135321297307,
+  "run_id": 44453019237,
+  "schema": "mtdp-two-arena-depth20-engineering-CI-verification-v1",
+  "scope": "engineering_validation_not_the_actual_exploratory_Scan20_computation",
+  "synthetic_reproduction_and_inventories_verified": true,
+  "tests_passed": 221,
+  "zip_bytes": 10752116,
+  "zip_sha256": "6e66b724b6f97f5f98c945b50288c4c25eab4fb5b6b1a8e2bb827a4dcbaf3ca5"
+}

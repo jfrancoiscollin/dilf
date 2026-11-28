@@ -1,0 +1,71 @@
+{
+  "category_counts_overlap": true,
+  "historical_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "historical_union_fen_set_sha256": "9db87b4e41804e95e0a376a6bef465d93b448f50698a53da237cc9bfd1f29f2a",
+  "independent_cohort_qualified": false,
+  "manifest_bytes": 7281370,
+  "manifest_sha256": "630fcb960a8121fba170236e0b4a1be079dea2c7c660b2d26a2ae01c409f0ddd",
+  "new_cohorts_reserved": false,
+  "new_legal_queries": false,
+  "prior_successor_audit_sha256": "1dbcf3b40f3f353a831243fa4d67e73c2ae491024b5663635eeb8de918b59f1d",
+  "schema": "mtdp-h13-historical-risk-successor-scope-v1",
+  "scientific_freeze": false,
+  "scores_or_signatures_computed": false,
+  "selected_fens_bytes": 1310358,
+  "selected_fens_sha256": "941bd609f29ec7825d8bf4ed739bb0a8453a217fcd238d8a9698e20b394c9bf3",
+  "selection": "historical root returns to origin, promotes a man, or captures at least two pieces; exclude prior successor parents",
+  "sources": {
+    "active_king": {
+      "catalogue_bytes": 5650515,
+      "catalogue_sha256": "09df1090750a040ebf17261a7c741101e00de577c42c79ab13a14859dd91f382",
+      "report_sha256": "95adab875fcc7b3fa260d9ec61d6222d2ab82eb1618e0fd20ceccf61dde80caa",
+      "rows": 48654
+    },
+    "impact": {
+      "catalogue_bytes": 4536390,
+      "catalogue_sha256": "6fa6118a3e2a8f2ff80d8cdf15d5dff6ae5cc30dc1640305077d48d143173da5",
+      "report_sha256": "13061b5c12e387f5f3f359d421c73d5a9c921eada7e02b6187efd10a62aea943",
+      "rows": 34172
+    },
+    "nonking": {
+      "catalogue_bytes": 51374124,
+      "catalogue_sha256": "fbaceb63c30c69fa50d68d4b1e4599018abfe5e5aaf54a21cb362f59d774a524",
+      "report_sha256": "f4a0bc13d397fcc78b2605217ae02b6d66fe602286eba9fc02f7fa92f329acad",
+      "rows": 384622
+    },
+    "reconstruction": {
+      "catalogue_bytes": 103266,
+      "catalogue_sha256": "cb4bc809ac14c934d610b1c7c515c609c9dc7e7e3d0b3897c8508abb3f02b0cc",
+      "report_sha256": "c774e71d1bd29aec50e63a285fb1755dcd558393f8eaa7ef89af5be7802584bc",
+      "rows": 783
+    }
+  },
+  "summary": {
+    "historical_fens_covered": 455582,
+    "historical_risk_fens_before_prior_exclusion": 24560,
+    "input_distinct_fens": 468231,
+    "input_rows_by_catalogue": {
+      "active_king": 48654,
+      "impact": 34172,
+      "nonking": 384622,
+      "reconstruction": 783
+    },
+    "nonhistorical_fens_excluded": 12649,
+    "prior_fixture_fens_in_history": 3,
+    "prior_risk_fixture_fens_excluded": 2,
+    "selected_fens": 24558,
+    "selected_fens_by_category": {
+      "multiple_capture": 15854,
+      "promotion": 9837,
+      "return_origin": 3
+    },
+    "selected_risk_roots": 34190,
+    "selected_roots_by_category": {
+      "multiple_capture": 19487,
+      "promotion": 15967,
+      "return_origin": 3
+    },
+    "selected_total_legal_roots": 89505
+  },
+  "transitions_queried": false
+}

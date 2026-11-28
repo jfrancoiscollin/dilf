@@ -1,0 +1,65 @@
+{
+  "bootstrap": {
+    "owner_frame": "all_31_frozen_owners_even_without_estimand_rows",
+    "percentile_indices": [
+      249,
+      9749
+    ],
+    "resamples": 10000,
+    "same_draws_all_fields_and_arms": true,
+    "seed": 20261113,
+    "strata": [
+      "s7ahYqL4",
+      "D9PF2OSW"
+    ],
+    "undefined_draws": "count_and_publish_CI_null_without_drop_or_retry",
+    "unit": "whole_original_owner_game"
+  },
+  "categorical_rule": "retain_all_rows_and_transitions_ordinary_subtraction_only_if_both_best_and_chosen_are_ordinary",
+  "engine_calls_allowed": 0,
+  "exclude_from_D1": [
+    "fFgE7oED",
+    "P1RUlfJc",
+    "s7ahYqL4",
+    "D9PF2OSW"
+  ],
+  "execution_gate": "all_new_replay_decisions_raws_and_this_plan_published_verified_before_loading_target_reference_then_publish_analysis_implementation_before_derived_tables",
+  "input_frame": "all_114_contexts_38_targets_31_owner_games_no_new_filters",
+  "limits": [
+    "exploratory_in_sample_variation_only_no_Elo_or_population_equivalence",
+    "supplementary_arms_match_main_nodes_not_total_verification_cost",
+    "no_signature_topK_dimension_threshold_or_mask_tuning"
+  ],
+  "metrics": [
+    "reproduce_all_three_original_arm_points_and_bootstrap_intervals_exactly",
+    "best_fixed_reference_score_minus_chosen_action_score_with_complete_ties_and_categories",
+    "paired_control_minus_LCB_residual_at_equal_main_nodes",
+    "paired_control_minus_native_residual_at_equal_main_nodes",
+    "paired_LCB_residual_minus_LCB_full_conditional_budget_effect",
+    "paired_native_residual_minus_native_full_conditional_budget_effect"
+  ],
+  "new_independent_cohort": false,
+  "new_target_scoring_allowed": false,
+  "parent_analysis_sha256": "d90f71392fa597be451afc425dd7cfe84fa726065443aa05bb37b919955909c8",
+  "parent_normalized_sha256": "76b2990a2f6e38dd9ef453f0ef3694c55394d723b618f2f54e419ce19edf4be3",
+  "parent_primary_results_sha256": "3fd8f480902e50ffcace15552f5ad71e29571e08d0bf340c167d8ad9e21d45e7",
+  "parent_raw_archive_sha256": {
+    "61": "7b40a85914742132046086128edaafed999b4135e2b319bf31da6fdfd31d6269",
+    "7": "0fd08ea0b53ddb15c5a11ad529672423a6e00497dae9996b875be27d4585dec8"
+  },
+  "parent_replay_collector_commit": "e30b0273e206436607f0c342cdda772710f342f9",
+  "parent_results_sha256": "58205e783e2caa712256c1275a5e1c6cfc5ca6b48365dd5205f45dbcd919f2ee",
+  "primary_total_budget": 50000,
+  "reference_commit": "ec8c4dfc2b8ddc11de74c1af5d7d0e9d9d581a0b",
+  "reference_path": "research/mtdp/jass_benchmark/spatial-jass/replication/two-named-arenas-target16.json",
+  "reference_sha256": "8755f7d32ca849708116dd1bf8b0f27b0d7368cd70557f9f416656095f02afd8",
+  "reference_successor_depth": 16,
+  "schema": "mtdp-full-residual-existing-reference-audit-plan-v1",
+  "scope": "post_hoc_reconciliation_existing_Scan16_reference_same_frozen_population_not_new_independent_validation",
+  "score_unit": "integer Scan unit = 0.01 HUB, not fixed material pawn value",
+  "secondary_total_budgets": [
+    10000,
+    200000
+  ],
+  "source12_decisions_may_change": false
+}

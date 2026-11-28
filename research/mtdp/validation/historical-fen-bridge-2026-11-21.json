@@ -1,0 +1,33 @@
+{
+  "cache_bytes_modified": false,
+  "canonical_distinct_fens": 452526,
+  "canonical_fen_set_sha256": "edb4471702c3ec26ca0e9fdbe0a64384ebb65724e31c3b04badf8f49df899206",
+  "changed_canonical_strings_absent_from_raw_set": 47104,
+  "complete_historical_exclusion_registry": false,
+  "examples": [
+    {
+      "canonical_fen": "B:W10,12,23,25,30,35,36,42,43,44,45,48:B3,5,6,8,9,11,13,15,16,K46",
+      "canonical_string_in_raw_set": false,
+      "raw_fen": "B:W10,12,23,25,30,35,36,42,43,44,45,48:BK46,3,5,6,8,9,11,13,15,16"
+    },
+    {
+      "canonical_fen": "B:W10,12,28,31,33,37:B8,26,35,K45",
+      "canonical_string_in_raw_set": false,
+      "raw_fen": "B:W10,12,28,31,33,37:BK45,8,26,35"
+    },
+    {
+      "canonical_fen": "B:W10,12,36:B13,16,K48",
+      "canonical_string_in_raw_set": false,
+      "raw_fen": "B:W10,12,36:BK48,13,16"
+    }
+  ],
+  "format_changed_fens": 47104,
+  "historical_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "independent_cohort_qualified": false,
+  "new_reference_scores_acquired": false,
+  "raw_distinct_fens": 452526,
+  "representation_aliases_collapsed": 0,
+  "schema": "mtdp-h13-historical-fen-representation-bridge-v1",
+  "scientific_freeze": false,
+  "trajectory_hashes_redefined": false
+}

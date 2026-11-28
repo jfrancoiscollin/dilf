@@ -1,0 +1,59 @@
+name: mtdp-q3-native-binding
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-q3-native-binding.yml
+      - research/mtdp/jass_benchmark/q3_native_binding.py
+      - research/mtdp/tests/test_q3_native_binding.py
+      - research/mtdp/jass_benchmark/q3_native_binding_evidence.py
+      - research/mtdp/tests/test_q3_native_binding_evidence.py
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mtdp-q3-native-binding
+  cancel-in-progress: false
+jobs:
+  bounded-native-observer-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/jass
+          ref: cfe07fce6385b980553a898e9651d53419589ebc
+          path: jass-native
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pytest==9.2.0
+      - name: Cost/binding/parser/failure and original budget regressions
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/q3-binding-evidence
+          python -m pytest -q research/mtdp/tests/test_q3_cost_receipt.py research/mtdp/tests/test_q3_native_binding.py research/mtdp/tests/test_q3_native_binding_evidence.py research/mtdp/tests/test_metered_engine_smoke.py research/mtdp/tests/test_total_budget.py | tee /tmp/q3-binding-evidence/tests.log
+      - name: Build native benchmark without patches or frozen-recipe changes
+        run: |
+          set -euo pipefail
+          cmake -S jass-native -B /tmp/q3-native-build -DCMAKE_BUILD_TYPE=Release \
+            -DJASS_ENABLE_SIMD=OFF -DJASS_NATIVE=OFF \
+            -DCMAKE_PROJECT_jass_INCLUDE="$GITHUB_WORKSPACE/research/mtdp/jass_preflight/targets.cmake"
+          cmake --build /tmp/q3-native-build --target mtdp_jass_benchmark -j 2
+      - name: Five fixed native pairs, no Scan/candidate or archived campaign
+        run: |
+          set -euo pipefail
+          python -m research.mtdp.jass_benchmark.q3_native_binding \
+            --root . --jass jass-native --binary /tmp/q3-native-build/mtdp_jass_benchmark \
+            --output-dir /tmp/q3-binding-evidence/run
+          python -m research.mtdp.jass_benchmark.q3_native_binding_evidence --root . --directory /tmp/q3-binding-evidence/run --output /tmp/q3-binding-evidence/verification.json
+          c++ --version > /tmp/q3-binding-evidence/compiler.txt
+          python --version > /tmp/q3-binding-evidence/runtime.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mtdp-q3-native-binding
+          path: /tmp/q3-binding-evidence/
+          if-no-files-found: warn
+          retention-days: 30

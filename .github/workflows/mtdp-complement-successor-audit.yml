@@ -1,0 +1,114 @@
+name: mtdp-complement-successor-audit
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-complement-successor-audit.yml
+      - research/mtdp/complement_successor_scope.py
+      - research/mtdp/complement_successor_audit.py
+      - research/mtdp/tests/test_complement_successor_scope.py
+      - research/mtdp/tests/test_complement_successor_audit.py
+      - research/mtdp/validation/complement-successor-audit-2026-11-26.json
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: mtdp-complement-successor-audit
+  cancel-in-progress: false
+jobs:
+  fixed-historical-complement-successors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/fmjd
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: fmjd
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/jass
+          ref: cfe07fce6385b980553a898e9651d53419589ebc
+          path: jass
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          run-id: 45820210018
+          github-token: ${{ github.token }}
+          path: historical-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-king-origin-inventory-impact
+          run-id: 45761500008
+          github-token: ${{ github.token }}
+          path: impact-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-king-origin-reconstruction
+          run-id: 45768311500
+          github-token: ${{ github.token }}
+          path: reconstruction-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-king-origin-remaining-oracle
+          run-id: 45790633522
+          github-token: ${{ github.token }}
+          path: king-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-nonking-oracle
+          run-id: 45801358408
+          github-token: ${{ github.token }}
+          path: nonking-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-risk-successor-audit
+          run-id: 45819172437
+          github-token: ${{ github.token }}
+          path: risk-input
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Scope, cached roots, all paths and parser regressions
+        run: |
+          python -m unittest research.mtdp.tests.test_complement_successor_scope research.mtdp.tests.test_complement_successor_audit research.mtdp.tests.test_risk_successor_audit research.mtdp.tests.test_fixed_successor_audit research.mtdp.tests.test_return_capture_oracle research.mtdp.tests.test_king_origin_correction
+      - name: Regenerate frozen selection from existing catalogues, no legal queries
+        run: |
+          mkdir -p .cache/mtdp
+          PYTHONHASHSEED=731 python -m research.mtdp.complement_successor_scope \
+            --root . --cache historical-input/four-reserved-events-exclusions.json \
+            --corrected-inventory reconstruction-input/possible-board-inventory.jsonl \
+            --risk-fens risk-input/risk-successor-fens.txt \
+            --impact-catalogue impact-input/jass-catalogues.txt \
+            --new-state-catalogue reconstruction-input/new-state-jass-catalogues.txt \
+            --king-catalogue king-input/jass-catalogues.txt \
+            --nonking-catalogue nonking-input/jass-catalogues.txt \
+            --output-dir .cache/mtdp/complement-scope
+          cmp .cache/mtdp/complement-scope/complement-scope.json research/mtdp/validation/complement-successor-scope-2026-11-26.json
+      - name: Build isolated successor exporter, keep frozen historical recipe intact
+        run: |
+          cmake -S jass -B /tmp/mtdp-complement-successor-build -DCMAKE_BUILD_TYPE=Release \
+            -DJASS_ENABLE_SIMD=OFF -DJASS_NATIVE=OFF \
+            -DCMAKE_PROJECT_jass_INCLUDE="$GITHUB_WORKSPACE/research/mtdp/jass_preflight/successor-targets.cmake"
+          cmake --build /tmp/mtdp-complement-successor-build --target mtdp_jass_successor_catalogue -j 2
+      - name: One remote successor reproduction, no scores or search
+        run: |
+          PYTHONHASHSEED=731 timeout 1500s python -m research.mtdp.complement_successor_audit \
+            --root . --manifest .cache/mtdp/complement-scope/complement-manifest.jsonl \
+            --fens .cache/mtdp/complement-scope/complement-fens.txt \
+            --adapter fmjd --jass jass --executable /tmp/mtdp-complement-successor-build/mtdp_jass_successor_catalogue \
+            --output-dir .cache/mtdp/complement-successors
+          cmp .cache/mtdp/complement-successors/complement-successor-audit.json research/mtdp/validation/complement-successor-audit-2026-11-26.json
+          cp .cache/mtdp/complement-scope/* .cache/mtdp/complement-successors/
+          c++ --version > .cache/mtdp/complement-successors/compiler.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mtdp-complement-successor-audit
+          path: .cache/mtdp/complement-successors/
+          if-no-files-found: warn
+          retention-days: 30

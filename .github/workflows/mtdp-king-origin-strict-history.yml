@@ -1,0 +1,69 @@
+name: mtdp-king-origin-strict-history
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-king-origin-strict-history.yml
+      - research/mtdp/king_origin_strict_history.py
+      - research/mtdp/historical_base_quarantine_frontier.py
+      - research/mtdp/tests/test_king_origin_strict_history.py
+      - research/mtdp/validation/king-origin-strict-history-summary-2026-11-26.json
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: mtdp-king-origin-strict-history
+  cancel-in-progress: false
+jobs:
+  fixed-historical-board-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/fmjd
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: fmjd
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          run-id: 45776093044
+          github-token: ${{ github.token }}
+          path: historical-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-king-origin-reconstruction
+          run-id: 45768311500
+          github-token: ${{ github.token }}
+          path: corrected-input
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Frontier, serializer, raw binding and correction regressions
+        run: |
+          python -m unittest research.mtdp.tests.test_king_origin_strict_history research.mtdp.tests.test_historical_quarantine_frontier research.mtdp.tests.test_historical_base_quarantine_frontier research.mtdp.tests.test_king_origin_correction research.mtdp.tests.test_return_capture_oracle
+      - name: Replay all fixed strict records without scores or admission
+        run: |
+          mkdir -p .cache/mtdp
+          timeout 600s python -m research.mtdp.king_origin_strict_history \
+            --root . --base-dir historical-input --adapter fmjd \
+            --corrected-inventory corrected-input/possible-board-inventory.jsonl \
+            --output-dir .cache/mtdp/strict-history
+          PYTHONHASHSEED=731 timeout 600s python -m research.mtdp.king_origin_strict_history \
+            --root . --base-dir historical-input --adapter fmjd \
+            --corrected-inventory corrected-input/possible-board-inventory.jsonl \
+            --output-dir .cache/mtdp/strict-history-repeat
+          cmp .cache/mtdp/strict-history/strict-history-summary.json research/mtdp/validation/king-origin-strict-history-summary-2026-11-26.json
+          cmp .cache/mtdp/strict-history/strict-history-summary.json .cache/mtdp/strict-history-repeat/strict-history-summary.json
+          cmp .cache/mtdp/strict-history/strict-history-replay.json .cache/mtdp/strict-history-repeat/strict-history-replay.json
+          cmp .cache/mtdp/strict-history/new-historical-possible-fens.jsonl .cache/mtdp/strict-history-repeat/new-historical-possible-fens.jsonl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-king-origin-strict-history
+          path: .cache/mtdp/strict-history/
+          if-no-files-found: error
+          retention-days: 30

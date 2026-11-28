@@ -1,0 +1,20 @@
+{
+  "jass_total_nodes": {
+    "10000": {
+      "lcb": 10000,
+      "main": 9900,
+      "native": 10000,
+      "verification": 100
+    },
+    "50000": {
+      "lcb": 50000,
+      "main": 49900,
+      "native": 50000,
+      "verification": 100
+    }
+  },
+  "scan_initial_depth12_score": -1,
+  "schema": "mtdp-two-arena-runtime-startup-v1",
+  "scientific_freeze": false,
+  "scope": "standard_initial_position_only_no_new_cohort"
+}

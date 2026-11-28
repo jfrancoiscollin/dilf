@@ -1,0 +1,19 @@
+{
+  "adapter_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "combined_excluded_fens": 411980,
+  "confirmed_prefix_fens": 411980,
+  "fen_scope": "all_legally_verified_prefixes_including_quarantined_games",
+  "games": 4375,
+  "index_sha256": "eafd1e7b1c447b69f96d307b38a1c7c0fbd8fa9dd9b68f8afe555e3faa02d1b6",
+  "registry_sha256": "25b3ca1a6f0a096c264c8f136135a37fd7d5bb23c04af76a39b4915a611d192e",
+  "schema": "mtdp-named-canonical-history-summary-v1",
+  "scientific_freeze": false,
+  "scope": "complete_legal_board_trajectories_only_no_ambiguous_continuations",
+  "sources": 22,
+  "status_counts": {
+    "duplicate": 151,
+    "indexed": 4051,
+    "quarantined": 173
+  },
+  "unique_trajectories": 4051
+}

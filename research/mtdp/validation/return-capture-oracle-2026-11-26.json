@@ -1,0 +1,313 @@
+{
+  "adapter_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "adapter_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+  "baseline_sha256": "d4e28965b4df6a943e844457d29bb91a2b05f00abd2a316ee02595c6a3cd0177",
+  "cases": [
+    {
+      "case": "CARZrQpl:1285",
+      "fen": "B:W15,20,22,39,K42,45:B5,K48",
+      "jass_exported_roots": 2,
+      "jass_only_root_actions": [
+        [
+          "48x48x20x22x39x42",
+          false
+        ]
+      ],
+      "jass_root_actions": [
+        [
+          "48x43x20x22x39x42",
+          false
+        ],
+        [
+          "48x48x20x22x39x42",
+          false
+        ]
+      ],
+      "jass_token_matching_roots": 1,
+      "jass_unique_root_actions": 2,
+      "original_token": "48x48",
+      "python_actions": [
+        {
+          "captures": [
+            20,
+            22,
+            39,
+            42
+          ],
+          "path": [
+            48,
+            31,
+            9,
+            25,
+            43
+          ],
+          "promotion": false
+        }
+      ],
+      "python_legal_paths": 1,
+      "python_only_root_actions": [],
+      "python_root_actions": [
+        [
+          "48x43x20x22x39x42",
+          false
+        ]
+      ],
+      "python_token_matching_paths": 0,
+      "python_unique_root_actions": 1,
+      "root_action_sets_equal": false
+    },
+    {
+      "case": "CARZrQpl:382",
+      "fen": "W:WK3,24,25,35,36,37,38:B9,15,17,20,22,27,28",
+      "jass_exported_roots": 3,
+      "jass_only_root_actions": [
+        [
+          "3x3x9x17x27x28",
+          false
+        ]
+      ],
+      "jass_root_actions": [
+        [
+          "3x12x9x17x27x28",
+          false
+        ],
+        [
+          "3x3x9x17x27x28",
+          false
+        ],
+        [
+          "3x8x9x17x27x28",
+          false
+        ]
+      ],
+      "jass_token_matching_roots": 1,
+      "jass_unique_root_actions": 3,
+      "original_token": "3x3",
+      "python_actions": [
+        {
+          "captures": [
+            9,
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            14,
+            32,
+            21,
+            8
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            9,
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            14,
+            32,
+            21,
+            12
+          ],
+          "promotion": false
+        }
+      ],
+      "python_legal_paths": 2,
+      "python_only_root_actions": [],
+      "python_root_actions": [
+        [
+          "3x12x9x17x27x28",
+          false
+        ],
+        [
+          "3x8x9x17x27x28",
+          false
+        ]
+      ],
+      "python_token_matching_paths": 0,
+      "python_unique_root_actions": 2,
+      "root_action_sets_equal": false
+    },
+    {
+      "case": "initial-control",
+      "fen": "W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+      "jass_exported_roots": 9,
+      "jass_only_root_actions": [],
+      "jass_root_actions": [
+        [
+          "31-26",
+          false
+        ],
+        [
+          "31-27",
+          false
+        ],
+        [
+          "32-27",
+          false
+        ],
+        [
+          "32-28",
+          false
+        ],
+        [
+          "33-28",
+          false
+        ],
+        [
+          "33-29",
+          false
+        ],
+        [
+          "34-29",
+          false
+        ],
+        [
+          "34-30",
+          false
+        ],
+        [
+          "35-30",
+          false
+        ]
+      ],
+      "jass_unique_root_actions": 9,
+      "original_token": null,
+      "python_actions": [
+        {
+          "captures": [],
+          "path": [
+            31,
+            26
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            31,
+            27
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            32,
+            27
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            32,
+            28
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            33,
+            28
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            33,
+            29
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            34,
+            29
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            34,
+            30
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            35,
+            30
+          ],
+          "promotion": false
+        }
+      ],
+      "python_legal_paths": 9,
+      "python_only_root_actions": [],
+      "python_root_actions": [
+        [
+          "31-26",
+          false
+        ],
+        [
+          "31-27",
+          false
+        ],
+        [
+          "32-27",
+          false
+        ],
+        [
+          "32-28",
+          false
+        ],
+        [
+          "33-28",
+          false
+        ],
+        [
+          "33-29",
+          false
+        ],
+        [
+          "34-29",
+          false
+        ],
+        [
+          "34-30",
+          false
+        ],
+        [
+          "35-30",
+          false
+        ]
+      ],
+      "python_unique_root_actions": 9,
+      "root_action_sets_equal": true
+    }
+  ],
+  "catalogue_exporter_sha256": "cff961ffb64725c42928b6c747a4c7b6f0d32780654d8a5541a39f9767866bec",
+  "engine_scores_computed": false,
+  "historical_quarantines_retained": true,
+  "independent_cohort_admitted": false,
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "jass_movegen_sha256": "bb2828f9857fe38a7d90e0524cb2dbf6fc78c5a4a0502308aa3b60f3a7f74dec",
+  "legacy_rules_changed": false,
+  "protocol_commit": "ad904dcaa4353515948a8d9f8b4001fedefe6fa3",
+  "raw_jass_stdout_sha256": "9726bd67ade22b61130f4b4c39c2ec082193439a4a5baebb4285b265a00e80d7",
+  "root_identity": "endpoints+sorted captured squares+promotion; not landing path identity",
+  "root_key_helper_sha256": "efd35b851ee6e4654c804356429f2a2983db945c69237d7c743905835776008d",
+  "schema": "mtdp-two-return-capture-legal-oracle-v1",
+  "scientific_freeze": false,
+  "search_executed": false
+}

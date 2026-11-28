@@ -1,0 +1,25 @@
+{
+  "binding_passed": true,
+  "common_search_semantic_sha256": "fdebb12648ede0d7785cdbb6bb4a2831c112d0227969002c2a79588ff8b2bd0f",
+  "execution_authenticity_proven": false,
+  "files": {
+    "provenance.json": {
+      "bytes": 530,
+      "sha256": "63f741fdd856956ab46c406f789f479cadd4c057974f79cca369dc311bf8dfa0"
+    },
+    "summary.json": {
+      "bytes": 1721,
+      "sha256": "3b27285b2d915abcd15557078df8d2f6b139aa28ea5dda46118215cd41f40208"
+    },
+    "trials.jsonl": {
+      "bytes": 25999,
+      "sha256": "2ab7c4214b5ca5269ef53ac5f44c253e462ff7e765f30dc12c677e944bebe0bc"
+    }
+  },
+  "independent_quality_or_speed_gain_established": false,
+  "question": "Q3",
+  "raw_outputs_and_external_and_recorder_clocks_reconciled": true,
+  "schema": "mtdp-q3-native-evidence-verification-v1",
+  "total_measured_nodes": 100000,
+  "total_trials": 10
+}

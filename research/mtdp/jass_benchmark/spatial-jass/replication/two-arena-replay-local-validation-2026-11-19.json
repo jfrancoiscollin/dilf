@@ -1,0 +1,36 @@
+{
+  "D1_subtests_passed": 8,
+  "actual_clock_rejected_before_target_read": true,
+  "combined_tests_including_D1_ranking": 176,
+  "empty_real_legal_catalogue_valid": true,
+  "excluded_historical_cache_sha256": "8dac5c60e1eaa10ff8e3e27f5c1fb0d0307edaeaec438e7c9bdc33b3e666dc32",
+  "extra_quiet_key_helper_unchanged_from_preregistration": true,
+  "foundation_tests_passed": 163,
+  "hash_seeds": [
+    7,
+    61
+  ],
+  "http_requests": 6,
+  "http_transport": "mocked_in_memory_no_network",
+  "identical": true,
+  "implementation_commit": "b243c85ad504f87b247aecee4df9feb5b837ff17",
+  "independent_processes": true,
+  "later_whole_game_token_aliases_excluded": 1,
+  "next_action": "joint_publication_bundle_and_remote_freeze_verifier_then_final_inputs_after_2026-11-19T02:57Z",
+  "proposal_bytes": 22201,
+  "proposal_sha256": "928bc2a4ba49b8e37095ecf102da6eab3fdb0874fd4f6b8e9340992d95d56cec",
+  "raw_crlf_preserved": true,
+  "registered_method_files_unchanged": true,
+  "schema": "mtdp-two-arena-local-replay-validation-v1",
+  "scientific_freeze": false,
+  "scope": "synthetic_engineering_no_future_event_data_scores_or_search",
+  "synthetic_rehearsal": true,
+  "target_action_counts": [
+    10,
+    10
+  ],
+  "target_counts": [
+    1,
+    1
+  ]
+}

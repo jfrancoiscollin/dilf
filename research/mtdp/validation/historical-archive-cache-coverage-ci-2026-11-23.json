@@ -1,0 +1,27 @@
+{
+  "all_eight_workflows_success": true,
+  "all_members_verified": false,
+  "archived_canonical_fens": 188809,
+  "archived_files": 247,
+  "artifact_id": 14807074068,
+  "complete_historical_exclusion_registry": false,
+  "historical_cache_sha256": "5cb424740ca8b3c1629b81a7add1b71420f9842cc8d321e82ef7ec926932fcb7",
+  "independent_cohort_qualified": false,
+  "job_id": 137623280590,
+  "missing_canonical_fens": 0,
+  "next_action": "D1 reuse the authenticated known-scope cache/bridge; authenticate candidate source/event receipts and identify concrete historical sources outside the pinned inventory before any independent PASS.",
+  "report_equals_versioned_bytes": true,
+  "report_sha256": "17d4c39906e3a8cd2ad6b0cd298f24266809596f2da9d2fc54b92e6b229f0933",
+  "run_id": 45154318351,
+  "schema": "mtdp-known-archive-coverage-ci-proof-v1",
+  "tests_passed": 8,
+  "tests_skipped": 0,
+  "validated_code": "07f3706f93bc7f140f52e305999fc57b5ed1dc4c",
+  "verified_members": [
+    "historical-archive-cache-coverage.json",
+    "four-reserved-events-exclusions.json"
+  ],
+  "zip_bytes": 14759910,
+  "zip_members": 162,
+  "zip_sha256_recomputed": "744e946c0289332427c4225c0be0a88b70fd78b6df998b03e1c593d714a30a74"
+}

@@ -1,0 +1,104 @@
+import copy
+
+import pytest
+
+from research.mtdp.spatial_game_units import summarize
+
+
+def report():
+    return {
+        "schema_version": "mtdp-spatial-dynamics-v1",
+        "games": 2, "positions": 8, "transitions": 6,
+        "unchanged_descriptors_transitions": 2,
+        "revisited_exact_positions_within_games": 1,
+        "per_game": [
+            {"game_id": "a", "positions": 3, "transitions": 2,
+             "unchanged_descriptors_transitions": 2, "revisited_exact_positions": 1},
+            {"game_id": "b", "positions": 5, "transitions": 4,
+             "unchanged_descriptors_transitions": 0, "revisited_exact_positions": 0},
+        ],
+    }
+
+
+def test_game_weighting_not_ply_weighting():
+    result = summarize(report())
+    assert result["mean_game_unchanged_transition_fraction"] == 0.5
+    assert result["median_game_unchanged_transition_fraction"] == 0.5
+    assert result["games_with_revisited_positions"] == 1
+    assert result["independent_games_verified"] is False
+
+
+@pytest.mark.parametrize("field,value", [
+    ("games", 3), ("positions", 7), ("transitions", 7),
+    ("unchanged_descriptors_transitions", 1),
+    ("revisited_exact_positions_within_games", 2),
+])
+def test_aggregate_mismatch(field, value):
+    data = report()
+    data[field] = value
+    with pytest.raises(ValueError, match="inconsistent"):
+        summarize(data)
+
+
+def test_duplicate_game_and_bad_counts():
+    data = report()
+    data["per_game"][1]["game_id"] = "a"
+    with pytest.raises(ValueError, match="duplicate"):
+        summarize(data)
+    data = report()
+    data["per_game"][0]["unchanged_descriptors_transitions"] = 3
+    with pytest.raises(ValueError, match="inconsistent"):
+        summarize(data)
+
+
+def test_macro_micro_diverge_and_single_position_game():
+    data = report()
+    data["per_game"].append({
+        "game_id": "c", "positions": 1, "transitions": 0,
+        "unchanged_descriptors_transitions": 0, "revisited_exact_positions": 0,
+    })
+    data["games"] += 1
+    data["positions"] += 1
+    result = summarize(data)
+    assert result["games_with_transitions"] == 2
+    assert result["mean_game_unchanged_transition_fraction"] == 0.5
+    assert result["pooled_transition_unchanged_fraction_descriptive_only"] == 2 / 6
+    assert result["min_game_unchanged_transition_fraction"] == 0
+    assert result["max_game_unchanged_transition_fraction"] == 1
+
+
+def test_no_transitions_is_not_zero_fraction():
+    data = {
+        "schema_version": "mtdp-spatial-dynamics-v1",
+        "games": 1, "positions": 1, "transitions": 0,
+        "unchanged_descriptors_transitions": 0,
+        "revisited_exact_positions_within_games": 0,
+        "per_game": [{"game_id": "single", "positions": 1, "transitions": 0,
+                      "unchanged_descriptors_transitions": 0,
+                      "revisited_exact_positions": 0}],
+    }
+    result = summarize(data)
+    assert result["mean_game_unchanged_transition_fraction"] is None
+    assert result["pooled_transition_unchanged_fraction_descriptive_only"] is None
+
+
+def test_leave_one_game_out_sensitivity_is_descriptive():
+    result = summarize(report())
+    assert result["min_game_transitions"] == 2
+    assert result["max_game_transitions"] == 4
+    assert result["leave_one_game_out_mean_min"] == 0
+    assert result["leave_one_game_out_mean_max"] == 1
+
+
+def test_leave_one_game_out_requires_two_games_with_transitions():
+    data = report()
+    data["per_game"] = data["per_game"][:1]
+    data["games"] = 1
+    data["positions"] = 3
+    data["transitions"] = 2
+    data["unchanged_descriptors_transitions"] = 2
+    data["revisited_exact_positions_within_games"] = 1
+    result = summarize(data)
+    assert result["leave_one_game_out_mean_min"] is None
+    assert result["leave_one_game_out_mean_max"] is None
+    assert result["min_game_transitions"] == 2

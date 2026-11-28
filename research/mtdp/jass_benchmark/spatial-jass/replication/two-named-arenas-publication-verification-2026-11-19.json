@@ -1,0 +1,14 @@
+{
+  "events": [
+    "s7ahYqL4",
+    "D9PF2OSW"
+  ],
+  "manifest_sha256": "c079ca061d3645b42ce93235854e032de2be43a4cb08d8cea5ddbc1d92f1b5aa",
+  "observed_branch_head": "3fa9a56a3fa60954d5391d7e1b302c07e04f1f04",
+  "proposal_sha256": "bcb686c72100954bea83a0b83cf4b6b357d90d906a7fb725088e89cf3a9096a5",
+  "published_commit": "3fa9a56a3fa60954d5391d7e1b302c07e04f1f04",
+  "registration_sha256": "072f0326c09e79c9f8245b741b02786b67408b38bcb9c6b0cbb08bc1218bdb27",
+  "schema": "mtdp-two-arena-publication-verification-v1",
+  "scientific_freeze": true,
+  "verified_at_utc": "2026-11-19T03:03:30.238249+00:00"
+}

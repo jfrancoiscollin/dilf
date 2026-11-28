@@ -1,0 +1,1091 @@
+{
+  "adapter_base_commit": "0e5189fbb251bf5eaf2e613d0f878bb17c740311",
+  "all_corrected_root_sets_match_jass": true,
+  "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+  "boards": 8,
+  "cases": [
+    {
+      "case": "CARZrQpl:1285",
+      "changed_from_legacy": true,
+      "corrected_matches_jass": true,
+      "corrected_paths": [
+        {
+          "captures": [
+            20,
+            22,
+            39,
+            42
+          ],
+          "path": [
+            48,
+            25,
+            9,
+            31,
+            48
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            20,
+            22,
+            39,
+            42
+          ],
+          "path": [
+            48,
+            31,
+            9,
+            25,
+            43
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            20,
+            22,
+            39,
+            42
+          ],
+          "path": [
+            48,
+            31,
+            9,
+            25,
+            48
+          ],
+          "promotion": false
+        }
+      ],
+      "corrected_roots": [
+        [
+          "48x43x20x22x39x42",
+          false
+        ],
+        [
+          "48x48x20x22x39x42",
+          false
+        ]
+      ],
+      "corrected_token_matching_paths": 2,
+      "fen": "B:W15,20,22,39,K42,45:B5,K48",
+      "jass_roots": [
+        [
+          "48x43x20x22x39x42",
+          false
+        ],
+        [
+          "48x48x20x22x39x42",
+          false
+        ]
+      ],
+      "legacy_roots": [
+        [
+          "48x43x20x22x39x42",
+          false
+        ]
+      ],
+      "token": "48x48"
+    },
+    {
+      "case": "CARZrQpl:382",
+      "changed_from_legacy": true,
+      "corrected_matches_jass": true,
+      "corrected_paths": [
+        {
+          "captures": [
+            9,
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            14,
+            32,
+            21,
+            3
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            9,
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            14,
+            32,
+            21,
+            8
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            9,
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            14,
+            32,
+            21,
+            12
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            9,
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            21,
+            32,
+            14,
+            3
+          ],
+          "promotion": false
+        }
+      ],
+      "corrected_roots": [
+        [
+          "3x12x9x17x27x28",
+          false
+        ],
+        [
+          "3x3x9x17x27x28",
+          false
+        ],
+        [
+          "3x8x9x17x27x28",
+          false
+        ]
+      ],
+      "corrected_token_matching_paths": 2,
+      "fen": "W:WK3,24,25,35,36,37,38:B9,15,17,20,22,27,28",
+      "jass_roots": [
+        [
+          "3x12x9x17x27x28",
+          false
+        ],
+        [
+          "3x3x9x17x27x28",
+          false
+        ],
+        [
+          "3x8x9x17x27x28",
+          false
+        ]
+      ],
+      "legacy_roots": [
+        [
+          "3x12x9x17x27x28",
+          false
+        ],
+        [
+          "3x8x9x17x27x28",
+          false
+        ]
+      ],
+      "token": "3x3"
+    },
+    {
+      "case": "CARZrQpl:1285-rotated",
+      "changed_from_legacy": true,
+      "corrected_matches_jass": true,
+      "corrected_paths": [
+        {
+          "captures": [
+            9,
+            12,
+            29,
+            31
+          ],
+          "path": [
+            3,
+            20,
+            42,
+            26,
+            3
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            9,
+            12,
+            29,
+            31
+          ],
+          "path": [
+            3,
+            20,
+            42,
+            26,
+            8
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            9,
+            12,
+            29,
+            31
+          ],
+          "path": [
+            3,
+            26,
+            42,
+            20,
+            3
+          ],
+          "promotion": false
+        }
+      ],
+      "corrected_roots": [
+        [
+          "3x3x9x12x29x31",
+          false
+        ],
+        [
+          "3x8x9x12x29x31",
+          false
+        ]
+      ],
+      "corrected_token_matching_paths": 2,
+      "fen": "W:WK3,46:B6,K9,12,29,31,36",
+      "jass_roots": [
+        [
+          "3x3x9x12x29x31",
+          false
+        ],
+        [
+          "3x8x9x12x29x31",
+          false
+        ]
+      ],
+      "legacy_roots": [
+        [
+          "3x8x9x12x29x31",
+          false
+        ]
+      ],
+      "token": "3x3"
+    },
+    {
+      "case": "CARZrQpl:382-rotated",
+      "changed_from_legacy": true,
+      "corrected_matches_jass": true,
+      "corrected_paths": [
+        {
+          "captures": [
+            23,
+            24,
+            34,
+            42
+          ],
+          "path": [
+            48,
+            30,
+            19,
+            37,
+            48
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            23,
+            24,
+            34,
+            42
+          ],
+          "path": [
+            48,
+            37,
+            19,
+            30,
+            39
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            23,
+            24,
+            34,
+            42
+          ],
+          "path": [
+            48,
+            37,
+            19,
+            30,
+            43
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            23,
+            24,
+            34,
+            42
+          ],
+          "path": [
+            48,
+            37,
+            19,
+            30,
+            48
+          ],
+          "promotion": false
+        }
+      ],
+      "corrected_roots": [
+        [
+          "48x39x23x24x34x42",
+          false
+        ],
+        [
+          "48x43x23x24x34x42",
+          false
+        ],
+        [
+          "48x48x23x24x34x42",
+          false
+        ]
+      ],
+      "corrected_token_matching_paths": 2,
+      "fen": "B:W23,24,29,31,34,36,42:B13,14,15,16,26,27,K48",
+      "jass_roots": [
+        [
+          "48x39x23x24x34x42",
+          false
+        ],
+        [
+          "48x43x23x24x34x42",
+          false
+        ],
+        [
+          "48x48x23x24x34x42",
+          false
+        ]
+      ],
+      "legacy_roots": [
+        [
+          "48x39x23x24x34x42",
+          false
+        ],
+        [
+          "48x43x23x24x34x42",
+          false
+        ]
+      ],
+      "token": "48x48"
+    },
+    {
+      "case": "initial-control",
+      "changed_from_legacy": false,
+      "corrected_matches_jass": true,
+      "corrected_paths": [
+        {
+          "captures": [],
+          "path": [
+            31,
+            26
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            31,
+            27
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            32,
+            27
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            32,
+            28
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            33,
+            28
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            33,
+            29
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            34,
+            29
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            34,
+            30
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            35,
+            30
+          ],
+          "promotion": false
+        }
+      ],
+      "corrected_roots": [
+        [
+          "31-26",
+          false
+        ],
+        [
+          "31-27",
+          false
+        ],
+        [
+          "32-27",
+          false
+        ],
+        [
+          "32-28",
+          false
+        ],
+        [
+          "33-28",
+          false
+        ],
+        [
+          "33-29",
+          false
+        ],
+        [
+          "34-29",
+          false
+        ],
+        [
+          "34-30",
+          false
+        ],
+        [
+          "35-30",
+          false
+        ]
+      ],
+      "fen": "W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+      "jass_roots": [
+        [
+          "31-26",
+          false
+        ],
+        [
+          "31-27",
+          false
+        ],
+        [
+          "32-27",
+          false
+        ],
+        [
+          "32-28",
+          false
+        ],
+        [
+          "33-28",
+          false
+        ],
+        [
+          "33-29",
+          false
+        ],
+        [
+          "34-29",
+          false
+        ],
+        [
+          "34-30",
+          false
+        ],
+        [
+          "35-30",
+          false
+        ]
+      ],
+      "legacy_roots": [
+        [
+          "31-26",
+          false
+        ],
+        [
+          "31-27",
+          false
+        ],
+        [
+          "32-27",
+          false
+        ],
+        [
+          "32-28",
+          false
+        ],
+        [
+          "33-28",
+          false
+        ],
+        [
+          "33-29",
+          false
+        ],
+        [
+          "34-29",
+          false
+        ],
+        [
+          "34-30",
+          false
+        ],
+        [
+          "35-30",
+          false
+        ]
+      ],
+      "token": null
+    },
+    {
+      "case": "man-loop",
+      "changed_from_legacy": false,
+      "corrected_matches_jass": true,
+      "corrected_paths": [
+        {
+          "captures": [
+            13,
+            14,
+            23,
+            24
+          ],
+          "path": [
+            20,
+            9,
+            18,
+            29,
+            20
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            13,
+            14,
+            23,
+            24
+          ],
+          "path": [
+            20,
+            29,
+            18,
+            9,
+            20
+          ],
+          "promotion": false
+        }
+      ],
+      "corrected_roots": [
+        [
+          "20x20x13x14x23x24",
+          false
+        ]
+      ],
+      "corrected_token_matching_paths": 2,
+      "fen": "W:W20,26,28,32,33,38,39,43:B8,11,13,14,16,17,19,23,24,36",
+      "jass_roots": [
+        [
+          "20x20x13x14x23x24",
+          false
+        ]
+      ],
+      "legacy_roots": [
+        [
+          "20x20x13x14x23x24",
+          false
+        ]
+      ],
+      "token": "20x20"
+    },
+    {
+      "case": "quiet-king",
+      "changed_from_legacy": false,
+      "corrected_matches_jass": true,
+      "corrected_paths": [
+        {
+          "captures": [],
+          "path": [
+            28,
+            5
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            6
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            10
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            11
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            14
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            17
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            19
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            22
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            23
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            32
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            33
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            37
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            39
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            41
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            44
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            46
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [],
+          "path": [
+            28,
+            50
+          ],
+          "promotion": false
+        }
+      ],
+      "corrected_roots": [
+        [
+          "28-10",
+          false
+        ],
+        [
+          "28-11",
+          false
+        ],
+        [
+          "28-14",
+          false
+        ],
+        [
+          "28-17",
+          false
+        ],
+        [
+          "28-19",
+          false
+        ],
+        [
+          "28-22",
+          false
+        ],
+        [
+          "28-23",
+          false
+        ],
+        [
+          "28-32",
+          false
+        ],
+        [
+          "28-33",
+          false
+        ],
+        [
+          "28-37",
+          false
+        ],
+        [
+          "28-39",
+          false
+        ],
+        [
+          "28-41",
+          false
+        ],
+        [
+          "28-44",
+          false
+        ],
+        [
+          "28-46",
+          false
+        ],
+        [
+          "28-5",
+          false
+        ],
+        [
+          "28-50",
+          false
+        ],
+        [
+          "28-6",
+          false
+        ]
+      ],
+      "fen": "W:WK28:B1",
+      "jass_roots": [
+        [
+          "28-10",
+          false
+        ],
+        [
+          "28-11",
+          false
+        ],
+        [
+          "28-14",
+          false
+        ],
+        [
+          "28-17",
+          false
+        ],
+        [
+          "28-19",
+          false
+        ],
+        [
+          "28-22",
+          false
+        ],
+        [
+          "28-23",
+          false
+        ],
+        [
+          "28-32",
+          false
+        ],
+        [
+          "28-33",
+          false
+        ],
+        [
+          "28-37",
+          false
+        ],
+        [
+          "28-39",
+          false
+        ],
+        [
+          "28-41",
+          false
+        ],
+        [
+          "28-44",
+          false
+        ],
+        [
+          "28-46",
+          false
+        ],
+        [
+          "28-5",
+          false
+        ],
+        [
+          "28-50",
+          false
+        ],
+        [
+          "28-6",
+          false
+        ]
+      ],
+      "legacy_roots": [
+        [
+          "28-10",
+          false
+        ],
+        [
+          "28-11",
+          false
+        ],
+        [
+          "28-14",
+          false
+        ],
+        [
+          "28-17",
+          false
+        ],
+        [
+          "28-19",
+          false
+        ],
+        [
+          "28-22",
+          false
+        ],
+        [
+          "28-23",
+          false
+        ],
+        [
+          "28-32",
+          false
+        ],
+        [
+          "28-33",
+          false
+        ],
+        [
+          "28-37",
+          false
+        ],
+        [
+          "28-39",
+          false
+        ],
+        [
+          "28-41",
+          false
+        ],
+        [
+          "28-44",
+          false
+        ],
+        [
+          "28-46",
+          false
+        ],
+        [
+          "28-5",
+          false
+        ],
+        [
+          "28-50",
+          false
+        ],
+        [
+          "28-6",
+          false
+        ]
+      ],
+      "token": null
+    },
+    {
+      "case": "other-friendly-blocker",
+      "changed_from_legacy": false,
+      "corrected_matches_jass": true,
+      "corrected_paths": [
+        {
+          "captures": [
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            21,
+            32,
+            19
+          ],
+          "promotion": false
+        },
+        {
+          "captures": [
+            17,
+            27,
+            28
+          ],
+          "path": [
+            3,
+            21,
+            32,
+            23
+          ],
+          "promotion": false
+        }
+      ],
+      "corrected_roots": [
+        [
+          "3x19x17x27x28",
+          false
+        ],
+        [
+          "3x23x17x27x28",
+          false
+        ]
+      ],
+      "fen": "W:WK3,14:B9,17,27,28",
+      "jass_roots": [
+        [
+          "3x19x17x27x28",
+          false
+        ],
+        [
+          "3x23x17x27x28",
+          false
+        ]
+      ],
+      "legacy_roots": [
+        [
+          "3x19x17x27x28",
+          false
+        ],
+        [
+          "3x23x17x27x28",
+          false
+        ]
+      ],
+      "token": null
+    }
+  ],
+  "corpus_impact_audited": false,
+  "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+  "default_rules_changed": false,
+  "historical_cache_changed": false,
+  "historical_quarantines_changed": false,
+  "independent_cohort_admitted": false,
+  "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+  "legacy_behavior_retained": true,
+  "patch_id": "king-origin-v1",
+  "protocol_commit": "9dabb118dce1ce144bd94c2833ef6fd438eeaa62",
+  "raw_catalogue_sha256": "ab2951440149f668dfc27761797c18ffb630b9d963681286d9767e16f4198d52",
+  "schema": "mtdp-king-origin-v1-eight-board-regression",
+  "scientific_freeze": false,
+  "search_or_scores_computed": false
+}

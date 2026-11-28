@@ -1,0 +1,80 @@
+{
+  "artifact_id": 15116987046,
+  "artifact_zip_bytes": 3901246,
+  "artifact_zip_sha256": "560af0616827f4607354589ba0a2ca9c402708442d187b61930e78a7accea81c",
+  "global_successor_coverage": false,
+  "implementation_commit": "34b4a982762189be9d362c0865a884249d4fc792",
+  "independent_cohort_qualified": false,
+  "job_conclusion": "success",
+  "job_id": 139906640398,
+  "local_hashseeds": [
+    "default",
+    "731"
+  ],
+  "local_provenance": {
+    "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+    "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+    "default_rules_changed": false,
+    "historical_build_recipe_sha256": "11cedf28e28eabca29d2514c20fca83943470999302552f40fe67b3bbb6a594a",
+    "patch_id": "king-origin-v1",
+    "successor_binary_sha256": "6858596ffdb47d7db9c10dfabab992355a3375811841ffec0b71b60c8470dbc7",
+    "successor_build_recipe_sha256": "38b7a3856defc1332aa4964861368ce9da22137be66418c9ee69ddeaddc8db0d",
+    "successor_exporter_source_sha256": "3f1f1b87b4b3bd3b6f619ee7b957a01033fcb1aa438b4b96d2f5abd196bb6c91"
+  },
+  "remote_compiler": "c++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "remote_hashseeds": [
+    "731"
+  ],
+  "remote_provenance": {
+    "base_rules_sha256": "5855ceae76fc7db243af85c61508d9505e17904925b9f73d79ed327296690394",
+    "corrected_rules_sha256": "4714fef6966f2433dba42b6be3981180b87d85f69a1c6825f38599711b16aa0d",
+    "default_rules_changed": false,
+    "historical_build_recipe_sha256": "11cedf28e28eabca29d2514c20fca83943470999302552f40fe67b3bbb6a594a",
+    "patch_id": "king-origin-v1",
+    "successor_binary_sha256": "c5c5700cb5116a112aada6e2859955273c8959e196c2e78d8eeb5a203a8fd9b4",
+    "successor_build_recipe_sha256": "38b7a3856defc1332aa4964861368ce9da22137be66418c9ee69ddeaddc8db0d",
+    "successor_exporter_source_sha256": "3f1f1b87b4b3bd3b6f619ee7b957a01033fcb1aa438b4b96d2f5abd196bb6c91"
+  },
+  "remote_reproductions": 1,
+  "run_id": 45819172437,
+  "schema": "mtdp-h13-risk-successor-ci-proof-v1",
+  "scientific_freeze": false,
+  "semantic_members": {
+    "disagreement-witnesses.jsonl": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "jass-successors.txt": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 5519830,
+      "sha256": "2775dc3fda44ccd4b34744a91032d6bd4901ded3eec2774cfd7253e2b8884ea2"
+    },
+    "risk-successor-audit.json": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 2678,
+      "sha256": "150305baaa5874b270cd0788d2f686344851d5d7cb9a394b710c5bbe72688902"
+    },
+    "risk-successor-fens.txt": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 1310358,
+      "sha256": "941bd609f29ec7825d8bf4ed739bb0a8453a217fcd238d8a9698e20b394c9bf3"
+    },
+    "risk-successor-manifest.jsonl": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 7281370,
+      "sha256": "630fcb960a8121fba170236e0b4a1be079dea2c7c660b2d26a2ae01c409f0ddd"
+    },
+    "risk-successor-scope.json": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 2844,
+      "sha256": "5a53f93124cba011dc69b928403c0574e1f25177700e78d260815055242a4100"
+    },
+    "successor-ledger.jsonl": {
+      "byte_equal_both_local_runs": true,
+      "bytes": 37563019,
+      "sha256": "1c0ef3f36a7c11b8b41d240328621a8d968fbb8f6edc2a2b31531bddc370f59d"
+    }
+  },
+  "unittest_passed": 30
+}

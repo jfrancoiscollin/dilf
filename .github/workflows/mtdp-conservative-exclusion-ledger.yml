@@ -1,0 +1,74 @@
+name: mtdp-conservative-exclusion-ledger
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-conservative-exclusion-ledger.yml
+      - research/mtdp/conservative_exclusion_ledger.py
+      - research/mtdp/authenticated_corpus_bridge.py
+      - research/mtdp/tests/test_conservative_exclusion_ledger.py
+      - research/mtdp/validation/conservative-exclusion-manifest-2026-11-26.json
+      - research/mtdp/validation/conservative-historical-supplement-2026-11-26.jsonl
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: mtdp-conservative-exclusion-ledger
+  cancel-in-progress: false
+jobs:
+  exclusion-only-sidecar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/fmjd
+      MTDP_HISTORICAL_FEN_CACHE: historical-input/four-reserved-events-exclusions.json
+      MTDP_CORRECTED_INVENTORY: corrected-input/possible-board-inventory.jsonl
+      MTDP_REQUIRE_CONSERVATIVE_LEDGER: '1'
+      MTDP_HISTORICAL_ADAPTER: fmjd
+      MTDP_REQUIRE_HISTORICAL_ALIASES: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: fmjd
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-fFgE7oED-prefreeze-fmjd-and-exclusions
+          run-id: 45768699809
+          github-token: ${{ github.token }}
+          path: historical-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: mtdp-king-origin-reconstruction
+          run-id: 45768311500
+          github-token: ${{ github.token }}
+          path: corrected-input
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Role, integrity and D1 collision refusals
+        run: |
+          python -m pip install pytest==9.2.0
+          python -m unittest research.mtdp.tests.test_conservative_exclusion_ledger
+          python -m pytest research/mtdp/tests/test_authenticated_corpus_bridge.py research/mtdp/decision_equivalence/test_corpus_admission.py -q
+      - name: Deterministic supplement without scores or admission
+        run: |
+          python -m research.mtdp.conservative_exclusion_ledger \
+            --cache "$MTDP_HISTORICAL_FEN_CACHE" --inventory "$MTDP_CORRECTED_INVENTORY" \
+            --output-dir .cache/mtdp/conservative-ledger
+          PYTHONHASHSEED=731 python -m research.mtdp.conservative_exclusion_ledger \
+            --cache "$MTDP_HISTORICAL_FEN_CACHE" --inventory "$MTDP_CORRECTED_INVENTORY" \
+            --output-dir .cache/mtdp/conservative-ledger-repeat
+          cmp .cache/mtdp/conservative-ledger/historical-supplement.jsonl research/mtdp/validation/conservative-historical-supplement-2026-11-26.jsonl
+          cmp .cache/mtdp/conservative-ledger/conservative-exclusion-manifest.json research/mtdp/validation/conservative-exclusion-manifest-2026-11-26.json
+          cmp .cache/mtdp/conservative-ledger/conservative-exclusion-manifest.json .cache/mtdp/conservative-ledger-repeat/conservative-exclusion-manifest.json
+          cmp .cache/mtdp/conservative-ledger/historical-supplement.jsonl .cache/mtdp/conservative-ledger-repeat/historical-supplement.jsonl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-conservative-exclusion-ledger
+          path: .cache/mtdp/conservative-ledger/
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,110 @@
+name: mtdp-d1-score-blind-pcblues
+
+# Engineering-only PC Blues replay. No Scan scores, no prospective holdout.
+on:
+  pull_request:
+    paths:
+      - 'research/mtdp/decision_equivalence/**'
+      - 'research/mtdp/tests/test_d1_fen_overlap_guard.py'
+      - '.github/workflows/mtdp-d1-score-blind-pcblues.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mtdp-d1-score-blind-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  score-blind-engineering:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: dilf
+      - uses: actions/checkout@v4
+        with:
+          repository: jfrancoiscollin/draught-master
+          ref: 0e5189fbb251bf5eaf2e613d0f878bb17c740311
+          path: draught-master
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install FMJD adapter dependencies
+        run: |
+          python -m pip install -e './dilf[dev,extract,explanations]'
+          sed -i '/dilf/d' draught-master/backend/requirements.txt
+          python -m pip install -r draught-master/backend/requirements.txt
+          python -m pip install -r draught-master/requirements-dev.txt
+      - name: Run D1 exporter and score-blind audit
+        env:
+          PYTHONPATH: ${{ github.workspace }}/dilf:${{ github.workspace }}/draught-master
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/mtdp-d1
+          python -m research.mtdp.decision_equivalence.corpus_admission_guard
+          python -m research.mtdp.decision_equivalence.candidate_receipt_gate
+          python -m research.mtdp.decision_equivalence.candidate_preflight
+          python -m pytest -q dilf/research/mtdp/decision_equivalence dilf/research/mtdp/tests/test_decision_equivalence_audit.py dilf/research/mtdp/tests/test_decision_equivalence_fmjd_export.py dilf/research/mtdp/tests/test_d1_fen_overlap_guard.py
+          python -m research.mtdp.decision_equivalence.fmjd_export \
+            --pdn dilf/data/exports/pcblues/pcblues_games.pdn \
+            --output /tmp/mtdp-d1/pcblues-score-blind.jsonl \
+            --audit-output /tmp/mtdp-d1/pcblues-audit.json
+          python -m research.mtdp.decision_equivalence.pair_overlap \
+            --input /tmp/mtdp-d1/pcblues-score-blind.jsonl \
+            --output /tmp/mtdp-d1/pcblues-pair-overlap.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          import subprocess
+          root = Path('/tmp/mtdp-d1')
+          audit = json.loads((root / 'pcblues-audit.json').read_text())
+          assert audit['observations'] == 1864, audit
+          assert audit['distinct_fens'] == 1750, audit
+          assert set(audit['signature_audits']) == {'E','L','LCB','Q'}, audit
+          assert audit['signature_audits']['E']['distinct_fen_pairs'] == 0
+          assert audit['signature_audits']['LCB']['different_legal_action_pairs'] == 0
+          assert audit['signature_audits']['LCB']['distinct_signatures'] >= audit['signature_audits']['L']['distinct_signatures']
+          assert audit['signature_audits']['Q']['different_legal_action_pairs'] == 0
+          assert audit['signature_audits']['Q']['distinct_fen_pairs'] == 61
+          overlap = json.loads((root / 'pcblues-pair-overlap.json').read_text())
+          buckets = overlap['buckets']
+          assert overlap['distinct_fens'] == audit['distinct_fens']
+          assert overlap['distinct_signatures'] == {
+              k: audit['signature_audits'][k]['distinct_signatures'] for k in ('LCB','Q')
+          }
+          assert buckets['common']['distinct_fen_pairs'] + buckets['q_only']['distinct_fen_pairs'] == 61
+          assert buckets['common']['distinct_fen_pairs'] + buckets['lcb_only']['distinct_fen_pairs'] == audit['signature_audits']['LCB']['distinct_fen_pairs']
+          assert all(buckets[k]['different_legal_action_pairs'] == 0 for k in buckets)
+          provenance = {
+            'scope':'historical_PC_Blues_engineering_only_no_independent_efficacy',
+            'dilf_sha': subprocess.check_output(['git','-C','dilf','rev-parse','HEAD'],text=True).strip(),
+            'fmjd_sha': subprocess.check_output(['git','-C','draught-master','rev-parse','HEAD'],text=True).strip(),
+            'files': {
+              p.name: {'bytes':len(p.read_bytes()),'sha256':sha256(p.read_bytes()).hexdigest()}
+              for p in sorted(root.glob('pcblues-*'))
+            },
+            'audit_summary': {
+              'observations': audit['observations'],
+              'distinct_fens': audit['distinct_fens'],
+              'signatures': audit['signature_audits'],
+              'pair_overlap': {k: {m: v for m, v in b.items() if m != 'examples'} for k, b in buckets.items()},
+            },
+          }
+          (root / 'provenance.json').write_text(json.dumps(provenance,sort_keys=True,indent=2)+'\n')
+          print(json.dumps({'observations':audit['observations'],'distinct_fens':audit['distinct_fens'],
+              'signature_counts':{k:v['distinct_signatures'] for k,v in audit['signature_audits'].items()},
+              'pair_overlap':{k:{m:v[m] for m in ('distinct_fen_pairs','same_legal_action_pairs',
+                  'same_legal_actions_disjoint_owning_games_pairs','different_legal_action_pairs')}
+                  for k,v in sorted(buckets.items())}},sort_keys=True))
+          PY
+      - name: Archive score-blind engineering evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-d1-pcblues-score-blind-engineering
+          path: /tmp/mtdp-d1/
+          retention-days: 30
+          if-no-files-found: warn

@@ -1,0 +1,14 @@
+{
+  "events": [
+    "s7ahYqL4",
+    "D9PF2OSW"
+  ],
+  "observed_branch_head": "2a3089c8b5e28787eb50de7a872d748fa7bbb679",
+  "protocol_sha256": "c2f46a4e37b2ca33d233a4913d5ab9dd601531475d1c1dcfbe70dee3a7e5b961",
+  "publication_seen_before_all_starts": true,
+  "published_commit": "2a3089c8b5e28787eb50de7a872d748fa7bbb679",
+  "registration_sha256": "072f0326c09e79c9f8245b741b02786b67408b38bcb9c6b0cbb08bc1218bdb27",
+  "schema": "mtdp-two-arena-live-prestart-publication-v1",
+  "scientific_freeze": false,
+  "verified_at_utc": "2026-11-18T22:20:37.915393+00:00"
+}

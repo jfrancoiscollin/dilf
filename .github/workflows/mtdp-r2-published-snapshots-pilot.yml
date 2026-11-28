@@ -1,0 +1,70 @@
+name: mtdp-r2-published-snapshots-pilot
+
+on:
+  push:
+    branches:
+      - research/mtdp-foundation
+    paths:
+      - .github/workflows/mtdp-r2-published-snapshots-pilot.yml
+      - research/mtdp/r2_snapshot_diversity.py
+      - research/mtdp/tests/test_r2_snapshot_diversity.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mtdp-r2-published-snapshots-pilot
+  cancel-in-progress: false
+
+jobs:
+  bounded-read-only-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout research code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Checkout immutable published snapshots (no R2 access)
+        uses: actions/checkout@v4
+        with:
+          ref: data/r2-positions-2026-11-23
+          path: snapshot-data
+          sparse-checkout: |
+            data/r2_positions/2026-11-21
+            data/r2_positions/recovered-2026-06-20
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify snapshot manifests are present
+        shell: bash
+        run: |
+          test -s snapshot-data/data/r2_positions/2026-11-21/manifest.json
+          test -s snapshot-data/data/r2_positions/recovered-2026-06-20/manifest.json
+
+      - name: Run bounded descriptive pilot (no engine, no R2, no mutation)
+        shell: bash
+        run: |
+          mkdir -p .cache/mtdp
+          python -m research.mtdp.r2_snapshot_diversity \
+            --r2 snapshot-data/data/r2_positions/2026-11-21 \
+            --historical snapshot-data/data/r2_positions/recovered-2026-06-20 \
+            --max-sampled 100000 \
+            --output .cache/mtdp/r2-snapshot-diversity-pilot.json
+          sha256sum .cache/mtdp/r2-snapshot-diversity-pilot.json
+
+      - name: Publish provenance-pinned pilot receipt
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mtdp-r2-snapshot-diversity-pilot
+          path: .cache/mtdp/r2-snapshot-diversity-pilot.json
+          if-no-files-found: error
+          retention-days: 30
