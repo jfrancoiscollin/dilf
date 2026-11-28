@@ -1,0 +1,45 @@
+name: mtdp-q3-archived-budget-quality
+on:
+  push:
+    branches: [research/mtdp-foundation]
+    paths:
+      - .github/workflows/mtdp-q3-archived-budget-quality.yml
+      - research/mtdp/jass_benchmark/q3_archived_budget_quality.py
+      - research/mtdp/tests/test_q3_archived_budget_quality.py
+      - research/mtdp/validation/q3-archived-budget-quality-2026-11-28.json
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mtdp-q3-archived-budget-quality
+  cancel-in-progress: false
+jobs:
+  offline-nine-point-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pytest==9.2.0
+      - name: Paired quality and existing node/telemetry regressions
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/q3-grid
+          python -m pytest -q research/mtdp/tests/test_q3_archived_budget_quality.py research/mtdp/tests/test_total_budget.py research/mtdp/tests/test_two_arena_telemetry_audit.py | tee /tmp/q3-grid/tests.log
+      - name: All archived points, no search or new reference scores
+        run: |
+          set -euo pipefail
+          PYTHONHASHSEED=731 python -m research.mtdp.jass_benchmark.q3_archived_budget_quality --root . --output /tmp/q3-grid/result.json
+          cmp /tmp/q3-grid/result.json research/mtdp/validation/q3-archived-budget-quality-2026-11-28.json
+          python --version > /tmp/q3-grid/runtime.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mtdp-q3-archived-budget-quality
+          path: /tmp/q3-grid/
+          if-no-files-found: warn
+          retention-days: 30
