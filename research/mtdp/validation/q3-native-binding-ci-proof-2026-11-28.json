@@ -1,0 +1,158 @@
+{
+  "artifact_id": 15264319541,
+  "causal_observer_cost_established": false,
+  "conclusion": "success",
+  "github_zip_digest_verified": true,
+  "implementation_commit": "64fb5d2a1c3eb5a5c3608aecab26f2a59913ef20",
+  "independent_quality_or_speed_gain_established": false,
+  "local_compiler_family": "GNU14.2",
+  "local_provenance": {
+    "binary_sha256": "88a21d390c39d8ee6b5542814a8e6b34f40457960c0e9d90b93ba1bc5f5f9a66",
+    "binding_source_sha256": "f7b3d25930e72ab45a12fd60bfaafcdc862e95adae6f765ebc335e1e0ae71040",
+    "frozen_recipe_sha256": "11cedf28e28eabca29d2514c20fca83943470999302552f40fe67b3bbb6a594a",
+    "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+    "recorder_source_sha256": "1a18618b62d441ce51c43ff5be950b3eddaf050746413105dcf794e8f523c844",
+    "runner_source_sha256": "7d6f80defbdfa999a22db465c370075fe1337016b2ca06db37ecd1a91ec9b0d0"
+  },
+  "local_remote_semantics_equal": true,
+  "local_verification": {
+    "binding_passed": true,
+    "common_search_semantic_sha256": "fdebb12648ede0d7785cdbb6bb4a2831c112d0227969002c2a79588ff8b2bd0f",
+    "execution_authenticity_proven": false,
+    "files": {
+      "provenance.json": {
+        "bytes": 530,
+        "sha256": "63f741fdd856956ab46c406f789f479cadd4c057974f79cca369dc311bf8dfa0"
+      },
+      "summary.json": {
+        "bytes": 1721,
+        "sha256": "3b27285b2d915abcd15557078df8d2f6b139aa28ea5dda46118215cd41f40208"
+      },
+      "trials.jsonl": {
+        "bytes": 25999,
+        "sha256": "2ab7c4214b5ca5269ef53ac5f44c253e462ff7e765f30dc12c677e944bebe0bc"
+      }
+    },
+    "independent_quality_or_speed_gain_established": false,
+    "question": "Q3",
+    "raw_outputs_and_external_and_recorder_clocks_reconciled": true,
+    "schema": "mtdp-q3-native-evidence-verification-v1",
+    "total_measured_nodes": 100000,
+    "total_trials": 10
+  },
+  "new_binding_tests": 14,
+  "new_cohorts_reserved": false,
+  "new_scan_scores": 0,
+  "next_decision": "Prepare warm-batch construction/setup receipts and complete-denominator amortization; no scientific Q3 campaign before independent Q1/Q2 candidate validation.",
+  "protocol_commit": "964039909a65530d8f489f17055e8fc55bf627ef",
+  "question": "Q3",
+  "remote_compiler": "c++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "remote_provenance": {
+    "binary_sha256": "0f8674aa948770bbea93fea2b582bd7225938ed25839ab89d158ab41edc34232",
+    "binding_source_sha256": "f7b3d25930e72ab45a12fd60bfaafcdc862e95adae6f765ebc335e1e0ae71040",
+    "frozen_recipe_sha256": "11cedf28e28eabca29d2514c20fca83943470999302552f40fe67b3bbb6a594a",
+    "jass_commit": "cfe07fce6385b980553a898e9651d53419589ebc",
+    "recorder_source_sha256": "1a18618b62d441ce51c43ff5be950b3eddaf050746413105dcf794e8f523c844",
+    "runner_source_sha256": "7d6f80defbdfa999a22db465c370075fe1337016b2ca06db37ecd1a91ec9b0d0"
+  },
+  "remote_runtime": "Python 3.12.16",
+  "remote_summary": {
+    "all_search_semantics_equal": true,
+    "binding_passed": true,
+    "causal_overhead_established": false,
+    "failed_trials": 0,
+    "independent_quality_or_speed_gain_established": false,
+    "median_observer_delta_ns": 76202,
+    "median_observer_ratio": 1.0057338844640564,
+    "native_process_and_tt_fresh": true,
+    "new_cohorts_reserved": false,
+    "new_scan_scores": 0,
+    "observer_cost_is_machine_and_schedule_specific": true,
+    "os_cache_controlled": false,
+    "paired_observer_costs": [
+      {
+        "delta_ns": 120405,
+        "instrumented_ns": 13863710,
+        "pair": 0,
+        "plain_ns": 13743305,
+        "ratio": 1.0087609930799033,
+        "valid": true
+      },
+      {
+        "delta_ns": 76202,
+        "instrumented_ns": 13365971,
+        "pair": 1,
+        "plain_ns": 13289769,
+        "ratio": 1.0057338844640564,
+        "valid": true
+      },
+      {
+        "delta_ns": -684558,
+        "instrumented_ns": 13029362,
+        "pair": 2,
+        "plain_ns": 13713920,
+        "ratio": 0.9500829813795034,
+        "valid": true
+      },
+      {
+        "delta_ns": -340756,
+        "instrumented_ns": 13485253,
+        "pair": 3,
+        "plain_ns": 13826009,
+        "ratio": 0.9753539868229508,
+        "valid": true
+      },
+      {
+        "delta_ns": 429740,
+        "instrumented_ns": 14206820,
+        "pair": 4,
+        "plain_ns": 13777080,
+        "ratio": 1.0311923861950427,
+        "valid": true
+      }
+    ],
+    "plan_sha256": "adfc2af7b2e1de79d34af6eead720d70665397692eba394b33620217ffc4f2b8",
+    "protocol_commit": "964039909a65530d8f489f17055e8fc55bf627ef",
+    "question": "Q3",
+    "schema": "mtdp-q3-native-binding-summary-v1",
+    "successful_trials": 10,
+    "total_measured_nodes": 100000,
+    "total_trials": 10,
+    "unknown_node_trials": 0,
+    "warm_cache_validated": false
+  },
+  "schema": "mtdp-q3-native-binding-ci-proof-v1",
+  "total_engine_calls_local_and_remote": 20,
+  "total_measured_nodes_local_and_remote": 200000,
+  "trial_wall_boundary": "Before recorder construction/setup to after parse/recorder finish and audit; build, prior binary authentication and evidence serialization excluded.",
+  "unit_tests": 110,
+  "verification": {
+    "binding_passed": true,
+    "common_search_semantic_sha256": "fdebb12648ede0d7785cdbb6bb4a2831c112d0227969002c2a79588ff8b2bd0f",
+    "execution_authenticity_proven": false,
+    "files": {
+      "provenance.json": {
+        "bytes": 530,
+        "sha256": "48977b0528ddcffc7298d86b17224c9f753034dccf10007570adbd9a75c3242f"
+      },
+      "summary.json": {
+        "bytes": 1724,
+        "sha256": "9ff50a60640378467d05e751619cd204b23c7ee34112b3634fa9bca469b25700"
+      },
+      "trials.jsonl": {
+        "bytes": 25975,
+        "sha256": "715f2a357c497e319aeddfcc7411a65ed24fc55054124c8c3062980e67fae046"
+      }
+    },
+    "independent_quality_or_speed_gain_established": false,
+    "question": "Q3",
+    "raw_outputs_and_external_and_recorder_clocks_reconciled": true,
+    "schema": "mtdp-q3-native-evidence-verification-v1",
+    "total_measured_nodes": 100000,
+    "total_trials": 10
+  },
+  "workflow_job": 140992934338,
+  "workflow_run": 46149537361,
+  "zip_bytes": 4377,
+  "zip_sha256": "f9aa750804e8bcd643c1d7394261d39d7ef739b13c59d3850ac435b6995ed678"
+}
